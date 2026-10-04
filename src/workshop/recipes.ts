@@ -47,6 +47,41 @@ export const RECIPES: Recipe[] = [
     bg: "#0b080d",
   },
   {
+    slug: "glass-portfolio",
+    name: "The Glass Portfolio",
+    line: "A portfolio under glass: the work first, the proof in numbers, and one way to begin.",
+    for: "Designers and engineers who want the portfolio people actually send, with atmosphere that never outruns the work.",
+    direction: [
+      "Night glass: ground #05060c, frost #b9cce4, cream #efe8dc. Glass appears twice — the hero field and one card — and nowhere else.",
+      "Instrument Serif for the name and the two statements. Geist for reading. Geist Mono for labels, years and counts.",
+      "Each pointer stays in its own section: a glow in the hero, a sweep on the opening line, a highlight on the case line, an intent label on the work and the contact. They are stacked, never nested.",
+      "In-page links scroll smoothly inside the page. Reduced motion jumps. Real projects, years and counts. One invitation, repeated: start a project.",
+    ],
+    sections: [
+      { title: "Hero", component: "glass-tiles", why: "A field of glass tiles behind the name gives the first screen a material without a photograph; the light follows the pointer and holds still under reduced motion." },
+      { title: "Hero pointer", component: "glow-pointer", why: "A frost glow scoped to the hero makes that first screen feel present. It stops at the hero, so the rest of the page keeps a readable cursor." },
+      { title: "Opening line", component: "highlight-sweep", why: "One sentence is swept once, as if someone were underlining the point, then the page gets on with the work." },
+      { title: "Selected work", component: "hover-reel", why: "Projects as a list you can read, with the image arriving beside the row you are on, instead of a grid of equal cards." },
+      { title: "How to work together", component: "glass-card", why: "The offer sits on one glass card: what you take on, when, and the single action." },
+      { title: "The invitation", component: "tidefill-button", why: "The same button in the hero and on the card fills like a glass being poured, so the invitation is recognisable wherever it appears." },
+      { title: "Case line", component: "highlight-cursor", why: "A shorter statement the reader can mark themselves, kept apart from the opening sweep so the two gestures do not fight." },
+      { title: "The practice", component: "ledger-cylinder", why: "Years, projects and how many you take at once turn past as you scroll, so the numbers are a passage rather than a row of statistics." },
+      { title: "Work and contact", component: "intent-label", why: "Pointing at a project or the email says what will happen — open the case, copy the address — before you commit to the click." },
+    ],
+    guidance: [
+      {
+        title: "Why this is the portfolio to send",
+        points: [
+          "Lead with a name and one sentence. The glass is the room, not the subject.",
+          "Show four projects, not twenty. The reel is a contents page; the case line is the one argument you expand.",
+          "Repeat one button. A second style makes the page look assembled.",
+          "Put the numbers after the work, where they confirm what the reader has already seen.",
+        ],
+      },
+    ],
+    bg: "#05060c",
+  },
+  {
     slug: "showcase",
     name: "The Showcase",
     line: "A second portfolio, for visual work: a living backdrop, a signature, and projects catalogued like objects.",
