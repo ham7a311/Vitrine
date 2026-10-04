@@ -8,11 +8,16 @@ import { search } from "@/lib/search";
 import { GalleryCard } from "./GalleryCard";
 import { CloseIcon, SearchIcon } from "./icons";
 
+/** These categories follow the round-robin, in file order, so All ends with them. */
+const ALL_TAIL = new Set(["micro", "text"]);
+
 /** All view: one item from each category per pass, in the order categories and items already appear. */
 function roundRobin(items: ComponentSummary[]): ComponentSummary[] {
+  const body = items.filter((item) => !ALL_TAIL.has(item.category));
+  const tail = items.filter((item) => ALL_TAIL.has(item.category));
   const groups: ComponentSummary[][] = [];
   const at = new Map<string, number>();
-  for (const item of items) {
+  for (const item of body) {
     let i = at.get(item.category);
     if (i === undefined) {
       i = groups.length;
@@ -28,7 +33,7 @@ function roundRobin(items: ComponentSummary[]): ComponentSummary[] {
       if (pass < group.length) out.push(group[pass]);
     }
   }
-  return out;
+  return out.concat(tail);
 }
 
 export function Gallery({ items }: { items: ComponentSummary[] }) {

@@ -45,12 +45,15 @@ import { meta as drawLink } from "./buttons/draw-link/meta";
 import { meta as entryPointButton } from "./buttons/entry-point-button/meta";
 import { meta as stackButton } from "./buttons/stack-button/meta";
 import { meta as gamutPicker } from "./controls/gamut-picker/meta";
+import { meta as fractionCheckbox } from "./controls/fraction-checkbox/meta";
+import { meta as moodSlider } from "./controls/mood-slider/meta";
+import { meta as gelToggle } from "./controls/gel-toggle/meta";
+import { meta as mercurySegments } from "./controls/mercury-segments/meta";
+import { meta as histogramRange } from "./controls/histogram-range/meta";
+import { meta as rulerPicker } from "./controls/ruler-picker/meta";
 import { meta as detentKnob } from "./controls/detent-knob/meta";
 import { meta as eclipseToggle } from "./controls/eclipse-toggle/meta";
-import { meta as mercurySegments } from "./controls/mercury-segments/meta";
-import { meta as gelToggle } from "./controls/gel-toggle/meta";
 import { meta as rockerSwitch } from "./controls/rocker-switch/meta";
-import { meta as moodSlider } from "./controls/mood-slider/meta";
 import { meta as snoozeRail } from "./controls/snooze-rail/meta";
 import { meta as themeDial } from "./controls/theme-dial/meta";
 import { meta as punchCheck } from "./controls/punch-check/meta";
@@ -60,11 +63,12 @@ import { meta as inkTick } from "./controls/ink-tick/meta";
 import { meta as bracketCheckbox } from "./controls/bracket-checkbox/meta";
 import { meta as timeWindow } from "./controls/time-window/meta";
 import { meta as presetKeys } from "./controls/preset-keys/meta";
-import { meta as histogramRange } from "./controls/histogram-range/meta";
-import { meta as fractionCheckbox } from "./controls/fraction-checkbox/meta";
-import { meta as rulerPicker } from "./controls/ruler-picker/meta";
-import { meta as holoFoilCard } from "./cards/holo-foil-card/meta";
 import { meta as glassCard } from "./cards/glass-card/meta";
+import { meta as haloFrame } from "./cards/halo-frame/meta";
+import { meta as ringFloodCard } from "./cards/ring-flood-card/meta";
+import { meta as tidefillCard } from "./cards/tidefill-card/meta";
+import { meta as liquidGlassCard } from "./cards/liquid-glass-card/meta";
+import { meta as holoFoilCard } from "./cards/holo-foil-card/meta";
 import { meta as depthCard } from "./cards/depth-card/meta";
 import { meta as vinylSleeveCard } from "./cards/vinyl-sleeve-card/meta";
 import { meta as instantPhotoCard } from "./cards/instant-photo-card/meta";
@@ -72,10 +76,7 @@ import { meta as lenticularCard } from "./cards/lenticular-card/meta";
 import { meta as ticketCard } from "./cards/ticket-card/meta";
 import { meta as blueprintCard } from "./cards/blueprint-card/meta";
 import { meta as rippleRimCard } from "./cards/ripple-rim-card/meta";
-import { meta as haloFrame } from "./cards/halo-frame/meta";
 import { meta as meanderTimeline } from "./cards/meander-timeline/meta";
-import { meta as ringFloodCard } from "./cards/ring-flood-card/meta";
-import { meta as tidefillCard } from "./cards/tidefill-card/meta";
 import { meta as orbitCard } from "./cards/orbit-card/meta";
 import { meta as folioCard } from "./cards/folio-card/meta";
 import { meta as atmosphereCard } from "./cards/atmosphere-card/meta";
@@ -91,7 +92,6 @@ import { meta as approachCard } from "./cards/approach-card/meta";
 import { meta as ditherCard } from "./cards/dither-card/meta";
 import { meta as postcardCard } from "./cards/postcard-card/meta";
 import { meta as eclipseEventCard } from "./cards/eclipse-event-card/meta";
-import { meta as liquidGlassCard } from "./cards/liquid-glass-card/meta";
 import { meta as specimenCard } from "./cards/specimen-card/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
@@ -132,14 +132,6 @@ import { meta as bokehCity } from "./backgrounds/bokeh-city/meta";
 import { meta as glyphSwell } from "./backgrounds/glyph-swell/meta";
 import { meta as causticPool } from "./backgrounds/caustic-pool/meta";
 import { meta as rippleTank } from "./backgrounds/ripple-tank/meta";
-import { meta as heartBurst } from "./micro/heart-burst/meta";
-import { meta as paperPlane } from "./micro/paper-plane/meta";
-import { meta as bellRing } from "./micro/bell-ring/meta";
-import { meta as copyCheck } from "./micro/copy-check/meta";
-import { meta as downloadTray } from "./micro/download-tray/meta";
-import { meta as starRate } from "./micro/star-rate/meta";
-import { meta as trashDrop } from "./micro/trash-drop/meta";
-import { meta as bookmarkFold } from "./micro/bookmark-fold/meta";
 import { meta as glowPointer } from "./cursors/glow-pointer/meta";
 import { meta as highlightSweep } from "./cursors/highlight-sweep/meta";
 import { meta as eyeTracker } from "./cursors/eye-tracker/meta";
@@ -153,14 +145,6 @@ import { meta as presenceCursors } from "./cursors/presence-cursors/meta";
 import { meta as loupe } from "./cursors/loupe/meta";
 import { meta as highlightCursor } from "./cursors/highlight-cursor/meta";
 import { meta as snapFrame } from "./cursors/snap-frame/meta";
-import { meta as chromeText } from "./text/chrome-text/meta";
-import { meta as splitFlapText } from "./text/split-flap-text/meta";
-import { meta as extrudeText } from "./text/extrude-text/meta";
-import { meta as scrollInkText } from "./text/scroll-ink-text/meta";
-import { meta as weightWaveText } from "./text/weight-wave-text/meta";
-import { meta as looseLetters } from "./text/loose-letters/meta";
-import { meta as wordCarousel } from "./text/word-carousel/meta";
-import { meta as secondDraftText } from "./text/second-draft-text/meta";
 import { meta as streamReply } from "./ai/stream-reply/meta";
 import { meta as voiceOrb } from "./ai/voice-orb/meta";
 import { meta as agentRun } from "./ai/agent-run/meta";
@@ -202,20 +186,20 @@ import { meta as activityStream } from "./data/activity-stream/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
-import { meta as chalkMenuPricing } from "./pricing/chalk-menu-pricing/meta";
 import { meta as subtractivePricing } from "./pricing/subtractive-pricing/meta";
 import { meta as usageRuler } from "./pricing/usage-ruler/meta";
 import { meta as lightboxCompare } from "./pricing/lightbox-compare/meta";
 import { meta as calendarPricing } from "./pricing/calendar-pricing/meta";
 import { meta as stackPricing } from "./pricing/stack-pricing/meta";
-import { meta as cardCatalogueFaq } from "./faq/card-catalogue-faq/meta";
-import { meta as origamiFaq } from "./faq/origami-faq/meta";
-import { meta as chatThreadFaq } from "./faq/chat-thread-faq/meta";
-import { meta as focusFaq } from "./faq/focus-faq/meta";
-import { meta as searchFaq } from "./faq/search-faq/meta";
-import { meta as helpDeskFaq } from "./faq/help-desk-faq/meta";
-import { meta as footnoteFaq } from "./faq/footnote-faq/meta";
+import { meta as chalkMenuPricing } from "./pricing/chalk-menu-pricing/meta";
 import { meta as indexFaq } from "./faq/index-faq/meta";
+import { meta as footnoteFaq } from "./faq/footnote-faq/meta";
+import { meta as helpDeskFaq } from "./faq/help-desk-faq/meta";
+import { meta as searchFaq } from "./faq/search-faq/meta";
+import { meta as focusFaq } from "./faq/focus-faq/meta";
+import { meta as chatThreadFaq } from "./faq/chat-thread-faq/meta";
+import { meta as origamiFaq } from "./faq/origami-faq/meta";
+import { meta as cardCatalogueFaq } from "./faq/card-catalogue-faq/meta";
 import { meta as tidelineCta } from "./ctas/tideline-cta/meta";
 import { meta as liquidGlassCta } from "./ctas/liquid-glass-cta/meta";
 import { meta as focusPullCta } from "./ctas/focus-pull-cta/meta";
@@ -226,21 +210,21 @@ import { meta as cascadePitchCta } from "./ctas/cascade-pitch-cta/meta";
 import { meta as entryPointCta } from "./ctas/entry-point-cta/meta";
 import { meta as inlineCta } from "./ctas/inline-cta/meta";
 import { meta as arrivalCta } from "./ctas/arrival-cta/meta";
-import { meta as liquidGlassSignIn } from "./auth/liquid-glass-sign-in/meta";
-import { meta as boardingPassSignIn } from "./auth/boarding-pass-sign-in/meta";
-import { meta as sigilSignIn } from "./auth/sigil-sign-in/meta";
 import { meta as nocturneSignIn } from "./auth/nocturne-sign-in/meta";
 import { meta as qrHandoffSignIn } from "./auth/qr-handoff-sign-in/meta";
-import { meta as accountChooser } from "./auth/account-chooser/meta";
-import { meta as oneFieldSignIn } from "./auth/one-field-sign-in/meta";
-import { meta as strengthRingSignUp } from "./auth/strength-ring-sign-up/meta";
-import { meta as inviteJoin } from "./auth/invite-join/meta";
-import { meta as envelopeReset } from "./auth/envelope-reset/meta";
 import { meta as consentSignIn } from "./auth/consent-sign-in/meta";
-import { meta as workspaceSignIn } from "./auth/workspace-sign-in/meta";
-import { meta as numberMatchSignIn } from "./auth/number-match-sign-in/meta";
 import { meta as passkeySignIn } from "./auth/passkey-sign-in/meta";
 import { meta as codeCascadeVerify } from "./auth/code-cascade-verify/meta";
+import { meta as envelopeReset } from "./auth/envelope-reset/meta";
+import { meta as accountChooser } from "./auth/account-chooser/meta";
+import { meta as inviteJoin } from "./auth/invite-join/meta";
+import { meta as oneFieldSignIn } from "./auth/one-field-sign-in/meta";
+import { meta as numberMatchSignIn } from "./auth/number-match-sign-in/meta";
+import { meta as sigilSignIn } from "./auth/sigil-sign-in/meta";
+import { meta as liquidGlassSignIn } from "./auth/liquid-glass-sign-in/meta";
+import { meta as boardingPassSignIn } from "./auth/boarding-pass-sign-in/meta";
+import { meta as strengthRingSignUp } from "./auth/strength-ring-sign-up/meta";
+import { meta as workspaceSignIn } from "./auth/workspace-sign-in/meta";
 import { meta as ledgerCylinder } from "./stats/ledger-cylinder/meta";
 import { meta as odometerStats } from "./stats/odometer-stats/meta";
 import { meta as orbitRingStats } from "./stats/orbit-ring-stats/meta";
@@ -300,6 +284,22 @@ import { meta as flourishName } from "./type/flourish-name/meta";
 import { meta as initialFold } from "./type/initial-fold/meta";
 import { meta as loupeRoster } from "./type/loupe-roster/meta";
 import { meta as endCredits } from "./type/end-credits/meta";
+import { meta as heartBurst } from "./micro/heart-burst/meta";
+import { meta as paperPlane } from "./micro/paper-plane/meta";
+import { meta as bellRing } from "./micro/bell-ring/meta";
+import { meta as copyCheck } from "./micro/copy-check/meta";
+import { meta as downloadTray } from "./micro/download-tray/meta";
+import { meta as starRate } from "./micro/star-rate/meta";
+import { meta as trashDrop } from "./micro/trash-drop/meta";
+import { meta as bookmarkFold } from "./micro/bookmark-fold/meta";
+import { meta as chromeText } from "./text/chrome-text/meta";
+import { meta as splitFlapText } from "./text/split-flap-text/meta";
+import { meta as extrudeText } from "./text/extrude-text/meta";
+import { meta as scrollInkText } from "./text/scroll-ink-text/meta";
+import { meta as weightWaveText } from "./text/weight-wave-text/meta";
+import { meta as looseLetters } from "./text/loose-letters/meta";
+import { meta as wordCarousel } from "./text/word-carousel/meta";
+import { meta as secondDraftText } from "./text/second-draft-text/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -349,12 +349,15 @@ export const registry: ComponentMeta[] = [
   entryPointButton,
   stackButton,
   gamutPicker,
+  fractionCheckbox,
+  moodSlider,
+  gelToggle,
+  mercurySegments,
+  histogramRange,
+  rulerPicker,
   detentKnob,
   eclipseToggle,
-  mercurySegments,
-  gelToggle,
   rockerSwitch,
-  moodSlider,
   snoozeRail,
   themeDial,
   punchCheck,
@@ -364,11 +367,12 @@ export const registry: ComponentMeta[] = [
   bracketCheckbox,
   timeWindow,
   presetKeys,
-  histogramRange,
-  fractionCheckbox,
-  rulerPicker,
-  holoFoilCard,
   glassCard,
+  haloFrame,
+  ringFloodCard,
+  tidefillCard,
+  liquidGlassCard,
+  holoFoilCard,
   depthCard,
   vinylSleeveCard,
   instantPhotoCard,
@@ -376,10 +380,7 @@ export const registry: ComponentMeta[] = [
   ticketCard,
   blueprintCard,
   rippleRimCard,
-  haloFrame,
   meanderTimeline,
-  ringFloodCard,
-  tidefillCard,
   orbitCard,
   folioCard,
   atmosphereCard,
@@ -395,7 +396,6 @@ export const registry: ComponentMeta[] = [
   ditherCard,
   postcardCard,
   eclipseEventCard,
-  liquidGlassCard,
   specimenCard,
   silkField,
   glassTiles,
@@ -436,14 +436,6 @@ export const registry: ComponentMeta[] = [
   glyphSwell,
   causticPool,
   rippleTank,
-  heartBurst,
-  paperPlane,
-  bellRing,
-  copyCheck,
-  downloadTray,
-  starRate,
-  trashDrop,
-  bookmarkFold,
   glowPointer,
   highlightSweep,
   eyeTracker,
@@ -457,14 +449,6 @@ export const registry: ComponentMeta[] = [
   loupe,
   highlightCursor,
   snapFrame,
-  chromeText,
-  splitFlapText,
-  extrudeText,
-  scrollInkText,
-  weightWaveText,
-  looseLetters,
-  wordCarousel,
-  secondDraftText,
   streamReply,
   voiceOrb,
   agentRun,
@@ -506,20 +490,20 @@ export const registry: ComponentMeta[] = [
   curtainFooter,
   signOffFooter,
   indexFooter,
-  chalkMenuPricing,
   subtractivePricing,
   usageRuler,
   lightboxCompare,
   calendarPricing,
   stackPricing,
-  cardCatalogueFaq,
-  origamiFaq,
-  chatThreadFaq,
-  focusFaq,
-  searchFaq,
-  helpDeskFaq,
-  footnoteFaq,
+  chalkMenuPricing,
   indexFaq,
+  footnoteFaq,
+  helpDeskFaq,
+  searchFaq,
+  focusFaq,
+  chatThreadFaq,
+  origamiFaq,
+  cardCatalogueFaq,
   tidelineCta,
   liquidGlassCta,
   focusPullCta,
@@ -530,21 +514,21 @@ export const registry: ComponentMeta[] = [
   entryPointCta,
   inlineCta,
   arrivalCta,
-  liquidGlassSignIn,
-  boardingPassSignIn,
-  sigilSignIn,
   nocturneSignIn,
   qrHandoffSignIn,
-  accountChooser,
-  oneFieldSignIn,
-  strengthRingSignUp,
-  inviteJoin,
-  envelopeReset,
   consentSignIn,
-  workspaceSignIn,
-  numberMatchSignIn,
   passkeySignIn,
   codeCascadeVerify,
+  envelopeReset,
+  accountChooser,
+  inviteJoin,
+  oneFieldSignIn,
+  numberMatchSignIn,
+  sigilSignIn,
+  liquidGlassSignIn,
+  boardingPassSignIn,
+  strengthRingSignUp,
+  workspaceSignIn,
   ledgerCylinder,
   odometerStats,
   orbitRingStats,
@@ -604,6 +588,22 @@ export const registry: ComponentMeta[] = [
   initialFold,
   loupeRoster,
   endCredits,
+  heartBurst,
+  paperPlane,
+  bellRing,
+  copyCheck,
+  downloadTray,
+  starRate,
+  trashDrop,
+  bookmarkFold,
+  chromeText,
+  splitFlapText,
+  extrudeText,
+  scrollInkText,
+  weightWaveText,
+  looseLetters,
+  wordCarousel,
+  secondDraftText,
 ];
 
 export function getComponent(slug: string) {

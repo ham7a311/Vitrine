@@ -1,7 +1,7 @@
 # Curated gallery order: category/slug
 # Line order is the registry order. A category view shows that category in this order.
-# All, when not searching, round-robins this list: the first component of each
-# category block, then the second, and so on, in the order the blocks appear.
+# All, when not searching, round-robins every category except Micro-animations and
+# Text Animations, then appends those two in this file's order so they come last.
 # Move a line to change rank. Do not reorder this file from code.
 buttons/glassbreak-button
 buttons/cascade-button
@@ -49,12 +49,15 @@ buttons/draw-link
 buttons/entry-point-button
 buttons/stack-button
 controls/gamut-picker
+controls/fraction-checkbox
+controls/mood-slider
+controls/gel-toggle
+controls/mercury-segments
+controls/histogram-range
+controls/ruler-picker
 controls/detent-knob
 controls/eclipse-toggle
-controls/mercury-segments
-controls/gel-toggle
 controls/rocker-switch
-controls/mood-slider
 controls/snooze-rail
 controls/theme-dial
 controls/punch-check
@@ -64,11 +67,12 @@ controls/ink-tick
 controls/bracket-checkbox
 controls/time-window
 controls/preset-keys
-controls/histogram-range
-controls/fraction-checkbox
-controls/ruler-picker
-cards/holo-foil-card
 cards/glass-card
+cards/halo-frame
+cards/ring-flood-card
+cards/tidefill-card
+cards/liquid-glass-card
+cards/holo-foil-card
 cards/depth-card
 cards/vinyl-sleeve-card
 cards/instant-photo-card
@@ -76,10 +80,7 @@ cards/lenticular-card
 cards/ticket-card
 cards/blueprint-card
 cards/ripple-rim-card
-cards/halo-frame
 cards/meander-timeline
-cards/ring-flood-card
-cards/tidefill-card
 cards/orbit-card
 cards/folio-card
 cards/atmosphere-card
@@ -95,7 +96,6 @@ cards/approach-card
 cards/dither-card
 cards/postcard-card
 cards/eclipse-event-card
-cards/liquid-glass-card
 cards/specimen-card
 backgrounds/silk-field
 backgrounds/glass-tiles
@@ -136,14 +136,6 @@ backgrounds/bokeh-city
 backgrounds/glyph-swell
 backgrounds/caustic-pool
 backgrounds/ripple-tank
-micro/heart-burst
-micro/paper-plane
-micro/bell-ring
-micro/copy-check
-micro/download-tray
-micro/star-rate
-micro/trash-drop
-micro/bookmark-fold
 cursors/glow-pointer
 cursors/highlight-sweep
 cursors/eye-tracker
@@ -157,14 +149,6 @@ cursors/presence-cursors
 cursors/loupe
 cursors/highlight-cursor
 cursors/snap-frame
-text/chrome-text
-text/split-flap-text
-text/extrude-text
-text/scroll-ink-text
-text/weight-wave-text
-text/loose-letters
-text/word-carousel
-text/second-draft-text
 ai/stream-reply
 ai/voice-orb
 ai/agent-run
@@ -206,20 +190,20 @@ data/activity-stream
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
-pricing/chalk-menu-pricing
 pricing/subtractive-pricing
 pricing/usage-ruler
 pricing/lightbox-compare
 pricing/calendar-pricing
 pricing/stack-pricing
-faq/card-catalogue-faq
-faq/origami-faq
-faq/chat-thread-faq
-faq/focus-faq
-faq/search-faq
-faq/help-desk-faq
-faq/footnote-faq
+pricing/chalk-menu-pricing
 faq/index-faq
+faq/footnote-faq
+faq/help-desk-faq
+faq/search-faq
+faq/focus-faq
+faq/chat-thread-faq
+faq/origami-faq
+faq/card-catalogue-faq
 ctas/tideline-cta
 ctas/liquid-glass-cta
 ctas/focus-pull-cta
@@ -230,21 +214,21 @@ ctas/cascade-pitch-cta
 ctas/entry-point-cta
 ctas/inline-cta
 ctas/arrival-cta
-auth/liquid-glass-sign-in
-auth/boarding-pass-sign-in
-auth/sigil-sign-in
 auth/nocturne-sign-in
 auth/qr-handoff-sign-in
-auth/account-chooser
-auth/one-field-sign-in
-auth/strength-ring-sign-up
-auth/invite-join
-auth/envelope-reset
 auth/consent-sign-in
-auth/workspace-sign-in
-auth/number-match-sign-in
 auth/passkey-sign-in
 auth/code-cascade-verify
+auth/envelope-reset
+auth/account-chooser
+auth/invite-join
+auth/one-field-sign-in
+auth/number-match-sign-in
+auth/sigil-sign-in
+auth/liquid-glass-sign-in
+auth/boarding-pass-sign-in
+auth/strength-ring-sign-up
+auth/workspace-sign-in
 stats/ledger-cylinder
 stats/odometer-stats
 stats/orbit-ring-stats
@@ -304,3 +288,19 @@ type/flourish-name
 type/initial-fold
 type/loupe-roster
 type/end-credits
+micro/heart-burst
+micro/paper-plane
+micro/bell-ring
+micro/copy-check
+micro/download-tray
+micro/star-rate
+micro/trash-drop
+micro/bookmark-fold
+text/chrome-text
+text/split-flap-text
+text/extrude-text
+text/scroll-ink-text
+text/weight-wave-text
+text/loose-letters
+text/word-carousel
+text/second-draft-text
