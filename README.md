@@ -110,7 +110,7 @@ Vitrine also shows how to build with the collection.
 
 **Recipes** are complete pages made only from Vitrine components, each with creative direction, a section-by-section component plan, and a copyable build brief:
 
-The Portfolio · The Glass Portfolio · The Showcase · The Studio · The Launch · The Console · The Handbook · The AI Workspace · The AI Company
+The Portfolio · The Glass Portfolio · The Showcase · The Studio · The Launch · The Console · The AI Workspace · The AI Company
 
 **Skills** are 19 reusable AI workflows written as `SKILL.md` files that work in Claude Code, Claude.ai projects, Cursor rules and ChatGPT projects:
 

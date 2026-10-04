@@ -166,24 +166,6 @@ export const RECIPES: Recipe[] = [
     bg: "#09090b",
   },
   {
-    slug: "handbook",
-    name: "The Handbook",
-    line: "A documentation page for a team handbook or product docs: deep paths, long pages, a visible history.",
-    for: "Teams publishing internal handbooks, onboarding guides, policies or product documentation.",
-    direction: [
-      "Paper (#f3f1ec) with a white reading sheet; a book serif for titles, a plain sans at a 62-character measure for the text.",
-      "The contents are drawn as the fore-edge of a book: band thickness is section length, and the most-read sections wear darker.",
-      "Breadcrumbs are for moving sideways as much as up: every level unfolds its siblings in place.",
-      "Changes are part of the document, not hidden in a git log.",
-    ],
-    sections: [
-      { title: "Where you are", component: "pleat-crumbs", why: "A deep path that never wraps: open any level and its siblings unfold in the line while the rest folds to initials." },
-      { title: "Contents", component: "thumbed-edge", why: "Sections as bands on the page edge, sized by length and worn by reading; a ribbon marks where you left off. Runs across the top on phones." },
-      { title: "Changes", component: "version-stack", why: "The handbook's revisions as a stack of sheets you drag back through, each with what was added, changed and fixed." },
-    ],
-    bg: "#f3f1ec",
-  },
-  {
     slug: "ai-workspace",
     name: "The AI Workspace",
     line: "An AI application: conversations, a model choice, visible reasoning, cited answers and a composer.",
