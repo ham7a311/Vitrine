@@ -55,9 +55,15 @@ export function Footer() {
           </div>
         ))}
       </div>
-      <div className="shell-container flex flex-col gap-2 border-t border-line py-6 font-mono text-[0.6875rem] text-ink-3 sm:flex-row sm:justify-between">
+      <div className="shell-container grid grid-cols-1 gap-2 border-t border-line py-6 font-mono text-[0.6875rem] text-ink-3 sm:grid-cols-3 sm:items-center">
         <span>© {new Date().getFullYear()} Vitrine. MIT licensed.</span>
-        <span>React · TypeScript · Tailwind CSS</span>
+        <a
+          href="https://ham7a311.dev"
+          className="justify-self-center underline decoration-current underline-offset-[3px] transition-[text-decoration-color] duration-200 hover:decoration-frost"
+        >
+          made by ham7a311
+        </a>
+        <span className="sm:justify-self-end">React · TypeScript · Tailwind CSS</span>
       </div>
     </footer>
   );
