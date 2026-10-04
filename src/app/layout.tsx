@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Hanken_Grotesk, JetBrains_Mono, Newsreader } from "next/font/google";
 import { summaries } from "@/registry";
 import { site } from "@/site.config";
+import { Analytics } from "@vercel/analytics/next";
 import { BackToTop } from "@/site/BackToTop";
 import { Footer } from "@/site/Footer";
 import { Navbar } from "@/site/Navbar";
@@ -56,6 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer />
           <BackToTop />
         </SearchProvider>
+        <Analytics />
       </body>
     </html>
   );
