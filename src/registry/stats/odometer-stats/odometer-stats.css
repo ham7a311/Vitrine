@@ -1,0 +1,27 @@
+.odo {
+  --o-ink: #efe8dc;
+  --o-muted: #a7a1ab;
+  --o-frost: #b9cce4;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgb(239 232 220 / 0.1);
+  border-radius: 14px;
+  background: rgb(239 232 220 / 0.1);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--o-ink);
+}
+.odo__stat { display: flex; flex-direction: column-reverse; gap: 1rem; padding: 1.75rem 1.5rem 1.6rem; background: #0d0910; }
+.odo__label { font: 500 0.6875rem/1.3 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--o-muted); }
+.odo__value { margin: 0; }
+.odo__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.odo__row { display: inline-flex; align-items: flex-end; height: 1em; font: 500 clamp(2.75rem, 9cqi, 4.5rem)/1 "Newsreader", "Iowan Old Style", Georgia, serif; letter-spacing: -0.03em; font-variant-numeric: tabular-nums lining-nums; }
+.odo__reel { position: relative; display: inline-block; width: 0.62em; height: 1em; overflow: hidden; -webkit-mask: linear-gradient(transparent, #000 18%, #000 82%, transparent); mask: linear-gradient(transparent, #000 18%, #000 82%, transparent); }
+.odo__strip { display: flex; flex-direction: column; will-change: transform; transition-property: transform; transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
+.odo__strip span { display: block; height: 1em; line-height: 1; text-align: center; }
+.odo__sym { display: inline-block; height: 1em; line-height: 1; color: var(--o-frost); padding: 0 0.04em; }
+
+@media (prefers-reduced-motion: reduce) { .odo__strip { transition-duration: 1ms !important; transition-delay: 0ms !important; } }

@@ -1,0 +1,156 @@
+.ms {
+  --ink: #2a2117;
+  --muted: rgb(42 33 23 / 0.55);
+  --card-edge: rgb(0 0 0 / 0.06);
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  width: min(100%, 420px);
+  padding: 28px 28px 24px;
+  border-radius: 28px;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--card-edge), 0 30px 60px -36px rgb(40 30 10 / 0.5);
+  color: var(--ink);
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+  transition: background-color 300ms ease;
+}
+.ms--night {
+  --ink: #f2ece2;
+  --muted: rgb(242 236 226 / 0.55);
+  --card-edge: rgb(255 255 255 / 0.07);
+}
+
+.ms__q {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+}
+.ms__face {
+  width: 170px;
+  height: auto;
+  overflow: visible;
+}
+.ms__head {
+  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.12));
+  transition: fill 160ms linear;
+}
+.ms__shadow {
+  fill: rgb(0 0 0 / 0.12);
+}
+.ms--night .ms__shadow { fill: rgb(0 0 0 / 0.4); }
+.ms__ink {
+  fill: #2b1d12;
+}
+.ms__mouth {
+  fill: #5b2715;
+  stroke: #2b1d12;
+  stroke-width: 4.5;
+  stroke-linejoin: round;
+}
+.ms__cheek {
+  fill: #ff7a6b;
+}
+.ms__tear {
+  fill: #8fd2ff;
+  stroke: #4aa6e0;
+  stroke-width: 1;
+}
+
+.ms__label {
+  margin: 2px 0 10px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.ms__track {
+  width: 100%;
+}
+.ms__track input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.ms__track input::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #9fb2cf, #c9c4b4 35%, #ffd46f 60%, #ffb13d);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.18);
+}
+.ms__track input::-moz-range-track {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #9fb2cf, #c9c4b4 35%, #ffd46f 60%, #ffb13d);
+}
+.ms__track input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -9px;
+  border-radius: 50%;
+  background: var(--face);
+  border: 3px solid #fff;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.25);
+  transition: transform 120ms ease;
+}
+.ms__track input::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--face);
+  border: 3px solid #fff;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.25);
+}
+.ms__track input:active::-webkit-slider-thumb { transform: scale(1.12); }
+.ms__track input:focus-visible { outline: none; }
+.ms__track input:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--ink); }
+.ms__track input:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--ink); }
+
+/* Labels sit exactly under their stops (the thumb's travel is inset by half its width). */
+.ms__ticks {
+  position: relative;
+  height: 16px;
+  margin: 6px 14px 0;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.ms__ticks span {
+  position: absolute;
+  top: 0;
+  translate: -50% 0;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+.ms__ticks span[data-on] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.ms__send {
+  margin-top: 16px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 120ms ease;
+}
+.ms__send:active { transform: scale(0.97); }
+.ms__send:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.ms[data-motion="reduced"],
+.ms[data-motion="reduced"] .ms__head { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ms,
+  .ms__head { transition: none; }
+}

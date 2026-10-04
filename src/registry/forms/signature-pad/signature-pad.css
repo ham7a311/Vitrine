@@ -1,0 +1,32 @@
+.sp {
+  --sp-bg: #fbf8f1;
+  --sp-fg: #1b1a17;
+  --sp-muted: #7a7366;
+  --sp-line: rgb(27 26 23 / 0.16);
+  width: min(100%, 38rem);
+  border: 1px solid var(--sp-line);
+  border-radius: 16px;
+  background: var(--sp-bg);
+  color: var(--sp-fg);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.6) inset, 0 24px 50px -30px rgb(0 0 0 / 0.35);
+}
+.sp--night { --sp-bg: #15140f; --sp-fg: #efe9da; --sp-muted: #8f8778; --sp-line: rgb(239 233 218 / 0.14); box-shadow: 0 24px 50px -30px rgb(0 0 0 / 0.8); }
+.sp__head, .sp__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; }
+.sp__label { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sp-muted); }
+.sp__link { border: 0; padding: 4px 0; background: none; color: inherit; font: inherit; font-size: 0.8125rem; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--sp-line); cursor: pointer; }
+.sp__link:hover { text-decoration-color: currentColor; }
+.sp__pad { position: relative; margin: 0 18px; aspect-ratio: 600 / 220; border-radius: 10px; background: color-mix(in oklab, var(--sp-fg) 3%, transparent); touch-action: none; cursor: crosshair; }
+.sp__pad[data-mode="type"] { cursor: text; }
+.sp__pad svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sp__line { pointer-events: none; position: absolute; left: 6%; right: 6%; bottom: 24%; display: flex; align-items: baseline; gap: 10px; border-bottom: 1px solid var(--sp-line); padding-bottom: 6px; color: var(--sp-muted); font-size: 0.875rem; }
+.sp__line em { font-style: italic; font-family: "Instrument Serif", Georgia, serif; font-size: 1.05rem; }
+.sp__typed { position: absolute; left: 6%; right: 6%; bottom: calc(24% + 4px); border: 0; background: transparent; color: var(--sp-ink); font: 400 clamp(2rem, 6vw, 3.25rem)/1.1 "Pinyon Script", "Instrument Serif", cursive; outline: none; padding: 0 0 0 28px; }
+.sp__typed::placeholder { color: color-mix(in oklab, var(--sp-muted) 60%, transparent); }
+.sp__status { margin: 0; font-size: 0.8125rem; color: var(--sp-muted); }
+.sp__actions { display: flex; gap: 6px; }
+.sp__actions button { height: 34px; padding: 0 12px; border: 1px solid var(--sp-line); border-radius: 999px; background: transparent; color: inherit; font: inherit; font-size: 0.8125rem; cursor: pointer; }
+.sp__actions button:hover:not(:disabled) { border-color: currentColor; }
+.sp__actions button:disabled { opacity: 0.4; cursor: default; }
+.sp button:focus-visible, .sp__typed:focus-visible { outline: 2px solid var(--sp-ink); outline-offset: 2px; }
+@media (max-width: 480px) { .sp__foot { flex-direction: column; align-items: flex-start; } }

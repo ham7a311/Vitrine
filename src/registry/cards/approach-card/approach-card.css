@@ -1,0 +1,71 @@
+/* Approach Card — one proximity value (--p) rebalances the hierarchy. */
+.approach-card {
+  --ac-ink: #efe8dc;
+  --ac-muted: #a7a1ab;
+  --ac-faint: #6f6a74;
+  /* each detail runs its own 0→1 over a slice of p, staggered by --k */
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 21rem);
+  aspect-ratio: 21 / 27;
+  padding: 1.4rem 1.5rem 1.5rem;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #121015;
+  box-shadow: inset 0 0 0 1px rgb(239 232 220 / calc(0.07 + var(--p) * 0.07)), 0 30px 60px -40px rgb(0 0 0 / 0.9);
+  color: var(--ac-ink);
+  text-decoration: none;
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  outline: none;
+}
+.approach-card:focus-visible { box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.14), 0 0 0 2px #0b080d, 0 0 0 4px var(--ac-accent); }
+
+/* the light gathers toward the side you approach from */
+.approach-card__light {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(120% 70% at calc(50% + var(--dir) * 50%) 0%, color-mix(in srgb, var(--ac-accent) calc(var(--p) * 14%), transparent), transparent 60%);
+}
+
+.approach-card__meta {
+  display: flex; justify-content: space-between;
+  font: 500 0.6875rem "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; color: var(--ac-faint);
+}
+
+.approach-card__title {
+  position: absolute; left: 1.5rem; right: 1.5rem; bottom: 1.35rem; margin: 0;
+  font: 400 clamp(2.9rem, 6vw, 3.7rem) / 0.94 "Instrument Serif", Georgia, serif; letter-spacing: -0.025em;
+  transform-origin: 0 0;
+  /* far: large at the bottom. close: half size, lifted to the top slot. */
+  transform: translateY(calc(var(--ty, -200px) * var(--p))) scale(calc(1 - var(--p) * 0.45));
+  color: color-mix(in srgb, var(--ac-ink) calc(100% - var(--p) * 10%), var(--ac-accent));
+}
+
+.approach-card__body {
+  position: absolute; left: 1.5rem; right: 1.5rem; bottom: 1.5rem;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.approach-card__body > *, .approach-card__summary {
+  --q: clamp(0, calc((var(--p) - 0.35 - var(--k) * 0.12) * 2.6), 1);
+  opacity: var(--q);
+  transform: translateX(calc((1 - var(--q)) * 22px * var(--dir))) translateY(calc((1 - var(--q)) * 6px));
+}
+.approach-card__summary {
+  position: absolute; left: 1.5rem; right: 1.5rem; top: var(--sy, 120px);
+  font-size: 0.9375rem; line-height: 1.55; color: var(--ac-muted); max-width: 30ch;
+}
+.approach-card__stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.approach-card__stack span {
+  padding: 0.25rem 0.55rem; border-radius: 999px; box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.12);
+  font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.04em; color: var(--ac-muted);
+}
+.approach-card__cta { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; color: var(--ac-ink); }
+.approach-card__cta svg { width: 1rem; height: 1rem; fill: none; stroke: var(--ac-accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* a hairline that measures how close you are */
+.approach-card__rule {
+  position: absolute; left: 0; bottom: 0; height: 1px; width: 100%;
+  background: linear-gradient(90deg, transparent, var(--ac-accent), transparent);
+  transform: scaleX(var(--p)); opacity: calc(var(--p) * 0.7);
+}

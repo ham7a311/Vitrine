@@ -1,0 +1,263 @@
+.gp2 {
+  --card: #121316;
+  --edge: rgb(255 255 255 / 0.07);
+  --ink: #eeebe5;
+  --muted: rgb(238 235 229 / 0.52);
+  --well: #0a0b0d;
+  --ring: 196px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 28px;
+  width: min(100%, 820px);
+  padding: 24px;
+  border-radius: 24px;
+  background: var(--card);
+  box-shadow: inset 0 0 0 1px var(--edge), 0 30px 70px -40px rgb(0 0 0 / 0.7);
+  color: var(--ink);
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+}
+.gp2--paper {
+  --card: #fbfaf7;
+  --edge: rgb(0 0 0 / 0.07);
+  --ink: #1b1a17;
+  --muted: rgb(27 26 23 / 0.55);
+  --well: #efece6;
+}
+@media (max-width: 680px) {
+  .gp2 { grid-template-columns: 1fr; padding: 18px; }
+}
+
+.gp2__plane {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: none;
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--edge);
+}
+.gp2__plane:focus-visible { box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--ink); }
+.gp2__plane canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.gp2__bounds {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.gp2__bounds polyline {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+}
+.gp2__srgb {
+  stroke: #fff;
+  stroke-width: 1.4;
+  filter: drop-shadow(0 0 1px rgb(0 0 0 / 0.6));
+}
+.gp2__p3 {
+  stroke: rgb(255 255 255 / 0.8);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+}
+.gp2__dot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  border: 2.5px solid #fff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.35), 0 4px 10px rgb(0 0 0 / 0.35);
+  pointer-events: none;
+}
+.gp2__axis {
+  position: absolute;
+  font: 500 10px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.75);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.6);
+  pointer-events: none;
+}
+.gp2__axis--x { right: 10px; bottom: 9px; }
+.gp2__axis--y { left: 8px; bottom: 30px; transform-origin: left bottom; rotate: -90deg; translate: 10px 0; }
+
+.gp2__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.gp2__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.gp2__k { display: inline-block; width: 18px; height: 0; border-top: 1.5px solid var(--ink); }
+.gp2__k--p { border-top-style: dashed; }
+.gp2__k--h {
+  width: 14px;
+  height: 10px;
+  border: 0;
+  border-radius: 2px;
+  background: repeating-linear-gradient(45deg, var(--muted) 0 1.5px, transparent 1.5px 5px);
+}
+
+.gp2__side {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 18px;
+}
+/* The hue ring around the swatch. */
+.gp2__ring {
+  position: relative;
+  width: var(--ring);
+  height: var(--ring);
+}
+/* The track is the hit area; the ring itself is drawn by ::before. */
+.gp2__ring-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  touch-action: none;
+  outline: none;
+}
+.gp2__ring:focus-within .gp2__knob {
+  box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--ink), 0 2px 8px rgb(0 0 0 / 0.4);
+}
+.gp2__knob { box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--ink); }
+.gp2__knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.4);
+  background: transparent;
+  pointer-events: none;
+}
+.gp2__ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg in oklch longer hue, oklch(0.75 0.14 0), oklch(0.75 0.14 359.9));
+  -webkit-mask: radial-gradient(closest-side, transparent 80%, #000 81%);
+  mask: radial-gradient(closest-side, transparent 80%, #000 81%);
+  pointer-events: none;
+}
+@supports not (background: conic-gradient(in oklch, red, blue)) {
+  .gp2__ring::before {
+    background: conic-gradient(#e8838f, #e59a5a, #c8b04b, #8fc15f, #4fc49b, #3dbcc9, #6aa5ea, #9b8eea, #c97fd2, #e8838f);
+  }
+}
+.gp2__swatch {
+  position: absolute;
+  inset: 26%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12), 0 10px 26px -8px rgb(0 0 0 / 0.5);
+  pointer-events: none;
+}
+.gp2__swatch-true {
+  position: absolute;
+  inset: 0 0 0 50%;
+}
+.gp2__sw-l,
+.gp2__sw-r {
+  position: absolute;
+  bottom: 22%;
+  font: 600 9px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.08em;
+  color: rgb(255 255 255 / 0.85);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.5);
+}
+.gp2__sw-l { left: 18%; }
+.gp2__sw-r { right: 20%; }
+
+.gp2__read {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+}
+.gp2__read > div {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--edge);
+}
+.gp2__read dt {
+  font: 500 10.5px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.gp2__read dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 0;
+  font-size: 13px;
+}
+.gp2__read code {
+  font: 500 12.5px/1.3 "Geist Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.gp2__copy {
+  margin-left: auto;
+  padding: 4px 9px;
+  font: 500 11px/1 "Geist Mono", ui-monospace, monospace;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.gp2__copy:hover { color: var(--ink); }
+.gp2__copy:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.gp2__warn {
+  font-size: 11px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: color-mix(in oklab, #ffb020 18%, transparent);
+  color: color-mix(in oklab, #ffb020, var(--ink) 30%);
+}
+.gp2__chip {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 22px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.gp2__grade {
+  margin-right: 4px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  font: 600 10px/1.3 "Geist Mono", ui-monospace, monospace;
+  background: color-mix(in oklab, #2fbf71 20%, transparent);
+  color: color-mix(in oklab, #2fbf71, var(--ink) 25%);
+}
+.gp2__grade[data-fail] {
+  background: color-mix(in oklab, #e5484d 18%, transparent);
+  color: color-mix(in oklab, #e5484d, var(--ink) 25%);
+}
+.gp2__kb {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--muted);
+  text-align: center;
+}

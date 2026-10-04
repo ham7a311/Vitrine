@@ -1,0 +1,134 @@
+/* Tidefill Card — the card fills to the share saved; the print inverts along the wave. */
+@property --tfc-p { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --tfc-x { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --tfc-wh { syntax: "<length>"; inherits: true; initial-value: 12px; }
+
+.tfc {
+  --tfc-card: #fffdf8;
+  --tfc-ink: #1b1a17;
+  --tfc-muted: #6f6a62;
+  --tfc-line: rgb(27 26 23 / 0.12);
+  --tfc-water: #1f6f6b;
+  --tfc-back: #4fa39b;
+  --tfc-water-ink: #f3efe4;
+  --tfc-water-muted: rgb(243 239 228 / 0.74);
+  --tfc-water-line: rgb(243 239 228 / 0.28);
+  --tfc-accent: #a8432f;
+  --tfc-water-accent: #ffd9a0;
+  --tfc-focus: #2f5fd0;
+  --tfc-h: 360px;
+  --tfc-wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 20' preserveAspectRatio='none'%3E%3Cpath d='M0 10 Q 20 0 40 10 T 80 10 T 120 10 T 160 10 V20 H0 Z'/%3E%3C/svg%3E");
+  /* Where the surface sits, measured from the top. */
+  --tfc-top: calc((1 - var(--tfc-p)) * var(--tfc-h));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: min(23rem, 100%);
+  border-radius: 24px;
+  background: var(--tfc-card);
+  box-shadow: inset 0 0 0 1px var(--tfc-line), 0 24px 44px -32px rgb(30 40 40 / 0.55);
+  color: var(--tfc-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  animation: tfc-roll 3.2s linear infinite;
+  transition: --tfc-p 1.2s cubic-bezier(0.34, 1.32, 0.64, 1), --tfc-wh 700ms ease;
+}
+.tfc--night {
+  --tfc-card: #141217;
+  --tfc-ink: #efe8dc;
+  --tfc-muted: #9c96a1;
+  --tfc-line: rgb(239 232 220 / 0.12);
+  --tfc-water: #b9cce4;
+  --tfc-back: #5f7795;
+  --tfc-water-ink: #0e1420;
+  --tfc-water-muted: rgb(14 20 32 / 0.7);
+  --tfc-water-line: rgb(14 20 32 / 0.22);
+  --tfc-accent: #f0b37a;
+  --tfc-water-accent: #2f4f86;
+  --tfc-focus: #b9cce4;
+}
+.tfc:hover { --tfc-wh: 20px; }
+.tfc[data-done] { --tfc-wh: 0px; }
+
+.tfc__face {
+  display: flex;
+  flex-direction: column;
+  min-height: 22.5rem;
+  padding: 1.6rem 1.6rem 1.5rem;
+}
+/* The water: one layer holds the colour and the inverted print, masked to the wave and everything under it. */
+.tfc__water {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--tfc-water);
+  color: var(--tfc-water-ink);
+  --tfc-muted: var(--tfc-water-muted);
+  --tfc-line: var(--tfc-water-line);
+  --tfc-accent: var(--tfc-water-accent);
+  -webkit-mask-image: var(--tfc-wave), linear-gradient(#000 0 0);
+  mask-image: var(--tfc-wave), linear-gradient(#000 0 0);
+  -webkit-mask-size: 160px var(--tfc-wh), 100% calc(var(--tfc-h) - var(--tfc-top));
+  mask-size: 160px var(--tfc-wh), 100% calc(var(--tfc-h) - var(--tfc-top));
+  -webkit-mask-position: var(--tfc-x) calc(var(--tfc-top) - var(--tfc-wh) + 0.5px), 0 100%;
+  mask-position: var(--tfc-x) calc(var(--tfc-top) - var(--tfc-wh) + 0.5px), 0 100%;
+  -webkit-mask-repeat: repeat-x, no-repeat;
+  mask-repeat: repeat-x, no-repeat;
+  pointer-events: none;
+}
+/* A second, paler swell just behind the surface, out of step with it. */
+.tfc__water--back {
+  z-index: 0;
+  background: var(--tfc-back);
+  opacity: 0.5;
+  -webkit-mask-position: calc(var(--tfc-x) * -0.6 + 50px) calc(var(--tfc-top) - var(--tfc-wh) * 1.4 - 2px), 0 100%;
+  mask-position: calc(var(--tfc-x) * -0.6 + 50px) calc(var(--tfc-top) - var(--tfc-wh) * 1.4 - 2px), 0 100%;
+  -webkit-mask-size: 160px calc(var(--tfc-wh) * 1.4 + 3px), 100% calc(var(--tfc-h) - var(--tfc-top));
+  mask-size: 160px calc(var(--tfc-wh) * 1.4 + 3px), 100% calc(var(--tfc-h) - var(--tfc-top));
+}
+.tfc__face:not(.tfc__water) { position: relative; z-index: 1; }
+
+.tfc__label { margin: 0; font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tfc-accent); }
+.tfc__name { margin: 0.6rem 0 0; font-size: 1.375rem; font-weight: 600; letter-spacing: -0.02em; }
+.tfc__amount { display: flex; align-items: baseline; gap: 0.45rem; margin: 1.6rem 0 0; font-size: 3.25rem; font-weight: 600; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+.tfc__cur { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.02em; color: var(--tfc-muted); }
+.tfc__of { margin: 0.55rem 0 0; font-size: 0.875rem; color: var(--tfc-muted); font-variant-numeric: tabular-nums; }
+.tfc__pct { color: var(--tfc-accent); font-weight: 600; }
+.tfc__note { margin: auto 0 0; padding-top: 1.5rem; font-size: 0.875rem; line-height: 1.45; }
+.tfc__add {
+  display: grid;
+  place-items: center;
+  height: 2.75rem;
+  margin-top: 1rem;
+  padding: 0 1.2rem;
+  border: 1px solid var(--tfc-line);
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease, transform 160ms ease;
+}
+button.tfc__add:hover:not(:disabled), .tfc:has(button.tfc__add:hover:not(:disabled)) span.tfc__add { border-color: currentColor; }
+button.tfc__add:active:not(:disabled) { transform: scale(0.98); }
+button.tfc__add:disabled { cursor: default; opacity: 0.85; }
+button.tfc__add:focus-visible { outline: 2px solid var(--tfc-focus); outline-offset: 3px; }
+
+/* Rolling digits. */
+.tfc__roll { display: inline-flex; }
+.tfc__reel { display: inline-block; height: 1em; overflow: hidden; }
+.tfc__strip { display: flex; flex-direction: column; transform: translateY(calc(var(--d) * -1em)); transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i) * 40ms); }
+.tfc__strip > span { height: 1em; line-height: 1; }
+.tfc__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+@keyframes tfc-roll { to { --tfc-x: 160px; } }
+
+.tfc[data-motion="reduced"] { animation: none; transition: none; }
+.tfc[data-motion="reduced"] .tfc__strip { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .tfc { animation: none; transition: none; }
+  .tfc__strip { transition: none; }
+}

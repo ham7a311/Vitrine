@@ -1,0 +1,87 @@
+.hc {
+  position: relative;
+  isolation: isolate;
+}
+
+.hc[data-live],
+.hc[data-live] * {
+  cursor: none !important;
+}
+.hc[data-live] :is(input, textarea, select, [contenteditable="true"], [contenteditable=""]) {
+  cursor: auto !important;
+}
+
+/* Behind the text: the selection box. */
+.hc__under {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hc__content {
+  position: relative;
+  z-index: 1;
+}
+
+.hc__box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-radius: 7px;
+  background: color-mix(in oklab, var(--hc-c) 16%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--hc-c) 48%, transparent);
+  opacity: 0;
+  transition: opacity 180ms ease;
+  will-change: transform, width, height;
+}
+.hc__box[data-on] {
+  opacity: 1;
+}
+
+/* The lit line takes the accent. */
+.hc__w {
+  transition: color 160ms ease;
+}
+.hc__w[data-lit] {
+  color: var(--hc-c);
+}
+
+/* Above everything: the arrow, filled with the accent. */
+.hc__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+.hc__layer[data-in] {
+  opacity: 1;
+}
+.hc__arrow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+.hc__arrow svg {
+  display: block;
+  margin: -3.03px 0 0 -3.03px; /* the tip is the hotspot (3.73 × 26/32) */
+  overflow: visible;
+}
+.hc__arrow path {
+  fill: var(--hc-c);
+}
+
+.hc[data-motion="reduced"] .hc__box,
+.hc[data-motion="reduced"] .hc__w,
+.hc[data-motion="reduced"] .hc__layer { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .hc__box,
+  .hc__w,
+  .hc__layer { transition: none; }
+}

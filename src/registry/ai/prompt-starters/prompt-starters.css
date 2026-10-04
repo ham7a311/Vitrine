@@ -1,0 +1,53 @@
+/* Prompt Starters — the suggestion previews itself where it will live. */
+.prompt-starters {
+  --ps-bg: #f5f1e8; --ps-surface: #fffdf8; --ps-ink: #1f1b16; --ps-muted: #6b645a; --ps-faint: #a39b8f; --ps-line: rgb(31 27 22 / 0.1);
+  --ps-accent: #c4673f; --ps-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100%, 40rem); font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif; color: var(--ps-ink);
+  container-type: inline-size;
+}
+.prompt-starters--night { --ps-surface: #1b191e; --ps-ink: #efe8dc; --ps-muted: #a7a1ab; --ps-faint: #6f6a74; --ps-line: rgb(239 232 220 / 0.1); --ps-accent: #b9cce4; }
+
+.prompt-starters__composer {
+  position: relative; padding: 1rem 0.75rem 0.6rem 1.1rem; border-radius: 20px; background: var(--ps-surface);
+  box-shadow: inset 0 0 0 1px var(--ps-line), 0 16px 40px -28px rgb(31 27 22 / 0.4); transition: box-shadow 260ms ease;
+}
+.prompt-starters__composer[data-ghost] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ps-accent) 40%, transparent), 0 16px 40px -28px rgb(31 27 22 / 0.4); }
+.prompt-starters__composer textarea {
+  display: block; width: 100%; height: 4.9rem; resize: none; border: 0; outline: 0; background: none; color: var(--ps-ink);
+  font: 400 1rem/1.6 inherit; font-family: inherit;
+}
+.prompt-starters__composer textarea::placeholder { color: var(--ps-faint); }
+.prompt-starters__composer textarea[data-flash] { animation: prompt-starters-commit 900ms ease; }
+.prompt-starters__ghost {
+  position: absolute; left: 1.1rem; right: 0.75rem; top: 1rem; margin: 0; pointer-events: none;
+  font: 400 1rem/1.6 inherit; font-family: inherit; color: color-mix(in srgb, var(--ps-ink) 38%, transparent);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.prompt-starters__ghost i { display: inline-block; width: 1px; height: 1.05em; margin-left: 1px; vertical-align: -0.15em; background: var(--ps-accent); animation: prompt-starters-caret 1s steps(1) infinite; }
+.prompt-starters__bar { display: flex; align-items: center; justify-content: space-between; margin-top: 0.35rem; font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.06em; color: var(--ps-faint); }
+.prompt-starters__bar button { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border: 0; border-radius: 999px; background: var(--ps-ink); color: var(--ps-surface); cursor: pointer; }
+.prompt-starters__bar button:disabled { opacity: 0.2; cursor: default; }
+.prompt-starters__bar svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.prompt-starters__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin: 0.9rem 0 0; padding: 0; list-style: none; }
+.prompt-starters__card {
+  display: grid; grid-template-columns: auto 1fr; gap: 0.1rem 0.7rem; width: 100%; padding: 0.8rem 0.9rem; border: 0; border-radius: 14px; text-align: left;
+  background: color-mix(in srgb, var(--ps-surface) 60%, transparent); box-shadow: inset 0 0 0 1px var(--ps-line); color: inherit; font: inherit; cursor: pointer;
+  transition: background 220ms ease, box-shadow 220ms ease, transform 380ms var(--ps-ease);
+  animation: prompt-starters-in 520ms var(--ps-ease) both; animation-delay: calc(var(--i) * 60ms);
+}
+.prompt-starters__card[data-on] { background: var(--ps-surface); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ps-accent) 45%, transparent); transform: translateY(-2px); }
+.prompt-starters__card:focus-visible { outline: 2px solid var(--ps-accent); outline-offset: 2px; }
+.prompt-starters__card:active { transform: translateY(0); }
+.prompt-starters__icon { grid-row: span 2; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 9px; font-size: 0.95rem; background: color-mix(in srgb, var(--ps-ink) 5%, transparent); }
+.prompt-starters__card[data-on] .prompt-starters__icon { background: color-mix(in srgb, var(--ps-accent) 14%, transparent); }
+.prompt-starters__title { font-size: 0.875rem; font-weight: 600; letter-spacing: -0.01em; }
+.prompt-starters__hint { font-size: 0.8125rem; color: var(--ps-muted); }
+.prompt-starters__clear { margin-top: 0.8rem; padding: 0; border: 0; background: none; color: var(--ps-muted); font: 500 0.8125rem inherit; font-family: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.prompt-starters__clear:focus-visible { outline: 2px solid var(--ps-accent); outline-offset: 2px; }
+
+@container (max-width: 30rem) { .prompt-starters__grid { grid-template-columns: 1fr; } }
+@keyframes prompt-starters-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes prompt-starters-caret { 50% { opacity: 0; } }
+@keyframes prompt-starters-commit { 0% { background: color-mix(in srgb, var(--ps-accent) 14%, transparent); } 100% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .prompt-starters * { animation: none !important; transition-duration: 1ms !important; } }

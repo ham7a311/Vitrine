@@ -1,0 +1,111 @@
+/* Foldaway Button — a split-sheet fold. The flap pivots on the horizontal crease. */
+
+.fold {
+  --fd-paper: #ede5d5;
+  --fd-paper-2: #d9cfbb;
+  --fd-ink: #2a1830;
+  --fd-back: #b9cce4;
+  --fd-h: 3.5rem;
+  position: relative;
+  display: inline-block;
+  width: 12rem;
+  height: var(--fd-h);
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--fd-ink);
+  font: 600 0.9375rem/1 "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  perspective: 700px;
+  -webkit-tap-highlight-color: transparent;
+}
+.fold:focus-visible { outline: 2px solid var(--fd-back); outline-offset: 5px; }
+
+.fold__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.fold__half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  background: var(--fd-paper);
+}
+.fold__half--top { top: 0; border-radius: 10px 10px 0 0; }
+.fold__half--bottom { bottom: 0; border-radius: 0 0 10px 10px; background: linear-gradient(180deg, var(--fd-paper-2), var(--fd-paper) 30%); }
+.fold__text {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: var(--fd-h);
+  display: grid;
+  place-items: center;
+  white-space: nowrap;
+}
+.fold__half--top .fold__text { top: 0; }
+.fold__half--bottom .fold__text { bottom: 0; }
+
+/* what's underneath is the revealed state, tinted so the change reads clearly */
+.fold > .fold__half--top { background: var(--fd-back); }
+.fold > .fold__half--top .fold__text { color: #14202e; }
+
+.fold__flap {
+  position: absolute;
+  inset: 0 0 50% 0;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  transition: transform 650ms cubic-bezier(0.5, 0, 0.15, 1);
+  z-index: 2;
+}
+.fold__face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.fold__face .fold__half { inset: 0; height: 100%; }
+.fold__face--front .fold__half--top { position: absolute; }
+/* the back is what you see once the flap has folded down: it shows the revealed *bottom* half */
+.fold__face--back { transform: rotateX(180deg); }
+.fold__face--back .fold__half { top: auto; bottom: auto; height: 100%; background: var(--fd-back); border-radius: 0 0 10px 10px; }
+.fold__face--back .fold__text { color: #14202e; top: auto; bottom: 0; transform: translateY(0); }
+.fold__face--back .fold__half--bottom .fold__text { bottom: 0; }
+
+/* shading: darkens the flap as it turns away, and casts a soft shadow onto the base */
+.fold__flap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(180deg, rgb(20 10 24 / 0), rgb(20 10 24 / 0.5));
+  opacity: 0;
+  transition: opacity 650ms ease;
+  pointer-events: none;
+}
+.fold:hover .fold__flap, .fold:focus-visible .fold__flap { transform: rotateX(180deg); }
+.fold:hover .fold__flap::after, .fold:focus-visible .fold__flap::after { opacity: 0.5; }
+
+.fold__crease {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgb(42 24 48 / 0.28);
+  z-index: 3;
+  pointer-events: none;
+}
+.fold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  box-shadow: 0 14px 24px -14px rgb(0 0 0 / 0.7), 0 1px 0 rgb(255 255 255 / 0.4) inset;
+  pointer-events: none;
+  z-index: 4;
+}
+.fold:active { transform: translateY(1px); }
+
+/* Touch: fold on press since there is no hover */
+@media (hover: none) { .fold:active .fold__flap { transform: rotateX(180deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .fold__flap, .fold__flap::after { transition-duration: 1ms; }
+}

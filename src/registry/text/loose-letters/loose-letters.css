@@ -1,0 +1,136 @@
+.ll {
+  --tile: #fbf6ea;
+  --tile-edge: #e3d8c2;
+  --ink: #1f1b16;
+  --accent: #c2361b;
+  --string: #6b5a44;
+  --rail: #3a3128;
+  --shadow: rgb(60 40 20 / 0.22);
+  --muted: rgb(31 27 22 / 0.55);
+  height: 100%;
+}
+.ll--night {
+  --tile: #1a1917;
+  --tile-edge: #2b2926;
+  --ink: #ffc76b;
+  --accent: #ffc76b;
+  --string: #8a7b66;
+  --rail: #6a5f52;
+  --shadow: rgb(0 0 0 / 0.55);
+  --muted: rgb(255 240 220 / 0.5);
+}
+
+.ll__host {
+  position: relative;
+  height: 100%;
+  min-height: 460px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 24px;
+  box-sizing: border-box;
+  touch-action: pan-y;
+}
+
+.ll__sign {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.18em 0.5em;
+  /* Room above the rail for a tile to spin all the way round its pin. */
+  margin: 1.5em 0 0;
+  padding: 0 4%;
+  font-family: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(2.2rem, 7.4vw, 5.2rem);
+  line-height: 1;
+  user-select: none;
+}
+/* The rail they hang from. */
+.ll__rail {
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  /* Level with the pins at the top of each string. */
+  top: calc(-0.02em - 3px);
+  height: 3px;
+  border-radius: 3px;
+  background: var(--rail);
+  box-shadow: 0 2px 4px var(--shadow);
+}
+.ll__word {
+  display: flex;
+  gap: 0.08em;
+}
+
+/* A tile: hung from the top of its string, which is the pin it swings on. */
+.ll__tile {
+  position: relative;
+  display: block;
+  margin-top: 0.3em;
+  transform-origin: 50% -0.3em;
+  will-change: transform;
+}
+.ll__string {
+  position: absolute;
+  left: 50%;
+  top: -0.32em;
+  width: 1px;
+  height: 0.34em;
+  background: var(--string);
+  transition: opacity 160ms ease;
+}
+.ll__string::before {
+  content: "";
+  position: absolute;
+  left: -2.5px;
+  top: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rail);
+}
+.ll__host:not([data-mode="hang"]) .ll__string {
+  opacity: 0;
+}
+.ll__face {
+  display: grid;
+  place-items: center;
+  width: 0.86em;
+  height: 1.06em;
+  border-radius: 0.09em;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--tile) 100%, #fff 20%), var(--tile));
+  box-shadow: inset 0 0 0 1px var(--tile-edge), 0 0.05em 0.1em var(--shadow), 0 0.2em 0.35em -0.1em var(--shadow);
+  color: var(--ink);
+  padding-bottom: 0.04em;
+  box-sizing: border-box;
+}
+.ll--night .ll__face {
+  text-shadow: 0 0 0.18em color-mix(in oklab, var(--ink) 55%, transparent);
+}
+
+.ll__ctl {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  translate: -50% 0;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+.ll__ctl button {
+  font: 500 12px/1 "Geist Mono", ui-monospace, monospace;
+  color: var(--muted);
+  background: color-mix(in oklab, var(--tile) 60%, transparent);
+  border: 1px solid color-mix(in oklab, var(--ink) 18%, transparent);
+  border-radius: 999px;
+  padding: 8px 13px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+.ll__ctl button:hover:not(:disabled) { color: var(--ink); }
+.ll__ctl button:disabled { opacity: 0.4; cursor: default; }
+.ll__ctl button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

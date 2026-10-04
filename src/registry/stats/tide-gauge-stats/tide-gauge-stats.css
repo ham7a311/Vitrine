@@ -1,0 +1,177 @@
+/* Tide Gauge Stats — glass tubes that fill to each value; the number floats on the surface, inverted under it. */
+@property --tgs-p { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --tgs-x { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --tgs-wh { syntax: "<length>"; inherits: true; initial-value: 7px; }
+
+.tgs {
+  --tgs-bg: #fffdf8;
+  --tgs-glass: rgb(27 26 23 / 0.035);
+  --tgs-rim: rgb(27 26 23 / 0.14);
+  --tgs-ink: #1b1a17;
+  --tgs-muted: #6f6a62;
+  --tgs-water: #1f6f6b;
+  --tgs-back: #6fb3aa;
+  --tgs-water-ink: #f3efe4;
+  --tgs-goal: rgb(168 67 47 / 0.85);
+  --tgs-gloss: rgb(255 255 255 / 0.7);
+  --tgs-focus: #2f5fd0;
+  --tgs-h: 17rem;
+  --tgs-wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 20' preserveAspectRatio='none'%3E%3Cpath d='M0 10 Q 10 0 20 10 T 40 10 T 60 10 T 80 10 V20 H0 Z'/%3E%3C/svg%3E");
+  width: 100%;
+  color: var(--tgs-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.tgs--night {
+  --tgs-bg: #141217;
+  --tgs-glass: rgb(239 232 220 / 0.04);
+  --tgs-rim: rgb(239 232 220 / 0.14);
+  --tgs-ink: #efe8dc;
+  --tgs-muted: #9c96a1;
+  --tgs-water: #b9cce4;
+  --tgs-back: #4d6382;
+  --tgs-water-ink: #0e1420;
+  --tgs-goal: rgb(240 179 122 / 0.9);
+  --tgs-gloss: rgb(255 255 255 / 0.16);
+  --tgs-focus: #b9cce4;
+}
+
+.tgs__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 2rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tgs__item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+/* The tube. Its own --top is where the surface sits, measured from the top. */
+.tgs__tube {
+  --tgs-top: calc((1 - var(--tgs-p)) * var(--tgs-h));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: min(7.25rem, 100%);
+  height: var(--tgs-h);
+  border-radius: 3.625rem;
+  background: var(--tgs-bg);
+  background-image: linear-gradient(var(--tgs-glass), var(--tgs-glass));
+  box-shadow: inset 0 0 0 1px var(--tgs-rim), inset 0 -18px 30px -24px rgb(0 0 0 / 0.25), 0 22px 40px -30px rgb(20 30 30 / 0.5);
+  animation: tgs-roll 2.6s linear infinite;
+  animation-delay: calc(var(--i) * -0.7s);
+  transition: --tgs-p 1.7s cubic-bezier(0.34, 1.18, 0.64, 1) calc(var(--i) * 160ms + 120ms), --tgs-wh 600ms ease;
+}
+.tgs__tube:hover { --tgs-wh: 13px; }
+
+/* Tick marks at each quarter, on the glass. */
+.tgs__ticks {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    linear-gradient(var(--tgs-rim), var(--tgs-rim)) right 0.9rem top 25% / 0.55rem 1px no-repeat,
+    linear-gradient(var(--tgs-rim), var(--tgs-rim)) right 0.9rem top 50% / 0.85rem 1px no-repeat,
+    linear-gradient(var(--tgs-rim), var(--tgs-rim)) right 0.9rem top 75% / 0.55rem 1px no-repeat;
+  mix-blend-mode: normal;
+  pointer-events: none;
+}
+
+.tgs__print { position: absolute; inset: 0; }
+.tgs__print:not(.tgs__water) { z-index: 1; }
+
+/* The water: inverted print plus colour, masked to the wave and everything below it. */
+.tgs__water {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--tgs-water);
+  color: var(--tgs-water-ink);
+  -webkit-mask-image: var(--tgs-wave), linear-gradient(#000 0 0);
+  mask-image: var(--tgs-wave), linear-gradient(#000 0 0);
+  -webkit-mask-size: 80px var(--tgs-wh), 100% calc(var(--tgs-h) - var(--tgs-top));
+  mask-size: 80px var(--tgs-wh), 100% calc(var(--tgs-h) - var(--tgs-top));
+  -webkit-mask-position: var(--tgs-x) calc(var(--tgs-top) - var(--tgs-wh) + 0.5px), 0 100%;
+  mask-position: var(--tgs-x) calc(var(--tgs-top) - var(--tgs-wh) + 0.5px), 0 100%;
+  -webkit-mask-repeat: repeat-x, no-repeat;
+  mask-repeat: repeat-x, no-repeat;
+}
+.tgs__water--back {
+  z-index: 0;
+  background: var(--tgs-back);
+  opacity: 0.55;
+  -webkit-mask-position: calc(var(--tgs-x) * -0.7 + 30px) calc(var(--tgs-top) - var(--tgs-wh) * 1.5 - 2px), 0 100%;
+  mask-position: calc(var(--tgs-x) * -0.7 + 30px) calc(var(--tgs-top) - var(--tgs-wh) * 1.5 - 2px), 0 100%;
+  -webkit-mask-size: 80px calc(var(--tgs-wh) * 1.5 + 3px), 100% calc(var(--tgs-h) - var(--tgs-top));
+  mask-size: 80px calc(var(--tgs-wh) * 1.5 + 3px), 100% calc(var(--tgs-h) - var(--tgs-top));
+}
+
+/* The number rides the surface, half under it, clamped inside the tube. */
+.tgs__num {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: clamp(0.85rem, calc(var(--tgs-top) - 0.46em), calc(var(--tgs-h) - 1.45em));
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  font-size: 2.375rem;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.tgs__unit { margin-left: 0.04em; font-size: 0.5em; font-weight: 600; letter-spacing: 0; opacity: 0.75; }
+.tgs__reel { display: inline-block; height: 1em; overflow: hidden; }
+.tgs__strip { display: flex; flex-direction: column; transform: translateY(calc(var(--d) * -1em)); transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i) * 160ms + var(--k) * 90ms + 200ms); }
+.tgs__strip > span { height: 1em; line-height: 1; }
+
+/* The goal: a dashed line across the tube, legible over glass and water alike. */
+.tgs__goal {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: calc((1 - var(--t)) * var(--tgs-h));
+  height: 0;
+  border-top: 1.5px dashed var(--tgs-goal);
+}
+.tgs__goal span {
+  position: absolute;
+  left: 0.85rem;
+  bottom: 0.25rem;
+  font: 600 0.625rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.08em;
+  color: var(--tgs-goal);
+}
+
+/* Glass: a soft vertical highlight on the left, a rim of light at the top. */
+.tgs__gloss {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, transparent 12%, var(--tgs-gloss) 18%, transparent 30%),
+    radial-gradient(60% 18% at 50% 0%, var(--tgs-gloss), transparent 70%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.tgs__label { margin: 1rem 0 0; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; }
+.tgs__note { margin: 0.3rem 0 0; max-width: 12rem; font-size: 0.8125rem; line-height: 1.4; color: var(--tgs-muted); }
+
+@keyframes tgs-roll { to { --tgs-x: 80px; } }
+
+@media (max-width: 560px) {
+  .tgs { --tgs-h: 13.5rem; }
+  .tgs__row { grid-template-columns: repeat(2, 1fr); gap: 1.75rem 1rem; }
+  .tgs__num { font-size: 2rem; }
+}
+
+.tgs[data-motion="reduced"] .tgs__tube { animation: none; transition: none; }
+.tgs[data-motion="reduced"] .tgs__strip { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .tgs__tube { animation: none; transition: none; }
+  .tgs__strip { transition: none; }
+}

@@ -1,0 +1,145 @@
+/* Eclipse Event Card — artwork layers read --eclipse-nx/ny (pointer) and --eclipse-gain (hover). */
+
+.eclipse-card {
+  --eclipse-nx: 0.78;
+  --eclipse-ny: 0.52;
+  --eclipse-gain: 1;
+  --eclipse-gold: #e8a24a;
+  --eclipse-copper: #b56a3c;
+  --eclipse-rose: #8a6e7c;
+  --eclipse-surface: #121110;
+  --eclipse-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.5s var(--eclipse-ease);
+}
+.eclipse-card:hover,
+.eclipse-card:focus-within {
+  --eclipse-gain: 1.16;
+  border-color: color-mix(in srgb, var(--eclipse-gold) 22%, #33312e);
+}
+
+.eclipse-card__scrim {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to right, var(--eclipse-surface) 0%, var(--eclipse-surface) 55%, transparent 75%);
+}
+.eclipse-card__content { position: relative; z-index: 2; max-width: 55%; overflow-wrap: anywhere; }
+
+.eclipse,
+.eclipse-atmosphere,
+.eclipse-bloom,
+.eclipse-field,
+.eclipse-quiet { pointer-events: none; }
+
+.eclipse { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+
+.eclipse-atmosphere {
+  position: absolute;
+  inset: -18% -12% -28% 18%;
+  background:
+    radial-gradient(ellipse 38% 46% at 86% 44%, color-mix(in srgb, var(--eclipse-gold) 28%, transparent) 0%, transparent 58%),
+    radial-gradient(ellipse 24% 30% at 94% 62%, color-mix(in srgb, var(--eclipse-copper) 16%, transparent) 0%, transparent 64%),
+    radial-gradient(ellipse 32% 36% at 78% 28%, color-mix(in srgb, var(--eclipse-rose) 8%, transparent) 0%, transparent 70%);
+  opacity: calc(0.86 * var(--eclipse-gain));
+  transform: translate3d(calc((var(--eclipse-nx) - 0.78) * 14px), calc((var(--eclipse-ny) - 0.52) * 10px), 0);
+  animation: eclipse-breathe 16s ease-in-out infinite;
+  transition: opacity 0.55s var(--eclipse-ease), transform 0.9s var(--eclipse-ease);
+}
+
+.eclipse-bloom {
+  position: absolute;
+  right: -8%;
+  top: 18%;
+  width: 52%;
+  height: 78%;
+  background: radial-gradient(ellipse 48% 42% at 72% 38%, color-mix(in srgb, var(--eclipse-gold) 22%, transparent) 0%, transparent 62%);
+  opacity: calc(0.82 * var(--eclipse-gain));
+  filter: blur(18px);
+  transform: translate3d(calc((var(--eclipse-nx) - 0.78) * 8px), calc((var(--eclipse-ny) - 0.52) * 6px), 0);
+  animation: eclipse-glow 18s ease-in-out infinite;
+  transition: opacity 0.55s var(--eclipse-ease), transform 0.9s var(--eclipse-ease);
+}
+
+.eclipse-field { position: absolute; top: -22%; right: -10%; width: 68%; height: 148%; }
+
+.eclipse-wrap { opacity: calc(0.9 * var(--eclipse-gain)); transition: opacity 0.55s var(--eclipse-ease); }
+.eclipse-grain { opacity: 0.55; mix-blend-mode: overlay; }
+.eclipse-core { fill: #080706; }
+.eclipse-limb { opacity: 0.7; mix-blend-mode: screen; }
+
+.eclipse-ring,
+.eclipse-arc,
+.eclipse-signal { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+.eclipse-ring { stroke: var(--eclipse-gold); stroke-width: 0.7; opacity: 0.34; }
+.eclipse-ring--soft { stroke-width: 0.45; opacity: 0.1; }
+
+.eclipse-arc { stroke: var(--eclipse-gold); stroke-width: 0.55; opacity: 0.2; transition: opacity 0.5s var(--eclipse-ease); }
+.eclipse-arc--dim { opacity: 0.11; stroke-width: 0.4; }
+.eclipse-arc--copper { stroke: var(--eclipse-copper); opacity: 0.18; }
+.eclipse-arc--organic { stroke-width: 0.5; opacity: 0.14; }
+.eclipse-arc--hot { stroke-width: 0.65; opacity: 0.48; }
+.eclipse-arc--outer { stroke-width: 0.4; opacity: 0.08; }
+.eclipse-arc--spectral { stroke: var(--eclipse-rose); stroke-width: 0.35; opacity: 0.07; }
+
+.eclipse-card:hover .eclipse-arc--hot,
+.eclipse-card:focus-within .eclipse-arc--hot { opacity: 0.68; }
+.eclipse-card:hover .eclipse-arc--outer,
+.eclipse-card:focus-within .eclipse-arc--outer { opacity: 0.2; }
+.eclipse-card:hover .eclipse-arc--copper,
+.eclipse-card:focus-within .eclipse-arc--copper { opacity: 0.28; }
+
+/* a short bright dash travelling the hot orbit */
+.eclipse-signal {
+  stroke: #f3b45f;
+  stroke-width: 1.15;
+  stroke-dasharray: 6 94;
+  opacity: 0.72;
+  animation: eclipse-travel 18s linear infinite;
+}
+.eclipse-signal--bloom { stroke: var(--eclipse-gold); stroke-width: 4.5; opacity: 0.28; }
+
+.eclipse-drift--a { transform-box: view-box; transform-origin: 70% 50%; animation: eclipse-drift-a 22s ease-in-out infinite; }
+.eclipse-drift--b { transform-box: view-box; transform-origin: 72% 48%; animation: eclipse-drift-b 28s ease-in-out infinite; }
+
+.eclipse-quiet {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(104deg, var(--eclipse-surface) 0%, var(--eclipse-surface) 26%, color-mix(in srgb, var(--eclipse-surface) 70%, transparent) 42%, color-mix(in srgb, var(--eclipse-surface) 22%, transparent) 58%, transparent 74%),
+    linear-gradient(180deg, color-mix(in srgb, var(--eclipse-surface) 78%, transparent) 0%, color-mix(in srgb, var(--eclipse-surface) 22%, transparent) 12%, transparent 26%);
+}
+
+@keyframes eclipse-breathe {
+  0%, 100% { opacity: calc(0.64 * var(--eclipse-gain)); }
+  50% { opacity: calc(0.86 * var(--eclipse-gain)); }
+}
+@keyframes eclipse-glow {
+  0%, 100% { opacity: calc(0.42 * var(--eclipse-gain)); }
+  28% { opacity: calc(0.7 * var(--eclipse-gain)); }
+  62% { opacity: calc(0.38 * var(--eclipse-gain)); }
+}
+@keyframes eclipse-travel { to { stroke-dashoffset: -100; } }
+@keyframes eclipse-drift-a {
+  0%, 100% { transform: rotate(-1.2deg) translate3d(0, 0, 0); }
+  50% { transform: rotate(1.4deg) translate3d(2px, -3px, 0); }
+}
+@keyframes eclipse-drift-b {
+  0%, 100% { transform: rotate(0.8deg) translate3d(0, 0, 0); }
+  50% { transform: rotate(-1.1deg) translate3d(-3px, 2px, 0); }
+}
+
+/* Narrow cards: the eclipse sinks to the bottom-right corner and copy gets more room */
+@container (max-width: 639px) {
+  .eclipse-card__content { max-width: 78%; }
+  .eclipse-field { top: auto; bottom: -34%; right: -30%; width: 92%; height: 78%; }
+  .eclipse-atmosphere { inset: 28% -18% -22% 8%; opacity: calc(0.48 * var(--eclipse-gain)); }
+  .eclipse-bloom { top: auto; bottom: 4%; right: -12%; width: 62%; height: 48%; filter: blur(14px); opacity: calc(0.36 * var(--eclipse-gain)); }
+  .eclipse-arc--extra, .eclipse-ring--soft { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eclipse-atmosphere, .eclipse-bloom, .eclipse-signal, .eclipse-drift--a, .eclipse-drift--b { animation: none; }
+  .eclipse-atmosphere, .eclipse-bloom { transform: none; transition: opacity 0.55s var(--eclipse-ease); }
+}

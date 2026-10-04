@@ -1,0 +1,121 @@
+/* Chalk Menu Pricing — plans on a café board; yearly strikes the price and chalks the new one. */
+.cm {
+  --cm-frame: linear-gradient(135deg, #8a5a33, #5e3b20 40%, #7a4e2b 70%, #4f311b);
+  --cm-slate: #1f2723;
+  --cm-ink: #f1eee6;
+  --cm-soft: rgb(241 238 230 / 0.74);
+  --cm-faint: rgb(241 238 230 / 0.3);
+  --cm-strike: #f2a07b;
+  --cm-new: #f6e7a6;
+  --cm-focus: #f6e7a6;
+  position: relative;
+  width: min(100%, 46rem);
+  font-family: "Instrument Serif", Newsreader, Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.cm--whiteboard {
+  --cm-frame: linear-gradient(135deg, #e6e8ea, #b9bdc2 45%, #dfe2e5 70%, #a9aeb4);
+  --cm-slate: #fbfcfc;
+  --cm-ink: #1d3f8f;
+  --cm-soft: rgb(29 63 143 / 0.72);
+  --cm-faint: rgb(29 63 143 / 0.35);
+  --cm-strike: #c2372b;
+  --cm-new: #1b7a46;
+  --cm-focus: #1d3f8f;
+}
+
+.cm__defs { position: absolute; width: 0; height: 0; }
+
+.cm__board {
+  position: relative;
+  padding: clamp(1.4rem, 4vw, 2.6rem) clamp(1.2rem, 4.5vw, 3rem) clamp(1.2rem, 3vw, 2rem);
+  border: 14px solid transparent;
+  border-radius: 10px;
+  background:
+    radial-gradient(60% 40% at 25% 20%, rgb(255 255 255 / 0.05), transparent 70%),
+    radial-gradient(50% 35% at 80% 75%, rgb(255 255 255 / 0.04), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(var(--cm-slate), var(--cm-slate)) padding-box,
+    var(--cm-frame) border-box;
+  box-shadow: 0 30px 50px -28px rgb(0 0 0 / 0.55), inset 0 0 60px rgb(0 0 0 / 0.35);
+  color: var(--cm-ink);
+}
+.cm--whiteboard .cm__board {
+  background:
+    linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.9) 42%, transparent 54%),
+    radial-gradient(40% 30% at 70% 30%, rgb(29 63 143 / 0.03), transparent 70%),
+    linear-gradient(var(--cm-slate), var(--cm-slate)) padding-box,
+    var(--cm-frame) border-box;
+  box-shadow: 0 30px 50px -28px rgb(0 0 0 / 0.35), inset 0 0 30px rgb(0 0 0 / 0.04);
+}
+
+/* Everything written on the board goes through the chalk filter. */
+.cm__title, .cm__sub, .cm__opt span, .cm__name, .cm__price, .cm__blurb, .cm__items, .cm__order, .cm__note, .cm__foot, .cm__dots, .cm__ring, .cm__strike { filter: var(--chalk); }
+
+.cm__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 0.2rem 1rem; padding-bottom: 1.1rem; border-bottom: 2px dashed var(--cm-faint); }
+.cm__title { grid-column: 1; margin: 0; font-size: clamp(2.6rem, 7vw, 3.8rem); font-style: italic; font-weight: 400; line-height: 0.9; letter-spacing: -0.01em; }
+.cm__sub { grid-column: 1; margin: 0; font-family: "Poiret One", "Geist", sans-serif; font-size: 0.95rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cm-soft); }
+.cm__bill { grid-column: 2; grid-row: 1 / span 2; display: flex; gap: 0.25rem; }
+.cm__opt { position: relative; padding: 0.55rem 0.85rem; border: 0; border-radius: 8px; background: none; color: var(--cm-soft); font: inherit; font-size: 1.3rem; cursor: pointer; }
+.cm__opt[aria-checked="true"] { color: var(--cm-ink); }
+.cm__opt:focus-visible { outline: 2px dashed var(--cm-focus); outline-offset: 2px; }
+.cm__ring { position: absolute; inset: -4px -6px; width: calc(100% + 12px); height: calc(100% + 8px); overflow: visible; pointer-events: none; }
+.cm__ring path { fill: none; stroke: var(--cm-ink); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; }
+.cm__opt[aria-checked="true"] .cm__ring path { opacity: 0.85; animation: cm-draw 520ms cubic-bezier(0.5, 0, 0.3, 1) forwards; }
+@keyframes cm-draw { to { stroke-dashoffset: 0; } }
+
+.cm__menu { display: grid; gap: 1.6rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
+.cm__item { position: relative; }
+.cm__row { display: flex; align-items: baseline; gap: 0.75rem; }
+.cm__name { margin: 0; font-size: clamp(1.7rem, 4.5vw, 2.3rem); font-weight: 400; line-height: 1; }
+.cm__dots { flex: 1; min-width: 1.5rem; height: 0; border-bottom: 3px dotted var(--cm-faint); transform: translateY(-0.3rem); }
+.cm__prices { display: inline-flex; align-items: baseline; gap: 0.7rem; font-variant-numeric: lining-nums; }
+.cm__price { position: relative; font-size: clamp(1.8rem, 4.8vw, 2.4rem); line-height: 1; }
+.cm__price--m { transition: color 400ms ease; }
+.cm[data-yearly] .cm__price--m { color: var(--cm-soft); }
+
+/* The strike: drawn across the old price, one item after another. */
+.cm__strike { position: absolute; left: -10%; top: 50%; width: 120%; height: 0.9em; translate: 0 -50%; overflow: visible; pointer-events: none; }
+.cm__strike path { fill: none; stroke: var(--cm-strike); stroke-width: 3.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; transition: opacity 300ms ease; }
+.cm[data-yearly] .cm__strike path { opacity: 1; animation: cm-draw 340ms cubic-bezier(0.6, 0, 0.3, 1) forwards; }
+
+/* The new price is written left to right, as if by hand. */
+.cm__price--y { color: var(--cm-new); clip-path: inset(-20% 100% -20% 0); animation: cm-write 560ms cubic-bezier(0.45, 0, 0.3, 1) var(--d) forwards; }
+@keyframes cm-write { to { clip-path: inset(-20% -10% -20% 0); } }
+.cm__dust { position: absolute; left: 0; right: 0; bottom: -0.15em; height: 0; }
+.cm__dust i { position: absolute; left: calc(var(--k) * 17% + 4%); top: 0; width: 3px; height: 3px; border-radius: 50%; background: var(--cm-new); opacity: 0; animation: cm-dust 900ms ease-out calc(var(--d) + var(--k) * 70ms) forwards; }
+@keyframes cm-dust {
+  0% { opacity: 0; transform: none; }
+  15% { opacity: 0.7; }
+  100% { opacity: 0; transform: translate(calc((var(--k) - 2.5) * 3px), 26px); }
+}
+.cm--whiteboard .cm__dust { display: none; }
+
+.cm__blurb { margin: 0.35rem 0 0; font-size: 1.15rem; font-style: italic; color: var(--cm-soft); }
+.cm__items { margin: 0.25rem 0 0; font-family: "Poiret One", "Geist", sans-serif; font-size: 0.9rem; letter-spacing: 0.06em; color: var(--cm-soft); }
+.cm__order { margin-top: 0.6rem; padding: 0.3rem 0; border: 0; border-bottom: 2px solid var(--cm-faint); background: none; color: var(--cm-ink); font: inherit; font-size: 1.1rem; cursor: pointer; transition: border-color 200ms ease; }
+.cm__order:hover { border-bottom-color: var(--cm-ink); }
+.cm__order:focus-visible { outline: 2px dashed var(--cm-focus); outline-offset: 4px; }
+
+/* The margin note pointing at the favourite. */
+.cm__note { position: absolute; right: 0; top: 2.9rem; display: flex; align-items: flex-start; gap: 0.2rem; margin: 0; font-size: 1.05rem; font-style: italic; line-height: 1.05; color: var(--cm-new); text-align: right; rotate: -4deg; pointer-events: none; }
+.cm__note svg { width: 3.4rem; height: 2rem; order: -1; overflow: visible; }
+.cm__note path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.cm__foot { margin: 1.8rem 0 0; padding-top: 0.9rem; border-top: 2px dashed var(--cm-faint); font-family: "Poiret One", "Geist", sans-serif; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--cm-soft); text-align: center; }
+
+.cm__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 600px) {
+  .cm__head { grid-template-columns: 1fr; }
+  .cm__bill { grid-column: 1; grid-row: auto; margin-top: 0.6rem; }
+  .cm__note { position: static; justify-content: flex-start; margin-top: 0.4rem; rotate: -2deg; text-align: left; }
+  .cm__note svg { display: none; }
+  .cm__prices { gap: 0.45rem; }
+}
+
+.cm[data-motion="reduced"] *,
+.cm[data-motion="reduced"] .cm__price--y { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  .cm *, .cm__price--y { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
+}

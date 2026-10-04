@@ -1,0 +1,138 @@
+/* Activity Stream — time has weight. */
+.activity-stream {
+  --as-bg: #fbfaf6;
+  --as-ink: #1b1a17;
+  --as-muted: #7a766d;
+  --as-faint: rgb(27 26 23 / 0.1);
+  --as-accent: #b4532a;
+  --as-ok: #15803d;
+  --as-warn: #b45309;
+  --as-bad: #b42318;
+  --as-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 100%;
+  container-type: inline-size;
+  color: var(--as-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  -webkit-font-smoothing: antialiased;
+}
+.activity-stream--night {
+  --as-bg: #121315;
+  --as-ink: #ecebe7;
+  --as-muted: #8f9197;
+  --as-faint: rgb(255 255 255 / 0.09);
+  --as-accent: #e8956b;
+  --as-ok: #4ade80;
+  --as-warn: #fbbf24;
+  --as-bad: #f87171;
+}
+
+/* A day: an editorial margin, then the events. */
+.activity-stream__day { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 0 20px; padding: 22px 0 26px; border-top: 1px solid var(--as-ink); }
+.activity-stream__day + .activity-stream__day { border-top-color: var(--as-faint); }
+.activity-stream__rail { position: sticky; top: 12px; align-self: start; display: flex; flex-direction: column; }
+.activity-stream__numeral { font-family: "Instrument Serif", Georgia, serif; font-size: 3.25rem; line-height: 0.9; letter-spacing: -0.02em; }
+.activity-stream__dayname { margin-top: 8px; font-weight: 600; font-size: 0.8125rem; }
+.activity-stream__month { font-size: 0.75rem; color: var(--as-muted); }
+
+.activity-stream__rows { margin: 0; padding: 0; list-style: none; }
+/* The gap before each event is proportional (log) to the time before it. */
+.activity-stream__row { position: relative; margin-top: var(--as-gap, 0); }
+.activity-stream__row:first-child { margin-top: 0; }
+/* A long silence is named inside the gap it made. */
+.activity-stream__pause {
+  position: absolute;
+  top: calc(var(--as-gap) * -0.5);
+  left: 4.6rem;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  transform: translateY(-50%);
+  font-family: "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-size: 0.875rem;
+  line-height: 1;
+  color: var(--as-muted);
+}
+.activity-stream__pause::after { content: ""; flex: 1; border-top: 1px dotted var(--as-faint); }
+
+.activity-stream__event {
+  display: grid;
+  grid-template-columns: 4.2rem 22px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0 10px;
+  width: 100%;
+  padding: 6px 8px 6px 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+.activity-stream__event:disabled { cursor: default; color: inherit; }
+.activity-stream__event:not(:disabled):hover { background: color-mix(in srgb, var(--as-ink) 4%, transparent); }
+.activity-stream__event:focus-visible { outline: 2px solid var(--as-accent); outline-offset: 1px; }
+.activity-stream__time { text-align: right; font: 500 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--as-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.activity-stream__mark { display: grid; place-items: center; width: 22px; height: 22px; align-self: start; margin-top: -1px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--as-faint); color: var(--as-muted); }
+.activity-stream__mark svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.activity-stream__mark[data-kind="deploy"] { color: var(--as-ink); }
+.activity-stream__mark[data-kind="approve"] { color: var(--as-ok); }
+.activity-stream__text { line-height: 1.5; }
+.activity-stream__text b { font-weight: 600; }
+.activity-stream em { font-style: normal; font-weight: 500; }
+.activity-stream__status {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 7px;
+  border-radius: 99px;
+  box-shadow: inset 0 0 0 1px currentColor;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 18px;
+  vertical-align: 1px;
+}
+.activity-stream__status[data-tone="ok"] { color: var(--as-ok); }
+.activity-stream__status[data-tone="warn"] { color: var(--as-warn); }
+.activity-stream__status[data-tone="bad"] { color: var(--as-bad); }
+.activity-stream__status[data-tone="neutral"] { color: var(--as-muted); }
+
+/* Focus opens the event in place: a rule down the margin, the detail below. */
+.activity-stream__row[data-open] .activity-stream__event { background: color-mix(in srgb, var(--as-ink) 5%, transparent); }
+.activity-stream__detail { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 320ms var(--as-ease); }
+.activity-stream__detail[data-open] { grid-template-rows: 1fr; }
+.activity-stream__detail > div { min-height: 0; overflow: hidden; }
+.activity-stream__detail[data-open] > div { margin: 4px 0 6px calc(4.2rem + 22px + 20px); padding-left: 14px; border-left: 2px solid var(--as-accent); }
+.activity-stream__folded { display: grid; gap: 4px; margin: 2px 0; padding: 0; list-style: none; }
+.activity-stream__folded li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.activity-stream__folded .activity-stream__time { text-align: left; }
+
+/* New activity arrives: the stream parts, the event inks in. */
+.activity-stream__row[data-fresh] .activity-stream__event { animation: as-arrive 520ms var(--as-ease) both; }
+.activity-stream__row[data-fresh] .activity-stream__time { color: var(--as-accent); }
+@keyframes as-arrive { from { opacity: 0; transform: translateY(-6px); } }
+
+.activity-stream__empty { padding: 48px 0; border-top: 1px solid var(--as-ink); color: var(--as-muted); }
+.activity-stream__empty p { margin: 0; font-family: "Instrument Serif", Georgia, serif; font-size: 1.5rem; color: var(--as-ink); }
+
+.activity-stream__ph { display: inline-block; height: 10px; border-radius: 5px; background: var(--as-faint); }
+.activity-stream__ph-row { display: flex; gap: 14px; align-items: center; }
+
+@container (max-width: 34rem) {
+  .activity-stream__day { grid-template-columns: minmax(0, 1fr); padding-top: 16px; }
+  .activity-stream__rail { position: static; flex-direction: row; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+  .activity-stream__numeral { font-size: 2rem; }
+  .activity-stream__dayname { margin: 0; }
+  .activity-stream__event { grid-template-columns: 3.4rem 20px minmax(0, 1fr); gap: 0 8px; }
+  .activity-stream__pause { left: 3.6rem; }
+  .activity-stream__detail[data-open] > div { margin-left: calc(3.4rem + 20px + 16px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activity-stream__detail { transition: none; }
+  .activity-stream__row[data-fresh] .activity-stream__event { animation: none; }
+}

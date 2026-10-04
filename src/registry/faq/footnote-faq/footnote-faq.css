@@ -1,0 +1,86 @@
+/* Footnote FAQ — answers set as notes under the line that raised them. */
+.fnf {
+  --fn-ink: #1d1b17;
+  --fn-body: #3b3832;
+  --fn-muted: #77716a;
+  --fn-line: rgb(29 27 23 / 0.12);
+  --fn-mark: #2f5fd0;
+  --fn-wash: rgb(47 95 208 / 0.08);
+  --fn-note: #f6f3ec;
+  --fn-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  max-width: 40rem;
+  color: var(--fn-body);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.fnf--night {
+  --fn-ink: #efe8dc;
+  --fn-body: #cfc8bd;
+  --fn-muted: #8f8994;
+  --fn-line: rgb(239 232 220 / 0.12);
+  --fn-mark: #b9cce4;
+  --fn-wash: rgb(185 204 228 / 0.1);
+  --fn-note: #17161b;
+}
+.fnf__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.fnf__para { margin: 0; font: 400 clamp(1.2rem, 2.4vw, 1.4rem)/1.65 "Newsreader", "Iowan Old Style", Georgia, serif; color: var(--fn-ink); text-wrap: pretty; }
+.fnf__para + .fnf__para, .fnf__notes + .fnf__para { margin-top: 1.1rem; }
+
+/* A phrase you can check: dotted underline, a footnote number. */
+.fnf__mark {
+  padding: 0.04em 0.06em;
+  margin: 0 -0.06em;
+  border-radius: 3px;
+  text-decoration: underline dotted;
+  text-decoration-color: color-mix(in srgb, var(--fn-mark) 70%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+  cursor: pointer;
+  transition: background-color 200ms ease, text-decoration-color 200ms ease;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.fnf__mark:hover { background: var(--fn-wash); }
+.fnf__mark[data-open] { background: var(--fn-wash); text-decoration-style: solid; text-decoration-color: var(--fn-mark); }
+.fnf__mark:focus-visible { outline: 2px solid var(--fn-mark); outline-offset: 2px; }
+.fnf__sup { display: inline-block; margin-left: 0.08em; text-decoration: none; font: 600 0.62em/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; color: var(--fn-mark); vertical-align: super; }
+
+/* Notes open under their paragraph. */
+.fnf__notes { display: grid; }
+.fnf__note { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows 480ms var(--fn-ease), visibility 0s linear 480ms; }
+.fnf__note[data-open] { grid-template-rows: 1fr; visibility: visible; transition: grid-template-rows 520ms var(--fn-ease), visibility 0s; }
+.fnf__note > .fnf__note-inner { min-height: 0; overflow: hidden; }
+.fnf__note-inner {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: start;
+}
+.fnf__note[data-open] .fnf__note-inner { margin-top: 0.85rem; padding: 0.95rem 0.75rem 1rem 1rem; border-radius: 12px; background: var(--fn-note); box-shadow: inset 2px 0 0 var(--fn-mark); }
+.fnf__note-inner { transition: margin-top 480ms var(--fn-ease), padding 480ms var(--fn-ease); }
+.fnf__n { font: 600 0.75rem/1.6 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; color: var(--fn-mark); }
+.fnf__q { margin: 0; font-size: 0.875rem; font-weight: 600; line-height: 1.5; color: var(--fn-ink); }
+.fnf__a { margin-top: 0.3rem; font-size: 0.875rem; line-height: 1.65; color: var(--fn-body); opacity: 0; transform: translateY(-4px); transition: opacity 260ms ease, transform 420ms var(--fn-ease); }
+.fnf__note[data-open] .fnf__a { opacity: 1; transform: none; transition-delay: 120ms; }
+.fnf__a p { margin: 0; }
+.fnf__a p + p { margin-top: 0.5rem; }
+.fnf__a a { color: var(--fn-mark); }
+.fnf__close { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 0; border-radius: 6px; background: none; color: var(--fn-muted); cursor: pointer; }
+.fnf__close:hover { background: var(--fn-wash); color: var(--fn-ink); }
+.fnf__close:focus-visible { outline: 2px solid var(--fn-mark); outline-offset: 1px; }
+.fnf__close svg { width: 0.85rem; height: 0.85rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+
+/* The index, for people who scan. */
+.fnf__index { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--fn-line); }
+.fnf__index-title { margin: 0 0 0.6rem; font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fn-muted); }
+.fnf__index ol { display: grid; gap: 0.15rem; margin: 0; padding: 0; list-style: none; }
+.fnf__index a { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); padding: 0.35rem 0.25rem; border-radius: 6px; color: var(--fn-body); font-size: 0.875rem; line-height: 1.45; text-decoration: none; transition: background-color 160ms ease, color 160ms ease; }
+.fnf__index a:hover { background: var(--fn-wash); color: var(--fn-ink); }
+.fnf__index a:focus-visible { outline: 2px solid var(--fn-mark); outline-offset: 1px; }
+.fnf__index a[data-open] { color: var(--fn-ink); }
+.fnf__index-n { font: 600 0.75rem/1.6 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; color: var(--fn-mark); }
+
+.fnf[data-motion="reduced"] * { transition-duration: 1ms !important; transition-delay: 0ms !important; }
+@media (prefers-reduced-motion: reduce) { .fnf * { transition-duration: 1ms !important; transition-delay: 0ms !important; } }

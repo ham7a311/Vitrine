@@ -1,0 +1,30 @@
+/* Ripple Rim Button — a wave runs round the rim from where you pressed. */
+.rrb {
+  --rrb-face: #17151b;
+  --rrb-rim: #b9cce4;
+  --rrb-ink: #efe8dc;
+  --rrb-done: #7fd1a8;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  height: 3rem;
+  min-width: 7.5rem;
+  padding: 0 1.25rem;
+  border: 0;
+  background: none;
+  color: var(--rrb-ink);
+  font: 600 0.9375rem/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.rrb--paper { --rrb-face: #ffffff; --rrb-rim: #2f5fd0; --rrb-ink: #1b1a17; --rrb-done: #1f7a4d; }
+.rrb__rim { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.rrb__shape { fill: var(--rrb-face); stroke: var(--rrb-rim); stroke-width: 1.5; stroke-linejoin: round; transition: stroke 300ms ease; }
+.rrb:hover .rrb__shape { stroke-width: 2; }
+.rrb[data-done] .rrb__shape { stroke: var(--rrb-done); }
+.rrb__label { position: relative; display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
+.rrb[data-done] .rrb__label { color: var(--rrb-done); }
+.rrb__label svg { width: 0.95rem; height: 0.95rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.rrb:active .rrb__label { transform: scale(0.97); }
+.rrb:focus-visible { outline: 2px solid var(--rrb-rim); outline-offset: 5px; border-radius: 999px; }

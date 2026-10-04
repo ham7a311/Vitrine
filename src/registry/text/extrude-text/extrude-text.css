@@ -1,0 +1,123 @@
+.ex {
+  --face: #ff5a36;
+  --face-hi: #ff8a5c;
+  --side-near: #d93a1c;
+  --side-far: #6e1606;
+  --shadow: rgb(110 22 6 / 0.35);
+  --depth: 0.34em;
+  --ry: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.ex--cobalt {
+  --face: #2350ff;
+  --face-hi: #5f84ff;
+  --side-near: #1736c4;
+  --side-far: #06125a;
+  --shadow: rgb(6 18 90 / 0.35);
+}
+.ex--mint {
+  --face: #7cf2c2;
+  --face-hi: #c2ffe6;
+  --side-near: #3fbf8f;
+  --side-far: #0b3a2b;
+  --shadow: rgb(0 0 0 / 0.6);
+}
+
+.ex__btn {
+  position: relative;
+  z-index: 1;
+  padding: 0.1em 0.2em;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  /* The perspective lives on the button: it is the parent of the 3D tree. */
+  perspective: 900px;
+  transform-style: preserve-3d;
+  font-family: var(--font-hanken), "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 17vw, 12.5rem);
+  line-height: 1;
+  letter-spacing: -0.01em; /* a little air so each letter's sides have room */
+  text-transform: uppercase;
+  color: var(--face);
+  border-radius: 0.12em;
+}
+.ex__btn:focus-visible {
+  outline: 3px solid var(--face);
+  outline-offset: 0.12em;
+}
+
+/* An idle sway, under whatever angle the pointer asks for. */
+.ex__sway {
+  display: block;
+  transform-style: preserve-3d;
+  animation: ex-sway 7s ease-in-out infinite alternate;
+}
+.ex[data-held] .ex__sway {
+  animation-play-state: paused;
+}
+@keyframes ex-sway {
+  from { transform: rotateY(-16deg) rotateX(8deg); }
+  to { transform: rotateY(16deg) rotateX(2deg); }
+}
+.ex__turn {
+  display: flex;
+  transform-style: preserve-3d;
+  white-space: nowrap;
+}
+
+.ex__letter {
+  position: relative;
+  display: inline-block;
+  transform-style: preserve-3d;
+}
+.ex__letter[data-space] {
+  width: 0.28em;
+}
+/* The slices, stepping back and darkening from the front edge colour to the far one. */
+.ex__slice {
+  position: absolute;
+  inset: 0;
+  color: color-mix(in oklab, var(--side-near), var(--side-far) calc(var(--t) * 100%));
+  transform: translateZ(calc(var(--t) * var(--depth) * -1));
+}
+.ex__face {
+  position: relative;
+  display: block;
+  transform: translateZ(0.5px);
+  background: linear-gradient(170deg, var(--face-hi), var(--face) 45%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* The shadow it casts on the floor, sliding with the turn. */
+.ex__floor {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  width: 70%;
+  height: 12%;
+  transform: translateX(calc(-50% + var(--ry) * -6%));
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--shadow), transparent);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.ex__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  margin: 0;
+}
+
+.ex[data-motion="reduced"] .ex__sway { animation: none; transform: rotateY(-12deg) rotateX(6deg); }
+@media (prefers-reduced-motion: reduce) {
+  .ex__sway { animation: none; transform: rotateY(-12deg) rotateX(6deg); }
+}

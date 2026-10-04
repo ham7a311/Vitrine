@@ -1,0 +1,178 @@
+.si {
+  --bg: #0d0c0b;
+  --ink-c: #f3ece0;
+  --faint: 0.14;
+  --accent: #f2b56b;
+  --muted: rgb(243 236 224 / 0.45);
+  position: relative;
+  height: 100%;
+  min-height: 520px;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink-c);
+}
+.si--paper {
+  --bg: #f4efe6;
+  --ink-c: #1d1a15;
+  --faint: 0.13;
+  --accent: #b4461c;
+  --muted: rgb(29 26 21 / 0.5);
+}
+
+/* Its own scroller, so the reading pace is yours wherever it's placed. */
+.si__scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--ink-c) 25%, transparent) transparent;
+}
+.si__scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+.si__track {
+  height: 320%;
+  min-height: 1500px;
+}
+.si__stage {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100cqh;
+  box-sizing: border-box;
+  padding: 48px clamp(20px, 7vw, 96px);
+}
+.si__scroll { container-type: size; }
+
+.si__col {
+  width: 100%;
+  max-width: 920px;
+  margin-inline: auto;
+}
+.si__kicker {
+  margin: 0 0 22px;
+  font: 500 11px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.si__text {
+  margin: 0;
+  max-width: 30ch;
+  font-family: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  font-size: clamp(1.55rem, 4.1vw, 3.15rem);
+  line-height: 1.24;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+
+/* Each word: faint until the reading point reaches it, then fully inked. */
+.si__w {
+  --ink: 0;
+  --u: 0;
+  opacity: calc(var(--faint) + (1 - var(--faint)) * var(--ink));
+  transition: color 380ms ease;
+}
+.si__w[data-lit] {
+  color: var(--accent);
+}
+/* A hand-drawn underline in the accent, running along the phrase word by word. */
+.si__w[data-mark] {
+  position: relative;
+}
+.si__w[data-mark]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.06em;
+  height: 0.24em;
+  background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5.2 C 18 3.4, 34 6.4, 52 4.6 S 88 3.2, 104 5 S 116 4.4, 119 4.2' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5.2 C 18 3.4, 34 6.4, 52 4.6 S 88 3.2, 104 5 S 116 4.4, 119 4.2' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  clip-path: inset(0 calc((1 - var(--u)) * 100%) 0 0);
+  pointer-events: none;
+}
+
+.si__sign {
+  margin: 28px 0 0;
+  font: italic 400 clamp(1rem, 1.8vw, 1.2rem) / 1.4 var(--font-newsreader), Georgia, serif;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.si[data-done] .si__sign {
+  opacity: 1;
+  transform: none;
+}
+
+/* A hint to scroll, gone once you start. */
+.si__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font: 500 10px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+.si__hint svg {
+  width: 10px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: si-nudge 1.8s ease-in-out infinite;
+}
+.si[data-started] .si__hint {
+  opacity: 0;
+}
+.si[data-started] .si__hint svg {
+  animation: none;
+}
+@keyframes si-nudge {
+  50% { transform: translateY(4px); }
+}
+
+/* Reading progress: a hairline on the left edge. */
+.si__rail {
+  position: absolute;
+  left: clamp(8px, 2.5vw, 28px);
+  top: 22%;
+  bottom: 22%;
+  width: 1px;
+  background: color-mix(in oklab, var(--ink-c) 12%, transparent);
+  pointer-events: none;
+}
+.si__rail i {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: top;
+  transform: scaleY(var(--p, 0));
+}
+
+.si[data-motion="reduced"] .si__hint,
+.si[data-motion="reduced"] .si__rail { display: none; }
+.si[data-motion="reduced"] .si__w,
+.si[data-motion="reduced"] .si__sign { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .si__hint,
+  .si__rail { display: none; }
+  .si__w,
+  .si__sign { transition: none; }
+}

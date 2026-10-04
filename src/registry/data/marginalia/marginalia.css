@@ -1,0 +1,152 @@
+/* Marginalia — pick a note and the rest become the margin. */
+.marginalia {
+  --ma-bg: #ffffff;
+  --ma-ink: #1b1a17;
+  --ma-muted: #77736b;
+  --ma-line: rgb(27 26 23 / 0.1);
+  --ma-card: #ffffff;
+  --ma-hover: rgb(27 26 23 / 0.03);
+  --ma-accent: #7a3b22;
+  --ma-cols: 3;
+  --ma-serif: var(--font-newsreader), "Newsreader", Georgia, serif;
+  width: min(100%, 60rem);
+  color: var(--ma-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  -webkit-font-smoothing: antialiased;
+}
+.marginalia--night {
+  --ma-ink: #ececea;
+  --ma-muted: #8b8d93;
+  --ma-line: rgb(255 255 255 / 0.09);
+  --ma-card: #16171a;
+  --ma-hover: rgb(255 255 255 / 0.04);
+  --ma-accent: #e8b48f;
+}
+
+.marginalia__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  margin: 0 0 14px;
+  padding: 0 10px 0 6px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--ma-muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.marginalia__back:hover { color: var(--ma-ink); background: var(--ma-hover); }
+.marginalia__back:focus-visible, .marginalia__card:focus-visible, .marginalia__page-title:focus-visible { outline: 2px solid var(--ma-ink); outline-offset: 2px; }
+
+.marginalia__stage { display: grid; gap: 12px; grid-template-columns: repeat(var(--ma-cols), minmax(0, 1fr)); align-items: start; }
+.marginalia__item { position: relative; min-width: 0; border-radius: 14px; }
+
+/* Grid mode: every note is a card. */
+.marginalia__card {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  min-height: 11.5rem;
+  padding: 16px 16px 15px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--ma-card);
+  box-shadow: 0 0 0 1px var(--ma-line);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  align-content: start;
+  cursor: pointer;
+  transition: box-shadow 160ms ease, background 160ms ease;
+}
+.marginalia__card:hover { box-shadow: 0 0 0 1px color-mix(in srgb, var(--ma-ink) 22%, transparent); }
+.marginalia__date { color: var(--ma-muted); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+.marginalia__title { font-family: var(--ma-serif); font-size: 1.2rem; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; text-wrap: balance; }
+.marginalia__author { color: var(--ma-muted); font-size: 0.75rem; }
+.marginalia__abstract { margin-top: 4px; color: color-mix(in srgb, var(--ma-ink) 72%, transparent); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Page mode: the margin on the left, one note taking the page. */
+.marginalia[data-mode="page"] .marginalia__stage { grid-template-columns: 13.5rem minmax(0, 1fr); grid-template-rows: repeat(var(--ma-n), min-content) 1fr; gap: 0 36px; }
+.marginalia[data-mode="page"] .marginalia__item[data-open] { grid-column: 2; grid-row: 1 / calc(var(--ma-n) + 2); border-radius: 14px; }
+.marginalia[data-mode="page"] .marginalia__item[data-margin] { grid-column: 1; }
+.marginalia[data-mode="page"] .marginalia__card {
+  min-height: 0;
+  height: auto;
+  gap: 1px;
+  padding: 9px 10px 9px 12px;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  border-left: 1px solid var(--ma-line);
+}
+.marginalia[data-mode="page"] .marginalia__card:hover { background: var(--ma-hover); border-left-color: var(--ma-ink); }
+.marginalia[data-mode="page"] .marginalia__title { font-size: 0.9375rem; line-height: 1.25; }
+.marginalia[data-mode="page"] .marginalia__author, .marginalia[data-mode="page"] .marginalia__abstract { display: none; }
+.marginalia[data-mode="page"] .marginalia__date { font-size: 0.625rem; }
+
+.marginalia__page { padding: 4px 4px 28px 0; animation: ma-in 240ms ease both; }
+.marginalia__meta { margin: 0; color: var(--ma-muted); font-size: 0.75rem; letter-spacing: 0.04em; }
+.marginalia__page-title { margin: 8px 0 0; font-family: var(--ma-serif); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; outline-offset: 6px; }
+.marginalia__lede { margin: 16px 0 0; max-width: 38rem; font-family: var(--ma-serif); font-size: 1.2rem; line-height: 1.5; color: color-mix(in srgb, var(--ma-ink) 82%, transparent); }
+.marginalia__body { margin-top: 22px; max-width: 38rem; padding-top: 22px; border-top: 1px solid var(--ma-line); line-height: 1.75; font-size: 0.95rem; color: color-mix(in srgb, var(--ma-ink) 86%, transparent); }
+.marginalia__body p { margin: 0 0 14px; }
+@keyframes ma-in { from { opacity: 0; } }
+
+.marginalia__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Columns follow the component's own width. */
+.marginalia { container-type: inline-size; }
+@container (max-width: 860px) { .marginalia__stage { --ma-cols: 2; } }
+
+/* Narrow: a compact list of notes, and in page mode the margin becomes a strip above the page. */
+.marginalia[data-narrow] .marginalia__stage { --ma-cols: 1; gap: 8px; }
+.marginalia[data-narrow] .marginalia__card { min-height: 0; padding: 13px 14px; gap: 4px; }
+.marginalia[data-narrow] .marginalia__title { font-size: 1.08rem; }
+.marginalia[data-narrow] .marginalia__abstract { -webkit-line-clamp: 2; margin-top: 2px; font-size: 0.8125rem; }
+.marginalia[data-narrow] .marginalia__back { margin-bottom: 8px; }
+
+.marginalia__strip {
+  display: flex;
+  gap: 6px;
+  margin: 0 -16px 18px;
+  padding: 2px 16px 10px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 16px;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--ma-line);
+}
+.marginalia__strip::-webkit-scrollbar { display: none; }
+.marginalia__chip-wrap { flex: none; scroll-snap-align: start; }
+.marginalia__chip {
+  display: grid;
+  gap: 2px;
+  width: 11.5rem;
+  height: 100%;
+  padding: 8px 10px 9px 11px;
+  border: 0;
+  border-left: 1px solid var(--ma-line);
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  align-content: start;
+  cursor: pointer;
+}
+.marginalia__chip:hover { background: var(--ma-hover); }
+.marginalia__chip[data-active] { border-left: 2px solid var(--ma-ink); background: var(--ma-hover); cursor: default; }
+.marginalia__chip:focus-visible { outline: 2px solid var(--ma-ink); outline-offset: -2px; }
+.marginalia__chip-title { font-family: var(--ma-serif); font-size: 0.9375rem; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.marginalia[data-narrow] .marginalia__page-title { font-size: 1.75rem; }
+.marginalia[data-narrow] .marginalia__lede { font-size: 1.08rem; }
+.marginalia[data-narrow] .marginalia__body { font-size: 0.9rem; }
+
+@media (prefers-reduced-motion: reduce) { .marginalia__page { animation: none; } .marginalia__card { transition: none; } }
+.marginalia[data-motion="reduced"] .marginalia__page, .marginalia[data-motion="reduced"] .marginalia__card { animation: none; transition: none; }

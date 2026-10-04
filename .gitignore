@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+__pycache__
+
+# Brand assets and launch-film production (kept local, not published)
+/brand
+
+# Internal project notes
+VITRINE_CONTEXT.md
+
+# Brand direction pages (kept local, not published)
+/public/_brand

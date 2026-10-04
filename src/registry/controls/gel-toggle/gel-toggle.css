@@ -1,0 +1,70 @@
+.gel {
+  --w: 84px;
+  --h: 44px;
+  --d: 34px;
+  --pad: 5px;
+  --x: 0px;
+  position: relative;
+  width: var(--w);
+  height: var(--h);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.gel[data-on] { --x: calc(var(--w) - var(--d) - var(--pad) * 2); }
+.gel:focus-visible { outline: 2px solid var(--gel-accent); outline-offset: 4px; border-radius: 999px; }
+.gel__defs { position: absolute; }
+.gel__track { position: absolute; inset: 0; overflow: hidden; border-radius: 999px; background: #d7d9dd; box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.18), inset 0 -1px 0 rgb(255 255 255 / 0.5); }
+/* The fill rides behind the drop, its leading edge a wobbling meniscus. */
+.gel__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(color-mix(in oklab, var(--gel-accent) 80%, white), var(--gel-accent));
+  transition: width 520ms cubic-bezier(0.3, 1.25, 0.4, 1) 60ms;
+}
+.gel__fill::after { content: ""; position: absolute; top: -10%; right: -6px; width: 14px; height: 120%; border-radius: 50%; background: inherit; opacity: 0; transition: opacity 200ms ease; }
+.gel[data-on] .gel__fill::after { opacity: 1; }
+.gel[data-on] .gel__fill { width: 100%; }
+.gel[data-on][data-beat] .gel__fill::after { animation: gel-meniscus 700ms ease-out; }
+@keyframes gel-meniscus { 0% { scale: 1 1; } 30% { scale: 1.6 0.8; } 60% { scale: 0.8 1.1; } 100% { scale: 1 1; } }
+.gel__drops { position: absolute; inset: 0; }
+.gel__drop {
+  position: absolute;
+  top: var(--pad);
+  left: var(--pad);
+  width: var(--d);
+  height: var(--d);
+  border-radius: 50%;
+  background: #fff;
+  translate: var(--x) 0;
+}
+/* The head leaves first and the tail follows: the goo filter draws the bridge between them. */
+.gel__drop--head { transition: translate 380ms cubic-bezier(0.5, 0, 0.2, 1); }
+.gel__drop--tail { width: calc(var(--d) * 0.82); height: calc(var(--d) * 0.82); margin: calc(var(--d) * 0.09); transition: translate 520ms cubic-bezier(0.6, 0, 0.25, 1) 70ms; }
+.gel[data-beat="a"] .gel__drop--head { animation: gel-land-a 560ms ease-out 300ms; }
+.gel[data-beat="b"] .gel__drop--head { animation: gel-land-b 560ms ease-out 300ms; }
+@keyframes gel-land-a { 0% { scale: 1.12 0.86; } 40% { scale: 0.94 1.06; } 70% { scale: 1.03 0.98; } 100% { scale: 1 1; } }
+@keyframes gel-land-b { 0% { scale: 1.12 0.86; } 40% { scale: 0.94 1.06; } 70% { scale: 1.03 0.98; } 100% { scale: 1 1; } }
+/* Sharp highlight drawn outside the filter so it stays crisp. */
+.gel__shine {
+  pointer-events: none;
+  position: absolute;
+  top: calc(var(--pad) + var(--d) * 0.14);
+  left: calc(var(--pad) + var(--d) * 0.22);
+  width: calc(var(--d) * 0.36);
+  height: calc(var(--d) * 0.2);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.9);
+  box-shadow: 0 0 0 0 transparent;
+  translate: var(--x) 0;
+  transition: translate 380ms cubic-bezier(0.5, 0, 0.2, 1);
+  filter: blur(0.3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gel__fill, .gel__drop, .gel__shine { transition: none; }
+  .gel__drop--head, .gel__fill::after { animation: none !important; }
+}

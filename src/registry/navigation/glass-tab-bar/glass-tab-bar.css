@@ -1,0 +1,87 @@
+/* Glass Tab Bar — a droplet of clear glass rides inside frosted glass. */
+.glass-tab-bar {
+  --gt-ink: #111;
+  max-width: calc(100vw - 1rem);
+  --gt-tint: #0a84ff;
+  --gt-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: "Geist", -apple-system, "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.glass-tab-bar__bar,
+.glass-tab-bar__side > * {
+  background: rgb(255 255 255 / 0.42);
+  -webkit-backdrop-filter: blur(18px) saturate(1.9);
+  backdrop-filter: blur(18px) saturate(1.9);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.85),
+    inset 0 -1px 1px rgb(255 255 255 / 0.35),
+    inset 0 0 0 1px rgb(255 255 255 / 0.35),
+    0 12px 30px -12px rgb(0 0 0 / 0.35);
+}
+.glass-tab-bar__bar {
+  position: relative;
+  display: flex;
+  padding: 0.3rem;
+  border-radius: 999px;
+}
+.glass-tab-bar__drop {
+  position: absolute;
+  top: 0.3rem;
+  bottom: 0.3rem;
+  left: var(--gt-l);
+  right: calc(100% - var(--gt-l) - var(--gt-w));
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.75), rgb(255 255 255 / 0.35));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 1),
+    inset 0 -2px 4px rgb(0 0 0 / 0.06),
+    0 4px 12px -4px rgb(0 0 0 / 0.25);
+  transition:
+    left 520ms var(--gt-ease) var(--gt-lead),
+    right 520ms var(--gt-ease) var(--gt-trail);
+}
+.glass-tab-bar__tab {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  width: clamp(3.3rem, 16vw, 4.6rem);
+  padding: 0.45rem 0.3rem 0.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: rgb(0 0 0 / 0.72);
+  font: 500 0.6875rem inherit;
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 300ms ease;
+}
+.glass-tab-bar__tab[aria-selected="true"] { color: var(--gt-tint); }
+.glass-tab-bar__tab:focus-visible { outline: 2px solid var(--gt-tint); outline-offset: -2px; }
+.glass-tab-bar__icon { display: grid; place-items: center; transition: transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+/* the droplet magnifies what's beneath it */
+.glass-tab-bar__tab[aria-selected="true"] .glass-tab-bar__icon { transform: scale(1.16); }
+.glass-tab-bar__icon svg { width: 1.4rem; height: 1.4rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.glass-tab-bar__tab[aria-selected="true"] .glass-tab-bar__icon svg { fill: color-mix(in srgb, currentColor 18%, transparent); }
+
+.glass-tab-bar__side > * {
+  display: grid;
+  place-items: center;
+  width: clamp(3rem, 14vw, 3.6rem);
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 50%;
+  color: rgb(0 0 0 / 0.75);
+  cursor: pointer;
+}
+.glass-tab-bar__side svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.glass-tab-bar__side > *:focus-visible { outline: 2px solid var(--gt-tint); outline-offset: 3px; }
+.glass-tab-bar__side > *:active { transform: scale(0.94); }
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-tab-bar__drop, .glass-tab-bar__icon { transition-duration: 1ms !important; }
+}

@@ -1,0 +1,91 @@
+/* Inline Diff — an AI edit that lives inside the code. */
+.inline-diff {
+  --id-bg: #141414;
+  --id-panel: #1b1b1b;
+  --id-ink: #d6d6d6;
+  --id-muted: #7c7c7c;
+  --id-line: rgb(255 255 255 / 0.07);
+  --id-add: #3fb950;
+  --id-del: #f85149;
+  --id-accent: #8ab4ff;
+  --id-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100%, 40rem);
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--id-bg);
+  box-shadow: inset 0 0 0 1px var(--id-line), 0 30px 60px -30px rgb(0 0 0 / 0.9);
+  color: var(--id-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  outline: none;
+}
+.inline-diff:focus-visible { box-shadow: inset 0 0 0 1px var(--id-accent), 0 30px 60px -30px rgb(0 0 0 / 0.9); }
+
+.inline-diff__tabs { display: flex; height: 2.25rem; background: #0f0f0f; box-shadow: inset 0 -1px 0 var(--id-line); }
+.inline-diff__tab {
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0 1rem; background: var(--id-bg);
+  box-shadow: inset 1px 0 0 var(--id-line), inset -1px 0 0 var(--id-line); font-size: 0.8125rem; color: var(--id-ink);
+}
+.inline-diff__tab i { font: 700 0.5625rem "Geist Mono", monospace; font-style: normal; color: #4a9eff; }
+.inline-diff__tab b { width: 6px; height: 6px; border-radius: 50%; background: var(--id-accent); }
+
+.inline-diff__ask {
+  display: flex; align-items: center; gap: 0.6rem; margin: 0.75rem 0.75rem 0.25rem; padding: 0.55rem 0.75rem; border-radius: 8px;
+  background: color-mix(in srgb, var(--id-accent) 8%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--id-accent) 18%, transparent);
+  font-size: 0.8125rem;
+}
+.inline-diff__spark { color: var(--id-accent); }
+.inline-diff__ask > span:nth-child(2) { flex: 1; min-width: 0; }
+.inline-diff__stat { font: 500 0.75rem "Geist Mono", monospace; }
+.inline-diff__stat em { font-style: normal; color: var(--id-add); }
+.inline-diff__stat s { text-decoration: none; color: var(--id-del); }
+
+.inline-diff__code { margin: 0; padding: 0.5rem 0 0.75rem; font: 400 0.8125rem/1.7 "Geist Mono", "IBM Plex Mono", ui-monospace, monospace; overflow-x: auto; }
+/* each row can fold away: grid rows 1fr → 0fr */
+.inline-diff__row { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 480ms var(--id-ease), opacity 360ms ease; }
+.inline-diff__row[data-gone] { grid-template-rows: 0fr; opacity: 0; }
+.inline-diff__row--add:not([data-shown]) { grid-template-rows: 0fr; opacity: 0; }
+.inline-diff__line { min-height: 0; overflow: hidden; display: grid; grid-template-columns: 2.6rem 1rem 1fr; white-space: pre; }
+.inline-diff__num { padding-right: 0.8rem; text-align: right; color: #505050; user-select: none; }
+.inline-diff__sign { color: var(--id-muted); user-select: none; }
+.inline-diff__line code { font: inherit; padding-right: 1rem; }
+
+.inline-diff__row--del .inline-diff__line { background: color-mix(in srgb, var(--id-del) 12%, transparent); transition: background 400ms ease; }
+.inline-diff__row--del .inline-diff__sign { color: var(--id-del); }
+.inline-diff__row--del code { text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--id-del) 60%, transparent); opacity: 0.75; }
+.inline-diff__row--add .inline-diff__line { background: color-mix(in srgb, var(--id-add) 13%, transparent); transition: background 700ms ease 200ms; }
+.inline-diff__row--add .inline-diff__sign { color: var(--id-add); }
+.inline-diff__row--add[data-shown] code { animation: inline-diff-type 420ms steps(18, end); }
+/* after accepting, additions become ordinary code */
+.inline-diff[data-phase="accepted"] .inline-diff__row--add .inline-diff__line { background: transparent; }
+.inline-diff[data-phase="accepted"] .inline-diff__row--add .inline-diff__sign { color: transparent; }
+/* after rejecting, the originals are un-struck */
+.inline-diff[data-phase="rejected"] .inline-diff__row--del .inline-diff__line { background: transparent; }
+.inline-diff[data-phase="rejected"] .inline-diff__row--del code { text-decoration-color: transparent; opacity: 1; transition: opacity 400ms ease, text-decoration-color 400ms ease; }
+.inline-diff[data-phase="rejected"] .inline-diff__row--del .inline-diff__sign { color: transparent; }
+
+.inline-diff__k { color: #ff7b72; }
+.inline-diff__s { color: #a5d6ff; }
+.inline-diff__n { color: #79c0ff; }
+.inline-diff__o { color: #d2a8ff; }
+
+.inline-diff__bar { display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem; min-height: 3rem; padding: 0 0.75rem; box-shadow: inset 0 1px 0 var(--id-line); font-size: 0.8125rem; }
+.inline-diff__writing { display: inline-flex; align-items: center; gap: 0.5rem; margin-right: auto; color: var(--id-muted); }
+.inline-diff__writing i { width: 0.8rem; height: 0.8rem; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--id-accent) 30%, transparent); border-top-color: var(--id-accent); animation: inline-diff-spin 700ms linear infinite; }
+.inline-diff__done { margin-right: auto; color: var(--id-muted); animation: inline-diff-in 360ms var(--id-ease); }
+.inline-diff__btn {
+  display: inline-flex; align-items: center; gap: 0.5rem; height: 1.9rem; padding: 0 0.7rem; border: 0; border-radius: 6px;
+  background: rgb(255 255 255 / 0.06); color: var(--id-ink); font: 500 0.8125rem inherit; font-family: inherit; cursor: pointer;
+  transition: background 160ms ease; animation: inline-diff-in 360ms var(--id-ease);
+}
+.inline-diff__btn:hover { background: rgb(255 255 255 / 0.1); }
+.inline-diff__btn--accept { background: #238636; color: #fff; }
+.inline-diff__btn--accept:hover { background: #2ea043; }
+.inline-diff__btn:focus-visible { outline: 2px solid var(--id-accent); outline-offset: 2px; }
+.inline-diff__btn kbd { font: 500 0.6875rem "Geist Mono", monospace; opacity: 0.7; }
+
+@keyframes inline-diff-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes inline-diff-spin { to { transform: rotate(360deg); } }
+@keyframes inline-diff-in { from { opacity: 0; transform: translateY(3px); } }
+@media (prefers-reduced-motion: reduce) {
+  .inline-diff * { animation: none !important; transition-duration: 1ms !important; }
+}

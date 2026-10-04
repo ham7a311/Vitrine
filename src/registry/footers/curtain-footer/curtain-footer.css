@@ -1,0 +1,46 @@
+/* Curtain Footer — the page lifts off the footer like a sheet. */
+.curtain-footer {
+  --cf-ink: #efe8dc;
+  --cf-muted: #a8a59c;
+  --cf-faint: #6f6a64;
+  --cf-under: #16130f;
+  position: relative;
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.curtain-footer__sheet {
+  position: relative;
+  z-index: 1;
+  border-radius: 0 0 clamp(1.25rem, 3vw, 2.25rem) clamp(1.25rem, 3vw, 2.25rem);
+  background: #0c0b0a;
+  box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.85), 0 1px 0 rgb(239 232 220 / 0.06);
+}
+.curtain-footer__foot {
+  position: sticky;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  padding: 3.5rem clamp(1.25rem, 5vw, 4rem) 0;
+  background: var(--cf-under);
+  color: var(--cf-ink);
+}
+.curtain-footer__cols {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 2rem; max-width: 52rem;
+  opacity: calc(0.25 + var(--cf-p) * 0.75); transform: translateY(calc((1 - var(--cf-p)) * 24px));
+}
+.curtain-footer__cols nav { display: grid; gap: 0.5rem; align-content: start; }
+.curtain-footer__cols p { margin: 0 0 0.3rem; font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cf-faint); }
+.curtain-footer__cols a { color: var(--cf-muted); font-size: 0.9375rem; text-decoration: none; transition: color 200ms ease; }
+.curtain-footer__cols a:hover, .curtain-footer__cols a:focus-visible { color: var(--cf-ink); }
+.curtain-footer__cols a:focus-visible { outline: 2px solid #e8a24a; outline-offset: 2px; border-radius: 2px; }
+/* the wordmark is cropped by the bottom edge and rises as it's uncovered */
+.curtain-footer__word {
+  margin: 2.5rem 0 0; font: 400 clamp(6rem, 24vw, 20rem)/0.78 "Anton", "Archivo", Impact, sans-serif; letter-spacing: -0.01em; text-transform: uppercase;
+  white-space: nowrap; color: transparent;
+  background: linear-gradient(180deg, var(--cf-ink), color-mix(in srgb, var(--cf-ink) 20%, var(--cf-under)) 85%);
+  -webkit-background-clip: text; background-clip: text;
+  transform: translateY(calc((1 - var(--cf-p)) * 30% + 14%));
+}
+@media (prefers-reduced-motion: reduce) {
+  .curtain-footer__cols { opacity: 1; transform: none; }
+  .curtain-footer__word { transform: translateY(14%); }
+}

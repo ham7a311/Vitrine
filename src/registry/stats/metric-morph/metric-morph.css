@@ -1,0 +1,105 @@
+/* Metric Morph — only the place values that changed move. */
+.metric-morph {
+  --mm-ink: #17160f;
+  --mm-muted: #7a766d;
+  --mm-faint: rgb(23 22 15 / 0.08);
+  --mm-up: #15803d;
+  --mm-down: #b42318;
+  --mm-flat: #7a766d;
+  --mm-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --mm-trend: var(--mm-flat);
+  margin: 0;
+  min-width: 0;
+  container-type: inline-size;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--mm-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.metric-morph--night { --mm-ink: #efeee9; --mm-muted: #8e9096; --mm-faint: rgb(255 255 255 / 0.08); --mm-up: #4ade80; --mm-down: #f87171; --mm-flat: #8e9096; }
+.metric-morph[data-trend="up"] { --mm-trend: var(--mm-up); }
+.metric-morph[data-trend="down"] { --mm-trend: var(--mm-down); }
+
+.metric-morph__label { font-size: 0.8125rem; color: var(--mm-muted); }
+.metric-morph__value {
+  display: flex;
+  align-items: flex-end;
+  margin: 6px 0 0;
+  font-size: clamp(1.75rem, 15cqi + 0.5rem, 3.25rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Each column is one place value. Only changed ones animate. */
+.metric-morph__col { position: relative; display: inline-block; padding-bottom: 0.14em; }
+.metric-morph__col:not([data-digit]) { letter-spacing: 0; }
+/* The window clips at the glyph box (with room for a comma's tail), never down into the rule's space. */
+.metric-morph__win { position: relative; display: inline-block; padding-bottom: 0.12em; margin-bottom: -0.12em; overflow: visible clip; }
+.metric-morph__new { display: inline-block; }
+.metric-morph__old { position: absolute; left: 0; top: 0; }
+/* Currency code reads as a unit, not as part of the number. */
+.metric-morph__affix--pre { align-self: flex-start; margin: 0.28em 0.4em 0 0; font-size: 0.34em; font-weight: 500; letter-spacing: 0.04em; color: var(--mm-muted); }
+
+.metric-morph__col[data-changed] .metric-morph__new {
+  color: var(--mm-trend);
+  animation:
+    mm-in-up 420ms var(--mm-ease) both,
+    mm-settle 1.6s ease 600ms forwards;
+  animation-delay: calc(var(--mm-i) * 45ms), calc(600ms + var(--mm-i) * 45ms);
+}
+.metric-morph__col[data-changed] .metric-morph__old { animation: mm-out-up 420ms var(--mm-ease) both; animation-delay: calc(var(--mm-i) * 45ms); }
+.metric-morph__col[data-changed][data-dir="down"] .metric-morph__new { animation-name: mm-in-down, mm-settle; }
+.metric-morph__col[data-changed][data-dir="down"] .metric-morph__old { animation-name: mm-out-down; }
+
+/* A new leading place opens up; a vanished one folds away. */
+.metric-morph__col[data-entering], .metric-morph__col[data-leaving] { overflow: hidden; }
+.metric-morph__col[data-entering] { animation: mm-open 380ms var(--mm-ease) both; }
+.metric-morph__col[data-leaving] { animation: mm-close 320ms var(--mm-ease) forwards; }
+
+/* The rule under the changed range: its length is the magnitude of the change. */
+.metric-morph__col[data-range]::after {
+  content: "";
+  position: absolute;
+  left: -0.02em;
+  right: -0.04em;
+  bottom: 0.02em;
+  height: 2px;
+  background: var(--mm-trend);
+  opacity: 0.55;
+  transform-origin: 0 50%;
+  animation: mm-rule 360ms var(--mm-ease) both;
+  animation-delay: calc(var(--mm-i) * 45ms);
+}
+
+.metric-morph__delta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; min-height: 1.3em; margin: 8px 0 0; font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.metric-morph__arrow { color: var(--mm-trend); font-weight: 600; }
+.metric-morph__delta-text { color: var(--mm-trend); font-weight: 500; animation: mm-fade 300ms ease both; }
+.metric-morph__compare { color: var(--mm-muted); }
+.metric-morph__updating { color: var(--mm-muted); animation: mm-breathe 1.6s ease-in-out infinite; }
+
+.metric-morph__placeholder { display: inline-block; width: 4.2ch; height: 0.7em; margin-bottom: 0.14em; border-radius: 0.12em; background: var(--mm-faint); }
+.metric-morph[aria-busy] .metric-morph__value { opacity: 0.55; transition: opacity 200ms ease; }
+
+.metric-morph__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@keyframes mm-in-up { from { transform: translateY(100%); } }
+@keyframes mm-out-up { to { transform: translateY(-100%); } }
+@keyframes mm-in-down { from { transform: translateY(-100%); } }
+@keyframes mm-out-down { to { transform: translateY(100%); } }
+@keyframes mm-settle { to { color: var(--mm-ink); } }
+@keyframes mm-open { from { max-width: 0; opacity: 0; } to { max-width: 1em; } }
+@keyframes mm-close { to { max-width: 0; opacity: 0; } }
+@keyframes mm-rule { from { transform: scaleX(0); } }
+@keyframes mm-fade { from { opacity: 0; } }
+@keyframes mm-breathe { 50% { opacity: 0.45; } }
+
+/* Reduced motion: digits swap in place; the colour and the rule still say what changed. */
+@media (prefers-reduced-motion: reduce) {
+  .metric-morph__col[data-changed] .metric-morph__new { animation: mm-settle 1.6s ease 600ms forwards; }
+  .metric-morph__col[data-changed] .metric-morph__old { display: none; }
+  .metric-morph__col[data-entering], .metric-morph__col[data-leaving] { animation: none; }
+  .metric-morph__col[data-leaving] { display: none; }
+  .metric-morph__col[data-range]::after, .metric-morph__delta-text, .metric-morph__updating { animation: none; }
+}

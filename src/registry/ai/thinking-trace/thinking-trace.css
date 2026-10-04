@@ -1,0 +1,53 @@
+/* Thinking Trace — a loader that is also a log. */
+.thinking-trace {
+  --tt-ink: #1f1b16; --tt-muted: #6b645a; --tt-faint: #a39b8f; --tt-line: rgb(31 27 22 / 0.1); --tt-accent: #c4673f;
+  --tt-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100%, 34rem); font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif; color: var(--tt-ink);
+}
+.thinking-trace--night { --tt-ink: #efe8dc; --tt-muted: #a7a1ab; --tt-faint: #6f6a74; --tt-line: rgb(239 232 220 / 0.1); --tt-accent: #b9cce4; }
+.thinking-trace__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+
+.thinking-trace__head {
+  display: flex; align-items: center; gap: 0.6rem; width: 100%; min-height: 2.4rem; padding: 0 0.3rem; border: 0; border-radius: 10px; background: none;
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.thinking-trace__head:hover .thinking-trace__chev { color: var(--tt-ink); }
+.thinking-trace__head:focus-visible { outline: 2px solid var(--tt-accent); outline-offset: 2px; }
+/* a breathing mark while working; it settles into a still dot */
+.thinking-trace__orb { position: relative; width: 0.7rem; height: 0.7rem; flex: none; border-radius: 50%; background: var(--tt-accent); animation: thinking-trace-breathe 1.6s ease-in-out infinite; }
+.thinking-trace__orb::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--tt-accent) 50%, transparent); animation: thinking-trace-ring 1.6s ease-out infinite; }
+.thinking-trace[data-done] .thinking-trace__orb { animation: none; transform: scale(0.55); background: var(--tt-faint); transition: transform 500ms var(--tt-ease); }
+.thinking-trace[data-done] .thinking-trace__orb::after { display: none; }
+
+/* the live step shimmers across its own letters */
+.thinking-trace__now {
+  flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.005em;
+  background: linear-gradient(100deg, var(--tt-muted) 0%, var(--tt-muted) 40%, var(--tt-ink) 50%, var(--tt-muted) 60%, var(--tt-muted) 100%);
+  background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: thinking-trace-enter 460ms var(--tt-ease), thinking-trace-shimmer 1.8s linear infinite;
+}
+.thinking-trace[data-done] .thinking-trace__now { background: none; color: var(--tt-muted); animation: thinking-trace-enter 460ms var(--tt-ease); }
+.thinking-trace__timer { font: 500 0.75rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--tt-faint); }
+.thinking-trace__chev { width: 0.9rem; height: 0.9rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; color: var(--tt-faint); transition: transform 360ms var(--tt-ease), color 200ms ease; }
+.thinking-trace__head[aria-expanded="true"] .thinking-trace__chev { transform: rotate(90deg); }
+
+.thinking-trace__log { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 480ms var(--tt-ease); }
+.thinking-trace__log[data-open] { grid-template-rows: 1fr; }
+.thinking-trace__log ol { min-height: 0; overflow: hidden; margin: 0; padding: 0 0 0 0.62rem; list-style: none; }
+.thinking-trace__log li {
+  position: relative; display: flex; align-items: baseline; gap: 0.75rem; padding: 0.35rem 0.3rem 0.35rem 1.1rem;
+  font-size: 0.875rem; color: var(--tt-muted); animation: thinking-trace-enter 420ms var(--tt-ease);
+}
+/* a thread connects the steps */
+.thinking-trace__log li::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--tt-line); }
+.thinking-trace__dot { position: absolute; left: -2.5px; top: 0.85rem; width: 6px; height: 6px; border-radius: 50%; background: var(--tt-faint); }
+.thinking-trace__pending .thinking-trace__dot { background: var(--tt-accent); }
+.thinking-trace__label { flex: 1; }
+.thinking-trace__ms { font: 500 0.6875rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--tt-faint); }
+.thinking-trace__pending .thinking-trace__label { color: var(--tt-ink); }
+
+@keyframes thinking-trace-shimmer { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+@keyframes thinking-trace-enter { from { opacity: 0; transform: translateY(4px); } }
+@keyframes thinking-trace-breathe { 50% { transform: scale(0.72); opacity: 0.75; } }
+@keyframes thinking-trace-ring { from { transform: scale(0.6); opacity: 1; } to { transform: scale(1.5); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .thinking-trace * { animation: none !important; transition-duration: 1ms !important; } .thinking-trace__now { background: none; color: var(--tt-ink); } }

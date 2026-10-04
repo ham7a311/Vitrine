@@ -1,0 +1,73 @@
+/* Gradient Bloom Button — the turning gradient blooms in from where you entered. */
+@property --gbb-a { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
+
+.gbb {
+  --gbb-grad: conic-gradient(from var(--gbb-a) at 50% 50%, #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4);
+  --gbb-face: #141217;
+  --gbb-ink: #efe8dc;
+  --gbb-ink-on: #141216;
+  --ex: 50%;
+  --ey: 50%;
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  place-items: center;
+  height: 3.25rem;
+  min-width: 10rem;
+  padding: 0 1.75rem;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background: var(--gbb-face);
+  color: var(--gbb-ink);
+  font: 600 0.9375rem/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  animation: gbb-turn 7s linear infinite;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 160ms ease;
+}
+.gbb--paper {
+  --gbb-grad: conic-gradient(from var(--gbb-a) at 50% 50%, #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0);
+  --gbb-face: #fffdf8;
+  --gbb-ink: #1b1a17;
+  --gbb-ink-on: #ffffff;
+}
+/* The resting hairline: the gradient shown only in a 1.5px border band. */
+.gbb__ring {
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: var(--gbb-grad);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+.gbb__label { grid-area: 1 / 1; position: relative; white-space: nowrap; }
+/* Same box as the button, so the inverted label lands exactly on the original. */
+.gbb__bloom {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0 1.75rem;
+  background: var(--gbb-grad);
+  color: var(--gbb-ink-on);
+  clip-path: circle(0% at var(--ex) var(--ey));
+  transition: clip-path 520ms cubic-bezier(0.55, 0, 0.75, 0.3);
+  pointer-events: none;
+}
+.gbb[data-on] .gbb__bloom { clip-path: circle(140% at var(--ex) var(--ey)); transition: clip-path 680ms cubic-bezier(0.16, 1, 0.3, 1); }
+.gbb:active { transform: scale(0.97); }
+.gbb:focus-visible { outline: 2px solid var(--gbb-ink); outline-offset: 4px; }
+
+@keyframes gbb-turn { to { --gbb-a: 360deg; } }
+
+.gbb[data-motion="reduced"] { animation: none; }
+.gbb[data-motion="reduced"] .gbb__bloom { transition-duration: 1ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  .gbb { animation: none; }
+  .gbb__bloom { transition-duration: 1ms !important; }
+}

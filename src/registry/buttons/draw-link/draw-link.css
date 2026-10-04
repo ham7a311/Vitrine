@@ -1,0 +1,52 @@
+/* Draw Link — the underline travels through the word. */
+.draw-link {
+  --dl-ink: #efe8dc;
+  --dl-line: #b9cce4;
+  --dl-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.2em;
+  color: var(--dl-ink);
+  text-decoration: none;
+  cursor: pointer;
+}
+.draw-link__text { position: relative; }
+.draw-link__text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.12em;
+  height: max(1px, 0.07em);
+  background: var(--dl-line);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 520ms var(--dl-ease);
+}
+/* enter: grow from the side you came in on */
+.draw-link[data-on][data-from="left"] .draw-link__text::after { transform-origin: left center; transform: scaleX(1); }
+.draw-link[data-on][data-from="right"] .draw-link__text::after { transform-origin: right center; transform: scaleX(1); }
+/* leave: shrink toward the side you leave through */
+.draw-link:not([data-on])[data-from="left"] .draw-link__text::after { transform-origin: left center; }
+.draw-link:not([data-on])[data-from="right"] .draw-link__text::after { transform-origin: right center; }
+.draw-link:focus-visible { outline: none; }
+.draw-link:focus-visible .draw-link__text::after { transform: scaleX(1); }
+.draw-link:focus-visible .draw-link__text { box-shadow: 0 0 0 3px color-mix(in srgb, var(--dl-line) 35%, transparent); border-radius: 2px; }
+
+.draw-link__arrow {
+  width: 0.62em;
+  height: 0.62em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.55;
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease;
+}
+.draw-link[data-on] .draw-link__arrow,
+.draw-link:focus-visible .draw-link__arrow { transform: translate(0.12em, -0.12em); opacity: 1; }
+
+@media (hover: none) { .draw-link__text::after { transform: scaleX(1); opacity: 0.4; } }
+@media (prefers-reduced-motion: reduce) { .draw-link__text::after, .draw-link__arrow { transition-duration: 1ms; } }

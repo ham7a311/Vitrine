@@ -1,0 +1,88 @@
+/* Hinge Split Button — the alternatives hang from the button's bottom edge. */
+.hsb {
+  --hsb-face: #efe8dc;
+  --hsb-ink: #141216;
+  --hsb-seam: rgb(20 18 22 / 0.16);
+  --hsb-leaf: #1a181d;
+  --hsb-leaf-ink: #efe8dc;
+  --hsb-muted: #9c96a1;
+  --hsb-hover: rgb(239 232 220 / 0.06);
+  --hsb-line: rgb(239 232 220 / 0.1);
+  --hsb-accent: #b9cce4;
+  --hsb-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --hsb-swing: cubic-bezier(0.34, 1.5, 0.5, 1);
+  position: relative;
+  display: inline-block;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.hsb--paper {
+  --hsb-face: #1b1a17;
+  --hsb-ink: #f6f3ec;
+  --hsb-seam: rgb(246 243 236 / 0.2);
+  --hsb-leaf: #ffffff;
+  --hsb-leaf-ink: #1b1a17;
+  --hsb-muted: #6f6a62;
+  --hsb-hover: rgb(27 26 23 / 0.05);
+  --hsb-line: rgb(27 26 23 / 0.1);
+  --hsb-accent: #2f5fd0;
+}
+
+.hsb__bar { position: relative; z-index: 2; display: inline-flex; align-items: stretch; height: 2.75rem; border-radius: 11px; background: var(--hsb-face); color: var(--hsb-ink); box-shadow: 0 1px 0 rgb(255 255 255 / 0.25) inset, 0 6px 18px -10px rgb(0 0 0 / 0.6); }
+.hsb__main, .hsb__caret { display: inline-flex; align-items: center; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; transition: background-color 160ms ease, transform 160ms ease; }
+.hsb__main { padding: 0 1.05rem 0 1.15rem; border-radius: 11px 0 0 11px; overflow: hidden; font-size: 0.9063rem; font-weight: 600; letter-spacing: -0.01em; }
+.hsb__caret { justify-content: center; width: 2.6rem; border-radius: 0 11px 11px 0; }
+.hsb__main:hover, .hsb__caret:hover { background: rgb(127 127 127 / 0.12); }
+.hsb__main:active { transform: scale(0.98); }
+.hsb__main:focus-visible, .hsb__caret:focus-visible { outline: 2px solid var(--hsb-accent); outline-offset: 2px; position: relative; z-index: 1; }
+.hsb__seam { width: 1px; margin: 0.55rem 0; background: var(--hsb-seam); }
+.hsb__caret svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 420ms var(--hsb-ease); }
+.hsb[data-open] .hsb__caret svg { transform: rotate(180deg); }
+
+.hsb__reel { display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
+.hsb__reel[data-turned] { animation: hsb-turn 520ms var(--hsb-ease) both; }
+.hsb__icon { display: inline-grid; width: 1rem; height: 1rem; }
+.hsb__icon svg { width: 100%; height: 100%; }
+
+/* The leaf hangs from a hinge 6px below the bar. Closed, it's edge-on and out of sight. */
+.hsb__hinge { position: absolute; z-index: 20; top: 100%; left: 0; min-width: 100%; padding-top: 6px; perspective: 900px; pointer-events: none; }
+.hsb__leaf {
+  position: relative;
+  display: grid;
+  min-width: 100%;
+  width: max-content;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.375rem;
+  border-radius: 6px 6px 12px 12px;
+  background: var(--hsb-leaf);
+  color: var(--hsb-leaf-ink);
+  box-shadow: 0 0 0 1px var(--hsb-line), 0 24px 48px -20px rgb(0 0 0 / 0.55);
+  transform-origin: 50% -6px;
+  transform: rotateX(-88deg);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 240ms cubic-bezier(0.5, 0, 0.75, 0), opacity 240ms ease, visibility 0s linear 240ms;
+  pointer-events: auto;
+}
+.hsb[data-open] .hsb__leaf { transform: none; opacity: 1; visibility: visible; transition: transform 620ms var(--hsb-swing), opacity 160ms ease, visibility 0s; }
+/* Light falls off the leaf while it's tilted. */
+.hsb__shade { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(to bottom, rgb(0 0 0 / 0.0), rgb(0 0 0 / 0.45)); opacity: 1; pointer-events: none; transition: opacity 240ms ease; }
+.hsb[data-open] .hsb__shade { opacity: 0; transition: opacity 620ms var(--hsb-ease); }
+
+.hsb__item { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); gap: 0.5rem; align-items: start; padding: 0.6rem 0.75rem 0.6rem 0.5rem; border: 0; border-radius: 8px; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; opacity: 0; transform: translateY(-4px); transition: background-color 140ms ease, opacity 200ms ease, transform 300ms var(--hsb-ease); }
+.hsb[data-open] .hsb__item { opacity: 1; transform: none; transition-delay: 0ms, calc(120ms + var(--i) * 40ms), calc(120ms + var(--i) * 40ms); }
+.hsb__item:hover, .hsb__item:focus-visible { background: var(--hsb-hover); outline: none; }
+.hsb__item:focus-visible { box-shadow: inset 0 0 0 2px var(--hsb-accent); }
+.hsb__check { display: grid; place-items: center; height: 1.25rem; color: var(--hsb-accent); }
+.hsb__check svg { width: 0.95rem; height: 0.95rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.hsb__item[aria-checked="true"] .hsb__check svg { opacity: 1; }
+.hsb__text { display: grid; gap: 0.15rem; }
+.hsb__label { font-size: 0.875rem; font-weight: 600; letter-spacing: -0.005em; }
+.hsb__detail { font-size: 0.78rem; line-height: 1.4; color: var(--hsb-muted); }
+
+@keyframes hsb-turn { from { opacity: 0; transform: translateY(70%); } to { opacity: 1; transform: none; } }
+
+.hsb[data-motion="reduced"] *, .hsb[data-motion="reduced"] { animation: none !important; transition-duration: 1ms !important; transition-delay: 0ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  .hsb *, .hsb { animation: none !important; transition-duration: 1ms !important; transition-delay: 0ms !important; }
+}

@@ -1,0 +1,52 @@
+.srp {
+  --bg: #fbfaf7;
+  --ink: #1b1a17;
+  --muted: #77736b;
+  --line: rgb(27 26 23 / 0.1);
+  --code: #f1eee7;
+  --accent: #7c5cff;
+  width: min(100%, 40rem);
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--bg);
+  color: var(--ink);
+  font: 0.9375rem/1.65 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.srp--night { --bg: #121116; --ink: #ecebf0; --muted: #8f8b97; --line: rgb(236 235 240 / 0.1); --code: #1b1a21; --accent: #a996ff; }
+.srp__q { margin: 0 0 18px auto; width: fit-content; max-width: 80%; padding: 10px 14px; border-radius: 16px 16px 4px 16px; background: color-mix(in oklab, var(--accent) 12%, transparent); }
+.srp__a { display: grid; grid-template-columns: 28px 1fr; gap: 12px; }
+.srp__avatar { width: 28px; height: 28px; border-radius: 50%; background: conic-gradient(from 200deg, var(--accent), #ff8a5c, #4ff0c9, var(--accent)); }
+.srp[data-state="streaming"] .srp__avatar { animation: srp-spin 3s linear infinite; }
+@keyframes srp-spin { to { rotate: 360deg; } }
+.srp__body { min-width: 0; }
+.srp__body p, .srp__body ul { margin: 0 0 12px; }
+.srp__body ul { padding-left: 1.2em; list-style: disc; }
+.srp__body li::marker { color: var(--muted); }
+.srp__body li { margin: 4px 0; }
+.srp__tok { animation: srp-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes srp-in { from { opacity: 0; filter: blur(5px); } }
+.srp__code { margin: 4px 0 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--code); overflow: hidden; }
+.srp__code figcaption { padding: 7px 12px; border-bottom: 1px solid var(--line); font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.srp__code pre { margin: 0; padding: 12px; overflow-x: auto; font: 0.8125rem/1.6 "Geist Mono", ui-monospace, monospace; }
+.srp__c { animation: srp-in 220ms ease both; }
+.srp__kw { color: #c2410c; }
+.srp__str { color: #15803d; }
+.srp__fn { color: #2563eb; }
+.srp__num { color: #b45309; }
+.srp__com { color: var(--muted); font-style: italic; }
+.srp--night .srp__kw { color: #ff9e64; }
+.srp--night .srp__str { color: #9ece6a; }
+.srp--night .srp__fn { color: #7aa2f7; }
+.srp--night .srp__num { color: #e0af68; }
+.srp__caret { display: inline-block; width: 0.5em; height: 1.05em; margin-left: 2px; vertical-align: -0.18em; border-radius: 2px; background: var(--accent); box-shadow: 0 0 12px 2px color-mix(in oklab, var(--accent) 60%, transparent); animation: srp-caret 900ms ease-in-out infinite; }
+@keyframes srp-caret { 50% { opacity: 0.35; } }
+.srp__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--line); }
+.srp__meta { display: inline-flex; align-items: center; gap: 8px; font: 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--muted); font-variant-numeric: tabular-nums; }
+.srp__pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: srp-caret 900ms ease-in-out infinite; }
+.srp__btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: inherit; font: inherit; font-size: 0.8125rem; cursor: pointer; }
+.srp__btn:hover { border-color: color-mix(in oklab, var(--ink) 30%, transparent); }
+.srp__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.srp__btn svg { width: 14px; height: 14px; fill: currentColor; }
+.srp__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (prefers-reduced-motion: reduce) { .srp *, .srp__avatar { animation: none !important; } }

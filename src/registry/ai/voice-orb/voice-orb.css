@@ -1,0 +1,84 @@
+/* Voice Orb — one sphere whose behaviour is the conversation state. */
+.voice-orb {
+  --vo-bg: #ffffff;
+  --vo-ink: #0d0d0d;
+  --vo-muted: #8f8f8f;
+  --vo-a: #7fb2ff;
+  --vo-b: #d9ecff;
+  --vo-c: #3b6cff;
+  --vo-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --lv: 0;
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--vo-ink);
+}
+.voice-orb--dark { --vo-bg: #0d0d0d; --vo-ink: #ececec; --vo-muted: #7a7a7a; --vo-a: #6f8dff; --vo-b: #bfe3ff; --vo-c: #3050ff; }
+
+.voice-orb__sphere-btn { padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; }
+.voice-orb__sphere-btn:focus-visible { outline: 2px solid var(--vo-c); outline-offset: 8px; }
+.voice-orb[data-phase]:not([data-phase="idle"]) .voice-orb__sphere-btn { cursor: default; }
+
+.voice-orb__sphere {
+  position: relative;
+  width: clamp(10rem, 34vw, 13rem);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 60%, var(--vo-b), color-mix(in srgb, var(--vo-a) 70%, white) 70%);
+  box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--vo-c) 60%, transparent), inset 0 -10px 30px rgb(0 0 0 / 0.06);
+  transform: scale(calc(1 + var(--lv) * 0.07));
+  transition: transform 90ms linear, filter 600ms ease;
+}
+.voice-orb[data-phase="idle"] .voice-orb__sphere { animation: voice-orb-idle 5s ease-in-out infinite; }
+.voice-orb[data-muted] .voice-orb__sphere { filter: grayscale(0.85) brightness(1.05); }
+
+/* three clouds, blurred, drifting at different speeds */
+.voice-orb__cloud { position: absolute; border-radius: 50%; filter: blur(18px); mix-blend-mode: multiply; }
+.voice-orb--dark .voice-orb__cloud { mix-blend-mode: normal; opacity: 0.9; }
+.voice-orb__cloud--a { width: 75%; height: 60%; left: -10%; top: 35%; background: var(--vo-c); animation: voice-orb-a 9s ease-in-out infinite; }
+.voice-orb__cloud--b { width: 65%; height: 65%; right: -15%; top: 5%; background: var(--vo-a); animation: voice-orb-b 11s ease-in-out infinite; }
+.voice-orb__cloud--c { width: 55%; height: 45%; left: 25%; bottom: -12%; background: color-mix(in srgb, var(--vo-c) 60%, white); animation: voice-orb-c 7s ease-in-out infinite; }
+.voice-orb__sheen { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 32% 24%, rgb(255 255 255 / 0.85), transparent 35%); }
+
+/* thinking: the clouds gather toward the centre and turn faster */
+.voice-orb[data-phase="thinking"] .voice-orb__cloud { animation-duration: 2.2s; }
+.voice-orb[data-phase="thinking"] .voice-orb__sphere { transform: scale(0.94); transition: transform 600ms var(--vo-ease); }
+/* speaking: the syllable pulse is the level; clouds speed up a little */
+.voice-orb[data-phase="speaking"] .voice-orb__cloud { animation-duration: 4s; }
+
+.voice-orb__caption { min-height: 3rem; max-width: 22rem; margin: 0; text-align: center; font-size: 1rem; line-height: 1.5; letter-spacing: -0.005em; }
+.voice-orb__caption span { display: inline-block; animation: voice-orb-caption 420ms var(--vo-ease); }
+.voice-orb[data-phase="idle"] .voice-orb__caption,
+.voice-orb[data-phase="listening"] .voice-orb__caption { color: var(--vo-muted); }
+
+.voice-orb__controls { display: flex; gap: 1rem; }
+.voice-orb__ctl {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--vo-ink) 7%, transparent);
+  color: var(--vo-ink);
+  cursor: pointer;
+  transition: background 200ms ease, opacity 200ms ease, transform 160ms ease;
+}
+.voice-orb__ctl:hover:not(:disabled) { background: color-mix(in srgb, var(--vo-ink) 12%, transparent); }
+.voice-orb__ctl:active:not(:disabled) { transform: scale(0.94); }
+.voice-orb__ctl:disabled { opacity: 0.35; cursor: default; }
+.voice-orb__ctl[aria-pressed="true"] { background: var(--vo-ink); color: var(--vo-bg); }
+.voice-orb__ctl--end:not(:disabled) { background: #e5484d; color: #fff; }
+.voice-orb__ctl:focus-visible { outline: 2px solid var(--vo-c); outline-offset: 3px; }
+.voice-orb__ctl svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+@keyframes voice-orb-idle { 50% { transform: scale(1.025); } }
+@keyframes voice-orb-a { 50% { transform: translate(28%, -18%) scale(1.1); } }
+@keyframes voice-orb-b { 50% { transform: translate(-30%, 25%) scale(0.9); } }
+@keyframes voice-orb-c { 50% { transform: translate(-20%, -30%) scale(1.2); } }
+@keyframes voice-orb-caption { from { opacity: 0; transform: translateY(4px); } }
+@media (prefers-reduced-motion: reduce) {
+  .voice-orb * { animation: none !important; }
+}

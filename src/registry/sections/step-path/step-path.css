@@ -1,0 +1,45 @@
+/* Step Path — reading down the section draws the line. */
+.step-path {
+  --sp-ink: #efe8dc;
+  --sp-muted: #a7a1ab;
+  --sp-faint: #4f4a55;
+  --sp-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  display: grid;
+  gap: 4.5rem;
+  width: min(100%, 38rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--sp-ink);
+}
+.step-path__rail { position: absolute; left: 1.45rem; top: 0; bottom: 0; width: 1px; background: rgb(239 232 220 / 0.1); }
+.step-path__ink {
+  position: absolute; left: 0; top: 0; width: 1px; height: 100%;
+  background: linear-gradient(180deg, transparent, var(--sp-accent) 12%);
+  transform-origin: 0 0; transform: scaleY(var(--sp-p));
+}
+/* a small bright tip rides the end of the line */
+.step-path__ink::after {
+  content: ""; position: absolute; left: -3px; bottom: -3px; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--sp-accent); box-shadow: 0 0 12px 2px color-mix(in srgb, var(--sp-accent) 60%, transparent);
+  transform: scaleY(calc(1 / max(var(--sp-p), 0.001)));
+}
+.step-path__step { position: relative; display: grid; grid-template-columns: 2.9rem 1fr; gap: 1.4rem; align-items: start; }
+.step-path__node {
+  position: relative; z-index: 1; display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 50%;
+  background: #0b080d; box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.14);
+  font: 500 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--sp-faint);
+  transition: box-shadow 500ms var(--sp-ease), color 400ms ease, background 400ms ease;
+}
+.step-path__step[data-reached] .step-path__node {
+  background: color-mix(in srgb, var(--sp-accent) 14%, #0b080d); color: var(--sp-accent);
+  box-shadow: inset 0 0 0 1px var(--sp-accent), 0 0 0 6px color-mix(in srgb, var(--sp-accent) 10%, transparent);
+}
+.step-path__copy { padding-top: 0.35rem; opacity: 0.38; transform: translateX(-6px); transition: opacity 600ms ease, transform 700ms var(--sp-ease); }
+.step-path__step[data-reached] .step-path__copy { opacity: 1; transform: none; }
+.step-path__meta { margin: 0 0 0.4rem; font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sp-accent); }
+.step-path__title { margin: 0; font: 400 clamp(1.6rem, 3.4vw, 2.1rem)/1.1 "Instrument Serif", Georgia, serif; letter-spacing: -0.015em; }
+.step-path__body { margin: 0.6rem 0 0; font-size: 0.9375rem; line-height: 1.6; color: var(--sp-muted); max-width: 40ch; }
+@media (prefers-reduced-motion: reduce) { .step-path * { transition-duration: 1ms !important; } }

@@ -1,0 +1,53 @@
+/* Neon Tube Button — a glass tube for a border, lit on approach. */
+.ntb {
+  --ntb-gas: #ff4fa3;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  height: 3.25rem;
+  padding: 0 1.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(239 232 220 / 0.55);
+  font: 500 1rem/1 "Poiret One", "Geist", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ntb:focus-visible { outline: 2px solid #b9cce4; outline-offset: 4px; }
+.ntb__svg { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.ntb__svg path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+/* Unlit glass: a pale tube with a highlight along its top. */
+.ntb__glass { stroke: rgb(255 255 255 / 0.16); stroke-width: 4.5; }
+.ntb__shine { stroke: rgb(255 255 255 / 0.22); stroke-width: 0.8; transform: translateY(-1px); }
+.ntb__cap { fill: #2a2630; stroke: rgb(255 255 255 / 0.18); stroke-width: 0.6; }
+/* Lit: a wide bloom, the coloured gas and a near-white core. */
+.ntb__bloom { stroke: var(--ntb-gas); stroke-width: 14; opacity: 0.28; filter: blur(8px); }
+.ntb__gas { stroke: var(--ntb-gas); stroke-width: 4.5; filter: drop-shadow(0 0 4px var(--ntb-gas)); }
+.ntb__core { stroke: color-mix(in srgb, var(--ntb-gas), #fff 70%); stroke-width: 1.4; }
+.ntb__lit { opacity: 0; transition: opacity 320ms ease; }
+.ntb__label { position: relative; transition: color 320ms ease, text-shadow 320ms ease; }
+
+.ntb:hover .ntb__lit, .ntb:focus-visible .ntb__lit { opacity: 1; animation: ntb-strike 700ms linear both; }
+.ntb:hover .ntb__label, .ntb:focus-visible .ntb__label {
+  color: color-mix(in srgb, var(--ntb-gas), #fff 75%);
+  text-shadow: 0 0 6px var(--ntb-gas), 0 0 18px var(--ntb-gas);
+  animation: ntb-strike 700ms linear both;
+}
+.ntb:active .ntb__core { stroke: #fff; }
+
+/* The gas strikes, drops out twice, then holds. */
+@keyframes ntb-strike {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  14% { opacity: 0.15; }
+  22% { opacity: 0.9; }
+  30% { opacity: 0.25; }
+  42% { opacity: 1; }
+  52% { opacity: 0.7; }
+  60%, 100% { opacity: 1; }
+}
+
+.ntb[data-motion="reduced"] .ntb__lit, .ntb[data-motion="reduced"] .ntb__label { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .ntb .ntb__lit, .ntb .ntb__label { animation: none !important; } }

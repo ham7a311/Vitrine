@@ -1,0 +1,99 @@
+/* Stratum Button — --sx/--sy (−1…1) is the push direction; plate n travels n × spread/3 along it. */
+
+.stratum {
+  --sx: 0;
+  --sy: 0;
+  --st-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --st-face: #1c1220;
+  --st-ink: #efe8dc;
+  position: relative;
+  display: inline-grid;
+  height: 3.5rem;
+  min-width: 10rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--st-ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stratum__face,
+.stratum__plate {
+  grid-area: 1 / 1;
+  border-radius: 12px;
+}
+
+.stratum__face {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.9rem;
+  border: 1px solid rgb(239 232 220 / 0.16);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), transparent 45%),
+    var(--st-face);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  transform: translate(calc(var(--sx) * var(--spread) * -0.18), calc(var(--sy) * var(--spread) * -0.18));
+  transition: transform 520ms var(--st-ease), border-color 300ms ease;
+}
+
+.stratum__plate {
+  position: relative;
+  border: 1px solid;
+  backdrop-filter: blur(2px);
+  transition: transform 560ms var(--st-ease), opacity 400ms ease;
+  opacity: 0.55;
+}
+.stratum__plate--1 {
+  z-index: 3;
+  border-color: rgb(185 204 228 / 0.55);
+  background: rgb(185 204 228 / 0.1);
+  transform: translate(calc(var(--sx) * var(--spread) * 0.34), calc(var(--sy) * var(--spread) * 0.34));
+  transition-delay: 0ms;
+}
+.stratum__plate--2 {
+  z-index: 2;
+  border-color: rgb(200 185 234 / 0.45);
+  background: rgb(200 185 234 / 0.08);
+  transform: translate(calc(var(--sx) * var(--spread) * 0.67), calc(var(--sy) * var(--spread) * 0.67));
+  transition-delay: 25ms;
+}
+.stratum__plate--3 {
+  z-index: 1;
+  border-color: rgb(239 232 220 / 0.3);
+  background: rgb(239 232 220 / 0.05);
+  transform: translate(calc(var(--sx) * var(--spread)), calc(var(--sy) * var(--spread)));
+  transition-delay: 50ms;
+}
+
+.stratum:hover .stratum__plate { opacity: 1; }
+.stratum:hover .stratum__face { border-color: rgb(239 232 220 / 0.28); }
+
+/* Press: the stack squeezes flat and the face sinks onto it. */
+.stratum:active .stratum__plate,
+.stratum:active .stratum__face { transform: none; transition-duration: 140ms; transition-delay: 0ms; }
+.stratum:active .stratum__face { transform: scale(0.985); }
+
+/* Keyboard focus: a gentle fan down-right so the layers are visible. */
+.stratum:focus-visible { outline: none; }
+.stratum:focus-visible:not(:hover) { --sx: 0.7; --sy: 0.7; }
+.stratum:focus-visible .stratum__plate { opacity: 1; }
+.stratum:focus-visible .stratum__face { outline: 2px solid #b9cce4; outline-offset: 4px; }
+
+/* Touch: plates rest slightly fanned so the idea is visible without hover. */
+@media (hover: none) {
+  .stratum { --sx: 0.55; --sy: 0.75; }
+  .stratum__plate { opacity: 0.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stratum__plate, .stratum__face { transition-duration: 1ms; transition-delay: 0ms; }
+}

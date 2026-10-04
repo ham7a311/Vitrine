@@ -1,0 +1,87 @@
+.gp {
+  position: relative;
+  --gp-strength: 0.87;
+}
+
+.gp[data-live],
+.gp[data-live] * {
+  cursor: none !important;
+}
+.gp[data-live] :is(input, textarea, select, [contenteditable="true"], [contenteditable=""]) {
+  cursor: auto !important;
+}
+.gp[data-live] :is(input[type="checkbox"], input[type="radio"], input[type="range"], input[type="button"], input[type="submit"]) {
+  cursor: none !important;
+}
+
+.gp__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.gp__layer[data-in] {
+  opacity: 1;
+}
+
+.gp__glow,
+.gp__arrow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+
+/*
+ * The glow: a soft core with a long faint tail, centred on the arrow's body
+ * (12px down and right of the tip). Its stops are generated from
+ * 0.46·e^(−d²/2·15²) + 0.06·e^(−d²/2·32²), tapered by (1 − r⁴), so it falls
+ * to exactly nothing at its radius — no ring, no edge, no disc.
+ */
+.gp__glow span {
+  position: absolute;
+  width: var(--gp-size);
+  height: var(--gp-size);
+  margin: calc(var(--gp-size) / -2 + 12px) 0 0 calc(var(--gp-size) / -2 + 12px);
+  border-radius: 50%;
+  opacity: var(--gp-strength);
+  background: var(--gp-glow);
+  transition: opacity 200ms ease;
+}
+.gp__layer[data-down] .gp__glow span {
+  opacity: 1;
+}
+/* On dark surfaces the glow adds light instead of tinting. */
+.gp--light .gp__glow {
+  mix-blend-mode: plus-lighter;
+}
+
+/* The arrow's tip is the hotspot. */
+.gp__arrow svg {
+  display: block;
+  margin: -3.73px 0 0 -3.73px;
+  overflow: visible;
+  transform-origin: 3.73px 3.73px;
+  transition: transform 140ms cubic-bezier(0.3, 0.7, 0.3, 1.3);
+  filter: drop-shadow(0 0 0.6px rgb(0 0 0 / 0.35)) drop-shadow(0 1px 1.5px rgb(0 0 0 / 0.22));
+}
+.gp__arrow path {
+  stroke-width: 3.8;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+.gp--dark .gp__arrow path { fill: #0b0b0c; stroke: #fff; }
+.gp--light .gp__arrow path { fill: #fbfaf7; stroke: #141416; }
+.gp__layer[data-down] .gp__arrow svg {
+  transform: scale(0.9);
+}
+
+.gp[data-motion="reduced"] .gp__glow span,
+.gp[data-motion="reduced"] .gp__arrow svg { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .gp__glow span,
+  .gp__arrow svg { transition: none; }
+}

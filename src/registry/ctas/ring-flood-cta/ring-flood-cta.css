@@ -1,0 +1,130 @@
+/* Ring Flood CTA — the frame's gradient floods out of the button across the banner. */
+@property --rf-a { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
+@property --rf-r { syntax: "<length>"; inherits: false; initial-value: 0px; }
+
+.rfcta {
+  --rf-ring: conic-gradient(from var(--rf-a) at 50% 50%, #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4);
+  --rf-page: #0b0a0d;
+  --rf-face: #121015;
+  --rf-ink: #efe8dc;
+  --rf-muted: #9c96a1;
+  --rf-on: #141216;
+  --rf-on-muted: rgb(20 18 22 / 0.72);
+  --rf-tone: rgb(255 255 255 / 0.06);
+  --rf-btn: #efe8dc;
+  --rf-btn-ink: #141216;
+  --rf-on-btn: #efe8dc;
+  --rf-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: var(--rf-page);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.rfcta--paper {
+  --rf-ring: conic-gradient(from var(--rf-a) at 50% 50%, #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0);
+  --rf-page: #f3f1ec;
+  --rf-face: #fffdf8;
+  --rf-ink: #1b1a17;
+  --rf-muted: #6f6a62;
+  --rf-on: #1b1a17;
+  --rf-on-muted: rgb(27 26 23 / 0.74);
+  --rf-tone: rgb(255 253 248 / 0.6);
+  --rf-btn: #1b1a17;
+  --rf-btn-ink: #fffdf8;
+  --rf-on-btn: #fffdf8;
+}
+
+.rfcta__banner {
+  --rf-x: 50%;
+  --rf-y: 70%;
+  --rf-max: 1200px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  max-width: 64rem;
+  border-radius: 32px;
+  background: var(--rf-ring);
+  color: var(--rf-ink);
+  animation: rf-turn 12s linear infinite;
+}
+/* A blurred copy under the face, so the flooded banner has no pinch at the gradient's centre. */
+.rfcta__bloom {
+  position: absolute;
+  z-index: -2;
+  inset: -25%;
+  background: linear-gradient(var(--rf-tone), var(--rf-tone)), var(--rf-ring);
+  filter: blur(40px);
+}
+/* The face has a soft-edged hole that opens from the button. */
+.rfcta__face {
+  --rf-r: 0px;
+  position: absolute;
+  z-index: -1;
+  inset: 1.5px;
+  border-radius: 30.5px;
+  background: var(--rf-face);
+  -webkit-mask: radial-gradient(circle at calc(var(--rf-x) - 1.5px) calc(var(--rf-y) - 1.5px), transparent calc(var(--rf-r) - 70px), #000 var(--rf-r));
+  mask: radial-gradient(circle at calc(var(--rf-x) - 1.5px) calc(var(--rf-y) - 1.5px), transparent calc(var(--rf-r) - 70px), #000 var(--rf-r));
+  transition: --rf-r 700ms cubic-bezier(0.55, 0, 0.75, 0.3);
+}
+.rfcta__banner[data-flood] .rfcta__face { --rf-r: var(--rf-max); transition: --rf-r 1000ms var(--rf-ease); }
+
+.rfcta__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(3rem, 8vw, 5.5rem) clamp(1.25rem, 5vw, 4rem);
+  text-align: center;
+}
+.rfcta__content * { transition: color 360ms ease, border-color 360ms ease, background-color 360ms ease; }
+.rfcta__banner[data-flood] .rfcta__content * { transition-delay: 240ms; }
+.rfcta__eyebrow { margin: 0 0 1.1rem; font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rf-muted); }
+.rfcta__headline { max-width: 18ch; margin: 0; font-size: clamp(2rem, 5.4vw, 3.75rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.04em; text-wrap: balance; }
+.rfcta__sub { max-width: 34rem; margin: 1.25rem 0 0; font-size: clamp(0.9375rem, 1.6vw, 1.0625rem); line-height: 1.55; color: var(--rf-muted); text-wrap: pretty; }
+.rfcta__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1.5rem; margin-top: 2.25rem; }
+.rfcta__primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 3.25rem;
+  padding: 0 1.5rem 0 1.75rem;
+  border-radius: 999px;
+  background: var(--rf-btn);
+  color: var(--rf-btn-ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+.rfcta__primary svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1) !important; }
+.rfcta__primary:hover svg, .rfcta__primary:focus-visible svg { transform: translateX(3px); }
+.rfcta__primary:active { transform: scale(0.98); }
+.rfcta__primary:focus-visible { outline: 2px solid var(--rf-ink); outline-offset: 4px; }
+.rfcta__secondary { color: var(--rf-ink); font-size: 0.9375rem; font-weight: 500; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 4px; }
+.rfcta__secondary:hover { text-decoration-color: currentColor; }
+.rfcta__secondary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 4px; }
+.rfcta__note { margin: 1.25rem 0 0; font-size: 0.8125rem; color: var(--rf-muted); }
+
+/* Flooded: everything crosses to ink; the button turns dark so it still stands out on the colour. */
+.rfcta__banner[data-flood] { color: var(--rf-on); }
+.rfcta__banner[data-flood] .rfcta__eyebrow, .rfcta__banner[data-flood] .rfcta__sub, .rfcta__banner[data-flood] .rfcta__note { color: var(--rf-on-muted); }
+.rfcta__banner[data-flood] .rfcta__secondary { color: var(--rf-on); }
+.rfcta__banner[data-flood] .rfcta__primary { background: var(--rf-on); color: var(--rf-on-btn); }
+
+@keyframes rf-turn { to { --rf-a: 360deg; } }
+
+.rfcta[data-motion="reduced"] .rfcta__banner { animation: none; }
+.rfcta[data-motion="reduced"] .rfcta__face { transition: opacity 260ms ease; }
+.rfcta[data-motion="reduced"] .rfcta__banner[data-flood] .rfcta__face { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .rfcta__banner { animation: none; }
+  .rfcta__face { transition: opacity 260ms ease !important; }
+  .rfcta__banner[data-flood] .rfcta__face { opacity: 0; }
+}

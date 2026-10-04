@@ -1,0 +1,36 @@
+.ink { position: relative; display: inline-flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ink__input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.ink__box { flex: none; width: 30px; height: 30px; }
+.ink__box svg { width: 100%; height: 100%; overflow: visible; }
+.ink__frame { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; transition: opacity 200ms ease; }
+.ink:hover .ink__frame { opacity: 1; }
+.ink__tick {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 260ms cubic-bezier(0.7, 0, 0.84, 0);
+}
+.ink[data-on] .ink__tick { stroke-dashoffset: 0; transition: stroke-dashoffset 420ms cubic-bezier(0.3, 0.6, 0.2, 1); }
+.ink__label { position: relative; transition: color 300ms ease 260ms, opacity 300ms ease 260ms; }
+.ink[data-on] .ink__label { opacity: 0.55; }
+.ink__strike { position: absolute; left: -2%; top: 50%; width: 104%; height: 0.6em; translate: 0 -45%; overflow: visible; pointer-events: none; }
+.ink__strike path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 220ms ease-in;
+}
+.ink[data-on] .ink__strike path { stroke-dashoffset: 0; transition: stroke-dashoffset 380ms cubic-bezier(0.4, 0.2, 0.2, 1) 300ms; }
+/* unticking: a quick scrub, as if rubbed out */
+.ink:not([data-on]) .ink__box { animation: none; }
+.ink__input:focus-visible + .ink__box { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .ink__tick, .ink__strike path, .ink__label { transition: none !important; }
+}

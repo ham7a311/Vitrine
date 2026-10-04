@@ -1,0 +1,142 @@
+/* Hour Dial Stats — a day of footfall on a 24-hour clock face, read with a hand you turn. */
+.hd {
+  --hd-bg: #fbf7f0;
+  --hd-rim: rgb(27 26 23 / 0.1);
+  --hd-ink: #1b1a17;
+  --hd-muted: #706a60;
+  --hd-face-1: #fffdf8;
+  --hd-face-2: #f3ece0;
+  --hd-night: rgb(27 26 23 / 0.06);
+  --hd-bar: #dcc9b2;
+  --hd-accent: #b5541f;
+  --hd-wash: rgb(181 84 31 / 0.08);
+  --hd-tick: rgb(27 26 23 / 0.22);
+  --hd-rise: #e09a2c;
+  --hd-set: #8a5a9c;
+  --hd-focus: #b5541f;
+  position: relative;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 22px;
+  background: var(--hd-bg);
+  box-shadow: inset 0 0 0 1px var(--hd-rim), 0 24px 44px -34px rgb(40 30 20 / 0.45);
+  color: var(--hd-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.hd--night {
+  --hd-bg: #141312;
+  --hd-rim: rgb(239 232 220 / 0.1);
+  --hd-ink: #efe8dc;
+  --hd-muted: #9c968c;
+  --hd-face-1: #1e1c1a;
+  --hd-face-2: #171614;
+  --hd-night: rgb(0 0 0 / 0.28);
+  --hd-bar: #4a4038;
+  --hd-accent: #f0a36a;
+  --hd-wash: rgb(240 163 106 / 0.1);
+  --hd-tick: rgb(239 232 220 / 0.25);
+  --hd-rise: #f2c14e;
+  --hd-set: #b99ad0;
+  --hd-focus: #f0a36a;
+}
+
+.hd__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.hd__days { display: inline-flex; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--hd-rim); }
+.hd__day {
+  height: 2rem;
+  padding: 0 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--hd-muted);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 220ms ease, color 220ms ease;
+}
+.hd__day[aria-checked="true"] { background: var(--hd-ink); color: var(--hd-bg); }
+.hd__day:focus-visible { outline: 2px solid var(--hd-focus); outline-offset: 2px; }
+.hd__peak { margin: 0; font-size: 0.8125rem; color: var(--hd-muted); font-variant-numeric: tabular-nums; }
+
+.hd__dial { position: relative; width: min(100%, 25rem); margin: 1rem auto 0; }
+.hd__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: none;
+  outline: none;
+}
+.hd__svg:active { cursor: grabbing; }
+.hd__svg:focus-visible { box-shadow: 0 0 0 2px var(--hd-bg), 0 0 0 4px var(--hd-focus); }
+
+.hd__night { fill: none; stroke: var(--hd-night); stroke-width: 20; }
+.hd__wash { fill: var(--hd-wash); }
+.hd__tick { stroke: var(--hd-tick); stroke-width: 1; }
+.hd__tick[data-major] { stroke-width: 1.6; }
+.hd__hour { fill: var(--hd-muted); font-size: 10.5px; font-weight: 500; font-family: "Geist Mono", ui-monospace, monospace; }
+
+/* Bars grow from the inner ring outward. */
+.hd__bar {
+  fill: var(--hd-bar);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 620ms cubic-bezier(0.3, 1.25, 0.4, 1), fill 200ms ease;
+}
+.hd__bar[data-on] { fill: var(--hd-accent); }
+
+.hd__sun circle { stroke: var(--hd-bg); stroke-width: 2; }
+.hd__sun[data-k="rise"] circle { fill: var(--hd-rise); }
+.hd__sun[data-k="set"] circle { fill: var(--hd-set); }
+
+.hd__hand line { stroke: var(--hd-ink); stroke-width: 2; stroke-linecap: round; }
+.hd__hand circle { fill: var(--hd-bg); stroke: var(--hd-ink); stroke-width: 2; }
+.hd__svg:hover .hd__hand circle,
+.hd__svg:focus-visible .hd__hand circle { fill: var(--hd-accent); stroke: var(--hd-accent); }
+.hd__hub { fill: var(--hd-bg); stroke: var(--hd-rim); stroke-width: 1; }
+
+/* The reading, in the hub. */
+.hd__read {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+.hd__time { font-family: "Geist Mono", ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.08em; color: var(--hd-muted); }
+.hd__val { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1; }
+.hd__val small { font-size: 0.6875rem; font-weight: 500; letter-spacing: 0; color: var(--hd-muted); }
+.hd__mood {
+  margin-top: 0.15rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hd-muted);
+  box-shadow: inset 0 0 0 1px var(--hd-rim);
+}
+.hd__mood[data-mood="Peak"],
+.hd__mood[data-mood="Busy"] { color: var(--hd-accent); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--hd-accent) 40%, transparent); }
+
+.hd__legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.1rem; margin: 1rem 0 0; font-size: 0.75rem; color: var(--hd-muted); font-variant-numeric: tabular-nums; }
+.hd__legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.hd__sw { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+.hd__sw--rise { background: var(--hd-rise); }
+.hd__sw--set { background: var(--hd-set); }
+
+.hd__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.hd[data-motion="reduced"] .hd__bar { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .hd__bar { transition: none; }
+}

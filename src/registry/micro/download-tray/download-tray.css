@@ -1,0 +1,22 @@
+.dt { position: relative; display: grid; place-items: center; width: 56px; height: 56px; border: 0; border-radius: 50%; background: color-mix(in oklab, currentColor 6%, transparent); color: inherit; cursor: pointer; transition: background 200ms ease, color 300ms ease; }
+.dt:hover { background: color-mix(in oklab, currentColor 10%, transparent); }
+.dt[data-state="done"] { color: #16a34a; }
+.dt:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.dt__ring { position: absolute; inset: 0; width: 100%; height: 100%; rotate: -90deg; }
+.dt__track, .dt__progress { fill: none; stroke-width: 2.5; }
+.dt__track { stroke: color-mix(in oklab, currentColor 10%, transparent); }
+.dt__progress { stroke: #2563eb; stroke-linecap: round; transition: stroke-dashoffset 120ms linear, opacity 300ms ease, stroke 300ms ease; opacity: 0; }
+.dt[data-state="busy"] .dt__progress { opacity: 1; }
+.dt[data-state="done"] .dt__progress { opacity: 1; stroke: #16a34a; }
+.dt__icon { width: 24px; height: 24px; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.dt__arrow { transition: translate 300ms cubic-bezier(0.5, 0, 0.75, 0), opacity 200ms ease; }
+.dt[data-state="busy"] .dt__arrow { animation: dt-drop 900ms cubic-bezier(0.5, 0, 0.5, 1) infinite; }
+.dt[data-state="done"] .dt__arrow { opacity: 0; }
+@keyframes dt-drop { 0% { translate: 0 -6px; opacity: 0; } 30% { opacity: 1; } 70% { translate: 0 3px; opacity: 1; } 100% { translate: 0 5px; opacity: 0; } }
+.dt__tick { stroke-dasharray: 1 2; stroke-dashoffset: 1; }
+.dt[data-state="done"] .dt__tick { stroke-dashoffset: 0; transition: stroke-dashoffset 360ms cubic-bezier(0.3, 0.6, 0.2, 1) 80ms; }
+.dt__tray { transform-box: fill-box; transform-origin: bottom; }
+.dt[data-state="done"] .dt__tray { animation: dt-bounce 520ms cubic-bezier(0.3, 1.8, 0.5, 1); }
+@keyframes dt-bounce { 30% { scale: 1.12 0.82; } 60% { scale: 0.96 1.06; } }
+.dt__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (prefers-reduced-motion: reduce) { .dt *, .dt { animation: none !important; transition-duration: 0.01ms !important; } }

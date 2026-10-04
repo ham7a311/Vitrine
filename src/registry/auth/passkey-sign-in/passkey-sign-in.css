@@ -1,0 +1,90 @@
+/* Passkey Sign-in — the fingerprint is the progress bar. */
+.passkey-sign-in {
+  --pk-ink: #efe8dc;
+  --pk-muted: #a7a1ab;
+  --pk-faint: #3a3540;
+  --pk-surface: #141217;
+  --pk-accent: #b9cce4;
+  --pk-ok: #8fe388;
+  --pk-err: #f0a2a2;
+  --pk-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: grid;
+  justify-items: center;
+  width: min(100%, 22rem);
+  text-align: center;
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--pk-ink);
+}
+.passkey-sign-in--paper { --pk-ink: #1f1b16; --pk-muted: #6b645a; --pk-faint: #ddd5c6; --pk-surface: #fffdf8; --pk-accent: #c4673f; --pk-ok: #2e7d55; --pk-err: #b3412d; }
+
+.passkey-sign-in__print {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 7.5rem;
+  height: 7.5rem;
+  overflow: hidden;
+  border: 0;
+  border-radius: 28px;
+  background: var(--pk-surface);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pk-ink) 9%, transparent), 0 24px 48px -30px rgb(0 0 0 / 0.8);
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 400ms ease;
+}
+.passkey-sign-in__print:active:not(:disabled) { transform: scale(0.96); }
+.passkey-sign-in__print:disabled { cursor: default; }
+.passkey-sign-in__print:focus-visible { outline: 2px solid var(--pk-accent); outline-offset: 4px; }
+.passkey-sign-in[data-phase="ok"] .passkey-sign-in__print { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pk-ok) 50%, transparent), 0 0 0 8px color-mix(in srgb, var(--pk-ok) 10%, transparent); }
+.passkey-sign-in__print svg { width: 4.4rem; height: 4.4rem; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.passkey-sign-in__base path { stroke: var(--pk-faint); transition: opacity 400ms ease; }
+.passkey-sign-in__ink path {
+  stroke: var(--pk-accent);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 500ms var(--pk-ease), opacity 400ms ease, stroke 300ms ease;
+}
+/* scanning: ridges draw centre-out */
+.passkey-sign-in[data-phase="scanning"] .passkey-sign-in__ink path { stroke-dashoffset: 0; transition: stroke-dashoffset 900ms var(--pk-ease); transition-delay: calc(var(--i) * 170ms); }
+/* success: ridges gather into a check */
+.passkey-sign-in[data-phase="ok"] .passkey-sign-in__ink path { stroke-dashoffset: 0; opacity: 0; stroke: var(--pk-ok); transition: opacity 300ms ease calc(var(--i) * 30ms); }
+.passkey-sign-in[data-phase="ok"] .passkey-sign-in__base path { opacity: 0; }
+.passkey-sign-in__check { stroke: var(--pk-ok); stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.passkey-sign-in[data-phase="ok"] .passkey-sign-in__check { stroke-dashoffset: 0; transition: stroke-dashoffset 520ms var(--pk-ease) 280ms; }
+/* failure: a shiver, ridges drain */
+.passkey-sign-in[data-phase="fail"] .passkey-sign-in__print svg { animation: passkey-sign-in-shiver 420ms ease; }
+.passkey-sign-in[data-phase="fail"] .passkey-sign-in__ink path { stroke: var(--pk-err); stroke-dashoffset: 1; transition: stroke-dashoffset 700ms cubic-bezier(0.5, 0, 0.75, 0); }
+
+.passkey-sign-in__scan {
+  position: absolute; left: 12%; right: 12%; top: 0; height: 30%; pointer-events: none; opacity: 0;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--pk-accent) 22%, transparent), transparent);
+}
+.passkey-sign-in[data-phase="scanning"] .passkey-sign-in__scan { opacity: 1; animation: passkey-sign-in-scan 1.3s ease-in-out infinite alternate; }
+
+.passkey-sign-in__title { margin: 1.6rem 0 0; font: 400 1.9rem/1.1 "Instrument Serif", Georgia, serif; letter-spacing: -0.015em; }
+.passkey-sign-in__status { min-height: 2.8em; margin: 0.5rem 0 0; font-size: 0.9375rem; line-height: 1.45; color: var(--pk-muted); }
+.passkey-sign-in[data-phase="fail"] .passkey-sign-in__status { color: var(--pk-err); }
+
+.passkey-sign-in__primary {
+  width: 100%; height: 3rem; margin-top: 1.2rem; border: 0; border-radius: 12px; background: var(--pk-ink); color: var(--pk-surface);
+  font: 600 0.9375rem inherit; font-family: inherit; letter-spacing: -0.01em; cursor: pointer; transition: opacity 200ms ease, transform 160ms ease;
+}
+.passkey-sign-in__primary:disabled { opacity: 0.55; cursor: default; }
+.passkey-sign-in__primary:active:not(:disabled) { transform: scale(0.985); }
+.passkey-sign-in button:focus-visible { outline: 2px solid var(--pk-accent); outline-offset: 3px; }
+
+.passkey-sign-in__alt { width: 100%; margin-top: 0.9rem; }
+.passkey-sign-in__link { padding: 0.3rem; border: 0; background: none; color: var(--pk-muted); font: 500 0.875rem inherit; font-family: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--pk-muted) 40%, transparent); cursor: pointer; }
+.passkey-sign-in__email { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 420ms var(--pk-ease); }
+.passkey-sign-in__alt[data-open] .passkey-sign-in__email { grid-template-rows: 1fr; }
+.passkey-sign-in__email > div { display: flex; gap: 0.4rem; min-height: 0; overflow: hidden; padding: 0 0.1rem; }
+.passkey-sign-in__alt[data-open] .passkey-sign-in__email > div { padding-top: 0.6rem; }
+.passkey-sign-in__email input {
+  flex: 1; min-width: 0; height: 2.6rem; padding: 0 0.8rem; border: 0; border-radius: 10px; background: var(--pk-surface); color: var(--pk-ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pk-ink) 12%, transparent); font: 400 16px inherit; font-family: inherit; outline: none;
+}
+.passkey-sign-in__email input:focus { box-shadow: inset 0 0 0 1px var(--pk-accent); }
+.passkey-sign-in__email button { height: 2.6rem; padding: 0 0.9rem; border: 0; border-radius: 10px; background: color-mix(in srgb, var(--pk-ink) 8%, transparent); color: var(--pk-ink); font: 500 0.875rem inherit; font-family: inherit; cursor: pointer; }
+
+@keyframes passkey-sign-in-scan { from { transform: translateY(-40%); } to { transform: translateY(260%); } }
+@keyframes passkey-sign-in-shiver { 20% { transform: translateX(-3px); } 45% { transform: translateX(3px); } 70% { transform: translateX(-2px); } }
+@media (prefers-reduced-motion: reduce) { .passkey-sign-in * { animation: none !important; transition-duration: 1ms !important; transition-delay: 0ms !important; } }

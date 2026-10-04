@@ -1,0 +1,100 @@
+/* Cascade Pitch CTA — the pitch turns over, letter by letter, to fit the reader. */
+.cpc {
+  --cpc-page: #0b0a0d;
+  --cpc-ink: #efe8dc;
+  --cpc-muted: #9c96a1;
+  --cpc-line: rgb(239 232 220 / 0.14);
+  --cpc-chip: #1a181e;
+  --cpc-on: #efe8dc;
+  --cpc-on-ink: #141216;
+  --cpc-accent: #c8b9ea;
+  --cpc-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: clamp(3.5rem, 10vw, 7rem) clamp(1.25rem, 6vw, 4rem);
+  background: var(--cpc-page);
+  color: var(--cpc-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.cpc--paper {
+  --cpc-page: #f3f1ec;
+  --cpc-ink: #1b1a17;
+  --cpc-muted: #6f6a62;
+  --cpc-line: rgb(27 26 23 / 0.14);
+  --cpc-chip: #fffdf8;
+  --cpc-on: #1b1a17;
+  --cpc-on-ink: #fffdf8;
+  --cpc-accent: #7c5cc4;
+}
+.cpc__inner { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 56rem; text-align: center; }
+.cpc__eyebrow { margin: 0 0 1.4rem; font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cpc-muted); }
+
+.cpc__roles { display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.35rem; margin-bottom: 2.25rem; padding: 0.3rem; border: 1px solid var(--cpc-line); border-radius: 999px; background: var(--cpc-chip); }
+.cpc__iam { padding: 0 0.5rem 0 0.75rem; font-size: 0.8125rem; color: var(--cpc-muted); }
+.cpc__role {
+  height: 2.25rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--cpc-ink);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 300ms ease, color 300ms ease;
+}
+.cpc__role:hover { background: color-mix(in srgb, var(--cpc-ink) 8%, transparent); }
+.cpc__role[aria-checked="true"] { background: var(--cpc-on); color: var(--cpc-on-ink); }
+.cpc__role:focus-visible { outline: 2px solid var(--cpc-accent); outline-offset: 2px; }
+
+.cpc__headline { max-width: 20ch; margin: 0; font-size: clamp(2.1rem, 6vw, 4.25rem); font-weight: 600; line-height: 1.06; letter-spacing: -0.04em; }
+.cpc__sub { max-width: 36rem; min-height: 3.2em; margin: 1.3rem 0 0; font-size: clamp(0.9375rem, 1.7vw, 1.125rem); line-height: 1.55; color: var(--cpc-muted); }
+.cpc__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 3.25rem;
+  margin-top: 2.25rem;
+  padding: 0 1.5rem 0 1.75rem;
+  border-radius: 999px;
+  background: var(--cpc-on);
+  color: var(--cpc-on-ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: transform 160ms ease;
+}
+.cpc__action svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 420ms var(--cpc-ease); }
+.cpc__action:hover svg, .cpc__action:focus-visible svg { transform: translateX(3px); }
+.cpc__action:active { transform: scale(0.98); }
+.cpc__action:focus-visible { outline: 2px solid var(--cpc-accent); outline-offset: 4px; }
+
+/* The reels: each letter sits in a one-line window, so it can roll in and out of view. */
+.cpc__roll { position: relative; display: block; }
+.cpc__action .cpc__roll { display: inline-block; }
+.cpc__was { position: absolute; inset: 0 0 auto; }
+.cpc__action .cpc__was { right: auto; white-space: nowrap; }
+.cpc__word { display: inline-block; white-space: nowrap; }
+.cpc__reel { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.cpc__ch { display: inline-block; }
+
+/* After a change: the old letters leave upward, the new ones arrive from below a beat later. */
+.cpc[data-run]:not([data-run="0"]) .cpc__ch--now { animation: cpc-in 620ms var(--cpc-ease) calc(var(--d) * 1.15 + 300ms) both; }
+.cpc__ch--was { animation: cpc-out 300ms cubic-bezier(0.55, 0, 0.75, 0.3) var(--d) both; }
+@keyframes cpc-in { from { transform: translateY(105%); } to { transform: translateY(0); } }
+@keyframes cpc-out { from { transform: translateY(0); } to { transform: translateY(-105%); } }
+
+.cpc__sr { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.cpc[data-motion="reduced"] .cpc__ch { animation: none !important; }
+.cpc[data-motion="reduced"] .cpc__was { display: none; }
+@media (prefers-reduced-motion: reduce) { .cpc__ch { animation: none !important; } .cpc__was { display: none; } }
+
+@media (max-width: 420px) {
+  .cpc__iam { padding: 0 0.3rem 0 0.55rem; font-size: 0.75rem; }
+  .cpc__role { padding: 0 0.7rem; font-size: 0.8125rem; }
+}

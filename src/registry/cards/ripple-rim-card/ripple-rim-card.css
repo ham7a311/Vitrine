@@ -1,0 +1,142 @@
+/* Ripple Rim Card — drop a file and a wave runs round the rim from where it landed. */
+.rrc {
+  --rrc-face: #141217;
+  --rrc-tint: #1a1d24;
+  --rrc-rim: rgb(239 232 220 / 0.32);
+  --rrc-hot: #b9cce4;
+  --rrc-ink: #efe8dc;
+  --rrc-muted: #9c96a1;
+  --rrc-row: #18161c;
+  --rrc-line: rgb(239 232 220 / 0.1);
+  --rrc-ok: #7fd1a8;
+  --rrc-bad: #f08a7a;
+  width: 100%;
+  max-width: 34rem;
+  color: var(--rrc-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.rrc--paper {
+  --rrc-face: #fffdf8;
+  --rrc-tint: #f1f4fb;
+  --rrc-rim: rgb(27 26 23 / 0.3);
+  --rrc-hot: #2f5fd0;
+  --rrc-ink: #1b1a17;
+  --rrc-muted: #6f6a62;
+  --rrc-row: #ffffff;
+  --rrc-line: rgb(27 26 23 / 0.1);
+  --rrc-ok: #1f7a4d;
+  --rrc-bad: #b3412e;
+}
+
+.rrc__zone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 14rem;
+  padding: 2rem 1.5rem;
+  border: 0;
+  border-radius: 18px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.rrc__rim { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.rrc__shape {
+  fill: var(--rrc-face);
+  stroke: var(--rrc-rim);
+  stroke-width: 1.5;
+  stroke-dasharray: 7 6;
+  stroke-linejoin: round;
+  transition: fill 300ms ease, stroke 300ms ease;
+}
+.rrc__zone:hover .rrc__shape { stroke: color-mix(in srgb, var(--rrc-hot) 70%, transparent); }
+.rrc__zone[data-over] .rrc__shape { fill: var(--rrc-tint); stroke: var(--rrc-hot); stroke-dasharray: 7 3; }
+.rrc__zone[data-error] .rrc__shape { stroke: var(--rrc-bad); }
+.rrc__zone:focus-visible { outline: 2px solid var(--rrc-hot); outline-offset: 4px; }
+.rrc__zone > span:not(.rrc__sr) { position: relative; }
+
+.rrc__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 0.35rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--rrc-hot) 14%, transparent);
+  color: var(--rrc-hot);
+  transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.rrc__icon svg { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.rrc__zone:hover .rrc__icon { transform: translateY(-2px); }
+.rrc__zone[data-over] .rrc__icon { transform: translateY(-6px) scale(1.06); }
+.rrc__title { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.015em; }
+.rrc__hint { font-size: 0.8125rem; color: var(--rrc-muted); }
+.rrc__link { color: var(--rrc-hot); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+.rrc__input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.rrc__error { min-height: 0; margin: 0.6rem 0 0; font-size: 0.8125rem; line-height: 1.45; color: var(--rrc-bad); }
+.rrc__error:empty { margin: 0; }
+
+.rrc__files { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.85rem 0 0; padding: 0; list-style: none; }
+.rrc__file {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0.6rem 0.7rem 0.75rem;
+  border: 1px solid var(--rrc-line);
+  border-radius: 12px;
+  background: var(--rrc-row);
+  animation: rrc-in 520ms cubic-bezier(0.16, 1, 0.3, 1) 260ms both;
+}
+.rrc__kind {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.6rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--rrc-hot) 16%, transparent);
+  color: var(--rrc-hot);
+  font: 600 0.5625rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.06em;
+}
+.rrc__meta { position: relative; display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 0.25rem; }
+.rrc__name { overflow: hidden; font-size: 0.875rem; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.rrc__size { font-size: 0.75rem; color: var(--rrc-muted); font-variant-numeric: tabular-nums; }
+.rrc__file[data-done] .rrc__size { color: var(--rrc-ok); }
+.rrc__bar { height: 2px; margin-top: 0.2rem; border-radius: 2px; background: linear-gradient(var(--rrc-hot), var(--rrc-hot)) 0 0 / 0% 100% no-repeat, var(--rrc-line); animation: rrc-up 1.3s cubic-bezier(0.4, 0, 0.2, 1) 260ms forwards; }
+.rrc__file[data-done] .rrc__bar { background: var(--rrc-ok); opacity: 0; transition: opacity 600ms ease 300ms; }
+.rrc__remove {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--rrc-muted);
+  cursor: pointer;
+}
+.rrc__remove:hover { background: var(--rrc-line); color: var(--rrc-ink); }
+.rrc__remove:focus-visible { outline: 2px solid var(--rrc-hot); outline-offset: 1px; }
+.rrc__remove svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.rrc__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@keyframes rrc-in { from { opacity: 0; transform: translateY(-8px); } }
+@keyframes rrc-up { to { background-size: 100% 100%, auto; } }
+
+.rrc[data-motion="reduced"] .rrc__file, .rrc[data-motion="reduced"] .rrc__bar { animation: none; }
+.rrc[data-motion="reduced"] .rrc__icon { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rrc__file, .rrc__bar { animation: none; }
+  .rrc__icon { transition: none; }
+}

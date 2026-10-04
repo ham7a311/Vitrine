@@ -1,0 +1,61 @@
+/* Snooze Rail — a time rail whose good answers are magnets. */
+.snooze-rail {
+  --sr-bg: #ffffff;
+  --sr-ink: #1b1a17;
+  --sr-muted: #77736b;
+  --sr-line: rgb(27 26 23 / 0.12);
+  --sr-accent: #1b1a17;
+  --sr-on: #ffffff;
+  --sr-usual: #b3402f;
+  --sr-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: min(100%, 28rem);
+  padding: 18px 20px 16px;
+  border-radius: 16px;
+  background: var(--sr-bg);
+  box-shadow: 0 0 0 1px var(--sr-line), 0 24px 48px -36px rgb(30 24 12 / 0.35);
+  color: var(--sr-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+.snooze-rail--night { --sr-bg: #16171a; --sr-ink: #ececea; --sr-muted: #8b8d93; --sr-line: rgb(255 255 255 / 0.1); --sr-accent: #ececea; --sr-on: #16171a; --sr-usual: #f0766e; }
+
+.snooze-rail__label { margin: 0; color: var(--sr-muted); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+.snooze-rail__read { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 6px 0 18px; font-variant-numeric: tabular-nums; }
+.snooze-rail__day { font-family: var(--font-newsreader), "Newsreader", Georgia, serif; font-size: 1.7rem; letter-spacing: -0.02em; line-height: 1.1; }
+.snooze-rail__time { font-family: var(--font-newsreader), "Newsreader", Georgia, serif; font-size: 1.7rem; letter-spacing: -0.02em; line-height: 1.1; color: var(--sr-muted); }
+.snooze-rail__rel { margin-left: auto; color: var(--sr-muted); font-size: 0.8125rem; }
+
+.snooze-rail__track { position: relative; height: 44px; margin: 0 8px; cursor: grab; touch-action: none; }
+.snooze-rail[data-drag] .snooze-rail__track { cursor: grabbing; }
+.snooze-rail__line { position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: var(--sr-line); }
+.snooze-rail__fill { position: absolute; left: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: var(--sr-ink); opacity: 0.85; }
+.snooze-rail__tick { position: absolute; top: 50%; width: 2px; height: 14px; margin-top: -7px; border-radius: 1px; background: var(--sr-muted); opacity: 0.7; transform-origin: 50% 100%; transition: transform 240ms var(--sr-ease), background 160ms ease, opacity 160ms ease; }
+.snooze-rail[data-drag] .snooze-rail__tick { transition: transform 60ms linear, background 160ms ease; }
+.snooze-rail__tick[data-usual] { background: var(--sr-usual); opacity: 1; }
+.snooze-rail__tick[data-held] { background: var(--sr-ink); opacity: 1; height: 18px; margin-top: -9px; }
+
+.snooze-rail__thumb { position: absolute; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--sr-accent); box-shadow: 0 0 0 4px var(--sr-bg), 0 2px 6px rgb(0 0 0 / 0.25); outline: none; transition: left 300ms var(--sr-ease), box-shadow 160ms ease; }
+.snooze-rail[data-drag] .snooze-rail__thumb { transition: box-shadow 160ms ease; }
+.snooze-rail__thumb[data-held] { box-shadow: 0 0 0 4px var(--sr-bg), 0 0 0 6px var(--sr-ink), 0 2px 6px rgb(0 0 0 / 0.25); }
+.snooze-rail__thumb:focus-visible { box-shadow: 0 0 0 4px var(--sr-bg), 0 0 0 6px var(--sr-ink); }
+.snooze-rail__fill { transition: width 300ms var(--sr-ease); }
+.snooze-rail[data-drag] .snooze-rail__fill { transition: none; }
+
+.snooze-rail__chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.snooze-rail__chip { display: inline-flex; align-items: baseline; gap: 6px; height: 32px; padding: 0 11px; border: 0; border-radius: 9px; background: none; box-shadow: inset 0 0 0 1px var(--sr-line); color: var(--sr-muted); font: inherit; font-size: 0.8125rem; cursor: pointer; align-items: center; }
+.snooze-rail__chip-time { font-variant-numeric: tabular-nums; opacity: 0.8; }
+.snooze-rail__chip:hover { color: var(--sr-ink); }
+.snooze-rail__chip[aria-pressed="true"] { color: var(--sr-ink); box-shadow: inset 0 0 0 1.5px var(--sr-ink); }
+.snooze-rail__chip[data-usual]::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--sr-usual); }
+.snooze-rail__chip:focus-visible { outline: 2px solid var(--sr-ink); outline-offset: 2px; }
+
+.snooze-rail__foot { display: flex; align-items: center; gap: 12px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--sr-line); }
+.snooze-rail__go { height: 34px; padding: 0 18px; border: 0; border-radius: 9px; background: var(--sr-accent); color: var(--sr-on); font: inherit; font-weight: 500; cursor: pointer; }
+.snooze-rail__go:focus-visible { outline: 2px solid var(--sr-ink); outline-offset: 2px; }
+.snooze-rail__done { margin: 0; color: var(--sr-muted); font-size: 0.8125rem; }
+
+@media (max-width: 420px) { .snooze-rail { padding: 16px; } .snooze-rail__track { height: 52px; } .snooze-rail__thumb { width: 26px; height: 26px; margin: -13px 0 0 -13px; } }
+@media (prefers-reduced-motion: reduce) { .snooze-rail__thumb, .snooze-rail__fill, .snooze-rail__tick { transition: none; } }
+.snooze-rail[data-motion="reduced"] .snooze-rail__thumb, .snooze-rail[data-motion="reduced"] .snooze-rail__fill, .snooze-rail[data-motion="reduced"] .snooze-rail__tick { transition: none; }

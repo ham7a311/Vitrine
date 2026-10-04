@@ -1,0 +1,31 @@
+/* Sketch Button — a hand-drawn outline that boils while you point at it. */
+.skb {
+  --skb-ink: #24211c;
+  --skb-hatch: #f2c94c;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  height: 3.25rem;
+  padding: 0 1.75rem;
+  border: 0;
+  background: none;
+  color: var(--skb-ink);
+  font: italic 400 1.25rem/1 "Instrument Serif", "Newsreader", Georgia, serif;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 160ms ease;
+}
+.skb--night { --skb-ink: #f1ede4; --skb-hatch: #6fa8dc; }
+.skb__ink { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.skb__line { fill: none; stroke: var(--skb-ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.skb__line--2 { stroke-width: 1; opacity: 0.55; }
+/* The hatch draws in on approach and rubs out on leave. */
+.skb__hatch { fill: none; stroke: var(--skb-hatch); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.6; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 420ms cubic-bezier(0.65, 0, 0.35, 1); }
+.skb--night .skb__hatch { opacity: 0.45; }
+.skb[data-hot] .skb__hatch { stroke-dashoffset: 0; }
+.skb__label { position: relative; }
+.skb:active { transform: rotate(-1deg) scale(0.98); }
+.skb:focus-visible { outline: 1.5px dashed var(--skb-ink); outline-offset: 6px; border-radius: 10px; }
+
+.skb[data-motion="reduced"] .skb__hatch { transition: none; }
+@media (prefers-reduced-motion: reduce) { .skb .skb__hatch { transition: none; } }

@@ -1,0 +1,15 @@
+.da { display: flex; flex-direction: column; gap: 16px; width: 100%; height: 100%; padding: clamp(16px, 3vw, 28px); font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; }
+.da__eyebrow { margin: 0; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--da-muted); }
+.da__headline { margin: 8px 0 0; font-size: clamp(1.05rem, 2vw, 1.375rem); letter-spacing: -0.01em; }
+.da__headline strong { font-variant-numeric: tabular-nums; }
+.da__headline span { color: var(--da-muted); font-size: 0.85em; }
+.da__map { position: relative; flex: 1; min-height: 14rem; aspect-ratio: 360 / 138; max-height: 70%; }
+.da__canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+.da__tip { pointer-events: none; position: absolute; translate: 14px -50%; display: flex; flex-direction: column; gap: 2px; padding: 7px 10px; border: 1px solid var(--da-line); border-radius: 8px; background: color-mix(in oklab, var(--da-tip, Canvas) 92%, transparent); font-size: 13px; white-space: nowrap; box-shadow: 0 8px 20px -10px rgb(0 0 0 / 0.4); }
+.da__tip span { font: 0.6875rem "Geist Mono", ui-monospace, monospace; color: var(--da-muted); }
+.da__legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.da__legend button { display: inline-flex; align-items: center; gap: 8px; padding: 7px 11px; border: 1px solid var(--da-line); border-radius: 999px; background: transparent; color: inherit; font: inherit; font-size: 0.8125rem; cursor: pointer; }
+.da__legend button[aria-pressed="true"] { border-color: currentColor; }
+.da__legend button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.da__legend i { width: 10px; height: 10px; border-radius: 50%; }
+.da__val { font: 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--da-muted); font-variant-numeric: tabular-nums; }

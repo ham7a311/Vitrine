@@ -1,0 +1,67 @@
+/* Workspace Sidebar — one indicator that travels through the tree. */
+.workspace-sidebar {
+  --wsb-bg: #0f0f11;
+  --wsb-ink: #e7e7ea;
+  --wsb-muted: #8b8b93;
+  --wsb-faint: #5b5b63;
+  --wsb-line: rgb(255 255 255 / 0.06);
+  --wsb-accent: #8b9dff;
+  --wsb-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  width: 15.5rem;
+  height: 100%;
+  min-height: 30rem;
+  padding: 0.6rem;
+  background: var(--wsb-bg);
+  box-shadow: inset -1px 0 0 var(--wsb-line);
+  color: var(--wsb-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.workspace-sidebar svg { width: 1rem; height: 1rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.workspace-sidebar button:focus-visible { outline: 2px solid var(--wsb-accent); outline-offset: -2px; }
+
+.workspace-sidebar__ws {
+  display: flex; align-items: center; gap: 0.55rem; width: 100%; height: 2.4rem; padding: 0 0.5rem; border: 0; border-radius: 8px; background: none;
+  color: var(--wsb-ink); font: 600 0.875rem inherit; font-family: inherit; cursor: pointer;
+}
+.workspace-sidebar__ws:hover { background: rgb(255 255 255 / 0.04); }
+.workspace-sidebar__ws svg { margin-left: auto; color: var(--wsb-muted); }
+.workspace-sidebar__logo { display: grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 5px; background: linear-gradient(135deg, #8b9dff, #c38bff); color: #0f0f11; font-size: 0.75rem; font-weight: 700; }
+
+.workspace-sidebar__nav { position: relative; flex: 1; margin-top: 0.6rem; overflow-y: auto; scrollbar-width: none; }
+.workspace-sidebar__ind {
+  position: absolute; left: var(--l); right: 0; top: var(--t); height: var(--h); border-radius: 7px; pointer-events: none;
+  background: rgb(255 255 255 / 0.06);
+  transition: top 420ms var(--wsb-ease), height 420ms var(--wsb-ease), left 420ms var(--wsb-ease);
+}
+.workspace-sidebar__ind::before { content: ""; position: absolute; left: -0.25rem; top: 28%; bottom: 28%; width: 2px; border-radius: 2px; background: var(--wsb-accent); }
+
+.workspace-sidebar__row {
+  position: relative; display: flex; align-items: center; gap: 0.6rem; width: 100%; height: 2rem; padding: 0 0.5rem; border: 0; border-radius: 7px; background: none;
+  color: var(--wsb-muted); font: 500 0.8125rem inherit; font-family: inherit; text-align: left; cursor: pointer; transition: color 180ms ease;
+}
+.workspace-sidebar__row:hover { color: var(--wsb-ink); }
+.workspace-sidebar__row > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.workspace-sidebar__row[aria-current] { color: var(--wsb-ink); }
+.workspace-sidebar__row[data-depth="1"] { width: calc(100% - 1.6rem); margin-left: 1.6rem; }
+.workspace-sidebar__row em { margin-left: auto; font: 500 0.6875rem "Geist Mono", monospace; font-style: normal; color: var(--wsb-faint); }
+.workspace-sidebar__row[aria-current] em { color: var(--wsb-accent); }
+.workspace-sidebar__chev { margin-left: auto; width: 0.8rem !important; height: 0.8rem !important; color: var(--wsb-faint); transition: transform 320ms var(--wsb-ease); }
+.workspace-sidebar__row--head[aria-expanded="true"] .workspace-sidebar__chev { transform: rotate(90deg); }
+.workspace-sidebar__kids { position: relative; display: grid; grid-template-rows: 0fr; transition: grid-template-rows 420ms var(--wsb-ease); }
+.workspace-sidebar__kids[data-open] { grid-template-rows: 1fr; }
+.workspace-sidebar__kids > div { min-height: 0; overflow: hidden; }
+/* a thread for the nested rows */
+.workspace-sidebar__kids::before { content: ""; position: absolute; left: 1rem; top: 0.25rem; bottom: 0.25rem; width: 1px; background: var(--wsb-line); }
+
+.workspace-sidebar__label { margin: 1.1rem 0.5rem 0.35rem; font-size: 0.6875rem; font-weight: 500; color: var(--wsb-faint); }
+.workspace-sidebar__dot { width: 0.55rem; height: 0.55rem; margin: 0 0.225rem; border-radius: 3px; flex: none; }
+
+.workspace-sidebar__foot { display: flex; align-items: center; gap: 0.55rem; padding: 0.6rem 0.5rem 0.2rem; border-top: 1px solid var(--wsb-line); font-size: 0.8125rem; }
+.workspace-sidebar__avatar { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #2c2c33; font-size: 0.7rem; }
+.workspace-sidebar__foot kbd { margin-left: auto; font: 500 0.6875rem "Geist Mono", monospace; color: var(--wsb-faint); }
+/* On a phone the sidebar is the screen. */
+@media (max-width: 480px) { .workspace-sidebar { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .workspace-sidebar * { transition-duration: 1ms !important; } }

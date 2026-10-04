@@ -1,0 +1,59 @@
+.thr {
+  --t-ink: #efe8dc;
+  --t-muted: #a7a1ab;
+  --t-frost: #b9cce4;
+  --t-lilac: #c8b9ea;
+  --half: calc(100% / (var(--n) * 2));
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--t-ink);
+}
+
+/* the rail runs from the first bead's centre to the last; the thread grows along it */
+.thr__rail, .thr__thread { position: absolute; top: 1.2rem; left: var(--half); right: var(--half); height: 2px; border-radius: 2px; pointer-events: none; }
+.thr__rail { background: rgb(239 232 220 / 0.12); background-image: repeating-linear-gradient(90deg, rgb(239 232 220 / 0.22) 0 4px, transparent 4px 9px); background-color: transparent; }
+.thr__thread {
+  background: linear-gradient(90deg, var(--t-frost), var(--t-lilac));
+  clip-path: inset(0 calc(100% - var(--p)) 0 0);
+  transition: clip-path 700ms cubic-bezier(0.65, 0, 0.35, 1);
+  box-shadow: 0 0 10px rgb(185 204 228 / 0.5);
+}
+
+.thr__step { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem; }
+
+.thr__bead {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border: 1.5px solid rgb(239 232 220 / 0.25);
+  border-radius: 999px;
+  background: #0b080d;
+  color: var(--t-muted);
+  font: 500 0.8125rem/1 "JetBrains Mono", ui-monospace, monospace;
+  cursor: pointer;
+  transition: background-color 400ms ease 200ms, border-color 400ms ease 200ms, color 300ms ease 200ms, transform 200ms ease;
+}
+.thr__bead:hover:not(:disabled) { transform: scale(1.06); }
+.thr__bead:disabled { cursor: default; }
+.thr__bead:focus-visible { outline: 2px solid var(--t-frost); outline-offset: 3px; }
+.thr__bead svg { width: 1rem; height: 1rem; fill: none; stroke: #0b080d; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: thr-tick 380ms cubic-bezier(0.65, 0, 0.35, 1) 500ms forwards; }
+
+.thr__step[data-state="done"] .thr__bead { background: var(--t-frost); border-color: var(--t-frost); }
+.thr__step[data-state="current"] .thr__bead { border-color: var(--t-frost); color: var(--t-ink); box-shadow: 0 0 0 0 rgb(185 204 228 / 0.5); animation: thr-pulse 2.4s ease-out infinite; }
+
+.thr__title { font-size: 0.875rem; font-weight: 500; color: var(--t-muted); transition: color 300ms ease; }
+.thr__step[data-state="current"] .thr__title, .thr__step[data-state="done"] .thr__title { color: var(--t-ink); }
+.thr__hint { font-size: 0.75rem; color: var(--t-muted); max-width: 12ch; }
+
+@keyframes thr-tick { to { stroke-dashoffset: 0; } }
+@keyframes thr-pulse { 0% { box-shadow: 0 0 0 0 rgb(185 204 228 / 0.5); } 70%, 100% { box-shadow: 0 0 0 10px rgb(185 204 228 / 0); } }
+
+@media (max-width: 30rem) { .thr__hint { display: none; } .thr__title { font-size: 0.75rem; } }
+@media (prefers-reduced-motion: reduce) { .thr__thread, .thr__bead { transition-duration: 1ms; transition-delay: 0ms; } .thr__step[data-state="current"] .thr__bead { animation: none; } .thr__bead svg { animation: none; stroke-dashoffset: 0; } }

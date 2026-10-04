@@ -1,0 +1,107 @@
+/* Lever Switch — the arm rotates about the pivot; a spring-like overshoot sells the detent. */
+
+.lever {
+  --lv-ink: #efe8dc;
+  --lv-muted: #a7a1ab;
+  --lv-body: #1c1220;
+  --lv-lamp: #b9cce4;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  color: var(--lv-ink);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+.lever__track {
+  position: relative;
+  flex: none;
+  width: 4.25rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid rgb(239 232 220 / 0.16);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #241828, var(--lv-body));
+  box-shadow: inset 0 2px 6px rgb(0 0 0 / 0.6), inset 0 -1px 0 rgb(255 255 255 / 0.05);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 300ms ease;
+}
+.lever__track:focus-visible { outline: 2px solid var(--lv-lamp); outline-offset: 4px; }
+.lever[data-on] .lever__track { border-color: rgb(185 204 228 / 0.4); }
+
+.lever__slot {
+  position: absolute;
+  left: 0.55rem;
+  right: 0.55rem;
+  top: 50%;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 999px;
+  background: #07040a;
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.9);
+}
+.lever__tick { position: absolute; top: -5px; width: 1px; height: 16px; background: rgb(239 232 220 / 0.22); }
+.lever__tick--off { left: 0; }
+.lever__tick--on { right: 0; }
+
+/* the arm pivots at the left of the slot and swings to the right */
+.lever__pivot {
+  position: absolute;
+  left: 0.55rem;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #fff5d8, #c9a86a 60%, #6b5530);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.7);
+  pointer-events: none;
+}
+.lever__arm {
+  position: absolute;
+  left: 0.55rem;
+  top: 50%;
+  width: 2.6rem;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #d9d2c6, #8f8a83);
+  transform-origin: 0 50%;
+  transform: rotate(-38deg);
+  transition: transform 420ms cubic-bezier(0.34, 1.7, 0.5, 1);
+  pointer-events: none;
+}
+.lever[data-on] .lever__arm { transform: rotate(0deg); }
+.lever__knob {
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #fff, #cfc7ba 50%, #7d776f);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.55);
+}
+
+.lever__lamp {
+  position: absolute;
+  right: 0.55rem;
+  top: 0.45rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgb(239 232 220 / 0.18);
+  transition: background 300ms ease, box-shadow 300ms ease;
+  pointer-events: none;
+}
+.lever[data-on] .lever__lamp { background: var(--lv-lamp); box-shadow: 0 0 8px 1px rgb(185 204 228 / 0.8); }
+
+.lever__text { display: grid; gap: 0.2rem; padding-top: 0.15rem; cursor: pointer; }
+.lever__label { font-size: 0.9375rem; font-weight: 500; }
+.lever__desc { font-size: 0.8125rem; line-height: 1.5; color: var(--lv-muted); }
+
+.lever[data-disabled] { opacity: 0.45; }
+.lever[data-disabled] .lever__track, .lever[data-disabled] .lever__text { cursor: not-allowed; }
+
+@media (prefers-reduced-motion: reduce) { .lever__arm { transition-duration: 1ms; } }

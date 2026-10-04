@@ -1,0 +1,24 @@
+.roll-call { list-style: none; margin: 0; padding: 0; font-family: "Geist", system-ui, sans-serif; }
+.roll-call__item { border-top: 1px solid rgb(244 243 241 / 0.08); transition: opacity 0.35s; }
+.roll-call__item:last-child { border-bottom: 1px solid rgb(244 243 241 / 0.08); }
+.roll-call[data-active] .roll-call__item:not([data-on]) { opacity: 0.2; }
+.roll-call__btn {
+  all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid;
+  grid-template-columns: 2.4rem 1fr auto; align-items: baseline; gap: 0.5rem; padding: 0.55rem 0.25rem;
+}
+.roll-call__btn:focus-visible { outline: 2px solid var(--rc); outline-offset: -2px; }
+.roll-call__num { font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.12em; color: #7d7a72; }
+.roll-call__name {
+  font-size: clamp(1.6rem, 4.2vw, 2.6rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; color: #f4f3f1;
+  transition: letter-spacing 0.4s, color 0.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.roll-call__item[data-on] .roll-call__name {
+  font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.02em;
+  color: var(--rc); transform: translateX(0.5rem); font-size: clamp(1.9rem, 4.8vw, 3rem);
+}
+.roll-call__role {
+  font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rc);
+  opacity: 0; transform: translateX(-14px); transition: opacity 0.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.roll-call__item[data-on] .roll-call__role { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .roll-call__name, .roll-call__role, .roll-call__item { transition: none; } }

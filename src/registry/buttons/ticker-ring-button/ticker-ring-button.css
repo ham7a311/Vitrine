@@ -1,0 +1,55 @@
+/* Ticker Ring Button — an announcement running around the border. */
+.trb {
+  --trb-band: #1c1a20;
+  --trb-face: #efe8dc;
+  --trb-face-ink: #141216;
+  --trb-tick: #c9c2b6;
+  --trb-tick-hot: #f0b37a;
+  --trb-edge: rgb(239 232 220 / 0.14);
+  --trb-focus: #b9cce4;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  height: 4.25rem;
+  padding: 13px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--trb-band);
+  box-shadow: inset 0 0 0 1px var(--trb-edge), 0 14px 30px -18px rgb(0 0 0 / 0.7);
+  cursor: pointer;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 160ms ease;
+}
+.trb--paper {
+  --trb-band: #1d3b2f;
+  --trb-face: #fbf7ec;
+  --trb-face-ink: #1d3b2f;
+  --trb-tick: #e6dcc4;
+  --trb-tick-hot: #ffd27a;
+  --trb-edge: rgb(255 255 255 / 0.12);
+  --trb-focus: #2f5fd0;
+}
+.trb:active { transform: scale(0.97); }
+.trb:focus-visible { outline: 2px solid var(--trb-focus); outline-offset: 3px; }
+.trb__face {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 0 1.4rem;
+  border-radius: 999px;
+  background: var(--trb-face);
+  color: var(--trb-face-ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: box-shadow 300ms ease;
+}
+.trb:hover .trb__face, .trb:focus-visible .trb__face { box-shadow: 0 0 0 1px var(--trb-tick-hot); }
+.trb__ring { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.trb__text { fill: var(--trb-tick); font-family: "Geist Mono", "JetBrains Mono", ui-monospace, monospace; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; transition: fill 300ms ease; }
+.trb:hover .trb__text, .trb:focus-visible .trb__text { fill: var(--trb-tick-hot); }
+.trb__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

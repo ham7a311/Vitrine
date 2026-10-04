@@ -1,0 +1,42 @@
+/* Follow Toggle — three labels, one pill, width follows the words. */
+.follow-toggle {
+  --fo-ink: #efe8dc;
+  --fo-face: #efe8dc;
+  --fo-text: #15120f;
+  --fo-rose: #f0a2a2;
+  --fo-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  height: 2.5rem;
+  width: calc(var(--ft-w) + 2.3rem);
+  border: 0;
+  border-radius: 999px;
+  background: var(--fo-face);
+  color: var(--fo-text);
+  font: 600 0.875rem/1 "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: width 460ms var(--fo-ease), background 320ms ease, color 320ms ease, box-shadow 320ms ease, transform 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.follow-toggle:active { transform: scale(0.96); }
+.follow-toggle:focus-visible { outline: 2px solid #b9cce4; outline-offset: 3px; }
+.follow-toggle[data-view="following"] { background: transparent; color: var(--fo-ink); box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.25); }
+.follow-toggle[data-view="unfollow"] { background: color-mix(in srgb, var(--fo-rose) 10%, transparent); color: var(--fo-rose); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fo-rose) 45%, transparent); }
+
+.follow-toggle__stage { display: grid; place-items: center; }
+.follow-toggle__label { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; }
+.follow-toggle__stage .follow-toggle__label { opacity: 0; transform: translateY(40%); filter: blur(3px); transition: opacity 260ms ease, transform 420ms var(--fo-ease), filter 300ms ease; }
+.follow-toggle__stage .follow-toggle__label[data-on] { opacity: 1; transform: none; filter: none; transition-delay: 80ms; }
+.follow-toggle__label svg { width: 0.9rem; height: 0.9rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.follow-toggle__label[data-on] svg path[d^="M3.5 8.5"] { stroke-dasharray: 14; animation: follow-toggle-tick 420ms var(--fo-ease) 120ms both; }
+
+.follow-toggle__burst { position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 0 1px var(--fo-ink); pointer-events: none; animation: follow-toggle-burst 700ms var(--fo-ease) forwards; }
+.follow-toggle__measure { position: absolute; visibility: hidden; pointer-events: none; }
+.follow-toggle__measure .follow-toggle__label { position: absolute; width: max-content; }
+
+@keyframes follow-toggle-tick { from { stroke-dashoffset: 14; } to { stroke-dashoffset: 0; } }
+@keyframes follow-toggle-burst { from { opacity: 0.7; transform: scale(1); } to { opacity: 0; transform: scale(1.35, 1.8); } }
+@media (prefers-reduced-motion: reduce) { .follow-toggle, .follow-toggle * { transition-duration: 1ms !important; animation: none !important; } }

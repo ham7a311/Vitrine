@@ -1,0 +1,114 @@
+.sb {
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --ring: rgba(11, 11, 11, 0.1);
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --s4: #eda100;
+  --s5: #e87ba4;
+  width: min(100%, 900px);
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--ring), 0 24px 50px -36px rgb(0 0 0 / 0.35);
+  color: var(--ink);
+  font-family: Geist, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.sb--dark {
+  --surface: #1a1a19;
+  --ink: #ffffff;
+  --ink-2: #c3c2b7;
+  --grid: #2c2c2a;
+  --ring: rgba(255, 255, 255, 0.1);
+  --s1: #3987e5;
+  --s2: #d95926;
+  --s3: #199e70;
+  --s4: #c98500;
+  --s5: #d55181;
+}
+.sb__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; }
+.sb__title { margin: 0; font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.sb__crumbs { font-size: 13px; color: var(--muted); }
+.sb__crumbs button { padding: 2px 4px; border: 0; border-radius: 4px; background: none; color: var(--s1); font: inherit; cursor: pointer; }
+.sb__crumbs button:hover { text-decoration: underline; }
+.sb__crumbs button:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
+.sb__crumbs [aria-current] { color: var(--ink); font-weight: 500; padding: 2px 4px; }
+.sb__sep { margin: 0 2px; }
+
+.sb__body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 0.9fr); gap: 26px; align-items: center; margin-top: 10px; }
+@media (max-width: 720px) { .sb__body { grid-template-columns: 1fr; } }
+
+.sb__wheel { position: relative; width: 100%; max-width: 420px; margin: 0 auto; }
+.sb__wheel svg { display: block; width: 100%; height: auto; overflow: visible; }
+.sb__arc {
+  stroke: var(--surface);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  transition: opacity 160ms ease;
+}
+.sb__arc[data-click] { cursor: pointer; }
+.sb__arc[data-dim] { opacity: 0.35; }
+.sb__label {
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: color-mix(in oklab, var(--surface) 70%, transparent);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.sb__hole { fill: var(--surface); }
+.sb__hole[data-up] { cursor: pointer; }
+.sb__centre {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 26%;
+  text-align: center;
+  pointer-events: none;
+}
+.sb__c-name { font-size: 12px; font-weight: 500; color: var(--ink-2); line-height: 1.15; }
+.sb__c-val { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.sb__c-share { font-size: 11px; color: var(--muted); }
+.sb__c-up { font-size: 10.5px; color: var(--s1); margin-top: 2px; }
+
+.sb__list-h { margin: 0 0 8px; font-size: 13px; font-weight: 600; }
+.sb__list ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.sb__row {
+  display: grid;
+  grid-template-columns: 10px 1fr auto 40px;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 4px 10px;
+  width: 100%;
+  padding: 8px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.sb__row:disabled { cursor: default; color: var(--ink); }
+.sb__row:not(:disabled):hover { background: color-mix(in oklab, var(--ink) 5%, transparent); }
+.sb__row:focus-visible { outline: 2px solid var(--s1); outline-offset: -2px; }
+.sb__row i { width: 10px; height: 10px; border-radius: 3px; }
+.sb__row-v { font-variant-numeric: tabular-nums; }
+.sb__row-p { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.sb__row-bar { grid-column: 2 / -1; height: 4px; border-radius: 2px; background: color-mix(in oklab, var(--ink) 6%, transparent); overflow: hidden; }
+.sb__row-bar b { display: block; height: 100%; border-radius: 2px; transition: width 500ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.sb__up { margin-top: 10px; padding: 6px 10px; border: 0; border-radius: 8px; background: none; box-shadow: inset 0 0 0 1px var(--ring); color: var(--ink-2); font: inherit; font-size: 12px; cursor: pointer; }
+.sb__up:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+.sb[data-motion="reduced"] .sb__row-bar b { transition: none; }
+@media (prefers-reduced-motion: reduce) { .sb__row-bar b { transition: none; } }

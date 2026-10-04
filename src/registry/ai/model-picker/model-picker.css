@@ -1,0 +1,57 @@
+/* Model Picker — choices framed as a trade-off. */
+.model-picker {
+  --mk-surface: #fffdf8; --mk-ink: #1f1b16; --mk-muted: #6b645a; --mk-faint: #a39b8f;
+  --mk-line: rgb(31 27 22 / 0.1); --mk-accent: #c4673f; --mk-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --mk-shadow: 0 1px 2px rgb(31 27 22 / 0.06), 0 24px 48px -24px rgb(31 27 22 / 0.35);
+  position: relative; display: inline-block;
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif; color: var(--mk-ink);
+}
+.model-picker--night {
+  --mk-surface: #1b191e; --mk-ink: #efe8dc; --mk-muted: #a7a1ab; --mk-faint: #6f6a74; --mk-line: rgb(239 232 220 / 0.1); --mk-accent: #b9cce4;
+  --mk-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.95);
+}
+.model-picker__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.model-picker__trigger {
+  display: inline-flex; align-items: center; gap: 0.4rem; height: 2.4rem; padding: 0 0.75rem 0 0.95rem; border: 0; border-radius: 999px;
+  background: var(--mk-surface); color: var(--mk-ink); box-shadow: inset 0 0 0 1px var(--mk-line);
+  font: 600 0.9375rem inherit; font-family: inherit; letter-spacing: -0.01em; cursor: pointer; transition: box-shadow 200ms ease;
+}
+.model-picker__trigger:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mk-ink) 22%, transparent); }
+.model-picker__trigger:focus-visible { outline: 2px solid var(--mk-accent); outline-offset: 2px; }
+.model-picker__trigger svg { width: 1rem; height: 1rem; fill: none; stroke: var(--mk-muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 320ms var(--mk-ease); }
+.model-picker__trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+/* the label rolls in the direction you moved through the list */
+.model-picker__window { display: inline-grid; overflow: hidden; height: 1.3em; }
+.model-picker__current { display: block; line-height: 1.3; animation: model-picker-roll 420ms var(--mk-ease); }
+@keyframes model-picker-roll { from { transform: translateY(calc(var(--mp-dir) * 100%)); opacity: 0; } }
+
+.model-picker__pop {
+  position: absolute; left: 0; top: calc(100% + 0.5rem); z-index: 10; width: min(21rem, calc(100vw - 2rem));
+  padding: 0.35rem; border-radius: 16px; background: var(--mk-surface); box-shadow: inset 0 0 0 1px var(--mk-line), var(--mk-shadow);
+  transform-origin: 1.5rem 0; animation: model-picker-open 320ms var(--mk-ease);
+}
+@keyframes model-picker-open { from { opacity: 0; transform: translateY(-4px) scale(0.97); } }
+.model-picker__list { position: relative; margin: 0; padding: 0; list-style: none; outline: none; }
+.model-picker__mark {
+  position: absolute; left: 0; right: 0; border-radius: 11px; pointer-events: none;
+  background: color-mix(in srgb, var(--mk-accent) 9%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mk-accent) 24%, transparent);
+  transition: top 380ms var(--mk-ease), height 380ms var(--mk-ease);
+}
+.model-picker__opt {
+  position: relative; display: grid; grid-template-columns: 1fr auto; gap: 0.15rem 0.75rem; padding: 0.7rem 0.8rem; border-radius: 11px; cursor: pointer;
+}
+.model-picker__opt[data-active]:not([aria-selected="true"]) { background: color-mix(in srgb, var(--mk-ink) 4%, transparent); }
+.model-picker__list:focus-visible .model-picker__opt[data-active] { box-shadow: inset 0 0 0 2px var(--mk-accent); }
+.model-picker__name { font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; display: flex; align-items: center; gap: 0.45rem; }
+.model-picker__name em { font: 500 0.5625rem "Geist Mono", monospace; font-style: normal; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.15rem 0.35rem; border-radius: 4px; color: var(--mk-accent); background: color-mix(in srgb, var(--mk-accent) 12%, transparent); }
+.model-picker__note { grid-column: 1; font-size: 0.8125rem; color: var(--mk-muted); }
+.model-picker__meters { grid-column: 1; display: flex; gap: 1rem; margin-top: 0.35rem; }
+.model-picker__meter { display: inline-flex; align-items: center; gap: 0.4rem; font: 500 0.5625rem "Geist Mono", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mk-faint); }
+.model-picker__pips { display: inline-flex; gap: 2px; }
+.model-picker__pips i { width: 8px; height: 3px; border-radius: 1px; background: color-mix(in srgb, var(--mk-ink) 12%, transparent); transition: background 300ms ease; }
+.model-picker__pips i[data-on] { background: color-mix(in srgb, var(--mk-ink) 55%, transparent); }
+.model-picker__opt[aria-selected="true"] .model-picker__pips i[data-on] { background: var(--mk-accent); }
+.model-picker__tick { grid-row: 1 / span 2; grid-column: 2; align-self: center; width: 1rem; height: 1rem; fill: none; stroke: var(--mk-accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 14; stroke-dashoffset: 14; transition: stroke-dashoffset 360ms var(--mk-ease) 80ms; }
+.model-picker__opt[aria-selected="true"] .model-picker__tick { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) { .model-picker * { animation: none !important; transition-duration: 1ms !important; } }

@@ -1,0 +1,111 @@
+/* Calendar Pricing — two months free, as two calendar pages. */
+.calp {
+  --cp-bg: #fbfaf6;
+  --cp-ink: #1b1a17;
+  --cp-muted: #6f6a62;
+  --cp-line: rgb(27 26 23 / 0.1);
+  --cp-soft: rgb(27 26 23 / 0.04);
+  --cp-page: #ffffff;
+  --cp-accent: #1f7a4d;
+  --cp-accent-soft: rgb(31 122 77 / 0.1);
+  --cp-focus: #2f5fd0;
+  --cp-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  container-type: inline-size;
+  width: 100%;
+  max-width: 58rem;
+  padding: clamp(1.25rem, 4cqi, 2.25rem);
+  border-radius: 20px;
+  background: var(--cp-bg);
+  color: var(--cp-ink);
+  box-shadow: 0 0 0 1px var(--cp-line), 0 30px 60px -40px rgb(0 0 0 / 0.35);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.calp--night {
+  --cp-bg: #141317;
+  --cp-ink: #efe8dc;
+  --cp-muted: #9c96a1;
+  --cp-line: rgb(239 232 220 / 0.1);
+  --cp-soft: rgb(239 232 220 / 0.04);
+  --cp-page: #1c1b20;
+  --cp-accent: #7fd1a8;
+  --cp-accent-soft: rgb(127 209 168 / 0.12);
+  --cp-focus: #b9cce4;
+}
+.calp__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.calp button:focus-visible { outline: 2px solid var(--cp-focus); outline-offset: 2px; }
+
+/* Plan and billing */
+.calp__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.calp__plans, .calp__billing { display: inline-flex; padding: 3px; border-radius: 10px; background: var(--cp-soft); box-shadow: inset 0 0 0 1px var(--cp-line); }
+.calp__plan, .calp__billing { border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.calp__plan { padding: 0.45rem 0.85rem; border-radius: 7px; font-size: 0.8438rem; font-weight: 500; color: var(--cp-muted); transition: background-color 200ms ease, color 200ms ease, box-shadow 200ms ease; }
+.calp__plan[aria-checked="true"] { background: var(--cp-page); color: var(--cp-ink); box-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 0 0 1px var(--cp-line); }
+.calp__billing { gap: 0; }
+.calp__billing-opt { padding: 0.45rem 0.8rem; border-radius: 7px; font-size: 0.8438rem; font-weight: 500; color: var(--cp-muted); transition: background-color 200ms ease, color 200ms ease; white-space: nowrap; }
+.calp__billing-opt[data-on] { background: var(--cp-page); color: var(--cp-ink); box-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 0 0 1px var(--cp-line); }
+.calp__billing-opt em { margin-left: 0.35rem; font-style: normal; font-size: 0.75rem; color: var(--cp-accent); }
+
+/* Price and features */
+.calp__body { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.5rem 2.5rem; margin-top: 1.75rem; }
+.calp__name { margin: 0; font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cp-muted); }
+.calp__price { display: flex; align-items: baseline; gap: 0.5rem; margin: 0.4rem 0 0; overflow: hidden; }
+.calp__amount { font: 400 clamp(3rem, 8cqi, 4.25rem)/1 "Instrument Serif", "Newsreader", Georgia, serif; letter-spacing: -0.02em; animation: calp-roll 520ms var(--cp-ease) both; }
+.calp__per { font-size: 0.9375rem; color: var(--cp-muted); }
+.calp__equiv { margin: 0.4rem 0 0; font-size: 0.875rem; color: var(--cp-muted); }
+.calp[data-yearly] .calp__equiv { color: var(--cp-accent); }
+.calp__blurb { margin: 1rem 0 0; max-width: 34ch; font-size: 0.9375rem; line-height: 1.55; }
+.calp__features { display: grid; align-content: start; gap: 0.6rem; margin: 0; padding: 0.25rem 0 0; list-style: none; font-size: 0.875rem; line-height: 1.45; }
+.calp__features li { display: grid; grid-template-columns: 1rem minmax(0, 1fr); gap: 0.6rem; }
+.calp__features svg { width: 1rem; height: 1rem; margin-top: 0.1rem; fill: none; stroke: var(--cp-accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* The calendar */
+.calp__calendar { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--cp-line); }
+.calp__cal-head { display: flex; justify-content: space-between; gap: 1rem; margin: 0 0 0.75rem; font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cp-muted); }
+.calp__months { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+.calp__month { position: relative; height: 4.5rem; perspective: 420px; }
+.calp__page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.7rem 0.5rem 0.5rem;
+  border-radius: 7px;
+  background: var(--cp-page);
+  box-shadow: 0 0 0 1px var(--cp-line);
+  text-align: center;
+  backface-visibility: hidden;
+}
+/* Two binding holes at the top of every page. */
+.calp__page::before { content: ""; position: absolute; top: 4px; left: 50%; width: 18px; height: 3px; margin-left: -9px; background: radial-gradient(circle at 1.5px 1.5px, var(--cp-line) 1.5px, transparent 1.6px) 0 0 / 15px 3px repeat-x; }
+.calp__m { font: 500 0.625rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cp-muted); white-space: nowrap; }
+.calp__mp { font: 400 1.125rem/1 "Instrument Serif", "Newsreader", Georgia, serif; font-variant-numeric: tabular-nums; }
+.calp__page--under { background: repeating-linear-gradient(135deg, var(--cp-accent-soft) 0 5px, transparent 5px 10px), var(--cp-page); box-shadow: 0 0 0 1px color-mix(in srgb, var(--cp-accent) 40%, transparent); }
+.calp__page--under .calp__mp { color: var(--cp-accent); font-style: italic; }
+/* Out of sight until its month is free; it stays visible while the top page lays back down. */
+.calp__month:not([data-free]) .calp__page--under { opacity: 0; transition: opacity 0s linear 700ms; }
+.calp__page--top { transform-origin: 50% 0; transition: transform 640ms var(--cp-ease), opacity 320ms ease 260ms; }
+.calp__month[data-free] .calp__page--top { transform: rotateX(178deg); opacity: 0; transition: transform 900ms cubic-bezier(0.45, 0.05, 0.2, 1) calc(var(--i) * 160ms), opacity 260ms ease calc(520ms + var(--i) * 160ms); }
+
+/* Choose */
+.calp__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 1.75rem; }
+.calp__cta { height: 2.75rem; padding: 0 1.25rem; border: 0; border-radius: 10px; background: var(--cp-ink); color: var(--cp-bg); font: inherit; font-size: 0.9063rem; font-weight: 600; cursor: pointer; transition: transform 160ms ease; }
+.calp__cta:active { transform: scale(0.98); }
+.calp__renew { margin: 0; font-size: 0.8125rem; color: var(--cp-muted); }
+
+@keyframes calp-roll { from { opacity: 0; transform: translateY(40%); } to { opacity: 1; transform: none; } }
+
+@container (max-width: 640px) {
+  .calp__body { grid-template-columns: 1fr; }
+  .calp__months { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .calp__yr { display: none; }
+  .calp__top { flex-direction: column; align-items: stretch; }
+  .calp__plans, .calp__billing { width: 100%; }
+  .calp__plan, .calp__billing-opt { flex: 1; text-align: center; }
+}
+
+.calp[data-motion="reduced"] *, .calp[data-motion="reduced"] *::before { animation: none !important; transition-duration: 1ms !important; transition-delay: 0ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  .calp *, .calp *::before { animation: none !important; transition-duration: 1ms !important; transition-delay: 0ms !important; }
+}

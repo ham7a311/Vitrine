@@ -1,0 +1,141 @@
+@property --hs-mix {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+.hs {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Behind the text: the selection boxes, one per visual line. */
+.hs__under {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hs__content {
+  position: relative;
+  z-index: 1;
+}
+.hs__box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  border-radius: 7px;
+  background: color-mix(in oklab, var(--hs-c) 16%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--hs-c) 48%, transparent);
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.hs__box[data-on] {
+  opacity: 1;
+}
+
+/*
+ * Swept words: the accent runs from the word's left edge to --f with a hard
+ * stop, so the colour edge travels exactly with the cursor. --hs-mix fades
+ * it back to the ink when the highlight lets go.
+ */
+.hs__w[data-t] {
+  --f: 0px;
+  background-image: linear-gradient(90deg, color-mix(in oklab, var(--hs-c) calc(var(--hs-mix) * 100%), currentColor) 0 var(--f), currentColor var(--f));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: --hs-mix 420ms ease;
+}
+.hs__w[data-fade] {
+  --hs-mix: 0;
+}
+
+/* Above everything: the demo cursor, filled with the accent. */
+.hs__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hs__arrow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.hs__arrow svg {
+  display: block;
+  margin: -3.03px 0 0 -3.03px; /* the rounded tip is the hotspot */
+  overflow: visible;
+  transform-origin: 3.03px 3.03px;
+  transition: transform 140ms cubic-bezier(0.3, 0.7, 0.3, 1.3);
+  filter: drop-shadow(0 2px 6px rgb(0 0 0 / 0.45));
+}
+.hs__arrow[data-down] svg {
+  transform: scale(0.9);
+}
+.hs__arrow path {
+  fill: var(--hs-c);
+}
+
+/* Quiet controls in the corner: pause (it loops) and replay. */
+.hs__ctl {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 3;
+  display: flex;
+  gap: 6px;
+}
+.hs__btn {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background: rgb(255 255 255 / 0.04);
+  color: rgb(255 255 255 / 0.6);
+  cursor: pointer;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+.hs__btn:hover {
+  color: #fff;
+  background: rgb(255 255 255 / 0.09);
+}
+.hs__btn:focus-visible {
+  outline: 2px solid var(--hs-c);
+  outline-offset: 2px;
+}
+.hs__btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+.hs__btn:last-child svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (forced-colors: active) {
+  .hs__w[data-t] {
+    -webkit-text-fill-color: currentColor;
+    background: none;
+  }
+}
+.hs[data-motion="reduced"] .hs__w,
+.hs[data-motion="reduced"] .hs__box,
+.hs[data-motion="reduced"] .hs__arrow svg { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .hs__w,
+  .hs__box,
+  .hs__arrow svg { transition: none; }
+}

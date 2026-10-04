@@ -1,0 +1,168 @@
+/* Local Sky Hero — the visitor's own sky over the studio's horizon. */
+@property --lsh-top { syntax: "<color>"; inherits: true; initial-value: #111840; }
+@property --lsh-mid { syntax: "<color>"; inherits: true; initial-value: #363b75; }
+@property --lsh-low { syntax: "<color>"; inherits: true; initial-value: #86567a; }
+@property --lsh-sea { syntax: "<color>"; inherits: true; initial-value: #0e1026; }
+@property --lsh-x { syntax: "<number>"; inherits: true; initial-value: 0.5; }
+@property --lsh-lift { syntax: "<number>"; inherits: true; initial-value: -0.2; }
+
+.lsh {
+  --lsh-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --lsh-ink: #f4f1ea;
+  --lsh-on-ink: #10141f;
+  --lsh-muted: rgb(244 241 234 / 0.72);
+  --lsh-rule: rgb(244 241 234 / 0.35);
+  --lsh-sea-h: clamp(4.5rem, 16%, 8.5rem);
+  /* The light's path across the width. Wide layouts keep it clear of the words on the left. */
+  --lsh-from: 0.08;
+  --lsh-span: 0.84;
+  container-type: inline-size;
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto var(--lsh-sea-h);
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--lsh-ink);
+  background: var(--lsh-sea);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: --lsh-top 2.4s var(--lsh-ease), --lsh-mid 2.4s var(--lsh-ease), --lsh-low 2.4s var(--lsh-ease), --lsh-sea 2.4s var(--lsh-ease), --lsh-x 2.4s var(--lsh-ease), --lsh-lift 2.4s var(--lsh-ease), color 1.2s ease;
+}
+.lsh[data-ink="dark"], .lsh__horizon[data-ink="dark"] { --lsh-ink: #10141f; --lsh-on-ink: #f4f1ea; --lsh-muted: rgb(16 20 31 / 0.7); --lsh-rule: rgb(16 20 31 / 0.3); }
+
+/* Sky: rows 1–2, so the horizon text sits on the last of the light. */
+.lsh__sky {
+  grid-area: 1 / 1 / 3 / 2;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom, var(--lsh-top) 0%, var(--lsh-mid) 62%, var(--lsh-low) 100%);
+  z-index: -1;
+}
+.lsh__stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2.4s ease;
+}
+.lsh[data-night] .lsh__stars { opacity: 0.8; }
+
+.lsh__body {
+  --size: clamp(2.25rem, 6cqi, 4.25rem);
+  position: absolute;
+  left: calc((var(--lsh-from) + var(--lsh-x) * var(--lsh-span)) * 100% - var(--size) / 2);
+  /* Height above the horizon: lift 0 sits on it, 1 is the top of its arc. */
+  bottom: calc(var(--lsh-lift) * 62% - var(--size) / 2);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #fffaf0 0 55%, color-mix(in oklab, #ffb469 calc((1 - var(--lsh-lift)) * 100%), #fff3d6) 100%);
+  box-shadow: 0 0 calc(var(--size) * 0.9) calc(var(--size) * 0.35) color-mix(in oklab, #ff9a4d calc((1 - var(--lsh-lift)) * 85%), rgb(255 246 222 / 0.55));
+}
+.lsh[data-night] .lsh__body {
+  --size: clamp(1.6rem, 4cqi, 3rem);
+  background: radial-gradient(circle at 38% 36%, #f4f6fb, #c9d0e0 70%);
+  box-shadow: 0 0 calc(var(--size) * 1.2) calc(var(--size) * 0.2) rgb(200 212 240 / 0.28), inset calc(var(--size) * -0.22) calc(var(--size) * -0.08) 0 rgb(17 24 64 / 0.35);
+}
+
+/* Words */
+.lsh__content {
+  grid-area: 1 / 1;
+  align-self: end;
+  max-width: 44rem;
+  padding: clamp(2rem, 6cqi, 5rem) clamp(1.25rem, 5cqi, 4rem) clamp(1.75rem, 4cqi, 3rem);
+}
+.lsh__eyebrow, .lsh__status {
+  margin: 0;
+  font: 500 0.6875rem/1.5 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lsh-muted);
+}
+.lsh__headline {
+  margin: 0.9rem 0 0;
+  font: 400 clamp(2.5rem, 7.2cqi, 5.5rem)/0.98 "Instrument Serif", "Newsreader", Georgia, serif;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.lsh__headline em { font-style: italic; }
+.lsh__sub { margin: 1.1rem 0 0; max-width: 34rem; font-size: clamp(0.9375rem, 1.7cqi, 1.0625rem); line-height: 1.6; color: var(--lsh-muted); text-wrap: pretty; }
+.lsh__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+
+/* Buttons that take the sky's ink. */
+.lsh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  padding: 0 1.25rem;
+  border-radius: 999px;
+  background: var(--lsh-ink);
+  color: var(--lsh-on-ink);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 1.2s ease, color 1.2s ease, transform 160ms ease;
+}
+.lsh-btn:active { transform: scale(0.97); }
+.lsh-btn--ghost { background: transparent; color: var(--lsh-ink); box-shadow: inset 0 0 0 1px var(--lsh-rule); }
+.lsh-btn--ghost:hover { box-shadow: inset 0 0 0 1px var(--lsh-ink); }
+.lsh-btn:focus-visible { outline: 2px solid var(--lsh-ink); outline-offset: 3px; }
+
+/* The horizon line and what's written on it. */
+.lsh__horizon[data-ink="light"] { --lsh-ink: #f4f1ea; --lsh-muted: rgb(244 241 234 / 0.72); --lsh-rule: rgb(244 241 234 / 0.35); }
+.lsh__horizon {
+  color: var(--lsh-ink);
+  grid-area: 2 / 1;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 clamp(1.25rem, 5cqi, 4rem) 0.6rem;
+  border-bottom: 1px solid var(--lsh-rule);
+}
+.lsh__status { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.25rem 0.6rem; text-align: right; }
+.lsh__clock { color: var(--lsh-ink); }
+.lsh__sep { opacity: 0.5; }
+.lsh__open { display: inline-flex; align-items: center; gap: 0.45rem; }
+.lsh__open::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.5; }
+.lsh__open[data-open] { color: var(--lsh-ink); }
+.lsh__open[data-open]::before { background: #4ade80; opacity: 1; box-shadow: 0 0 0 3px rgb(74 222 128 / 0.25); }
+
+/* Sea, with the light's reflection under it. */
+.lsh__sea {
+  grid-area: 3 / 1;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--lsh-sea), var(--lsh-low) 28%), var(--lsh-sea));
+}
+.lsh__glint {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc((var(--lsh-from) + var(--lsh-x) * var(--lsh-span)) * 100% - 4cqi);
+  width: 8cqi;
+  background: repeating-linear-gradient(to bottom, rgb(255 236 200 / 0.75) 0 1px, transparent 1px 5px);
+  background-size: 100% 10px;
+  mask-image: radial-gradient(50% 100% at 50% 0%, #000 0%, transparent 100%);
+  opacity: calc(0.15 + (1 - max(var(--lsh-lift), 0)) * 0.5);
+  animation: lsh-shimmer 3.6s linear infinite;
+}
+.lsh[data-night] .lsh__glint { background-image: repeating-linear-gradient(to bottom, rgb(220 228 255 / 0.55) 0 1px, transparent 1px 6px); opacity: 0.3; }
+.lsh:not([data-ready]) .lsh__glint { opacity: 0; }
+
+@keyframes lsh-shimmer { to { background-position: 0 10px; } }
+
+@container (max-width: 560px) {
+  .lsh__horizon { justify-content: flex-start; }
+  .lsh__status { justify-content: flex-start; text-align: left; }
+}
+
+.lsh[data-motion="reduced"], .lsh[data-motion="reduced"] * { transition: none !important; animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .lsh, .lsh * { transition: none !important; animation: none !important; }
+}
+
+@container (min-width: 760px) {
+  .lsh__sky, .lsh__sea { --lsh-from: 0.5; --lsh-span: 0.44; }
+}

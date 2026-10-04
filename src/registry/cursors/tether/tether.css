@@ -1,0 +1,165 @@
+.tt {
+  position: relative;
+  overflow: hidden;
+  --tt-card: #fffdf8;
+  --tt-ink: #1c1b17;
+  --tt-line: rgb(0 0 0 / 0.1);
+  --tt-nail: radial-gradient(circle at 35% 30%, #fff6d8, #c9a25a 45%, #7d5f2a 100%);
+}
+.tt--night {
+  --tt-card: #1d1c1a;
+  --tt-ink: #f1ece2;
+  --tt-line: rgb(255 255 255 / 0.09);
+  --tt-nail: radial-gradient(circle at 35% 30%, #f6f1e6, #a59a86 45%, #4c463b 100%);
+}
+
+/* While you carry the tag, the clip is your cursor. */
+.tt[data-live][data-mode="carried"],
+.tt[data-live][data-mode="carried"] * {
+  cursor: none !important;
+}
+
+.tt__cord {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+/* A flat woven lanyard: a wide band with a stitched highlight down the middle. */
+.tt__cord path {
+  fill: none;
+  stroke: var(--tt-cord);
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.18));
+}
+
+.tt__tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 31;
+  display: block;
+  width: 176px;
+  padding: 20px 16px 14px;
+  border-radius: 14px;
+  background: var(--tt-card);
+  color: var(--tt-ink);
+  text-decoration: none;
+  transform-origin: 50% 0;
+  will-change: transform;
+  box-shadow:
+    0 0 0 1px var(--tt-line),
+    0 1px 0 rgb(255 255 255 / 0.5) inset,
+    0 18px 30px -16px rgb(0 0 0 / 0.45),
+    0 4px 10px -4px rgb(0 0 0 / 0.18);
+}
+.tt__tag:focus-visible {
+  outline: 2px solid var(--tt-cord);
+  outline-offset: 3px;
+}
+/* The metal ring that joins cord and card, sitting at the very top of the card. */
+.tt__hole {
+  position: absolute;
+  left: 50%;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+  border: 2.5px solid #b9b2a4;
+  background: transparent;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 0.25);
+}
+.tt__hole::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 9px;
+  width: 22px;
+  height: 6px;
+  margin-left: -11px;
+  border-radius: 3px;
+  background: color-mix(in oklab, var(--tt-ink) 10%, transparent);
+}
+
+/* The nail the tag hangs on. Also the button that picks it up. */
+.tt__pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 33;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  cursor: grab;
+}
+.tt__pin span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--tt-nail);
+  box-shadow: 0 2px 3px rgb(0 0 0 / 0.35), 0 0 0 1px rgb(0 0 0 / 0.15);
+  transition: transform 180ms cubic-bezier(0.3, 0.8, 0.3, 1.4), opacity 140ms ease;
+}
+.tt__pin:hover span {
+  transform: scale(1.25);
+}
+.tt__pin:focus-visible {
+  outline: 2px solid var(--tt-cord);
+  outline-offset: 0;
+}
+.tt[data-mode="carried"] .tt__pin span {
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+/* The clip in your hand while carrying. */
+.tt__clip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 34;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+.tt__clip::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: -9px;
+  width: 14px;
+  height: 18px;
+  border-radius: 7px;
+  border: 2.5px solid #b9b2a4;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+}
+.tt__clip::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--tt-ink);
+}
+.tt[data-mode="carried"] .tt__clip {
+  opacity: 1;
+}
+
+.tt[data-motion="reduced"] .tt__pin span,
+.tt[data-motion="reduced"] .tt__clip { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .tt__pin span,
+  .tt__clip { transition: none; }
+}

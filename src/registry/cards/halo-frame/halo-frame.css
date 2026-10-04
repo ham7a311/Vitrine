@@ -1,0 +1,99 @@
+/* Halo Frame — a conic gradient rotated by an animatable @property angle, clipped to a 1px frame. */
+
+@property --halo-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes halo-orbit {
+  to { --halo-angle: 360deg; }
+}
+
+.halo-frame {
+  --halo-a: #e8a24a;
+  --halo-b: #f3b45f;
+  --halo-c: #f6c98a;
+  --halo-line: #262422;
+  --halo-radius: 10px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--halo-radius);
+  padding: 1px;
+  background: var(--halo-line);
+}
+
+.halo-frame::before,
+.halo-frame::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  border-radius: inherit;
+  animation: halo-orbit var(--halo-speed, 7s) linear infinite;
+}
+
+/* the comet */
+.halo-frame::before {
+  background: conic-gradient(
+    from var(--halo-angle),
+    transparent 0%,
+    transparent 38%,
+    color-mix(in oklab, var(--halo-a) 0%, transparent) 44%,
+    var(--halo-b) 50%,
+    var(--halo-c) 53%,
+    var(--halo-a) 56%,
+    transparent 64%,
+    transparent 100%
+  );
+}
+
+/* the fainter counter-light, half an orbit behind */
+.halo-frame::after {
+  background: conic-gradient(
+    from calc(var(--halo-angle) + 180deg),
+    transparent 0%,
+    transparent 46%,
+    color-mix(in oklab, var(--halo-a) 55%, transparent) 50%,
+    transparent 54%,
+    transparent 100%
+  );
+  opacity: 0.7;
+}
+
+.halo-frame > * {
+  position: relative;
+  z-index: 1;
+}
+
+.halo-quote {
+  margin: 0;
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  border-radius: calc(var(--halo-radius) - 1px);
+  background: #0c0b0a;
+  padding: 1.5rem 1.5rem 1.65rem;
+}
+.halo-quote__kicker {
+  margin: 0;
+  font-family: "Geist Mono", ui-monospace, "SF Mono", monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #f6c98a;
+}
+.halo-quote__text {
+  margin: 1rem 0 0;
+  max-width: 30ch;
+  font-family: "Instrument Serif", ui-serif, Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.5vw, 2.0625rem);
+  line-height: 1.22;
+  color: #f4f3f1;
+}
+
+/* Reduced motion: park the light at the top-right corner. */
+@media (prefers-reduced-motion: reduce) {
+  .halo-frame::before,
+  .halo-frame::after { animation: none; --halo-angle: 45deg; }
+}

@@ -1,0 +1,93 @@
+.ecl {
+  --w: 96px;
+  --h: 44px;
+  --k: 34px;
+  --e: cubic-bezier(0.65, 0, 0.35, 1);
+  position: relative;
+  width: var(--w);
+  height: var(--h);
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ecl--lg { --w: 132px; --h: 60px; --k: 46px; }
+.ecl:focus-visible { outline: 2px solid #ffb02e; outline-offset: 4px; }
+.ecl[data-night]:focus-visible { outline-color: #b9c6ff; }
+.ecl__sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  background: linear-gradient(#5fb2ff, #bfe3ff);
+  box-shadow: inset 0 2px 6px rgb(0 0 0 / 0.22), inset 0 -1px 0 rgb(255 255 255 / 0.4), 0 1px 0 rgb(255 255 255 / 0.5);
+  transition: background 700ms var(--e);
+}
+.ecl__sky::after { content: ""; position: absolute; inset: 0; background: linear-gradient(#070d24, #22305c); opacity: 0; transition: opacity 700ms var(--e); }
+.ecl[data-night] .ecl__sky::after { opacity: 1; }
+.ecl__sun, .ecl__moon, .ecl__stars, .ecl__cloud, .ecl__hills { position: absolute; z-index: 1; }
+/* The sun rides an arc: across and down behind the hills on the way to night. */
+.ecl__sun {
+  width: var(--k);
+  height: var(--k);
+  left: calc((var(--h) - var(--k)) / 2);
+  top: calc((var(--h) - var(--k)) / 2);
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #fff6c9, #ffcb3d 55%, #ff9f1c);
+  box-shadow: 0 0 0 4px rgb(255 214 90 / 0.35), 0 0 18px 4px rgb(255 190 60 / 0.55);
+  transition: translate 700ms var(--e), opacity 400ms ease;
+}
+.ecl[data-night] .ecl__sun { translate: calc(var(--w) * 0.42) calc(var(--h) * 0.9); opacity: 0; }
+.ecl__moon {
+  width: var(--k);
+  height: var(--k);
+  right: calc((var(--h) - var(--k)) / 2);
+  top: calc((var(--h) - var(--k)) / 2);
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 40%, #ffffff, #dfe5f1 60%, #b9c2d6);
+  box-shadow: inset -3px -2px 0 rgb(150 160 185 / 0.5), 0 0 16px 2px rgb(200 215 255 / 0.4);
+  translate: calc(var(--w) * -0.42) calc(var(--h) * 0.9);
+  opacity: 0;
+  transition: translate 700ms var(--e), opacity 400ms ease 120ms;
+}
+.ecl__moon::before, .ecl__moon::after { content: ""; position: absolute; border-radius: 50%; background: rgb(150 160 185 / 0.45); }
+.ecl__moon::before { width: 26%; height: 26%; left: 22%; top: 30%; }
+.ecl__moon::after { width: 16%; height: 16%; left: 52%; top: 58%; }
+.ecl[data-night] .ecl__moon { translate: 0 0; opacity: 1; }
+.ecl__hills {
+  left: -10%;
+  right: -10%;
+  bottom: -38%;
+  height: 72%;
+  border-radius: 50% 50% 0 0 / 70% 70% 0 0;
+  background: linear-gradient(#5d9a57, #3f7a3d);
+  transition: background 700ms var(--e);
+  z-index: 2;
+}
+.ecl[data-night] .ecl__hills { background: linear-gradient(#1a2a3a, #0f1a26); }
+.ecl__cloud { z-index: 2; height: 30%; border-radius: 999px; background: #fff; opacity: 0.92; transition: translate 700ms var(--e), opacity 500ms ease; }
+.ecl__cloud::before { content: ""; position: absolute; left: 22%; bottom: 40%; width: 46%; height: 130%; border-radius: 50%; background: inherit; }
+.ecl__cloud--a { width: 36%; left: 46%; top: 22%; }
+.ecl__cloud--b { width: 26%; left: 68%; top: 46%; opacity: 0.8; }
+.ecl[data-night] .ecl__cloud { translate: calc(var(--w) * 0.6) 0; opacity: 0; }
+.ecl__stars { inset: 0; opacity: 0; transition: opacity 600ms ease 200ms; }
+.ecl[data-night] .ecl__stars { opacity: 1; }
+.ecl__stars i {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  left: calc(10% + var(--i) * 9%);
+  top: var(--t);
+  animation: ecl-twinkle 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.37s);
+}
+@keyframes ecl-twinkle { 50% { opacity: 0.25; scale: 0.6; } }
+/* the press: a small dip, like a key */
+.ecl:active .ecl__sky { scale: 0.97; transition: scale 120ms ease, background 700ms var(--e); }
+@media (prefers-reduced-motion: reduce) {
+  .ecl *, .ecl *::before, .ecl *::after { transition-duration: 0.01ms !important; animation: none !important; }
+}

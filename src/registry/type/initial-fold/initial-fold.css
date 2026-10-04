@@ -1,0 +1,10 @@
+.initial-fold { all: unset; cursor: pointer; display: inline-flex; gap: 0.28em; font: 600 clamp(2.4rem, 8vw, 4.6rem) / 1.05 "Geist", system-ui, sans-serif; letter-spacing: -0.045em; color: #f4f3f1; }
+.initial-fold:focus-visible { outline: 2px solid #e8a24a; outline-offset: 8px; border-radius: 4px; }
+.initial-fold__word { display: inline-flex; align-items: baseline; }
+.initial-fold__ini { color: #e8a24a; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.02em; }
+.initial-fold__dot { display: inline-block; width: 0; overflow: hidden; opacity: 0; color: #e8a24a; transition: width 0.4s, opacity 0.4s; transition-delay: calc(var(--i) * 70ms); }
+.initial-fold[data-folded] .initial-fold__dot { width: 0.3em; opacity: 1; }
+.initial-fold__rest { display: grid; grid-template-columns: 1fr; transition: grid-template-columns 0.55s cubic-bezier(0.6, 0, 0.2, 1), opacity 0.4s; transition-delay: calc(var(--i) * 70ms); }
+.initial-fold__rest > span { overflow: hidden; white-space: nowrap; min-width: 0; }
+.initial-fold[data-folded] .initial-fold__rest { grid-template-columns: 0fr; opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .initial-fold__dot, .initial-fold__rest { transition: none; } }

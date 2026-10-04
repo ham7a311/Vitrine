@@ -1,0 +1,57 @@
+/* Usage Ruler — pricing as an instrument. */
+.usage-ruler {
+  --ur-ink: #efe8dc;
+  --ur-muted: #a7a1ab;
+  --ur-faint: #5f5a64;
+  --ur-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100%, 44rem);
+  padding: 1.75rem 1.75rem 2.4rem;
+  border-radius: 20px;
+  background: #121015;
+  box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.08), 0 30px 60px -40px rgb(0 0 0 / 0.9);
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ur-ink);
+}
+.usage-ruler__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; }
+.usage-ruler__eyebrow { margin: 0; font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ur-accent); }
+.usage-ruler__plan { margin: 0.4rem 0 0; height: 2.6rem; overflow: hidden; font: 400 2.4rem/1.08 "Instrument Serif", Georgia, serif; letter-spacing: -0.02em; }
+.usage-ruler__plan span { display: block; animation: usage-ruler-roll 520ms var(--ur-ease); }
+.usage-ruler__note { margin: 0.3rem 0 0; font-size: 0.875rem; color: var(--ur-muted); }
+.usage-ruler__price { text-align: right; }
+.usage-ruler__price p:first-child { margin: 0; font: 400 3rem/1 "Instrument Serif", Georgia, serif; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.usage-ruler__cur { font-size: 0.55em; vertical-align: 0.6em; margin-right: 0.05em; color: var(--ur-muted); }
+.usage-ruler__per { font: 500 0.8125rem "Hanken Grotesk", sans-serif; letter-spacing: 0; margin-left: 0.35rem; color: var(--ur-faint); }
+.usage-ruler__calc { margin: 0.35rem 0 0; font: 500 0.75rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--ur-faint); }
+
+.usage-ruler__track { position: relative; height: 4.25rem; margin-top: 2.2rem; cursor: ew-resize; touch-action: none; outline: none; border-radius: 12px; }
+.usage-ruler__track:focus-visible { box-shadow: 0 0 0 2px var(--ur-accent); }
+.usage-ruler__bands { position: absolute; inset: 0 0 1.4rem; }
+.usage-ruler__band {
+  position: absolute; top: 0; bottom: 0; border-left: 1px dashed rgb(239 232 220 / 0.14); background: rgb(239 232 220 / 0.02);
+  transition: background 420ms ease;
+}
+.usage-ruler__band:first-child { border-left: 0; border-radius: 10px 0 0 10px; }
+.usage-ruler__band:last-child { border-radius: 0 10px 10px 0; }
+.usage-ruler__band[data-on] { background: color-mix(in srgb, var(--ur-accent) 9%, transparent); }
+.usage-ruler__band i { position: absolute; left: 0.55rem; top: 0.5rem; font: 500 0.625rem "Geist Mono", monospace; font-style: normal; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ur-faint); transition: color 300ms ease; }
+.usage-ruler__band[data-on] i { color: var(--ur-accent); }
+.usage-ruler__fill { position: absolute; left: 0; bottom: 1.4rem; height: 2px; width: calc(var(--ur-p) * 100%); background: var(--ur-accent); }
+.usage-ruler__ticks { position: absolute; left: 0; right: 0; bottom: 0.2rem; height: 1.2rem; }
+.usage-ruler__ticks span { position: absolute; top: 0; width: 1px; height: 0.45rem; background: rgb(239 232 220 / 0.18); }
+.usage-ruler__ticks span[data-major] { height: 0.8rem; background: rgb(239 232 220 / 0.35); }
+.usage-ruler__marker {
+  position: absolute; top: -0.4rem; bottom: 0.9rem; left: calc(var(--ur-p) * 100%); width: 2px; margin-left: -1px; background: var(--ur-ink);
+  pointer-events: none;
+}
+.usage-ruler__marker b {
+  position: absolute; left: 50%; top: -1.9rem; transform: translateX(-50%); padding: 0.2rem 0.5rem; border-radius: 999px; background: var(--ur-ink); color: #121015;
+  font: 600 0.75rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.usage-ruler__marker::after { content: ""; position: absolute; left: 50%; bottom: -0.35rem; width: 0.7rem; height: 0.7rem; margin-left: -0.35rem; border-radius: 50%; background: var(--ur-ink); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ur-accent) 25%, transparent); }
+.usage-ruler__scale { position: relative; height: 1rem; margin-top: 0.2rem; }
+.usage-ruler__scale span { position: absolute; transform: translateX(-50%); font: 500 0.6875rem "Geist Mono", monospace; color: var(--ur-faint); }
+.usage-ruler__scale span:first-child { transform: none; }
+.usage-ruler__scale span:last-child { transform: translateX(-100%); }
+
+@keyframes usage-ruler-roll { from { transform: translateY(100%); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .usage-ruler * { animation: none !important; transition-duration: 1ms !important; } }

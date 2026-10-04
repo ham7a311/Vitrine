@@ -1,0 +1,127 @@
+/* Invite Join — see the team before you join; your face flies into the cluster when you do. */
+.ij {
+  --ij-card: #fffdf8;
+  --ij-ink: #1b1a17;
+  --ij-muted: #6f6a62;
+  --ij-line: rgb(27 26 23 / 0.1);
+  --ij-accent: #2a5bd7;
+  --ij-err: #b4432f;
+  --ij-ring: #fffdf8;
+  --ij-l: 56%;
+  position: relative;
+  width: min(100%, 26rem);
+  padding: 1.6rem;
+  border-radius: 24px;
+  background: var(--ij-card);
+  box-shadow: inset 0 0 0 1px var(--ij-line), 0 26px 50px -30px rgb(40 30 20 / 0.45);
+  color: var(--ij-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+.ij--night {
+  --ij-card: #1b1c1f;
+  --ij-ink: #efe8dc;
+  --ij-muted: #9a98a0;
+  --ij-line: rgb(239 232 220 / 0.11);
+  --ij-accent: #8fb8ff;
+  --ij-err: #f08a74;
+  --ij-ring: #1b1c1f;
+  --ij-l: 62%;
+}
+
+/* The cluster: every face sits at its slot; when the slots change, they spring there. */
+.ij__cluster {
+  position: relative;
+  height: 13.5rem;
+  margin: -0.4rem -1.6rem 0.6rem;
+  background: radial-gradient(60% 70% at 50% 50%, color-mix(in oklab, var(--ij-accent) 9%, transparent), transparent 70%);
+}
+.ij__face {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: linear-gradient(140deg, hsl(var(--h) 68% var(--ij-l)), hsl(calc(var(--h) + 38) 72% calc(var(--ij-l) - 13%)));
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 0 3px var(--ij-ring), 0 6px 14px -6px rgb(0 0 0 / 0.35);
+  transform: translate(-50%, -50%) translate(var(--x), var(--y));
+  transition: transform 760ms cubic-bezier(0.3, 1.45, 0.45, 1) calc(var(--i) * 28ms);
+  animation: ij-pop 520ms cubic-bezier(0.3, 1.5, 0.5, 1) calc(var(--i) * 45ms) both;
+}
+.ij__face[data-lead] { width: 3.6rem; height: 3.6rem; font-size: 1.05rem; z-index: 2; }
+.ij__more { background: color-mix(in oklab, var(--ij-ink) 8%, var(--ij-card)); color: var(--ij-muted); font-size: 0.75rem; box-shadow: 0 0 0 3px var(--ij-ring); }
+@keyframes ij-pop {
+  from { opacity: 0; transform: translate(-50%, -50%) translate(var(--x), var(--y)) scale(0.4); }
+}
+/* You: flying up from the form into your place beside the person who invited you. */
+.ij__face[data-me] {
+  z-index: 3;
+  box-shadow: 0 0 0 3px var(--ij-ring), 0 0 0 5px var(--ij-accent), 0 10px 22px -8px rgb(0 0 0 / 0.45);
+  animation: ij-fly 900ms cubic-bezier(0.25, 0.9, 0.3, 1.08) both;
+  transition: none;
+}
+@keyframes ij-fly {
+  0% { opacity: 0; transform: translate(-50%, -50%) translate(0, 13rem) scale(1.6); }
+  15% { opacity: 1; }
+  55% { transform: translate(-50%, -50%) translate(calc(var(--x) * 0.6), calc(var(--y) - 2.2rem)) scale(1.25); }
+  100% { opacity: 1; transform: translate(-50%, -50%) translate(var(--x), var(--y)) scale(1); }
+}
+
+.ij__body { display: grid; gap: 0.5rem; animation: ij-in 360ms ease both; }
+@keyframes ij-in { from { opacity: 0; transform: translateY(6px); } }
+.ij__h { margin: 0; font-size: 1.3rem; font-weight: 500; line-height: 1.3; letter-spacing: -0.02em; text-align: center; outline: none; text-wrap: balance; }
+.ij__h b { font-weight: 650; }
+.ij__p { margin: 0 0 0.4rem; font-size: 0.875rem; color: var(--ij-muted); text-align: center; overflow-wrap: anywhere; }
+.ij__p b { color: var(--ij-ink); font-weight: 600; }
+.ij__label { margin-top: 0.3rem; font-size: 0.8125rem; font-weight: 500; }
+.ij__input {
+  height: 2.7rem;
+  padding: 0 0.85rem;
+  border: 0;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--ij-ink) 4%, transparent);
+  box-shadow: inset 0 0 0 1px var(--ij-line);
+  color: var(--ij-ink);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+}
+.ij__input:focus-visible { box-shadow: inset 0 0 0 2px var(--ij-accent); }
+.ij__input[aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px var(--ij-err); }
+.ij__err { margin: 0; font-size: 0.8125rem; color: var(--ij-err); }
+.ij__hint { margin: 0; font-size: 0.75rem; color: var(--ij-muted); }
+.ij__actions { display: grid; gap: 0.35rem; margin-top: 0.6rem; }
+.ij__btn {
+  display: grid;
+  place-items: center;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 12px;
+  background: var(--ij-ink);
+  color: var(--ij-card);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.ij__btn:disabled { opacity: 0.6; cursor: default; }
+.ij__btn:focus-visible, .ij__link:focus-visible { outline: 2px solid var(--ij-accent); outline-offset: 3px; }
+.ij__link { justify-self: center; padding: 0.3rem 0.5rem; border: 0; border-radius: 6px; background: none; color: var(--ij-muted); font-family: inherit; font-size: 0.8125rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.ij[data-step="declined"] .ij__face { filter: grayscale(0.85); opacity: 0.55; transition: filter 400ms ease, opacity 400ms ease, transform 760ms; }
+
+.ij__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.ij[data-motion="reduced"] *,
+.ij[data-motion="reduced"] { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; transition-delay: 0ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  .ij, .ij * { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; transition-delay: 0ms !important; }
+}

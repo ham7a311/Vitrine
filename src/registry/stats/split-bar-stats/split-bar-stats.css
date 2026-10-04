@@ -1,0 +1,143 @@
+/* Split Bar Stats — one bar of shares; the one you point at springs wider and floods from the side you came in. */
+.sbs {
+  --sbs-bg: #fffdf8;
+  --sbs-rim: rgb(27 26 23 / 0.1);
+  --sbs-ink: #1b1a17;
+  --sbs-muted: #6f6a62;
+  --sbs-on: #fffdf8;
+  --sbs-tint: 20%;
+  --sbs-focus: #2f5fd0;
+  width: 100%;
+  padding: 1.6rem;
+  border-radius: 22px;
+  background: var(--sbs-bg);
+  box-shadow: inset 0 0 0 1px var(--sbs-rim), 0 24px 44px -34px rgb(40 30 20 / 0.45);
+  color: var(--sbs-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.sbs--night {
+  --sbs-bg: #141217;
+  --sbs-rim: rgb(239 232 220 / 0.1);
+  --sbs-ink: #efe8dc;
+  --sbs-muted: #9c96a1;
+  --sbs-on: #141217;
+  --sbs-tint: 24%;
+  --sbs-focus: #b9cce4;
+}
+
+.sbs__top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+.sbs__total { position: relative; display: flex; align-items: baseline; gap: 0.45rem; margin: 0; font-size: 2.5rem; font-weight: 600; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+.sbs__cur, .sbs__per { font-size: 0.9rem; font-weight: 500; letter-spacing: 0; color: var(--sbs-muted); }
+.sbs__per::before { content: "this "; }
+.sbs__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.sbs__periods { display: inline-flex; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--sbs-rim); }
+.sbs__period {
+  height: 2rem;
+  padding: 0 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--sbs-muted);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 220ms ease, color 220ms ease;
+}
+.sbs__period[aria-checked="true"] { background: var(--sbs-ink); color: var(--sbs-bg); }
+.sbs__period:focus-visible { outline: 2px solid var(--sbs-focus); outline-offset: 2px; }
+
+/* The bar. Shares are flex-grow, so changing one moves its neighbours. */
+.sbs__bar { display: flex; gap: 3px; height: 5.25rem; margin-top: 1.4rem; }
+.sbs__seg {
+  position: relative;
+  flex: 0 0 0;
+  min-width: 6px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--c) var(--sbs-tint), var(--sbs-bg));
+  transition: flex-grow 640ms cubic-bezier(0.34, 1.36, 0.64, 1);
+}
+.sbs__seg:first-child { border-radius: 14px 6px 6px 14px; }
+.sbs__seg:last-child { border-radius: 6px 14px 14px 6px; }
+
+/* Printed twice; the second copy is the flood, with inverted ink, clipped to how far it's reached. */
+.sbs__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  padding: 0.7rem 0 0.7rem 0.75rem;
+}
+.sbs__fill {
+  background: var(--c);
+  color: var(--sbs-on);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 560ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.sbs__seg[data-from="r"] .sbs__fill { clip-path: inset(0 0 0 100%); }
+.sbs__seg[data-on] .sbs__fill { clip-path: inset(0 0 0 0); }
+.sbs__seg[data-snap] .sbs__fill { transition: none; }
+.sbs__seg-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  /* Labels too long for a narrow share fade out instead of being cut. */
+  -webkit-mask: linear-gradient(90deg, #000 calc(100% - 1rem), transparent calc(100% - 0.25rem));
+  mask: linear-gradient(90deg, #000 calc(100% - 1rem), transparent calc(100% - 0.25rem));
+}
+.sbs__seg-name { font-size: 0.8125rem; font-weight: 600; }
+.sbs__seg-pct { display: flex; align-items: baseline; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
+
+.sbs__reels { display: inline-flex; }
+.sbs__reel { display: inline-block; height: 1em; overflow: hidden; }
+.sbs__strip { display: flex; flex-direction: column; transform: translateY(calc(var(--d) * -1em)); transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--k) * 40ms); }
+.sbs__strip > span { height: 1em; line-height: 1; }
+
+.sbs__legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0.25rem 1rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+.sbs__key {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.15rem 0.55rem;
+  width: 100%;
+  padding: 0.55rem 0.6rem;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: default;
+  transition: background 200ms ease;
+}
+.sbs__key[data-on] { background: color-mix(in srgb, var(--c) 10%, transparent); }
+.sbs__key:focus-visible { outline: 2px solid var(--sbs-focus); outline-offset: 1px; }
+.sbs__swatch { grid-column: 1; grid-row: 1 / span 2; width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
+.sbs__key-name { grid-column: 2; grid-row: 1; font-size: 0.875rem; font-weight: 500; line-height: 1.2; }
+.sbs__key-pct { grid-column: 3; grid-row: 1; display: flex; align-items: flex-start; font-size: 0.875rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.sbs__key-amt { grid-column: 2 / -1; grid-row: 2; display: flex; align-items: flex-start; gap: 0.3em; line-height: 1.2; font-size: 0.75rem; color: var(--sbs-muted); font-variant-numeric: tabular-nums; }
+.sbs__key .sbs__reel { height: 1.2em; }
+.sbs__key .sbs__strip { transform: translateY(calc(var(--d) * -1.2em)); }
+.sbs__key .sbs__strip > span { height: 1.2em; line-height: 1.2; }
+
+@media (max-width: 560px) {
+  .sbs { padding: 1.2rem; }
+  .sbs__total { font-size: 2rem; }
+  .sbs__bar { height: 4.5rem; }
+  .sbs__seg-pct { font-size: 1.2rem; }
+  .sbs__legend { grid-template-columns: 1fr 1fr; }
+}
+
+.sbs[data-motion="reduced"] .sbs__seg, .sbs[data-motion="reduced"] .sbs__strip { transition: none; }
+.sbs[data-motion="reduced"] .sbs__fill { transition: clip-path 1ms; }
+@media (prefers-reduced-motion: reduce) {
+  .sbs__seg, .sbs__strip { transition: none; }
+  .sbs__fill { transition: clip-path 1ms; }
+}

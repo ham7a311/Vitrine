@@ -1,0 +1,65 @@
+/* Pleat Crumbs — every level is a fold; open one and its siblings unfold in the line. */
+.pleat-crumbs {
+  --pc-ink: #1b1a17;
+  --pc-muted: #77736b;
+  --pc-line: rgb(27 26 23 / 0.12);
+  --pc-chip: rgb(27 26 23 / 0.06);
+  --pc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  min-width: 0;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  color: var(--pc-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.pleat-crumbs--night { --pc-ink: #ececea; --pc-muted: #8b8d93; --pc-line: rgb(255 255 255 / 0.14); --pc-chip: rgb(255 255 255 / 0.08); }
+
+.pleat-crumbs__list { display: flex; align-items: center; flex-wrap: nowrap; gap: 0; min-width: 0; margin: 0; padding: 0; list-style: none; overflow: hidden; }
+.pleat-crumbs__item { display: flex; align-items: center; flex: none; min-width: 0; }
+.pleat-crumbs__item[data-hidden] { display: none; }
+.pleat-crumbs__more { display: flex; }
+.pleat-crumbs__more button { height: 28px; padding: 0 8px; border: 0; border-radius: 7px; background: none; color: var(--pc-muted); font: inherit; cursor: pointer; }
+.pleat-crumbs__more button:hover { color: var(--pc-ink); background: var(--pc-chip); }
+
+/* A crumb folds down to its initial: same text, clipped, so the width tween is the fold. */
+.pleat-crumbs__crumb { display: inline-flex; align-items: center; height: 28px; padding: 0 6px; border-radius: 7px; color: var(--pc-muted); text-decoration: none; }
+a.pleat-crumbs__crumb:hover { color: var(--pc-ink); background: var(--pc-chip); }
+.pleat-crumbs__item[data-current] .pleat-crumbs__crumb { color: var(--pc-ink); font-weight: 500; }
+.pleat-crumbs__label { display: inline-block; max-width: 20em; overflow: hidden; white-space: nowrap; transition: max-width 360ms var(--pc-ease); }
+.pleat-crumbs__item[data-folded] .pleat-crumbs__label { max-width: 0.66em; }
+.pleat-crumbs__item[data-folded] .pleat-crumbs__crumb { padding: 0 5px; background: var(--pc-chip); color: var(--pc-muted); }
+
+/* The fold: a chevron that is also the separator. */
+.pleat-crumbs__fold, .pleat-crumbs__sep { display: grid; place-items: center; width: 22px; height: 28px; border: 0; border-radius: 7px; background: none; color: var(--pc-muted); padding: 0; }
+.pleat-crumbs__fold { cursor: pointer; }
+.pleat-crumbs__fold:hover { background: var(--pc-chip); color: var(--pc-ink); }
+.pleat-crumbs__fold svg, .pleat-crumbs__sep svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 320ms var(--pc-ease); }
+.pleat-crumbs__fold[aria-expanded="true"] svg { transform: rotate(90deg); }
+.pleat-crumbs__item[data-current] .pleat-crumbs__fold svg { transform: rotate(90deg); opacity: 0.6; }
+.pleat-crumbs__item[data-current] .pleat-crumbs__fold[aria-expanded="true"] svg { opacity: 1; }
+.pleat-crumbs__fold:focus-visible, .pleat-crumbs__sibling:focus-visible, .pleat-crumbs__crumb:focus-visible, .pleat-crumbs__more button:focus-visible { outline: 2px solid var(--pc-ink); outline-offset: 1px; }
+
+/* The siblings, unfolding in the line where the crumb was. */
+.pleat-crumbs__row { display: flex; align-items: center; gap: 2px; margin: 0; padding: 0 2px; list-style: none; overflow: hidden; animation: pc-unfold 380ms var(--pc-ease) both; }
+.pleat-crumbs__row li { animation: pc-fan 380ms var(--pc-ease) both; animation-delay: calc(var(--k, 0) * 28ms); }
+.pleat-crumbs__sibling { height: 28px; padding: 0 9px; border: 0; border-radius: 7px; background: none; color: var(--pc-muted); font: inherit; white-space: nowrap; cursor: pointer; }
+.pleat-crumbs__sibling:hover { color: var(--pc-ink); background: var(--pc-chip); }
+.pleat-crumbs__sibling[aria-current="true"] { color: var(--pc-ink); font-weight: 500; box-shadow: inset 0 0 0 1px var(--pc-line); }
+
+@keyframes pc-unfold { from { max-width: 0; } to { max-width: 60em; } }
+@keyframes pc-fan { from { opacity: 0; transform: translateX(-10px) scaleX(0.7); transform-origin: 0 50%; } }
+/* New deeper crumbs unfold in as the path is replaced. */
+.pleat-crumbs__item { animation: pc-enter 320ms var(--pc-ease) both; }
+@keyframes pc-enter { from { opacity: 0; max-width: 0; } to { max-width: 30em; } }
+
+/* Narrow: only the last two levels show; the ellipsis reveals the rest. */
+@media (min-width: 521px) { .pleat-crumbs__more { display: none; } .pleat-crumbs__item[data-hidden] { display: flex; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pleat-crumbs__label, .pleat-crumbs__fold svg { transition: none; }
+  .pleat-crumbs__row, .pleat-crumbs__row li, .pleat-crumbs__item { animation: none; }
+}
+.pleat-crumbs[data-motion="reduced"] .pleat-crumbs__label, .pleat-crumbs[data-motion="reduced"] .pleat-crumbs__fold svg { transition: none; }
+.pleat-crumbs[data-motion="reduced"] .pleat-crumbs__row, .pleat-crumbs[data-motion="reduced"] .pleat-crumbs__row li, .pleat-crumbs[data-motion="reduced"] .pleat-crumbs__item { animation: none; }
+
+/* Touch: wider chevrons, so the fold is easy to hit. */
+@media (pointer: coarse) { .pleat-crumbs__fold { width: 32px; height: 36px; } .pleat-crumbs__crumb, .pleat-crumbs__sibling { height: 36px; } }

@@ -1,0 +1,150 @@
+.il {
+  position: relative;
+  --il-bg: #f4efe6;
+  --il-fg: #15140f;
+  --il-ring: rgb(0 0 0 / 0.35);
+  --il-bar: #e0603a;
+}
+.il--paper {
+  --il-bg: #17160f;
+  --il-fg: #f7f3ea;
+  --il-ring: rgb(255 255 255 / 0.9);
+  --il-bar: #f0a36a;
+}
+
+.il[data-live],
+.il[data-live] * {
+  cursor: none !important;
+}
+.il[data-live] :is(input, textarea, select, [contenteditable="true"], [contenteditable=""]) {
+  cursor: auto !important;
+}
+
+.il__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+.il__layer[data-in] {
+  opacity: 1;
+}
+
+.il__pill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--il-bg);
+  color: var(--il-fg);
+  overflow: hidden;
+  will-change: transform, width, height;
+  box-shadow:
+    0 0 0 1px var(--il-ring),
+    0 6px 18px -6px rgb(0 0 0 / 0.35);
+  transform-origin: 50% 50%;
+}
+.il__layer[data-mode="pill"] .il__pill {
+  box-shadow:
+    0 0 0 0.5px rgb(0 0 0 / 0.12),
+    0 10px 28px -10px rgb(0 0 0 / 0.5);
+}
+
+.il__slot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  font: 500 13px/1 Geist, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.005em;
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  filter: blur(5px);
+  transform: translate(-50%, -50%) scale(0.9);
+  transition:
+    opacity 200ms ease,
+    filter 240ms ease,
+    transform 280ms cubic-bezier(0.2, 0.9, 0.25, 1.15);
+}
+.il__slot[data-on] {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate(-50%, -50%) scale(1);
+  transition-delay: 40ms;
+}
+.il__layer[data-mode="dot"] .il__slot {
+  opacity: 0;
+  transition-duration: 90ms;
+}
+.il__slot svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1.2);
+}
+.il__slot[data-icon="play"] svg path {
+  fill: currentColor;
+  stroke-width: 1.2;
+}
+
+/* Dragging: the arrows spread while held and lean the way you're pulling. */
+.il__pill[data-drag] .il__slot[data-icon="drag"] svg { transform: scaleX(1.22); }
+.il__pill[data-drag][data-dir="l"] .il__slot[data-icon="drag"] svg { transform: translateX(-3px) scaleX(1.22); }
+.il__pill[data-drag][data-dir="r"] .il__slot[data-icon="drag"] svg { transform: translateX(3px) scaleX(1.22); }
+
+.il__measure {
+  visibility: hidden;
+  left: -9999px;
+  top: 0;
+  opacity: 0;
+  transform: none;
+  transition: none;
+}
+
+/* A playing reel draws its progress along the pill's lower edge. */
+.il__bar {
+  position: absolute;
+  left: 16px;
+  bottom: 5px;
+  height: 2px;
+  width: calc(100% - 32px);
+  border-radius: 2px;
+  background: var(--il-bar);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--il-p, 0));
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.il__pill[data-progress] .il__bar {
+  opacity: 1;
+}
+.il__pill[data-progress] .il__slot[data-on] {
+  transform: translate(-50%, calc(-50% - 1.5px)) scale(1);
+}
+.il__layer[data-mode="dot"] .il__bar {
+  opacity: 0;
+}
+
+.il__layer[data-down][data-mode="pill"] .il__pill {
+  filter: brightness(0.94);
+}
+
+.il[data-motion="reduced"] .il__slot,
+.il[data-motion="reduced"] .il__slot svg { transition: none; filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .il__slot,
+  .il__slot svg { transition: none; filter: none; }
+}

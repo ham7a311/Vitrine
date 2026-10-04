@@ -1,0 +1,92 @@
+.wb {
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --ring: rgba(11, 11, 11, 0.1);
+  /* Diverging poles (blue ↔ red) for gains and losses; totals in a neutral ink. */
+  --up: #2a78d6;
+  --down: #e34948;
+  --total: #52514e;
+  --pos-text: #006300;
+  --neg-text: #d03b3b;
+  width: min(100%, 920px);
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--ring), 0 24px 50px -36px rgb(0 0 0 / 0.35);
+  color: var(--ink);
+  font-family: Geist, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.wb--dark {
+  --surface: #1a1a19;
+  --ink: #ffffff;
+  --ink-2: #c3c2b7;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --ring: rgba(255, 255, 255, 0.1);
+  --up: #3987e5;
+  --down: #e66767;
+  --total: #9a998f;
+  --pos-text: #0ca30c;
+  --neg-text: #e66767;
+}
+.wb__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 14px; }
+.wb__title { margin: 0; font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.wb__hero { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 6px 0 0; font-size: clamp(28px, 4.2vw, 36px); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.wb__cur, .wb__lab { font-size: 0.42em; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
+.wb__chg { font-size: 13px; font-weight: 500; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.wb__chg[data-dir="up"] { color: var(--pos-text); }
+.wb__chg[data-dir="down"] { color: var(--neg-text); }
+.wb__insight { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-2); }
+.wb__insight strong { color: var(--ink); font-weight: 600; }
+.wb__ctl { display: flex; gap: 8px; }
+.wb__seg { display: flex; padding: 3px; border-radius: 10px; background: color-mix(in oklab, var(--ink) 6%, transparent); }
+.wb__seg button, .wb__view { min-width: 42px; padding: 6px 10px; border: 0; border-radius: 7px; background: none; color: var(--ink-2); font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
+.wb__seg button[aria-checked="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgb(0 0 0 / 0.14); }
+.wb__view { box-shadow: inset 0 0 0 1px var(--ring); }
+.wb__seg button:focus-visible, .wb__view:focus-visible { outline: 2px solid var(--up); outline-offset: 2px; }
+.wb__legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 16px 0 4px; font-size: 12px; color: var(--ink-2); }
+.wb__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.wb__k { width: 10px; height: 10px; border-radius: 3px; }
+.wb__k--total { background: var(--total); }
+.wb__k--up { background: var(--up); }
+.wb__k--down { background: var(--down); }
+
+.wb__plot { position: relative; }
+.wb__plot svg { display: block; overflow: visible; }
+.wb__grid { stroke: var(--grid); }
+.wb__base { stroke: var(--axis); }
+.wb__yt { font-size: 11px; fill: var(--muted); text-anchor: end; font-variant-numeric: tabular-nums; }
+.wb__bar--total { fill: var(--total); }
+.wb__bar--up { fill: var(--up); }
+.wb__bar--down { fill: var(--down); }
+.wb__conn { stroke: var(--ink-2); stroke-opacity: 0.55; stroke-width: 1; stroke-dasharray: 3 3; }
+.wb__val { font-size: 11.5px; font-weight: 600; fill: var(--ink); text-anchor: middle; font-variant-numeric: tabular-nums; }
+.wb__xl { font-size: 11.5px; fill: var(--ink-2); }
+.wb__val[data-narrow] { font-size: 9.5px; }
+.wb__xl[data-kind="total"] { fill: var(--ink); font-weight: 600; }
+/* The build: each step rises (or drops) into place in order, the first time it's seen. */
+.wb__step {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 360ms ease, transform 460ms cubic-bezier(0.2, 0.8, 0.2, 1.2);
+  transition-delay: calc(var(--i) * 140ms);
+}
+.wb[data-seen] .wb__step { opacity: 1; transform: none; }
+.wb[data-seen] .wb__step[data-dim] { opacity: 0.35; transition-delay: 0ms; }
+.wb__tip { position: absolute; display: grid; gap: 2px; padding: 8px 10px; border-radius: 10px; background: var(--surface); box-shadow: 0 0 0 1px var(--ring), 0 10px 24px -8px rgb(0 0 0 / 0.3); font-size: 12px; color: var(--ink-2); pointer-events: none; transform: translate(-50%, -100%); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.wb__tip b { color: var(--ink); font-size: 13px; }
+
+.wb__table-wrap { overflow-x: auto; margin-top: 12px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--ring); }
+.wb__table { width: 100%; border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.wb__table th, .wb__table td { padding: 8px 12px; text-align: right; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+.wb__table th:first-child { text-align: left; font-weight: 500; }
+.wb__table thead th { color: var(--ink-2); font-weight: 500; }
+.wb__table tr[data-total] { font-weight: 600; }
+.wb__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.wb[data-motion="reduced"] .wb__step { transition: none; opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .wb__step { transition: none; opacity: 1; transform: none; } }

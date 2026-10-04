@@ -1,0 +1,82 @@
+.tk {
+  --t-paper: #ede5d5;
+  --t-ink: #2a1830;
+  --t-bg: #0b080d;
+  --t-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 34rem;
+  color: var(--t-ink);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  filter: drop-shadow(0 22px 26px rgb(0 0 0 / 0.5));
+}
+
+.tk__main {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding: 1.6rem 1.6rem 1.5rem 1.75rem;
+  border-radius: 14px 0 0 14px;
+  background: radial-gradient(120% 90% at 0% 0%, #f6f0e2, var(--t-paper) 55%, #ddd3c1);
+  transition: transform 700ms var(--t-ease);
+}
+/* semicircular notches where the stub meets the body */
+.tk__notch { position: absolute; right: -10px; width: 20px; height: 20px; border-radius: 999px; background: var(--t-bg); z-index: 2; }
+.tk__notch--t { top: -10px; }
+.tk__notch--b { bottom: -10px; }
+
+.tk__kicker { margin: 0; font: 500 0.6875rem/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.6; }
+.tk__event { overflow-wrap: anywhere; margin: 0.9rem 0 0; font: 400 clamp(1.6rem, 6cqi, 2.2rem)/1.05 "Newsreader", "Iowan Old Style", Georgia, serif; letter-spacing: -0.015em; text-wrap: balance; }
+.tk__venue { margin: 0.5rem 0 0; font-size: 0.875rem; opacity: 0.7; }
+.tk__seat { display: flex; gap: 1.75rem; margin: 1.5rem 0 0; padding-top: 1rem; border-top: 1px dashed rgb(42 24 48 / 0.3); }
+.tk__seat dt { font: 500 0.625rem/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; }
+.tk__seat dd { margin: 0.4rem 0 0; font: 600 1.25rem/1 "JetBrains Mono", ui-monospace, monospace; }
+
+.tk__stub {
+  position: relative;
+  display: flex;
+  flex: none;
+  width: 7.5rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 0.8rem 1.2rem 1.1rem;
+  border: 0;
+  border-radius: 0 14px 14px 0;
+  background: radial-gradient(120% 90% at 100% 0%, #f6f0e2, var(--t-paper) 55%, #ddd3c1);
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transform-origin: 0% 100%;
+  transition: transform 700ms var(--t-ease), opacity 500ms ease 250ms;
+  -webkit-tap-highlight-color: transparent;
+}
+.tk__stub:focus-visible { outline: 2px solid #b9cce4; outline-offset: 4px; }
+
+/* perforation: a column of punched holes */
+.tk__perf {
+  position: absolute;
+  left: -2px;
+  top: 8px;
+  bottom: 8px;
+  width: 4px;
+  background: radial-gradient(circle at 50% 50%, var(--t-bg) 1.6px, transparent 2px) 0 0 / 4px 10px repeat-y;
+}
+.tk__stub-label { font: 500 0.625rem/1.3 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.7; }
+.tk__bars { width: 2.6rem; height: 2.4rem; background: repeating-linear-gradient(90deg, var(--t-ink) 0 2px, transparent 2px 4px, var(--t-ink) 4px 5px, transparent 5px 8px, var(--t-ink) 8px 11px, transparent 11px 13px); opacity: 0.85; }
+.tk__code { font: 500 0.625rem/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.1em; opacity: 0.6; }
+.tk__hint { position: absolute; top: 0.6rem; right: 0.7rem; font: 500 0.625rem/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.1em; opacity: 0; transition: opacity 200ms ease; }
+
+/* hover: the stub lifts a little along its perforation */
+.tk:not(.tk--torn) .tk__stub:hover, .tk:not(.tk--torn) .tk__stub:focus-visible { transform: rotate(4deg) translateX(4px); }
+.tk:not(.tk--torn) .tk__stub:hover .tk__hint, .tk:not(.tk--torn) .tk__stub:focus-visible .tk__hint { opacity: 0.7; }
+
+/* torn: it peels off, flutters down and fades; the main ticket squares off its right edge */
+.tk--torn .tk__stub { transform: translate(34px, 46px) rotate(17deg); opacity: 0.25; cursor: default; pointer-events: none; }
+.tk--torn .tk__main { border-radius: 14px 4px 4px 14px; transform: translateX(6px); }
+.tk--torn .tk__notch { opacity: 0; }
+
+@container (max-width: 30rem) { .tk__stub { width: 6rem; } }
+@media (prefers-reduced-motion: reduce) { .tk__main, .tk__stub { transition-duration: 1ms; } }

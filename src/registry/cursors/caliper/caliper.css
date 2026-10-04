@@ -1,0 +1,258 @@
+.cl {
+  position: relative;
+  overflow: hidden;
+  --cl-line: #7cc4ff;
+  --cl-red: #ff5d62;
+  --cl-chip: #0b1d33;
+  --cl-chip-ink: #dcecff;
+  --cl-pin: #ffd166;
+}
+.cl--paper {
+  --cl-line: #2f6fed;
+  --cl-red: #e5484d;
+  --cl-chip: #ffffff;
+  --cl-chip-ink: #1b2a44;
+  --cl-pin: #b45309;
+}
+
+.cl[data-live],
+.cl[data-live] * {
+  cursor: none !important;
+}
+.cl[data-live] :is(button, a, input, select, textarea, label) {
+  cursor: pointer !important;
+}
+.cl[data-live] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.cl__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  pointer-events: none;
+  font: 500 10px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.cl__layer > * {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Crosshair: full-bleed hairlines, hidden until the pointer is inside. */
+.cl__vx,
+.cl__hy,
+.cl__rx,
+.cl__ry {
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+.cl__layer[data-in] :is(.cl__vx, .cl__hy, .cl__rx, .cl__ry) {
+  opacity: 1;
+}
+.cl__vx {
+  width: 1px;
+  height: 100%;
+  margin-left: -0.5px;
+  background-image: repeating-linear-gradient(to bottom, var(--cl-line) 0 5px, transparent 5px 8px);
+}
+.cl__hy {
+  height: 1px;
+  width: 100%;
+  margin-top: -0.5px;
+  background-image: repeating-linear-gradient(to right, var(--cl-line) 0 5px, transparent 5px 8px);
+}
+.cl__layer[data-in] .cl__vx,
+.cl__layer[data-in] .cl__hy {
+  opacity: 0.6;
+}
+.cl__layer[data-snap] .cl__vx,
+.cl__layer[data-snap] .cl__hy {
+  background-image: none;
+  background-color: var(--cl-line);
+  opacity: 0.85;
+}
+/* The readouts ride the frame's edges. */
+.cl__rx,
+.cl__ry {
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: var(--cl-line);
+  color: var(--cl-chip);
+  white-space: nowrap;
+}
+.cl__rx { top: 6px; }
+.cl__ry { left: 6px; }
+
+/* Shift held: the 8px grid appears under the crosshair, faint. */
+.cl__gridsnap {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 160ms ease;
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--cl-line) 22%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--cl-line) 22%, transparent) 1px, transparent 1px);
+  background-size: var(--cl-grid) var(--cl-grid);
+  /* Only around the pointer: a lamp over the grid, not a net over the page. */
+  -webkit-mask-image: radial-gradient(150px circle at var(--cl-x, -999px) var(--cl-y, -999px), #000 30%, transparent 100%);
+  mask-image: radial-gradient(150px circle at var(--cl-x, -999px) var(--cl-y, -999px), #000 30%, transparent 100%);
+}
+.cl__layer[data-snap] .cl__gridsnap {
+  opacity: 1;
+}
+.cl__snap {
+  left: auto;
+  top: auto;
+  right: 10px;
+  bottom: 10px;
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: var(--cl-chip);
+  color: var(--cl-line);
+  box-shadow: 0 0 0 1px var(--cl-line);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+.cl__snap[data-on] {
+  opacity: 1;
+}
+
+/* Hovered element: outline and size. */
+.cl__box {
+  outline: 1px solid var(--cl-line);
+  background: color-mix(in oklab, var(--cl-line) 7%, transparent);
+  opacity: 0;
+}
+.cl__box[data-on] {
+  opacity: 1;
+}
+.cl__size {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-top: 5px;
+  transform: translateX(-50%);
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: var(--cl-line);
+  color: var(--cl-chip);
+  white-space: nowrap;
+}
+
+/* Redlines: a line from the element's edge to its frame, with the distance at its middle. */
+.cl__red {
+  opacity: 0;
+  background: var(--cl-red);
+}
+.cl__red[data-on] {
+  opacity: 1;
+}
+.cl__red[data-v="1"] { width: 1px; height: var(--len); margin-left: -0.5px; }
+.cl__red[data-v="0"] { height: 1px; width: var(--len); margin-top: -0.5px; }
+.cl__red::before,
+.cl__red::after {
+  content: "";
+  position: absolute;
+  background: var(--cl-red);
+}
+.cl__red[data-v="1"]::before,
+.cl__red[data-v="1"]::after { left: -3px; width: 7px; height: 1px; }
+.cl__red[data-v="1"]::before { top: 0; }
+.cl__red[data-v="1"]::after { bottom: 0; }
+.cl__red[data-v="0"]::before,
+.cl__red[data-v="0"]::after { top: -3px; height: 7px; width: 1px; }
+.cl__red[data-v="0"]::before { left: 0; }
+.cl__red[data-v="0"]::after { right: 0; }
+.cl__red span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2px 4px;
+  border-radius: 3px;
+  background: var(--cl-red);
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Dimension line for drag measures and pin distances. */
+.cl__dim {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  opacity: 0;
+}
+.cl__dim[data-on] {
+  opacity: 1;
+}
+.cl__dim line {
+  stroke: var(--cl-pin);
+  stroke-width: 1.25;
+}
+.cl__dim[data-live] line:first-child {
+  stroke-dasharray: 4 3;
+}
+.cl__dlabel {
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: var(--cl-pin);
+  color: var(--cl-chip);
+  white-space: nowrap;
+  opacity: 0;
+}
+.cl__dlabel[data-on] {
+  opacity: 1;
+}
+
+.cl__pin {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.cl__pin[data-on] {
+  opacity: 1;
+}
+.cl__pin::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cl-pin);
+  background: color-mix(in oklab, var(--cl-pin) 25%, transparent);
+}
+.cl__pin span {
+  position: absolute;
+  left: 9px;
+  top: 7px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  background: var(--cl-chip);
+  color: var(--cl-pin);
+  box-shadow: 0 0 0 1px var(--cl-pin);
+  white-space: nowrap;
+}
+
+.cl__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.cl[data-motion="reduced"] .cl__layer * { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .cl__layer * { transition: none; }
+}

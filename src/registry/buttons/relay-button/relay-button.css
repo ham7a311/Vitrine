@@ -1,0 +1,84 @@
+/* Relay Button — an async action whose states ride a reel. */
+.relay-button {
+  --rb-face: #efe8dc;
+  --rb-ink: #15120f;
+  --rb-ok: #2e7d55;
+  --rb-err: #b3412d;
+  --rb-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --rb-h: 3.25rem;
+  position: relative;
+  display: inline-block;
+  height: var(--rb-h);
+  width: calc(var(--rb-w) + 3rem);
+  padding: 0 1.5rem;
+  overflow: hidden;
+  border: 0;
+  border-radius: 14px;
+  background: var(--rb-face);
+  color: var(--rb-ink);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 14px 28px -18px rgb(0 0 0 / 0.8);
+  font: 600 0.9375rem/1 "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: width 560ms var(--rb-ease), background 400ms ease, transform 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.relay-button--frost { --rb-face: #b9cce4; --rb-ink: #0e1420; }
+.relay-button:active { transform: scale(0.98); }
+.relay-button:focus-visible { outline: 2px solid var(--rb-face); outline-offset: 4px; }
+.relay-button[data-phase="working"] { cursor: progress; }
+.relay-button[data-phase="done"] { background: color-mix(in srgb, var(--rb-face) 82%, var(--rb-ok)); }
+.relay-button[data-phase="error"] { background: color-mix(in srgb, var(--rb-face) 80%, var(--rb-err)); }
+
+.relay-button__window { display: block; height: var(--rb-h); overflow: hidden; }
+.relay-button__reel {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(var(--rb-i) * var(--rb-h) * -1));
+  transition: transform 620ms var(--rb-ease);
+}
+.relay-button__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  height: var(--rb-h);
+  flex: none;
+  white-space: nowrap;
+}
+.relay-button__row[aria-hidden="true"] { opacity: 0.25; transition: opacity 300ms ease; }
+.relay-button__pct { font: 500 0.75rem "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; opacity: 0.55; min-width: 2.2rem; text-align: right; }
+.relay-button__spin,
+.relay-button__icon-slot { width: 0.9rem; height: 0.9rem; flex: none; }
+.relay-button__spin { border-radius: 50%; border: 1.6px solid color-mix(in srgb, var(--rb-ink) 25%, transparent); border-top-color: var(--rb-ink); animation: relay-button-spin 720ms linear infinite; }
+.relay-button__tick { width: 1rem; height: 1rem; flex: none; fill: none; stroke: var(--rb-ok); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 14; stroke-dashoffset: 14; }
+.relay-button[data-phase="done"] .relay-button__tick { stroke-dashoffset: 0; transition: stroke-dashoffset 420ms var(--rb-ease) 260ms; }
+.relay-button__bang { display: grid; place-items: center; width: 1rem; height: 1rem; flex: none; border-radius: 50%; background: var(--rb-err); color: var(--rb-face); font-size: 0.7rem; font-weight: 700; }
+
+/* progress lives on the bottom edge, never over the label */
+.relay-button__rail {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--rb-ink);
+  opacity: 0.55;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--rb-p));
+  transition: transform 180ms linear, opacity 400ms ease;
+}
+.relay-button[data-phase="idle"] .relay-button__rail { opacity: 0; transition: opacity 200ms ease; }
+.relay-button[data-phase="done"] .relay-button__rail { background: var(--rb-ok); opacity: 0; transition: opacity 900ms ease 300ms; }
+.relay-button[data-phase="error"] .relay-button__rail { background: var(--rb-err); opacity: 0.8; }
+.relay-button[data-phase="error"] .relay-button__window { animation: relay-button-shake 420ms ease; }
+
+.relay-button__measure { position: absolute; visibility: hidden; pointer-events: none; left: 0; top: 0; }
+.relay-button__measure .relay-button__row { position: absolute; left: 0; top: 0; width: max-content; }
+.relay-button__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@keyframes relay-button-spin { to { transform: rotate(360deg); } }
+@keyframes relay-button-shake { 25% { transform: translateX(-4px); } 60% { transform: translateX(3px); } }
+@media (prefers-reduced-motion: reduce) {
+  .relay-button, .relay-button * { transition-duration: 1ms !important; animation: none !important; }
+}

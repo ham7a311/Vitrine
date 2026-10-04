@@ -1,0 +1,45 @@
+.ag {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  outline: none;
+}
+.ag--night { background: #000; color: #e9e6e0; }
+.ag--paper { background: #f4f0e8; color: #1b1a17; }
+.ag[data-dragging] { cursor: grabbing; }
+.ag:focus-visible { box-shadow: inset 0 0 0 2px currentColor; }
+.ag__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 700ms ease; }
+.ag[data-ready] .ag__canvas { opacity: 1; }
+.ag__loader { position: absolute; inset: 0; display: grid; place-items: center; }
+.ag__goo { display: flex; gap: 4px; filter: url(#ag-goo); }
+.ag__goo i { width: 14px; height: 14px; border-radius: 50%; background: currentColor; animation: ag-goo 1.5s ease-in-out infinite; }
+.ag__goo i:nth-child(2) { animation-delay: 0.2s; }
+.ag__goo i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes ag-goo { 0%, 100% { transform: translateX(0) scale(1); } 25% { transform: translateX(11px) scale(1.2); } 75% { transform: translateX(-11px) scale(1.2); } }
+.ag__hint {
+  pointer-events: none;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  translate: -50% 0;
+  margin: 0;
+  font: 500 0.625rem/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  transition: opacity 600ms ease;
+}
+.ag__hint[data-gone] { opacity: 0; }
+.ag__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.ag__fallback { position: absolute; inset: 0; margin: 0; padding: 2rem; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 1px; overflow: auto; font: 0.75rem "Geist Mono", ui-monospace, monospace; text-transform: uppercase; }
+.ag__fallback li { display: flex; justify-content: space-between; padding: 1rem; border: 1px solid color-mix(in oklab, currentColor 15%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .ag__goo i { animation: none; }
+  .ag__canvas, .ag__hint { transition: none; }
+}

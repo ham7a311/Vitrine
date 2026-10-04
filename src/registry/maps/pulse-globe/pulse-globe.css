@@ -1,0 +1,24 @@
+.pg { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 17rem; width: 100%; height: 100%; min-height: 26rem; overflow: hidden; font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; }
+.pg__globe { display: block; width: 100%; height: 100%; min-height: 20rem; cursor: grab; touch-action: pan-y; }
+.pg__panel { display: flex; flex-direction: column; gap: 12px; padding: 24px 22px; border-left: 1px solid var(--pg-line); }
+.pg__eyebrow { margin: 0; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pg-muted); }
+.pg__big { margin: 0; font-size: 2.5rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.pg__big span { font-size: 0.875rem; font-weight: 400; letter-spacing: 0; color: var(--pg-muted); }
+.pg__spark { width: 100%; height: 34px; overflow: visible; }
+.pg__legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; font-size: 0.75rem; color: var(--pg-muted); }
+.pg__legend li, .pg__feed li { display: flex; align-items: center; gap: 6px; }
+.pg__legend i, .pg__feed i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.pg__feed { display: flex; flex-direction: column; margin: 4px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--pg-line); outline: none; }
+.pg__feed:focus-visible { box-shadow: 0 0 0 2px var(--pg-muted); border-radius: 6px; }
+.pg__feed li { display: grid; grid-template-columns: 8px 4.5rem 1fr auto; gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--pg-line); font-size: 0.8125rem; animation: pg-in 400ms cubic-bezier(0.22, 1, 0.36, 1); }
+.pg__feed li:first-child { animation-name: pg-in-first; }
+.pg__what { color: var(--pg-muted); }
+.pg__when { font: 0.6875rem "Geist Mono", ui-monospace, monospace; color: var(--pg-muted); font-variant-numeric: tabular-nums; }
+.pg__note { margin: auto 0 0; font-size: 0.6875rem; color: var(--pg-muted); }
+@keyframes pg-in-first { from { opacity: 0; translate: 0 -6px; } }
+@keyframes pg-in { from { opacity: 0.6; } }
+@media (max-width: 720px) {
+  .pg { grid-template-columns: 1fr; grid-template-rows: minmax(18rem, 1fr) auto; }
+  .pg__panel { border-left: 0; border-top: 1px solid var(--pg-line); }
+}
+@media (prefers-reduced-motion: reduce) { .pg__feed li { animation: none; } }

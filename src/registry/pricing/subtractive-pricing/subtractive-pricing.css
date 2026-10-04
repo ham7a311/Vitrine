@@ -1,0 +1,94 @@
+/* Subtractive Pricing — one list, plans are what's struck out of it. */
+.subtractive-pricing {
+  --sp-ink: #efe8dc;
+  --sp-muted: #a7a1ab;
+  --sp-faint: #6f6a74;
+  --sp-line: rgb(239 232 220 / 0.08);
+  --sp-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  container-type: inline-size;
+  width: min(100%, 56rem);
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif; color: var(--sp-ink);
+}
+.subtractive-pricing__layout { display: grid; grid-template-columns: 15rem 1fr; gap: 2.5rem; align-items: start; }
+.subtractive-pricing .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* the plan ladder */
+.subtractive-pricing__plans { display: grid; gap: 0.25rem; position: sticky; top: 1rem; }
+.subtractive-pricing__plan {
+  position: relative; display: grid; grid-template-columns: 1fr auto; gap: 0.15rem 1rem; padding: 0.85rem 1rem 0.85rem 1.15rem;
+  border: 0; border-radius: 12px; background: none; color: var(--sp-muted); text-align: left; font: inherit; cursor: pointer;
+  transition: background 300ms ease, color 250ms ease;
+}
+.subtractive-pricing__plan::before {
+  content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 2px; border-radius: 2px; background: var(--sp-accent);
+  transform: scaleY(0); transition: transform 420ms var(--sp-ease);
+}
+.subtractive-pricing__plan:hover { color: var(--sp-ink); }
+.subtractive-pricing__plan[aria-checked="true"] { background: rgb(239 232 220 / 0.04); color: var(--sp-ink); }
+.subtractive-pricing__plan[aria-checked="true"]::before { transform: scaleY(1); }
+.subtractive-pricing__plan:focus-visible { outline: 2px solid var(--sp-accent); outline-offset: 2px; }
+.subtractive-pricing__plan-name { font: 400 1.35rem/1.1 "Instrument Serif", Georgia, serif; letter-spacing: -0.01em; }
+.subtractive-pricing__plan-blurb { grid-column: 1; font-size: 0.8125rem; color: var(--sp-faint); }
+.subtractive-pricing__plan-price { grid-row: 1; grid-column: 2; align-self: center; font: 500 0.75rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--sp-muted); }
+
+/* the sheet */
+.subtractive-pricing__sheet {
+  padding: 1.75rem 1.75rem 1.5rem; border-radius: 18px; background: #121015;
+  box-shadow: inset 0 0 0 1px var(--sp-line), inset 0 1px 0 rgb(255 255 255 / 0.03), 0 30px 60px -40px rgb(0 0 0 / 0.9);
+}
+.subtractive-pricing__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-bottom: 1.4rem; border-bottom: 1px solid var(--sp-line); }
+.subtractive-pricing__price { display: flex; align-items: baseline; margin: 0; font: 400 3.6rem/0.9 "Instrument Serif", Georgia, serif; letter-spacing: -0.03em; }
+.subtractive-pricing__cur { font-size: 0.55em; margin-right: 0.08em; align-self: flex-start; margin-top: 0.14em; color: var(--sp-muted); }
+.subtractive-pricing__per { margin-left: 0.5rem; font: 500 0.8125rem "Hanken Grotesk", sans-serif; letter-spacing: 0; color: var(--sp-faint); }
+.subtractive-pricing__digits { display: inline-flex; }
+.subtractive-pricing__slot { display: inline-block; height: 0.9em; overflow: hidden; }
+.subtractive-pricing__slot > span { display: flex; flex-direction: column; transition: transform 700ms var(--sp-ease); }
+.subtractive-pricing__slot > span > span { height: 0.9em; line-height: 0.9; }
+.subtractive-pricing__tally { margin: 0; font: 500 0.75rem "Geist Mono", monospace; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; color: var(--sp-faint); }
+.subtractive-pricing__tally b { color: var(--sp-ink); font-weight: 500; }
+
+.subtractive-pricing__group { padding-top: 1.2rem; }
+.subtractive-pricing__group-name { margin: 0 0 0.5rem; font: 500 0.625rem "Geist Mono", monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sp-faint); }
+.subtractive-pricing__group ul { display: grid; grid-template-columns: 1fr 1fr; gap: 0.1rem 1.5rem; margin: 0; padding: 0; list-style: none; }
+.subtractive-pricing__group li { display: flex; align-items: center; gap: 0.6rem; min-height: 2rem; font-size: 0.9rem; }
+
+.subtractive-pricing__mark { display: grid; place-items: center; width: 1.1rem; height: 1.1rem; flex: none; }
+.subtractive-pricing__mark svg { width: 100%; height: 100%; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.subtractive-pricing__tick { stroke: var(--sp-accent); stroke-dasharray: 14; stroke-dashoffset: 14; transition: stroke-dashoffset 380ms var(--sp-ease); transition-delay: calc(var(--k) * 45ms + 140ms); }
+.subtractive-pricing__dash { stroke: var(--sp-faint); opacity: 1; transition: opacity 200ms ease; transition-delay: calc(var(--k) * 45ms); }
+li[data-in] .subtractive-pricing__tick { stroke-dashoffset: 0; }
+li[data-in] .subtractive-pricing__dash { opacity: 0; transition-delay: 0ms; }
+
+.subtractive-pricing__label {
+  position: relative; color: var(--sp-faint);
+  transition: color 360ms ease; transition-delay: calc(var(--k) * 45ms);
+}
+/* the strike is a drawn line, not text-decoration, so it can travel */
+.subtractive-pricing__label::after {
+  content: ""; position: absolute; left: -0.1em; right: -0.1em; top: 55%; height: 1px; background: currentColor;
+  transform: scaleX(1); transform-origin: 0 50%;
+  transition: transform 420ms var(--sp-ease); transition-delay: calc(var(--k) * 45ms);
+}
+li[data-in] .subtractive-pricing__label { color: var(--sp-ink); }
+li[data-in] .subtractive-pricing__label::after { transform: scaleX(0); transform-origin: 100% 50%; }
+/* regained lines glow once as they come back */
+li[data-in] .subtractive-pricing__label { animation: subtractive-pricing-back 900ms ease; animation-delay: calc(var(--k) * 45ms); }
+@keyframes subtractive-pricing-back { 30% { color: var(--sp-accent); } }
+
+.subtractive-pricing__foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 1.6rem; padding-top: 1.4rem; border-top: 1px solid var(--sp-line); font-size: 0.8125rem; color: var(--sp-faint); }
+.subtractive-pricing__cta {
+  display: inline-flex; align-items: center; height: 2.9rem; padding: 0 1.4rem; border-radius: 999px;
+  background: var(--sp-ink); color: #15130f; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; text-decoration: none;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6);
+}
+.subtractive-pricing__cta:active { transform: translateY(1px); }
+.subtractive-pricing__cta:focus-visible { outline: 2px solid var(--sp-accent); outline-offset: 3px; }
+
+@container (max-width: 44rem) {
+  .subtractive-pricing__layout { grid-template-columns: 1fr; gap: 1.25rem; }
+  .subtractive-pricing__plans { position: static; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+  .subtractive-pricing__group ul { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .subtractive-pricing * { transition-duration: 1ms !important; transition-delay: 0ms !important; animation: none !important; }
+}

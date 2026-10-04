@@ -1,0 +1,228 @@
+/* Progressive Form — the answers write a sentence. */
+.progressive-form {
+  --pf-bg: #fbfaf6;
+  --pf-ink: #1c1b18;
+  --pf-muted: #77736a;
+  --pf-faint: rgb(28 27 24 / 0.22);
+  --pf-line: rgb(28 27 24 / 0.1);
+  --pf-field: #ffffff;
+  --pf-accent: #b4532a;
+  --pf-error: #b42318;
+  --pf-primary: #1c1b18;
+  --pf-on-primary: #fbfaf6;
+  --pf-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: min(100%, 40rem);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--pf-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.progressive-form--night {
+  --pf-bg: #121315;
+  --pf-ink: #ecebe7;
+  --pf-muted: #8f9197;
+  --pf-faint: rgb(236 235 231 / 0.24);
+  --pf-line: rgb(255 255 255 / 0.09);
+  --pf-field: #1a1b1e;
+  --pf-accent: #e8956b;
+  --pf-error: #f0766e;
+  --pf-primary: #ecebe7;
+  --pf-on-primary: #121315;
+}
+
+.progressive-form__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+.progressive-form__title { flex: none; margin: 0; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.01em; }
+.progressive-form__progress { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 0.75rem; color: var(--pf-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.progressive-form__ticks { display: flex; gap: 3px; }
+.progressive-form__ticks i { width: 14px; height: 3px; border-radius: 2px; background: var(--pf-line); transition: background 300ms ease; }
+.progressive-form__ticks i[data-current] { background: var(--pf-faint); }
+.progressive-form__ticks i[data-on] { background: var(--pf-ink); }
+
+/* The sentence. */
+.progressive-form__sentence {
+  margin: 22px 0 30px;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(1.55rem, 4.6vw, 2.15rem);
+  line-height: 1.42;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+.progressive-form__token {
+  display: inline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  margin: 0;
+  padding: 0 0.08em;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: 1.15;
+  vertical-align: baseline;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+/* Blank: a dotted rule where the answer will go. */
+.progressive-form__token[data-state^="blank"],
+.progressive-form__token[data-state="error"]:empty {
+  display: inline-block;
+  width: 3.4em;
+  height: 0.9em;
+  border-bottom: 1.5px dotted var(--pf-faint);
+  vertical-align: -0.05em;
+}
+.progressive-form__token[data-state="blank-current"] { border-bottom: 1.5px solid var(--pf-accent); animation: pf-ask 1.6s ease-in-out infinite; }
+/* Pencil: what you're typing, written in lightly. */
+.progressive-form__token[data-state="pencil"] { color: var(--pf-muted); font-style: italic; }
+/* Ink: committed. The rule draws in under it. */
+.progressive-form__token[data-state="ink"] {
+  background-image: linear-gradient(var(--pf-accent), var(--pf-accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1.5px;
+  animation: pf-ink 520ms var(--pf-ease) both;
+}
+.progressive-form__token[data-editable] { cursor: pointer; border-radius: 4px; transition: background-color 160ms ease; }
+.progressive-form__token[data-editable]:hover { background-color: color-mix(in srgb, var(--pf-accent) 9%, transparent); }
+.progressive-form__token[data-editable]:focus-visible { outline: 2px solid var(--pf-accent); outline-offset: 2px; }
+.progressive-form__token[data-state="error"] { color: var(--pf-error); font-style: italic; border-bottom: 1.5px dashed var(--pf-error); }
+.progressive-form__token[data-state="error"]:has(.progressive-form__sr) { display: inline-block; width: 3.4em; height: 0.9em; vertical-align: -0.05em; }
+
+@keyframes pf-ink {
+  from { color: var(--pf-muted); background-size: 0% 1.5px; }
+  40% { color: var(--pf-ink); }
+}
+@keyframes pf-ask { 50% { border-bottom-color: color-mix(in srgb, var(--pf-accent) 35%, transparent); } }
+
+/* The live question. */
+.progressive-form__step { animation: pf-step 360ms var(--pf-ease) both; }
+@keyframes pf-step { from { opacity: 0; transform: translateY(8px); } }
+.progressive-form__field { margin: 0; padding: 0; border: 0; min-width: 0; }
+.progressive-form__question { display: block; margin: 0 0 10px; padding: 0; font-size: 0.9375rem; font-weight: 500; }
+.progressive-form__input {
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--pf-field);
+  box-shadow: inset 0 0 0 1px var(--pf-line);
+  color: var(--pf-ink);
+  font: 400 1.0625rem/1 inherit;
+  font-family: inherit;
+  outline: none;
+  transition: box-shadow 160ms ease;
+  color-scheme: light;
+}
+.progressive-form--night .progressive-form__input { color-scheme: dark; }
+.progressive-form__input::placeholder { color: var(--pf-faint); }
+.progressive-form__input:focus { box-shadow: inset 0 0 0 1.5px var(--pf-ink); }
+.progressive-form__input[aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px var(--pf-error); }
+
+.progressive-form__stepper { display: flex; gap: 8px; }
+.progressive-form__stepper .progressive-form__input { flex: 1; min-width: 0; text-align: center; font-variant-numeric: tabular-nums; }
+.progressive-form__stepper button {
+  flex: none;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--pf-field);
+  box-shadow: inset 0 0 0 1px var(--pf-line);
+  color: var(--pf-ink);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+.progressive-form__stepper button:disabled { opacity: 0.35; cursor: not-allowed; }
+.progressive-form__stepper button:focus-visible { outline: 2px solid var(--pf-ink); outline-offset: 2px; }
+
+.progressive-form__choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 8px; }
+.progressive-form__choice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  background: var(--pf-field);
+  box-shadow: inset 0 0 0 1px var(--pf-line);
+  cursor: pointer;
+  transition: box-shadow 160ms ease, background 160ms ease;
+}
+.progressive-form__choice input { position: absolute; opacity: 0; pointer-events: none; }
+.progressive-form__choice:has(input:checked) { box-shadow: inset 0 0 0 1.5px var(--pf-ink); }
+.progressive-form__choice:has(input:focus-visible) { outline: 2px solid var(--pf-accent); outline-offset: 2px; }
+.progressive-form__choice[data-disabled] { cursor: not-allowed; opacity: 0.5; }
+.progressive-form__choices[data-invalid] .progressive-form__choice { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pf-error) 50%, transparent); }
+.progressive-form__choice-label { font-size: 0.9375rem; font-weight: 500; }
+.progressive-form__choice-desc { font-size: 0.78rem; color: var(--pf-muted); line-height: 1.4; }
+
+.progressive-form__hint,
+.progressive-form__error { margin: 9px 2px 0; font-size: 0.8125rem; line-height: 1.45; color: var(--pf-muted); }
+.progressive-form__error { color: var(--pf-error); }
+
+.progressive-form__nav { display: flex; align-items: center; gap: 8px; margin-top: 22px; }
+.progressive-form__next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 44px;
+  margin-left: auto;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 11px;
+  background: var(--pf-primary);
+  color: var(--pf-on-primary);
+  font: 500 0.9063rem/1 inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 160ms ease, transform 120ms ease;
+}
+.progressive-form__next:active:not(:disabled) { transform: translateY(1px); }
+.progressive-form__next:disabled { cursor: not-allowed; opacity: 0.6; }
+.progressive-form__next:focus-visible { outline: 2px solid var(--pf-accent); outline-offset: 2px; }
+.progressive-form__next kbd { font: 500 0.75rem "Geist Mono", ui-monospace, monospace; opacity: 0.55; }
+.progressive-form__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 44px;
+  padding: 0 10px 0 6px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--pf-muted);
+  font: 500 0.875rem/1 inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+.progressive-form__back:hover:not(:disabled) { color: var(--pf-ink); }
+.progressive-form__back:disabled { opacity: 0.4; cursor: not-allowed; }
+.progressive-form__back:focus-visible { outline: 2px solid var(--pf-accent); outline-offset: 1px; }
+.progressive-form__back svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.progressive-form__spinner { width: 13px; height: 13px; border-radius: 50%; border: 1.5px solid currentColor; border-right-color: transparent; animation: pf-spin 700ms linear infinite; }
+@keyframes pf-spin { to { transform: rotate(1turn); } }
+
+/* Review: the sentence is the summary; the list is for precision. */
+.progressive-form__review { animation: pf-step 360ms var(--pf-ease) both; }
+.progressive-form__review-title { margin: 0 0 10px; font-size: 0.9375rem; font-weight: 500; outline: none; }
+.progressive-form__list { margin: 0; border-top: 1px solid var(--pf-line); }
+.progressive-form__list div { display: grid; grid-template-columns: 8.5rem 1fr auto; align-items: baseline; gap: 12px; padding: 10px 2px; border-bottom: 1px solid var(--pf-line); }
+.progressive-form__list dt { font-size: 0.8125rem; color: var(--pf-muted); }
+.progressive-form__list dd { margin: 0; min-width: 0; overflow-wrap: anywhere; font-size: 0.9063rem; }
+.progressive-form__list button { border: 0; background: none; padding: 2px 4px; border-radius: 5px; color: var(--pf-accent); font: 500 0.8125rem inherit; font-family: inherit; cursor: pointer; }
+.progressive-form__list button:focus-visible { outline: 2px solid var(--pf-accent); }
+.progressive-form[data-status="done"] .progressive-form__review-title { color: var(--pf-accent); }
+
+.progressive-form__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 30rem) {
+  .progressive-form__list div { grid-template-columns: 1fr auto; }
+  .progressive-form__list dt { grid-column: 1 / -1; margin-bottom: -8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressive-form__step, .progressive-form__review { animation: none; }
+  .progressive-form__token[data-state="ink"] { animation: none; }
+  .progressive-form__token[data-state="blank-current"] { animation: none; }
+}

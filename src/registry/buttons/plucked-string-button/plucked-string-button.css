@@ -1,0 +1,72 @@
+/* Plucked String Button — --ps-energy (0–1) and --ps-shift are written per frame while the string moves. */
+
+.ps {
+  --ps-surface: #140d17;
+  --ps-ink: #efe8dc;
+  --ps-string: #b9cce4;
+  --ps-string-hot: #c8b9ea;
+  --ps-energy: 0;
+  --ps-shift: 0px;
+  position: relative;
+  display: inline-flex;
+  height: 3.5rem;
+  min-width: 11rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem 0.4rem;
+  border: 1px solid rgb(239 232 220 / 0.14);
+  border-radius: 14px;
+  background:
+    radial-gradient(120% 90% at 50% 120%, rgb(185 204 228 / calc(0.05 + var(--ps-energy) * 0.12)), transparent 60%),
+    var(--ps-surface);
+  color: var(--ps-ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  overflow: visible;
+  transition: border-color 300ms ease, transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+.ps:hover { border-color: rgb(239 232 220 / 0.26); }
+.ps:active { transform: scale(0.985); }
+.ps:focus-visible { outline: 2px solid var(--ps-string); outline-offset: 4px; }
+
+.ps__label {
+  display: inline-block;
+  transform: translateY(var(--ps-shift));
+  will-change: transform;
+}
+
+.ps__string {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  width: 100%;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+}
+.ps__pin { fill: rgb(239 232 220 / 0.45); }
+.ps__line {
+  fill: none;
+  stroke: color-mix(in oklab, var(--ps-string) calc(100% - var(--ps-energy) * 60%), var(--ps-string-hot));
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: calc(0.55 + var(--ps-energy) * 0.45);
+}
+.ps__glow {
+  fill: none;
+  stroke: var(--ps-string-hot);
+  stroke-width: 4;
+  stroke-linecap: round;
+  opacity: calc(var(--ps-energy) * 0.35);
+  filter: blur(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps__label { transform: none; }
+  .ps:hover .ps__line { opacity: 1; }
+}

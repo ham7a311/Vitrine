@@ -1,0 +1,20 @@
+.rg { position: relative; width: 100%; height: 100%; min-height: 22rem; overflow: hidden; font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; }
+.rg__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; }
+.rg[data-dragging] .rg__canvas { cursor: grabbing; }
+.rg__tip {
+  pointer-events: none;
+  position: absolute;
+  translate: 12px -50%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 10px;
+  border: 1px solid color-mix(in oklab, var(--rg-arc) 45%, transparent);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--rg-ground) 86%, transparent);
+  backdrop-filter: blur(6px);
+  font-size: 13px;
+  white-space: nowrap;
+}
+.rg__tip span { font: 0.6875rem "Geist Mono", ui-monospace, monospace; color: var(--rg-muted); }
+.rg__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

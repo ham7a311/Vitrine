@@ -1,0 +1,115 @@
+/* Aura Field — colour only exists at the edge while the AI is touching your text. */
+@property --af-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+.aura-field {
+  --af-bg: #ffffff;
+  --af-ink: #1c1c1e;
+  --af-muted: #6e6e73;
+  --af-line: rgb(0 0 0 / 0.1);
+  --af-chip: rgb(0 0 0 / 0.05);
+  --af-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100%, 34rem);
+  font-family: "Geist", -apple-system, "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--af-ink);
+}
+.aura-field--dark {
+  --af-bg: #1c1c1e;
+  --af-ink: #f5f5f7;
+  --af-muted: #98989d;
+  --af-line: rgb(255 255 255 / 0.12);
+  --af-chip: rgb(255 255 255 / 0.08);
+}
+.aura-field__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+
+.aura-field__frame { position: relative; isolation: isolate; border-radius: 20px; padding: 1.5px; }
+/* the hairline at rest; the colour band while busy */
+.aura-field__aura {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--af-line);
+  transition: opacity 500ms ease;
+}
+.aura-field__aura::before,
+.aura-field__glow {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: conic-gradient(from var(--af-angle), #ff8a3d, #ff4fa3, #a36bff, #3d8bff, #33d6c2, #ffd23d, #ff8a3d);
+  opacity: 0;
+  transition: opacity 600ms var(--af-ease);
+  animation: aura-field-turn 3.2s linear infinite;
+  animation-play-state: paused;
+}
+/* a soft bloom outside the edge, blurred */
+.aura-field__glow { z-index: -2; inset: -2px; filter: blur(16px); }
+.aura-field[data-busy] .aura-field__aura::before { opacity: 1; animation-play-state: running; }
+.aura-field[data-busy] .aura-field__glow { opacity: 0.55; animation-play-state: running; }
+
+.aura-field__surface { position: relative; border-radius: 18.5px; background: var(--af-bg); padding: 1rem 1.1rem; min-height: 8.2rem; }
+.aura-field__text {
+  display: block;
+  width: 100%;
+  min-height: 6.2rem;
+  margin: 0;
+  padding: 0;
+  resize: none;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: inherit;
+  font: 400 1rem/1.55 inherit;
+  font-family: inherit;
+  letter-spacing: -0.005em;
+  white-space: pre-wrap;
+}
+textarea.aura-field__text:disabled { color: var(--af-muted); }
+.aura-field__word { animation: aura-field-word 420ms var(--af-ease) both; }
+.aura-field__caret {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-left: 0.25rem;
+  border-radius: 50%;
+  background: conic-gradient(from var(--af-angle), #ff8a3d, #a36bff, #3d8bff, #ff8a3d);
+  animation: aura-field-turn 1.2s linear infinite;
+  vertical-align: 0.1em;
+}
+
+.aura-field__tools { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem; flex-wrap: wrap; }
+.aura-field__spacer { flex: 1; }
+.aura-field__tools button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.1rem;
+  padding: 0 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--af-chip);
+  color: var(--af-ink);
+  font: 500 0.8125rem inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 200ms ease, opacity 200ms ease, transform 160ms ease;
+}
+.aura-field__tools button:hover:not(:disabled) { background: color-mix(in srgb, var(--af-ink) 12%, transparent); }
+.aura-field__tools button:active:not(:disabled) { transform: scale(0.97); }
+.aura-field__tools button:disabled { opacity: 0.4; cursor: default; }
+.aura-field__tools button[data-active] { opacity: 1; background: color-mix(in srgb, #a36bff 18%, transparent); }
+.aura-field__tools button:focus-visible { outline: 2px solid #3d8bff; outline-offset: 2px; }
+.aura-field__undo { width: 2.1rem; padding: 0 !important; justify-content: center; }
+.aura-field__undo svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+@keyframes aura-field-turn { to { --af-angle: 360deg; } }
+@keyframes aura-field-word { from { opacity: 0; filter: blur(6px); } }
+@media (prefers-reduced-motion: reduce) {
+  .aura-field__aura::before, .aura-field__glow, .aura-field__caret { animation: none !important; }
+  .aura-field__word { animation: none; }
+}

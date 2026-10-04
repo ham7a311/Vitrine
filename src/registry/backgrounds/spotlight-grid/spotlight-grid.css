@@ -1,0 +1,52 @@
+/* Spotlight Grid — the lit layer is a second dot grid masked by a radial gradient at --sg-x/--sg-y. */
+
+.sg {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #000;
+}
+
+.sg__grid {
+  --sg-x: 50%;
+  --sg-y: 40%;
+  --sg-o: 1; /* touch: a resting pool of light */
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #000;
+  background-image: radial-gradient(circle, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: var(--sg-gap) var(--sg-gap);
+  background-position: center;
+}
+
+.sg__grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--sg-accent) 38%, transparent) 1px, transparent 1px);
+  background-size: var(--sg-gap) var(--sg-gap);
+  background-position: center;
+  opacity: var(--sg-o);
+  -webkit-mask-image: radial-gradient(circle var(--sg-radius) at var(--sg-x) var(--sg-y), rgb(0 0 0 / 1) 0%, rgb(0 0 0 / 0.5) 38%, transparent 72%);
+  mask-image: radial-gradient(circle var(--sg-radius) at var(--sg-x) var(--sg-y), rgb(0 0 0 / 1) 0%, rgb(0 0 0 / 0.5) 38%, transparent 72%);
+}
+
+/* Fine pointers start dark and wait for the cursor. */
+@media (hover: hover) and (pointer: fine) {
+  .sg__grid { --sg-o: 0; }
+}
+
+.sg__content { position: relative; z-index: 1; height: 100%; }
+
+/* Reduced motion: a quiet, fixed glow. */
+@media (prefers-reduced-motion: reduce) {
+  .sg__grid::before {
+    --sg-o: 0.18 !important;
+    opacity: 0.18;
+    -webkit-mask-image: radial-gradient(circle 420px at 50% 38%, rgb(0 0 0 / 1) 0%, rgb(0 0 0 / 0.45) 40%, transparent 74%);
+    mask-image: radial-gradient(circle 420px at 50% 38%, rgb(0 0 0 / 1) 0%, rgb(0 0 0 / 0.45) 40%, transparent 74%);
+  }
+}

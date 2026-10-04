@@ -1,0 +1,25 @@
+.dpc {
+  --px: 0;
+  --py: 0;
+  position: relative;
+  display: block;
+  width: min(100%, 21rem);
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+  overflow: hidden;
+  color: var(--ink);
+  text-decoration: none;
+  transform: perspective(900px) rotateY(calc(var(--px) * 7deg)) rotateX(calc(var(--py) * -6deg));
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.06);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  isolation: isolate;
+}
+.dpc:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.dpc__scene { position: absolute; inset: -6%; }
+.dpc__scene svg { width: 100%; height: 100%; display: block; }
+.dpc__scene g { will-change: transform; }
+.dpc__shine { position: absolute; inset: 0; background: radial-gradient(60% 50% at calc(50% + var(--px) * 30%) calc(30% + var(--py) * 20%), rgb(255 255 255 / 0.16), transparent 70%); mix-blend-mode: soft-light; pointer-events: none; }
+.dpc__body { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px; background: linear-gradient(to top, rgb(0 0 0 / 0.55), transparent); transform: translate3d(calc(var(--px) * 6px), calc(var(--py) * 4px), 0); }
+.dpc__badge { display: inline-block; padding: 5px 9px; border-radius: 999px; background: rgb(255 255 255 / 0.16); backdrop-filter: blur(8px); font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; }
+.dpc__title { margin: 10px 0 0; font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: 1.85rem; line-height: 1.02; letter-spacing: -0.01em; }
+.dpc__meta { margin: 6px 0 0; font-size: 0.8125rem; opacity: 0.8; }

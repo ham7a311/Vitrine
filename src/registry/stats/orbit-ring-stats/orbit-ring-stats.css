@@ -1,0 +1,170 @@
+/* Orbit Ring Stats — gradient arcs that sweep to a value, words that orbit, a flood that pours from the arc's head. */
+@property --ors-v { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --ors-a { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
+
+.ors {
+  --ors-ring: conic-gradient(from var(--ors-a), #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4);
+  --ors-face: #141217;
+  --ors-track: rgb(239 232 220 / 0.08);
+  --ors-ink: #efe8dc;
+  --ors-muted: #9c96a1;
+  --ors-orbit: rgb(239 232 220 / 0.5);
+  --ors-on-ink: #141216;
+  --ors-tone: rgb(20 18 23 / 0.08);
+  --ors-bead: #fffaf1;
+  --ors-s: 13rem; /* dial */
+  --ors-in: 1.55rem; /* arc inset */
+  --ors-w: 12px; /* arc width */
+  width: 100%;
+  color: var(--ors-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.ors--paper {
+  --ors-ring: conic-gradient(from var(--ors-a), #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0);
+  --ors-face: #fffdf8;
+  --ors-track: rgb(27 26 23 / 0.07);
+  --ors-ink: #1b1a17;
+  --ors-muted: #6f6a62;
+  --ors-orbit: rgb(27 26 23 / 0.5);
+  --ors-on-ink: #1b1a17;
+  --ors-tone: rgb(255 253 248 / 0.6);
+  --ors-bead: #fffdf8;
+}
+
+.ors__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--ors-s), 1fr));
+  gap: 2.25rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ors__item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+.ors__dial {
+  position: relative;
+  width: var(--ors-s);
+  height: var(--ors-s);
+  flex: none;
+  animation: ors-turn 14s linear infinite;
+  animation-delay: calc(var(--i) * -3.5s);
+  transition: --ors-v 1.8s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 180ms + 120ms);
+}
+
+/* The words: a ring of small caps, spread to exactly one lap and turned by script. */
+.ors__orbit { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ors__orbit text {
+  fill: var(--ors-orbit);
+  font: 500 6.6px "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.9px;
+  transition: fill 400ms ease;
+}
+.ors__item:hover .ors__orbit text { fill: var(--ors-ink); }
+
+.ors__track, .ors__arc, .ors__head { position: absolute; inset: var(--ors-in); border-radius: 50%; }
+.ors__track {
+  background: radial-gradient(farthest-side, transparent calc(100% - var(--ors-w)), var(--ors-track) calc(100% - var(--ors-w) + 0.5px));
+}
+/* The arc: the turning gradient, masked to a ring and to the share. */
+.ors__arc {
+  background: var(--ors-ring);
+  -webkit-mask:
+    conic-gradient(#000 calc(var(--ors-v) * 360deg), transparent 0),
+    radial-gradient(farthest-side, transparent calc(100% - var(--ors-w)), #000 calc(100% - var(--ors-w) + 0.5px));
+  -webkit-mask-composite: source-in;
+  mask:
+    conic-gradient(#000 calc(var(--ors-v) * 360deg), transparent 0),
+    radial-gradient(farthest-side, transparent calc(100% - var(--ors-w)), #000 calc(100% - var(--ors-w) + 0.5px));
+  mask-composite: intersect;
+}
+/* A round start cap that samples the same gradient at the top of the ring. */
+.ors__arc::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(50% - var(--ors-w) / 2);
+  width: var(--ors-w);
+  height: var(--ors-w);
+  border-radius: 50%;
+  background: var(--ors-ring);
+  background-size: calc(var(--ors-s) - var(--ors-in) * 2) calc(var(--ors-s) - var(--ors-in) * 2);
+  background-position: calc((var(--ors-s) - var(--ors-in) * 2 - var(--ors-w)) / -2) 0;
+}
+/* The head: a bright bead that rides the end of the arc. */
+.ors__head { transform: rotate(calc(var(--ors-v) * 360deg)); opacity: min(1, calc(var(--ors-v) * 40)); }
+.ors__head::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(50% - var(--ors-w) / 2);
+  width: var(--ors-w);
+  height: var(--ors-w);
+  border-radius: 50%;
+  background: var(--ors-bead);
+  box-shadow: 0 0 0 2px var(--ors-face), 0 0 14px 2px rgb(255 255 255 / 0.35);
+}
+
+/* The centre, printed twice: on the face, and inverted inside the flood. */
+.ors__face {
+  position: absolute;
+  inset: calc(var(--ors-in) + var(--ors-w) + 7px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.ors__flood {
+  color: var(--ors-on-ink);
+  /* The flood pours in from wherever the arc's head is. */
+  --ors-hx: calc(50% + 50% * sin(var(--ors-v) * 1turn));
+  --ors-hy: calc(50% - 50% * cos(var(--ors-v) * 1turn));
+  clip-path: circle(0% at var(--ors-hx) var(--ors-hy));
+  transition: clip-path 720ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.ors__flood::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  z-index: -1;
+  background: linear-gradient(var(--ors-tone), var(--ors-tone)), var(--ors-ring);
+  filter: blur(18px);
+}
+.ors__flood { isolation: isolate; }
+.ors__item:hover .ors__flood { clip-path: circle(105% at var(--ors-hx) var(--ors-hy)); }
+
+.ors__num {
+  display: flex;
+  align-items: baseline;
+  font-size: 2.6rem;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ors__unit { margin-left: 0.04em; font-size: 0.48em; letter-spacing: 0; opacity: 0.7; }
+.ors__reel { display: inline-block; height: 1em; overflow: hidden; }
+.ors__strip { display: flex; flex-direction: column; transform: translateY(calc(var(--d) * -1em)); transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i) * 180ms + var(--k) * 90ms + 300ms); }
+.ors__strip > span { height: 1em; line-height: 1; }
+
+.ors__label { margin: 0.9rem 0 0; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; }
+.ors__note { margin: 0.3rem 0 0; font-size: 0.8125rem; line-height: 1.4; color: var(--ors-muted); font-variant-numeric: tabular-nums; }
+
+@keyframes ors-turn { to { --ors-a: 360deg; } }
+
+@media (max-width: 560px) {
+  .ors { --ors-s: 10.25rem; --ors-in: 1.25rem; --ors-w: 10px; }
+  .ors__row { grid-template-columns: repeat(2, 1fr); justify-items: center; gap: 1.75rem 0.75rem; }
+  .ors__num { font-size: 2rem; }
+  .ors__orbit text { font-size: 7.6px; }
+}
+@media (max-width: 360px) { .ors__row { grid-template-columns: 1fr; } }
+
+.ors[data-motion="reduced"] .ors__dial { animation: none; transition: none; }
+.ors[data-motion="reduced"] .ors__strip { transition: none; }
+.ors[data-motion="reduced"] .ors__flood { transition: clip-path 200ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  .ors__dial { animation: none; transition: none; }
+  .ors__strip { transition: none; }
+  .ors__flood { transition: clip-path 200ms ease; }
+}

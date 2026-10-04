@@ -1,0 +1,61 @@
+/* Theme Dial — the light of a day, as an instrument. */
+.theme-dial {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  width: min(100%, 60rem);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--td-ink);
+  -webkit-font-smoothing: antialiased;
+}
+@container (min-width: 44rem) {
+  .theme-dial { grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); align-items: center; gap: 36px; }
+}
+
+.theme-dial__instrument { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
+.theme-dial__svg { display: block; width: 100%; max-width: 360px; height: auto; overflow: visible; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.theme-dial[data-dragging] .theme-dial__svg { cursor: grabbing; }
+
+.theme-dial__track-edge { fill: none; stroke: var(--td-line); stroke-width: 16; stroke-linecap: round; }
+.theme-dial__track { fill: none; stroke-width: 13; stroke-linecap: round; }
+.theme-dial__tick { stroke: var(--td-muted); stroke-width: 1; stroke-linecap: round; opacity: 0.45; }
+.theme-dial__tick--major { stroke-width: 1.6; opacity: 0.9; }
+.theme-dial__needle { stroke: var(--td-ink); stroke-width: 2; stroke-linecap: round; }
+.theme-dial__hub { fill: var(--td-ink); }
+.theme-dial__thumb { outline: none; cursor: grab; }
+.theme-dial__thumb-hit { fill: transparent; }
+.theme-dial__sun { fill: var(--td-accent); stroke: var(--td-surface); stroke-width: 3; transition: r 160ms ease; }
+.theme-dial[data-dragging] .theme-dial__sun { r: 11px; }
+.theme-dial__thumb:focus-visible .theme-dial__thumb-hit { stroke: var(--td-accent); stroke-width: 2; stroke-dasharray: 3 3; }
+
+.theme-dial__readout { margin-top: -30%; text-align: center; pointer-events: none; }
+.theme-dial__name { margin: 0; font-family: "Instrument Serif", Georgia, serif; font-size: 2rem; line-height: 1; letter-spacing: -0.01em; }
+.theme-dial__note { margin: 6px 0 0; font-size: 0.78rem; color: var(--td-muted); font-variant-numeric: tabular-nums; }
+
+.theme-dial__stops { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 16px; }
+.theme-dial__stops button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px 0 7px;
+  border: 0;
+  border-radius: 99px;
+  background: none;
+  color: var(--td-muted);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease;
+}
+.theme-dial__stops button i { width: 12px; height: 12px; border-radius: 50%; }
+.theme-dial__stops button:hover { color: var(--td-ink); }
+.theme-dial__stops button[aria-pressed="true"] { color: var(--td-ink); background: color-mix(in srgb, var(--td-ink) 8%, transparent); }
+.theme-dial__stops button:focus-visible { outline: 2px solid var(--td-accent); outline-offset: 1px; }
+
+.theme-dial__preview { min-width: 0; }
+.theme-dial__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-dial__sun, .theme-dial__stops button { transition: none; }
+}

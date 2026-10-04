@@ -1,0 +1,76 @@
+/* Folio Card — as thick as the article. */
+@property --fc-fan { syntax: "<number>"; inherits: true; initial-value: 1.25; }
+
+.folio {
+  --fc-fan: 1.25;
+  --fc-sheet: #fffdf8;
+  --fc-page-a: #f2eee4;
+  --fc-page-b: #d9d3c6;
+  --fc-shadow: rgb(40 32 20 / 0.28);
+  --fc-ink: #1d1b17;
+  --fc-muted: #706a60;
+  --fc-accent: #a8432f;
+  --fc-ribbon-c: #a8432f;
+  --fc-focus: #2f5fd0;
+  --fc-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  display: block;
+  /* Room for the pages to show to the right and below. */
+  margin: 0 calc(var(--fc-depth) * 1.25px + 6px) calc(var(--fc-depth) * 1.25px + 10px) 0;
+  color: var(--fc-ink);
+  text-decoration: none;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: --fc-fan 520ms var(--fc-ease), transform 520ms var(--fc-ease);
+  outline: none;
+}
+.folio--night {
+  --fc-sheet: #1d1c21;
+  --fc-page-a: #2a2830;
+  --fc-page-b: #121115;
+  --fc-shadow: rgb(0 0 0 / 0.6);
+  --fc-ink: #efe8dc;
+  --fc-muted: #9c96a1;
+  --fc-accent: #e7a07f;
+  --fc-ribbon-c: #c9573f;
+  --fc-focus: #b9cce4;
+}
+.folio:hover, .folio:focus-visible { --fc-fan: 2.1; transform: translate(-2px, -2px); }
+
+.folio__sheet {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 16rem;
+  padding: 1.35rem 1.35rem 1.2rem;
+  border-radius: 4px 6px 6px 4px;
+  background: var(--fc-sheet);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.05), var(--fc-edge);
+}
+.folio:focus-visible .folio__sheet { outline: 2px solid var(--fc-focus); outline-offset: 3px; }
+.folio__kicker { font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fc-accent); }
+.folio__title { margin-top: 0.65rem; font: 400 1.5rem/1.12 "Instrument Serif", "Newsreader", Georgia, serif; letter-spacing: -0.01em; text-wrap: balance; }
+.folio__dek { margin-top: 0.6rem; font-size: 0.875rem; line-height: 1.55; color: var(--fc-muted); text-wrap: pretty; }
+.folio__meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; padding-top: 1.25rem; font-size: 0.8125rem; color: var(--fc-muted); }
+.folio__length { margin-top: 0.35rem; font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.04em; color: var(--fc-ink); }
+.folio__left { color: var(--fc-accent); }
+
+/* The ribbon hangs out of the page you stopped at. */
+.folio__ribbon {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + var(--fc-fan) * var(--fc-ribbon) * 1px - 2px);
+  left: calc(68% + var(--fc-fan) * var(--fc-ribbon) * 1px);
+  width: 9px;
+  height: 30px;
+  background: linear-gradient(to right, color-mix(in srgb, var(--fc-ribbon-c) 85%, #fff), var(--fc-ribbon-c));
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+  box-shadow: 0 2px 3px rgb(0 0 0 / 0.2);
+  transform-origin: top center;
+  transition: transform 520ms var(--fc-ease);
+}
+.folio:hover .folio__ribbon, .folio:focus-visible .folio__ribbon { transform: rotate(-6deg); }
+
+.folio[data-motion="reduced"], .folio[data-motion="reduced"] * { transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .folio, .folio * { transition: none !important; } }

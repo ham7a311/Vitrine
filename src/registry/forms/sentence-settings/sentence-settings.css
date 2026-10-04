@@ -1,0 +1,67 @@
+/* Sentence Settings — preferences as prose; the only motion is a word changing. */
+.sentence-settings {
+  --ss-ink: #1b1a17;
+  --ss-muted: #77736b;
+  --ss-line: rgb(27 26 23 / 0.14);
+  --ss-bg: #ffffff;
+  --ss-accent: #7a3b22;
+  --ss-serif: var(--font-newsreader), "Newsreader", Georgia, serif;
+  width: min(100%, 36rem);
+  color: var(--ss-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.sentence-settings--night { --ss-ink: #ececea; --ss-muted: #8b8d93; --ss-line: rgb(255 255 255 / 0.2); --ss-bg: #16171a; --ss-accent: #e8b48f; }
+
+.sentence-settings__p { margin: 0; font-family: var(--ss-serif); font-size: clamp(1.35rem, 3.6vw, 1.85rem); font-weight: 400; line-height: 1.55; letter-spacing: -0.012em; text-wrap: pretty; }
+
+.sentence-settings__slot { position: relative; display: inline; }
+.sentence-settings__word {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  text-decoration: underline dotted var(--ss-muted) 1.5px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 120ms ease;
+}
+.sentence-settings__word:hover, .sentence-settings__slot[data-open] .sentence-settings__word { text-decoration: underline solid var(--ss-ink) 1.5px; text-underline-offset: 0.2em; }
+.sentence-settings__word:focus-visible { outline: 2px solid var(--ss-ink); outline-offset: 3px; }
+.sentence-settings__text { animation: ss-change 140ms ease both; }
+@keyframes ss-change { from { opacity: 0; } }
+
+/* The alternatives open on a hairline right under the word. */
+.sentence-settings__pop {
+  display: block;
+  position: absolute;
+  z-index: 5;
+  left: -12px;
+  top: calc(100% + 6px);
+  min-width: 11rem;
+  margin: 0;
+  padding: 4px;
+  border-radius: 10px;
+  background: var(--ss-bg);
+  box-shadow: 0 0 0 1px var(--ss-line), 0 12px 24px -16px rgb(30 24 12 / 0.4);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  line-height: 1.3;
+  animation: ss-change 120ms ease both;
+}
+.sentence-settings__option { display: block; padding: 8px 10px; border-radius: 7px; color: var(--ss-muted); white-space: nowrap; cursor: pointer; outline: none; }
+.sentence-settings__option[aria-selected="true"] { color: var(--ss-ink); font-weight: 500; }
+.sentence-settings__option[aria-selected="true"]::before { content: "· "; color: var(--ss-accent); }
+.sentence-settings__option:hover, .sentence-settings__option:focus-visible { color: var(--ss-ink); background: color-mix(in srgb, var(--ss-ink) 6%, transparent); }
+.sentence-settings__option:focus-visible { box-shadow: inset 0 0 0 1.5px var(--ss-ink); }
+
+.sentence-settings__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 420px) { .sentence-settings__pop { left: 0; max-width: calc(100vw - 32px); } }
+@media (prefers-reduced-motion: reduce) { .sentence-settings__text, .sentence-settings__pop { animation: none; } }
+.sentence-settings[data-motion="reduced"] .sentence-settings__text, .sentence-settings[data-motion="reduced"] .sentence-settings__pop { animation: none; }

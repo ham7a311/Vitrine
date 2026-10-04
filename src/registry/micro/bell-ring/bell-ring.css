@@ -1,0 +1,16 @@
+.br { position: relative; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid color-mix(in oklab, currentColor 14%, transparent); border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
+.br:hover { border-color: color-mix(in oklab, currentColor 30%, transparent); }
+.br:focus-visible { outline: 2px solid #7c5cff; outline-offset: 3px; }
+.br svg { width: 22px; height: 22px; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.br__bell { transform-box: view-box; transform-origin: 12px 3.6px; }
+.br__clapper { transform-box: view-box; transform-origin: 12px 15px; }
+.br[data-ring="a"] .br__bell { animation: br-swing-a 1100ms ease-out; }
+.br[data-ring="b"] .br__bell { animation: br-swing-b 1100ms ease-out; }
+.br[data-ring="a"] .br__clapper, .br[data-ring="b"] .br__clapper { animation: br-clap 1100ms ease-out 60ms; }
+@keyframes br-swing-a { 0% { rotate: 0deg; } 10% { rotate: 24deg; } 24% { rotate: -20deg; } 38% { rotate: 14deg; } 52% { rotate: -9deg; } 66% { rotate: 5deg; } 80% { rotate: -2deg; } 100% { rotate: 0deg; } }
+@keyframes br-swing-b { 0% { rotate: 0deg; } 10% { rotate: 24deg; } 24% { rotate: -20deg; } 38% { rotate: 14deg; } 52% { rotate: -9deg; } 66% { rotate: 5deg; } 80% { rotate: -2deg; } 100% { rotate: 0deg; } }
+@keyframes br-clap { 0% { translate: 0; } 12% { translate: -2.4px 0; } 26% { translate: 2px 0; } 40% { translate: -1.4px 0; } 56% { translate: 0.8px 0; } 100% { translate: 0; } }
+.br__badge { position: absolute; top: 4px; right: 3px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; border: 2px solid var(--br-ring, #fff); background: #ef4444; color: #fff; font: 700 0.625rem/14px "Geist", ui-sans-serif, system-ui, sans-serif; text-align: center; font-variant-numeric: tabular-nums; scale: 0; transition: scale 200ms ease; }
+.br__badge[data-show] { scale: 1; animation: br-pop 460ms cubic-bezier(0.3, 1.8, 0.5, 1); }
+@keyframes br-pop { 0% { scale: 0.2; } 60% { scale: 1.25; } 100% { scale: 1; } }
+@media (prefers-reduced-motion: reduce) { .br *, .br__badge { animation: none !important; transition: none !important; } }

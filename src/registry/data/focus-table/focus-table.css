@@ -1,0 +1,197 @@
+/* Focus Table — depth of field for rows. */
+.focus-table {
+  --ft-bg: #ffffff;
+  --ft-head: #faf9f6;
+  --ft-ink: #1b1a17;
+  --ft-muted: #76726a;
+  --ft-line: rgb(27 26 23 / 0.08);
+  --ft-line-strong: rgb(27 26 23 / 0.14);
+  --ft-select: rgb(47 107 255 / 0.07);
+  --ft-accent: #2f6bff;
+  --ft-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 100%;
+  border-radius: 14px;
+  background: var(--ft-bg);
+  box-shadow: 0 0 0 1px var(--ft-line-strong);
+  color: var(--ft-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8438rem;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+.focus-table--night {
+  --ft-bg: #151619;
+  --ft-head: #191a1d;
+  --ft-ink: #ececea;
+  --ft-muted: #8b8d93;
+  --ft-line: rgb(255 255 255 / 0.06);
+  --ft-line-strong: rgb(255 255 255 / 0.1);
+  --ft-select: rgb(122 162 255 / 0.1);
+  --ft-accent: #7aa2ff;
+}
+
+/* Top bar: caption, or the selection and its actions. */
+.focus-table__bar-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-height: 48px;
+  padding: 6px 10px 6px 16px;
+  border-bottom: 1px solid var(--ft-line-strong);
+  transition: background 200ms ease;
+}
+.focus-table__bar-top[data-selecting] { background: var(--ft-select); }
+.focus-table__selection { display: flex; align-items: center; gap: 10px; flex: 1 0 auto; max-width: 100%; flex-wrap: wrap; }
+.focus-table__selection b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.focus-table__caption { font-weight: 600; white-space: nowrap; }
+.focus-table__link { border: 0; background: none; padding: 4px 6px; border-radius: 6px; color: var(--ft-muted); font: inherit; cursor: pointer; }
+.focus-table__link:hover { color: var(--ft-ink); }
+.focus-table__link:focus-visible { outline: 2px solid var(--ft-accent); }
+.focus-table__sort { display: flex; align-items: center; gap: 6px; color: var(--ft-muted); font-size: 0.78rem; }
+.focus-table__sort select {
+  height: 30px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ft-head);
+  box-shadow: inset 0 0 0 1px var(--ft-line-strong);
+  color: var(--ft-ink);
+  font: inherit;
+  color-scheme: light dark;
+}
+
+/* Table layout. */
+.focus-table__scroll { overflow-x: auto; }
+.focus-table__table { width: 100%; border-collapse: separate; border-spacing: 0; }
+/* Columns hug their content; the grow column takes the rest and truncates. */
+.focus-table__table th, .focus-table__table td { width: 1%; }
+.focus-table__table th[data-grow], .focus-table__table td[data-grow] { width: auto; max-width: 0; }
+.focus-table__table th {
+  position: sticky;
+  top: 0;
+  height: 38px;
+  padding: 0 12px;
+  background: var(--ft-head);
+  border-bottom: 1px solid var(--ft-line-strong);
+  color: var(--ft-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+  transition: color 160ms ease, box-shadow 160ms ease;
+}
+.focus-table__table th[data-align="end"] { text-align: right; }
+/* The column under the pointer lifts its header. */
+.focus-table__table th[data-hot] { color: var(--ft-ink); box-shadow: inset 0 -2px 0 var(--ft-ink); }
+.focus-table__sortbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  margin: 0 -6px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.focus-table__sortbtn:hover { color: var(--ft-ink); }
+.focus-table__sortbtn:focus-visible { outline: 2px solid var(--ft-accent); }
+.focus-table__sortbtn svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.45; }
+.focus-table__sortbtn svg[data-dir] { opacity: 1; color: var(--ft-ink); }
+.focus-table__sortbtn svg[data-dir="asc"] path { d: path("M5 9.5l3-3 3 3"); }
+.focus-table__sortbtn svg[data-dir="desc"] path { d: path("M5 6.5l3 3 3-3"); }
+
+.focus-table__table td {
+  height: 46px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--ft-line);
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.focus-table__table td[data-align="end"] { text-align: right; font-variant-numeric: tabular-nums; }
+.focus-table__td-check { width: 44px; padding: 0 0 0 16px !important; }
+.focus-table__td-chev { padding: 0 12px 0 0 !important; }
+
+/* Depth of field: content falls off by distance; the grid lines do not. */
+.focus-table__c { opacity: var(--ft-o, 1); transition: opacity 180ms ease; overflow: hidden; text-overflow: ellipsis; }
+.focus-table__row { position: relative; outline: none; cursor: default; transition: background 180ms ease; }
+.focus-table__row[data-selected] { background: var(--ft-select); }
+.focus-table__row:focus-visible { box-shadow: inset 2px 0 0 var(--ft-accent); }
+.focus-table__row:focus-visible td:first-child { box-shadow: inset 2px 0 0 var(--ft-accent); }
+
+.focus-table__chev { width: 14px; height: 14px; fill: none; stroke: var(--ft-muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 240ms var(--ft-ease); }
+.focus-table__chev[data-open] { transform: rotate(90deg); }
+
+/* Checkbox. */
+.focus-table__check { position: relative; display: inline-grid; place-items: center; width: 18px; height: 18px; cursor: pointer; vertical-align: middle; }
+.focus-table__check input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.focus-table__check span { width: 15px; height: 15px; border-radius: 4px; box-shadow: inset 0 0 0 1.5px var(--ft-line-strong); background: var(--ft-bg); transition: background 140ms ease, box-shadow 140ms ease; }
+.focus-table__check input:checked + span { background: var(--ft-ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat; box-shadow: none; }
+.focus-table--night .focus-table__check input:checked + span { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%23151619' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.focus-table__check input:indeterminate + span { background: var(--ft-ink) linear-gradient(var(--ft-bg), var(--ft-bg)) center/8px 2px no-repeat; box-shadow: none; }
+.focus-table__check input:focus-visible + span { outline: 2px solid var(--ft-accent); outline-offset: 2px; }
+.focus-table__check input:disabled + span { opacity: 0.4; }
+
+/* Expansion. */
+.focus-table__detail td { height: 0; padding: 0; border-bottom: 0; white-space: normal; }
+.focus-table__fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 320ms var(--ft-ease); }
+.focus-table__fold[data-open] { grid-template-rows: 1fr; }
+.focus-table__fold > div { min-height: 0; overflow: hidden; }
+.focus-table__detail .focus-table__fold[data-open] { border-bottom: 1px solid var(--ft-line); }
+.focus-table__detail .focus-table__c { padding: 4px 16px 16px 56px; }
+
+/* States. */
+.focus-table__ghost td { border-bottom: 1px solid var(--ft-line); }
+.focus-table__bar { display: block; height: 8px; border-radius: 4px; background: var(--ft-line-strong); }
+.focus-table__bar--faint { background: var(--ft-line); }
+.focus-table__state td,
+.focus-table__state > div { padding: 40px 20px; white-space: normal; text-align: center; }
+.focus-table__message { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--ft-muted); line-height: 1.5; }
+.focus-table__message strong { color: var(--ft-ink); font-weight: 600; }
+.focus-table__message button {
+  margin-top: 8px;
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ft-ink);
+  color: var(--ft-bg);
+  font: 500 0.8125rem inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+.focus-table__message button:focus-visible { outline: 2px solid var(--ft-accent); outline-offset: 2px; }
+
+/* Compact records. */
+.focus-table__cards { display: flex; flex-direction: column; }
+.focus-table__card { position: relative; border-bottom: 1px solid var(--ft-line); outline: none; transition: background 180ms ease; }
+.focus-table__card:last-child { border-bottom: 0; }
+.focus-table__card[data-selected] { background: var(--ft-select); }
+.focus-table__card:focus-visible { box-shadow: inset 2px 0 0 var(--ft-accent); }
+.focus-table__card-grid { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 0 4px; padding: 12px 14px 12px 12px; }
+.focus-table__card-check { align-self: start; padding-top: 1px; }
+.focus-table__card-main { min-width: 0; }
+.focus-table__card-title { display: flex; align-items: center; gap: 8px; min-width: 0; font-weight: 500; }
+.focus-table__card-title > :first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.focus-table__card-badge { margin-left: auto; flex: none; }
+.focus-table__card-sub { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 3px; color: var(--ft-muted); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+.focus-table__card .focus-table__chev { margin-left: 6px; }
+.focus-table__card .focus-table__fold > div { padding: 0 14px 0 46px; }
+.focus-table__card .focus-table__fold[data-open] > div { padding-bottom: 14px; }
+.focus-table__card--ghost { display: flex; flex-direction: column; gap: 8px; padding: 16px 14px 16px 46px; }
+.focus-table__meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; margin: 0 0 10px; }
+.focus-table__meta dt { color: var(--ft-muted); font-size: 0.7rem; }
+.focus-table__meta dd { margin: 1px 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.focus-table__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-table__c, .focus-table__row, .focus-table__card, .focus-table__chev { transition: none; }
+  .focus-table__fold { transition: none; }
+}

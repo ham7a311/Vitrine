@@ -1,0 +1,89 @@
+/* Ledger Cylinder — live mode is a tall scroll track with a sticky canvas stage.
+   --ledger-vh is 1vh by default, or 1% of a custom scroll root's height. */
+
+.ledger {
+  --ledger-vh: 1vh;
+  position: relative;
+  color: #ede8df;
+  container-type: inline-size;
+}
+
+.ledger--live { height: calc(var(--ledger-vh) * 320); }
+.ledger--live .ledger__stage {
+  position: sticky;
+  top: 0;
+  height: calc(var(--ledger-vh) * 100);
+  overflow: hidden;
+}
+
+.ledger__canvas-host,
+.ledger__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* In live mode the real text stays for screen readers only. */
+.ledger--live .ledger__copy {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ——— Static layout (reduced motion, or no WebGL) ——— */
+.ledger--static { padding: clamp(96px, 16vh, 200px) 0; overflow: hidden; }
+.ledger--static .ledger__canvas-host { display: none; }
+.ledger__copy { max-width: 1440px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 64px); }
+
+.ledger__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.6vw, 24px);
+  perspective: 900px;
+}
+.ledger__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  color: var(--stat-color);
+  font-family: "Anton", "Impact", "Arial Narrow", sans-serif;
+  text-transform: uppercase;
+  line-height: 0.86;
+}
+.ledger__stat:first-child { transform: rotateY(24deg); transform-origin: right center; }
+.ledger__stat:last-child { transform: rotateY(-24deg); transform-origin: left center; }
+.ledger__value { font-size: clamp(4rem, 15cqi, 17rem); text-align: center; }
+.ledger__label { font-size: clamp(1.25rem, 3.2cqi, 2.75rem); text-align: center; }
+
+.ledger__notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px 48px;
+  margin-top: 64px;
+  padding-top: 18px;
+  border-top: 1px solid #2a2723;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: #a8a296;
+}
+.ledger__now { display: flex; gap: 16px; }
+.ledger__now-list, .ledger__status { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.ledger__status p { margin: 0; }
+
+@container (max-width: 640px) {
+  .ledger--live { height: calc(var(--ledger-vh) * 260); }
+  .ledger__stats { grid-template-columns: 1fr; row-gap: 32px; perspective: none; }
+  .ledger__stat:first-child, .ledger__stat:last-child { transform: none; }
+  .ledger__value { font-size: clamp(5rem, 36cqi, 12rem); }
+  .ledger__label { font-size: clamp(1.5rem, 8cqi, 2.25rem); }
+}

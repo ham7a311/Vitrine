@@ -1,0 +1,87 @@
+/* Version Stack — history you can see the depth of. */
+.version-stack {
+  --vs-ink: #efe8dc;
+  --vs-muted: #a7a1ab;
+  --vs-faint: #6f6a74;
+  --vs-step: 14px;
+  --vs-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex; align-items: center; gap: 1.25rem;
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--vs-ink);
+}
+
+.version-stack__deck {
+  position: relative; display: grid; width: min(100%, 26rem);
+  padding-bottom: calc(3 * var(--vs-step));
+  touch-action: none; user-select: none; outline: none; cursor: grab;
+  perspective: 1400px;
+}
+.version-stack__deck[data-dragging] { cursor: grabbing; }
+.version-stack__deck:focus-visible .version-stack__sheet[data-depth="0"] { box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.14), 0 0 0 2px #0b080d, 0 0 0 4px var(--vs-accent); }
+
+.version-stack__sheet {
+  grid-area: 1 / 1;
+  display: flex; flex-direction: column; gap: 0.9rem;
+  min-height: 15.5rem; padding: 1.4rem 1.5rem 1.5rem; border-radius: 16px;
+  background: color-mix(in srgb, #17141a calc(100% - var(--d) * 18%), #0b080d);
+  box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.09), inset 0 1px 0 rgb(255 255 255 / 0.04), 0 18px 40px -26px rgb(0 0 0 / 0.95);
+  transform-origin: 50% 100%;
+  transform: translateY(calc(var(--d) * var(--vs-step) + var(--lift))) scale(calc(1 - var(--d) * 0.05));
+  transition: transform 620ms var(--vs-ease), opacity 420ms ease, background 420ms ease;
+}
+/* only the front sheet's content is readable; the ones beneath are just paper */
+.version-stack__sheet:not([data-depth="0"]) > * { opacity: 0; transition: opacity 200ms ease; }
+.version-stack__sheet[data-depth="0"] > * { transition: opacity 420ms ease 120ms; }
+.version-stack__deck[data-dragging] .version-stack__sheet { transition: none; }
+.version-stack__sheet[data-depth="deep"] { opacity: 0; }
+/* the front sheet hinges on its top edge while you drag it up, like a notepad page */
+.version-stack__sheet[data-depth="0"] { transform-origin: 50% 0%; transform: rotateX(calc(var(--lift) * -0.55deg)); }
+/* turned over into the past — and it can be pulled back down */
+.version-stack__sheet[data-depth="gone"] {
+  transform-origin: 50% 0%;
+  opacity: calc(0.15 + var(--back) * 0.85);
+  transform: rotateX(calc(96deg - var(--back) * 96deg));
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 620ms var(--vs-ease), opacity 620ms ease, visibility 0s linear 620ms;
+}
+.version-stack__deck[data-dragging] .version-stack__sheet[data-depth="gone"] { visibility: visible; }
+
+.version-stack__head { display: flex; align-items: center; justify-content: space-between; }
+.version-stack__tag {
+  padding: 0.28rem 0.6rem; border-radius: 999px;
+  background: color-mix(in srgb, var(--vs-accent) 12%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vs-accent) 28%, transparent);
+  font: 500 0.75rem "Geist Mono", monospace; letter-spacing: 0.04em; color: var(--vs-accent);
+}
+.version-stack__date { font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--vs-faint); }
+.version-stack__title { margin: 0.2rem 0 0; font: 400 1.85rem/1.05 "Instrument Serif", Georgia, serif; letter-spacing: -0.015em; }
+.version-stack__notes { display: grid; gap: 0.55rem; margin: 0; padding: 0; list-style: none; font-size: 0.9rem; line-height: 1.45; color: var(--vs-muted); }
+.version-stack__notes li { display: grid; grid-template-columns: 4.6rem 1fr; gap: 0.5rem; align-items: baseline; }
+.version-stack__notes li span { font: 500 0.625rem "Geist Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vs-faint); }
+.version-stack__notes li span[data-kind="Added"] { color: color-mix(in srgb, var(--vs-accent) 80%, var(--vs-muted)); }
+
+/* the rail: a gauge of how deep into history you are */
+.version-stack__rail { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.version-stack__rail > button {
+  display: grid; place-items: center; width: 2rem; height: 2rem; border: 0; border-radius: 8px; background: none; color: var(--vs-muted); cursor: pointer;
+  transition: color 200ms ease, background 200ms ease;
+}
+.version-stack__rail > button:hover:not(:disabled) { color: var(--vs-ink); background: rgb(255 255 255 / 0.04); }
+.version-stack__rail > button:disabled { opacity: 0.3; cursor: default; }
+.version-stack__rail svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.version-stack__rail button:focus-visible { outline: 2px solid var(--vs-accent); outline-offset: 2px; }
+.version-stack__gauge { display: flex; flex-direction: column; gap: 0.3rem; margin: 0; padding: 0; list-style: none; }
+.version-stack__gauge button {
+  display: block; width: 1rem; height: 0.5rem; padding: 0; border: 0; background: none; cursor: pointer; position: relative;
+}
+.version-stack__gauge button::before {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 6px; height: 2px; border-radius: 2px; transform: translate(-50%, -50%);
+  background: var(--vs-faint); transition: width 420ms var(--vs-ease), background 300ms ease;
+}
+.version-stack__gauge button[data-past]::before { background: rgb(239 232 220 / 0.25); width: 4px; }
+.version-stack__gauge button[aria-current]::before { width: 14px; background: var(--vs-accent); }
+.version-stack__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .version-stack__sheet, .version-stack__sheet > * { transition-duration: 1ms !important; transition-delay: 0ms !important; }
+}

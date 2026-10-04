@@ -1,0 +1,229 @@
+/* Depth Dialog — background → context → decision. */
+
+/* The stage: whatever element the dialog is given as the page. */
+[data-depth-stage] {
+  transform-origin: 50% 35%;
+  transition:
+    transform 560ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 560ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-radius 560ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+[data-depth-stage][data-depth="open"] {
+  transform: translateY(6px) scale(0.985);
+  filter: blur(1.5px) saturate(0.8);
+  border-radius: 18px;
+}
+[data-depth-lifted] {
+  opacity: 0.3;
+  transition: opacity 240ms ease;
+}
+[data-depth-stage] [data-depth-lifted] { transition: opacity 240ms ease; }
+
+.depth-dialog {
+  --dd-surface: #ffffff;
+  --dd-chip: #f4f2ec;
+  --dd-ink: #1b1a17;
+  --dd-muted: #6b6861;
+  --dd-line: rgb(27 26 23 / 0.1);
+  --dd-field: #faf9f6;
+  --dd-accent: #1b1a17;
+  --dd-on-accent: #ffffff;
+  --dd-danger: #b42318;
+  --dd-scrim: rgb(24 20 14 / 0.2);
+  --dd-shadow: 0 30px 70px -28px rgb(30 24 12 / 0.45), 0 8px 18px -12px rgb(30 24 12 / 0.25);
+  --dd-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--dd-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.depth-dialog--night {
+  --dd-surface: #1a1b1e;
+  --dd-chip: #232428;
+  --dd-ink: #ececea;
+  --dd-muted: #8d8f95;
+  --dd-line: rgb(255 255 255 / 0.08);
+  --dd-field: #141517;
+  --dd-accent: #ececea;
+  --dd-on-accent: #111214;
+  --dd-danger: #e5534b;
+  --dd-scrim: rgb(0 0 0 / 0.45);
+  --dd-shadow: 0 30px 80px -24px rgb(0 0 0 / 0.8), 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+.depth-dialog--contained { position: absolute; }
+
+.depth-dialog__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--dd-scrim);
+  animation: dd-fade 360ms ease both;
+}
+.depth-dialog[data-phase="closing"] .depth-dialog__scrim { animation: dd-fade-out 300ms ease both; }
+
+/* The surface that travels between the page and the dock. */
+.depth-dialog__ghost {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-radius: 12px;
+  background: var(--dd-chip);
+  box-shadow: 0 0 0 1px var(--dd-line), 0 14px 30px -18px rgb(0 0 0 / 0.4);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.depth-dialog__frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 28rem);
+  max-height: 100%;
+  container-type: inline-size;
+  outline: none;
+}
+
+/* Context plane: tucked behind the top of the decision surface. */
+.depth-dialog__context {
+  flex: none;
+  margin: 0 14px -14px;
+  padding: 11px 12px 25px;
+  border-radius: 12px;
+  background: var(--dd-chip);
+  box-shadow: 0 0 0 1px var(--dd-line);
+  transition: opacity 180ms ease;
+}
+.depth-dialog__context[data-docking] { opacity: 0; transition: none; }
+
+/* Decision plane. */
+.depth-dialog__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-radius: 16px;
+  background: var(--dd-surface);
+  box-shadow: 0 0 0 1px var(--dd-line), var(--dd-shadow);
+  animation: dd-rise 380ms var(--dd-ease) 70ms both;
+}
+.depth-dialog__body {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 22px 22px 6px;
+}
+.depth-dialog__title {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.depth-dialog__desc {
+  margin: 6px 0 0;
+  font-size: 0.9063rem;
+  line-height: 1.55;
+  color: var(--dd-muted);
+}
+.depth-dialog__desc strong { color: var(--dd-ink); font-weight: 600; }
+
+.depth-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 18px 22px 20px;
+}
+.depth-dialog__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--dd-line);
+  color: var(--dd-ink);
+  font: 500 0.875rem/1 inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 160ms ease, opacity 160ms ease, transform 120ms ease;
+}
+.depth-dialog__btn:hover:not(:disabled) { background: color-mix(in srgb, var(--dd-ink) 5%, transparent); }
+.depth-dialog__btn:active:not(:disabled) { transform: translateY(1px); }
+.depth-dialog__btn:focus-visible { outline: 2px solid var(--dd-ink); outline-offset: 2px; }
+.depth-dialog__btn:disabled { cursor: not-allowed; opacity: 0.45; }
+.depth-dialog__btn--primary { background: var(--dd-accent); box-shadow: none; color: var(--dd-on-accent); }
+.depth-dialog__btn--primary:hover:not(:disabled) { background: color-mix(in srgb, var(--dd-accent) 88%, var(--dd-surface)); }
+.depth-dialog__btn--primary[data-tone="danger"] { background: var(--dd-danger); color: #fff; }
+.depth-dialog__btn--primary[data-tone="danger"]:hover:not(:disabled) { background: color-mix(in srgb, var(--dd-danger) 88%, #000); }
+.depth-dialog__btn--primary[data-tone="danger"]:focus-visible { outline-color: var(--dd-danger); }
+.depth-dialog__btn[aria-busy="true"] { opacity: 0.85; }
+.depth-dialog__spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  animation: dd-spin 700ms linear infinite;
+}
+
+@container (max-width: 22rem) {
+  .depth-dialog__actions { flex-direction: column-reverse; }
+  .depth-dialog__btn { width: 100%; }
+}
+
+/* Closing. Cancel: the decision drops away and the surface flies home.
+   Confirm: context and decision leave together. */
+.depth-dialog[data-phase="closing"] .depth-dialog__panel { animation: dd-fall 220ms ease-in both; }
+.depth-dialog[data-phase="closing"]:not([data-reason="confirm"]) .depth-dialog__context { opacity: 0; transition: none; }
+.depth-dialog[data-phase="closing"][data-reason="confirm"] .depth-dialog__frame { animation: dd-fall 240ms ease-in both; }
+.depth-dialog[data-phase="closing"][data-reason="confirm"] .depth-dialog__panel { animation: none; }
+
+@keyframes dd-fade { from { opacity: 0; } }
+@keyframes dd-fade-out { to { opacity: 0; } }
+@keyframes dd-rise { from { opacity: 0; transform: translateY(14px) scale(0.97); } }
+@keyframes dd-fall { to { opacity: 0; transform: translateY(10px) scale(0.985); } }
+@keyframes dd-spin { to { transform: rotate(1turn); } }
+
+/* The chip helper. */
+.depth-dialog-chip { display: flex; align-items: center; gap: 11px; min-width: 0; }
+.depth-dialog-chip__mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--dd-ink, #1b1a17);
+  color: var(--dd-surface, #fff);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.depth-dialog-chip__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.depth-dialog-chip__title { font-size: 0.875rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.depth-dialog-chip__meta { font-size: 0.75rem; color: var(--dd-muted, #6b6861); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+
+/* Reduced motion: no depth, no flight — the planes simply appear. */
+[data-depth-stage][data-depth-motion="reduced"],
+[data-depth-stage][data-depth-motion="reduced"][data-depth="open"] { transform: none; filter: saturate(0.85); border-radius: 0; transition: filter 160ms ease; }
+.depth-dialog[data-motion="reduced"] .depth-dialog__panel,
+.depth-dialog[data-motion="reduced"][data-phase="closing"] .depth-dialog__frame { animation: dd-fade 140ms ease both; }
+.depth-dialog[data-motion="reduced"][data-phase="closing"] .depth-dialog__panel,
+.depth-dialog[data-motion="reduced"][data-phase="closing"] .depth-dialog__frame { animation: dd-fade-out 140ms ease both; }
+.depth-dialog[data-motion="reduced"] .depth-dialog__context { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  [data-depth-stage], [data-depth-stage][data-depth="open"] { transform: none; filter: saturate(0.85); border-radius: 0; transition: filter 160ms ease; }
+  .depth-dialog__panel { animation: dd-fade 140ms ease both; }
+  .depth-dialog[data-phase="closing"] .depth-dialog__panel,
+  .depth-dialog[data-phase="closing"] .depth-dialog__frame { animation: dd-fade-out 140ms ease both; }
+  .depth-dialog__context { opacity: 1; }
+  .depth-dialog__spinner { animation-duration: 1.6s; }
+}

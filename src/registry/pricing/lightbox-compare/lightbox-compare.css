@@ -1,0 +1,98 @@
+/* Lightbox Compare — a lamp slides under the plan you're looking at. */
+.lbc {
+  --lb-panel: #e9e6df;
+  --lb-film: rgb(255 255 255 / 0.35);
+  --lb-ink: #1b1a17;
+  --lb-dim: rgb(27 26 23 / 0.38);
+  --lb-muted: #6f6a62;
+  --lb-line: rgb(27 26 23 / 0.08);
+  --lb-light: #fffdf6;
+  --lb-glow: rgb(255 236 190 / 0.9);
+  --lb-accent: #b4541f;
+  --lb-focus: #2f5fd0;
+  --lb-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  container-type: inline-size;
+  width: 100%;
+  color: var(--lb-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.lbc--night {
+  --lb-panel: #141318;
+  --lb-film: rgb(255 255 255 / 0.02);
+  --lb-ink: #efe8dc;
+  --lb-dim: rgb(239 232 220 / 0.32);
+  --lb-muted: #9c96a1;
+  --lb-line: rgb(239 232 220 / 0.07);
+  --lb-light: #24222a;
+  --lb-glow: rgb(185 204 228 / 0.22);
+  --lb-accent: #f0b37a;
+  --lb-focus: #b9cce4;
+}
+.lbc__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.lbc button:focus-visible { outline: 2px solid var(--lb-focus); outline-offset: 2px; }
+
+/* The light table */
+.lbc__wide { position: relative; padding: 0.5rem; border-radius: 20px; background: var(--lb-panel); box-shadow: inset 0 0 0 1px var(--lb-line); isolation: isolate; }
+.lbc__lamp {
+  position: absolute;
+  z-index: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: calc(var(--l) + 0.5rem);
+  width: var(--w);
+  border-radius: 14px;
+  background: radial-gradient(120% 60% at 50% 30%, var(--lb-light), color-mix(in srgb, var(--lb-light) 85%, transparent));
+  box-shadow: 0 0 0 1px var(--lb-line), 0 0 40px 6px var(--lb-glow), 0 20px 50px -24px rgb(0 0 0 / 0.35);
+  transition: left 480ms var(--lb-ease), width 480ms var(--lb-ease);
+  pointer-events: none;
+}
+.lbc__table { position: relative; z-index: 1; width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 0.875rem; }
+.lbc__col-feature { width: 32%; }
+.lbc__table th, .lbc__table td { padding: 0.7rem 0.9rem; text-align: left; vertical-align: middle; border-top: 1px solid var(--lb-line); }
+.lbc__table thead th { border-top: 0; }
+.lbc__table td { color: var(--lb-dim); text-align: center; transition: color 300ms ease; }
+.lbc__table td[data-lit] { color: var(--lb-ink); }
+
+.lbc__head { padding-top: 1.2rem !important; padding-bottom: 1.1rem !important; text-align: center !important; color: var(--lb-dim); transition: color 300ms ease; cursor: default; }
+.lbc__head[data-lit] { color: var(--lb-ink); }
+.lbc__plan-name { display: block; font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+.lbc__plan-price { display: block; margin-top: 0.35rem; font: 400 2rem/1 "Instrument Serif", "Newsreader", Georgia, serif; letter-spacing: -0.01em; }
+.lbc__plan-note { display: block; margin-top: 0.3rem; font-size: 0.75rem; font-weight: 400; color: var(--lb-muted); }
+.lbc__head:not([data-lit]) .lbc__plan-note { opacity: 0.6; }
+.lbc__choose { margin-top: 0.9rem; height: 2.1rem; padding: 0 0.85rem; border: 0; border-radius: 8px; background: transparent; color: inherit; box-shadow: inset 0 0 0 1px currentColor; font: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer; opacity: 0.8; transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease; }
+.lbc__head[data-lit] .lbc__choose { opacity: 1; }
+.lbc__choose[aria-pressed="true"] { background: var(--lb-ink); color: var(--lb-panel); box-shadow: none; opacity: 1; }
+
+.lbc__group th { padding-top: 1.4rem; font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lb-muted); border-top: 0; }
+.lbc__feature { font-weight: 500; }
+.lbc__hint { display: block; margin-top: 0.15rem; font-size: 0.75rem; font-weight: 400; color: var(--lb-muted); }
+.lbc__yes { display: inline-block; width: 1.05rem; height: 1.05rem; vertical-align: middle; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lbc__no { opacity: 0.6; }
+.lbc__val { font-variant-numeric: tabular-nums; }
+.lbc__new { display: block; margin-top: 0.25rem; font: 600 0.625rem/1.2 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--lb-accent); animation: lbc-new 420ms var(--lb-ease) both; }
+
+/* One plan at a time */
+.lbc__narrow { display: none; }
+.lbc__tabs { display: flex; padding: 3px; border-radius: 10px; background: var(--lb-panel); box-shadow: inset 0 0 0 1px var(--lb-line); }
+.lbc__tab { flex: 1; padding: 0.5rem 0.25rem; border: 0; border-radius: 7px; background: none; color: var(--lb-muted); font: inherit; font-size: 0.8125rem; font-weight: 500; cursor: pointer; }
+.lbc__tab[aria-checked="true"] { background: var(--lb-light); color: var(--lb-ink); box-shadow: 0 0 0 1px var(--lb-line), 0 0 20px var(--lb-glow); }
+.lbc__sheet { margin-top: 0.75rem; padding: 1.25rem; border-radius: 16px; background: var(--lb-light); box-shadow: 0 0 0 1px var(--lb-line), 0 0 40px 4px var(--lb-glow); animation: lbc-sheet 420ms var(--lb-ease) both; }
+.lbc__sheet-head { margin: 0; }
+.lbc__sheet-group h4 { margin: 1.25rem 0 0.25rem; font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lb-muted); }
+.lbc__sheet-group ul { margin: 0; padding: 0; list-style: none; }
+.lbc__sheet-group li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.6rem 0; border-top: 1px solid var(--lb-line); font-size: 0.875rem; }
+.lbc__sheet-group li[data-off] { color: var(--lb-dim); }
+.lbc__sheet-group li > :last-child { flex: none; text-align: right; }
+.lbc__cta { width: 100%; height: 2.75rem; margin-top: 1.25rem; border: 0; border-radius: 10px; background: var(--lb-ink); color: var(--lb-light); font: inherit; font-size: 0.9063rem; font-weight: 600; cursor: pointer; }
+
+@keyframes lbc-new { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+@keyframes lbc-sheet { from { opacity: 0.4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+@container (max-width: 680px) {
+  .lbc__wide { display: none; }
+  .lbc__narrow { display: block; }
+}
+
+.lbc[data-motion="reduced"] * { animation: none !important; transition-duration: 1ms !important; }
+@media (prefers-reduced-motion: reduce) { .lbc * { animation: none !important; transition-duration: 1ms !important; } }

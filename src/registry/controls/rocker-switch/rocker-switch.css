@@ -1,0 +1,49 @@
+.rk { display: inline-flex; flex-direction: column; align-items: center; gap: 12px; font-family: "Geist Mono", ui-monospace, monospace; }
+.rk__led {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #5a4a44, #2a2220);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.6), 0 1px 0 rgb(255 255 255 / 0.08);
+  transition: background 220ms ease, box-shadow 220ms ease;
+}
+.rk__led[data-on] { background: radial-gradient(circle at 35% 30%, #fff1e0, var(--rk-led) 60%); box-shadow: 0 0 10px 2px color-mix(in oklab, var(--rk-led) 70%, transparent), 0 0 2px var(--rk-led); }
+.rk__housing {
+  --tilt: -13deg;
+  position: relative;
+  width: 64px;
+  height: 104px;
+  padding: 7px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(#2a2b2f, #17181b);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), inset 0 -2px 4px rgb(0 0 0 / 0.5), 0 8px 18px -6px rgb(0 0 0 / 0.7), 0 1px 0 rgb(255 255 255 / 0.05);
+  perspective: 260px;
+  cursor: pointer;
+}
+.rk__housing[data-on] { --tilt: 13deg; }
+.rk__housing[data-held] { --tilt: 0deg; }
+.rk__housing:focus-visible { outline: 2px solid var(--rk-led); outline-offset: 4px; }
+.rk__cap {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  overflow: hidden;
+  transform: rotateX(var(--tilt));
+  transform-style: preserve-3d;
+  transition: transform 180ms cubic-bezier(0.3, 1.6, 0.5, 1);
+  background: linear-gradient(#3a3b40, #1f2024);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.05);
+}
+.rk__housing[data-held] .rk__cap { transition-duration: 260ms; transition-timing-function: cubic-bezier(0.2, 0, 0.2, 1); }
+.rk__half { display: grid; place-items: center; font-size: 15px; font-weight: 600; color: #8e9097; transition: color 200ms ease, background 200ms ease, text-shadow 200ms ease; }
+/* The half pressed down falls into shadow; the raised half catches the light. */
+.rk__half--on { background: linear-gradient(#4a4c52, #2f3035); }
+.rk__half--off { background: linear-gradient(#2a2b30, #18191c); }
+.rk__housing[data-on] .rk__half--on { background: linear-gradient(#1c1d20, #24252a); color: color-mix(in oklab, var(--rk-led) 80%, white); text-shadow: 0 0 8px color-mix(in oklab, var(--rk-led) 70%, transparent); }
+.rk__housing[data-on] .rk__half--off { background: linear-gradient(#45474d, #2d2e33); }
+.rk__label { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.6; }
+@media (prefers-reduced-motion: reduce) { .rk__cap, .rk__half, .rk__led { transition: none; } }

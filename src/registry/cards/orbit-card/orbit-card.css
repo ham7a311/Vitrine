@@ -1,0 +1,50 @@
+/* Orbit Card — dots ride the card's rounded border via offset-path and only run on hover/focus. */
+
+.orbit-card__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-radius: 999px;
+  background: var(--orbit-color);
+  box-shadow: 0 0 7px color-mix(in srgb, var(--orbit-color) 75%, transparent);
+  pointer-events: none;
+  offset-path: inset(0 round 10px);
+  offset-anchor: center;
+  offset-rotate: 0deg;
+  opacity: 0;
+  animation-name: orbit-card-travel;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes orbit-card-travel {
+  to { offset-distance: 100%; }
+}
+
+.orbit-card { transition: border-color 0.3s ease; }
+
+@media (hover: hover) and (pointer: fine) {
+  .orbit-card:hover,
+  .orbit-card:focus-visible {
+    border-color: color-mix(in srgb, var(--orbit-color) 55%, #33312e);
+  }
+  .orbit-card:hover .orbit-card__dot,
+  .orbit-card:focus-visible .orbit-card__dot {
+    opacity: 1;
+    animation-play-state: running;
+  }
+}
+
+/* Keyboard focus on touch-capable devices still gets a visible ring */
+.orbit-card:focus-visible { outline: 2px solid var(--orbit-color); outline-offset: 3px; }
+
+@supports not (offset-path: inset(0 round 10px)) {
+  .orbit-card__dot { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-card__dot { display: none; }
+}

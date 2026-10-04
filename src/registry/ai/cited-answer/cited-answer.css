@@ -1,0 +1,64 @@
+/* Cited Answer — evidence and claim, one glance apart. */
+.cited-answer {
+  --ca-bg: #fcfcf9;
+  --ca-card: #f3f3ee;
+  --ca-ink: #13343b;
+  --ca-muted: #5f7479;
+  --ca-line: rgb(19 52 59 / 0.1);
+  --ca-accent: #20808d;
+  --ca-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100%, 42rem);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ca-ink);
+}
+.cited-answer--night { --ca-bg: #191a1a; --ca-card: #202222; --ca-ink: #e8e8e6; --ca-muted: #8d9191; --ca-line: rgb(255 255 255 / 0.08); --ca-accent: #3ec5d3; }
+
+.cited-answer__q { margin: 0 0 1.4rem; font: 400 clamp(1.6rem, 3.4vw, 2.1rem)/1.15 "Instrument Serif", Georgia, serif; letter-spacing: -0.015em; }
+.cited-answer__label { display: flex; align-items: center; gap: 0.45rem; margin: 0 0 0.65rem; font-size: 0.875rem; font-weight: 600; }
+.cited-answer__label span { font: 500 0.75rem "Geist Mono", monospace; color: var(--ca-muted); }
+.cited-answer__label svg { width: 1rem; height: 1rem; fill: none; stroke: var(--ca-accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.cited-answer__sources { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; margin: 0 0 1.6rem; padding: 0; list-style: none; }
+.cited-answer__source {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 0.5rem; height: 5.4rem; padding: 0.65rem 0.7rem; border-radius: 10px;
+  background: var(--ca-card); color: inherit; text-decoration: none; box-shadow: inset 0 0 0 1px transparent;
+  transition: transform 420ms var(--ca-ease), box-shadow 260ms ease, background 260ms ease;
+  animation: cited-answer-in 480ms var(--ca-ease) both; animation-delay: calc(var(--i) * 60ms);
+}
+.cited-answer__source[data-hot] { transform: translateY(-4px); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ca-accent) 55%, transparent), 0 12px 24px -16px rgb(0 0 0 / 0.35); background: var(--ca-bg); }
+.cited-answer[data-hot] .cited-answer__source:not([data-hot]) { opacity: 0.55; }
+.cited-answer__source { transition-property: transform, box-shadow, background, opacity; }
+.cited-answer__source:focus-visible { outline: 2px solid var(--ca-accent); outline-offset: 2px; }
+.cited-answer__title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.8125rem; line-height: 1.35; }
+.cited-answer__domain { display: flex; align-items: center; gap: 0.35rem; font-size: 0.6875rem; color: var(--ca-muted); }
+.cited-answer__domain i { display: grid; place-items: center; width: 1rem; height: 1rem; border-radius: 4px; background: var(--ca-ink); color: var(--ca-bg); font: 600 0.5625rem inherit; font-style: normal; }
+.cited-answer__domain b { margin-left: auto; font: 500 0.6875rem "Geist Mono", monospace; color: var(--ca-muted); }
+
+.cited-answer__answer { margin: 0; font-size: 1rem; line-height: 1.75; }
+.cited-answer__sentence {
+  background-image: linear-gradient(color-mix(in srgb, var(--ca-accent) 22%, transparent), color-mix(in srgb, var(--ca-accent) 22%, transparent));
+  background-repeat: no-repeat; background-position: 0 100%; background-size: 0% 0.35em;
+  transition: background-size 460ms var(--ca-ease);
+  animation: cited-answer-in 520ms var(--ca-ease) both; animation-delay: calc(240ms + var(--k) * 90ms);
+}
+.cited-answer__sentence[data-lit] { background-size: 100% 0.35em; }
+.cited-answer__cite {
+  display: inline-grid; place-items: center; min-width: 1.15rem; height: 1.15rem; margin: 0 0.1rem; padding: 0 0.25rem; border: 0; border-radius: 999px;
+  vertical-align: 0.15em; background: var(--ca-card); color: var(--ca-muted); font: 500 0.625rem "Geist Mono", monospace; cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, transform 300ms var(--ca-ease);
+}
+.cited-answer__cite[data-hot] { background: var(--ca-accent); color: var(--ca-bg); transform: translateY(-1px) scale(1.08); }
+.cited-answer__cite:focus-visible { outline: 2px solid var(--ca-accent); outline-offset: 2px; }
+
+@keyframes cited-answer-in { from { opacity: 0; transform: translateY(4px); } }
+@container (max-width: 34rem) { .cited-answer__sources { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cited-answer { container-type: inline-size; }
+@media (prefers-reduced-motion: reduce) {
+  .cited-answer * { animation: none !important; transition-duration: 1ms !important; }
+}
+
+/* Touch: citation chips keep their size in the text but get a larger hit area. */
+@media (pointer: coarse) {
+  .cited-answer__cite { position: relative; }
+  .cited-answer__cite::after { content: ""; position: absolute; inset: -9px -5px; }
+}

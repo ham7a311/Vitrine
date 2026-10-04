@@ -1,0 +1,174 @@
+/* Consent Sign-in — split layout via container queries; sketch rules draw on mount. */
+
+.csi {
+  --csi-canvas: #0c0b0a;
+  --csi-surface-2: #181716;
+  --csi-line: #33312e;
+  --csi-line-strong: #45423d;
+  --csi-ink: #f4f3f1;
+  --csi-muted: #c2c0b8;
+  --csi-faint: #a8a59c;
+  --csi-amber: #e8a24a;
+  --csi-amber-bright: #f3b45f;
+  --csi-amber-soft: #f6c98a;
+  --csi-ui: cubic-bezier(0.4, 0, 0.2, 1);
+  --csi-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
+  --csi-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  min-height: max(100%, 640px);
+  background: var(--csi-canvas);
+  color: var(--csi-ink);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+
+.csi-layout { position: relative; display: flex; flex: 1; flex-direction: column; }
+@container (min-width: 48rem) { .csi-layout { flex-direction: row; } }
+
+/* ——— Left panel ——— */
+.csi-panel { position: relative; display: none; flex-direction: column; padding: 2rem; overflow: hidden; background: var(--csi-canvas); }
+@container (min-width: 48rem) { .csi-panel { display: flex; width: 45%; } }
+@container (min-width: 64rem) { .csi-panel { padding-inline: 3rem; } }
+
+/* stand-in for a night photograph: warm city glow under a deep veil */
+.csi-panel__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(160deg, rgba(8, 10, 12, 0.74), rgba(8, 10, 12, 0.86)),
+    radial-gradient(ellipse 90% 40% at 22% 100%, rgba(232, 162, 74, 0.35), transparent 70%),
+    radial-gradient(ellipse 60% 30% at 80% 92%, rgba(138, 110, 124, 0.3), transparent 70%),
+    linear-gradient(180deg, #0b0d12 0%, #151820 55%, #1f1a16 100%);
+}
+.csi-nodes { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.csi-panel__top, .csi-panel__body, .csi-panel__footer { position: relative; z-index: 10; }
+.csi-panel__body { display: flex; flex: 1; flex-direction: column; justify-content: center; padding: 4rem 0; }
+.csi-panel__heading { margin: 0; max-width: 14ch; font-size: clamp(2rem, 4.2vw, 2.875rem); line-height: 1.05; letter-spacing: -0.025em; font-weight: 600; }
+.csi-panel__heading em { font-family: var(--csi-serif); font-style: italic; font-weight: 400; letter-spacing: 0.005em; }
+.csi-panel__lead { margin: 1.25rem 0 0; max-width: 32ch; font-size: clamp(1.0625rem, 1.5vw, 1.1875rem); line-height: 1.65; color: var(--csi-muted); }
+.csi-panel__footer { margin: 0; font-family: var(--csi-mono); font-size: 0.6875rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--csi-faint); }
+
+.csi-back {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--csi-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  color: var(--csi-muted);
+  transition: color 200ms var(--csi-ui), text-decoration-color 200ms var(--csi-ui);
+}
+.csi-back svg { width: 0.875rem; height: 0.875rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 200ms var(--csi-ui); }
+.csi-back:hover { color: var(--csi-ink); text-decoration-color: currentColor; }
+.csi-back:hover svg { transform: translateX(-2px); }
+.csi-back:focus-visible { outline: 2px solid var(--csi-amber-bright); outline-offset: 3px; border-radius: 4px; }
+@container (min-width: 48rem) { .csi-back--mobile { display: none; } }
+
+/* ——— Hand-drawn rules ——— */
+.csi-rule { display: block; width: 100%; height: 1rem; overflow: visible; color: var(--csi-line); pointer-events: none; }
+.csi-rule--vertical {
+  display: none;
+  position: absolute;
+  inset-block: 0;
+  left: 45%;
+  z-index: 20;
+  width: 2.5rem;
+  height: 100%;
+  transform: translateX(-50%);
+}
+@container (min-width: 48rem) { .csi-rule--vertical { display: block; } }
+.csi-rule__stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.92;
+  animation: csi-draw 0.38s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+.csi-rule--vertical .csi-rule__stroke { animation-duration: 0.9s; }
+@keyframes csi-draw { to { stroke-dashoffset: 0; } }
+
+/* ——— Form side ——— */
+.csi-main { position: relative; display: flex; flex: 1; flex-direction: column; padding: 1.5rem 1.25rem; }
+@container (min-width: 40rem) { .csi-main { padding: 2rem; } }
+.csi-main__top { display: flex; justify-content: space-between; min-height: 2.75rem; }
+.csi-main__center { display: flex; flex: 1; align-items: center; justify-content: center; padding: 2.5rem 0; }
+
+.csi-form { width: 100%; max-width: 26rem; }
+.csi-eyebrow { margin: 1.5rem 0 0; font-family: var(--csi-mono); font-size: 0.75rem; line-height: 1; letter-spacing: 0.09em; text-transform: uppercase; color: var(--csi-faint); }
+.csi-title { margin: 1.25rem 0 0; font-size: 1.75rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; }
+@container (min-width: 40rem) { .csi-title { font-size: 2rem; } }
+.csi-subtitle { margin: 0.75rem 0 0; font-size: 0.875rem; line-height: 1.65; color: var(--csi-muted); }
+
+.csi-providers { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
+.csi-provider {
+  display: inline-flex;
+  width: 100%;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--csi-line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--csi-ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background-color 200ms var(--csi-ui), border-color 200ms var(--csi-ui), opacity 200ms var(--csi-ui), transform 200ms var(--csi-ui);
+}
+.csi-provider svg { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+.csi-provider:enabled:hover,
+.csi-provider:enabled:focus-visible { border-color: var(--csi-amber-bright); background: color-mix(in srgb, var(--csi-surface-2) 80%, transparent); }
+.csi-provider:enabled:active { transform: translateY(1px); }
+.csi-provider:focus-visible { outline: 2px solid var(--csi-amber-bright); outline-offset: 3px; }
+.csi-provider:disabled { cursor: not-allowed; opacity: 0.45; }
+
+.csi-consent { display: flex; min-height: 2.75rem; margin-top: 1.5rem; align-items: flex-start; gap: 0.75rem; cursor: pointer; }
+.csi-consent__input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.csi-consent__box {
+  position: relative;
+  display: grid;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid var(--csi-line);
+  border-radius: 4px;
+  transition: background-color 200ms var(--csi-ui), border-color 200ms var(--csi-ui);
+}
+.csi-consent__box svg { width: 0.75rem; height: 0.75rem; fill: none; stroke: #14120f; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity 200ms var(--csi-ui); }
+.csi-consent__input:checked + .csi-consent__box { border-color: var(--csi-amber); background: var(--csi-amber); }
+.csi-consent__input:checked + .csi-consent__box svg { opacity: 1; }
+.csi-consent__input:focus-visible + .csi-consent__box { outline: 2px solid var(--csi-amber-bright); outline-offset: 2px; }
+.csi-consent__text { padding-top: 1px; font-size: 0.875rem; line-height: 1.65; color: var(--csi-muted); }
+.csi-consent__text a {
+  color: var(--csi-amber-soft);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--csi-amber) 40%, transparent);
+  text-underline-offset: 2px;
+  transition: color 200ms var(--csi-ui);
+}
+.csi-consent__text a:hover { color: var(--csi-ink); }
+
+.csi-form__bottom { margin-top: 2rem; }
+.csi-brand { margin: 1.25rem 0 0; font-family: var(--csi-mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--csi-faint); text-align: center; }
+
+.csi-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .csi-rule__stroke { animation: none; stroke-dashoffset: 0; }
+}

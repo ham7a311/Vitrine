@@ -1,0 +1,37 @@
+/* Pull Cord — a theme switch you pull. */
+.pcord {
+  --pc-cord: #8a7f70;
+  --pc-cord-hi: rgb(255 255 255 / 0.35);
+  --pc-mount: #d8d1c4;
+  --pc-bead: #b88a4a;
+  --pc-bead-hi: rgb(255 240 210 / 0.7);
+  --pc-ring: #2f5fd0;
+  display: inline-block;
+  width: 64px;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.pcord--night {
+  --pc-cord: #9a9083;
+  --pc-cord-hi: rgb(255 255 255 / 0.18);
+  --pc-mount: #3a353f;
+  --pc-ring: #b9cce4;
+}
+.pcord__svg { display: block; overflow: visible; }
+.pcord__mount { fill: var(--pc-mount); }
+.pcord__cord { fill: none; stroke: var(--pc-cord); stroke-width: 2.2; stroke-linecap: round; }
+/* A faint twist along the cord. */
+.pcord__cord-hi { fill: none; stroke: var(--pc-cord-hi); stroke-width: 1; stroke-dasharray: 2 3; stroke-linecap: round; }
+.pcord__pull { cursor: grab; outline: none; }
+.pcord__pull:active { cursor: grabbing; }
+.pcord__hit { fill: transparent; }
+.pcord__ring { fill: none; stroke: var(--pc-ring); stroke-width: 2; opacity: 0; }
+.pcord__pull:focus-visible .pcord__ring { opacity: 1; }
+.pcord__bead { fill: var(--pc-bead); }
+.pcord__bead { filter: drop-shadow(0 3px 3px rgb(0 0 0 / 0.25)); }
+.pcord__bead-hi { fill: none; stroke: var(--pc-bead-hi); stroke-width: 1.4; stroke-linecap: round; }
+.pcord__flash { fill: none; stroke: var(--pc-bead); stroke-width: 1.5; animation: pcord-flash 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards; transform-box: fill-box; transform-origin: center; pointer-events: none; }
+@keyframes pcord-flash { from { opacity: 0.8; transform: scale(0.9); } to { opacity: 0; transform: scale(2.2); } }
+
+.pcord[data-motion="reduced"] .pcord__flash { animation: none; opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .pcord__flash { animation: none; opacity: 0; } }

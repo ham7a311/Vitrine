@@ -1,0 +1,58 @@
+/* Marquee Lights Button — bulbs chasing round a theatre front. */
+.mlb {
+  --mlb-face: #6e1c22;
+  --mlb-face-2: #4a1016;
+  --mlb-rim: #c9a35a;
+  --mlb-ink: #fbefd6;
+  --mlb-bulb: #ffd27a;
+  --mlb-off: #6b4a2a;
+  --mlb-t: 1.2s;
+  --mlb-dim: var(--mlb-off);
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  height: 3.75rem;
+  padding: 0 2.2rem;
+  border: 0;
+  border-radius: 14px;
+  background: radial-gradient(120% 140% at 50% 0%, var(--mlb-face), var(--mlb-face-2));
+  box-shadow: inset 0 0 0 1.5px var(--mlb-rim), inset 0 0 0 3px rgb(0 0 0 / 0.35), 0 14px 30px -16px rgb(0 0 0 / 0.8);
+  color: var(--mlb-ink);
+  font: 500 1.0625rem/1 "Cinzel", "Instrument Serif", Georgia, serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 160ms ease;
+}
+.mlb--paper {
+  --mlb-face: #1f2b4d;
+  --mlb-face-2: #121a33;
+  --mlb-rim: #e8c77a;
+  --mlb-off: #4b4636;
+}
+.mlb:active { transform: scale(0.97); }
+.mlb:focus-visible { outline: 2px solid #b9cce4; outline-offset: 4px; }
+.mlb__bulbs { position: absolute; inset: 0; pointer-events: none; }
+.mlb__bulb {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--mlb-dim);
+  animation: mlb-chase var(--mlb-t) steps(1, end) infinite;
+  animation-delay: calc(var(--k) * var(--mlb-t) / -3);
+}
+.mlb__label { position: relative; text-shadow: 0 1px 0 rgb(0 0 0 / 0.4); transition: text-shadow 300ms ease; }
+.mlb:hover, .mlb:focus-visible { --mlb-t: 0.5s; --mlb-dim: color-mix(in srgb, var(--mlb-bulb) 62%, var(--mlb-off)); }
+.mlb:hover .mlb__label, .mlb:focus-visible .mlb__label { text-shadow: 0 0 12px rgb(255 210 122 / 0.6), 0 1px 0 rgb(0 0 0 / 0.4); }
+
+/* Each bulb is lit for a third of the cycle; neighbours are a third apart, so light runs round. */
+@keyframes mlb-chase {
+  0% { background: #fff4d6; box-shadow: 0 0 6px 1px var(--mlb-bulb), 0 0 2px #fff; }
+  33.333% { background: var(--mlb-dim); box-shadow: 0 0 3px color-mix(in srgb, var(--mlb-dim) 50%, transparent); }
+}
+
+.mlb[data-motion="reduced"] .mlb__bulb { animation: none; background: var(--mlb-bulb); box-shadow: 0 0 5px var(--mlb-bulb); }
+@media (prefers-reduced-motion: reduce) { .mlb .mlb__bulb { animation: none; background: var(--mlb-bulb); box-shadow: 0 0 5px var(--mlb-bulb); } }

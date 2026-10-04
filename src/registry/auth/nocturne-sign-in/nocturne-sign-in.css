@@ -1,0 +1,180 @@
+/* Nocturne Sign-in — a breathing seam of frost light behind a single centred column. */
+
+.noc {
+  --n-void: #08070a;
+  --n-ink: #efe8dc;
+  --n-muted: #a7a1ab;
+  --n-faint: #7d7782;
+  --n-frost: #b9cce4;
+  --n-error: #f0a2a2;
+  --n-line: rgb(239 232 220 / 0.14);
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 100%;
+  place-items: center;
+  overflow: hidden;
+  padding: 3rem 1.5rem;
+  background: var(--n-void);
+  color: var(--n-ink);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* The seam: a vertical hairline of light with a soft halo that breathes. */
+.noc__seam {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: -10%;
+  bottom: -10%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgb(185 204 228 / 0.7) 30%, rgb(185 204 228 / 0.9) 50%, rgb(185 204 228 / 0.5) 72%, transparent);
+  transform: translateX(-50%);
+  animation: noc-seam 9s ease-in-out infinite;
+}
+.noc__seam::before {
+  content: "";
+  position: absolute;
+  inset: 0 -110px;
+  background: radial-gradient(closest-side, rgb(185 204 228 / 0.16), transparent);
+  filter: blur(18px);
+}
+.noc__seam::after {
+  content: "";
+  position: absolute;
+  inset: 0 -1px;
+  background: inherit;
+  filter: blur(3px);
+  opacity: 0.8;
+}
+/* a faint scatter of stars, so the dark isn't flat */
+.noc__stars {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 12% 22%, rgb(255 255 255 / 0.5), transparent),
+    radial-gradient(1px 1px at 84% 14%, rgb(255 255 255 / 0.4), transparent),
+    radial-gradient(1px 1px at 72% 78%, rgb(255 255 255 / 0.35), transparent),
+    radial-gradient(1px 1px at 22% 84%, rgb(255 255 255 / 0.4), transparent),
+    radial-gradient(1.5px 1.5px at 92% 52%, rgb(200 185 234 / 0.5), transparent),
+    radial-gradient(1px 1px at 6% 56%, rgb(255 255 255 / 0.3), transparent);
+}
+
+.noc__col { width: 100%; max-width: 22rem; text-align: center; }
+.noc__brand { margin: 0; font-family: ui-monospace, "SF Mono", monospace; font-size: 0.6875rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--n-faint); }
+.noc__title { margin: 1.5rem 0 0; font-family: "Newsreader", "Iowan Old Style", Georgia, serif; font-size: clamp(2.5rem, 12cqi, 3.25rem); font-weight: 400; line-height: 1; letter-spacing: -0.02em; }
+.noc__sub { margin: 0.9rem 0 0; font-size: 0.9375rem; color: var(--n-muted); }
+
+.noc__form { margin-top: 2.25rem; text-align: left; }
+.noc__field + .noc__field { margin-top: 1.1rem; }
+.noc__field label { display: block; font-size: 0.8125rem; color: var(--n-muted); }
+.noc__row { display: flex; align-items: baseline; justify-content: space-between; }
+.noc__link, .noc__foot a { color: var(--n-frost); font-size: 0.8125rem; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color 200ms ease; }
+.noc__link:hover, .noc__foot a:hover { text-decoration-color: currentColor; }
+
+.noc input {
+  display: block;
+  width: 100%;
+  height: 3rem;
+  margin-top: 0.45rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--n-line);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 0.025);
+  color: var(--n-ink);
+  font: inherit;
+  font-size: 1rem; /* 16px avoids iOS zoom */
+  transition: border-color 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+}
+.noc input::placeholder { color: var(--n-faint); }
+.noc input:hover { border-color: rgb(239 232 220 / 0.24); }
+.noc input:focus { outline: none; border-color: rgb(185 204 228 / 0.7); background: rgb(185 204 228 / 0.04); box-shadow: 0 0 0 4px rgb(185 204 228 / 0.1); }
+.noc [data-invalid="true"] input { border-color: rgb(240 162 162 / 0.6); }
+.noc [data-invalid="true"] input:focus { box-shadow: 0 0 0 4px rgb(240 162 162 / 0.12); }
+.noc__err { margin: 0.45rem 0 0; font-size: 0.8125rem; color: var(--n-error); }
+
+.noc__pw { position: relative; }
+.noc__pw input { padding-right: 3rem; }
+.noc__reveal {
+  position: absolute;
+  right: 0.35rem;
+  top: calc(0.45rem + 0.3rem);
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--n-faint);
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+.noc__reveal:hover, .noc__reveal[aria-pressed="true"] { color: var(--n-ink); }
+.noc__reveal:focus-visible { outline: 2px solid var(--n-frost); outline-offset: 0; }
+.noc__reveal svg { width: 1.2rem; height: 1.2rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+/* the slash across the eye: drawn while the password is hidden, erased while it is shown */
+.noc__slash { stroke-dasharray: 24; stroke-dashoffset: 0; transition: stroke-dashoffset 260ms ease; }
+.noc__reveal[aria-pressed="true"] .noc__slash { stroke-dashoffset: 24; }
+
+.noc__submit {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 3rem;
+  margin-top: 1.6rem;
+  place-items: center;
+  overflow: hidden;
+  border: 0;
+  border-radius: 10px;
+  background: var(--n-ink);
+  color: #120c15;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 300ms ease, opacity 200ms ease;
+}
+.noc__submit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgb(185 204 228 / 0.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+.noc__submit:hover { box-shadow: 0 0 0 1px rgb(185 204 228 / 0.5), 0 10px 40px -12px rgb(185 204 228 / 0.55); }
+.noc__submit:hover::after { transform: translateX(120%); transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+.noc__submit:active { transform: translateY(1px); }
+.noc__submit:disabled { opacity: 0.7; cursor: progress; }
+.noc__submit:focus-visible, .noc__ghost:focus-visible { outline: 2px solid var(--n-frost); outline-offset: 3px; }
+
+.noc__or { position: relative; margin: 1.4rem 0; text-align: center; font-size: 0.75rem; color: var(--n-faint); }
+.noc__or::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--n-line); }
+.noc__or span { position: relative; padding: 0 0.8rem; background: var(--n-void); }
+
+.noc__ghost {
+  display: block;
+  width: 100%;
+  min-height: 3rem;
+  border: 1px solid var(--n-line);
+  border-radius: 10px;
+  background: none;
+  color: var(--n-ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: border-color 220ms ease, background-color 220ms ease;
+}
+.noc__ghost:hover { border-color: rgb(239 232 220 / 0.3); background: rgb(255 255 255 / 0.03); }
+
+.noc__foot { margin: 2rem 0 0; font-size: 0.875rem; color: var(--n-muted); }
+.noc__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@keyframes noc-seam { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .noc__seam { animation: none; opacity: 0.8; }
+  .noc__submit::after { display: none; }
+}

@@ -1,0 +1,170 @@
+/* Thumbed Edge — a document's contents drawn as the worn edge of a book. */
+.thumbed-edge {
+  --te-paper: #f1ece2;
+  --te-ink: #1b1a17;
+  --te-muted: #77736b;
+  --te-line: rgb(27 26 23 / 0.16);
+  --te-wear: 92 74 48;
+  --te-ribbon: #b3402f;
+  --te-here: #1b1a17;
+  --te-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  min-width: 0;
+  min-height: 0;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--te-ink);
+}
+.thumbed-edge--night {
+  --te-paper: #26241f;
+  --te-ink: #ececea;
+  --te-muted: #8b8d93;
+  --te-line: rgb(255 255 255 / 0.12);
+  --te-wear: 0 0 0;
+  --te-ribbon: #e2604e;
+  --te-here: #ececea;
+}
+
+/* The stack of pages. Vertical by default: the fore-edge runs down the side. */
+.thumbed-edge__stack {
+  position: relative;
+  display: flex;
+  flex: 1;
+  width: 34px;
+  min-height: 0;
+  border-radius: 3px 5px 5px 3px;
+  box-shadow: 0 0 0 1px var(--te-line), 2px 3px 8px -4px rgb(30 24 12 / 0.35);
+}
+.thumbed-edge__bands { display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; margin: 0; padding: 0; list-style: none; border-radius: inherit; }
+.thumbed-edge__band { position: relative; display: flex; min-height: 0; }
+.thumbed-edge__band + .thumbed-edge__band { box-shadow: inset 0 1px 0 var(--te-line); }
+.thumbed-edge__band:first-child { border-radius: 3px 5px 0 0; }
+.thumbed-edge__band:last-of-type { border-radius: 0 0 5px 3px; }
+
+.thumbed-edge__page {
+  position: relative;
+  flex: 1;
+  min-height: 3px;
+  padding: 0;
+  border: 0;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 2px, rgb(0 0 0 / 0.07) 2px 3px),
+    linear-gradient(90deg, rgb(var(--te-wear) / calc(var(--te-w, 0) * 0.16)), rgb(var(--te-wear) / calc(var(--te-w, 0) * 0.34))),
+    var(--te-paper);
+  border-radius: inherit;
+  cursor: pointer;
+  transition: transform 220ms var(--te-ease);
+}
+.thumbed-edge--night .thumbed-edge__page {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 2px, rgb(255 255 255 / 0.045) 2px 3px),
+    linear-gradient(90deg, rgb(255 255 255 / calc(var(--te-w, 0) * 0.025)), rgb(255 255 255 / calc(var(--te-w, 0) * 0.06))),
+    var(--te-paper);
+}
+.thumbed-edge__band[data-wear="1"] { --te-w: 1; }
+.thumbed-edge__band[data-wear="2"] { --te-w: 2; }
+.thumbed-edge__band[data-wear="3"] { --te-w: 3; }
+.thumbed-edge__band[data-wear="4"] { --te-w: 4; }
+/* Worn pages also lose their crisp edge: a slightly soiled outer margin. */
+.thumbed-edge__band[data-wear="3"] .thumbed-edge__page,
+.thumbed-edge__band[data-wear="4"] .thumbed-edge__page { box-shadow: inset -2px 0 3px -1px rgb(var(--te-wear) / 0.35); }
+
+/* Hovering or focusing a page separates it from its neighbours, like a page about to be turned. */
+.thumbed-edge__band[data-hot] .thumbed-edge__page { transform: translateX(3px); z-index: 2; box-shadow: 0 0 0 1px var(--te-line), 3px 2px 6px -2px rgb(30 24 12 / 0.4); }
+.thumbed-edge__page:focus-visible { outline: 2px solid var(--te-ink); outline-offset: 2px; z-index: 3; }
+
+/* The tab: the section's title, shown beside the edge when it is in play. */
+.thumbed-edge__tab {
+  z-index: 5;
+  position: absolute;
+  left: calc(100% + 56px);
+  top: 50%;
+  translate: 0 -50%;
+  padding: 3px 8px;
+  border-radius: 5px;
+  background: var(--te-ink);
+  color: var(--te-paper);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease;
+}
+.thumbed-edge__band[data-hot] .thumbed-edge__tab {
+  z-index: 5; opacity: 1; }
+
+/* You are here: a hairline across the whole edge. */
+.thumbed-edge__here { position: absolute; left: -5px; right: -5px; height: 2px; margin-top: -1px; background: var(--te-here); border-radius: 1px; pointer-events: none; transition: top 160ms linear, left 160ms linear; z-index: 4; }
+.thumbed-edge__here::after { content: ""; position: absolute; left: -3px; top: -2px; width: 6px; height: 6px; border-radius: 50%; background: var(--te-here); }
+
+/* The ribbon: hangs from the edge where your last visit ended. The button is a generous hit
+   area; the silk inside it is the visible ribbon. */
+.thumbed-edge__ribbon {
+  position: absolute;
+  left: 100%;
+  width: 52px;
+  height: 30px;
+  margin: -15px 0 0 -3px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  z-index: 3;
+  transition: top 320ms var(--te-ease), left 320ms var(--te-ease);
+}
+.thumbed-edge__silk {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 46px;
+  height: 12px;
+  margin-top: -6px;
+  border-radius: 0 1px 1px 0;
+  background: var(--te-ribbon);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%);
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.3));
+  opacity: 0.85;
+  transition: opacity 160ms ease, transform 200ms var(--te-ease);
+  transform-origin: 0 50%;
+}
+.thumbed-edge__ribbon[data-away] .thumbed-edge__silk, .thumbed-edge__ribbon:hover .thumbed-edge__silk { opacity: 1; }
+.thumbed-edge__ribbon:hover .thumbed-edge__silk { transform: scaleX(1.08); }
+.thumbed-edge__ribbon:focus-visible { outline: 2px solid var(--te-ink); outline-offset: 0; }
+
+.thumbed-edge__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Horizontal: the same object turned on its side, as a strip across the top of the document.
+   The ribbon hangs down into the text; section tabs open above the strip. */
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__stack { width: 100%; height: 26px; flex: none; border-radius: 5px 5px 3px 3px; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__bands { flex-direction: row; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__band + .thumbed-edge__band { box-shadow: inset 1px 0 0 var(--te-line); }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__band:first-child { border-radius: 5px 0 0 3px; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__band:last-of-type { border-radius: 0 5px 3px 0; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__page { min-width: 3px; background-image: repeating-linear-gradient(90deg, transparent 0 2px, rgb(0 0 0 / 0.07) 2px 3px), linear-gradient(0deg, rgb(var(--te-wear) / calc(var(--te-w, 0) * 0.16)), rgb(var(--te-wear) / calc(var(--te-w, 0) * 0.34))); }
+.thumbed-edge--night[data-orient="horizontal"] .thumbed-edge__page { background-image: repeating-linear-gradient(90deg, transparent 0 2px, rgb(255 255 255 / 0.045) 2px 3px), linear-gradient(0deg, rgb(255 255 255 / calc(var(--te-w, 0) * 0.025)), rgb(255 255 255 / calc(var(--te-w, 0) * 0.06))); }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__band[data-hot] .thumbed-edge__page { transform: translateY(3px); }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__band[data-wear="3"] .thumbed-edge__page,
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__band[data-wear="4"] .thumbed-edge__page { box-shadow: inset 0 -2px 3px -1px rgb(var(--te-wear) / 0.35); }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__tab { left: 50%; top: auto; bottom: calc(100% + 8px); translate: -50% 0; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__band:first-child .thumbed-edge__tab { left: 0; translate: 0 0; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__band:last-of-type .thumbed-edge__tab { left: auto; right: 0; translate: 0 0; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__here { top: -5px; bottom: -5px; left: auto; right: auto; width: 2px; height: auto; margin: 0 0 0 -1px; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__here::after { left: -2px; top: -3px; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__ribbon { top: 100%; left: auto; width: 30px; height: 40px; margin: -3px 0 0 -15px; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__silk { left: 50%; top: 0; width: 12px; height: 32px; margin: 0 0 0 -6px; border-radius: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 9px), 0 100%); transform-origin: 50% 0; }
+.thumbed-edge[data-orient="horizontal"] .thumbed-edge__ribbon:hover .thumbed-edge__silk { transform: scaleY(1.08); }
+
+@media (prefers-reduced-motion: reduce) {
+  .thumbed-edge__page, .thumbed-edge__ribbon, .thumbed-edge__here, .thumbed-edge__tab {
+  z-index: 5; transition: none; }
+  .thumbed-edge__band[data-hot] .thumbed-edge__page { transform: none; }
+}
+.thumbed-edge[data-motion="reduced"] .thumbed-edge__page, .thumbed-edge[data-motion="reduced"] .thumbed-edge__ribbon, .thumbed-edge[data-motion="reduced"] .thumbed-edge__here { transition: none; }
+.thumbed-edge[data-motion="reduced"] .thumbed-edge__band[data-hot] .thumbed-edge__page { transform: none; }

@@ -1,0 +1,58 @@
+/* Tally Button — a count that turns like an odometer, only where it changes. */
+.tlb {
+  --tlb-face: #141217;
+  --tlb-edge: rgb(239 232 220 / 0.14);
+  --tlb-ink: #efe8dc;
+  --tlb-muted: #9c96a1;
+  --tlb-on: #f0b37a;
+  --tlb-on-face: #1d1712;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2.75rem;
+  padding: 0 1rem 0 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--tlb-face);
+  box-shadow: inset 0 0 0 1px var(--tlb-edge);
+  color: var(--tlb-ink);
+  font: 500 0.875rem/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 300ms ease, box-shadow 300ms ease, transform 140ms ease;
+}
+.tlb--paper {
+  --tlb-face: #fffdf8;
+  --tlb-edge: rgb(27 26 23 / 0.14);
+  --tlb-ink: #1b1a17;
+  --tlb-muted: #6f6a62;
+  --tlb-on: #c2410c;
+  --tlb-on-face: #fff4ec;
+}
+.tlb:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tlb-ink) 30%, transparent); }
+.tlb:active { transform: scale(0.96); }
+.tlb:focus-visible { outline: 2px solid var(--tlb-on); outline-offset: 3px; }
+.tlb[aria-pressed="true"] { background: var(--tlb-on-face); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tlb-on) 45%, transparent); }
+
+.tlb__icon { position: relative; display: grid; place-items: center; width: 1.25rem; height: 1.25rem; }
+.tlb__icon svg { width: 1.2rem; height: 1.2rem; fill: transparent; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; transition: fill 220ms ease, stroke 220ms ease, transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.tlb[aria-pressed="true"] .tlb__icon svg { fill: var(--tlb-on); stroke: var(--tlb-on); transform: scale(1.12); }
+.tlb__pulse { position: absolute; inset: -6px; border-radius: 50%; box-shadow: 0 0 0 1.5px var(--tlb-on); opacity: 0; animation: tlb-pulse 620ms cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; }
+.tlb__label { white-space: nowrap; }
+.tlb__rule { width: 1px; height: 1rem; background: var(--tlb-edge); }
+.tlb__count { display: inline-flex; color: var(--tlb-muted); font-variant-numeric: tabular-nums; font-weight: 600; letter-spacing: 0.01em; }
+.tlb[aria-pressed="true"] .tlb__count { color: var(--tlb-on); }
+.tlb__reel { display: inline-block; height: 1em; overflow: hidden; line-height: 1; }
+.tlb__reel[data-new] { animation: tlb-grow 420ms cubic-bezier(0.16, 1, 0.3, 1); }
+.tlb__strip { display: flex; flex-direction: column; transform: translateY(calc(var(--d) * -1em)); transition: transform 560ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay); }
+.tlb__strip > span { height: 1em; }
+
+@keyframes tlb-pulse { 0% { opacity: 0.9; transform: scale(0.6); } 100% { opacity: 0; transform: scale(1.5); } }
+@keyframes tlb-grow { from { opacity: 0; max-width: 0; } to { opacity: 1; max-width: 1ch; } }
+
+.tlb[data-motion="reduced"] .tlb__strip, .tlb[data-motion="reduced"] .tlb__icon svg { transition: none; }
+.tlb[data-motion="reduced"] .tlb__pulse, .tlb[data-motion="reduced"] .tlb__reel { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .tlb__strip, .tlb__icon svg { transition: none; }
+  .tlb__pulse, .tlb__reel { animation: none; }
+}

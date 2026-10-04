@@ -1,0 +1,60 @@
+.pp {
+  position: relative;
+}
+
+.pp[data-live],
+.pp[data-live] * {
+  cursor: none !important;
+}
+.pp[data-live] :is(input, textarea, select, [contenteditable="true"], [contenteditable=""]) {
+  cursor: auto !important;
+}
+.pp[data-live] :is(input[type="checkbox"], input[type="radio"], input[type="range"], input[type="button"], input[type="submit"]) {
+  cursor: none !important;
+}
+
+.pp__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.pp__layer[data-in] {
+  opacity: 1;
+}
+
+.pp__arrow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+/* The arrow's tip is the hotspot. */
+.pp__arrow svg {
+  display: block;
+  margin: -3.73px 0 0 -3.73px;
+  overflow: visible;
+  transform-origin: 3.73px 3.73px;
+  transition: transform 120ms ease;
+  filter: drop-shadow(0 0 0.6px rgb(0 0 0 / 0.35)) drop-shadow(0 1px 1.5px rgb(0 0 0 / 0.22));
+}
+.pp__arrow path {
+  stroke-width: 3.8;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+.pp--dark .pp__arrow path { fill: #0b0b0c; stroke: #fff; }
+.pp--light .pp__arrow path { fill: #fbfaf7; stroke: #141416; }
+.pp__layer[data-down] .pp__arrow svg {
+  transform: scale(0.9);
+}
+
+.pp[data-motion="reduced"] .pp__arrow svg,
+.pp[data-motion="reduced"] .pp__layer { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .pp__arrow svg,
+  .pp__layer { transition: none; }
+}

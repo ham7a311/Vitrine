@@ -1,0 +1,45 @@
+/* Command Pill — a copyable command that types itself once. */
+.command-pill {
+  --cp-bg: #121015;
+  --cp-ink: #efe8dc;
+  --cp-muted: #6f6a74;
+  --cp-ok: #8fe388;
+  --cp-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  height: 2.9rem;
+  padding: 0 0.5rem 0 1.1rem;
+  max-width: 100%;
+  border: 0;
+  border-radius: 12px;
+  background: var(--cp-bg);
+  box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.03);
+  color: var(--cp-ink);
+  font: 400 0.875rem/1 "Geist Mono", "IBM Plex Mono", ui-monospace, monospace;
+  cursor: pointer;
+  transition: box-shadow 240ms ease, transform 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.command-pill:hover { box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.2); }
+.command-pill:active { transform: scale(0.985); }
+.command-pill:focus-visible { outline: 2px solid #b9cce4; outline-offset: 3px; }
+.command-pill__prompt { color: var(--cp-muted); }
+.command-pill__stage { display: grid; min-width: 0; height: 1.2em; overflow: hidden; }
+.command-pill__cmd, .command-pill__done { grid-area: 1 / 1; white-space: nowrap; line-height: 1.2; transition: transform 480ms var(--cp-ease), opacity 300ms ease; }
+.command-pill__ghost { color: transparent; }
+.command-pill__caret { display: inline-block; width: 0.55em; height: 1em; margin-bottom: -0.15em; background: var(--cp-ink); animation: command-pill-caret 1s steps(1) infinite; }
+.command-pill__done { color: var(--cp-ok); transform: translateY(110%); opacity: 0; }
+.command-pill[data-copied] .command-pill__cmd { transform: translateY(-110%); opacity: 0; }
+.command-pill[data-copied] .command-pill__done { transform: none; opacity: 1; }
+
+.command-pill__icon { position: relative; display: grid; place-items: center; width: 2rem; height: 2rem; flex: none; border-radius: 8px; background: rgb(255 255 255 / 0.05); color: var(--cp-muted); transition: color 200ms ease; }
+.command-pill:hover .command-pill__icon { color: var(--cp-ink); }
+.command-pill__icon svg { grid-area: 1 / 1; width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; transition: transform 380ms var(--cp-ease), opacity 200ms ease; }
+.command-pill__icon svg:last-child { opacity: 0; transform: scale(0.5); color: var(--cp-ok); stroke: var(--cp-ok); stroke-width: 1.8; }
+.command-pill[data-copied] .command-pill__icon svg:first-child { opacity: 0; transform: scale(0.5); }
+.command-pill[data-copied] .command-pill__icon svg:last-child { opacity: 1; transform: none; }
+.command-pill__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@keyframes command-pill-caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .command-pill * { transition-duration: 1ms !important; animation: none !important; } }

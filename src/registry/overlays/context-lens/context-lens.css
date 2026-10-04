@@ -1,0 +1,123 @@
+/* Context Lens — the object, opened up. */
+[data-lens-theme="paper"] {
+  --cl-surface: #ffffff;
+  --cl-ink: #1b1a17;
+  --cl-muted: #77736b;
+  --cl-line: rgb(27 26 23 / 0.1);
+  --cl-hover: rgb(27 26 23 / 0.05);
+  --cl-danger: #b42318;
+  --cl-shadow: 0 22px 44px -22px rgb(40 30 10 / 0.35), 0 4px 10px -6px rgb(40 30 10 / 0.12);
+}
+[data-lens-theme="night"] {
+  --cl-surface: #1f2023;
+  --cl-ink: #ececea;
+  --cl-muted: #8b8d93;
+  --cl-line: rgb(255 255 255 / 0.09);
+  --cl-hover: rgb(255 255 255 / 0.06);
+  --cl-danger: #f0766e;
+  --cl-shadow: 0 24px 50px -20px rgb(0 0 0 / 0.75);
+}
+
+/* The object takes on the lens surface while its lens is open. */
+[data-lens-theme][data-lens-open] {
+  background: var(--cl-surface) !important;
+  box-shadow: 0 0 0 1px var(--cl-line), 0 10px 26px -18px rgb(0 0 0 / 0.35);
+  transition: background 160ms ease, box-shadow 160ms ease;
+}
+
+.context-lens {
+  --cl-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: fixed;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--cl-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.context-lens[data-side="above"] { flex-direction: column-reverse; }
+
+/* The neck: an hourglass of the same material, drawn from the row to the panel. */
+.context-lens__neck {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 48px;
+  height: 14px;
+  margin: -1px 0 -1px calc(var(--cl-neck-x, 40px) - 24px);
+  overflow: visible;
+  transform-origin: 50% 0;
+  animation: cl-neck 150ms var(--cl-ease) both;
+}
+.context-lens[data-side="above"] .context-lens__neck { transform-origin: 50% 100%; }
+.context-lens__neck-fill { fill: var(--cl-surface); }
+.context-lens__neck-edge { fill: none; stroke: var(--cl-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+.context-lens__panel {
+  border-radius: 12px;
+  background: var(--cl-surface);
+  box-shadow: 0 0 0 1px var(--cl-line), var(--cl-shadow);
+  overflow: hidden auto;
+  overscroll-behavior: contain;
+  animation: cl-grow-down 240ms var(--cl-ease) 60ms both;
+}
+.context-lens[data-side="above"] .context-lens__panel { animation-name: cl-grow-up; }
+
+.context-lens__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  margin: 0;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--cl-line);
+  animation: cl-legible 200ms ease 170ms both;
+}
+.context-lens__meta div { min-width: 0; }
+.context-lens__meta dt { font-size: 0.6875rem; color: var(--cl-muted); letter-spacing: 0.01em; }
+.context-lens__meta dd { margin: 2px 0 0; overflow: hidden; font-size: 0.8125rem; white-space: nowrap; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+
+.context-lens__menu { display: flex; flex-direction: column; padding: 5px; animation: cl-legible 200ms ease 200ms both; }
+.context-lens__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 34px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.84rem;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+.context-lens__item:hover,
+.context-lens__item:focus-visible,
+.context-lens__item:focus { background: var(--cl-hover); }
+.context-lens__item:focus-visible { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--cl-ink) 45%, transparent); }
+.context-lens__item[data-danger] { color: var(--cl-danger); }
+.context-lens__item[data-danger]:hover,
+.context-lens__item[data-danger]:focus { background: color-mix(in srgb, var(--cl-danger) 10%, transparent); }
+.context-lens__item[aria-disabled="true"] { cursor: not-allowed; opacity: 0.42; }
+.context-lens__item[aria-disabled="true"]:hover { background: transparent; }
+.context-lens__icon { display: grid; place-items: center; width: 16px; height: 16px; color: var(--cl-muted); }
+.context-lens__item[data-danger] .context-lens__icon { color: inherit; }
+.context-lens__icon svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.context-lens__label { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.context-lens__kbd { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; color: var(--cl-muted); }
+
+.context-lens[data-state="closing"] { animation: cl-out 140ms ease both; pointer-events: none; }
+
+@keyframes cl-neck { from { transform: scaleY(0); } }
+@keyframes cl-grow-down { from { clip-path: inset(0 0 100% 0 round 12px); } to { clip-path: inset(0 0 0 0 round 12px); } }
+@keyframes cl-grow-up { from { clip-path: inset(100% 0 0 0 round 12px); } to { clip-path: inset(0 0 0 0 round 12px); } }
+@keyframes cl-legible { from { opacity: 0; } }
+@keyframes cl-out { to { opacity: 0; } }
+
+.context-lens[data-motion="reduced"] *,
+.context-lens[data-motion="reduced"] { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .context-lens, .context-lens * { animation: none !important; }
+}

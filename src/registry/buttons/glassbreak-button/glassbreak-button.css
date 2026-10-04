@@ -1,0 +1,169 @@
+/* Glassbreak Button — six clip-path shards, six crack paths, one impact point at (50%, 52%). */
+
+.gb {
+  --gb-ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  position: relative;
+  display: inline-flex;
+  height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0 1.75rem;
+  border: 0;
+  background: transparent;
+  color: var(--gb-ink);
+  font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: "wdth" 100, "wght" 600;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gb--light {
+  --gb-face: #10161c;
+  --gb-ink: #f6f4ef;
+  --gb-reveal: linear-gradient(108deg, #10161c 0%, #0b2942 62%, #16324a 100%);
+  --gb-crack: #c9c2b4;
+  --gb-piece-2: #15202b;
+  --gb-piece-4: #0e1a24;
+  --gb-piece-6: #121c28;
+}
+
+.gb--dark {
+  --gb-face: #f6f4ef;
+  --gb-ink: #10161c;
+  --gb-reveal: linear-gradient(108deg, #f6f4ef 0%, #e4d9c8 58%, #c9c2b4 100%);
+  --gb-crack: #94561b;
+  --gb-piece-2: #efeae2;
+  --gb-piece-4: #e7e0d6;
+  --gb-piece-6: #f3efe8;
+}
+
+.gb--compact { height: 2.75rem; padding: 0 1.15rem; gap: 0.5rem; }
+.gb--full { width: 100%; }
+
+.gb__plate {
+  position: absolute;
+  inset: 0;
+  background: var(--gb-reveal);
+}
+
+.gb__piece {
+  position: absolute;
+  inset: 0;
+  background: var(--gb-face);
+  transition: transform 0.55s var(--gb-ease);
+}
+.gb__piece--1 { transition-delay: 0.16s; }
+.gb__piece--2 { background: var(--gb-piece-2); transition-delay: 0.2s; }
+.gb__piece--3 { transition-delay: 0.24s; }
+.gb__piece--4 { background: var(--gb-piece-4); transition-delay: 0.22s; }
+.gb__piece--5 { transition-delay: 0.28s; }
+.gb__piece--6 { background: var(--gb-piece-6); transition-delay: 0.32s; }
+
+.gb__cover {
+  position: absolute;
+  inset: 0;
+  background: var(--gb-face);
+  transition: opacity 0.4s var(--gb-ease) 0.08s;
+}
+
+.gb__cracks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.gb__cracks path {
+  fill: none;
+  stroke: var(--gb-crack);
+  stroke-width: 0.7;
+  stroke-linecap: square;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.42s var(--gb-ease);
+}
+
+.gb__label,
+.gb__arrow { position: relative; z-index: 2; }
+
+.gb__arrow {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+[dir="rtl"] .gb__arrow { transform: scaleX(-1); }
+
+/* ——— Shatter (hover, keyboard focus, or forced) ——— */
+.gb:hover .gb__plate,
+.gb:focus-visible .gb__plate { animation: gb-impact 0.28s var(--gb-ease); }
+
+.gb:hover .gb__cover,
+.gb:focus-visible .gb__cover,
+.gb--shattered .gb__cover { opacity: 0; }
+
+.gb:hover .gb__cracks path,
+.gb:focus-visible .gb__cracks path,
+.gb--shattered .gb__cracks path { stroke-dashoffset: 0; }
+
+.gb:hover .gb__piece--1, .gb:focus-visible .gb__piece--1, .gb--shattered .gb__piece--1 { transform: translate(-7px, -4px) rotate(-2deg); }
+.gb:hover .gb__piece--2, .gb:focus-visible .gb__piece--2, .gb--shattered .gb__piece--2 { transform: translate(2px, -6px) rotate(1.2deg); }
+.gb:hover .gb__piece--3, .gb:focus-visible .gb__piece--3, .gb--shattered .gb__piece--3 { transform: translate(8px, -3px) rotate(2deg); }
+.gb:hover .gb__piece--4, .gb:focus-visible .gb__piece--4, .gb--shattered .gb__piece--4 { transform: translate(-6px, 5px) rotate(-1.4deg); }
+.gb:hover .gb__piece--5, .gb:focus-visible .gb__piece--5, .gb--shattered .gb__piece--5 { transform: translate(1px, 7px) rotate(0.8deg); }
+.gb:hover .gb__piece--6, .gb:focus-visible .gb__piece--6, .gb--shattered .gb__piece--6 { transform: translate(8px, 4px) rotate(2.2deg); }
+
+.gb:hover .gb__arrow,
+.gb:focus-visible .gb__arrow { transform: translateX(4px); }
+[dir="rtl"] .gb:hover .gb__arrow,
+[dir="rtl"] .gb:focus-visible .gb__arrow { transform: scaleX(-1) translateX(4px); }
+
+.gb:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.gb--light:focus-visible { outline-color: var(--gb-face); }
+.gb--dark:focus-visible { outline-color: var(--gb-face); }
+
+@keyframes gb-impact {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.985); }
+  100% { transform: scale(1); }
+}
+
+/* ——— Touch & small screens: shown already shattered (full-width buttons stay whole) ——— */
+@media (max-width: 767px), (hover: none) and (pointer: coarse) {
+  .gb:not(.gb--full) .gb__cover { opacity: 0; }
+  .gb:not(.gb--full) .gb__cracks path { stroke-dashoffset: 0; }
+  .gb:not(.gb--full) .gb__piece--1 { transform: translate(-7px, -4px) rotate(-2deg); }
+  .gb:not(.gb--full) .gb__piece--2 { transform: translate(2px, -6px) rotate(1.2deg); }
+  .gb:not(.gb--full) .gb__piece--3 { transform: translate(8px, -3px) rotate(2deg); }
+  .gb:not(.gb--full) .gb__piece--4 { transform: translate(-6px, 5px) rotate(-1.4deg); }
+  .gb:not(.gb--full) .gb__piece--5 { transform: translate(1px, 7px) rotate(0.8deg); }
+  .gb:not(.gb--full) .gb__piece--6 { transform: translate(8px, 4px) rotate(2.2deg); }
+}
+
+/* ——— Disabled: the glass holds ——— */
+.gb:disabled { cursor: not-allowed; opacity: 0.4; }
+.gb:disabled .gb__piece,
+.gb:disabled .gb__plate { transform: none !important; animation: none !important; }
+.gb:disabled .gb__cover { opacity: 1 !important; }
+.gb:disabled .gb__cracks path { stroke-dashoffset: 1 !important; }
+
+/* ——— Reduced motion: a quiet, solid button ——— */
+@media (prefers-reduced-motion: reduce) {
+  .gb__piece, .gb__cracks path, .gb__plate, .gb__cover, .gb__arrow { transition: none; animation: none !important; }
+  .gb:not(.gb--shattered) .gb__piece { transform: none !important; }
+  .gb:not(.gb--shattered) .gb__cracks path { stroke-dashoffset: 1 !important; }
+  .gb:not(.gb--shattered) .gb__cover { opacity: 1 !important; }
+}

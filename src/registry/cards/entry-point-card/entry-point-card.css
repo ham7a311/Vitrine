@@ -1,0 +1,89 @@
+/* Entry Point Card — colour blooms from where you came in, drains toward where you leave. */
+.epc {
+  --epc-card: #fffdf8;
+  --epc-ink: #1b1a17;
+  --epc-muted: #6f6a62;
+  --epc-line: rgb(27 26 23 / 0.12);
+  --epc-fill: #3b2140;
+  --epc-fill-ink: #f6eee6;
+  --epc-fill-muted: rgb(246 238 230 / 0.72);
+  --epc-fill-line: rgb(246 238 230 / 0.2);
+  --epc-accent: #a8432f;
+  --epc-fill-accent: #f3b58c;
+  --epc-focus: #2f5fd0;
+  --ex: 50%;
+  --ey: 50%;
+  position: relative;
+  isolation: isolate;
+  display: block;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--epc-card);
+  box-shadow: inset 0 0 0 1px var(--epc-line), 0 18px 36px -30px rgb(40 30 20 / 0.5);
+  color: var(--epc-ink);
+  text-decoration: none;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 520ms ease;
+}
+.epc--night {
+  --epc-card: #141217;
+  --epc-ink: #efe8dc;
+  --epc-muted: #9c96a1;
+  --epc-line: rgb(239 232 220 / 0.12);
+  --epc-fill: #b9cce4;
+  --epc-fill-ink: #0e1420;
+  --epc-fill-muted: rgb(14 20 32 / 0.7);
+  --epc-fill-line: rgb(14 20 32 / 0.16);
+  --epc-accent: #f0b37a;
+  --epc-fill-accent: #2f4f86;
+  --epc-focus: #b9cce4;
+}
+.epc[data-on] { transform: translateY(-3px); box-shadow: inset 0 0 0 1px transparent, 0 28px 50px -30px rgb(20 10 20 / 0.6); }
+.epc:focus-visible { outline: 2px solid var(--epc-focus); outline-offset: 4px; }
+
+/* Both layers share one layout, so the inverted copy lands exactly on the original. */
+.epc__face, .epc__fill {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-height: 19rem;
+  height: 100%;
+  padding: 1.5rem;
+}
+.epc__fill {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--epc-fill);
+  color: var(--epc-fill-ink);
+  --epc-muted: var(--epc-fill-muted);
+  --epc-line: var(--epc-fill-line);
+  --epc-accent: var(--epc-fill-accent);
+  clip-path: circle(0% at var(--ex) var(--ey));
+  transition: clip-path 560ms cubic-bezier(0.55, 0, 0.75, 0.3);
+  pointer-events: none;
+}
+.epc[data-on] .epc__fill { clip-path: circle(150% at var(--ex) var(--ey)); transition: clip-path 820ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+.epc__top { display: flex; justify-content: space-between; gap: 1rem; font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--epc-muted); }
+.epc__client { color: var(--epc-accent); }
+.epc__title { margin-top: 0.6rem; font-size: 1.5rem; font-weight: 600; line-height: 1.15; letter-spacing: -0.025em; text-wrap: balance; }
+.epc__summary { font-size: 0.875rem; line-height: 1.55; color: var(--epc-muted); }
+.epc__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--epc-line); }
+.epc__result { display: flex; flex-direction: column; gap: 0.25rem; }
+.epc__value { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
+.epc__label { font-size: 0.75rem; color: var(--epc-muted); }
+.epc__arrow { display: grid; place-items: center; flex: none; width: 2.5rem; height: 2.5rem; margin-left: auto; border: 1px solid var(--epc-line); border-radius: 50%; }
+.epc__arrow svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1); }
+.epc[data-on] .epc__arrow svg { transform: translate(1px, -1px) rotate(0deg) scale(1.08); }
+.epc__tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.epc__tag { padding: 0.3rem 0.55rem; border: 1px solid var(--epc-line); border-radius: 999px; font-size: 0.6875rem; color: var(--epc-muted); }
+
+.epc[data-motion="reduced"] .epc__fill, .epc[data-motion="reduced"][data-on] .epc__fill { transition-duration: 1ms; }
+.epc[data-motion="reduced"] { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .epc__fill, .epc[data-on] .epc__fill { transition-duration: 1ms !important; }
+  .epc { transition: none; }
+}

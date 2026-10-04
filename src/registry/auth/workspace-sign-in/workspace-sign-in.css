@@ -1,0 +1,66 @@
+/* Workspace Sign-in — the panel becomes the company's once it's recognised. */
+@property --ws {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #b9cce4;
+}
+.workspace-sign-in {
+  --wi-ink: #efe8dc;
+  --wi-muted: #a7a1ab;
+  --wi-faint: #6f6a74;
+  --wi-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: min(100%, 25rem);
+  padding: 2rem 1.75rem 1.9rem;
+  border-radius: 20px;
+  background: #121015;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ws) 22%, rgb(239 232 220 / 0.06)), 0 30px 60px -30px rgb(0 0 0 / 0.9);
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--wi-ink);
+  transition: --ws 700ms ease;
+}
+.workspace-sign-in__glow {
+  position: absolute; inset: -40% -20% auto; height: 70%; z-index: -1; pointer-events: none;
+  background: radial-gradient(50% 60% at 50% 100%, color-mix(in srgb, var(--ws) 28%, transparent), transparent 70%);
+  opacity: 0.35; transition: opacity 600ms ease;
+}
+.workspace-sign-in[data-state="found"] .workspace-sign-in__glow { opacity: 1; }
+.workspace-sign-in__eyebrow { margin: 0; font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ws); }
+.workspace-sign-in__title { margin: 0.6rem 0 1.4rem; font: 400 2rem/1.05 "Instrument Serif", Georgia, serif; letter-spacing: -0.015em; }
+.workspace-sign-in__title em { font-style: italic; color: color-mix(in srgb, var(--ws) 60%, var(--wi-ink)); }
+
+.workspace-sign-in__field {
+  position: relative; display: flex; align-items: center; gap: 0.6rem; height: 3.4rem; padding: 0 0.9rem 0 0.55rem; border-radius: 13px; background: #0b0a0d;
+  box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.1); transition: box-shadow 260ms ease;
+}
+.workspace-sign-in__field:focus-within { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ws) 70%, transparent), 0 0 0 4px color-mix(in srgb, var(--ws) 14%, transparent); }
+.workspace-sign-in__mono { display: grid; place-items: center; width: 2.3rem; height: 2.3rem; flex: none; border-radius: 9px; background: color-mix(in srgb, var(--ws) 18%, #1b1920); perspective: 200px; }
+.workspace-sign-in__mono span { font: 600 1rem inherit; font-family: inherit; color: var(--ws); animation: workspace-sign-in-flip 520ms var(--wi-ease); }
+.workspace-sign-in__field input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; color: var(--wi-ink); font: 500 16px inherit; font-family: inherit; letter-spacing: -0.01em; }
+.workspace-sign-in__field input::placeholder { color: var(--wi-faint); }
+.workspace-sign-in__suffix { font: 400 0.875rem "Geist Mono", monospace; color: var(--wi-faint); white-space: nowrap; }
+.workspace-sign-in__spin { position: absolute; right: 0.9rem; width: 0.85rem; height: 0.85rem; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--ws) 25%, transparent); border-top-color: var(--ws); opacity: 0; animation: workspace-sign-in-spin 700ms linear infinite; }
+.workspace-sign-in[data-state="looking"] .workspace-sign-in__spin { opacity: 1; }
+.workspace-sign-in[data-state="looking"] .workspace-sign-in__suffix { opacity: 0; }
+
+.workspace-sign-in__status { min-height: 1.3rem; margin: 0.7rem 0 0 0.2rem; font-size: 0.8125rem; color: var(--wi-muted); }
+.workspace-sign-in[data-state="missing"] .workspace-sign-in__status { color: #f0a2a2; }
+
+.workspace-sign-in__go {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; height: 3rem; margin-top: 1.1rem; border: 0; border-radius: 12px;
+  background: var(--ws); color: #0c0b0d; font: 600 0.9375rem inherit; font-family: inherit; cursor: pointer;
+  transition: opacity 260ms ease, transform 160ms ease, filter 200ms ease;
+}
+.workspace-sign-in__go:disabled { opacity: 0.25; cursor: default; }
+.workspace-sign-in__go:hover:not(:disabled) { filter: brightness(1.08); }
+.workspace-sign-in__go:active:not(:disabled) { transform: scale(0.985); }
+.workspace-sign-in__go svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.workspace-sign-in__go:focus-visible, .workspace-sign-in__create:focus-visible { outline: 2px solid var(--ws); outline-offset: 3px; }
+.workspace-sign-in__create { display: inline-block; margin-top: 0.9rem; font-size: 0.875rem; color: var(--wi-muted); text-decoration: none; }
+.workspace-sign-in__create:hover { color: var(--wi-ink); }
+
+@keyframes workspace-sign-in-flip { from { transform: rotateY(90deg); opacity: 0; } }
+@keyframes workspace-sign-in-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .workspace-sign-in, .workspace-sign-in * { transition-duration: 1ms !important; animation-duration: 1ms !important; } }

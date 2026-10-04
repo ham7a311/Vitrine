@@ -1,0 +1,50 @@
+.ww {
+  --ink: #f2eee6;
+  --dim: 0.62;
+  position: relative;
+  touch-action: pan-y;
+  color: var(--ink);
+  padding: 0.4em 0;
+}
+.ww--paper {
+  --ink: #17161a;
+  --dim: 0.7;
+}
+.ww--gradient {
+  --ink: #f2eee6;
+  --dim: 0.5;
+}
+
+.ww__h {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.26em;
+  font-family: var(--font-hanken), "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(3rem, 11vw, 9rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-align: center;
+  user-select: none;
+}
+.ww__word {
+  white-space: nowrap;
+}
+/* Heavier letters also carry a little more ink, so the wave reads as light. */
+.ww__l {
+  --w: 0;
+  opacity: calc(var(--dim) + (1 - var(--dim)) * var(--w));
+}
+.ww--gradient .ww__l {
+  color: color-mix(in oklch, #7dd3fc, #f0abfc calc(var(--i) * 6%));
+  text-shadow: 0 0 calc(var(--w) * 0.35em) color-mix(in oklch, #a5b4fc calc(var(--w) * 60%), transparent);
+}
+
+/* On a phone, let the words stack big rather than sit small on one line. */
+@media (max-width: 560px) {
+  .ww__h {
+    font-size: 19vw;
+    line-height: 0.98;
+  }
+}

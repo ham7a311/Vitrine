@@ -1,0 +1,161 @@
+.wc {
+  --ink: #f4f1ea;
+  --muted: rgb(244 241 234 / 0.5);
+  --glow-k: 34%;
+  position: relative;
+  color: var(--ink);
+}
+.wc--paper {
+  --ink: #18171a;
+  --muted: rgb(24 23 26 / 0.5);
+  --glow-k: 22%;
+}
+
+.wc__h {
+  position: relative;
+  margin: 0;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.3rem, 7.4vw, 5.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+/* The slot: an inline box that springs to each word's width. */
+.wc__slot {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  height: 1.16em;
+  white-space: nowrap;
+  transition: width 640ms cubic-bezier(0.32, 1.32, 0.46, 1);
+  perspective: 700px;
+}
+.wc__h[data-stack] .wc__slot {
+  display: block;
+}
+.wc__word {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: inline-flex;
+  line-height: 1.16;
+}
+.wc__l {
+  display: inline-block;
+  transform-origin: 50% 80%;
+  backface-visibility: hidden;
+}
+.wc__word--in .wc__l {
+  animation: wc-in 720ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--n) * 30ms + 90ms);
+}
+.wc__word--in[data-first] .wc__l {
+  animation-delay: calc(var(--n) * 30ms + 300ms);
+}
+.wc__word--out .wc__l {
+  animation: wc-out 460ms cubic-bezier(0.5, 0, 0.75, 0) both;
+  animation-delay: calc(var(--n) * 18ms);
+}
+@keyframes wc-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em) rotateX(-72deg) scale(0.96);
+    filter: blur(10px);
+  }
+  60% {
+    filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes wc-out {
+  to {
+    opacity: 0;
+    transform: translateY(-0.42em) rotateX(55deg) scale(0.98);
+    filter: blur(8px);
+  }
+}
+
+/* A soft light under the word, in its colours. */
+.wc__glow {
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  top: 30%;
+  bottom: -30%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--from) var(--glow-k), transparent), color-mix(in oklab, var(--to) calc(var(--glow-k) * 0.4), transparent) 55%, transparent);
+  filter: blur(18px);
+  z-index: -1;
+  transition: background 700ms ease;
+  pointer-events: none;
+}
+
+/* How long this word will stay. */
+.wc__dwell {
+  position: absolute;
+  left: 0.04em;
+  right: 0.04em;
+  bottom: -0.1em;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--from), var(--to));
+  opacity: 0.55;
+  transform-origin: left;
+  animation-name: wc-dwell;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+@keyframes wc-dwell {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.wc__measure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.wc__measure span {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.wc__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.wc__pause {
+  margin-top: 28px;
+  font: 500 12px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: none;
+  border: 1px solid color-mix(in oklab, var(--ink) 20%, transparent);
+  border-radius: 999px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+.wc__pause:hover { color: var(--ink); }
+.wc__pause:focus-visible { outline: 2px solid var(--from); outline-offset: 2px; }
+
+.wc[data-motion="reduced"] .wc__slot,
+.wc[data-motion="reduced"] .wc__glow { transition: none; }
+.wc[data-motion="reduced"] .wc__l { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .wc__slot,
+  .wc__glow { transition: none; }
+  .wc__l { animation: none !important; }
+}

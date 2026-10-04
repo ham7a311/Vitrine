@@ -1,0 +1,144 @@
+/* Glass Lid — under glass means read-only; the lid lifts to edit. */
+.glass-lid {
+  --gl-bg: #ffffff;
+  --gl-ink: #1b1a17;
+  --gl-muted: #77736b;
+  --gl-line: rgb(27 26 23 / 0.09);
+  --gl-field: #faf9f6;
+  --gl-frost: #9fb6d3;
+  --gl-frost-deep: #4e6d93;
+  --gl-glass: rgb(185 204 228 / 0.1);
+  --gl-accent: #1b1a17;
+  --gl-on-accent: #ffffff;
+  --gl-error: #b42318;
+  --gl-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  width: min(100%, 36rem);
+  padding: 20px 22px 22px;
+  border-radius: 16px;
+  background: var(--gl-bg);
+  box-shadow: 0 0 0 1px var(--gl-line), 0 24px 48px -36px rgb(30 24 12 / 0.35);
+  color: var(--gl-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  -webkit-font-smoothing: antialiased;
+}
+.glass-lid--night {
+  --gl-bg: #16171a;
+  --gl-ink: #ececea;
+  --gl-muted: #8b8d93;
+  --gl-line: rgb(255 255 255 / 0.08);
+  --gl-field: #1c1d21;
+  --gl-frost: #b9cce4;
+  --gl-frost-deep: #8fa9cb;
+  --gl-glass: rgb(185 204 228 / 0.06);
+  --gl-accent: #ececea;
+  --gl-on-accent: #16171a;
+  --gl-error: #f0766e;
+}
+
+.glass-lid__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; min-height: 52px; }
+.glass-lid__title { margin: 0; font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; }
+.glass-lid__desc { margin: 3px 0 0; color: var(--gl-muted); font-size: 0.8125rem; }
+.glass-lid__lock { display: flex; align-items: center; gap: 6px; flex: none; margin: 2px 0 0; color: var(--gl-muted); font-size: 0.75rem; }
+.glass-lid__lock svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; }
+
+/* The case: fields below, the pane above them, hinged on its top edge. */
+.glass-lid__case { position: relative; margin-top: 12px; perspective: 1100px; perspective-origin: 50% 0%; }
+.glass-lid__fields { display: grid; margin: 0; }
+.glass-lid__row { display: grid; grid-template-columns: minmax(7rem, 11rem) minmax(0, 1fr); align-items: baseline; gap: 4px 16px; padding: 11px 0; border-top: 1px solid var(--gl-line); }
+.glass-lid__row:first-child { border-top: 0; }
+.glass-lid__row dt { color: var(--gl-muted); font-size: 0.8125rem; }
+.glass-lid__row dd { display: grid; gap: 3px; min-width: 0; margin: 0; }
+.glass-lid__value { display: block; min-height: 34px; padding: 7px 0; overflow-wrap: anywhere; line-height: 20px; }
+.glass-lid__empty { color: var(--gl-muted); }
+.glass-lid__hint { color: var(--gl-muted); font-size: 0.75rem; }
+.glass-lid__input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  margin-left: -10px;
+  width: calc(100% + 10px);
+  border: 0;
+  border-radius: 8px;
+  background: var(--gl-field);
+  box-shadow: inset 0 0 0 1px var(--gl-line);
+  color: inherit;
+  font: inherit;
+  line-height: 20px;
+  transition: box-shadow 140ms ease;
+}
+.glass-lid__input:focus { outline: none; box-shadow: inset 0 0 0 1.5px var(--gl-frost-deep), 0 0 0 3px color-mix(in srgb, var(--gl-frost) 30%, transparent); }
+.glass-lid__input:disabled { opacity: 0.6; }
+
+.glass-lid__pane {
+  position: absolute;
+  inset: -6px -10px -8px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--gl-glass) 160%, transparent), var(--gl-glass));
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--gl-frost) 55%, transparent),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.55),
+    inset 0 -1px 0 0 color-mix(in srgb, var(--gl-frost-deep) 22%, transparent),
+    0 1px 2px color-mix(in srgb, var(--gl-frost-deep) 12%, transparent);
+  overflow: hidden;
+  pointer-events: none;
+  transform-origin: 50% 0;
+  transform: rotateX(0deg);
+  transition: transform 640ms var(--gl-ease), opacity 640ms var(--gl-ease);
+  backface-visibility: visible;
+}
+.glass-lid--night .glass-lid__pane { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gl-frost) 32%, transparent), inset 0 1px 0 0 rgb(255 255 255 / 0.14), 0 1px 2px rgb(0 0 0 / 0.3); }
+/* One reflection band, fixed to the glass so it travels with the lid. */
+.glass-lid__glint {
+  position: absolute;
+  inset: -40% auto -40% 18%;
+  width: 22%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.42) 40%, rgb(255 255 255 / 0.1) 60%, transparent);
+  transform: skewX(-24deg);
+  opacity: 0.55;
+}
+.glass-lid--night .glass-lid__glint { opacity: 0.16; }
+
+/* Lid up: it swings back on its top hinge until only a foreshortened sliver of glass is left above the fields. */
+.glass-lid[data-open] .glass-lid__pane { transform: rotateX(-89deg); opacity: 0.6; }
+
+.glass-lid__foot { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+.glass-lid__error { flex: 1; margin: 0; color: var(--gl-error); font-size: 0.8125rem; }
+.glass-lid__btn {
+  flex: none;
+  height: 32px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 9px;
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--gl-line);
+  color: var(--gl-ink);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 140ms ease, opacity 140ms ease;
+}
+.glass-lid__btn:hover { background: color-mix(in srgb, var(--gl-ink) 5%, transparent); }
+.glass-lid__btn--primary { background: var(--gl-accent); color: var(--gl-on-accent); box-shadow: none; }
+.glass-lid__btn--primary:hover { background: color-mix(in srgb, var(--gl-accent) 88%, var(--gl-bg)); }
+.glass-lid__btn:disabled { opacity: 0.4; cursor: default; }
+.glass-lid__btn:focus-visible { outline: 2px solid var(--gl-frost-deep); outline-offset: 2px; }
+
+.glass-lid__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .glass-lid { padding: 16px; }
+  .glass-lid__row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .glass-lid__value { padding: 2px 0 4px; min-height: 0; }
+  .glass-lid__input { margin-left: 0; width: 100%; }
+}
+
+.glass-lid[data-motion="reduced"] .glass-lid__pane { transition: none; }
+.glass-lid[data-motion="reduced"][data-open] .glass-lid__pane { transform: none; opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .glass-lid__pane { transition: opacity 160ms ease; }
+  .glass-lid[data-open] .glass-lid__pane { transform: none; opacity: 0; }
+}

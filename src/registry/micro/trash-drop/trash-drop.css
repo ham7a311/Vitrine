@@ -1,0 +1,18 @@
+.td { display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 10px; background: transparent; color: inherit; cursor: pointer; transition: background 200ms ease, color 200ms ease; }
+.td:hover { background: rgb(239 68 68 / 0.1); color: #ef4444; }
+.td:focus-visible { outline: 2px solid #ef4444; outline-offset: 2px; }
+.td svg { width: 22px; height: 22px; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.td__lid { transform-box: view-box; transform-origin: 19.5px 6.5px; }
+.td__sheet { fill: color-mix(in oklab, currentColor 12%, transparent); stroke-width: 1.3; opacity: 0; }
+.td__bin { transform-box: view-box; transform-origin: 12px 20px; }
+.td[data-beat="a"] .td__lid { animation: td-lid-a 620ms cubic-bezier(0.3, 0.7, 0.4, 1); }
+.td[data-beat="b"] .td__lid { animation: td-lid-b 620ms cubic-bezier(0.3, 0.7, 0.4, 1); }
+.td[data-beat] .td__sheet { animation: td-drop 520ms cubic-bezier(0.55, 0, 0.9, 0.5) 80ms; }
+.td[data-beat="a"] .td__bin { animation: td-shake-a 360ms ease-out 400ms; }
+.td[data-beat="b"] .td__bin { animation: td-shake-b 360ms ease-out 400ms; }
+@keyframes td-lid-a { 0% { rotate: 0deg; } 25%, 55% { rotate: 32deg; translate: 0 -1px; } 75% { rotate: -4deg; } 100% { rotate: 0deg; } }
+@keyframes td-lid-b { 0% { rotate: 0deg; } 25%, 55% { rotate: 32deg; translate: 0 -1px; } 75% { rotate: -4deg; } 100% { rotate: 0deg; } }
+@keyframes td-drop { 0% { opacity: 0; translate: 0 -4px; } 20% { opacity: 1; } 75% { opacity: 1; translate: 0 10px; scale: 0.8; } 100% { opacity: 0; translate: 0 12px; scale: 0.7; } }
+@keyframes td-shake-a { 25% { rotate: -6deg; } 55% { rotate: 4deg; } 80% { rotate: -2deg; } }
+@keyframes td-shake-b { 25% { rotate: -6deg; } 55% { rotate: 4deg; } 80% { rotate: -2deg; } }
+@media (prefers-reduced-motion: reduce) { .td * { animation: none !important; } }

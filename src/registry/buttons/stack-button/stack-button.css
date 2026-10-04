@@ -1,0 +1,85 @@
+/* Stack Button — the quantity is a physical stack of sheets. */
+.stack-button {
+  --sb-surface: #1b1714;
+  --sb-sheet-a: #d9cfbd;
+  --sb-sheet-b: #f1ebe0;
+  --sb-edge: rgb(255 236 210 / 0.1);
+  --sb-ink: #efe8dc;
+  --sb-muted: #a8a59c;
+  --sb-accent: #e8a24a;
+  --sb-step: 8px;
+  --sb-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  display: inline-block;
+  padding-top: calc(var(--sb-n) * var(--sb-step));
+  transition: padding-top 480ms var(--sb-ease);
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.stack-button--frost { --sb-surface: #141a22; --sb-sheet-a: #c3d0e0; --sb-sheet-b: #e8eef6; --sb-edge: rgb(210 228 255 / 0.12); --sb-accent: #b9cce4; }
+.stack-button--paper { --sb-surface: #f3efe7; --sb-sheet-a: #2a2520; --sb-sheet-b: #4a4239; --sb-edge: rgb(255 255 255 / 0.7); --sb-ink: #1d1a16; --sb-muted: #6d675d; --sb-accent: #b4541f; }
+
+/* sheets live behind the body; each sits one step higher, leaning a little */
+.stack-button__stack { position: absolute; inset: 0; pointer-events: none; }
+.stack-button__sheet {
+  position: absolute; left: 10px; right: 10px; bottom: 0; height: 3rem; border-radius: 10px;
+  /* deeper sheets sit further from the light */
+  /* pale slips; each one further back sits a little further from the light */
+  background: linear-gradient(180deg, color-mix(in srgb, var(--sb-sheet-b) calc(100% - var(--i) * 10%), var(--sb-sheet-a)), var(--sb-sheet-a) 40%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), 0 -1px 0 rgb(0 0 0 / 0.22), 0 3px 4px -1px rgb(0 0 0 / 0.5);
+  z-index: calc(20 - var(--i)); /* each deeper sheet sits behind the one before, leaving a ledge */
+  transform-origin: 50% 100%;
+  transform: translateY(calc((var(--i) + 1) * var(--sb-step) * -1)) rotate(var(--lean)) scaleX(calc(1 - var(--i) * 0.012));
+  animation: stack-button-in 520ms var(--sb-ease) both;
+}
+.stack-button__sheet[data-leaving] { animation: stack-button-peel 520ms cubic-bezier(0.5, 0, 0.75, 0) both; }
+
+.stack-button__body {
+  position: relative; z-index: 30; display: flex; align-items: stretch; height: 3.25rem; border-radius: 14px;
+  background: var(--sb-surface);
+  box-shadow: inset 0 1px 0 var(--sb-edge), 0 0 0 1px rgb(0 0 0 / 0.25), 0 12px 24px -16px rgb(0 0 0 / 0.8);
+  overflow: hidden;
+}
+.stack-button__main, .stack-button__minus {
+  all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; color: var(--sb-ink);
+  -webkit-tap-highlight-color: transparent;
+}
+.stack-button__main { gap: 1.1rem; padding: 0 0.55rem 0 1.4rem; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; }
+.stack-button__main:active .stack-button__label { transform: translateY(1px); }
+.stack-button__label { transition: transform 120ms ease; }
+.stack-button__main:focus-visible, .stack-button__minus:focus-visible { outline: 2px solid var(--sb-accent); outline-offset: -4px; border-radius: 12px; }
+.stack-button__main:disabled { cursor: default; opacity: 0.6; }
+
+/* the minus slides in from the left edge once there is something to remove */
+.stack-button__minus {
+  justify-content: center; width: 0; opacity: 0; border-right: 1px solid transparent; color: var(--sb-muted);
+  transition: width 420ms var(--sb-ease), opacity 260ms ease, border-color 260ms ease, color 200ms ease;
+}
+.stack-button:not([data-count="0"]) .stack-button__minus { width: 2.75rem; opacity: 1; border-right-color: rgb(255 255 255 / 0.06); }
+.stack-button--paper:not([data-count="0"]) .stack-button__minus { border-right-color: rgb(0 0 0 / 0.08); }
+.stack-button__minus:hover { color: var(--sb-ink); }
+.stack-button__minus svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+
+.stack-button__count {
+  display: grid; place-items: center; overflow: hidden; min-width: 2.1rem; height: 2.1rem; padding: 0 0.45rem; border-radius: 9px;
+  background: color-mix(in srgb, var(--sb-accent) 12%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sb-accent) 22%, transparent);
+  color: var(--sb-accent); font: 500 0.8125rem "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums;
+}
+.stack-button[data-count="0"] .stack-button__count { color: var(--sb-muted); background: transparent; box-shadow: inset 0 0 0 1px rgb(127 127 127 / 0.2); }
+.stack-button__digits { display: block; animation: stack-button-digit 380ms var(--sb-ease); }
+.stack-button__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+
+@keyframes stack-button-in {
+  from { transform: translateY(0) rotate(0deg) scaleX(0.96); }
+}
+@keyframes stack-button-peel {
+  from { transform: translateY(calc((var(--i) + 1) * var(--sb-step) * -1)) rotate(var(--lean)); opacity: 1; }
+  to { transform: translateY(calc((var(--i) + 1) * var(--sb-step) * -1 - 26px)) translateX(18px) rotate(calc(var(--lean) + 7deg)); opacity: 0; }
+}
+@keyframes stack-button-digit { from { transform: translateY(70%); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-button, .stack-button__minus { transition: none; }
+  .stack-button__sheet, .stack-button__sheet[data-leaving], .stack-button__digits { animation: none; }
+  .stack-button__sheet[data-leaving] { display: none; }
+}

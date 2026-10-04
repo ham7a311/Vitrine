@@ -1,0 +1,244 @@
+.pc {
+  position: relative;
+  overflow: hidden;
+  --pc-bg: #f6f5f1;
+  --pc-ring: #f6f5f1;
+  --pc-ink: #1d1c19;
+  --pc-chip: #ffffff;
+  --pc-line: rgb(0 0 0 / 0.1);
+}
+.pc--night {
+  --pc-bg: #131416;
+  --pc-ring: #131416;
+  --pc-ink: #eeece7;
+  --pc-chip: #1d1e22;
+  --pc-line: rgb(255 255 255 / 0.1);
+}
+
+.pc__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* A collaborator: their arrow in their colour, their name beside it. */
+.pc__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+  --c: #3e63dd;
+}
+.pc__cursor svg {
+  display: block;
+  margin: -2px 0 0 -2.5px; /* the arrow's tip is the hotspot */
+  overflow: visible;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.25));
+}
+.pc__cursor path {
+  fill: var(--c);
+  stroke: #fff;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+.pc__name {
+  position: absolute;
+  left: 14px;
+  top: 17px;
+  padding: 3px 7px 3.5px;
+  border-radius: 999px;
+  background: var(--c);
+  color: #fff;
+  font: 600 11px/1.15 Geist, ui-sans-serif, system-ui, sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px -2px rgb(0 0 0 / 0.3);
+}
+
+/* Their cursor chat: grows under the name as they type, then lets go. */
+.pc__chat {
+  position: absolute;
+  left: 14px;
+  top: 40px;
+  max-width: 230px;
+  padding: 7px 11px 8px;
+  border-radius: 4px 14px 14px 14px;
+  background: var(--c);
+  color: #fff;
+  font: 500 13px/1.35 Geist, ui-sans-serif, system-ui, sans-serif;
+  width: max-content;
+  opacity: 0;
+  transform: translateY(-4px) scale(0.92);
+  transform-origin: 0 0;
+  transition: opacity 220ms ease, transform 260ms cubic-bezier(0.3, 0.8, 0.3, 1.3);
+  box-shadow: 0 8px 20px -10px rgb(0 0 0 / 0.45);
+}
+.pc__chat[data-on] {
+  opacity: 1;
+  transform: none;
+}
+.pc__chat span::after {
+  content: "";
+  display: inline-block;
+  width: 1.5px;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: -0.15em;
+  background: rgb(255 255 255 / 0.85);
+  animation: pc-caret 1s steps(1) infinite;
+}
+@keyframes pc-caret {
+  50% { opacity: 0; }
+}
+
+/* A note someone has selected wears their colour and their name. */
+.pc [data-pid] {
+  transition: outline-color 160ms ease, box-shadow 200ms ease;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+}
+.pc [data-pid][data-by] {
+  outline-color: var(--by);
+  box-shadow: 0 14px 30px -14px rgb(0 0 0 / 0.35);
+}
+.pc [data-pid][data-by]::after {
+  content: attr(data-by-name);
+  position: absolute;
+  left: -5px;
+  top: -24px;
+  padding: 2px 6px;
+  border-radius: 4px 4px 4px 0;
+  background: var(--by);
+  color: #fff;
+  font: 600 10px/1.3 Geist, ui-sans-serif, system-ui, sans-serif;
+  pointer-events: none;
+}
+
+/* Your own posted messages. */
+.pc__mine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: 240px;
+  padding: 7px 11px 8px;
+  border-radius: 4px 14px 14px 14px;
+  background: var(--pc-me);
+  color: #fff;
+  font: 500 13px/1.35 Geist, ui-sans-serif, system-ui, sans-serif;
+  width: max-content;
+  animation: pc-in 240ms cubic-bezier(0.3, 0.8, 0.3, 1.3) both;
+  transition: opacity 380ms ease;
+  box-shadow: 0 8px 20px -10px rgb(0 0 0 / 0.45);
+}
+.pc__mine[data-out] {
+  opacity: 0;
+}
+@keyframes pc-in {
+  from { opacity: 0; scale: 0.9; }
+}
+
+.pc__compose {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 70;
+}
+.pc__compose input {
+  width: 230px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 4px 17px 17px 17px;
+  border: 0;
+  outline: 2px solid color-mix(in oklab, var(--pc-me) 40%, transparent);
+  outline-offset: 2px;
+  background: var(--pc-me);
+  color: #fff;
+  font: 500 13px/1 Geist, ui-sans-serif, system-ui, sans-serif;
+  box-shadow: 0 10px 24px -10px rgb(0 0 0 / 0.5);
+}
+.pc__compose input::placeholder {
+  color: rgb(255 255 255 / 0.72);
+}
+
+/* Who's here. */
+.pc__people {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  z-index: 65;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pc__stack {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pc__stack li {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: var(--c);
+  color: #fff;
+  font: 600 11.5px/1 Geist, ui-sans-serif, system-ui, sans-serif;
+  box-shadow: 0 0 0 2px var(--pc-ring);
+}
+.pc__stack .pc__me {
+  width: auto;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+}
+.pc__say {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: var(--pc-chip);
+  color: var(--pc-ink);
+  box-shadow: 0 0 0 1px var(--pc-line), 0 2px 6px -3px rgb(0 0 0 / 0.2);
+  font: 500 12.5px/1 Geist, ui-sans-serif, system-ui, sans-serif;
+}
+.pc__say:focus-visible {
+  outline: 2px solid var(--pc-me);
+  outline-offset: 2px;
+}
+.pc__say kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px var(--pc-line);
+  font: 500 10.5px/1 "Geist Mono", ui-monospace, monospace;
+  opacity: 0.7;
+}
+
+.pc__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pc[data-motion="reduced"] .pc__chat,
+.pc[data-motion="reduced"] .pc__mine,
+.pc[data-motion="reduced"] [data-pid] { transition: none; animation: none; }
+.pc[data-motion="reduced"] .pc__chat span::after { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .pc__chat,
+  .pc__mine,
+  .pc [data-pid] { transition: none; animation: none; }
+  .pc__chat span::after { animation: none; }
+}

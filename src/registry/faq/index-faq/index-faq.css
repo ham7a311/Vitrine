@@ -1,0 +1,29 @@
+.ifaq { --f-ink: #efe8dc; --f-muted: #a7a1ab; --f-frost: #b9cce4; margin: 0; padding: 0; list-style: none; width: 100%; font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; color: var(--f-ink); border-top: 1px solid rgb(239 232 220 / 0.12); }
+.ifaq__item { position: relative; border-bottom: 1px solid rgb(239 232 220 / 0.12); }
+.ifaq__h { margin: 0; }
+
+.ifaq__q { display: grid; grid-template-columns: 2.75rem 1fr auto; align-items: baseline; gap: 0.5rem; width: 100%; padding: 1.35rem 0.25rem; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.ifaq__q:focus-visible { outline: 2px solid var(--f-frost); outline-offset: -2px; border-radius: 6px; }
+.ifaq__n { font: 500 0.6875rem/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; color: var(--f-muted); transition: color 250ms ease; }
+.ifaq__text { font: 400 clamp(1.2rem, 3.2cqi, 1.6rem)/1.25 "Newsreader", "Iowan Old Style", Georgia, serif; letter-spacing: -0.01em; transition: color 250ms ease, transform 400ms cubic-bezier(0.16, 1, 0.3, 1); text-wrap: balance; }
+.ifaq__q:hover .ifaq__text { transform: translateX(4px); }
+.ifaq__item[data-open] .ifaq__n { color: var(--f-frost); }
+
+/* plus → dash */
+.ifaq__icon { position: relative; width: 1.1rem; height: 1.1rem; align-self: center; }
+.ifaq__icon::before, .ifaq__icon::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -0.75px; background: var(--f-ink); border-radius: 2px; transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), background-color 250ms ease; }
+.ifaq__icon::after { transform: rotate(90deg); }
+.ifaq__item[data-open] .ifaq__icon::after { transform: rotate(0deg); }
+.ifaq__item[data-open] .ifaq__icon::before, .ifaq__item[data-open] .ifaq__icon::after { background: var(--f-frost); }
+
+.ifaq__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 450ms cubic-bezier(0.16, 1, 0.3, 1); }
+.ifaq__item[data-open] .ifaq__a { grid-template-rows: 1fr; }
+.ifaq__a-inner { min-height: 0; overflow: hidden; }
+.ifaq__a-body { padding: 0 2.5rem 1.6rem 3.25rem; max-width: 62ch; font-size: 0.9375rem; line-height: 1.7; color: var(--f-muted); opacity: 0; transform: translateY(-6px); transition: opacity 300ms ease, transform 450ms cubic-bezier(0.16, 1, 0.3, 1); }
+.ifaq__item[data-open] .ifaq__a-body { opacity: 1; transform: none; transition-delay: 120ms; }
+
+/* rule that draws under an open item */
+.ifaq__rule { position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--f-frost); transform: scaleX(0); transform-origin: left; transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1); }
+.ifaq__item[data-open] .ifaq__rule { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) { .ifaq__a, .ifaq__a-body, .ifaq__rule, .ifaq__icon::before, .ifaq__icon::after, .ifaq__text { transition-duration: 1ms; transition-delay: 0ms; } }

@@ -1,0 +1,22 @@
+.flourish-name { display: inline-block; }
+.flourish-name__btn { all: unset; cursor: pointer; display: block; text-align: center; }
+.flourish-name__btn:focus-visible { outline: 2px dashed var(--fn-ink); outline-offset: 8px; }
+.flourish-name__text {
+  display: block; font: italic 400 clamp(3rem, 9vw, 6rem) / 1 "Instrument Serif", Georgia, serif; letter-spacing: -0.03em; color: var(--fn-ink);
+  opacity: 0; transform: translateY(8px); filter: blur(4px); transition: opacity 0.9s, transform 0.9s, filter 0.9s;
+}
+.flourish-name__text[data-on] { opacity: 1; transform: none; filter: none; }
+.flourish-name__svg { width: min(100%, 520px); margin-top: -0.4em; overflow: visible; }
+.flourish-name__stroke { fill: none; stroke: var(--fn-ink); stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.flourish-name__stroke--thick { stroke-width: 3.2; }
+.flourish-name__stroke--thin { stroke-width: 0.8; opacity: 0.7; }
+.flourish-name__dot { fill: var(--fn-ink); transform-box: fill-box; transform-origin: center; transform: scale(0); }
+.flourish-name__svg[data-on] .flourish-name__stroke { animation: flourish-name-draw 1.7s cubic-bezier(0.55, 0, 0.25, 1) 0.6s forwards; }
+.flourish-name__svg[data-on] .flourish-name__stroke--thin { animation-delay: 0.75s; }
+.flourish-name__svg[data-on] .flourish-name__dot { animation: flourish-name-dot 0.5s cubic-bezier(0.2, 1.8, 0.4, 1) 2.2s forwards; }
+@keyframes flourish-name-draw { to { stroke-dashoffset: 0; } }
+@keyframes flourish-name-dot { to { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .flourish-name__text { transition: none; opacity: 1; transform: none; filter: none; }
+  .flourish-name__stroke, .flourish-name__dot { animation: none !important; stroke-dashoffset: 0; transform: none; }
+}

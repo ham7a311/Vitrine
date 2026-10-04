@@ -1,0 +1,141 @@
+/* Specimen Card — --px/--py (−0.5…0.5) tilt the case; hover lifts the glass and swings the tag. */
+
+.spec {
+  --spec-velvet: #1a1120;
+  --spec-velvet-deep: #0f0a13;
+  --spec-ink: #efe8dc;
+  --spec-muted: #a7a1ab;
+  --spec-paper: #ede5d5;
+  --spec-paper-ink: #2a1830;
+  --spec-brass: #c9a86a;
+  --spec-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --px: 0;
+  --py: 0;
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 21rem;
+  color: var(--spec-ink);
+  text-decoration: none;
+  perspective: 900px;
+  outline: none;
+}
+
+.spec__case {
+  position: relative;
+  border-radius: 16px;
+  transform: rotateX(calc(var(--py) * -6deg)) rotateY(calc(var(--px) * 7deg));
+  transform-style: preserve-3d;
+  transition: transform 600ms var(--spec-ease);
+}
+
+/* the velvet mount the object is pinned to */
+.spec__mount {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  padding: 1.5rem 1.5rem 1.35rem;
+  background:
+    radial-gradient(90% 60% at 50% 35%, color-mix(in srgb, var(--spec-velvet) 70%, white 6%), transparent 70%),
+    radial-gradient(160% 120% at 50% 0%, var(--spec-velvet), var(--spec-velvet-deep));
+  box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.07), inset 0 -30px 60px -30px rgb(0 0 0 / 0.6);
+}
+.spec__pin { position: absolute; top: 0.9rem; width: 5px; height: 5px; border-radius: 999px; background: radial-gradient(circle at 35% 30%, #fff5d8, var(--spec-brass) 60%, #6b5530); box-shadow: 0 1px 2px rgb(0 0 0 / 0.6); }
+.spec__pin--tl { left: 0.9rem; }
+.spec__pin--tr { right: 0.9rem; }
+
+.spec__object {
+  display: grid;
+  aspect-ratio: 1 / 0.82;
+  place-items: center;
+  transform: translate(calc(var(--px) * -6px), calc(var(--py) * -6px));
+  transition: transform 600ms var(--spec-ease);
+  filter: drop-shadow(0 18px 18px rgb(0 0 0 / 0.55));
+}
+.spec__object > * { max-width: 78%; max-height: 100%; }
+
+.spec__caption { margin-top: 1rem; border-top: 1px solid rgb(239 232 220 / 0.1); padding-top: 0.9rem; }
+.spec__catalogue { margin: 0; font-family: ui-monospace, "SF Mono", monospace; font-size: 0.625rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--spec-brass); }
+.spec__title { margin: 0.4rem 0 0; font-family: "Newsreader", "Iowan Old Style", Georgia, serif; font-size: 1.5rem; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; }
+.spec__subtitle { margin: 0.35rem 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--spec-muted); }
+
+/* the glass pane */
+.spec__glass {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.015) 40%, rgb(255 255 255 / 0.04));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12), inset 0 1px 0 rgb(255 255 255 / 0.18), 0 0 0 0 rgb(0 0 0 / 0);
+  transform: translateZ(0);
+  transition: transform 600ms var(--spec-ease), box-shadow 600ms var(--spec-ease);
+}
+.spec__sweep {
+  position: absolute;
+  inset: -40% -60%;
+  background: linear-gradient(115deg, transparent 42%, rgb(255 255 255 / 0.16) 48%, rgb(255 255 255 / 0.04) 52%, transparent 58%);
+  transform: translateX(-40%);
+  transition: transform 0s;
+}
+
+.spec:hover .spec__glass,
+.spec:focus-visible .spec__glass {
+  transform: translateZ(28px) translate(calc(var(--px) * 10px - 3px), calc(var(--py) * 10px - 5px));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16), inset 0 1px 0 rgb(255 255 255 / 0.24), 0 24px 40px -18px rgb(0 0 0 / 0.7);
+}
+.spec:hover .spec__sweep,
+.spec:focus-visible .spec__sweep { transform: translateX(40%); transition: transform 1100ms var(--spec-ease); }
+
+/* the catalogue tag */
+.spec__tag-wrap {
+  position: absolute;
+  top: 1.6rem;
+  right: -0.9rem;
+  z-index: 3;
+  transform-origin: 6px 2px;
+  transform: rotate(-14deg) translateX(-18px);
+  opacity: 0;
+  transition: transform 700ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 250ms ease;
+  pointer-events: none;
+}
+.spec__thread { position: absolute; top: -0.4rem; left: -0.2rem; width: 2.5rem; height: 3.75rem; overflow: visible; }
+.spec__thread path { fill: none; stroke: rgb(239 232 220 / 0.55); stroke-width: 0.8; }
+.spec__tag {
+  position: relative;
+  margin: 3.2rem 0 0 1.1rem;
+  width: 8.5rem;
+  padding: 0.7rem 0.75rem 0.65rem 1.1rem;
+  background:
+    radial-gradient(circle at 0.55rem 50%, transparent 3px, transparent 3px),
+    var(--spec-paper);
+  color: var(--spec-paper-ink);
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 14px 100%, 0 50%);
+  box-shadow: 0 10px 18px -8px rgb(0 0 0 / 0.6);
+  font-family: ui-monospace, "SF Mono", monospace;
+  font-size: 0.625rem;
+  line-height: 1.35;
+}
+.spec__tag::before { content: ""; position: absolute; left: 10px; top: calc(50% - 3px); width: 6px; height: 6px; border-radius: 999px; background: var(--spec-velvet-deep); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.3); }
+.spec__tag div + div { margin-top: 0.35rem; }
+.spec__tag dt { opacity: 0.6; letter-spacing: 0.12em; text-transform: uppercase; }
+.spec__tag dd { margin: 0; font-weight: 600; letter-spacing: 0.02em; }
+
+.spec:hover .spec__tag-wrap,
+.spec:focus-visible .spec__tag-wrap {
+  opacity: 1;
+  transform: rotate(5deg) translateX(0);
+}
+
+.spec:focus-visible .spec__mount { box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.07), 0 0 0 2px #b9cce4; }
+
+/* Touch: the tag rests half out, so the details are always discoverable. */
+@media (hover: none) {
+  .spec__tag-wrap { opacity: 1; transform: rotate(2deg); }
+  .spec__tag-wrap { right: -0.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spec__case, .spec__object, .spec__glass, .spec__tag-wrap { transition: opacity 200ms ease; transform: none !important; }
+  .spec__sweep { display: none; }
+}

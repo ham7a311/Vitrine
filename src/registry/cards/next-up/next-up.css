@@ -1,0 +1,77 @@
+/* Next Up — one card, five compositions, chosen by distance in time. */
+.next-up {
+  --nu-bg: #ffffff;
+  --nu-ink: #1b1a17;
+  --nu-muted: #77736b;
+  --nu-line: rgb(27 26 23 / 0.09);
+  --nu-accent: #1b1a17;
+  --nu-on: #ffffff;
+  --nu-live: #b3402f;
+  --nu-serif: var(--font-newsreader), "Newsreader", Georgia, serif;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "date title title" "date meta meta" "date lead action" "track track track";
+  column-gap: 18px;
+  row-gap: 4px;
+  align-items: center;
+  width: min(100%, 30rem);
+  padding: 20px 22px 18px;
+  border-radius: 18px;
+  background: var(--nu-bg);
+  box-shadow: 0 0 0 1px var(--nu-line), 0 24px 48px -36px rgb(30 24 12 / 0.35);
+  color: var(--nu-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  -webkit-font-smoothing: antialiased;
+}
+.next-up--night { --nu-bg: #16171a; --nu-ink: #ececea; --nu-muted: #8b8d93; --nu-line: rgb(255 255 255 / 0.08); --nu-accent: #ececea; --nu-on: #16171a; --nu-live: #f0766e; }
+
+.next-up [data-part="date"] { grid-area: date; }
+.next-up [data-part="title"] { grid-area: title; }
+.next-up [data-part="meta"] { grid-area: meta; }
+.next-up [data-part="lead"] { grid-area: lead; }
+.next-up [data-part="track"] { grid-area: track; }
+.next-up [data-part="action"] { grid-area: action; }
+
+.next-up__date { display: grid; justify-items: center; min-width: 3.4rem; padding-right: 18px; border-right: 1px solid var(--nu-line); align-self: stretch; align-content: center; }
+.next-up__day { font-family: var(--nu-serif); font-size: 2.6rem; font-weight: 400; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: lining-nums; }
+.next-up__month { margin-top: 4px; color: var(--nu-muted); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.next-up__title { margin: 0; font-family: var(--nu-serif); font-size: 1.15rem; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; text-wrap: balance; }
+.next-up__meta { margin: 0; color: var(--nu-muted); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.next-up__lead { margin: 6px 0 0; color: var(--nu-muted); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.next-up__track { height: 2px; margin-top: 12px; border-radius: 2px; background: var(--nu-line); overflow: hidden; display: none; }
+.next-up__track span { display: block; height: 100%; background: var(--nu-live); transform-origin: 0 50%; transition: transform 800ms linear; }
+
+.next-up__action { justify-self: end; height: 32px; padding: 0 14px; border: 0; border-radius: 9px; font: inherit; font-size: 0.8125rem; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.next-up__action--quiet { background: none; color: var(--nu-muted); box-shadow: inset 0 0 0 1px var(--nu-line); }
+.next-up__action--quiet:hover { color: var(--nu-ink); }
+.next-up__action--quiet svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.next-up__action--primary { background: var(--nu-accent); color: var(--nu-on); }
+.next-up__action:focus-visible { outline: 2px solid var(--nu-ink); outline-offset: 2px; }
+.next-up__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Not far off: the date block steps aside and the title leads. */
+.next-up:not([data-phase="far"]) { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title title" "meta meta" "lead action" "track track"; }
+.next-up:not([data-phase="far"]) .next-up__date { display: none; }
+.next-up[data-phase="today"] .next-up__title { font-size: 1.5rem; }
+.next-up[data-phase="today"] .next-up__lead { font-size: 0.9375rem; color: var(--nu-ink); }
+
+/* The last minutes: the countdown leads, Join is the only thing that matters. */
+.next-up[data-phase="soon"] { grid-template-areas: "lead lead" "title title" "meta meta" "track action"; }
+.next-up[data-phase="soon"] .next-up__lead { margin: 0 0 2px; font-family: var(--nu-serif); font-size: 3.1rem; line-height: 1; letter-spacing: -0.03em; color: var(--nu-ink); }
+.next-up[data-phase="soon"] .next-up__title { font-size: 1.15rem; }
+.next-up[data-phase="soon"] .next-up__action { height: 40px; padding: 0 22px; font-size: 0.9375rem; }
+
+/* Running: the time left, and a line for how far through it is. */
+.next-up[data-phase="live"] .next-up__lead { color: var(--nu-live); font-size: 0.9375rem; font-weight: 500; }
+.next-up[data-phase="live"] .next-up__track, .next-up[data-phase="done"] .next-up__track { display: block; }
+.next-up[data-phase="live"] .next-up__title { font-size: 1.35rem; }
+.next-up[data-phase="live"] .next-up__action { height: 36px; }
+
+/* Afterwards: quiet, with one request. */
+.next-up[data-phase="done"] .next-up__title { color: var(--nu-muted); font-size: 1.1rem; }
+.next-up[data-phase="done"] .next-up__track span { background: var(--nu-muted); opacity: 0.5; }
+
+@media (max-width: 380px) { .next-up { padding: 16px; column-gap: 12px; } .next-up__day { font-size: 2.2rem; } .next-up[data-phase="soon"] .next-up__lead { font-size: 2.6rem; } }
+@media (prefers-reduced-motion: reduce) { .next-up__track span { transition: none; } }
+.next-up[data-motion="reduced"] .next-up__track span { transition: none; }

@@ -1,0 +1,85 @@
+/* Inline CTA — the action lifts out of the sentence. */
+.inline-cta {
+  --ic-ink: #efe8dc;
+  --ic-muted: #8d887f;
+  --ic-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 46rem;
+  color: var(--ic-ink);
+}
+.inline-cta__line {
+  margin: 0;
+  font: 400 clamp(2.2rem, 5.4vw, 4.4rem) / 1.12 "Instrument Serif", Georgia, serif;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.inline-cta__line em { font-style: italic; }
+
+.inline-cta__action {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 0.04em;
+  margin: 0 -0.04em;
+  color: inherit;
+  font-style: italic;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: baseline;
+  transition: padding 560ms var(--ic-ease), margin 560ms var(--ic-ease), color 240ms ease 60ms;
+  -webkit-tap-highlight-color: transparent;
+}
+/* the pill: starts as the underline, grows up around the words */
+.inline-cta__pill {
+  position: absolute;
+  inset: 0.08em 0 -0.02em;
+  border-radius: 999px;
+  background: var(--ic-accent);
+  clip-path: inset(calc(100% - 0.06em) 0.28em 0 0.28em round 999px);
+  transition: clip-path 560ms var(--ic-ease);
+}
+.inline-cta__text { position: relative; }
+.inline-cta__arrow {
+  position: relative;
+  width: 0;
+  height: 0.5em;
+  opacity: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translate(-0.2em, 0.1em);
+  transition: width 560ms var(--ic-ease), opacity 300ms ease, transform 560ms var(--ic-ease);
+}
+
+.inline-cta__action:hover,
+.inline-cta__action:focus-visible {
+  padding: 0 0.42em;
+  margin: 0 0.06em;
+  color: #14120f;
+}
+.inline-cta__action:hover .inline-cta__pill,
+.inline-cta__action:focus-visible .inline-cta__pill { clip-path: inset(0 0 0 0 round 999px); }
+.inline-cta__action:hover .inline-cta__arrow,
+.inline-cta__action:focus-visible .inline-cta__arrow { width: 0.5em; margin-left: 0.18em; opacity: 1; transform: translate(0, 0.04em); }
+.inline-cta__action:focus-visible { outline: 2px solid var(--ic-accent); outline-offset: 4px; border-radius: 999px; }
+.inline-cta__action:active .inline-cta__text { transform: translateY(1px); display: inline-block; }
+
+.inline-cta__caption {
+  margin: 2rem 0 0;
+  font: 500 0.6875rem "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ic-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inline-cta__action, .inline-cta__pill, .inline-cta__arrow { transition-duration: 1ms; }
+}
+/* touch: show the action already lifted, so it reads as tappable */
+@media (hover: none) {
+  .inline-cta__action { padding: 0 0.42em; margin: 0 0.06em; color: #14120f; }
+  .inline-cta__action .inline-cta__pill { clip-path: inset(0 0 0 0 round 999px); }
+  .inline-cta__action .inline-cta__arrow { width: 0.5em; margin-left: 0.18em; opacity: 1; transform: none; }
+}

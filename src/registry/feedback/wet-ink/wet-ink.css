@@ -1,0 +1,56 @@
+/* Wet Ink — unsaved writing is wet; confirmed writing dries; failed writing stays wet. */
+.wet-ink {
+  --wi-bg: #fffefb;
+  --wi-dry: #2a2823;
+  --wi-wet: #1f3f95;
+  --wi-gloss: rgb(255 255 255 / 0.9);
+  --wi-fail: #b42318;
+  --wi-muted: #77736b;
+  --wi-line: rgb(27 26 23 / 0.1);
+  --wi-ok: #15803d;
+  --wi-serif: var(--font-newsreader), "Newsreader", Georgia, serif;
+  width: min(100%, 36rem);
+  padding: 18px 22px 14px;
+  border-radius: 16px;
+  background: var(--wi-bg);
+  box-shadow: 0 0 0 1px var(--wi-line), 0 24px 48px -36px rgb(30 24 12 / 0.35);
+  color: var(--wi-dry);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.wet-ink--night { --wi-bg: #16171a; --wi-dry: #d9d9d4; --wi-wet: #a9c4ff; --wi-gloss: rgb(255 255 255 / 0.22); --wi-fail: #f0766e; --wi-muted: #8b8d93; --wi-line: rgb(255 255 255 / 0.08); --wi-ok: #4ade80; }
+
+.wet-ink__label { display: block; margin-bottom: 8px; color: var(--wi-muted); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* The text lives in a mirror (which draws the ink) with a transparent textarea over it. */
+.wet-ink__field { position: relative; min-height: calc(var(--wi-rows, 8) * 1.75em); font-family: var(--wi-serif); font-size: 1.1rem; line-height: 1.75; }
+.wet-ink__mirror, .wet-ink__input { box-sizing: border-box; margin: 0; padding: 0; border: 0; font: inherit; letter-spacing: inherit; white-space: pre-wrap; overflow-wrap: break-word; word-break: normal; tab-size: 4; }
+.wet-ink__mirror { pointer-events: none; color: var(--wi-dry); }
+.wet-ink__input { position: absolute; inset: 0; width: 100%; height: 100%; resize: none; overflow: hidden; background: none; color: transparent; caret-color: var(--wi-wet); outline: none; }
+.wet-ink__input::selection { background: color-mix(in srgb, var(--wi-wet) 22%, transparent); color: transparent; }
+
+.wet-ink__run--wet, .wet-ink__run--failed {
+  color: var(--wi-wet);
+  text-shadow: 0 1px 0 var(--wi-gloss), 0 0 0.6px currentColor;
+}
+.wet-ink__run--failed { text-decoration: underline dotted var(--wi-fail) 2px; text-underline-offset: 5px; }
+.wet-ink__run--drying { animation: wi-dry 700ms cubic-bezier(0.3, 0.6, 0.3, 1) both; }
+@keyframes wi-dry {
+  from { color: var(--wi-wet); text-shadow: 0 1px 0 var(--wi-gloss), 0 0 0.6px currentColor; }
+  to { color: var(--wi-dry); text-shadow: 0 1px 0 transparent, 0 0 0 transparent; }
+}
+
+.wet-ink__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--wi-line); min-height: 28px; }
+.wet-ink__status { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--wi-muted); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.wet-ink__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wi-ok); }
+.wet-ink[data-state="waiting"] .wet-ink__dot, .wet-ink[data-state="saving"] .wet-ink__dot { background: var(--wi-wet); }
+.wet-ink[data-state="saving"] .wet-ink__dot { animation: wi-pulse 1s ease-in-out infinite; }
+.wet-ink[data-state="failed"] .wet-ink__dot { background: var(--wi-fail); }
+.wet-ink[data-state="failed"] .wet-ink__status { color: var(--wi-fail); }
+@keyframes wi-pulse { 50% { opacity: 0.35; } }
+.wet-ink__retry { height: 28px; padding: 0 12px; border: 0; border-radius: 8px; background: none; box-shadow: inset 0 0 0 1px var(--wi-fail); color: var(--wi-fail); font: inherit; font-size: 0.8125rem; font-weight: 500; cursor: pointer; }
+.wet-ink__retry:focus-visible { outline: 2px solid var(--wi-wet); outline-offset: 2px; }
+
+@media (max-width: 480px) { .wet-ink { padding: 14px 16px 12px; } .wet-ink__field { font-size: 1.02rem; } }
+@media (prefers-reduced-motion: reduce) { .wet-ink__run--drying { animation: none; } .wet-ink[data-state="saving"] .wet-ink__dot { animation: none; } }
+.wet-ink[data-motion="reduced"] .wet-ink__run--drying, .wet-ink[data-motion="reduced"] .wet-ink__dot { animation: none; }

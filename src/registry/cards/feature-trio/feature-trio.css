@@ -1,0 +1,92 @@
+/* Feature Trio — cards that show instead of tell. */
+.feature-trio {
+  --ft-ink: #efe8dc;
+  --ft-muted: #a7a1ab;
+  --ft-faint: #6f6a74;
+  --ft-line: rgb(239 232 220 / 0.08);
+  --ft-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  container-type: inline-size;
+  width: min(100%, 64rem);
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ft-ink);
+}
+.feature-trio__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--ft-line);
+  box-shadow: inset 0 0 0 1px var(--ft-line);
+}
+.feature-trio__card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem 1.4rem 1.6rem;
+  background: #0f0d12;
+  color: inherit;
+  text-decoration: none;
+  transition: background 400ms ease;
+  outline: none;
+}
+.feature-trio__card[data-on] { background: #141117; }
+.feature-trio__card:focus-visible { box-shadow: inset 0 0 0 2px var(--ft-accent); }
+.feature-trio__grid[data-hot] .feature-trio__card:not([data-on]) .feature-trio__demo { opacity: 0.5; }
+
+.feature-trio__demo {
+  position: relative;
+  height: 9.5rem;
+  margin-bottom: 1.4rem;
+  padding: 0.9rem;
+  border-radius: 12px;
+  background: #0a090c;
+  box-shadow: inset 0 0 0 1px var(--ft-line);
+  overflow: hidden;
+  transition: opacity 400ms ease, box-shadow 400ms ease;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+}
+.feature-trio__card[data-on] .feature-trio__demo { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ft-accent) 30%, transparent), 0 20px 40px -30px color-mix(in srgb, var(--ft-accent) 60%, transparent); }
+
+/* build log */
+.feature-trio__log p { display: flex; align-items: center; gap: 0.55rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0 0 0.45rem; color: var(--ft-faint); transition: color 300ms ease; }
+.feature-trio__log i { width: 6px; height: 6px; border-radius: 50%; background: var(--ft-faint); flex: none; transition: background 300ms ease; }
+.feature-trio__log p[data-state="done"] { color: var(--ft-muted); }
+.feature-trio__log p[data-state="done"] i { background: #8fe388; }
+.feature-trio__log p[data-state="run"] { color: var(--ft-ink); }
+.feature-trio__log p[data-state="run"] i { background: var(--ft-accent); animation: feature-trio-blink 0.8s ease-in-out infinite; }
+.feature-trio__log p:last-child[data-state="done"] { color: #8fe388; }
+
+/* latency chart */
+.feature-trio__chart p { display: flex; justify-content: space-between; margin: 0; color: var(--ft-faint); }
+.feature-trio__chart b { font-weight: 500; color: var(--ft-ink); font-variant-numeric: tabular-nums; }
+.feature-trio__chart svg { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 70%; }
+.feature-trio__line { fill: none; stroke: var(--ft-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.feature-trio__area { fill: color-mix(in srgb, var(--ft-accent) 12%, transparent); }
+
+/* shield */
+.feature-trio__wall { position: absolute; left: 0.9rem; right: 0.9rem; top: 1rem; height: 4.4rem; border-bottom: 1.5px solid color-mix(in srgb, var(--ft-accent) 60%, transparent); }
+.feature-trio__wall i {
+  position: absolute; bottom: 0; width: 5px; height: 5px; border-radius: 50%; background: #f0a2a2;
+  animation: feature-trio-hit 900ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
+}
+.feature-trio__shield p { position: absolute; left: 0.9rem; right: 0.9rem; bottom: 0.9rem; display: flex; justify-content: space-between; margin: 0; color: var(--ft-faint); }
+.feature-trio__shield b { font-weight: 500; color: var(--ft-ink); font-variant-numeric: tabular-nums; }
+
+.feature-trio__k { font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.12em; color: var(--ft-faint); }
+.feature-trio__title { margin-top: 0.5rem; font: 400 1.6rem/1.1 "Instrument Serif", Georgia, serif; letter-spacing: -0.015em; }
+.feature-trio__body { margin-top: 0.6rem; font-size: 0.9rem; line-height: 1.55; color: var(--ft-muted); max-width: 30ch; }
+
+@keyframes feature-trio-blink { 50% { opacity: 0.3; } }
+@keyframes feature-trio-hit {
+  0% { transform: translateY(-3.6rem); opacity: 0; }
+  20% { opacity: 1; }
+  80% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(0) scale(2.4); opacity: 0; }
+}
+@container (max-width: 44rem) { .feature-trio__grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .feature-trio * { animation: none !important; transition-duration: 1ms !important; } }

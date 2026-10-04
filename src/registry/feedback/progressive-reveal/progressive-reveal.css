@@ -1,0 +1,53 @@
+/* Progressive Reveal — structure, then primary, then secondary, then details. */
+.progressive-reveal {
+  --pr-ph: rgb(27 26 23 / 0.075);
+  --pr-ph-strong: rgb(27 26 23 / 0.11);
+  --pr-muted: #77736b;
+  --pr-accent: #b4532a;
+  display: block;
+}
+.progressive-reveal--night {
+  --pr-ph: rgb(255 255 255 / 0.07);
+  --pr-ph-strong: rgb(255 255 255 / 0.11);
+  --pr-muted: #8b8d93;
+  --pr-accent: #e8956b;
+}
+
+/* Placeholders are invisible until the threshold passes: a fast load never flashes. */
+.progressive-reveal__ph-wrap { display: inline-block; max-width: 100%; opacity: 0; transition: opacity 200ms ease; vertical-align: middle; }
+.progressive-reveal__ph-wrap[data-armed] { opacity: 1; }
+/* Only the tier being waited on breathes. */
+.progressive-reveal__ph-wrap[data-armed][data-waiting] { animation: pr-breathe 1.8s ease-in-out infinite; }
+
+.progressive-reveal__text {
+  display: inline-block;
+  height: 0.62em;
+  max-width: 100%;
+  border-radius: 0.2em;
+  background: var(--pr-ph-strong);
+  vertical-align: 0.05em;
+}
+.progressive-reveal__lines { display: flex; flex-direction: column; gap: calc(1lh - 0.62em); width: 100%; padding-block: calc((1lh - 0.62em) / 2); }
+.progressive-reveal__lines .progressive-reveal__text { display: block; background: var(--pr-ph); }
+.progressive-reveal__ph-wrap:has(.progressive-reveal__lines) { display: block; }
+.progressive-reveal__block { display: block; background: var(--pr-ph); }
+.progressive-reveal__ph-wrap:has(.progressive-reveal__block) { display: block; width: fit-content; }
+
+/* Resolving: content fades in, staggered in reading order. */
+.progressive-reveal__in { animation: pr-resolve 320ms ease both; animation-delay: calc(var(--pr-i, 0) * 60ms); }
+.progressive-reveal__in:has(> div, > p, > figure, > svg, > img) { display: block; }
+
+.progressive-reveal__fail { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--pr-muted); }
+.progressive-reveal__fail button { padding: 1px 4px; border: 0; border-radius: 4px; background: none; color: var(--pr-accent); font: inherit; font-weight: 500; cursor: pointer; }
+.progressive-reveal__fail button:focus-visible { outline: 2px solid var(--pr-accent); }
+
+.progressive-reveal__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@keyframes pr-breathe { 50% { opacity: 0.45; } }
+@keyframes pr-resolve { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .progressive-reveal__ph-wrap[data-armed][data-waiting] { animation: none; }
+  .progressive-reveal__in { animation: none; }
+  .progressive-reveal__ph-wrap { transition: none; }
+}

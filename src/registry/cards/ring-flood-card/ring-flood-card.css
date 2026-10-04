@@ -1,0 +1,160 @@
+/* Ring Flood Card — choose a plan and its border's gradient floods the card. */
+@property --rfc-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+/* How far the colour has crept in from each edge. */
+@property --rfc-e { syntax: "<length-percentage>"; inherits: false; initial-value: 0%; }
+
+.rfc {
+  --rfc-ring: conic-gradient(from var(--rfc-a) at 50% 50%, #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4);
+  --rfc-face: #141217;
+  --rfc-ink: #efe8dc;
+  --rfc-muted: #9c96a1;
+  --rfc-on-ink: #141216;
+  --rfc-on-muted: rgb(20 18 22 / 0.7);
+  --rfc-tone: rgb(255 255 255 / 0.06);
+  --rfc-focus: #efe8dc;
+  --rfc-lift: 0 30px 60px -32px rgb(0 0 0 / 0.85);
+  --rfc-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+  gap: 1rem;
+  width: 100%;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.rfc--paper {
+  --rfc-ring: conic-gradient(from var(--rfc-a) at 50% 50%, #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0);
+  --rfc-face: #fffdf8;
+  --rfc-ink: #1b1a17;
+  --rfc-muted: #6f6a62;
+  --rfc-on-ink: #1b1a17;
+  --rfc-on-muted: rgb(27 26 23 / 0.72);
+  /* Flooded, the saturated paper gradient is washed toward pastel so dark ink still reads. */
+  --rfc-tone: rgb(255 253 248 / 0.62);
+  --rfc-focus: #2f5fd0;
+  --rfc-lift: 0 30px 50px -34px rgb(60 40 20 / 0.45);
+}
+
+.rfc__card {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  border-radius: 22px;
+  background: var(--rfc-ring);
+  color: var(--rfc-ink);
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  animation: rfc-turn 10s linear infinite;
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 520ms ease;
+}
+/* The face: inset by the ring width, and masked so its edges can dissolve inward with a soft line. */
+.rfc__card::before {
+  --rfc-e: 0%;
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 1.5px;
+  border-radius: 20.5px;
+  background: var(--rfc-face);
+  -webkit-mask:
+    linear-gradient(to right, transparent calc(var(--rfc-e) - 28px), #000 var(--rfc-e), #000 calc(100% - var(--rfc-e)), transparent calc(100% - var(--rfc-e) + 28px)),
+    linear-gradient(to bottom, transparent calc(var(--rfc-e) - 28px), #000 var(--rfc-e), #000 calc(100% - var(--rfc-e)), transparent calc(100% - var(--rfc-e) + 28px));
+  -webkit-mask-composite: source-in;
+  mask:
+    linear-gradient(to right, transparent calc(var(--rfc-e) - 28px), #000 var(--rfc-e), #000 calc(100% - var(--rfc-e)), transparent calc(100% - var(--rfc-e) + 28px)),
+    linear-gradient(to bottom, transparent calc(var(--rfc-e) - 28px), #000 var(--rfc-e), #000 calc(100% - var(--rfc-e)), transparent calc(100% - var(--rfc-e) + 28px));
+  mask-composite: intersect;
+  transition: --rfc-e 900ms var(--rfc-ease), opacity 320ms ease;
+}
+/* Sits over the gradient, under the face, so the flood is softened where it needs to be. */
+.rfc__card::after {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--rfc-tone);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+/* Once flooded, a blurred copy of the gradient settles over the sharp one, so the colour has no pinch at its centre. */
+.rfc__bloom {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+.rfc__bloom::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(var(--rfc-tone), var(--rfc-tone)), var(--rfc-ring);
+  filter: blur(26px);
+  animation: rfc-turn 10s linear infinite;
+}
+.rfc__card[data-on] .rfc__bloom { opacity: 1; transition: opacity 600ms ease 420ms; }
+/* Hover: the colour creeps a little way in, a preview of the flood. */
+.rfc__card:not([data-on]):hover::before { --rfc-e: 6%; transition-duration: 600ms; }
+
+.rfc__card[data-on] { transform: translateY(-4px); box-shadow: var(--rfc-lift); color: var(--rfc-on-ink); }
+.rfc__card[data-on]::before { --rfc-e: calc(50% + 30px); opacity: 0; transition: --rfc-e 900ms var(--rfc-ease), opacity 640ms ease 160ms; }
+.rfc__card[data-on]::after { opacity: 1; }
+.rfc__card:focus-visible { outline: 2px solid var(--rfc-focus); outline-offset: 4px; }
+.rfc__card:active { transform: translateY(-2px) scale(0.99); }
+
+.rfc__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  height: 100%;
+  padding: 1.5rem 1.5rem 1.35rem;
+}
+.rfc__body, .rfc__body * { transition: color 320ms ease 260ms, border-color 320ms ease 260ms, background-color 320ms ease 260ms; }
+.rfc__top { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.rfc__name { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
+.rfc__badge {
+  padding: 0.3rem 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font: 500 0.625rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+.rfc__price { display: flex; align-items: baseline; gap: 0.4rem; }
+.rfc__amount { font-size: 2.25rem; font-weight: 600; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; line-height: 1; }
+.rfc__per { font-size: 0.8125rem; color: var(--rfc-muted); }
+.rfc__blurb { font-size: 0.875rem; line-height: 1.5; color: var(--rfc-muted); }
+.rfc__features { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.15rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent); }
+.rfc__feature { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.875rem; line-height: 1.4; }
+.rfc__feature svg { flex: none; width: 1rem; height: 1rem; margin-top: 0.05rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; }
+.rfc__pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: auto;
+  padding-top: 0.6rem;
+  font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.rfc__dot { width: 14px; height: 14px; border: 1.5px solid currentColor; border-radius: 50%; opacity: 0.6; }
+.rfc__card[data-on] .rfc__per, .rfc__card[data-on] .rfc__blurb { color: var(--rfc-on-muted); }
+.rfc__card[data-on] .rfc__dot { opacity: 1; border-width: 4.5px; }
+
+@keyframes rfc-turn { to { --rfc-a: 360deg; } }
+
+.rfc[data-motion="reduced"] .rfc__card, .rfc[data-motion="reduced"] .rfc__bloom::before { animation: none; }
+.rfc[data-motion="reduced"] .rfc__card::before { transition: opacity 240ms ease; }
+.rfc[data-motion="reduced"] .rfc__card[data-on]::before { --rfc-e: calc(50% + 30px); }
+@media (prefers-reduced-motion: reduce) {
+  .rfc__card, .rfc__bloom::before { animation: none; }
+  .rfc__card::before { transition: opacity 240ms ease !important; }
+  .rfc__card[data-on]::before { --rfc-e: calc(50% + 30px); }
+}

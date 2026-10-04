@@ -1,0 +1,76 @@
+/* Lenticular Card — --t (0 front … 1 back) sets each layer's share of every stripe; --tilt-x/y drive the 3D tilt and sheen. */
+
+.lent {
+  --t: 0;
+  --tilt-x: 0;
+  --tilt-y: 0;
+  --pitch: 6px;
+  position: relative;
+  width: 100%;
+  max-width: 20rem;
+  aspect-ratio: 3 / 4;
+  perspective: 1000px;
+  outline: none;
+  cursor: ew-resize;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.lent__body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  transform: rotateY(calc(var(--tilt-x) * 9deg)) rotateX(calc(var(--tilt-y) * -5deg));
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.8), inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+.lent[data-settling] .lent__body { transition-duration: 500ms; }
+
+.lent__layer { position: absolute; inset: 0; }
+.lent__layer > * { width: 100%; height: 100%; }
+
+/* Each stripe is split between the two images: front owns the first (1 − t) of every pitch, back owns the rest. */
+.lent__layer--front {
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 calc((1 - var(--t)) * var(--pitch)), transparent 0 var(--pitch));
+  mask-image: repeating-linear-gradient(90deg, #000 0 calc((1 - var(--t)) * var(--pitch)), transparent 0 var(--pitch));
+  transform: translateX(calc(var(--tilt-x) * -4px));
+}
+.lent__layer--back {
+  -webkit-mask-image: repeating-linear-gradient(90deg, transparent 0 calc((1 - var(--t)) * var(--pitch)), #000 0 var(--pitch));
+  mask-image: repeating-linear-gradient(90deg, transparent 0 calc((1 - var(--t)) * var(--pitch)), #000 0 var(--pitch));
+  transform: translateX(calc(var(--tilt-x) * 4px));
+}
+.lent[data-settling] .lent__layer { transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* The ribbed plastic: one soft highlight per lens rib. */
+.lent__ribs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0.07) 0,
+    rgb(255 255 255 / 0) calc(var(--pitch) * 0.35),
+    rgb(0 0 0 / 0.12) calc(var(--pitch) * 0.85),
+    rgb(255 255 255 / 0.07) var(--pitch)
+  );
+  mix-blend-mode: overlay;
+}
+/* A broad band of light slides across the ribs as it tilts. */
+.lent__sheen {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.14) 46%, rgb(255 255 255 / 0.03) 54%, transparent 70%);
+  transform: translateX(calc(var(--tilt-x) * 22%));
+  mix-blend-mode: screen;
+}
+
+.lent:focus-visible .lent__body { box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.8), 0 0 0 2px #b9cce4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lent__body, .lent__layer { transform: none !important; transition: none; }
+  .lent__sheen { display: none; }
+}

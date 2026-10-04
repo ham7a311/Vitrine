@@ -1,0 +1,72 @@
+/* Cascade Button — each letter turns over, left to right. */
+.cascade-button {
+  --cb-face: #efe8dc;
+  --cb-ink: #15120f;
+  --cb-ring: transparent;
+  --cb-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --cb-stagger: 22ms;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  height: 3.25rem;
+  padding: 0 0.55rem 0 1.5rem;
+  border-radius: 999px;
+  background: var(--cb-face);
+  color: var(--cb-ink);
+  box-shadow: inset 0 0 0 1px var(--cb-ring), inset 0 1px 0 rgb(255 255 255 / 0.45), 0 12px 26px -18px rgb(0 0 0 / 0.7);
+  font: 600 0.9375rem/1 "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 160ms ease, padding 520ms var(--cb-ease);
+}
+.cascade-button--ink { --cb-face: #16131a; --cb-ink: #efe8dc; --cb-ring: rgb(239 232 220 / 0.14); }
+.cascade-button--frost { --cb-face: #b9cce4; --cb-ink: #0e1420; }
+.cascade-button:active { transform: scale(0.97); }
+.cascade-button:focus-visible { outline: 2px solid var(--cb-face); outline-offset: 4px; }
+.cascade-button:hover,
+.cascade-button:focus-visible { padding-left: 1.75rem; }
+
+.cascade-button__word { display: inline-flex; white-space: nowrap; }
+.cascade-button__reel { display: inline-flex; flex-direction: column; height: 1em; overflow: hidden; line-height: 1; }
+.cascade-button__reel > span {
+  display: block;
+  transition: transform 560ms var(--cb-ease);
+  transition-delay: calc(var(--i) * var(--cb-stagger));
+}
+.cascade-button:hover .cascade-button__reel > span,
+.cascade-button:focus-visible .cascade-button__reel > span { transform: translateY(-100%); }
+
+/* the arrow: a round well; one arrow leaves right as the next arrives from the left */
+.cascade-button__arrow {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--cb-ink);
+  color: var(--cb-face);
+}
+.cascade-button__arrow svg {
+  grid-area: 1 / 1;
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 560ms var(--cb-ease);
+}
+.cascade-button__arrow svg:last-child { transform: translateX(-200%); }
+.cascade-button:hover .cascade-button__arrow svg:first-child,
+.cascade-button:focus-visible .cascade-button__arrow svg:first-child { transform: translateX(200%); transition-delay: 40ms; }
+.cascade-button:hover .cascade-button__arrow svg:last-child,
+.cascade-button:focus-visible .cascade-button__arrow svg:last-child { transform: none; transition-delay: 90ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cascade-button, .cascade-button * { transition-duration: 1ms !important; transition-delay: 0ms !important; }
+}

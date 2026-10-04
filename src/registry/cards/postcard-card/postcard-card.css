@@ -1,0 +1,217 @@
+.pc {
+  container-type: inline-size;
+  width: min(100%, 580px);
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+}
+.pc__btn {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  perspective: 1400px;
+  border-radius: 8px;
+}
+.pc__btn:focus-visible { outline: 3px solid #23357e; outline-offset: 6px; }
+
+.pc__card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  transform-style: preserve-3d;
+  transition: transform 900ms cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+.pc__card[data-back] {
+  transform: rotateY(180deg);
+  /* The thud of the postmark coming down. */
+  animation: pc-thud 260ms ease-out var(--pm) both;
+}
+@keyframes pc-thud {
+  0% { translate: 0 0; }
+  30% { translate: 0 4px; scale: 0.992; }
+  100% { translate: 0 0; scale: 1; }
+}
+.pc__face {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background: #f7f1e4;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 0.1), 0 26px 44px -22px rgb(40 25 10 / 0.6);
+}
+.pc__back { transform: rotateY(180deg); }
+
+/* Front: the scene behind a white border, and the big lettering. */
+.pc__front { padding: 3.2cqw; }
+.pc__scene {
+  position: absolute;
+  inset: 3.2cqw;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.pc__scene > svg { display: block; width: 100%; height: 100%; }
+.pc__lettering {
+  position: absolute;
+  inset: 3.2cqw;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.pc__greet {
+  font-family: "Pinyon Script", var(--font-newsreader), cursive;
+  font-size: 8.6cqw;
+  line-height: 1;
+  color: #fff8e8;
+  text-shadow: 0 0.3cqw 0 #8a2c1a, 0 0.5cqw 1.2cqw rgb(0 0 0 / 0.35);
+  rotate: -5deg;
+  margin-bottom: -1.2cqw;
+  z-index: 2;
+}
+.pc__word {
+  position: relative;
+  display: inline-grid;
+  font-family: Anton, "Bebas Neue", Impact, sans-serif;
+  font-size: 20cqw;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transform: perspective(400px) rotateX(10deg) scaleY(1.12);
+}
+.pc__word > span { grid-area: 1 / 1; }
+/* Block depth behind the letters. */
+.pc__word-shadow {
+  color: #6a1f12;
+  text-shadow:
+    0.25cqw 0.25cqw 0 #6a1f12, 0.5cqw 0.5cqw 0 #6a1f12, 0.75cqw 0.75cqw 0 #5a190e, 1cqw 1cqw 0 #4a140b,
+    1.2cqw 1.6cqw 1.6cqw rgb(0 0 0 / 0.45);
+}
+/* The letters, filled with the sky. */
+.pc__word-fill {
+  background: linear-gradient(180deg, var(--s0), var(--s1) 55%, var(--s2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* A white inline, the classic touch. */
+.pc__word-line {
+  color: transparent;
+  -webkit-text-stroke: 0.32cqw #fff8e8;
+  translate: -0.12cqw -0.12cqw;
+}
+.pc__grain {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgb(70 40 10 / 0.22)),
+    repeating-radial-gradient(circle at 30% 30%, rgb(0 0 0 / 0.025) 0 1px, transparent 1px 3px);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Back: message on the left, stamp and address on the right. */
+.pc__back {
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1.15fr auto 1fr;
+  gap: 3cqw;
+  padding: 4.4cqw;
+  background:
+    repeating-radial-gradient(circle at 70% 20%, rgb(0 0 0 / 0.02) 0 1px, transparent 1px 3px),
+    linear-gradient(#f7f1e4, #f1e8d6);
+}
+.pc__divider { width: 1px; background: rgb(60 40 20 / 0.25); }
+.pc__msg { display: grid; align-content: start; gap: 0.6cqw; padding-top: 1cqw; }
+.pc__line {
+  margin: 0;
+  font-family: "Instrument Serif", var(--font-newsreader), Georgia, serif;
+  font-style: italic;
+  font-size: 3.5cqw;
+  line-height: 1.32;
+  color: #23357e;
+  clip-path: inset(0 100% 0 0);
+  animation: pc-write 520ms cubic-bezier(0.45, 0.1, 0.4, 1) var(--d) forwards;
+}
+@keyframes pc-write { to { clip-path: inset(-10% -4% -10% 0); } }
+.pc__right { display: grid; grid-template-rows: auto 1fr; position: relative; }
+.pc__stamp {
+  justify-self: end;
+  position: relative;
+  width: 17cqw;
+  aspect-ratio: 4 / 5;
+  padding: 1cqw;
+  background: #fffaf0;
+  /* Perforated edge: a grid of holes, kept only in the border by unioning a solid content-box layer over it. */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, radial-gradient(circle at 0.7cqw 0.7cqw, transparent 0.42cqw, #000 0.46cqw) -0.7cqw -0.7cqw / 1.4cqw 1.4cqw;
+  mask: linear-gradient(#000 0 0) content-box, radial-gradient(circle at 0.7cqw 0.7cqw, transparent 0.42cqw, #000 0.46cqw) -0.7cqw -0.7cqw / 1.4cqw 1.4cqw;
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.2));
+  rotate: 2deg;
+}
+.pc__stamp-art {
+  height: calc(100% - 3cqw);
+  overflow: hidden;
+}
+.pc__stamp-art > svg { display: block; width: 100%; height: 100%; }
+.pc__stamp-val {
+  display: block;
+  margin-top: 0.5cqw;
+  font: 600 1.6cqw/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  color: #7a2a18;
+  text-align: center;
+}
+/* The postmark comes down on the stamp. */
+.pc__postmark {
+  position: absolute;
+  right: 4cqw;
+  top: 2cqw;
+  width: 34cqw;
+  overflow: visible;
+  opacity: 0;
+  transform-origin: 30% 50%;
+  animation: pc-stamp 260ms cubic-bezier(0.6, 0, 0.9, 0.6) var(--pm) forwards;
+  mix-blend-mode: multiply;
+}
+@keyframes pc-stamp {
+  from { opacity: 0; transform: scale(1.5) rotate(-14deg); }
+  to { opacity: 0.82; transform: scale(1) rotate(-8deg); }
+}
+.pc__pm-ring { fill: none; stroke: #2a2440; stroke-width: 2.4; }
+.pc__pm-ring--in { stroke-width: 1.2; }
+.pc__pm-text { font: 600 9.5px/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 1.6px; fill: #2a2440; }
+.pc__pm-date { font: 700 13px/1 "Geist Mono", ui-monospace, monospace; fill: #2a2440; text-anchor: middle; }
+.pc__pm-date--sm { font-size: 9px; }
+.pc__pm-wave { fill: none; stroke: #2a2440; stroke-width: 2.2; stroke-linecap: round; }
+.pc__addr {
+  align-self: end;
+  display: grid;
+  gap: 0.4cqw;
+}
+.pc__line--addr {
+  padding-bottom: 0.4cqw;
+  border-bottom: 1px solid rgb(60 40 20 / 0.28);
+  font-size: 3.1cqw;
+}
+
+.pc__hint {
+  margin: 0;
+  font: 500 11px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(60 40 20 / 0.55);
+}
+
+.pc[data-motion="reduced"] .pc__card { transition: none; animation: none; }
+.pc[data-motion="reduced"] .pc__line { animation: none; clip-path: none; }
+.pc[data-motion="reduced"] .pc__postmark { animation: none; opacity: 0.82; transform: rotate(-8deg); }
+@media (prefers-reduced-motion: reduce) {
+  .pc__card { transition: none; animation: none !important; }
+  .pc__line { animation: none !important; clip-path: none; }
+  .pc__postmark { animation: none !important; opacity: 0.82; transform: rotate(-8deg); }
+}

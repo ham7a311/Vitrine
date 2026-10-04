@@ -1,0 +1,104 @@
+/* Bracket Checkbox — 22px box, 8px corner brackets 5px outside, cubic tick drawn with stroke-dashoffset. */
+
+.bcb--light { --bcb-ink: #10161c; --bcb-paper: #f6f4ef; --bcb-muted: #5a6572; --bcb-error: #8a3a2b; }
+.bcb--dark  { --bcb-ink: #f6f4ef; --bcb-paper: #10161c; --bcb-muted: #a2abb5; --bcb-error: #e08a78; }
+
+.bcb { color: var(--bcb-ink); font-family: "Archivo", ui-sans-serif, system-ui, sans-serif; font-size: 1rem; line-height: 1.5; }
+
+.bcb__row {
+  display: flex;
+  min-height: 2.75rem; /* 44px touch target */
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.bcb__frame {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  margin-top: 2px;
+}
+
+.bcb__frame::before,
+.bcb__frame::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  border: 0 solid var(--bcb-ink);
+  transition: translate 220ms cubic-bezier(0.65, 0, 0.35, 1), border-color 200ms ease;
+}
+.bcb__frame::before { top: -5px; left: -5px; border-top-width: 1.5px; border-left-width: 1.5px; }
+.bcb__frame::after { right: -5px; bottom: -5px; border-right-width: 1.5px; border-bottom-width: 1.5px; }
+
+.bcb__box {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 1.5px solid var(--bcb-ink);
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  flex: none;
+}
+.bcb__box:checked { background: var(--bcb-ink); border-color: var(--bcb-ink); }
+.bcb__box:focus-visible { outline: 2px solid var(--bcb-ink); outline-offset: 3px; }
+.bcb__box:disabled { cursor: not-allowed; opacity: 0.45; }
+
+.bcb__mark {
+  position: absolute;
+  inset: 0;
+  width: 22px;
+  height: 22px;
+  overflow: visible;
+  pointer-events: none;
+}
+.bcb__mark path {
+  fill: none;
+  stroke: var(--bcb-paper);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 480ms cubic-bezier(0.65, 0, 0.35, 1) 70ms;
+}
+.bcb__box:checked + .bcb__mark path { stroke-dashoffset: 0; }
+
+/* Vitrine addition — the brackets open by 2px on hover so the control feels live. */
+@media (hover: hover) and (pointer: fine) {
+  .bcb__row:hover .bcb__frame::before { translate: -2px -2px; }
+  .bcb__row:hover .bcb__frame::after { translate: 2px 2px; }
+}
+
+.bcb__text { flex: 1; }
+.bcb__text a { text-decoration: underline; text-underline-offset: 4px; }
+.bcb__hint {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bcb-muted);
+  padding-top: 0.2rem;
+}
+
+.bcb[data-invalid="true"] .bcb__box { border-color: var(--bcb-error); }
+.bcb[data-invalid="true"] .bcb__frame::before,
+.bcb[data-invalid="true"] .bcb__frame::after { border-color: var(--bcb-error); }
+
+.bcb__error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding-left: calc(22px + 0.75rem);
+  font-size: 0.875rem;
+  color: var(--bcb-error);
+}
+.bcb__error i { width: 6px; height: 6px; background: currentColor; transform: rotate(45deg); flex: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bcb__mark path, .bcb__frame::before, .bcb__frame::after { transition: none; }
+}

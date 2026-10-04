@@ -1,0 +1,191 @@
+/* Arrival CTA — CSS reveal sequence (triggered once by IntersectionObserver via [data-in]). */
+
+.arrival-cta {
+  --ac-bg: #000;
+  --ac-ink: #f4f3f1;
+  --ac-muted: #c2c0b8;
+  --ac-faint: #a8a59c;
+  --ac-line: #45423d;
+  --ac-amber: #e8a24a;
+  --ac-amber-bright: #f3b45f;
+  --ac-surface-2: #181716;
+  --ac-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ac-ui: cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  background: var(--ac-bg);
+  color: var(--ac-ink);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  padding: clamp(4.5rem, 9vw, 7rem) 1.25rem calc(100% * 1080 / 2688);
+  container-type: inline-size;
+}
+
+.arrival-cta__inner {
+  position: relative;
+  z-index: 10;
+  margin-inline: auto;
+  display: flex;
+  max-width: 42rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ——— The route: a descent that lands on a gold node ——— */
+.arrival-cta__route { width: 2.5rem; height: 6rem; color: var(--ac-amber-bright); }
+.arrival-cta__route-line { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; }
+.arrival-cta__route-node { opacity: 0; transform: scale(0.4); transform-origin: 20px 88px; }
+.arrival-cta[data-in] .arrival-cta__route-line {
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1), opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1);
+  stroke-dashoffset: 0;
+  opacity: 0.8;
+}
+.arrival-cta[data-in] .arrival-cta__route-node {
+  transition: opacity 0.5s var(--ac-entrance) 1.25s, transform 0.5s var(--ac-entrance) 1.25s;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ——— Staggered rise ——— */
+.arrival-cta__reveal { opacity: 0; transform: translateY(16px); }
+.arrival-cta[data-in] .arrival-cta__reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s var(--ac-entrance) var(--d, 0s), transform 0.6s var(--ac-entrance) var(--d, 0s);
+}
+
+.arrival-cta__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ac-faint);
+}
+.arrival-cta__eyebrow span { width: 1.5rem; height: 1px; background: var(--ac-line); }
+
+.arrival-cta__heading {
+  margin: 1.5rem 0 0;
+  font-size: clamp(2rem, 7cqi, 2.875rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+.arrival-cta__heading em {
+  font-family: "Instrument Serif", ui-serif, Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.005em;
+}
+
+.arrival-cta__lead {
+  margin: 1.5rem 0 0;
+  font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--ac-muted);
+  text-wrap: pretty;
+}
+
+.arrival-cta__actions {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+@container (min-width: 36rem) {
+  .arrival-cta__actions { flex-direction: row; align-items: center; }
+}
+
+.arrival-cta__btn {
+  display: inline-flex;
+  height: 3rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 6px;
+  padding: 0 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 200ms var(--ac-ui), border-color 200ms var(--ac-ui), box-shadow 200ms var(--ac-ui), transform 200ms var(--ac-ui);
+}
+.arrival-cta__btn:active { transform: translateY(1px); }
+.arrival-cta__btn:focus-visible { outline: 2px solid var(--ac-amber-bright); outline-offset: 3px; }
+.arrival-cta__btn--primary {
+  background: var(--ac-amber);
+  color: #14120f;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+}
+.arrival-cta__btn--primary:hover {
+  background: var(--ac-amber-bright);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.28), 0 10px 24px -16px rgba(232, 162, 74, 0.55);
+}
+.arrival-cta__btn--secondary {
+  border: 1px solid color-mix(in srgb, var(--ac-ink) 46%, transparent);
+  background: var(--ac-surface-2);
+  color: var(--ac-ink);
+}
+.arrival-cta__btn--secondary:hover {
+  border-color: color-mix(in srgb, var(--ac-ink) 55%, transparent);
+  background: color-mix(in srgb, #201f1d 82%, transparent);
+}
+.arrival-cta__arrow { width: 1rem; height: 1rem; transition: transform 200ms var(--ac-ui); }
+.arrival-cta__btn:hover .arrival-cta__arrow { transform: translate(2px, -2px); }
+
+.arrival-cta__tags-label {
+  margin: 2.5rem 0 0;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ac-muted);
+}
+.arrival-cta__tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
+.arrival-cta__tags span {
+  display: inline-flex;
+  border: 1px solid color-mix(in srgb, var(--ac-ink) 42%, transparent);
+  border-radius: 999px;
+  background: var(--ac-bg);
+  padding: 0.25rem 0.625rem;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ac-muted);
+}
+
+/* ——— The plate: top stays, base fades out ——— */
+.arrival-cta__plate {
+  pointer-events: none;
+  position: absolute;
+  inset: auto 0 0;
+  width: 100%;
+  aspect-ratio: 2688 / 1080;
+  overflow: hidden;
+}
+.arrival-cta__plate-art {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
+}
+.arrival-cta__horizon, .arrival-cta__plate-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .arrival-cta__reveal, .arrival-cta[data-in] .arrival-cta__reveal { opacity: 1; transform: none; transition: none; }
+  .arrival-cta__route-line { stroke-dashoffset: 0; opacity: 0.8; }
+  .arrival-cta__route-node { opacity: 1; transform: none; }
+  .arrival-cta[data-in] .arrival-cta__route-line,
+  .arrival-cta[data-in] .arrival-cta__route-node { transition: none; }
+}

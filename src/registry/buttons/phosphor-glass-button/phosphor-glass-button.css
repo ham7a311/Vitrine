@@ -1,0 +1,146 @@
+/* Phosphor Glass Button — CSS custom properties are written by the component:
+   --mx/--my/--mxp (pointer over the button), --prox/--angle/--lx/--ly (pointer near it), --px/--py (press point). */
+
+.pgb {
+  --pgb-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  border: 0;
+  background: none;
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pgb__arrow { display: inline-block; }
+
+/* ——— Primary: the glass pill ——— */
+.pgb--primary {
+  --glass-hi: #eaffd9;
+  position: relative;
+  isolation: isolate;
+  min-height: 48px;
+  padding: 0 26px;
+  border-radius: 999px;
+  color: #0e0d0b;
+  font-weight: 500;
+  background:
+    radial-gradient(120% 140% at 18% 0%, rgb(216 255 200 / 0.95) 0%, transparent 45%),
+    radial-gradient(90% 120% at 100% 110%, #1f9e78 0%, transparent 62%),
+    linear-gradient(115deg, #b4f59c 0%, #8fe388 28%, #5fd39a 60%, #2fae8e 100%);
+  background-size: 100% 100%, 100% 100%, 220% 100%;
+  background-position: 0 0, 0 0, var(--mxp, 30%) 50%;
+  translate: calc(var(--lx, 0) * 1px) calc(var(--ly, 0) * 1px);
+  transition:
+    background-position 600ms var(--pgb-ease),
+    translate 380ms var(--pgb-ease),
+    scale 120ms var(--pgb-ease),
+    filter 220ms var(--pgb-ease);
+}
+
+/* top glass highlight */
+.pgb--primary::after {
+  content: "";
+  position: absolute;
+  inset: 1px 22px auto;
+  height: 34%;
+  border-radius: 999px 999px 50% 50%;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0.3), rgb(255 255 255 / 0));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* rim light that turns to face the pointer */
+.pgb--primary::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    var(--glass-hi) 0deg,
+    rgb(234 255 217 / 0) 75deg,
+    rgb(234 255 217 / 0) 285deg,
+    var(--glass-hi) 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: calc(0.18 + var(--prox, 0) * 0.82);
+  transition: opacity 220ms var(--pgb-ease);
+  pointer-events: none;
+}
+
+.pgb--primary .pgb__label,
+.pgb--primary .pgb__arrow {
+  position: relative;
+  z-index: 2;
+  translate: calc(var(--lx, 0) * 0.6px) calc(var(--ly, 0) * 0.6px);
+  transition: translate 380ms var(--pgb-ease);
+}
+
+/* pool of light under the cursor */
+.pgb__glass {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(90px circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.95), rgb(255 255 255 / 0.25) 45%, transparent 75%);
+  mix-blend-mode: overlay;
+  opacity: 0;
+  transition: opacity 220ms var(--pgb-ease);
+  pointer-events: none;
+}
+
+/* press ripple */
+.pgb__ripple {
+  position: absolute;
+  left: var(--px, 50%);
+  top: var(--py, 50%);
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  border: 1.5px solid var(--glass-hi);
+  border-radius: 50%;
+  opacity: 0;
+  scale: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.pgb--primary[data-press] .pgb__ripple { animation: pgb-ripple 560ms var(--pgb-ease); }
+@keyframes pgb-ripple {
+  from { opacity: 0.9; scale: 0; }
+  to { opacity: 0; scale: 3.2; }
+}
+
+.pgb--primary:active { scale: 0.97; }
+.pgb--primary:focus-visible { --prox: 1; outline: 2px solid #8fe388; outline-offset: 5px; }
+.pgb--primary:focus-visible::before { background: var(--glass-hi); }
+
+/* ——— Text: underline draws from the left ——— */
+.pgb--text {
+  min-height: 44px;
+  color: #ede8df;
+  background-image: linear-gradient(currentColor, currentColor), linear-gradient(#5a554d, #5a554d);
+  background-size: 0% 1px, 100% 1px;
+  background-position: 0 calc(100% - 10px), 0 calc(100% - 10px);
+  background-repeat: no-repeat;
+  transition: background-size 420ms var(--pgb-ease);
+}
+.pgb--text:focus-visible { background-size: 100% 1px, 100% 1px; outline: 2px solid #8fe388; outline-offset: 4px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .pgb--primary:hover { filter: saturate(1.15) brightness(1.04); }
+  .pgb--primary:hover .pgb__glass { opacity: 1; }
+  .pgb--primary:hover::before { opacity: 1; }
+  .pgb--text:hover { background-size: 100% 1px, 100% 1px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pgb--primary, .pgb--primary .pgb__label, .pgb--primary .pgb__arrow { translate: none; }
+  .pgb--primary[data-press] .pgb__ripple { animation: none; }
+}

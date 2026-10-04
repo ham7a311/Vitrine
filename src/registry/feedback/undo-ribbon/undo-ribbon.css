@@ -1,0 +1,86 @@
+/* Undo Ribbon — the row becomes a ribbon, in place, and the time drains into Undo. */
+.undo-slot { overflow: hidden; }
+.undo-slot[data-state="ribbon"],
+.undo-slot[data-state="leaving"] { padding: 4px 0; }
+
+.undo-ribbon {
+  --ur-bg: #1d1c19;
+  --ur-ink: #f5f3ee;
+  --ur-muted: rgb(245 243 238 / 0.58);
+  --ur-line: #f5f3ee;
+  --ur-accent: #ffd27a;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 6px 0 14px;
+  border-radius: 10px;
+  background: var(--ur-bg);
+  color: var(--ur-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8438rem;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  animation: ur-in 260ms ease 80ms both;
+}
+.undo-ribbon--night {
+  --ur-bg: #ecebe7;
+  --ur-ink: #161618;
+  --ur-muted: rgb(22 22 24 / 0.55);
+  --ur-line: #161618;
+  --ur-accent: #8a4b00;
+}
+
+.undo-ribbon__glyph { display: grid; place-items: center; flex: none; width: 16px; height: 16px; color: var(--ur-muted); }
+.undo-ribbon__glyph svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.undo-ribbon__message { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--ur-muted); }
+.undo-ribbon__message b { color: var(--ur-ink); font-weight: 500; }
+
+.undo-ribbon__count { display: none; flex: none; font: 500 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--ur-muted); font-variant-numeric: tabular-nums; }
+
+.undo-ribbon__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  height: 32px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ur-accent);
+  font: 600 0.8438rem/1 inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+.undo-ribbon__action:hover { background: color-mix(in srgb, var(--ur-ink) 10%, transparent); }
+.undo-ribbon__action:focus-visible { outline: 2px solid var(--ur-accent); outline-offset: -2px; }
+.undo-ribbon__action kbd { font: 500 0.6875rem "Geist Mono", ui-monospace, monospace; color: var(--ur-muted); }
+
+/* The time left: a hairline that drains toward the action. */
+.undo-ribbon__line { position: absolute; left: 12px; right: 12px; bottom: 5px; height: 1.5px; pointer-events: none; }
+.undo-ribbon__line span { display: block; height: 100%; border-radius: 1px; background: var(--ur-line); opacity: 0.55; transform-origin: 100% 50%; }
+.undo-ribbon:hover .undo-ribbon__line span,
+.undo-ribbon:focus-within .undo-ribbon__line span { opacity: 0.85; }
+
+.undo-ribbon__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@keyframes ur-in { from { opacity: 0; } }
+
+@media (max-width: 420px) {
+  .undo-ribbon__action kbd { display: none; }
+}
+@media (hover: none) {
+  .undo-ribbon__action kbd { display: none; }
+}
+
+/* Reduced motion: no drain, no height tween — a stepped countdown in text. */
+@media (prefers-reduced-motion: reduce) {
+  .undo-ribbon { animation: none; }
+  .undo-ribbon__line { display: none; }
+  .undo-ribbon__count { display: inline; }
+}
+.undo-ribbon[data-motion="reduced"] .undo-ribbon__line { display: none; }
+.undo-ribbon[data-motion="reduced"] .undo-ribbon__count { display: inline; }

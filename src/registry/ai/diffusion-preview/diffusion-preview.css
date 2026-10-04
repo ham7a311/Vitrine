@@ -1,0 +1,23 @@
+.dfp { --bg: #fbfaf7; --ink: #1b1a17; --muted: #77736b; --line: rgb(27 26 23 / 0.1); --accent: #7c5cff; width: min(100%, 44rem); padding: 18px; border: 1px solid var(--line); border-radius: 20px; background: var(--bg); color: var(--ink); font: 0.875rem/1.5 "Geist", ui-sans-serif, system-ui, sans-serif; }
+.dfp--night { --bg: #111015; --ink: #ecebf0; --muted: #8f8b97; --line: rgb(236 235 240 / 0.1); --accent: #a996ff; }
+.dfp__prompt { display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 14px; border: 1px solid var(--line); border-radius: 14px; }
+.dfp__prompt p { flex: 1; margin: 0; min-width: 0; }
+.dfp__prompt button { flex: none; height: 34px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--ink); color: var(--bg); font: 500 0.8125rem/1 "Geist", sans-serif; cursor: pointer; }
+.dfp__prompt button:disabled { opacity: 0.6; cursor: default; }
+.dfp__stage { display: grid; grid-template-columns: minmax(0, 1fr) 11rem; gap: 14px; margin-top: 14px; }
+.dfp__big { width: 100%; aspect-ratio: 1; border-radius: 14px; background: color-mix(in oklab, var(--ink) 6%, transparent); }
+.dfp__side { display: flex; flex-direction: column; gap: 12px; }
+.dfp__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.dfp__thumb { padding: 0; border: 2px solid transparent; border-radius: 10px; background: none; overflow: hidden; cursor: pointer; transition: border-color 200ms ease, scale 200ms ease; }
+.dfp__thumb[aria-checked="true"] { border-color: var(--accent); }
+.dfp__thumb:hover { scale: 1.03; }
+.dfp__thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dfp__thumb canvas { display: block; width: 100%; aspect-ratio: 1; }
+.dfp__meta { display: grid; gap: 6px; margin: 0; }
+.dfp__meta div { display: flex; justify-content: space-between; gap: 8px; font-size: 0.8125rem; }
+.dfp__meta dt { color: var(--muted); }
+.dfp__meta dd { margin: 0; font: 0.75rem "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+.dfp__bar { height: 4px; border-radius: 999px; background: color-mix(in oklab, var(--ink) 8%, transparent); overflow: hidden; }
+.dfp__bar i { display: block; height: 100%; background: var(--accent); transition: width 85ms linear; }
+@media (max-width: 560px) { .dfp__stage { grid-template-columns: 1fr; } .dfp__grid { grid-template-columns: repeat(4, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .dfp * { transition: none !important; } }

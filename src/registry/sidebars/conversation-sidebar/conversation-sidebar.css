@@ -1,0 +1,98 @@
+/* Conversation Sidebar — collapses into a rail of initials. */
+.conversation-sidebar {
+  --cs-bg: #efe9dd;
+  --cs-ink: #1f1b16;
+  --cs-muted: #6b645a;
+  --cs-faint: #a39b8f;
+  --cs-line: rgb(31 27 22 / 0.08);
+  --cs-hover: rgb(31 27 22 / 0.05);
+  --cs-active: rgb(31 27 22 / 0.08);
+  --cs-accent: #c4673f;
+  --cs-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  width: 3.75rem;
+  height: 100%;
+  min-height: 28rem;
+  padding: 0.6rem 0.5rem;
+  overflow: hidden;
+  background: var(--cs-bg);
+  box-shadow: inset -1px 0 0 var(--cs-line);
+  color: var(--cs-ink);
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  transition: width 460ms var(--cs-ease);
+}
+.conversation-sidebar[data-open] { width: 16.5rem; }
+/* On a phone the open sidebar is the screen: full width, collapsing back to the rail. */
+@media (max-width: 480px) { .conversation-sidebar[data-open] { width: 100%; } }
+.conversation-sidebar--night { --cs-bg: #151317; --cs-ink: #efe8dc; --cs-muted: #a7a1ab; --cs-faint: #6f6a74; --cs-line: rgb(239 232 220 / 0.07); --cs-hover: rgb(239 232 220 / 0.05); --cs-active: rgb(239 232 220 / 0.08); --cs-accent: #b9cce4; }
+.conversation-sidebar button:focus-visible, .conversation-sidebar input:focus-visible { outline: 2px solid var(--cs-accent); outline-offset: 1px; }
+
+.conversation-sidebar__top { display: flex; align-items: center; gap: 0.35rem; }
+.conversation-sidebar__icon, .conversation-sidebar__new {
+  display: inline-flex; align-items: center; gap: 0.5rem; height: 2.4rem; border: 0; border-radius: 9px; background: none; color: var(--cs-muted); cursor: pointer; white-space: nowrap;
+  font: 500 0.875rem inherit; font-family: inherit; transition: background 160ms ease, color 160ms ease;
+}
+.conversation-sidebar__icon { justify-content: center; width: 2.75rem; flex: none; }
+.conversation-sidebar__new { padding: 0 0.7rem; opacity: 0; pointer-events: none; transition: opacity 240ms ease, background 160ms ease; }
+.conversation-sidebar[data-open] .conversation-sidebar__new { opacity: 1; pointer-events: auto; transition-delay: 140ms, 0ms; }
+.conversation-sidebar__icon:hover, .conversation-sidebar__new:hover { background: var(--cs-hover); color: var(--cs-ink); }
+.conversation-sidebar svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+.conversation-sidebar__search {
+  display: flex; align-items: center; gap: 0.5rem; height: 2.3rem; margin: 0.5rem 0 0.6rem; padding: 0 0.85rem; border-radius: 9px;
+  background: var(--cs-hover); color: var(--cs-faint); opacity: 0; transition: opacity 240ms ease;
+}
+.conversation-sidebar[data-open] .conversation-sidebar__search { opacity: 1; transition-delay: 160ms; }
+.conversation-sidebar__search svg { width: 0.95rem; height: 0.95rem; }
+.conversation-sidebar__search input { min-width: 0; flex: 1; border: 0; outline: 0; background: none; color: var(--cs-ink); font: 400 0.875rem inherit; font-family: inherit; }
+.conversation-sidebar__search input::placeholder { color: var(--cs-faint); }
+
+.conversation-sidebar__scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
+.conversation-sidebar__scroll ul { margin: 0; padding: 0; list-style: none; }
+.conversation-sidebar__scroll li { position: relative; }
+.conversation-sidebar__group {
+  margin: 0.9rem 0 0.3rem 0.7rem; font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.08em; color: var(--cs-faint); white-space: nowrap;
+  opacity: 0; transition: opacity 240ms ease;
+}
+.conversation-sidebar[data-open] .conversation-sidebar__group { opacity: 1; transition-delay: 140ms; }
+.conversation-sidebar:not([data-open]) .conversation-sidebar__group { height: 0; margin: 0.35rem 0; overflow: hidden; }
+
+.conversation-sidebar__item {
+  position: relative; display: flex; align-items: center; gap: 0.6rem; width: 100%; height: 2.25rem; padding: 0 0.4rem; border: 0; border-radius: 9px;
+  background: none; color: var(--cs-muted); font: 400 0.875rem inherit; font-family: inherit; text-align: left; cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+.conversation-sidebar__item:hover { background: var(--cs-hover); color: var(--cs-ink); }
+.conversation-sidebar__item[aria-current] { background: var(--cs-active); color: var(--cs-ink); }
+/* initials: a square chip when collapsed, a quiet ghost when open */
+.conversation-sidebar__ini {
+  display: grid; place-items: center; width: 1.95rem; height: 1.6rem; flex: none; border-radius: 6px;
+  font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.02em; color: var(--cs-faint);
+  transition: background 300ms ease, color 300ms ease, width 460ms var(--cs-ease), margin 460ms var(--cs-ease);
+}
+.conversation-sidebar[data-open] .conversation-sidebar__ini { width: 0; margin-right: -0.6rem; overflow: hidden; color: transparent; }
+.conversation-sidebar:not([data-open]) .conversation-sidebar__item[aria-current] .conversation-sidebar__ini { background: var(--cs-ink); color: var(--cs-bg); }
+.conversation-sidebar:not([data-open]) .conversation-sidebar__item:hover .conversation-sidebar__ini { color: var(--cs-ink); }
+.conversation-sidebar__title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: 0; transform: translateX(-6px); transition: opacity 260ms ease, transform 460ms var(--cs-ease); }
+.conversation-sidebar[data-open] .conversation-sidebar__title { opacity: 1; transform: none; transition-delay: 120ms; }
+.conversation-sidebar__rename { position: absolute; right: 0.3rem; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 1.6rem; height: 1.6rem; padding: 0; border: 0; border-radius: 6px; background: none; opacity: 0; color: var(--cs-faint); cursor: pointer; transition: opacity 160ms ease; }
+.conversation-sidebar__scroll li:hover .conversation-sidebar__rename, .conversation-sidebar__rename:focus-visible { opacity: 1; }
+.conversation-sidebar__item { padding-right: 2rem; }
+.conversation-sidebar__rename:hover { color: var(--cs-ink); background: var(--cs-hover); }
+.conversation-sidebar__rename svg { width: 0.85rem; height: 0.85rem; }
+.conversation-sidebar__edit {
+  width: 100%; height: 2.25rem; padding: 0 0.7rem; border: 0; border-radius: 9px; outline: 0;
+  background: var(--cs-bg); box-shadow: inset 0 0 0 1.5px var(--cs-accent); color: var(--cs-ink); font: 400 0.875rem inherit; font-family: inherit;
+}
+.conversation-sidebar__empty { margin: 1rem 0.7rem; font-size: 0.8125rem; color: var(--cs-faint); white-space: nowrap; }
+
+.conversation-sidebar__me { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem; padding: 0.55rem 0.4rem 0.1rem; border-top: 1px solid var(--cs-line); }
+.conversation-sidebar__avatar { display: grid; place-items: center; width: 1.95rem; height: 1.95rem; flex: none; border-radius: 50%; background: var(--cs-accent); color: var(--cs-bg); font: 400 1rem "Instrument Serif", serif; }
+.conversation-sidebar__who { display: grid; min-width: 0; white-space: nowrap; opacity: 0; transition: opacity 240ms ease; }
+.conversation-sidebar[data-open] .conversation-sidebar__who { opacity: 1; transition-delay: 140ms; }
+.conversation-sidebar__who b { font-size: 0.8125rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
+.conversation-sidebar__who i { font-style: normal; font-size: 0.75rem; color: var(--cs-faint); }
+
+@media (prefers-reduced-motion: reduce) { .conversation-sidebar, .conversation-sidebar * { transition-duration: 1ms !important; transition-delay: 0ms !important; } }

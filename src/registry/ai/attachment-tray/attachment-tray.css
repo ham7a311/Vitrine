@@ -1,0 +1,75 @@
+/* Attachment Tray — progress closes a ring that becomes a seal. */
+.attachment-tray {
+  --at-surface: #fffdf8; --at-ink: #1f1b16; --at-muted: #6b645a; --at-faint: #a39b8f; --at-line: rgb(31 27 22 / 0.1);
+  --at-accent: #c4673f; --at-ok: #2e7d55; --at-err: #b3412d; --at-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100%, 30rem); padding: 1rem; border-radius: 18px; background: var(--at-surface);
+  box-shadow: inset 0 0 0 1px var(--at-line), 0 24px 48px -30px rgb(31 27 22 / 0.35);
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif; color: var(--at-ink);
+  transition: box-shadow 260ms ease;
+}
+.attachment-tray--night { --at-surface: #1b191e; --at-ink: #efe8dc; --at-muted: #a7a1ab; --at-faint: #6f6a74; --at-line: rgb(239 232 220 / 0.1); --at-accent: #b9cce4; --at-ok: #8fe388; --at-err: #f0a2a2; }
+.attachment-tray[data-over] { box-shadow: inset 0 0 0 1.5px var(--at-accent), 0 0 0 6px color-mix(in srgb, var(--at-accent) 12%, transparent); }
+.attachment-tray__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.attachment-tray__head { display: flex; align-items: center; justify-content: space-between; padding: 0.1rem 0.25rem 0.6rem; }
+.attachment-tray__title { margin: 0; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; }
+.attachment-tray__title span { margin-left: 0.4rem; font: 500 0.75rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--at-faint); }
+.attachment-tray__add, .attachment-tray__retry {
+  height: 2rem; padding: 0 0.8rem; border: 0; border-radius: 999px; background: color-mix(in srgb, var(--at-ink) 6%, transparent); color: var(--at-ink);
+  font: 500 0.8125rem inherit; font-family: inherit; cursor: pointer; transition: background 160ms ease;
+}
+.attachment-tray__add:hover, .attachment-tray__retry:hover { background: color-mix(in srgb, var(--at-ink) 10%, transparent); }
+.attachment-tray__retry { color: var(--at-err); background: color-mix(in srgb, var(--at-err) 10%, transparent); }
+.attachment-tray button:focus-visible { outline: 2px solid var(--at-accent); outline-offset: 2px; }
+
+.attachment-tray__list { margin: 0; padding: 0; list-style: none; }
+/* rows fold out of the list rather than vanishing */
+.attachment-tray__row { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 420ms var(--at-ease), opacity 260ms ease; animation: attachment-tray-in 460ms var(--at-ease); }
+.attachment-tray__row[data-leaving] { grid-template-rows: 0fr; opacity: 0; }
+.attachment-tray__inner { min-height: 0; overflow: hidden; display: flex; align-items: center; gap: 0.8rem; padding: 0.5rem 0.25rem; border-top: 1px solid var(--at-line); }
+.attachment-tray__row:first-child .attachment-tray__inner { border-top: 0; }
+
+.attachment-tray__badge { position: relative; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex: none; }
+.attachment-tray__badge svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); fill: none; }
+.attachment-tray__track { stroke: var(--at-line); stroke-width: 2; }
+.attachment-tray__ring { stroke: var(--at-accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--p)); transition: stroke 300ms ease, stroke-width 400ms var(--at-ease); }
+.attachment-tray__glyph {
+  display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%;
+  font: 600 0.5625rem "Geist Mono", monospace; letter-spacing: 0.04em; color: var(--at-muted); background: color-mix(in srgb, var(--at-ink) 5%, transparent);
+  transition: transform 460ms var(--at-ease);
+}
+.attachment-tray__badge[data-kind="pdf"] .attachment-tray__glyph { color: #b0532c; background: color-mix(in srgb, #c4673f 14%, transparent); }
+.attachment-tray__badge[data-kind="image"] .attachment-tray__glyph { color: #2f6aae; background: color-mix(in srgb, #3f7cc4 13%, transparent); }
+.attachment-tray__badge[data-kind="sheet"] .attachment-tray__glyph { color: #2e7d55; background: color-mix(in srgb, #3f9a6b 14%, transparent); }
+.attachment-tray--night .attachment-tray__glyph { filter: brightness(1.5); }
+/* the seal: when the ring closes, a small check badge settles on the ring */
+.attachment-tray__seal {
+  position: absolute; right: -1px; bottom: -1px; display: grid; place-items: center; width: 1.05rem; height: 1.05rem; border-radius: 50%;
+  background: var(--at-ok); box-shadow: 0 0 0 2px var(--at-surface); transform: scale(0); transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1) 120ms;
+}
+.attachment-tray__seal svg { position: static; transform: none; width: 0.62rem; height: 0.62rem; stroke: var(--at-surface); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.attachment-tray__row[data-state="done"] .attachment-tray__seal { transform: scale(1); }
+.attachment-tray__row[data-state="done"] .attachment-tray__ring { stroke: var(--at-ok); stroke-width: 1.2; }
+.attachment-tray__row[data-state="error"] .attachment-tray__ring { stroke: var(--at-err); }
+.attachment-tray__row[data-state="error"] .attachment-tray__glyph { animation: attachment-tray-nudge 420ms ease; }
+
+.attachment-tray__meta { display: grid; flex: 1; min-width: 0; }
+.attachment-tray__name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.875rem; font-weight: 500; }
+.attachment-tray__sub { font: 500 0.6875rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--at-faint); }
+.attachment-tray__row[data-state="error"] .attachment-tray__sub { color: var(--at-err); }
+.attachment-tray__pct { font: 500 0.75rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--at-muted); }
+.attachment-tray__x { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; flex: none; border: 0; border-radius: 8px; background: none; color: var(--at-faint); cursor: pointer; }
+.attachment-tray__x:hover { background: color-mix(in srgb, var(--at-ink) 6%, transparent); color: var(--at-ink); }
+.attachment-tray__x svg { width: 0.7rem; height: 0.7rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+
+.attachment-tray__drop {
+  display: grid; gap: 0.2rem; justify-items: center; width: 100%; margin-top: 0.6rem; padding: 1rem; border: 0; border-radius: 12px; cursor: pointer;
+  background: color-mix(in srgb, var(--at-ink) 3%, transparent); color: var(--at-muted); font: 500 0.875rem inherit; font-family: inherit;
+  transition: background 200ms ease, color 200ms ease;
+}
+.attachment-tray__drop:hover, .attachment-tray[data-over] .attachment-tray__drop { background: color-mix(in srgb, var(--at-accent) 9%, transparent); color: var(--at-ink); }
+.attachment-tray__hint { font-size: 0.75rem; color: var(--at-faint); }
+
+@keyframes attachment-tray-in { from { opacity: 0; transform: translateY(-6px); } }
+@keyframes attachment-tray-nudge { 25% { transform: translateX(-3px); } 60% { transform: translateX(2px); } }
+@media (prefers-reduced-motion: reduce) { .attachment-tray * { animation: none !important; transition-duration: 1ms !important; } }

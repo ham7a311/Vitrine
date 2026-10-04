@@ -1,0 +1,210 @@
+.dk {
+  --panel: #18191c;
+  --panel-2: #0f1012;
+  --edge: rgb(255 255 255 / 0.06);
+  --led: #ffb02e;
+  --led-2: #ff6a1f;
+  --led-off: #2a2b30;
+  --ink: #e9e6df;
+  --muted: rgb(233 230 223 / 0.5);
+  --metal-1: #f2f3f5;
+  --metal-2: #9ea3ab;
+  --metal-3: #5d626a;
+  --knurl: #3a3d43;
+  --lcd: #0b0c0a;
+  --lcd-ink: #ffcf6b;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  color: var(--ink);
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+}
+.dk--bakelite {
+  --panel: #ece2cf;
+  --panel-2: #d9ccb2;
+  --edge: rgb(0 0 0 / 0.08);
+  --led: #ff4b2b;
+  --led-2: #ff9a3c;
+  --led-off: #c9bba0;
+  --ink: #2a2318;
+  --muted: rgb(42 35 24 / 0.55);
+  --metal-1: #4a443e;
+  --metal-2: #1c1a18;
+  --metal-3: #0b0a09;
+  --knurl: #b8893f;
+  --lcd: #1b1a14;
+  --lcd-ink: #9dff8a;
+}
+
+.dk__panel {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: 34px 40px 26px;
+  border-radius: 28px;
+  background:
+    radial-gradient(120% 90% at 30% 0%, rgb(255 255 255 / 0.06), transparent 60%),
+    linear-gradient(170deg, var(--panel), var(--panel-2));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), inset 0 0 0 1px var(--edge), 0 30px 60px -28px rgb(0 0 0 / 0.55);
+}
+
+/* The light ring: 31 dots on a 270° sweep around the knob. */
+.dk__ring {
+  position: absolute;
+  left: 50%;
+  top: 34px;
+  width: 240px;
+  height: 240px;
+  margin-left: -120px;
+  pointer-events: none;
+}
+.dk__led {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--led-off);
+  transform: rotate(var(--a)) translateY(-112px);
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 0.35);
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+.dk__led[data-on] {
+  background: color-mix(in oklab, var(--led-2), var(--led) calc(var(--k) * 100%));
+  box-shadow: 0 0 6px color-mix(in oklab, var(--led) 70%, transparent), 0 0 1px #fff inset;
+}
+.dk__led[data-head] {
+  background: #fff6dc;
+  box-shadow: 0 0 10px 2px color-mix(in oklab, var(--led) 85%, transparent);
+}
+.dk__end {
+  position: absolute;
+  bottom: 18px;
+  font: 500 10px/1 "Geist Mono", ui-monospace, monospace;
+  color: var(--muted);
+}
+.dk__end--min { left: 36px; }
+.dk__end--max { right: 30px; }
+
+/* The knob. */
+.dk__knob {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  margin: 36px;
+  border-radius: 50%;
+  touch-action: none;
+  cursor: grab;
+  outline: none;
+}
+.dk__knob:active { cursor: grabbing; }
+.dk__knob:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--led);
+}
+.dk__face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* The shadow it throws on the panel, and a dark seat around it. */
+  box-shadow: 0 18px 30px -10px rgb(0 0 0 / 0.6), 0 4px 8px rgb(0 0 0 / 0.35), 0 0 0 6px rgb(0 0 0 / 0.18);
+}
+.dk__turn {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transition: transform 90ms cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+/* Knurled rim: fine teeth all the way round. */
+.dk__knurl {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(from 0deg, var(--knurl) 0 2deg, color-mix(in oklab, var(--knurl), #fff 28%) 2deg 4deg),
+    var(--knurl);
+  -webkit-mask: radial-gradient(closest-side, transparent 80%, #000 81%);
+  mask: radial-gradient(closest-side, transparent 80%, #000 81%);
+}
+/* The indicator line, machined into the top face. */
+.dk__mark {
+  position: absolute;
+  left: 50%;
+  top: 14%;
+  width: 4px;
+  height: 22%;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: var(--led);
+  box-shadow: 0 0 8px color-mix(in oklab, var(--led) 70%, transparent);
+  z-index: 2;
+}
+/* The top face: brushed metal with a fixed sheen, so the light stays still while it turns. */
+.dk__cap {
+  position: absolute;
+  inset: 11%;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at 50% 50%, rgb(255 255 255 / 0.05) 0 1px, rgb(0 0 0 / 0.04) 1px 2px),
+    conic-gradient(from 200deg, var(--metal-3), var(--metal-1) 40deg, var(--metal-2) 110deg, var(--metal-3) 170deg, var(--metal-1) 230deg, var(--metal-2) 300deg, var(--metal-3));
+  box-shadow: inset 0 2px 2px rgb(255 255 255 / 0.4), inset 0 -3px 6px rgb(0 0 0 / 0.35), 0 1px 2px rgb(0 0 0 / 0.4);
+  z-index: 1;
+}
+.dk--bakelite .dk__cap {
+  background:
+    radial-gradient(circle at 35% 28%, rgb(255 255 255 / 0.22), transparent 38%),
+    radial-gradient(circle at 50% 50%, var(--metal-1), var(--metal-2) 70%, var(--metal-3));
+}
+.dk__mark { z-index: 2; }
+.dk__turn { z-index: 2; }
+.dk__turn .dk__mark { top: 15%; }
+
+/* The readout. */
+.dk__lcd {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 14px;
+  min-width: 132px;
+  justify-content: space-between;
+  border-radius: 10px;
+  background: var(--lcd);
+  box-shadow: inset 0 2px 6px rgb(0 0 0 / 0.6), 0 1px 0 rgb(255 255 255 / 0.06);
+}
+.dk__lab {
+  font: 500 10px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--lcd-ink) 55%, transparent);
+}
+.dk__val {
+  font: 500 22px/1 "Geist Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+  color: var(--lcd-ink);
+  text-shadow: 0 0 10px color-mix(in oklab, var(--lcd-ink) 60%, transparent);
+}
+.dk__val small {
+  font-size: 12px;
+  margin-left: 2px;
+  opacity: 0.7;
+}
+.dk__hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.dk[data-motion="reduced"] .dk__turn,
+.dk[data-motion="reduced"] .dk__led { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .dk__turn,
+  .dk__led { transition: none; }
+}

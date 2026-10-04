@@ -1,0 +1,117 @@
+/* Slatted Light — beams are a repeating gradient (the slats) masked into a cone from the window, blurred and screen-blended. */
+
+.slat {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--slat-light) 8%, transparent), transparent 55%),
+    var(--slat-room);
+}
+.slat__scene { position: absolute; inset: 0; pointer-events: none; }
+.slat__content { position: relative; z-index: 1; height: 100%; }
+
+/* the source: a bright edge just off the top-left */
+.slat__window {
+  position: absolute;
+  top: -12%;
+  left: -8%;
+  width: 34%;
+  height: 40%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--slat-light) 32%, transparent), transparent);
+  filter: blur(30px);
+  animation: slat-glow 14s ease-in-out infinite;
+}
+
+/* the shafts */
+.slat__beams {
+  position: absolute;
+  inset: -30% -40% -30% -20%;
+  background: repeating-linear-gradient(
+    calc(90deg + var(--slat-angle)),
+    transparent 0 26px,
+    color-mix(in srgb, var(--slat-light) 11%, transparent) 26px 48px,
+    transparent 48px 64px,
+    color-mix(in srgb, var(--slat-light) 6%, transparent) 64px 78px,
+    transparent 78px 104px
+  );
+  transform-origin: 0% 0%;
+  transform: rotate(var(--slat-angle)) skewX(-8deg);
+  -webkit-mask-image: linear-gradient(calc(90deg + var(--slat-angle)), #000 0%, rgb(0 0 0 / 0.75) 30%, transparent 78%);
+  mask-image: linear-gradient(calc(90deg + var(--slat-angle)), #000 0%, rgb(0 0 0 / 0.75) 30%, transparent 78%);
+  filter: blur(5px);
+  mix-blend-mode: screen;
+  animation: slat-sway 19s ease-in-out infinite alternate;
+}
+.slat__beams--soft {
+  filter: blur(22px);
+  opacity: 0.8;
+  animation-duration: 27s;
+  animation-direction: alternate-reverse;
+}
+
+/* the pattern where it lands */
+.slat__floor {
+  position: absolute;
+  left: 8%;
+  right: -10%;
+  bottom: -6%;
+  height: 42%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 34px,
+    color-mix(in srgb, var(--slat-light) 13%, transparent) 34px 62px
+  );
+  transform: perspective(600px) rotateX(58deg) skewX(calc(var(--slat-angle) * -1.4));
+  transform-origin: bottom;
+  -webkit-mask-image: radial-gradient(60% 80% at 45% 100%, #000, transparent 75%);
+  mask-image: radial-gradient(60% 80% at 45% 100%, #000, transparent 75%);
+  filter: blur(3px);
+  mix-blend-mode: screen;
+  animation: slat-floor 19s ease-in-out infinite alternate;
+}
+
+/* dust */
+.slat__motes span {
+  position: absolute;
+  border-radius: 999px;
+  background: var(--slat-light);
+  box-shadow: 0 0 6px var(--slat-light);
+  opacity: 0;
+  animation-name: slat-drift, slat-twinkle;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+}
+
+.slat__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes slat-sway {
+  from { transform: rotate(var(--slat-angle)) skewX(-8deg) translateX(0); }
+  to { transform: rotate(calc(var(--slat-angle) + 3deg)) skewX(-4deg) translateX(40px); }
+}
+@keyframes slat-floor {
+  from { transform: perspective(600px) rotateX(58deg) skewX(calc(var(--slat-angle) * -1.4)) translateX(0); }
+  to { transform: perspective(600px) rotateX(58deg) skewX(calc(var(--slat-angle) * -1.2)) translateX(46px); }
+}
+@keyframes slat-glow {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+@keyframes slat-drift {
+  from { transform: translate(0, 18px); }
+  to { transform: translate(26px, -60px); }
+}
+@keyframes slat-twinkle {
+  0%, 100% { opacity: 0; }
+  45%, 60% { opacity: 0.7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slat__beams, .slat__floor, .slat__window { animation: none; }
+  .slat__motes { display: none; }
+}

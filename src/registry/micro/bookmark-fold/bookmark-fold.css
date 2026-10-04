@@ -1,0 +1,14 @@
+.bf { position: relative; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background 200ms ease; }
+.bf:hover { background: color-mix(in oklab, currentColor 7%, transparent); }
+.bf:focus-visible { outline: 2px solid #f59e0b; outline-offset: 2px; }
+.bf svg { width: 24px; height: 24px; overflow: visible; transition: translate 360ms cubic-bezier(0.3, 1.6, 0.5, 1); }
+.bf[data-on] svg { translate: 0 2px; }
+.bf__shape { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; transition: stroke 200ms ease; }
+.bf[data-on] .bf__shape { stroke: #f59e0b; }
+.bf__fill { fill: #f59e0b; transform-box: fill-box; transform-origin: top; scale: 1 0; transition: scale 160ms ease-in; }
+.bf[data-on] .bf__fill { scale: 1 1; transition: scale 380ms cubic-bezier(0.22, 1, 0.36, 1); }
+.bf[data-on] .bf__shape { animation: bf-catch 520ms ease-out 260ms; transform-box: fill-box; transform-origin: top; }
+@keyframes bf-catch { 30% { scale: 1 1.06; } 60% { scale: 1 0.97; } }
+.bf__note { pointer-events: none; position: absolute; bottom: 100%; left: 50%; translate: -50% 0; padding: 4px 8px; border-radius: 6px; background: #f59e0b; color: #1b1205; font: 600 0.6875rem/1 "Geist", ui-sans-serif, system-ui, sans-serif; white-space: nowrap; animation: bf-note 1400ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+@keyframes bf-note { 0% { opacity: 0; translate: -50% 6px; } 18% { opacity: 1; translate: -50% -4px; } 75% { opacity: 1; translate: -50% -6px; } 100% { opacity: 0; translate: -50% -12px; } }
+@media (prefers-reduced-motion: reduce) { .bf *, .bf svg { transition: none !important; animation: none !important; } .bf__note { opacity: 0; } }

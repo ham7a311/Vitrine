@@ -1,0 +1,131 @@
+/* Liquid Glass Card — thick glass that bends more toward its edges. */
+.lgc {
+  --mx: 28%;
+  --my: 0%;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: min(22.5rem, 100%);
+  padding: 1.35rem 1.35rem 1.15rem;
+  border-radius: 28px;
+  color: #fff;
+  /* A faint smoky tint keeps white text readable over bright parts of the scene. */
+  background: linear-gradient(rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.03)), rgb(14 8 24 / 0.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.7) brightness(1.04);
+  backdrop-filter: blur(18px) saturate(1.7) brightness(1.04);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    inset 0 -1px 1px rgb(255 255 255 / 0.14),
+    inset 0 0 0 1px rgb(255 255 255 / 0.14),
+    inset 0 -18px 30px -24px rgb(255 255 255 / 0.4),
+    0 30px 60px -28px rgb(0 0 0 / 0.55);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.22);
+}
+.lgc__defs { position: absolute; }
+.lgc > :not(.lgc__rim):not(.lgc__sheen):not(.lgc__defs) { position: relative; z-index: 1; }
+
+/* The rim highlight rides toward the pointer. */
+.lgc__rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.25px;
+  background: radial-gradient(45% 70% at var(--mx) var(--my), rgb(255 255 255 / 0.95), rgb(255 255 255 / 0.18) 50%, transparent 75%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+.lgc:hover .lgc__rim { opacity: 1; }
+/* A soft caustic inside the glass, under the same light. */
+.lgc__sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(60% 50% at var(--mx) calc(var(--my) + 18%), rgb(255 255 255 / 0.13), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+.lgc:hover .lgc__sheen { opacity: 1; }
+
+.lgc__head { display: flex; align-items: center; gap: 0.95rem; }
+.lgc__art {
+  flex: none;
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 70% 30%, #ffd9a0 0 12%, transparent 13%),
+    linear-gradient(170deg, transparent 52%, #1f3d5c 53%),
+    linear-gradient(185deg, transparent 60%, #2c5a7a 61%),
+    linear-gradient(180deg, #f39a6b, #e0647a 55%, #6a4c8c);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.2), 0 10px 22px -12px rgb(0 0 0 / 0.6);
+}
+.lgc__titles { min-width: 0; }
+.lgc__eyebrow { margin: 0 0 0.3rem; font: 500 0.625rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255 255 255 / 0.72); }
+.lgc__title { margin: 0; overflow: hidden; font-size: 1.125rem; font-weight: 600; letter-spacing: -0.015em; text-overflow: ellipsis; white-space: nowrap; }
+.lgc__artist { margin: 0.15rem 0 0; font-size: 0.875rem; color: rgb(255 255 255 / 0.78); }
+
+.lgc__range {
+  --p: 0%;
+  display: block;
+  width: 100%;
+  height: 1.25rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.lgc__range::-webkit-slider-runnable-track { height: 5px; border-radius: 5px; background: linear-gradient(to right, rgb(255 255 255 / 0.92) var(--p), rgb(255 255 255 / 0.22) var(--p)); }
+.lgc__range::-moz-range-track { height: 5px; border-radius: 5px; background: linear-gradient(to right, rgb(255 255 255 / 0.92) var(--p), rgb(255 255 255 / 0.22) var(--p)); }
+.lgc__range::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; margin-top: -4px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.35); transform: scale(0); transition: transform 200ms ease; }
+.lgc__range::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: #fff; transform: scale(0); transition: transform 200ms ease; }
+.lgc__scrub:hover .lgc__range::-webkit-slider-thumb, .lgc__range:focus-visible::-webkit-slider-thumb { transform: scale(1); }
+.lgc__scrub:hover .lgc__range::-moz-range-thumb, .lgc__range:focus-visible::-moz-range-thumb { transform: scale(1); }
+.lgc__range:focus-visible { outline: 2px solid rgb(255 255 255 / 0.85); outline-offset: 4px; border-radius: 6px; }
+.lgc__times { display: flex; justify-content: space-between; margin-top: 0.3rem; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; color: rgb(255 255 255 / 0.72); }
+
+.lgc__controls { display: flex; align-items: center; justify-content: center; gap: 1.6rem; }
+.lgc__ctl, .lgc__play { display: grid; place-items: center; border: 0; color: #fff; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.lgc__ctl { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: none; transition: background 200ms ease, transform 160ms ease; }
+.lgc__ctl:hover { background: rgb(255 255 255 / 0.12); }
+.lgc__ctl:active { transform: scale(0.92); }
+.lgc__ctl svg { width: 1.6rem; height: 1.6rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.lgc__ctl text { fill: currentColor; stroke: none; font: 600 6.5px "Geist", ui-sans-serif, sans-serif; }
+/* The play button is a drop of the same glass. */
+.lgc__play {
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.2);
+  -webkit-backdrop-filter: blur(6px) saturate(1.6);
+  backdrop-filter: blur(6px) saturate(1.6);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), inset 0 0 0 1px rgb(255 255 255 / 0.18), inset 0 -8px 14px -10px rgb(255 255 255 / 0.5), 0 10px 22px -12px rgb(0 0 0 / 0.5);
+  transition: background 200ms ease;
+}
+.lgc__play:hover { background: rgb(255 255 255 / 0.28); }
+.lgc__play svg { width: 1.6rem; height: 1.6rem; fill: currentColor; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; stroke-linecap: round; }
+.lgc__play svg path[d^="M8.5 6v12"] { fill: none; stroke-width: 2.6; }
+.lgc__ctl:focus-visible, .lgc__play:focus-visible { outline: 2px solid rgb(255 255 255 / 0.85); outline-offset: 3px; }
+.lgc__play--squish { animation: lgc-squish 620ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+.lgc__next { margin: 0; padding-top: 0.95rem; border-top: 1px solid rgb(255 255 255 / 0.14); overflow: hidden; font-size: 0.8125rem; color: rgb(255 255 255 / 0.85); text-overflow: ellipsis; white-space: nowrap; }
+.lgc__next span { margin-right: 0.35rem; font: 500 0.625rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255 255 255 / 0.6); }
+
+@keyframes lgc-squish {
+  0% { transform: scale(1, 1); }
+  22% { transform: scale(1.12, 0.86); }
+  48% { transform: scale(0.95, 1.06); }
+  72% { transform: scale(1.02, 0.99); }
+  100% { transform: scale(1, 1); }
+}
+.lgc[data-motion="reduced"] .lgc__play--squish { animation: none; }
+@media (prefers-reduced-motion: reduce) { .lgc__play--squish { animation: none; } }

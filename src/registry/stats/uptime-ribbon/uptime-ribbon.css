@@ -1,0 +1,51 @@
+/* Uptime Ribbon — ninety days you can scrub through. */
+.uptime-ribbon {
+  --ur2-ink: #efe8dc;
+  --ur2-muted: #a7a1ab;
+  --ur2-faint: #5f5a64;
+  --ok: #3fb950;
+  --minor: #e8a24a;
+  --major: #f06a6a;
+  display: grid;
+  gap: 1.9rem;
+  width: min(100%, 44rem);
+  padding: 1.6rem 1.6rem 1.4rem;
+  border-radius: 18px;
+  background: #111013;
+  box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.08);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ur2-ink);
+}
+.uptime-ribbon__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.7rem; }
+.uptime-ribbon__name { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9375rem; font-weight: 500; }
+.uptime-ribbon__name i { width: 7px; height: 7px; border-radius: 50%; }
+.uptime-ribbon__name i[data-level="ok"] { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 20%, transparent); }
+.uptime-ribbon__name i[data-level="minor"] { background: var(--minor); }
+.uptime-ribbon__name i[data-level="major"] { background: var(--major); }
+.uptime-ribbon__avg { font: 500 0.75rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--ur2-muted); }
+
+.uptime-ribbon__bars { position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr); grid-template-rows: 100%; gap: 2px; height: 2.4rem; align-items: end; outline: none; touch-action: pan-y; cursor: crosshair; }
+.uptime-ribbon__bars:focus-visible { box-shadow: 0 0 0 2px #b9cce4; border-radius: 4px; }
+.uptime-ribbon__bars > span {
+  display: block; height: calc(70% + var(--lift, 0) * 30%); border-radius: 2px; background: var(--ok); opacity: calc(0.55 + var(--lift, 0) * 0.45);
+  transition: height 260ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease;
+}
+.uptime-ribbon__bars > span[data-level="minor"] { background: var(--minor); }
+.uptime-ribbon__bars > span[data-level="major"] { background: var(--major); }
+.uptime-ribbon__bars > span[data-at] { opacity: 1; box-shadow: 0 0 0 1px rgb(255 255 255 / 0.5); }
+
+.uptime-ribbon__tip {
+  position: absolute; left: var(--x); bottom: calc(100% + 0.6rem); transform: translateX(-50%); z-index: 2;
+  display: grid; gap: 0.15rem; min-width: 10rem; padding: 0.55rem 0.7rem; border-radius: 10px; pointer-events: none;
+  background: #1d1b21; box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.1), 0 12px 24px -12px rgb(0 0 0 / 0.8);
+  font-size: 0.75rem; white-space: nowrap;
+  transition: left 120ms linear;
+}
+.uptime-ribbon__tip b { font-weight: 600; }
+.uptime-ribbon__tip span { font-family: "Geist Mono", monospace; }
+.uptime-ribbon__tip span[data-level="ok"] { color: var(--ok); }
+.uptime-ribbon__tip span[data-level="minor"] { color: var(--minor); }
+.uptime-ribbon__tip span[data-level="major"] { color: var(--major); }
+.uptime-ribbon__tip em { max-width: 16rem; white-space: normal; font-style: normal; color: var(--ur2-muted); }
+.uptime-ribbon__axis { display: flex; justify-content: space-between; margin-top: 0.45rem; font: 500 0.6875rem "Geist Mono", monospace; color: var(--ur2-faint); }
+@media (prefers-reduced-motion: reduce) { .uptime-ribbon * { transition-duration: 1ms !important; } }

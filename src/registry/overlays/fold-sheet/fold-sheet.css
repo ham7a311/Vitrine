@@ -1,0 +1,193 @@
+/* Fold Sheet — a page opened on its hinge, not a drawer pulled out. */
+.fold-sheet {
+  --fs-surface: #fbfaf7;
+  --fs-ink: #1c1b18;
+  --fs-muted: #6d6a62;
+  --fs-line: rgb(28 27 24 / 0.09);
+  --fs-scrim: rgb(24 20 14 / 0.26);
+  --fs-crease: rgb(40 30 10 / 0.34);
+  --fs-ease: cubic-bezier(0.22, 0.9, 0.24, 1);
+  --fs-open-ms: 420ms;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--fs-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.fold-sheet--night {
+  --fs-surface: #18191c;
+  --fs-ink: #ebebe8;
+  --fs-muted: #8e9096;
+  --fs-line: rgb(255 255 255 / 0.08);
+  --fs-scrim: rgb(0 0 0 / 0.5);
+  --fs-crease: rgb(0 0 0 / 0.7);
+}
+.fold-sheet--contained { position: absolute; }
+
+.fold-sheet__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--fs-scrim);
+  animation: fs-fade 360ms ease both;
+}
+
+/* The hinge is where the perspective lives; the panel rotates about its edge. */
+.fold-sheet__hinge {
+  position: absolute;
+  display: flex;
+  perspective: 1400px;
+  pointer-events: none;
+}
+.fold-sheet--right .fold-sheet__hinge { inset: 0 0 0 auto; width: min(100% - 24px, 25rem); perspective-origin: 100% 50%; }
+.fold-sheet--left .fold-sheet__hinge { inset: 0 auto 0 0; width: min(100% - 24px, 25rem); perspective-origin: 0 50%; }
+.fold-sheet--bottom .fold-sheet__hinge { inset: auto 0 0 0; height: 88%; align-items: flex-end; perspective-origin: 50% 100%; }
+
+.fold-sheet__panel {
+  --fs-fold: rotateY(-84deg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  background: var(--fs-surface);
+  pointer-events: auto;
+  outline: none;
+  backface-visibility: hidden;
+  animation: fs-unfold var(--fs-open-ms) var(--fs-ease) both;
+}
+.fold-sheet--right .fold-sheet__panel { height: 100%; transform-origin: 100% 50%; border-radius: 18px 0 0 18px; box-shadow: -1px 0 0 var(--fs-line), -30px 0 60px -30px rgb(0 0 0 / 0.35); }
+.fold-sheet--left .fold-sheet__panel { --fs-fold: rotateY(84deg); height: 100%; transform-origin: 0 50%; border-radius: 0 18px 18px 0; box-shadow: 1px 0 0 var(--fs-line), 30px 0 60px -30px rgb(0 0 0 / 0.35); }
+.fold-sheet--bottom .fold-sheet__panel { --fs-fold: rotateX(84deg); transform-origin: 50% 100%; border-radius: 20px 20px 0 0; box-shadow: 0 -1px 0 var(--fs-line), 0 -30px 60px -30px rgb(0 0 0 / 0.35); }
+
+/* Crease: shade gathered at the hinge while the surface is still angled away. */
+.fold-sheet__crease {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--fs-shade, 0);
+  animation: fs-crease var(--fs-open-ms) var(--fs-ease) both;
+}
+.fold-sheet--right .fold-sheet__crease { background: linear-gradient(to left, var(--fs-crease), transparent 75%); }
+.fold-sheet--left .fold-sheet__crease { background: linear-gradient(to right, var(--fs-crease), transparent 75%); }
+.fold-sheet--bottom .fold-sheet__crease { background: linear-gradient(to top, var(--fs-crease), transparent 75%); }
+
+/* Spine: title and close. It is on the surface, so it folds with it. */
+.fold-sheet__spine {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: none;
+  padding: 20px 20px 14px;
+  border-bottom: 1px solid var(--fs-line);
+}
+.fold-sheet--bottom .fold-sheet__spine { flex-wrap: wrap; padding-top: 6px; }
+.fold-sheet__handle {
+  display: grid;
+  place-items: center;
+  flex: 0 0 calc(100% + 40px);
+  height: 22px;
+  margin: 0 -20px 4px;
+  border: 0;
+  background: none;
+  cursor: grab;
+  touch-action: none;
+}
+.fold-sheet__handle span { width: 36px; height: 4px; border-radius: 99px; background: color-mix(in srgb, var(--fs-ink) 22%, transparent); transition: background 160ms ease, width 160ms ease; }
+.fold-sheet__handle:hover span, .fold-sheet[data-dragging] .fold-sheet__handle span { width: 44px; background: color-mix(in srgb, var(--fs-ink) 38%, transparent); }
+.fold-sheet__handle:focus-visible { outline: none; }
+.fold-sheet__handle:focus-visible span { outline: 2px solid var(--fs-ink); outline-offset: 3px; }
+.fold-sheet[data-dragging] .fold-sheet__handle { cursor: grabbing; }
+
+.fold-sheet__heading { flex: 1; min-width: 0; }
+.fold-sheet__title { margin: 0; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+.fold-sheet__desc { margin: 3px 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--fs-muted); }
+.fold-sheet__close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  margin: -3px -5px 0 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--fs-muted);
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+.fold-sheet__close:hover { background: color-mix(in srgb, var(--fs-ink) 6%, transparent); color: var(--fs-ink); }
+.fold-sheet__close:focus-visible { outline: 2px solid var(--fs-ink); outline-offset: 1px; }
+.fold-sheet__close svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+
+.fold-sheet__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px 20px 20px;
+}
+/* Content becomes legible as the surface comes square — opacity only, in reading order. */
+.fold-sheet__body > * { animation: fs-legible 280ms ease both; animation-delay: calc(var(--fs-open-ms) * 0.45); }
+.fold-sheet__body > :nth-child(2) { animation-delay: calc(var(--fs-open-ms) * 0.45 + 45ms); }
+.fold-sheet__body > :nth-child(3) { animation-delay: calc(var(--fs-open-ms) * 0.45 + 90ms); }
+.fold-sheet__body > :nth-child(4) { animation-delay: calc(var(--fs-open-ms) * 0.45 + 135ms); }
+.fold-sheet__body > :nth-child(n + 5) { animation-delay: calc(var(--fs-open-ms) * 0.45 + 180ms); }
+
+.fold-sheet__footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--fs-line);
+  animation: fs-legible 280ms ease both;
+  animation-delay: calc(var(--fs-open-ms) * 0.55);
+}
+
+/* Once open, the surface is just a panel: no replayed entrance when its style changes. */
+.fold-sheet[data-settled]:not([data-phase="closing"]) .fold-sheet__panel,
+.fold-sheet[data-settled] .fold-sheet__crease,
+.fold-sheet[data-settled] .fold-sheet__body > *,
+.fold-sheet[data-settled] .fold-sheet__footer { animation: none; }
+
+/* Dragging (bottom sheet): the angle follows the finger; release springs or folds. */
+.fold-sheet__panel[style*="--fs-drag"] { animation: none; transform: rotateX(var(--fs-drag)); transition: transform 360ms var(--fs-ease); }
+.fold-sheet__panel[style*="--fs-drag"] .fold-sheet__crease { animation: none; }
+.fold-sheet__panel[style*="--fs-drag"] .fold-sheet__body > *,
+.fold-sheet__panel[style*="--fs-drag"] .fold-sheet__footer { animation: none; }
+.fold-sheet[data-dragging] .fold-sheet__panel { transition: none; }
+.fold-sheet:not([data-dragging]) .fold-sheet__panel { transition: transform 360ms var(--fs-ease); }
+
+/* Closing: fold back onto the edge. */
+.fold-sheet[data-phase="closing"] .fold-sheet__scrim { animation: fs-fade-out 300ms ease both; }
+.fold-sheet[data-phase="closing"] .fold-sheet__panel { animation: fs-fold 300ms cubic-bezier(0.5, 0, 0.75, 0) both; }
+.fold-sheet[data-phase="closing"] .fold-sheet__crease { animation: fs-crease-out 300ms ease-in both; }
+
+@keyframes fs-unfold { from { transform: var(--fs-fold); } }
+@keyframes fs-fold { to { transform: var(--fs-fold); } }
+@keyframes fs-crease { from { opacity: 1; } to { opacity: 0; } }
+@keyframes fs-crease-out { from { opacity: var(--fs-shade, 0); } to { opacity: 1; } }
+@keyframes fs-legible { from { opacity: 0; } }
+@keyframes fs-fade { from { opacity: 0; } }
+@keyframes fs-fade-out { to { opacity: 0; } }
+@keyframes fs-slide-in { from { opacity: 0; transform: translate(var(--fs-slide, 0), var(--fs-slide-y, 0)); } }
+@keyframes fs-slide-out { to { opacity: 0; transform: translate(var(--fs-slide, 0), var(--fs-slide-y, 0)); } }
+
+/* Reduced motion: no rotation, no crease — a short fade and nudge from the edge. */
+.fold-sheet--right { --fs-slide: 16px; }
+.fold-sheet--left { --fs-slide: -16px; }
+.fold-sheet--bottom { --fs-slide-y: 16px; }
+.fold-sheet[data-motion="reduced"] .fold-sheet__panel { animation: fs-slide-in 180ms ease-out both; }
+.fold-sheet[data-motion="reduced"][data-phase="closing"] .fold-sheet__panel { animation: fs-slide-out 160ms ease-in both; }
+.fold-sheet[data-motion="reduced"] .fold-sheet__crease { display: none; }
+.fold-sheet[data-motion="reduced"] .fold-sheet__body > *,
+.fold-sheet[data-motion="reduced"] .fold-sheet__footer { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fold-sheet__panel { animation: fs-slide-in 180ms ease-out both; }
+  .fold-sheet[data-phase="closing"] .fold-sheet__panel { animation: fs-slide-out 160ms ease-in both; }
+  .fold-sheet__crease { display: none; }
+  .fold-sheet__body > *, .fold-sheet__footer { animation: none; }
+}

@@ -1,0 +1,32 @@
+.bs { --bg: #fbfaf7; --ink: #1b1a17; --muted: #77736b; --line: rgb(27 26 23 / 0.1); --accent: #7c5cff; width: min(100%, 38rem); padding: 20px; border: 1px solid var(--line); border-radius: 20px; background: var(--bg); color: var(--ink); font: 0.9375rem/1.6 "Geist", ui-sans-serif, system-ui, sans-serif; overflow: hidden; }
+.bs--night { --bg: #111015; --ink: #ecebf0; --muted: #8f8b97; --line: rgb(236 235 240 / 0.1); --accent: #a996ff; }
+.bs__anim { animation: bs-slide 460ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.bs__answer.bs__anim { animation-delay: 70ms; }
+.bs__thread[data-dir="prev"] .bs__anim { animation-name: bs-slide-back; }
+@keyframes bs-slide { from { opacity: 0; translate: 36px 0; filter: blur(4px); } }
+@keyframes bs-slide-back { from { opacity: 0; translate: -36px 0; filter: blur(4px); } }
+.bs__user { display: flex; justify-content: flex-end; }
+.bs__bubble { margin: 0; max-width: 85%; padding: 10px 14px; border-radius: 16px 16px 4px 16px; background: color-mix(in oklab, var(--accent) 12%, transparent); }
+.bs__edit { width: 100%; }
+.bs__edit textarea { width: 100%; padding: 10px 12px; border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent); border-radius: 12px; background: transparent; color: inherit; font: inherit; resize: vertical; outline: none; }
+.bs__edit textarea:focus-visible { box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent); }
+.bs__edit div { display: flex; justify-content: flex-end; gap: 6px; margin-top: 8px; }
+.bs__edit button, .bs__pager button, .bs__icon { border: 1px solid var(--line); border-radius: 999px; background: none; color: inherit; font: inherit; font-size: 0.8125rem; cursor: pointer; }
+.bs__edit button { height: 32px; padding: 0 12px; }
+.bs__primary { background: var(--ink) !important; color: var(--bg) !important; border-color: transparent !important; }
+.bs__tools { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin: 8px 0 14px; color: var(--muted); }
+.bs__icon { display: grid; place-items: center; width: 30px; height: 30px; }
+.bs__icon svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; }
+.bs__pager { display: inline-flex; align-items: center; gap: 6px; font: 0.75rem "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+.bs__pager button { width: 30px; height: 30px; font-size: 1rem; line-height: 1; }
+.bs__pager button:disabled { opacity: 0.35; cursor: default; }
+.bs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.bs__tree { height: 30px; overflow: visible; }
+.bs__tree path { fill: none; stroke: color-mix(in oklab, var(--ink) 25%, transparent); stroke-width: 1.4; }
+.bs__tree circle { fill: var(--bg); stroke: color-mix(in oklab, var(--ink) 35%, transparent); stroke-width: 1.4; cursor: pointer; transition: r 250ms ease, fill 250ms ease; }
+.bs__tree circle[data-on] { fill: var(--accent); stroke: var(--accent); }
+.bs__tree .bs__root { fill: color-mix(in oklab, var(--ink) 35%, transparent); stroke: none; cursor: default; }
+.bs__answer { display: grid; grid-template-columns: 26px 1fr; gap: 12px; }
+.bs__answer p { margin: 0; }
+.bs__avatar { width: 26px; height: 26px; border-radius: 50%; background: conic-gradient(from 200deg, var(--accent), #ff8a5c, #4ff0c9, var(--accent)); }
+@media (prefers-reduced-motion: reduce) { .bs__anim { animation: none !important; } }

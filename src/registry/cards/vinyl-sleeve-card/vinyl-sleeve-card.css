@@ -1,0 +1,230 @@
+.vs {
+  --size: min(250px, 58vw);
+  --label: #e9d9b0;
+  --label-ink: #2a1f12;
+  display: grid;
+  gap: 20px;
+  width: max-content;
+  max-width: 100%;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+  color: #f2eee6;
+}
+
+.vs__stage {
+  position: relative;
+  width: calc(var(--size) * 1.62);
+  height: var(--size);
+}
+.vs__sleeve {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--size);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.12) inset, 0 24px 40px -18px rgb(0 0 0 / 0.75), 0 3px 8px rgb(0 0 0 / 0.35);
+  z-index: 2;
+}
+.vs__sleeve > svg { display: block; width: 100%; height: 100%; }
+/* Ring wear and a soft card sheen, like a well-loved sleeve. */
+.vs__wear {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 43%, rgb(255 255 255 / 0.07) 44.5%, transparent 46%),
+    linear-gradient(120deg, rgb(255 255 255 / 0.12), transparent 30%, transparent 70%, rgb(0 0 0 / 0.15));
+  pointer-events: none;
+}
+
+/* The record slides out of the sleeve on hover, focus, or while playing. */
+.vs__record {
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  width: 94%;
+  width: calc(var(--size) * 0.94);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  z-index: 1;
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.vs:hover .vs__record,
+.vs:focus-within .vs__record,
+.vs[data-playing] .vs__record {
+  transform: translateX(calc(var(--size) * 0.55));
+}
+.vs__disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at 50% 50%, #0b0b0c 0 1.1px, #161618 1.1px 2.2px),
+    #0d0d0e;
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.8), inset 0 0 0 2px #1d1d20, inset 0 0 0 calc(var(--size) * 0.04) #0a0a0b;
+  animation: vs-spin 1.8s linear infinite;
+  animation-play-state: paused;
+}
+.vs[data-playing] .vs__disc { animation-play-state: running; }
+@keyframes vs-spin { to { transform: rotate(360deg); } }
+.vs__label {
+  position: absolute;
+  inset: 33%;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 2px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--label), #fff 12%), var(--label));
+  color: var(--label-ink);
+  text-align: center;
+  box-shadow: 0 0 0 2px rgb(0 0 0 / 0.35);
+}
+.vs__lt {
+  max-width: 82%;
+  font: italic 500 calc(var(--size) * 0.04) / 1.05 var(--font-newsreader), Georgia, serif;
+  margin-top: -18%;
+}
+.vs__la {
+  font: 600 calc(var(--size) * 0.022) / 1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.vs__hole {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: #0b0b0c;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.4);
+}
+/* The sheen sits above the disc and never rotates. */
+.vs__sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 20deg, transparent 0 6%, rgb(255 255 255 / 0.13) 10%, transparent 16% 46%, rgb(255 255 255 / 0.1) 56%, transparent 62% 100%);
+  -webkit-mask: radial-gradient(closest-side, transparent 34%, #000 35%, #000 97%, transparent 98%);
+  mask: radial-gradient(closest-side, transparent 34%, #000 35%, #000 97%, transparent 98%);
+  pointer-events: none;
+}
+
+/* The tonearm: resting off to the side, swinging in to play. */
+.vs__arm {
+  position: absolute;
+  right: calc(var(--size) * -0.02);
+  top: calc(var(--size) * -0.08);
+  width: calc(var(--size) * 0.46);
+  height: auto;
+  z-index: 3;
+  overflow: visible;
+  filter: drop-shadow(0 6px 6px rgb(0 0 0 / 0.5));
+  /* Only there once the record is out: on its own it would float in empty space. */
+  opacity: 0;
+  translate: 8px -6px;
+  transition: opacity 400ms ease 200ms, translate 500ms cubic-bezier(0.2, 0.8, 0.2, 1) 200ms;
+}
+.vs:hover .vs__arm,
+.vs:focus-within .vs__arm,
+.vs[data-playing] .vs__arm {
+  opacity: 1;
+  translate: 0 0;
+}
+.vs__base { fill: #2b2c30; stroke: #45474d; stroke-width: 2; }
+.vs__pin { fill: #8b8f97; }
+.vs__swing {
+  transform-origin: 92px 22px;
+  transform: rotate(-26deg);
+  transition: transform 900ms cubic-bezier(0.5, 0, 0.25, 1);
+}
+.vs[data-playing] .vs__swing { transform: rotate(4deg); transition-delay: 150ms; }
+.vs__rod { fill: none; stroke: #c9ccd2; stroke-width: 4; stroke-linecap: round; }
+.vs__head { fill: #2b2c30; stroke: #6a6d74; stroke-width: 1.5; }
+.vs__weight { fill: #6a6d74; }
+
+/* Below: the title and the transport. */
+.vs__info {
+  display: grid;
+  gap: 14px;
+  width: calc(var(--size) * 1.62);
+}
+.vs__title {
+  margin: 0;
+  font: 500 22px/1.1 var(--font-newsreader), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+.vs__by {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: rgb(242 238 230 / 0.55);
+}
+.vs__now {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.vs__play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: #f2eee6;
+  color: #111;
+  cursor: pointer;
+  transition: transform 140ms ease;
+}
+.vs__play:active { transform: scale(0.94); }
+.vs__play:focus-visible { outline: 2px solid var(--label); outline-offset: 3px; }
+.vs__play svg { width: 18px; height: 18px; fill: currentColor; }
+.vs__track {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px 10px;
+  flex: 1;
+  min-width: 0;
+}
+.vs__song {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vs__time {
+  grid-column: 2;
+  grid-row: 1;
+  font: 500 11.5px/1 "Geist Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  color: rgb(242 238 230 / 0.55);
+}
+.vs__bar {
+  grid-column: 1 / -1;
+  height: 3px;
+  border-radius: 3px;
+  background: rgb(255 255 255 / 0.14);
+  overflow: hidden;
+}
+.vs__bar i {
+  display: block;
+  height: 100%;
+  background: var(--label);
+  transition: width 1s linear;
+}
+
+.vs[data-motion="reduced"] .vs__arm,
+.vs[data-motion="reduced"] .vs__record,
+.vs[data-motion="reduced"] .vs__swing,
+.vs[data-motion="reduced"] .vs__bar i { transition: none; }
+.vs[data-motion="reduced"] .vs__disc { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .vs__arm,
+  .vs__record,
+  .vs__swing,
+  .vs__bar i { transition: none; }
+  .vs__disc { animation: none; }
+}

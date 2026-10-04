@@ -1,0 +1,180 @@
+/* Code Cascade Verify — digits drop in one after another; a wrong code sends a wave along the row. */
+@property --ccv-p { syntax: "<number>"; inherits: true; initial-value: 1; }
+
+.ccv {
+  --ccv-bg: #141217;
+  --ccv-rim: rgb(239 232 220 / 0.1);
+  --ccv-ink: #efe8dc;
+  --ccv-muted: #9c96a1;
+  --ccv-cell: #1b191f;
+  --ccv-line: rgb(239 232 220 / 0.16);
+  --ccv-accent: #b9cce4;
+  --ccv-ok: #7fd1a8;
+  --ccv-err: #f08a7a;
+  --ccv-focus: #b9cce4;
+  width: min(100%, 25rem);
+  padding: 2rem 1.75rem 1.6rem;
+  border-radius: 26px;
+  background: var(--ccv-bg);
+  box-shadow: inset 0 0 0 1px var(--ccv-rim), 0 30px 60px -40px rgb(0 0 0 / 0.8);
+  color: var(--ccv-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.ccv--paper {
+  --ccv-bg: #fffdf8;
+  --ccv-rim: rgb(27 26 23 / 0.1);
+  --ccv-ink: #1b1a17;
+  --ccv-muted: #6f6a62;
+  --ccv-cell: #f7f4ee;
+  --ccv-line: rgb(27 26 23 / 0.14);
+  --ccv-accent: #2f5fd0;
+  --ccv-ok: #1f7a4d;
+  --ccv-err: #b4372a;
+  --ccv-focus: #2f5fd0;
+}
+
+.ccv__title { margin: 0; font-size: 1.375rem; font-weight: 600; letter-spacing: -0.025em; }
+.ccv__sub { margin: 0.45rem 0 0; font-size: 0.875rem; line-height: 1.5; color: var(--ccv-muted); }
+.ccv__sub strong { color: var(--ccv-ink); font-weight: 600; }
+.ccv__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* One real input lies over the drawn cells, so typing, pasting and autofill all just work. */
+.ccv__cells { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; margin-top: 1.6rem; }
+.ccv__input {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font-size: 16px;
+  letter-spacing: 2em;
+  outline: none;
+  cursor: text;
+}
+.ccv__input::selection { background: transparent; }
+.ccv__cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 3.6rem;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--ccv-cell);
+  box-shadow: inset 0 0 0 1px var(--ccv-line);
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  transition: box-shadow 200ms ease, background 300ms ease;
+}
+.ccv__cell[data-active] { box-shadow: inset 0 0 0 1.5px var(--ccv-accent), 0 0 0 4px color-mix(in srgb, var(--ccv-accent) 16%, transparent); }
+.ccv__digit { animation: ccv-in 360ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both; animation-delay: var(--dl); }
+@keyframes ccv-in { from { transform: translateY(70%); opacity: 0; } }
+.ccv__caret { position: absolute; width: 1.5px; height: 1.5rem; background: var(--ccv-accent); opacity: 0; }
+.ccv__cell[data-active]:not([data-filled]) .ccv__caret { animation: ccv-blink 1s steps(1) infinite; }
+@keyframes ccv-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+/* Checking: a soft pulse passes along the row. */
+.ccv[data-phase="checking"] .ccv__cell { animation: ccv-check 900ms ease-in-out infinite; animation-delay: calc(var(--i) * 90ms); }
+@keyframes ccv-check { 50% { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ccv-accent) 70%, transparent); } }
+
+/* Wrong: a damped wave from the cell you were on, outward both ways, fading with distance. */
+.ccv__cells[data-wave] .ccv__cell { background: color-mix(in srgb, var(--ccv-err) 10%, var(--ccv-cell)); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ccv-err) 70%, transparent); animation: 620ms cubic-bezier(0.3, 0.6, 0.4, 1) both; animation-delay: calc(var(--o) * 60ms); }
+.ccv__cells[data-wave="a"] .ccv__cell { animation-name: ccv-wave-a; }
+.ccv__cells[data-wave="b"] .ccv__cell { animation-name: ccv-wave-b; }
+@keyframes ccv-wave-a {
+  0%, 100% { transform: none; }
+  20% { transform: translateY(calc(-9px * max(0.25, 1 - var(--o) * 0.17))); }
+  45% { transform: translateY(calc(5px * max(0.25, 1 - var(--o) * 0.17))); }
+  70% { transform: translateY(calc(-2px * max(0.25, 1 - var(--o) * 0.17))); }
+}
+@keyframes ccv-wave-b {
+  0%, 100% { transform: none; }
+  20% { transform: translateY(calc(-9px * max(0.25, 1 - var(--o) * 0.17))); }
+  45% { transform: translateY(calc(5px * max(0.25, 1 - var(--o) * 0.17))); }
+  70% { transform: translateY(calc(-2px * max(0.25, 1 - var(--o) * 0.17))); }
+}
+
+/* Right: the digits roll up and away in order, and one pill takes their place. */
+.ccv[data-phase="ok"] .ccv__digit { animation: ccv-out 420ms cubic-bezier(0.6, 0, 0.8, 0.4) both; animation-delay: calc(var(--i) * 60ms); }
+@keyframes ccv-out { to { transform: translateY(-110%); opacity: 0; } }
+.ccv[data-phase="ok"] .ccv__cell { background: color-mix(in srgb, var(--ccv-ok) 10%, var(--ccv-cell)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ccv-ok) 40%, transparent); transition-delay: calc(var(--i) * 60ms); }
+.ccv__ok {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--ccv-ok) 14%, var(--ccv-bg));
+  box-shadow: inset 0 0 0 1.5px var(--ccv-ok);
+  color: var(--ccv-ok);
+  font-size: 1rem;
+  font-weight: 600;
+  animation: ccv-pill 520ms cubic-bezier(0.2, 0.9, 0.3, 1.15) 640ms both;
+}
+.ccv__ok svg { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.ccv__ok path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ccv-draw 420ms ease 1s forwards; }
+@keyframes ccv-pill { from { transform: scaleX(0.6); opacity: 0; } }
+@keyframes ccv-draw { to { stroke-dashoffset: 0; } }
+
+.ccv__note { min-height: 2.6em; margin: 1rem 0 0; font-size: 0.8125rem; line-height: 1.45; color: var(--ccv-muted); }
+.ccv[data-phase="wrong"] .ccv__note { color: var(--ccv-err); }
+.ccv[data-phase="ok"] .ccv__note { color: var(--ccv-ok); }
+
+.ccv__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; }
+
+/* Resend: the countdown is a line drawn round the pill, emptying; when it runs out the pill fills. */
+.ccv__resend {
+  --ccv-p: var(--p);
+  position: relative;
+  isolation: isolate;
+  height: 2.5rem;
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ccv-muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: not-allowed;
+  transition: --ccv-p 300ms linear, color 300ms ease;
+}
+.ccv__ring {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1.5px;
+  border-radius: inherit;
+  background:
+    conic-gradient(from 0deg, var(--ccv-accent) calc(var(--ccv-p) * 360deg), var(--ccv-line) 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  transition: padding 500ms cubic-bezier(0.65, 0, 0.35, 1), background 300ms ease;
+}
+.ccv__resend[data-ready] { color: var(--ccv-bg); cursor: pointer; }
+.ccv__resend[data-ready] .ccv__ring { padding: 1.25rem 50%; background: var(--ccv-ink); }
+.ccv__resend[data-ready]:hover { transform: translateY(-1px); }
+.ccv__resend:focus-visible { outline: 2px solid var(--ccv-focus); outline-offset: 3px; }
+.ccv__alt { font-size: 0.8125rem; color: var(--ccv-muted); text-underline-offset: 3px; }
+.ccv__alt:hover { color: var(--ccv-ink); }
+.ccv__alt:focus-visible { outline: 2px solid var(--ccv-focus); outline-offset: 2px; border-radius: 3px; }
+
+@media (max-width: 400px) {
+  .ccv { padding: 1.6rem 1.15rem 1.3rem; }
+  .ccv__cells { gap: 0.35rem; }
+  .ccv__cell { height: 3.1rem; font-size: 1.35rem; border-radius: 11px; }
+}
+
+.ccv[data-motion="reduced"] *, .ccv[data-motion="reduced"] { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  .ccv *, .ccv { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+}

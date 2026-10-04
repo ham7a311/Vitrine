@@ -1,0 +1,86 @@
+.pt {
+  --paper: #f6efdc;
+  --ink: #2a2116;
+  --muted: #8a7b63;
+  --hole: #1c1a17;
+  --rule: rgb(42 33 22 / 0.16);
+  display: flex;
+  min-width: 0;
+  width: min(100%, 30rem);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.6) inset, 0 22px 40px -24px rgb(0 0 0 / 0.55);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  overflow: hidden;
+}
+.pt__stub {
+  flex: none;
+  width: 44px;
+  display: grid;
+  place-items: center;
+  border-right: 2px dashed var(--rule);
+  background: color-mix(in oklab, var(--paper) 88%, #c79a4c);
+  font: 600 0.6875rem/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.24em;
+  color: var(--muted);
+}
+.pt__stub span { writing-mode: vertical-rl; rotate: 180deg; }
+.pt__body { flex: 1; min-width: 0; padding: 18px 20px 10px; }
+.pt__title { float: left; width: 100%; margin: 0 0 6px; padding: 0; font: 400 1.5rem/1.1 "Instrument Serif", Georgia, serif; }
+.pt__rows { clear: both; display: flex; flex-direction: column; }
+
+.pc { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 52px; padding: 8px 0; border-top: 1px solid var(--rule, rgb(0 0 0 / 0.12)); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.pc__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pc__title { font-size: 0.9375rem; font-weight: 500; }
+.pc__hint { font: 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--muted, #888); }
+.pc__input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.pc__spot { position: relative; flex: none; width: 26px; height: 26px; }
+.pc__ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed color-mix(in oklab, var(--ink, #222) 45%, transparent); transition: opacity 200ms ease; }
+.pc[data-on] .pc__ring { opacity: 0; }
+.pc__hole {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--hole, #111);
+  box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.6), 0 1px 0 rgb(255 255 255 / 0.5);
+  scale: 0;
+  transition: scale 120ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.pc[data-on] .pc__hole { scale: 1; }
+.pc__chad {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--paper, #f6efdc);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.25);
+  opacity: 0;
+  pointer-events: none;
+}
+.pc[data-beat="in"] .pc__chad { animation: pc-fall 900ms cubic-bezier(0.4, 0, 0.9, 0.5) forwards; }
+.pc[data-beat="out"] .pc__chad { animation: pc-return 420ms cubic-bezier(0.2, 0.8, 0.3, 1) forwards; }
+@keyframes pc-fall {
+  0% { opacity: 1; translate: 0 0; rotate: 0deg; scale: 1 1; }
+  12% { scale: 0.9 0.9; }
+  100% { opacity: 0; translate: var(--drift) 150px; rotate: var(--spin); scale: 0.95 0.35; }
+}
+@keyframes pc-return {
+  0% { opacity: 0; translate: var(--drift) 60px; rotate: var(--spin); scale: 0.9 0.4; }
+  80% { opacity: 1; }
+  100% { opacity: 1; translate: 0 0; rotate: 0deg; scale: 1 1; }
+}
+.pc[data-beat="in"] .pc__spot { animation: pc-squash 220ms ease-out; }
+@keyframes pc-squash { 40% { scale: 0.86; } 100% { scale: 1; } }
+.pc[data-beat="out"] .pc__chad { animation-fill-mode: forwards; }
+.pc:not([data-on])[data-beat="out"] .pc__chad { animation-name: pc-return; }
+.pc__input:focus-visible + .pc__spot { outline: 2px solid var(--ink, #222); outline-offset: 4px; border-radius: 50%; }
+.pc__input:focus-visible ~ .pc__text .pc__title { text-decoration: underline; }
+/* when the punch returns, the chad sits in the hole, then fades into the paper */
+.pc:not([data-on]) .pc__chad { transition: opacity 200ms ease 420ms; }
+@media (prefers-reduced-motion: reduce) {
+  .pc__chad, .pc__spot { animation: none !important; }
+  .pc__hole, .pc__ring { transition: none; }
+}

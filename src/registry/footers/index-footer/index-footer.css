@@ -1,0 +1,38 @@
+/* Index Footer — links set like the back of a book. */
+.index-footer {
+  --if-ink: #efe8dc;
+  --if-muted: #a8a59c;
+  --if-faint: #5f5b55;
+  --if-line: rgb(239 232 220 / 0.1);
+  container-type: inline-size;
+  width: 100%;
+  padding: 4rem clamp(1.25rem, 5vw, 4rem) 2rem;
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--if-ink);
+}
+.index-footer__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-bottom: 1.4rem; border-bottom: 1px solid var(--if-line); }
+.index-footer__title { margin: 0; font: italic 400 clamp(3rem, 9cqi, 5.5rem)/0.9 "Instrument Serif", Georgia, serif; letter-spacing: -0.03em; }
+.index-footer__note { margin: 0; font-size: 0.875rem; color: var(--if-faint); }
+
+.index-footer__cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem 2.5rem; padding: 2rem 0 2.5rem; }
+.index-footer__letter { margin: 0 0 0.6rem; font: 400 1.6rem "Instrument Serif", Georgia, serif; color: var(--if-accent); }
+.index-footer__col ul { margin: 0; padding: 0; list-style: none; }
+.index-footer__entry {
+  display: flex; align-items: baseline; gap: 0.4rem; padding: 0.3rem 0; color: var(--if-muted); text-decoration: none;
+  font-size: 0.9375rem; transition: color 220ms ease, opacity 320ms ease;
+}
+.index-footer__term { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.index-footer__leader { flex: 1; min-width: 1rem; height: 1px; margin-bottom: 0.3em; background-image: radial-gradient(circle, currentColor 0.8px, transparent 1px); background-size: 5px 2px; background-repeat: repeat-x; opacity: 0.45; }
+.index-footer__ref { font: 500 0.75rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--if-faint); transition: color 220ms ease; }
+/* isolate the line you're reading */
+.index-footer__cols:has(.index-footer__entry:hover, .index-footer__entry:focus-visible) .index-footer__entry { opacity: 0.32; }
+.index-footer__cols .index-footer__entry:hover,
+.index-footer__cols .index-footer__entry:focus-visible { opacity: 1; color: var(--if-ink); outline: none; }
+.index-footer__entry:hover .index-footer__ref, .index-footer__entry:focus-visible .index-footer__ref { color: var(--if-accent); }
+.index-footer__entry:focus-visible .index-footer__term { text-decoration: underline; text-decoration-color: var(--if-accent); text-underline-offset: 4px; }
+
+.index-footer__colophon { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 1.2rem; border-top: 1px solid var(--if-line); font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.08em; color: var(--if-faint); }
+
+@container (max-width: 52rem) { .index-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (max-width: 26rem) { .index-footer__cols { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .index-footer__entry, .index-footer__ref { transition: none; } }

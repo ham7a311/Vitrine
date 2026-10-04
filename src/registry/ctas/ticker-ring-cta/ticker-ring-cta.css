@@ -1,0 +1,89 @@
+/* Ticker Ring CTA — the small print runs round the banner's edge. */
+.trcta {
+  --tr-page: #0b0a0d;
+  --tr-band: #1a181e;
+  --tr-face: #121015;
+  --tr-ink: #efe8dc;
+  --tr-muted: #9c96a1;
+  --tr-tick: #b8b0a4;
+  --tr-hot: #f0b37a;
+  --tr-edge: rgb(239 232 220 / 0.12);
+  --tr-btn: #efe8dc;
+  --tr-btn-ink: #141216;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: var(--tr-page);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.trcta--paper {
+  --tr-page: #f3f1ec;
+  --tr-band: #1d3b2f;
+  --tr-face: #fbf7ec;
+  --tr-ink: #1d2a24;
+  --tr-muted: #5e6a63;
+  --tr-tick: #d8cfb8;
+  --tr-hot: #ffd27a;
+  --tr-edge: rgb(255 255 255 / 0.1);
+  --tr-btn: #1d3b2f;
+  --tr-btn-ink: #fbf7ec;
+}
+
+.trcta__band {
+  position: relative;
+  width: 100%;
+  max-width: 64rem;
+  padding: 34px;
+  border-radius: 30px;
+  background: var(--tr-band);
+  box-shadow: inset 0 0 0 1px var(--tr-edge), 0 30px 60px -40px rgb(0 0 0 / 0.7);
+}
+.trcta__ring { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.trcta__text { fill: var(--tr-tick); font-family: "Geist Mono", "JetBrains Mono", ui-monospace, monospace; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; transition: fill 400ms ease; }
+.trcta__band:has(.trcta__actions a:hover, .trcta__actions a:focus-visible) .trcta__text { fill: var(--tr-hot); }
+
+.trcta__face {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(2.75rem, 7vw, 5rem) clamp(1.25rem, 5vw, 4rem);
+  border-radius: 13px;
+  background: var(--tr-face);
+  color: var(--tr-ink);
+  text-align: center;
+  transition: box-shadow 400ms ease;
+}
+.trcta__band:has(.trcta__actions a:hover, .trcta__actions a:focus-visible) .trcta__face { box-shadow: 0 0 0 1px var(--tr-hot); }
+.trcta__eyebrow { margin: 0 0 1.1rem; font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tr-muted); }
+.trcta__headline { max-width: 17ch; margin: 0; font-size: clamp(1.875rem, 5vw, 3.5rem); font-weight: 600; line-height: 1.05; letter-spacing: -0.04em; text-wrap: balance; }
+.trcta__sub { max-width: 32rem; margin: 1.15rem 0 0; font-size: clamp(0.9375rem, 1.6vw, 1.0625rem); line-height: 1.55; color: var(--tr-muted); text-wrap: pretty; }
+.trcta__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1.5rem; margin-top: 2.1rem; }
+.trcta__primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 3.25rem;
+  padding: 0 1.5rem 0 1.75rem;
+  border-radius: 999px;
+  background: var(--tr-btn);
+  color: var(--tr-btn-ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: transform 160ms ease;
+}
+.trcta__primary svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1); }
+.trcta__primary:hover svg, .trcta__primary:focus-visible svg { transform: translateX(3px); }
+.trcta__primary:active { transform: scale(0.98); }
+.trcta__primary:focus-visible, .trcta__secondary:focus-visible { outline: 2px solid var(--tr-ink); outline-offset: 4px; }
+.trcta__secondary { border-radius: 4px; color: var(--tr-ink); font-size: 0.9375rem; font-weight: 500; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 4px; }
+.trcta__secondary:hover { text-decoration-color: currentColor; }
+.trcta__sr { position: absolute; width: 1px; height: 1px; margin: 0; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .trcta__face { border-radius: 10px; }
+}

@@ -1,0 +1,48 @@
+/* Fraction Checkbox — a partial state you can read. */
+.fraction-checkbox {
+  --fc-ink: #efe8dc;
+  --fc-muted: #a7a1ab;
+  --fc-faint: #5f5a64;
+  --fc-line: rgb(239 232 220 / 0.08);
+  --fc-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100%, 22rem);
+  margin: 0;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 16px;
+  background: #121015;
+  box-shadow: inset 0 0 0 1px var(--fc-line);
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--fc-ink);
+}
+.fraction-checkbox__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.fraction-checkbox input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.fraction-checkbox label { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0.65rem; border-radius: 10px; cursor: pointer; transition: background 160ms ease; }
+.fraction-checkbox label:hover { background: rgb(239 232 220 / 0.04); }
+.fraction-checkbox label:has(input:focus-visible) { box-shadow: inset 0 0 0 2px var(--fc-accent); }
+
+.fraction-checkbox__all { border-bottom: 1px solid var(--fc-line); border-radius: 10px 10px 0 0 !important; margin-bottom: 0.25rem; }
+.fraction-checkbox__gauge {
+  position: relative; display: grid; place-items: center; width: 1.25rem; height: 1.25rem; flex: none; overflow: hidden; border-radius: 5px;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--fc-ink) 35%, transparent); transition: box-shadow 300ms ease;
+}
+.fraction-checkbox__level { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--fc-f) * 100%); background: var(--fc-accent); transition: height 520ms var(--fc-ease); }
+/* a meniscus line at the top of the level when partial */
+.fraction-checkbox__level::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgb(255 255 255 / 0.6); opacity: calc(1 - var(--fc-f)); }
+.fraction-checkbox__gauge svg, .fraction-checkbox__box svg { position: relative; width: 0.9rem; height: 0.9rem; fill: none; stroke: #0f0d12; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 14; stroke-dashoffset: 14; transition: stroke-dashoffset 320ms var(--fc-ease); }
+.fraction-checkbox__all input:checked + .fraction-checkbox__gauge { box-shadow: inset 0 0 0 1.5px var(--fc-accent); }
+.fraction-checkbox__all input:checked + .fraction-checkbox__gauge svg { stroke-dashoffset: 0; transition-delay: 300ms; }
+.fraction-checkbox__title { flex: 1; font-size: 0.9375rem; font-weight: 600; }
+.fraction-checkbox__count { display: inline-flex; gap: 0.25em; font: 500 0.75rem "Geist Mono", monospace; color: var(--fc-muted); font-variant-numeric: tabular-nums; }
+.fraction-checkbox__count span { display: inline-block; color: var(--fc-ink); animation: fraction-checkbox-roll 320ms var(--fc-ease); }
+
+.fraction-checkbox ul { margin: 0; padding: 0; list-style: none; }
+.fraction-checkbox__opt { font-size: 0.9rem; color: var(--fc-muted); }
+.fraction-checkbox__opt:has(input:checked) { color: var(--fc-ink); }
+.fraction-checkbox__box { display: grid; place-items: center; width: 1.1rem; height: 1.1rem; flex: none; margin-left: 0.075rem; border-radius: 4px; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--fc-ink) 25%, transparent); transition: background 200ms ease, box-shadow 200ms ease; }
+.fraction-checkbox__opt input:checked + .fraction-checkbox__box { background: var(--fc-accent); box-shadow: none; }
+.fraction-checkbox__opt input:checked + .fraction-checkbox__box svg { stroke-dashoffset: 0; }
+.fraction-checkbox__meta { margin-left: auto; font: 500 0.6875rem "Geist Mono", monospace; color: var(--fc-faint); }
+
+@keyframes fraction-checkbox-roll { from { transform: translateY(-60%); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .fraction-checkbox * { transition-duration: 1ms !important; animation: none !important; } }

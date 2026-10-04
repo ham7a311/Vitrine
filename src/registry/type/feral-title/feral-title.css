@@ -1,0 +1,154 @@
+/* Feral Title — heartbeat, slam, gash, bleed, breathe. */
+.feral-title {
+  --ft-a: #c1121f;
+  --ft-b: #7a0000;
+  --ft-blood: #5a0000;
+  --ft-bg: #050303;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  width: 100%;
+  background: var(--ft-bg);
+  font-family: "Anton", "Archivo", Impact, sans-serif;
+}
+.feral-title__defs { position: absolute; }
+
+.feral-title__pulse {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--ft-a) 55%, transparent), transparent 62%);
+  opacity: 0;
+  animation: feral-title-pulse 1.25s ease-out both;
+}
+.feral-title__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  animation: feral-title-grain 0.9s steps(4) infinite;
+}
+
+.feral-title__shake { position: relative; z-index: 2; padding: 2rem 1.5rem; }
+.feral-title__word {
+  position: relative;
+  margin: 0;
+  display: flex;
+  font-weight: 400;
+  font-size: clamp(4rem, 17vw, 11rem);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: feral-title-breathe 4.2s ease-in-out var(--ft-end) infinite;
+}
+.feral-title__letter,
+.feral-title__bleed {
+  display: inline-block;
+  transform: scaleY(1.32);
+  transform-origin: 50% 100%;
+}
+.feral-title__letter {
+  background: linear-gradient(180deg, var(--ft-a) 0%, var(--ft-a) 38%, var(--ft-b) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  animation: feral-title-slam 0.38s cubic-bezier(0.2, 1.5, 0.4, 1) calc(var(--ft-start) + var(--i) * var(--ft-step)) both;
+}
+
+/* the darker bleed layer — revealed downward from the gash line */
+.feral-title__bleed {
+  position: absolute;
+  inset: 0;
+  color: var(--ft-blood);
+  clip-path: inset(50% 0 50% 0);
+  animation: feral-title-bleed 1.6s ease-in var(--ft-end) both;
+  pointer-events: none;
+  letter-spacing: inherit;
+}
+.feral-title__gash {
+  position: absolute;
+  left: -6%;
+  top: 46%;
+  height: 3px;
+  width: 112%;
+  background: #050303;
+  box-shadow: 0 0 10px 2px var(--ft-a);
+  clip-path: polygon(0 40%, 12% 0, 26% 70%, 41% 10%, 58% 80%, 73% 20%, 88% 90%, 100% 30%, 100% 60%, 0 100%);
+  transform: rotate(-2.2deg) scaleX(0);
+  transform-origin: 0 50%;
+  animation: feral-title-gash 0.28s cubic-bezier(0.1, 0.9, 0.2, 1) var(--ft-end) both;
+}
+.feral-title__drips { position: absolute; inset: 0; pointer-events: none; }
+.feral-title__drips i {
+  position: absolute;
+  top: 48%;
+  width: 4px;
+  height: 0;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(180deg, var(--ft-blood), var(--ft-a));
+  animation: feral-title-drip 2.2s ease-in calc(var(--ft-end) + 0.5s + var(--d) * 0.17s) both;
+}
+.feral-title__drips i:nth-child(odd) { width: 3px; }
+
+.feral-title__replay {
+  position: absolute;
+  z-index: 4;
+  right: 0.9rem;
+  bottom: 0.8rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--ft-a) 60%, transparent);
+  background: transparent;
+  color: color-mix(in srgb, var(--ft-a) 85%, #fff);
+  font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.feral-title__replay:hover { background: color-mix(in srgb, var(--ft-a) 18%, transparent); }
+.feral-title__replay:focus-visible { outline: 2px solid var(--ft-a); outline-offset: 3px; }
+
+@keyframes feral-title-pulse {
+  0% { opacity: 0; }
+  12% { opacity: 0.55; }
+  28% { opacity: 0.05; }
+  42% { opacity: 0.4; }
+  70%, 100% { opacity: 0; }
+}
+@keyframes feral-title-slam {
+  0% { opacity: 0; transform: scaleY(1.32) scale(1.5); filter: blur(10px); }
+  60% { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: scaleY(1.32) scale(1); filter: blur(0); }
+}
+@keyframes feral-title-gash { to { transform: rotate(-2.2deg) scaleX(1); } }
+@keyframes feral-title-bleed { to { clip-path: inset(46% 0 0 0); } }
+@keyframes feral-title-drip {
+  0% { height: 0; opacity: 0; }
+  10% { opacity: 1; }
+  100% { height: 38%; opacity: 0.9; }
+}
+@keyframes feral-title-breathe {
+  0%, 100% { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--ft-a) 25%, transparent)); }
+  50% { filter: drop-shadow(0 0 22px color-mix(in srgb, var(--ft-a) 55%, transparent)); }
+}
+@keyframes feral-title-grain {
+  0% { background-position: 0 0; }
+  25% { background-position: -40px 20px; }
+  50% { background-position: 30px -30px; }
+  75% { background-position: -20px -40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feral-title__pulse, .feral-title__grain, .feral-title__word { animation: none; }
+  .feral-title__letter { animation: none; opacity: 1; }
+  .feral-title__bleed { animation: none; clip-path: inset(46% 0 0 0); }
+  .feral-title__gash { animation: none; transform: rotate(-2.2deg) scaleX(1); }
+  .feral-title__drips i { animation: none; height: 30%; }
+}

@@ -1,0 +1,207 @@
+.ch {
+  --mx: 0;
+  --my: 0;
+  /* The metal: sky, a bright band at the horizon, a hard dark line, then warm ground. */
+  --sky-1: #ffffff;
+  --sky-2: #a9c8ea;
+  --sky-3: #4f7fb6;
+  --band: #f6fbff;
+  --line: #1c2230;
+  --ground-1: #6a4428;
+  --ground-2: #e6be8c;
+  --ground-3: #fff3df;
+  --edge: #2a3140;
+  --edge-2: #0d1017;
+  --glow: rgb(140 180 255 / 0.35);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  perspective: 1100px;
+}
+.ch--gold {
+  --sky-1: #fffbe8;
+  --sky-2: #f6d77c;
+  --sky-3: #b9811d;
+  --band: #fffdf2;
+  --line: #3a2205;
+  --ground-1: #6b3c0b;
+  --ground-2: #e9a93b;
+  --ground-3: #fff0c4;
+  --edge: #4a2c06;
+  --edge-2: #1d1003;
+  --glow: rgb(255 196 90 / 0.32);
+}
+.ch--rose {
+  --sky-1: #fff6f7;
+  --sky-2: #e9c3cf;
+  --sky-3: #a46d86;
+  --band: #fffafb;
+  --line: #2b1a24;
+  --ground-1: #5b3346;
+  --ground-2: #d79fae;
+  --ground-3: #fde9ee;
+  --edge: #3b2431;
+  --edge-2: #150b11;
+  --glow: rgb(255 160 190 / 0.3);
+}
+
+.ch__stage {
+  position: relative;
+  transform: rotateX(calc(var(--my) * -9deg)) rotateY(calc(var(--mx) * 12deg));
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.ch__word {
+  position: relative;
+  margin: 0;
+  font-family: Anton, "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(5rem, 21vw, 15rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+}
+.ch__layer {
+  display: block;
+}
+.ch__layer + .ch__layer,
+.ch__word > .ch__layer:not(:first-child) {
+  position: absolute;
+  inset: 0;
+}
+
+/* Depth: a stack of darker copies stepping down-right, then a soft coloured light around it all. */
+.ch__depth {
+  color: var(--edge);
+  text-shadow:
+    0 1px 0 var(--edge),
+    0 2px 0 var(--edge),
+    0 3px 0 var(--edge-2),
+    0 4px 0 var(--edge-2),
+    0 5px 0 var(--edge-2),
+    0 6px 0 var(--edge-2),
+    0 12px 18px rgb(0 0 0 / 0.55),
+    0 0 60px var(--glow);
+  transform: translateY(0.012em);
+}
+
+/* The metal. Its background slides with the pointer, so the room seems to move inside the letters. */
+.ch__metal {
+  background-image: linear-gradient(
+    180deg,
+    var(--sky-1) 0%,
+    var(--sky-2) 22%,
+    var(--sky-3) 44%,
+    var(--band) 50.5%,
+    var(--line) 51.5%,
+    var(--ground-1) 56%,
+    var(--ground-2) 76%,
+    var(--ground-3) 92%,
+    var(--ground-2) 100%
+  );
+  background-size: 100% 118%;
+  background-position: 50% calc(50% + var(--my) * 9% - var(--mx) * 2%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* A thin line of light along the top edges: a white copy, shown only in its top few percent and nudged up a hair. */
+.ch__rim {
+  color: #fff;
+  -webkit-text-fill-color: rgb(255 255 255 / 0.85);
+  -webkit-mask: linear-gradient(180deg, #000 0%, transparent 9%, transparent 100%);
+  mask: linear-gradient(180deg, #000 0%, transparent 9%, transparent 100%);
+  transform: translateY(-0.006em);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+}
+
+/* The glint: a bright diagonal band clipped to the letters, sweeping across every 4.2s. */
+.ch__glint {
+  background-image: linear-gradient(105deg, transparent 0 40%, rgb(255 255 255 / 0.18) 45%, rgb(255 255 255 / 0.95) 50%, rgb(255 255 255 / 0.18) 55%, transparent 60% 100%);
+  background-size: 300% 100%;
+  background-repeat: no-repeat;
+  /* With a 300% image, position 80% puts the band just off the left edge and 20% just off the right. */
+  background-position: 80% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  mix-blend-mode: screen;
+  animation: ch-glint 4.2s cubic-bezier(0.45, 0.05, 0.35, 1) 0.8s infinite;
+}
+@keyframes ch-glint {
+  0% { background-position: 80% 0; }
+  40%, 100% { background-position: 20% 0; }
+}
+
+/* A star flares where the glint peaks, on the last letter's shoulder. */
+.ch__star {
+  position: absolute;
+  right: 3%;
+  top: 6%;
+  width: 0.34em;
+  height: 0.34em;
+  fill: #fff;
+  filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 14px var(--glow));
+  transform: scale(0) rotate(0deg);
+  opacity: 0;
+  animation: ch-star 4.2s ease-out 0.8s infinite;
+  pointer-events: none;
+}
+@keyframes ch-star {
+  0%, 33% { transform: scale(0) rotate(-30deg); opacity: 0; }
+  38% { transform: scale(1) rotate(0deg); opacity: 1; }
+  52% { transform: scale(0.15) rotate(45deg); opacity: 0; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* The floor reflection: the metal again, flipped and fading out. */
+.ch__floor {
+  position: relative;
+  margin-top: -0.06em;
+  font-family: Anton, "Bebas Neue", Impact, sans-serif;
+  font-size: clamp(5rem, 21vw, 15rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: scaleY(-1);
+  -webkit-mask: linear-gradient(0deg, rgb(0 0 0 / 0.32), transparent 48%);
+  mask: linear-gradient(0deg, rgb(0 0 0 / 0.32), transparent 48%);
+  filter: blur(1.5px);
+  height: 0.42em;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+.ch__floor .ch__metal {
+  height: 1em;
+}
+
+.ch__tag {
+  margin: 4px 0 0;
+  font: 500 clamp(11px, 1.3vw, 13px) / 1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--sky-2) 70%, transparent);
+}
+
+.ch[data-motion="reduced"] .ch__glint,
+.ch[data-motion="reduced"] .ch__star { animation: none; }
+.ch[data-motion="reduced"] .ch__stage,
+.ch[data-motion="reduced"] .ch__metal { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ch__glint,
+  .ch__star { animation: none; }
+  .ch__stage,
+  .ch__metal { transition: none; }
+}

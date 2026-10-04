@@ -1,0 +1,122 @@
+/* Balance Stats — money in against money out, on a balance that swings and settles. */
+.bal {
+  --bal-bg: #fbf8f2;
+  --bal-rim: rgb(27 26 23 / 0.1);
+  --bal-ink: #1b1a17;
+  --bal-muted: #6f6a62;
+  --bal-metal: #9b8e7b;
+  --bal-metal-hi: #c9bda8;
+  --bal-dish: #e9e1d3;
+  --bal-l: #1baf7a;
+  --bal-r: #eb6834;
+  --bal-coin: #d9a63e;
+  --bal-coin-edge: #a87a1f;
+  --bal-pos: #137a52;
+  --bal-neg: #b4432f;
+  --bal-focus: #1f4e8c;
+  position: relative;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 22px;
+  background: var(--bal-bg);
+  box-shadow: inset 0 0 0 1px var(--bal-rim), 0 24px 44px -34px rgb(40 30 20 / 0.45);
+  color: var(--bal-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.bal--night {
+  --bal-bg: #131312;
+  --bal-rim: rgb(239 232 220 / 0.1);
+  --bal-ink: #efe8dc;
+  --bal-muted: #9c968c;
+  --bal-metal: #6d665b;
+  --bal-metal-hi: #9b927f;
+  --bal-dish: #2a2723;
+  --bal-l: #199e70;
+  --bal-r: #d95926;
+  --bal-coin: #e2b04a;
+  --bal-coin-edge: #9a6e1a;
+  --bal-pos: #5fc996;
+  --bal-neg: #f08a74;
+  --bal-focus: #b3cdf6;
+}
+
+.bal__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+.bal__diff { display: flex; align-items: baseline; gap: 0.2rem; margin: 0; font-size: 2.4rem; font-weight: 600; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--bal-pos); }
+.bal__diff[data-neg] { color: var(--bal-neg); }
+.bal__cur { font-size: 0.9rem; font-weight: 500; letter-spacing: 0; color: var(--bal-muted); margin: 0 0.15rem 0 0.1rem; }
+.bal__sub { margin: 0.45rem 0 0; font-size: 0.8125rem; color: var(--bal-muted); }
+
+.bal__months { display: inline-flex; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--bal-rim); }
+.bal__month {
+  height: 2rem;
+  padding: 0 0.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--bal-muted);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 220ms ease, color 220ms ease;
+}
+.bal__month[aria-checked="true"] { background: var(--bal-ink); color: var(--bal-bg); }
+.bal__month:focus-visible { outline: 2px solid var(--bal-focus); outline-offset: 2px; }
+
+.bal__svg { display: block; width: 100%; height: auto; margin-top: 0.75rem; overflow: visible; }
+
+.bal__foot { fill: var(--bal-metal); }
+.bal__post { fill: var(--bal-metal); }
+.bal__beam { fill: var(--bal-metal-hi); stroke: var(--bal-metal); stroke-width: 1; }
+.bal__end { fill: var(--bal-metal); }
+.bal__pivot { fill: var(--bal-bg); stroke: var(--bal-metal); stroke-width: 3; }
+.bal__arc { fill: none; stroke: var(--bal-rim); stroke-width: 6; stroke-linecap: round; }
+.bal__tick { stroke: var(--bal-muted); stroke-width: 1.2; opacity: 0.7; }
+.bal__needle { stroke: var(--bal-ink); stroke-width: 1.6; stroke-linecap: round; }
+
+.bal__chain { fill: none; stroke: var(--bal-metal); stroke-width: 1; }
+.bal__hook { fill: var(--bal-metal); }
+.bal__dish { fill: var(--bal-dish); stroke: var(--bal-metal); stroke-width: 1; }
+.bal__lip { stroke-width: 3; stroke-linecap: round; }
+.bal__pan[data-side="0"] .bal__lip { stroke: var(--bal-l); }
+.bal__pan[data-side="1"] .bal__lip { stroke: var(--bal-r); }
+
+/* Coins fall into place with gravity, and lift out when they leave. */
+.bal__coin {
+  opacity: 0;
+  transform: translate(var(--x), calc(var(--y) - 90px));
+  transition: transform 300ms cubic-bezier(0.5, 0, 0.9, 0.5), opacity 120ms ease;
+}
+.bal__coin[data-live] {
+  opacity: 1;
+  transform: translate(var(--x), var(--y));
+}
+.bal__coin:not([data-live]) {
+  transition: transform 360ms cubic-bezier(0.2, 0.7, 0.3, 1), opacity 300ms ease;
+}
+.bal__coin-side { fill: var(--bal-coin-edge); }
+.bal__coin-face { fill: var(--bal-coin); stroke: var(--bal-coin-edge); stroke-width: 0.6; }
+
+.bal__legend { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.75rem; margin-top: 0.4rem; font-size: 0.8125rem; color: var(--bal-muted); font-variant-numeric: tabular-nums; }
+.bal__legend p { display: flex; align-items: center; gap: 0.4rem; margin: 0; }
+.bal__legend p[data-side="1"] { justify-content: flex-end; }
+.bal__legend b { color: var(--bal-ink); font-weight: 600; }
+.bal__unit { font-size: 0.75rem; }
+.bal__dot { width: 10px; height: 3px; border-radius: 2px; }
+p[data-side="0"] .bal__dot { background: var(--bal-l); }
+p[data-side="1"] .bal__dot { background: var(--bal-r); }
+
+.bal__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 520px) {
+  .bal { padding: 1.15rem; }
+  .bal__legend { grid-template-columns: 1fr 1fr; }
+  .bal__unit { grid-column: 1 / -1; grid-row: 2; justify-content: center; }
+}
+
+.bal[data-motion="reduced"] .bal__coin { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .bal__coin { transition: none; }
+}

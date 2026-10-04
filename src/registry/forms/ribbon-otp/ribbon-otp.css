@@ -1,0 +1,59 @@
+.otp {
+  --o-ink: #efe8dc;
+  --o-muted: #a7a1ab;
+  --o-frost: #b9cce4;
+  --o-bad: #f0a2a2;
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--o-ink);
+}
+.otp__label { margin: 0 0 0.75rem; font-size: 0.8125rem; color: var(--o-muted); }
+
+.otp__ribbon {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid rgb(239 232 220 / 0.16);
+  border-radius: 14px;
+  background: #140d17;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+  transition: border-color 300ms ease;
+}
+.otp[data-state="ok"] .otp__ribbon { border-color: rgb(185 204 228 / 0.55); }
+.otp[data-state="bad"] .otp__ribbon { border-color: rgb(240 162 162 / 0.6); animation: otp-shake 380ms cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+
+.otp__cell {
+  width: 3rem;
+  height: 3.6rem;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid rgb(239 232 220 / 0.1);
+  background: transparent;
+  color: var(--o-ink);
+  font: 500 1.5rem/1 "JetBrains Mono", ui-monospace, monospace;
+  text-align: center;
+  caret-color: transparent;
+  transition: background-color 200ms ease;
+}
+.otp__cell:last-of-type { border-right: 0; }
+.otp__cell:focus { outline: none; background: rgb(185 204 228 / 0.08); box-shadow: inset 0 -2px 0 var(--o-frost); }
+.otp__cell[data-filled] { animation: otp-drop 240ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+.otp__sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 35%, rgb(185 204 228 / 0.35) 50%, transparent 65%);
+  transform: translateX(-120%);
+}
+.otp[data-state="ok"] .otp__sweep { transform: translateX(120%); transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1); }
+.otp[data-state="bad"] .otp__cell { color: var(--o-bad); }
+
+.otp__status { min-height: 1.25rem; margin: 0.75rem 0 0; font-size: 0.8125rem; color: var(--o-muted); }
+.otp[data-state="bad"] .otp__status { color: var(--o-bad); }
+.otp[data-state="ok"] .otp__status { color: var(--o-frost); }
+
+@keyframes otp-drop { from { transform: translateY(-6px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+@keyframes otp-shake { 10%, 90% { transform: translateX(-1px); } 20%, 80% { transform: translateX(2px); } 30%, 50%, 70% { transform: translateX(-3px); } 40%, 60% { transform: translateX(3px); } }
+
+@media (max-width: 26rem) { .otp__cell { width: 2.4rem; height: 3.2rem; font-size: 1.25rem; } }
+@media (prefers-reduced-motion: reduce) { .otp__cell[data-filled], .otp[data-state="bad"] .otp__ribbon { animation: none; } .otp__sweep { display: none; } }

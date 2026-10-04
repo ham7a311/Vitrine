@@ -1,0 +1,141 @@
+.sg {
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --ring: rgba(11, 11, 11, 0.1);
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --s4: #eda100;
+  --s5: #e87ba4;
+  width: min(100%, 880px);
+  padding: 22px 22px 18px;
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--ring), 0 24px 50px -36px rgb(0 0 0 / 0.35);
+  color: var(--ink);
+  font-family: Geist, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.sg--dark {
+  --surface: #1a1a19;
+  --ink: #ffffff;
+  --ink-2: #c3c2b7;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --ring: rgba(255, 255, 255, 0.1);
+  --s1: #3987e5;
+  --s2: #d95926;
+  --s3: #199e70;
+  --s4: #c98500;
+  --s5: #d55181;
+}
+
+.sg__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+.sg__title { margin: 0; font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.sg__insight { margin: 6px 0 0; max-width: 46ch; font-size: clamp(17px, 2.2vw, 21px); line-height: 1.3; letter-spacing: -0.01em; }
+.sg__insight strong { font-weight: 600; }
+.sg__view {
+  flex: none;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--ring);
+  color: var(--ink-2);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.sg__view:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+
+/* The legend doubles as the filter: press to hide a channel. */
+.sg__legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 8px; }
+.sg__legend button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px 5px 8px;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ink) 5%, transparent);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: opacity 160ms ease, background-color 160ms ease;
+}
+.sg__legend button i { width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
+.sg__legend button[aria-pressed="false"] { opacity: 0.5; text-decoration: line-through; }
+.sg__legend button[aria-pressed="false"] i { background: none; box-shadow: inset 0 0 0 1.5px var(--c); }
+.sg__legend button:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+
+.sg__plot { position: relative; }
+.sg__plot svg { display: block; overflow: visible; outline: none; touch-action: pan-y; }
+.sg__plot svg:focus-visible { outline: 2px solid var(--s1); outline-offset: 4px; border-radius: 6px; }
+.sg__grid { stroke: var(--grid); stroke-width: 1; }
+.sg__tick { font-size: 11px; fill: var(--muted); }
+/* A 2px surface gap between streams, and the dim when another stream has the focus. */
+.sg__stream {
+  stroke: var(--surface);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  transition: opacity 200ms ease;
+}
+.sg__stream[data-dim] { opacity: 0.22; }
+/* Draw-in: the river grows out from its centre line. */
+.sg__river { transform-box: fill-box; transform-origin: center; transform: scaleY(0); transition: transform 900ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.sg__plot svg[data-seen] .sg__river { transform: none; }
+.sg__label {
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+  animation: sg-in 400ms ease 700ms both;
+}
+.sg__label[data-dim] { opacity: 0.2; }
+@keyframes sg-in { from { opacity: 0; } }
+.sg__cross { stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 1; }
+
+.sg__tip {
+  position: absolute;
+  top: 10px;
+  display: grid;
+  gap: 4px;
+  min-width: 160px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--ring), 0 10px 24px -8px rgb(0 0 0 / 0.3);
+  font-size: 12px;
+  pointer-events: none;
+  transform: translateX(14px);
+}
+.sg__tip[data-side="left"] { transform: translateX(calc(-100% - 14px)); }
+.sg__tip-d { color: var(--muted); margin-bottom: 2px; }
+.sg__tip-r { display: grid; grid-template-columns: 10px 1fr auto; align-items: center; gap: 7px; color: var(--ink-2); }
+.sg__tip-r i { width: 10px; height: 10px; border-radius: 3px; }
+.sg__tip-r b { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.sg__tip-r[data-on] { color: var(--ink); }
+
+.sg__table-wrap { max-height: 320px; overflow: auto; margin-top: 10px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--ring); }
+.sg__table { width: 100%; border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.sg__table th, .sg__table td { padding: 7px 10px; text-align: right; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+.sg__table th:first-child { text-align: left; font-weight: 500; }
+.sg__table thead th { position: sticky; top: 0; background: var(--surface); color: var(--ink-2); font-weight: 500; }
+.sg__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.sg[data-motion="reduced"] .sg__river { transition: none; transform: none; }
+.sg[data-motion="reduced"] .sg__label { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .sg__river { transition: none; transform: none; }
+  .sg__label { animation: none; }
+}

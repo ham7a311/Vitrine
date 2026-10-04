@@ -1,0 +1,40 @@
+/* Focus FAQ — the chosen question becomes the heading. */
+.focus-faq {
+  --ff-ink: #efe8dc;
+  --ff-muted: #a8a59c;
+  --ff-faint: #5f5b55;
+  --ff-line: rgb(239 232 220 / 0.09);
+  --ff-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100%, 44rem);
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ff-ink);
+}
+.focus-faq__eyebrow { margin: 0 0 1.2rem; font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ff-accent); }
+
+.focus-faq__stage { margin-bottom: 2.4rem; }
+.focus-faq__heading { margin: 0; font: 400 clamp(2rem, 5vw, 3.1rem)/1.04 "Instrument Serif", Georgia, serif; letter-spacing: -0.02em; max-width: 20ch; }
+.focus-faq__answer { max-width: 56ch; margin: 1.2rem 0 0; font-size: 1.0625rem; line-height: 1.65; color: var(--ff-muted); animation: focus-faq-in 620ms var(--ff-ease) 160ms both; }
+.focus-faq__back {
+  margin-top: 1.4rem; padding: 0; border: 0; background: none; color: var(--ff-muted); font: 500 0.875rem inherit; font-family: inherit; cursor: pointer;
+  animation: focus-faq-in 620ms var(--ff-ease) 260ms both;
+}
+.focus-faq__back:hover { color: var(--ff-ink); }
+.focus-faq button:focus-visible { outline: 2px solid var(--ff-accent); outline-offset: 3px; border-radius: 4px; }
+
+.focus-faq__list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ff-line); }
+.focus-faq__list li { border-bottom: 1px solid var(--ff-line); }
+.focus-faq__q {
+  display: grid; grid-template-columns: 2.4rem 1fr auto; align-items: baseline; gap: 0.5rem; width: 100%; padding: 1.15rem 0.2rem;
+  border: 0; background: none; color: var(--ff-ink); text-align: left; cursor: pointer; transition: padding 520ms var(--ff-ease), color 220ms ease;
+}
+.focus-faq__n { font: 500 0.6875rem "Geist Mono", monospace; color: var(--ff-faint); }
+.focus-faq__text { font: 400 clamp(1.3rem, 2.8vw, 1.65rem)/1.2 "Instrument Serif", Georgia, serif; letter-spacing: -0.01em; transition: font-size 520ms var(--ff-ease); }
+.focus-faq__q svg { width: 0.9rem; height: 0.9rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; color: var(--ff-faint); transition: transform 380ms var(--ff-ease), color 220ms ease; }
+.focus-faq__q:hover svg { transform: translate(2px, -2px); color: var(--ff-accent); }
+/* when one is focused, the rest become a compact 'more questions' list */
+.focus-faq__list[data-compact] .focus-faq__q { padding: 0.65rem 0.2rem; color: var(--ff-muted); }
+.focus-faq__list[data-compact] .focus-faq__text { font: 500 0.9375rem/1.35 "Hanken Grotesk", sans-serif; letter-spacing: -0.005em; }
+.focus-faq__list[data-compact] .focus-faq__q:hover { color: var(--ff-ink); }
+
+@keyframes focus-faq-in { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .focus-faq * { animation: none !important; transition-duration: 1ms !important; } }

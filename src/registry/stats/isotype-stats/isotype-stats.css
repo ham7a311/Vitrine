@@ -1,0 +1,141 @@
+/* Isotype Stats — quantities as rows of figures, one figure per unit, stamped in. */
+.iso {
+  --iso-bg: #fbf8f1;
+  --iso-rim: rgb(27 26 23 / 0.1);
+  --iso-ink: #1b1a17;
+  --iso-muted: #6f6a62;
+  --iso-fig: #1f4e8c;
+  --iso-fig-hot: #163a6b;
+  --iso-up: #1d7a4f;
+  --iso-down: #b4432f;
+  --iso-focus: #1f4e8c;
+  position: relative;
+  width: 100%;
+  padding: 1.6rem;
+  border-radius: 22px;
+  background: var(--iso-bg);
+  box-shadow: inset 0 0 0 1px var(--iso-rim), 0 24px 44px -34px rgb(40 30 20 / 0.45);
+  color: var(--iso-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.iso--night {
+  --iso-bg: #121417;
+  --iso-rim: rgb(239 232 220 / 0.1);
+  --iso-ink: #efe8dc;
+  --iso-muted: #9a98a0;
+  --iso-fig: #7fa9ec;
+  --iso-fig-hot: #b3cdf6;
+  --iso-up: #5fc996;
+  --iso-down: #f08a74;
+  --iso-focus: #b3cdf6;
+}
+
+.iso__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+.iso__total { margin: 0; font-size: 2.4rem; font-weight: 600; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+.iso__total span { font-size: 0.9rem; font-weight: 500; letter-spacing: 0; color: var(--iso-muted); }
+.iso__delta { margin: 0.45rem 0 0; font-size: 0.8125rem; color: var(--iso-muted); font-variant-numeric: tabular-nums; }
+
+.iso__periods { display: inline-flex; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--iso-rim); }
+.iso__period {
+  height: 2rem;
+  padding: 0 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--iso-muted);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background 220ms ease, color 220ms ease;
+}
+.iso__period[aria-checked="true"] { background: var(--iso-ink); color: var(--iso-bg); }
+.iso__period:focus-visible { outline: 2px solid var(--iso-focus); outline-offset: 2px; }
+
+.iso__rows { margin: 1.6rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.35rem; }
+.iso__row {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr) 5.25rem;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0.6rem;
+  margin: 0 -0.6rem;
+  border-radius: 12px;
+  outline: none;
+  transition: background 200ms ease;
+}
+.iso__row:hover,
+.iso__row:focus-visible { background: color-mix(in oklab, var(--iso-fig) 7%, transparent); }
+.iso__row:focus-visible { box-shadow: inset 0 0 0 2px var(--iso-focus); }
+
+.iso__label { display: grid; gap: 0.15rem; min-width: 0; }
+.iso__name { font-size: 0.875rem; font-weight: 600; }
+.iso__note { font-size: 0.75rem; color: var(--iso-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* The figures: one grid cell per unit, sized by the row's width, so a figure is always the same amount. */
+.iso__figs {
+  display: grid;
+  grid-template-columns: repeat(var(--slots), minmax(0, 1fr));
+  gap: 2px;
+  max-width: calc(var(--slots) * 20px);
+}
+.iso__fig {
+  position: relative;
+  aspect-ratio: 1 / 2;
+  opacity: 0;
+  transform: translateY(5px) scale(0.55);
+  transform-origin: 50% 100%;
+  /* Stamped row by row, figure by figure. */
+  transition:
+    opacity 240ms ease calc(var(--ri) * 140ms + var(--i) * 24ms),
+    transform 380ms cubic-bezier(0.25, 1.6, 0.5, 1) calc(var(--ri) * 140ms + var(--i) * 24ms);
+}
+.iso[data-on] .iso__fig[data-f] {
+  opacity: 1;
+  transform: none;
+}
+.iso__clip { position: absolute; inset: 0; }
+.iso__clip svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: var(--iso-fig);
+  /* The last figure is cut to the fraction that's left. */
+  clip-path: inset(0 calc((1 - var(--f)) * 100%) 0 0);
+  transition: clip-path 380ms ease, fill 200ms ease, transform 240ms cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.iso__row:hover .iso__clip svg,
+.iso__row:focus-visible .iso__clip svg {
+  fill: var(--iso-fig-hot);
+  transform: translateY(-2px);
+  transition-delay: 0ms, 0ms, calc(var(--i) * 12ms);
+}
+
+.iso__value { display: grid; justify-items: end; gap: 0.1rem; font-variant-numeric: tabular-nums; }
+.iso__num { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
+.iso__chg { font-size: 0.75rem; font-weight: 500; color: var(--iso-up); }
+.iso__chg[data-down] { color: var(--iso-down); }
+
+.iso__legend { display: flex; align-items: center; gap: 0.4rem; margin: 1.2rem 0 0; font-size: 0.75rem; color: var(--iso-muted); }
+.iso__key { display: inline-block; width: 9px; height: 18px; }
+.iso__key svg { display: block; width: 100%; height: 100%; fill: var(--iso-fig); }
+
+.iso__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 560px) {
+  .iso { padding: 1.2rem; }
+  .iso__row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0.5rem; }
+  .iso__label { grid-column: 1; }
+  .iso__value { grid-column: 2; grid-row: 1; }
+  .iso__figs { grid-column: 1 / -1; }
+}
+
+.iso[data-motion="reduced"] .iso__fig,
+.iso[data-motion="reduced"] .iso__clip svg { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .iso__fig,
+  .iso__clip svg { transition: none; }
+}

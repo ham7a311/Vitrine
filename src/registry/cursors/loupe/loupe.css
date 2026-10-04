@@ -1,0 +1,110 @@
+.lp {
+  position: relative;
+  overflow: hidden;
+  --lp-rim: rgb(255 255 255 / 0.7);
+  --lp-ink: #1d1c19;
+}
+.lp--night {
+  --lp-rim: rgb(255 255 255 / 0.28);
+  --lp-ink: #f1ece2;
+}
+
+/* The lens replaces the pointer while it is up. */
+.lp[data-live][data-lens],
+.lp[data-live][data-lens] * {
+  cursor: none !important;
+}
+
+.lp__lens {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  width: var(--lp-size);
+  height: var(--lp-size);
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: 50% 50%;
+  /* No will-change here either: a promoted layer would keep the raster scale it was born at. */
+  /* Lift: the glass casts a soft shadow onto the sheet below. */
+  box-shadow:
+    0 22px 44px -14px rgb(0 0 0 / 0.42),
+    0 6px 14px -6px rgb(0 0 0 / 0.3);
+  isolation: isolate;
+}
+
+/* The magnified copy. No will-change: the browser re-rasterises it at the scaled size, so it stays sharp. */
+.lp__view {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+}
+
+/* Glass: a bright bevel at the top edge, a darker one below, a hairline rim and a faint vignette. */
+.lp__rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px var(--lp-rim),
+    inset 0 0 0 5px rgb(255 255 255 / 0.08),
+    inset 0 10px 18px -8px rgb(255 255 255 / 0.55),
+    inset 0 -14px 24px -12px rgb(0 0 0 / 0.28),
+    inset 0 0 30px rgb(0 0 0 / 0.08);
+  background: radial-gradient(120% 70% at 30% 0%, rgb(255 255 255 / 0.16), transparent 45%);
+}
+.lp--night .lp__rim {
+  box-shadow:
+    inset 0 0 0 1px var(--lp-rim),
+    inset 0 0 0 5px rgb(255 255 255 / 0.04),
+    inset 0 10px 18px -8px rgb(255 255 255 / 0.22),
+    inset 0 -14px 24px -12px rgb(0 0 0 / 0.5),
+    inset 0 0 34px rgb(0 0 0 / 0.25);
+  background: radial-gradient(120% 70% at 30% 0%, rgb(255 255 255 / 0.07), transparent 45%);
+}
+
+/* A fine reticle marks the exact point under the pointer. */
+.lp__cross {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  opacity: 0.55;
+  background:
+    linear-gradient(var(--lp-ink), var(--lp-ink)) 50% 0 / 1px 4px no-repeat,
+    linear-gradient(var(--lp-ink), var(--lp-ink)) 50% 100% / 1px 4px no-repeat,
+    linear-gradient(var(--lp-ink), var(--lp-ink)) 0 50% / 4px 1px no-repeat,
+    linear-gradient(var(--lp-ink), var(--lp-ink)) 100% 50% / 4px 1px no-repeat;
+}
+
+/* The power, engraved on the lower rim; it brightens when you change it. */
+.lp__zoom {
+  position: absolute;
+  left: 50%;
+  bottom: 9px;
+  transform: translateX(-50%);
+  padding: 2px 7px;
+  border-radius: 999px;
+  font: 500 10px/1.3 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  color: var(--lp-ink);
+  background: color-mix(in oklab, var(--lp-ink) 7%, transparent);
+  opacity: 0.55;
+  transition: opacity 200ms ease, background-color 200ms ease;
+  backdrop-filter: blur(6px);
+}
+.lp__zoom[data-show] {
+  opacity: 1;
+  background: color-mix(in oklab, var(--lp-ink) 14%, transparent);
+}
+
+.lp[data-motion="reduced"] .lp__zoom { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .lp__zoom { transition: none; }
+}

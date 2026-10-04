@@ -1,0 +1,196 @@
+@property --shade {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+.sf {
+  --board: #0d0d0e;
+  --rim: #1b1b1d;
+  --cell-a: #262628;
+  --cell-b: #1a1a1c;
+  --ink: #ffb53d;
+  --muted: rgb(255 255 255 / 0.5);
+  --hinge: rgb(0 0 0 / 0.75);
+  --head: #f3efe6;
+  color: var(--head);
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+}
+.sf--white { --ink: #f1f1ef; --board: #121314; --cell-a: #2b2c2e; --cell-b: #1d1e20; }
+.sf--cream {
+  --glow: 0%;
+  --shade-k: 0.32;
+  --board: #d8cfba;
+  --rim: #c6bba3;
+  --cell-a: #fbf7ee;
+  --cell-b: #efe8d8;
+  --ink: #1c1a16;
+  --muted: rgb(28 26 22 / 0.55);
+  --hinge: rgb(60 48 30 / 0.35);
+  --head: #1c1a16;
+}
+
+.sf__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin-bottom: 14px;
+}
+.sf__title {
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.sf__sub {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sf__pause {
+  margin-left: auto;
+  font: 500 12px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: none;
+  border: 1px solid color-mix(in oklab, var(--head) 22%, transparent);
+  border-radius: 999px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+.sf__pause:hover { color: var(--head); }
+.sf__pause:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* The board: a dark panel with a rim; cells are sized to fit whatever width it has. */
+.sf__frame {
+  container-type: inline-size;
+  padding: clamp(10px, 2vw, 18px);
+  border-radius: 14px;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgb(255 255 255 / 0.04), transparent 60%),
+    linear-gradient(var(--board), var(--board));
+  box-shadow: inset 0 0 0 1px var(--rim), inset 0 2px 0 rgb(255 255 255 / 0.04), 0 30px 60px -30px rgb(0 0 0 / 0.6);
+}
+.sf__grid {
+  --gap: max(2px, 0.45cqw);
+  --cw: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols));
+  display: grid;
+  gap: calc(var(--gap) * 2.4);
+  perspective: 600px;
+}
+.sf__row {
+  display: flex;
+  gap: var(--gap);
+}
+
+.sf__cell {
+  position: relative;
+  flex: none;
+  width: var(--cw);
+  height: calc(var(--cw) * 1.5);
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: calc(var(--cw) * 1.08);
+  color: var(--ink);
+  border-radius: max(2px, calc(var(--cw) * 0.12));
+  transform-style: preserve-3d;
+}
+.sf__half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  background: linear-gradient(var(--cell-a), var(--cell-b));
+}
+.sf__top {
+  top: 0;
+  border-radius: inherit;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+.sf__bottom {
+  bottom: 0;
+  border-radius: inherit;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background: linear-gradient(color-mix(in oklab, var(--cell-b) 92%, #000), var(--cell-b));
+}
+.sf__half span {
+  text-shadow: 0 0 calc(var(--cw) * 0.5) color-mix(in oklab, var(--ink) var(--glow, 28%), transparent);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 200%;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+  white-space: pre;
+}
+.sf__bottom span,
+.sf__back span { top: -100%; }
+
+/* The leaf: hinged at the cell's middle, it falls from covering the top half to covering the bottom. */
+.sf__leaf {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 50%;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  visibility: hidden;
+  z-index: 2;
+}
+.sf__leaf .sf__half {
+  inset: 0;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.sf__front {
+  border-radius: max(2px, calc(var(--cw) * 0.12)) max(2px, calc(var(--cw) * 0.12)) 0 0;
+  box-shadow: inset 0 0 0 999px rgb(0 0 0 / calc(var(--shade) * var(--shade-k, 0.9)));
+}
+.sf__back {
+  transform: rotateX(180deg);
+  border-radius: 0 0 max(2px, calc(var(--cw) * 0.12)) max(2px, calc(var(--cw) * 0.12));
+  box-shadow: inset 0 0 0 999px rgb(0 0 0 / calc(var(--shade) * var(--shade-k, 0.9)));
+}
+
+/* The hinge: a dark line across the middle with the two pins at its ends. */
+.sf__hinge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 0.5px);
+  height: 1px;
+  background: var(--hinge);
+  z-index: 3;
+  pointer-events: none;
+}
+.sf__hinge::before,
+.sf__hinge::after {
+  content: "";
+  position: absolute;
+  top: -1.5px;
+  width: max(1.5px, calc(var(--cw) * 0.06));
+  height: 4px;
+  background: var(--hinge);
+}
+.sf__hinge::before { left: 0; border-radius: 0 1px 1px 0; }
+.sf__hinge::after { right: 0; border-radius: 1px 0 0 1px; }
+
+.sf__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+}

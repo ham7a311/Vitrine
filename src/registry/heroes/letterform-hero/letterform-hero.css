@@ -1,0 +1,125 @@
+/* Letterform Hero — the name is a set of windows onto the work. */
+.lfh {
+  --lfh-bg: #0c0b0e;
+  --lfh-ink: #efe8dc;
+  --lfh-muted: #9a949e;
+  --lfh-line: rgb(239 232 220 / 0.1);
+  --lfh-stroke: rgb(239 232 220 / 0.14);
+  --lfh-accent: #b9cce4;
+  --lfh-live: #7fd1a8;
+  --lfh-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --lfh-px: 0px;
+  --lfh-py: 0px;
+  container-type: inline-size;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  padding: clamp(1.25rem, 4cqi, 3rem);
+  background: var(--lfh-bg);
+  color: var(--lfh-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.lfh--paper {
+  --lfh-bg: #f2efe8;
+  --lfh-ink: #1b1a17;
+  --lfh-muted: #6f6a62;
+  --lfh-line: rgb(27 26 23 / 0.1);
+  --lfh-stroke: rgb(27 26 23 / 0.16);
+  --lfh-accent: #2f5fd0;
+  --lfh-live: #1d8a57;
+}
+
+.lfh__top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1.5rem; }
+.lfh__role, .lfh__note, .lfh__caption, .lfh__n, .lfh__year {
+  margin: 0;
+  font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lfh-muted);
+}
+.lfh__role { color: var(--lfh-ink); }
+.lfh__note { display: inline-flex; align-items: center; gap: 0.5rem; }
+.lfh__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lfh-live); box-shadow: 0 0 0 3px color-mix(in srgb, var(--lfh-live) 22%, transparent); }
+
+/* The letters. Every layer is the same word in the same cell; only the view differs. */
+.lfh__mid { margin-block: auto; padding-top: clamp(1.5rem, 5cqi, 3rem); }
+.lfh__name { margin: 0; font-weight: 400; line-height: 1; }
+.lfh__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.lfh__stack { display: grid; }
+.lfh__layer {
+  grid-area: 1 / 1;
+  /* The box is larger than the glyphs, so a shifted view never shows its edge inside a letter. */
+  padding: 0.12em 24px;
+  margin: -0.12em -24px;
+  font: 400 var(--lfh-fs, 27cqi)/0.86 "Anton", "Archivo", Impact, sans-serif;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  background: var(--lfh-cover);
+  background-size: cover;
+  background-position: calc(50% + var(--lfh-px)) calc(50% + var(--lfh-py));
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: background-position 900ms var(--lfh-ease);
+  user-select: none;
+}
+.lfh__layer--ghost { background: none; -webkit-text-stroke: 1px var(--lfh-stroke); }
+.lfh__layer--in { animation: lfh-wipe 900ms var(--lfh-ease) both; }
+.lfh__layer--in[data-first] { animation: lfh-arrive 1100ms var(--lfh-ease) 120ms both; }
+
+.lfh__caption { display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; margin-top: 1rem; }
+.lfh__caption-name { color: var(--lfh-ink); animation: lfh-caption 600ms var(--lfh-ease) both; }
+
+/* The work, as an index. */
+.lfh__ruler { position: absolute; visibility: hidden; pointer-events: none; font: 400 100px/1 "Anton", "Archivo", Impact, sans-serif; letter-spacing: -0.005em; text-transform: uppercase; white-space: nowrap; }
+.lfh__list { margin: 0; padding: clamp(2rem, 6cqi, 4rem) 0 0; list-style: none; }
+.lfh__list li { border-top: 1px solid var(--lfh-line); }
+.lfh__list li:last-child { border-bottom: 1px solid var(--lfh-line); }
+.lfh__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto auto;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.9rem 0.25rem;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+.lfh__row::before {
+  content: "";
+  position: absolute;
+  left: 0; top: -1px;
+  width: 100%; height: 1px;
+  background: var(--lfh-ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 600ms var(--lfh-ease);
+}
+.lfh__row[data-on]::before { transform: scaleX(1); }
+.lfh__row:focus-visible { outline: 2px solid var(--lfh-accent); outline-offset: 2px; border-radius: 6px; }
+.lfh__title { font: 400 clamp(1.25rem, 3.4cqi, 1.75rem)/1.1 "Instrument Serif", "Newsreader", Georgia, serif; letter-spacing: -0.01em; color: var(--lfh-muted); transition: color 300ms ease, transform 500ms var(--lfh-ease); }
+.lfh__row[data-on] .lfh__title { color: var(--lfh-ink); transform: translateX(6px); }
+.lfh__row[data-on] .lfh__n { color: var(--lfh-ink); }
+.lfh__kind { font-size: 0.8125rem; color: var(--lfh-muted); }
+
+@container (max-width: 520px) {
+  .lfh__row { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+  .lfh__kind { display: none; }
+}
+
+@keyframes lfh-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes lfh-arrive { from { opacity: 0; transform: translateY(0.08em); } to { opacity: 1; transform: none; } }
+@keyframes lfh-caption { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.lfh[data-motion="reduced"] .lfh__layer,
+.lfh[data-motion="reduced"] .lfh__caption-name,
+.lfh[data-motion="reduced"] .lfh__row::before,
+.lfh[data-motion="reduced"] .lfh__title { animation: none; transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .lfh__layer, .lfh__caption-name, .lfh__row::before, .lfh__title { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,61 @@
+/* Focus Pull — depth of field as a way of directing attention. */
+.focus-pull-cta {
+  --fp-ink: #efe8dc;
+  --fp-muted: #a8a59c;
+  --fp-soft: 1.6px;       /* how far out of focus the other planes fall */
+  --fp-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 44rem;
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--fp-ink);
+}
+
+/* every plane shares the same optics */
+.focus-pull-cta [data-plane] {
+  transition: filter 520ms var(--fp-ease), opacity 520ms var(--fp-ease), transform 620ms var(--fp-ease);
+  will-change: filter;
+}
+.focus-pull-cta:not([data-subject="title"]) [data-plane]:not([data-subject]) {
+  filter: blur(var(--fp-soft));
+  opacity: 0.42;
+  transform: scale(0.985);
+}
+.focus-pull-cta__note[data-plane] { transform-origin: 0 50%; }
+.focus-pull-cta__plane { transform-origin: 0 100%; }
+
+/* the lens hunts: sharp → a touch soft → locked. Two identical keyframes
+   alternate on each rack so the animation restarts without remounting. */
+.focus-pull-cta [data-subject][data-shot="0"] { animation: focus-pull-cta-hunt-a 560ms var(--fp-ease); }
+.focus-pull-cta [data-subject][data-shot="1"] { animation: focus-pull-cta-hunt-b 560ms var(--fp-ease); }
+@keyframes focus-pull-cta-hunt-a { 0% { filter: blur(var(--fp-soft)); } 38% { filter: blur(0); } 58% { filter: blur(0.55px); } 100% { filter: blur(0); } }
+@keyframes focus-pull-cta-hunt-b { 0% { filter: blur(var(--fp-soft)); } 38% { filter: blur(0); } 58% { filter: blur(0.55px); } 100% { filter: blur(0); } }
+
+.focus-pull-cta__eyebrow { margin: 0 0 1.1rem; font: 500 0.6875rem "Geist Mono", ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fp-accent); }
+.focus-pull-cta__title {
+  margin: 0; max-width: 18ch; font: 400 clamp(2.3rem, 5.2vw, 4.1rem) / 1.02 "Instrument Serif", Georgia, serif; letter-spacing: -0.02em;
+}
+.focus-pull-cta__title em { font-style: italic; color: color-mix(in srgb, var(--fp-ink) 70%, var(--fp-accent)); }
+
+.focus-pull-cta__row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.4rem; }
+.focus-pull-cta__action {
+  display: inline-flex; align-items: center; gap: 0.6rem; height: 3rem; padding: 0 1.4rem; border-radius: 999px;
+  font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; text-decoration: none; -webkit-tap-highlight-color: transparent;
+}
+.focus-pull-cta__action svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 380ms var(--fp-ease); }
+.focus-pull-cta__action[data-subject] svg { transform: translateX(3px); }
+.focus-pull-cta__action--primary { background: var(--fp-ink); color: #15130f; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), 0 10px 24px -14px rgb(239 232 220 / 0.5); }
+.focus-pull-cta__action--secondary { color: var(--fp-ink); box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.22); }
+.focus-pull-cta__action--secondary[data-subject] { box-shadow: inset 0 0 0 1px rgb(239 232 220 / 0.45); }
+.focus-pull-cta__action:active { transform: translateY(1px); }
+.focus-pull-cta__action:focus-visible { outline: 2px solid var(--fp-accent); outline-offset: 3px; }
+
+.focus-pull-cta__note { margin: 1.4rem 0 0; font-size: 0.8125rem; color: var(--fp-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-pull-cta [data-plane] { transition: opacity 200ms ease; }
+  .focus-pull-cta [data-subject] { animation: none !important; }
+  /* keep the hierarchy, drop the optics: dim instead of blur */
+  .focus-pull-cta:not([data-subject="title"]) [data-plane]:not([data-subject]) { filter: none; transform: none; opacity: 0.55; }
+}
+@media (hover: none) {
+  .focus-pull-cta:not([data-subject="title"]) [data-plane]:not([data-subject]) { filter: none; opacity: 1; transform: none; }
+}

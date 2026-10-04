@@ -1,0 +1,43 @@
+/* Cooldown Button — the border is the wait. */
+.cdb {
+  --cdb-face: #141317;
+  --cdb-ink: #efe8dc;
+  --cdb-muted: #8f8994;
+  --cdb-track: rgb(239 232 220 / 0.1);
+  --cdb-arc: #b9cce4;
+  --cdb-ready: #7fd1a8;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  height: 3rem;
+  min-width: 13.5rem;
+  padding: 0 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cdb-face);
+  color: var(--cdb-muted);
+  font: 600 0.9063rem/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  cursor: not-allowed;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 300ms ease, transform 160ms ease;
+}
+.cdb--paper { --cdb-face: #ffffff; --cdb-ink: #1b1a17; --cdb-muted: #77716a; --cdb-track: rgb(27 26 23 / 0.1); --cdb-arc: #2f5fd0; --cdb-ready: #1f7a4d; }
+.cdb[data-ready] { color: var(--cdb-ink); cursor: pointer; }
+.cdb[data-ready]:active { transform: scale(0.97); }
+.cdb:focus-visible { outline: 2px solid var(--cdb-arc); outline-offset: 4px; }
+.cdb__ring { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.cdb__ring path { fill: none; stroke-linecap: round; }
+.cdb__track { stroke: var(--cdb-track); stroke-width: 1.5; }
+.cdb__arc { stroke: var(--cdb-arc); stroke-width: 1.5; }
+.cdb[data-ready] .cdb__arc { stroke: var(--cdb-ready); stroke-dasharray: none; }
+/* When the wait runs out, the closed ring glows once. */
+.cdb__flash { stroke: var(--cdb-ready); stroke-width: 1.5; filter: drop-shadow(0 0 6px var(--cdb-ready)); animation: cdb-flash 900ms ease-out forwards; }
+.cdb__label { position: relative; white-space: nowrap; }
+.cdb__time { font-variant-numeric: tabular-nums; color: var(--cdb-ink); }
+.cdb__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@keyframes cdb-flash { from { opacity: 1; } to { opacity: 0; } }
+
+.cdb[data-motion="reduced"] .cdb__flash { animation: none; opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .cdb .cdb__flash { animation: none; opacity: 0; } }

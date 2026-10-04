@@ -1,0 +1,133 @@
+/* Scrub Sparkline Stats — read back through the month; only the digits that differ roll. */
+.sss {
+  --sss-bg: #fffdf8;
+  --sss-line: rgb(27 26 23 / 0.1);
+  --sss-ink: #1b1a17;
+  --sss-muted: #6f6a62;
+  --sss-plot: #2f5fd0;
+  --sss-dim: rgb(27 26 23 / 0.2);
+  --sss-good: #1f7a4d;
+  --sss-bad: #b4372a;
+  --sss-focus: #2f5fd0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
+  gap: 1px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--sss-line);
+  box-shadow: 0 0 0 1px var(--sss-line), 0 24px 44px -34px rgb(40 30 20 / 0.45);
+  color: var(--sss-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.sss--night {
+  --sss-bg: #141217;
+  --sss-line: rgb(239 232 220 / 0.09);
+  --sss-ink: #efe8dc;
+  --sss-muted: #9c96a1;
+  --sss-plot: #b9cce4;
+  --sss-dim: rgb(239 232 220 / 0.18);
+  --sss-good: #7fd1a8;
+  --sss-bad: #f08a7a;
+  --sss-focus: #b9cce4;
+}
+
+.sss__tile { display: flex; flex-direction: column; min-width: 0; padding: 1.35rem 1.35rem 1.1rem; background: var(--sss-bg); }
+.sss__head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; }
+.sss__label { margin: 0; font-size: 0.875rem; font-weight: 500; color: var(--sss-muted); }
+.sss__date {
+  margin: 0;
+  font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sss-muted);
+  white-space: nowrap;
+  transition: color 200ms ease;
+}
+.sss__tile[data-held] .sss__date { color: var(--sss-plot); }
+
+.sss__value {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin: 0.85rem 0 0;
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.sss__fix { font-size: 0.42em; font-weight: 600; letter-spacing: 0.02em; color: var(--sss-muted); }
+.sss__reels { display: inline-flex; }
+.sss__reel { display: inline-block; height: 1em; overflow: hidden; }
+.sss__strip { display: flex; flex-direction: column; transform: translateY(calc(var(--d) * -1em)); transition: transform 420ms cubic-bezier(0.2, 0.9, 0.25, 1); transition-delay: calc(var(--k) * 22ms); }
+.sss__strip > span { height: 1em; line-height: 1; }
+.sss__sep { display: inline-block; }
+.sss__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.sss__delta { display: flex; align-items: center; gap: 0.3rem; min-height: 1.2rem; margin: 0.55rem 0 0; font-size: 0.8125rem; color: var(--sss-muted); font-variant-numeric: tabular-nums; }
+.sss__delta svg { width: 0.7rem; height: 0.7rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.sss__delta[data-good="true"] { color: var(--sss-good); }
+.sss__delta[data-good="false"] { color: var(--sss-bad); }
+
+/* The plot: a dim full line, with the area and full-strength line clipped to the cursor. */
+.sss__plot {
+  position: relative;
+  height: 4.75rem;
+  margin: 1.1rem -0.25rem 0;
+  color: var(--sss-plot);
+  cursor: ew-resize;
+  touch-action: pan-y;
+  outline: none;
+  border-radius: 8px;
+}
+.sss__plot:focus-visible { box-shadow: 0 0 0 2px var(--sss-bg), 0 0 0 4px var(--sss-focus); }
+.sss__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.sss__svg--lit { clip-path: inset(-4px calc(100% - var(--cx)) -4px -4px); }
+.sss__line { fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.sss__line--dim { stroke: var(--sss-dim); }
+.sss__cross {
+  position: absolute;
+  top: -0.35rem;
+  bottom: 0;
+  left: var(--cx);
+  width: 1px;
+  background: linear-gradient(currentColor, transparent);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.sss__dot {
+  position: absolute;
+  left: var(--cx);
+  top: var(--cy);
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px var(--sss-bg), 0 0 0 4px color-mix(in srgb, currentColor 30%, transparent);
+  transition: transform 200ms ease;
+}
+.sss__tile[data-held] .sss__cross, .sss__plot:hover .sss__cross, .sss__plot:focus-visible .sss__cross { opacity: 0.55; }
+.sss__tile[data-held] .sss__dot { transform: scale(1.2); }
+
+.sss__axis {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.55rem 0 0;
+  font: 500 0.625rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sss-muted);
+  opacity: 0.8;
+}
+
+@media (max-width: 560px) {
+  .sss { grid-template-columns: 1fr; }
+  .sss__value { font-size: 2rem; }
+}
+
+.sss[data-motion="reduced"] .sss__strip { transition: none; }
+@media (prefers-reduced-motion: reduce) { .sss__strip { transition: none; } }

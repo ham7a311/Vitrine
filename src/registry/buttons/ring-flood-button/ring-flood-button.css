@@ -1,0 +1,71 @@
+/* Ring Flood Button — the border's gradient floods inward to become the fill. */
+@property --rfb-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+.rfb {
+  --rfb-ring: conic-gradient(from var(--rfb-a), #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4);
+  --rfb-face: #121015;
+  --rfb-ink: #efe8dc;
+  --rfb-ink-on: #141216;
+  --rfb-w: 1.5px;
+  --rfb-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  place-items: center;
+  height: 3rem;
+  padding: 0 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--rfb-ring);
+  color: var(--rfb-ink);
+  font: 600 0.9375rem/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  animation: rfb-turn 8s linear infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.rfb--paper {
+  --rfb-ring: conic-gradient(from var(--rfb-a), #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0);
+  --rfb-face: #fbfaf6;
+  --rfb-ink: #1b1a17;
+  --rfb-ink-on: #ffffff;
+}
+/* A soft halo of the same gradient, under the button. */
+.rfb::after {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 4px 10%;
+  border-radius: inherit;
+  background: inherit;
+  filter: blur(14px);
+  opacity: 0.35;
+  animation: rfb-turn 8s linear infinite;
+  transition: opacity 400ms ease;
+}
+/* The face. Hover draws it in from every side until it's gone. */
+.rfb::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: var(--rfb-w);
+  border-radius: inherit;
+  background: var(--rfb-face);
+  transition: inset 520ms var(--rfb-ease), opacity 260ms ease 300ms;
+}
+.rfb:hover::before, .rfb:focus-visible::before { inset: 50% 50%; opacity: 0; transition: inset 520ms var(--rfb-ease), opacity 200ms ease 320ms; }
+.rfb:hover::after, .rfb:focus-visible::after { opacity: 0.6; }
+.rfb__label { position: relative; transition: color 300ms ease 160ms; }
+.rfb:hover .rfb__label, .rfb:focus-visible .rfb__label { color: var(--rfb-ink-on); }
+.rfb:active { transform: scale(0.97); }
+.rfb { transition: transform 160ms ease; }
+.rfb:focus-visible { outline: 2px solid var(--rfb-ink); outline-offset: 4px; }
+
+@keyframes rfb-turn { to { --rfb-a: 360deg; } }
+
+.rfb[data-motion="reduced"], .rfb[data-motion="reduced"]::after { animation: none; }
+.rfb[data-motion="reduced"]::before { transition: opacity 200ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  .rfb, .rfb::after { animation: none; }
+  .rfb::before { transition: opacity 200ms ease; }
+}

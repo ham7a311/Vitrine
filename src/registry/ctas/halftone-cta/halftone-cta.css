@@ -1,0 +1,185 @@
+/* Halftone CTA — dot grid (::before) + gold paint masked by the same dots + a legibility scrim. */
+
+.halftone-cta {
+  --hc-surface: #0a0908;
+  --hc-border: #33312e;
+  --hc-ink: #f4f3f1;
+  --hc-muted: #c2c0b8;
+  --hc-dot: rgba(255, 255, 255, 0.11);
+  --hc-blend: screen;
+  --hc-scrim: radial-gradient(ellipse 72% 68% at 50% 48%, rgba(10, 9, 8, 0.62) 0%, rgba(10, 9, 8, 0.22) 58%, transparent 80%);
+  --hc-badge-border: rgba(255, 255, 255, 0.15);
+  --hc-badge-bg: rgba(255, 255, 255, 0.03);
+  --hc-amber: #e8a24a;
+  --hc-amber-bright: #f3b45f;
+  --hc-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  min-height: 360px;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  border: 1px solid var(--hc-border);
+  border-radius: 20px;
+  background-color: var(--hc-surface);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  container-type: inline-size;
+}
+
+.halftone-cta--light {
+  --hc-surface: #ebe7df;
+  --hc-border: #ddd7cc;
+  --hc-ink: #16150f;
+  --hc-muted: #3f3c36;
+  --hc-dot: rgba(0, 0, 0, 0.08);
+  --hc-blend: multiply;
+  --hc-scrim: radial-gradient(ellipse 68% 62% at 50% 48%, color-mix(in srgb, #ebe7df 52%, transparent) 0%, color-mix(in srgb, #ebe7df 16%, transparent) 55%, transparent 78%);
+  --hc-badge-border: color-mix(in srgb, #16150f 12%, transparent);
+  --hc-badge-bg: color-mix(in srgb, #16150f 4%, transparent);
+  --hc-amber-bright: #d08920;
+}
+
+@media (min-width: 640px) {
+  .halftone-cta { min-height: 480px; padding: 3.75rem 2.5rem; }
+}
+
+/* The static dot grid */
+.halftone-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--hc-dot) 1.15px, transparent 1.45px);
+  background-size: 6px 6px;
+}
+
+/* The mask lives on this non-moving wrapper so the dots never slide. */
+.halftone-cta__swirl {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  -webkit-mask-image: radial-gradient(circle, black 1.15px, transparent 1.45px);
+  mask-image: radial-gradient(circle, black 1.15px, transparent 1.45px);
+  -webkit-mask-size: 6px 6px;
+  mask-size: 6px 6px;
+  mix-blend-mode: var(--hc-blend);
+}
+
+.halftone-cta__paint {
+  position: absolute;
+  inset: -35%;
+  background:
+    radial-gradient(ellipse 50% 40% at 18% 32%, #e0a352 0%, transparent 58%),
+    radial-gradient(ellipse 46% 55% at 78% 52%, #c9791f 0%, transparent 54%),
+    radial-gradient(ellipse 40% 36% at 52% 84%, #8a6d1f 0%, transparent 58%),
+    radial-gradient(ellipse 28% 26% at 40% 18%, #b8863f 0%, transparent 60%);
+  filter: blur(18px);
+  will-change: transform;
+  animation: hc-drift 20s ease-in-out infinite;
+}
+
+.halftone-cta__scrim {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--hc-scrim);
+}
+
+.halftone-cta__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  max-width: 40rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.halftone-cta__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.125rem;
+  border: 1px solid var(--hc-badge-border);
+  border-radius: 999px;
+  background: var(--hc-badge-bg);
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  color: var(--hc-muted);
+}
+
+.halftone-cta__heading {
+  margin: 0;
+  font-size: clamp(2.25rem, 9cqi, 4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--hc-ink);
+  text-wrap: balance;
+}
+
+.halftone-cta__subtext {
+  margin: 0;
+  max-width: 30rem;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--hc-muted);
+}
+
+/* The shimmering gold pill */
+.halftone-cta__button {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.25rem;
+  min-height: 3.25rem;
+  padding: 0.95rem 2rem;
+  border: 0;
+  border-radius: 999px;
+  background-color: var(--hc-amber);
+  background-image: linear-gradient(120deg, #b8863f 0%, var(--hc-amber) 25%, #f6c98a 50%, var(--hc-amber) 75%, #b8863f 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  color: #14120f;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+  animation: hc-shimmer 7s ease-in-out infinite;
+  transition: transform 0.2s var(--hc-ease), box-shadow 0.3s var(--hc-ease);
+}
+.halftone-cta__button:hover,
+.halftone-cta__button:focus-visible {
+  animation-duration: 3.5s;
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.28), 0 0 24px rgba(232, 162, 74, 0.45);
+}
+.halftone-cta__button:focus-visible { outline: 2px solid var(--hc-amber-bright); outline-offset: 3px; }
+.halftone-cta__button:active { transform: translateY(0); }
+
+@keyframes hc-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes hc-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate3d(8%, -6%, 0) rotate(6deg) scale(1.1); }
+  66% { transform: translate3d(-6%, 8%, 0) rotate(-5deg) scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halftone-cta__paint { animation: none; }
+  .halftone-cta__button { animation: none; background-position: 50% 50%; }
+  .halftone-cta__button:hover,
+  .halftone-cta__button:focus-visible,
+  .halftone-cta__button:active { animation: none; transform: none; }
+}

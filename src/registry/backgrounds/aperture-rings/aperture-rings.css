@@ -1,0 +1,49 @@
+.apr { position: relative; isolation: isolate; overflow: hidden; background: var(--apr-bg); container-type: size; }
+.apr__scene { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.apr__content { position: relative; z-index: 1; height: 100%; }
+
+.apr__glow {
+  position: absolute;
+  width: 70cqmin;
+  height: 70cqmin;
+  border-radius: 999px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--apr-color) 20%, transparent), transparent);
+  filter: blur(20px);
+  animation: apr-breathe 12s ease-in-out infinite;
+}
+
+.apr__ring {
+  --size: calc(var(--r) * 2.4cqmin);
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 999px;
+  opacity: var(--a);
+  animation: apr-turn var(--dur) linear infinite;
+  animation-direction: normal;
+  animation-delay: calc(var(--dur) * -0.37);
+  /* rings are drawn as masked conic gradients so the dash pattern is crisp at any size */
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px));
+}
+.apr__ring:nth-child(even) { animation-direction: reverse; }
+
+/* four ring patterns: fine ticks, coarse ticks, long dashes, broken arc */
+.apr__ring--0 { background: repeating-conic-gradient(var(--apr-color) 0 0.5deg, transparent 0.5deg 3deg); }
+.apr__ring--1 { background: repeating-conic-gradient(var(--apr-color) 0 1.2deg, transparent 1.2deg 15deg); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 9px)); mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 9px)); }
+.apr__ring--2 { background: repeating-conic-gradient(var(--apr-color) 0 9deg, transparent 9deg 13deg); }
+.apr__ring--3 { background: conic-gradient(var(--apr-color) 0 110deg, transparent 110deg 150deg, var(--apr-color) 150deg 200deg, transparent 200deg 360deg); }
+
+.apr__core {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 999px;
+  background: var(--apr-color);
+  box-shadow: 0 0 24px 4px color-mix(in srgb, var(--apr-color) 60%, transparent);
+  opacity: 0.85;
+}
+
+@keyframes apr-turn { to { transform: rotate(360deg); } }
+@keyframes apr-breathe { 0%, 100% { opacity: 0.6; transform: scale(0.96); } 50% { opacity: 1; transform: scale(1.04); } }
+
+@media (prefers-reduced-motion: reduce) { .apr__ring, .apr__glow { animation: none; } }

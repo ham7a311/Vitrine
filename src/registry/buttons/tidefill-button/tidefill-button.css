@@ -1,0 +1,78 @@
+.tide {
+  --td-face: #160f1a;
+  --td-cream: #efe8dc;
+  --td-ink: #150e18;
+  --td-fill: #b9cce4;
+  --td-h: 3.5rem;
+  --td-rest: calc(var(--td-h) + 1.6rem); /* fully below the button, wave crest included */
+  position: relative;
+  display: inline-flex;
+  height: var(--td-h);
+  min-width: 11rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  overflow: hidden;
+  border: 1px solid rgb(239 232 220 / 0.2);
+  border-radius: 999px;
+  background: var(--td-face);
+  color: var(--td-cream);
+  font: 500 0.9375rem/1 "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 300ms ease, transform 160ms ease;
+}
+.tide--lilac { --td-fill: #c8b9ea; }
+.tide--cream { --td-fill: #efe8dc; }
+.tide:active { transform: scale(0.985); }
+.tide:focus-visible { outline: 2px solid var(--td-fill); outline-offset: 4px; }
+.tide:hover { border-color: var(--td-fill); }
+
+.tide__label { position: relative; z-index: 1; white-space: nowrap; }
+
+/* The liquid is a full-size layer translated down; hover lifts it. The ink label lives inside it,
+   counter-translated, so it stays put while the fill (and its clip) moves over it. */
+.tide__liquid,
+.tide__ink {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  transform: translateY(var(--td-rest));
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.tide__ink { z-index: 3; overflow: hidden; }
+.tide__body { position: absolute; inset: 1px 0 0; background: var(--td-fill); }
+.tide__wave {
+  position: absolute;
+  left: 0;
+  top: -1.4rem;
+  width: 200%;
+  height: 1.5rem;
+  fill: var(--td-fill);
+  animation: tide-roll 2.6s linear infinite;
+}
+.tide__label--ink {
+  color: var(--td-ink);
+  transform: translateY(calc(var(--td-rest) * -1));
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tide:hover .tide__liquid, .tide:focus-visible .tide__liquid, .tide:hover .tide__ink, .tide:focus-visible .tide__ink { transform: translateY(0); }
+.tide:hover .tide__label--ink, .tide:focus-visible .tide__label--ink { transform: translateY(0); }
+
+@keyframes tide-roll { to { transform: translateX(-50%); } }
+
+/* Touch: no hover, so the liquid rests half-full and rises fully on press. */
+@media (hover: none) {
+  .tide { --td-rest: calc(var(--td-h) * 0.72); }
+  .tide:active .tide__liquid, .tide:active .tide__ink, .tide:active .tide__label--ink { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tide__wave { animation: none; }
+  .tide__liquid, .tide__ink, .tide__label--ink { transition-duration: 1ms; }
+}

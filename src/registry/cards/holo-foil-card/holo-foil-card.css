@@ -1,0 +1,262 @@
+@property --hyp {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.hf {
+  --base-a: #f5f3f8;
+  --base-b: #dfe2ec;
+  --ink: #1d1b24;
+  --muted: rgb(29 27 36 / 0.55);
+  --foil-k: 0.75;
+  --emblem-k: 1;
+  --glitter-k: 0.6;
+  --edge: rgb(255 255 255 / 0.7);
+  position: relative;
+  display: grid;
+  place-items: center;
+  perspective: 1100px;
+  padding: 30px 20px 50px;
+}
+.hf--gold {
+  --base-a: #f1d38d;
+  --base-b: #b9862d;
+  --ink: #2d1d05;
+  --muted: rgb(45 29 5 / 0.6);
+  --foil-k: 0.55;
+  --glitter-k: 0.7;
+  --edge: rgb(255 240 200 / 0.7);
+}
+.hf--obsidian {
+  --base-a: #1a1a20;
+  --base-b: #070709;
+  --ink: #f1eee8;
+  --muted: rgb(241 238 232 / 0.55);
+  --foil-k: 0.9;
+  --glitter-k: 0.85;
+  --edge: rgb(255 255 255 / 0.18);
+}
+
+.hf__btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transform-style: preserve-3d;
+}
+.hf__btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 8px; }
+
+.hf__card {
+  --rx: 0deg;
+  --ry: 0deg;
+  --px: 50%;
+  --py: 50%;
+  position: relative;
+  width: min(300px, 78vw);
+  aspect-ratio: 5 / 7;
+  border-radius: 20px;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+}
+.hf__face {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  backface-visibility: hidden;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.25) inset;
+  isolation: isolate;
+}
+.hf__back { transform: rotateY(180deg); }
+
+.hf__base {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at var(--px) var(--py), rgb(255 255 255 / 0.25), transparent 60%),
+    linear-gradient(155deg, var(--base-a), var(--base-b));
+}
+
+/* The foil: rainbow bands that slide with the light, over fine engraved lines. */
+.hf__foil {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(115deg, #ff8a8a 0%, #ffd67a 7%, #b7ff9e 14%, #7af2ff 21%, #a891ff 28%, #ff86dc 35%, #ff8a8a 42%);
+  /* One oversized image, never tiled (a tile edge would show as a seam); at 260% it always covers. */
+  background-size: 260% 260%;
+  background-repeat: no-repeat;
+  background-position: var(--px) var(--py);
+  mix-blend-mode: color-dodge;
+  opacity: calc((0.18 + var(--hyp) * 0.62) * var(--foil-k));
+  -webkit-mask: repeating-linear-gradient(135deg, #000 0 1px, transparent 1px 3.2px), radial-gradient(120% 90% at 50% 40%, #000 30%, transparent 75%);
+  -webkit-mask-composite: source-in;
+  mask: repeating-linear-gradient(135deg, #000 0 1px, transparent 1px 3.2px), radial-gradient(120% 90% at 50% 40%, #000 30%, transparent 75%);
+  mask-composite: intersect;
+}
+.hf--gold .hf__foil { filter: sepia(0.45) saturate(1.4); }
+/* On pearl, dodge has nothing to brighten: the foil shows as an iridescent tint instead. */
+.hf--rainbow .hf__foil {
+  mix-blend-mode: multiply;
+  opacity: calc(0.16 + var(--hyp) * 0.5);
+}
+.hf--rainbow .hf__glitter {
+  mix-blend-mode: normal;
+  opacity: calc(0.2 + var(--hyp) * 0.6);
+  filter: drop-shadow(0 0 1px rgb(120 140 255 / 0.8));
+}
+
+/* Glitter: two offset grids of tiny points, twinkling as they shift. */
+.hf__glitter {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, #fff 0 0.7px, transparent 1.1px) calc(var(--px) * 0.3) calc(var(--py) * 0.3) / 13px 17px,
+    radial-gradient(circle at 70% 20%, #fff 0 0.6px, transparent 1px) calc(var(--px) * -0.2) calc(var(--py) * 0.25) / 19px 11px,
+    radial-gradient(circle at 50% 80%, #fff 0 0.8px, transparent 1.2px) calc(var(--px) * 0.15) calc(var(--py) * -0.3) / 23px 29px;
+  mix-blend-mode: color-dodge;
+  opacity: calc((0.1 + var(--hyp) * 0.75) * var(--glitter-k));
+  -webkit-mask: radial-gradient(70% 55% at var(--px) var(--py), #000, transparent 70%);
+  mask: radial-gradient(70% 55% at var(--px) var(--py), #000, transparent 70%);
+}
+
+.hf__content {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 22px 22px 20px;
+  color: var(--ink);
+  text-align: left;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+}
+.hf__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.hf__logo {
+  font: italic 500 22px/1 var(--font-newsreader), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+.hf__no {
+  font: 500 11px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+/* The emblem is foil all through: the rainbow, clipped to the mark. */
+.hf__emblem {
+  align-self: center;
+  justify-self: center;
+  width: 62%;
+  aspect-ratio: 1;
+  background:
+    repeating-linear-gradient(115deg, #ff8a8a 0%, #ffd67a 7%, #b7ff9e 14%, #7af2ff 21%, #a891ff 28%, #ff86dc 35%, #ff8a8a 42%) var(--px) var(--py) / 300% 300% no-repeat,
+    linear-gradient(var(--ink), var(--ink));
+  background-blend-mode: soft-light;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Cg fill=%22none%22 stroke=%22%23000%22 stroke-width=%223%22%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%2286%22/%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%2274%22 stroke-width=%221.2%22 stroke-dasharray=%222 5%22/%3E%3C/g%3E%3Cg fill=%22%23000%22%3E%3Cpath d=%22M30 132 L78 66 L96 90 L118 56 L170 132 Z%22/%3E%3Cpath d=%22M100 4 l5 14 h-10z M100 196 l5 -14 h-10z M4 100 l14 5 v-10z M196 100 l-14 5 v-10z%22/%3E%3Cpath d=%22M40 146 h120 v3 h-120z M58 156 h84 v2 h-84z%22/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Cg fill=%22none%22 stroke=%22%23000%22 stroke-width=%223%22%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%2286%22/%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%2274%22 stroke-width=%221.2%22 stroke-dasharray=%222 5%22/%3E%3C/g%3E%3Cg fill=%22%23000%22%3E%3Cpath d=%22M30 132 L78 66 L96 90 L118 56 L170 132 Z%22/%3E%3Cpath d=%22M100 4 l5 14 h-10z M100 196 l5 -14 h-10z M4 100 l14 5 v-10z M196 100 l-14 5 v-10z%22/%3E%3Cpath d=%22M40 146 h120 v3 h-120z M58 156 h84 v2 h-84z%22/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0.9;
+  filter: saturate(calc(0.55 + var(--hyp) * 0.9)) brightness(calc(0.95 + var(--hyp) * 0.35));
+}
+.hf--rainbow .hf__emblem {
+  background:
+    repeating-linear-gradient(115deg, #ff6f6f 0%, #ffc440 7%, #74e86a 14%, #3fd6f2 21%, #8a6dff 28%, #ff5fc8 35%, #ff6f6f 42%) var(--px) var(--py) / 300% 300% no-repeat;
+  filter: saturate(calc(0.5 + var(--hyp))) brightness(calc(0.85 + var(--hyp) * 0.2));
+}
+.hf__bottom {
+  display: grid;
+  gap: 5px;
+}
+.hf__kicker {
+  font: 500 10px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hf__name {
+  font: 500 23px/1.1 var(--font-newsreader), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+.hf__meta {
+  font: 500 10.5px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* The back: a signature panel, terms and a foil seal. */
+.hf__stripe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34px;
+  height: 46px;
+  background: linear-gradient(#141418, #26262c);
+}
+.hf__content--back {
+  grid-template-rows: auto auto 1fr auto;
+  gap: 14px;
+  padding-top: 102px;
+}
+.hf__sig {
+  height: 34px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(-12deg, #f3efe6 0 6px, #e6dfd0 6px 7px);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+.hf__sig span {
+  font: italic 400 19px/1 var(--font-newsreader), Georgia, serif;
+  color: #1c2a6b;
+}
+.hf__terms {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.hf__seal {
+  justify-self: end;
+  align-self: end;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: conic-gradient(from calc(var(--pxn, 50) * 3.6deg), #ff8a8a, #ffd67a, #b7ff9e, #7af2ff, #a891ff, #ff86dc, #ff8a8a);
+  -webkit-mask: repeating-conic-gradient(#000 0 6deg, rgb(0 0 0 / 0.55) 6deg 12deg);
+  mask: repeating-conic-gradient(#000 0 6deg, rgb(0 0 0 / 0.55) 6deg 12deg);
+  opacity: calc(0.65 + var(--hyp) * 0.35);
+}
+
+/* Glare: the light source's reflection, following the pointer. */
+.hf__glare {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--px) var(--py), rgb(255 255 255 / 0.55), rgb(255 255 255 / 0.1) 30%, transparent 55%);
+  mix-blend-mode: overlay;
+  opacity: calc(0.3 + var(--hyp) * 0.7);
+  pointer-events: none;
+}
+.hf__edge {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--edge), inset 0 0 18px rgb(0 0 0 / 0.08);
+  pointer-events: none;
+}
+.hf__shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  width: min(260px, 66vw);
+  height: 30px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(0 0 0 / 0.35), transparent);
+  filter: blur(6px);
+  z-index: -1;
+  transition: transform 400ms ease, opacity 400ms ease;
+}
+.hf[data-on] .hf__shadow { transform: scale(0.9); opacity: 0.8; }

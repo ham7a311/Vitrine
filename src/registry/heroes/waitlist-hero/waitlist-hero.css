@@ -1,0 +1,176 @@
+/* Waitlist Hero — join, and a numbered stub feeds out of the form. */
+.wlh {
+  --wlh-bg: #0b0b0e;
+  --wlh-ink: #efe8dc;
+  --wlh-muted: #9c97a0;
+  --wlh-line: rgb(239 232 220 / 0.12);
+  --wlh-field: #141418;
+  --wlh-btn: #efe8dc;
+  --wlh-btn-ink: #121114;
+  --wlh-accent: #b9cce4;
+  --wlh-error: #f2a6a0;
+  --wlh-paper: #f4efe4;
+  --wlh-paper-ink: #1d1b17;
+  --wlh-paper-muted: #6e685d;
+  --wlh-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  container-type: inline-size;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100%;
+  padding: clamp(3rem, 8cqi, 6rem) clamp(1.25rem, 5cqi, 3rem);
+  background: radial-gradient(60% 50% at 50% 0%, rgb(185 204 228 / 0.08), transparent 70%), var(--wlh-bg);
+  color: var(--wlh-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.wlh--paper {
+  --wlh-bg: #f3f0e9;
+  --wlh-ink: #1b1a17;
+  --wlh-muted: #6f6a62;
+  --wlh-line: rgb(27 26 23 / 0.12);
+  --wlh-field: #ffffff;
+  --wlh-btn: #1b1a17;
+  --wlh-btn-ink: #f3f0e9;
+  --wlh-accent: #2f5fd0;
+  --wlh-error: #b3261e;
+  --wlh-paper: #fffdf7;
+  background: radial-gradient(60% 50% at 50% 0%, rgb(255 255 255 / 0.75), transparent 70%), var(--wlh-bg);
+}
+
+.wlh__inner { width: 100%; max-width: 36rem; text-align: center; }
+.wlh__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.wlh__eyebrow {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  margin: 0; padding: 0.4rem 0.8rem; border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--wlh-line);
+  font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--wlh-muted);
+}
+.wlh__pip { width: 6px; height: 6px; border-radius: 50%; background: var(--wlh-accent); }
+.wlh__headline { margin: 1.4rem 0 0; font: 400 clamp(2.5rem, 9cqi, 4.5rem)/0.98 "Instrument Serif", "Newsreader", Georgia, serif; letter-spacing: -0.02em; text-wrap: balance; }
+.wlh__headline em { font-style: italic; }
+.wlh__sub { margin: 1.1rem auto 0; max-width: 30rem; font-size: 1rem; line-height: 1.6; color: var(--wlh-muted); text-wrap: pretty; }
+
+.wlh__dispenser { margin-top: 2.25rem; text-align: left; }
+
+/* The form is the dispenser's mouth. */
+.wlh__form {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 0.375rem;
+  padding: 0.375rem;
+  border-radius: 14px;
+  background: var(--wlh-field);
+  box-shadow: inset 0 0 0 1px var(--wlh-line), 0 1px 0 rgb(255 255 255 / 0.03);
+  transition: box-shadow 200ms ease;
+}
+.wlh__form:focus-within { box-shadow: inset 0 0 0 1px var(--wlh-accent), 0 0 0 4px color-mix(in srgb, var(--wlh-accent) 18%, transparent); }
+.wlh__form:has([aria-invalid]) { box-shadow: inset 0 0 0 1px var(--wlh-error); }
+.wlh__input {
+  flex: 1;
+  min-width: 0;
+  height: 2.75rem;
+  padding: 0 0.75rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+.wlh__input::placeholder { color: var(--wlh-muted); opacity: 0.7; }
+.wlh__input:disabled { opacity: 0.65; }
+.wlh__btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  height: 2.75rem;
+  padding: 0 1.15rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--wlh-btn);
+  color: var(--wlh-btn-ink);
+  font: inherit;
+  font-size: 0.9063rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 160ms ease, opacity 200ms ease;
+}
+.wlh__btn:active:not(:disabled) { transform: scale(0.97); }
+.wlh__btn:disabled { cursor: default; }
+.wlh__btn:focus-visible { outline: 2px solid var(--wlh-accent); outline-offset: 3px; }
+.wlh__btn-label { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; opacity: 0; transform: translateY(8px); transition: opacity 200ms ease, transform 400ms var(--wlh-ease); }
+.wlh__btn-label[data-on] { opacity: 1; transform: none; }
+.wlh__btn-label svg { width: 0.95rem; height: 0.95rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.wlh__hint { margin: 0.75rem 0 0; padding: 0 0.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--wlh-muted); text-align: center; }
+.wlh__hint[data-error] { color: var(--wlh-error); }
+.wlh[data-phase="joined"] .wlh__hint { display: none; }
+
+/* The slot opens and the ticket feeds out from under the form. */
+/* Closed, the slot clips the ticket completely, so nothing peeks out before you join. */
+.wlh__slot { display: grid; grid-template-rows: 0fr; overflow: hidden; visibility: hidden; transition: grid-template-rows 900ms var(--wlh-ease), visibility 0s linear 900ms; }
+.wlh[data-phase="joined"] .wlh__slot { grid-template-rows: 1fr; margin-top: -10px; padding: 0 0.6rem 2.5rem; margin-inline: -0.6rem; visibility: visible; transition: grid-template-rows 900ms var(--wlh-ease), visibility 0s; }
+.wlh__slot > * { min-height: 0; }
+.wlh__ticket {
+  --notch: 9px;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 13.5rem);
+  margin: 0 0.6rem;
+  padding-top: 10px;
+  border-radius: 0 0 12px 12px;
+  background: var(--wlh-paper);
+  color: var(--wlh-paper-ink);
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.55);
+  transform: translateY(-100%);
+  transition: transform 900ms var(--wlh-ease);
+  /* Notches where the stub tears off. */
+  mask:
+    radial-gradient(circle var(--notch) at calc(100% - 13.5rem) 10px, transparent 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - 13.5rem) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+}
+.wlh[data-phase="joined"] .wlh__ticket { transform: none; }
+.wlh__ticket::before { content: ""; position: absolute; left: 0; right: 0; top: 10px; height: 1px; background: repeating-linear-gradient(90deg, rgb(29 27 23 / 0.25) 0 4px, transparent 4px 8px); }
+
+.wlh__ticket-main { padding: 1.4rem 1.4rem 1.5rem; }
+.wlh__place { margin: 0; outline: none; font-weight: 400; }
+.wlh__place:focus-visible { outline: 2px solid var(--wlh-accent); outline-offset: 4px; border-radius: 6px; }
+.wlh__place-label, .wlh__stub-label { display: block; font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wlh-paper-muted); }
+.wlh__number { display: flex; align-items: baseline; margin-top: 0.35rem; font: 400 clamp(3rem, 11cqi, 4.25rem)/1 "Instrument Serif", "Newsreader", Georgia, serif; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.wlh__hash { margin-right: 0.04em; color: var(--wlh-paper-muted); font-size: 0.6em; align-self: center; }
+.wlh__reels { display: inline-flex; }
+.wlh__reel { display: inline-flex; flex-direction: column; width: 0.5em; height: 1em; overflow: hidden; line-height: 1; text-align: center; }
+.wlh__reel > span { display: block; height: 1em; transform: translateY(calc(var(--d) * -100%)); transition: transform 1400ms var(--wlh-ease) calc(var(--i) * 110ms); }
+.wlh__comma { line-height: 1; margin: 0 0.02em 0 -0.03em; }
+.wlh__eta { margin: 0.75rem 0 0; font-size: 0.875rem; line-height: 1.55; color: var(--wlh-paper-muted); }
+.wlh__eta strong { color: var(--wlh-paper-ink); font-weight: 600; overflow-wrap: anywhere; }
+
+.wlh__ticket-stub { display: flex; flex-direction: column; padding: 1.4rem 1.2rem 1.3rem; border-left: 1px dashed rgb(29 27 23 / 0.25); }
+.wlh__stub-copy { margin: 0.35rem 0 0; font-size: 0.8125rem; line-height: 1.45; color: var(--wlh-paper-muted); }
+.wlh__copy {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+  margin-top: auto; padding: 0.55rem 0.65rem; border: 0; border-radius: 8px;
+  background: rgb(29 27 23 / 0.06); color: var(--wlh-paper-ink); font: inherit; font-size: 0.75rem; cursor: pointer; text-align: left;
+}
+.wlh__ticket-stub .wlh__copy { margin-top: 0.9rem; }
+.wlh__copy:hover { background: rgb(29 27 23 / 0.1); }
+.wlh__copy:focus-visible { outline: 2px solid var(--wlh-accent); outline-offset: 2px; }
+.wlh__link { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: "Geist Mono", "JetBrains Mono", ui-monospace, monospace; }
+.wlh__copy-state { flex: none; font-weight: 600; }
+
+@container (max-width: 520px) {
+  .wlh__form { flex-direction: column; }
+  .wlh__btn { width: 100%; }
+  .wlh__ticket { grid-template-columns: 1fr; mask: none; border-radius: 0 0 12px 12px; }
+  .wlh__ticket-stub { border-left: 0; border-top: 1px dashed rgb(29 27 23 / 0.25); }
+}
+
+.wlh[data-motion="reduced"] *, .wlh[data-motion="reduced"] *::before { transition-duration: 1ms !important; transition-delay: 0ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  .wlh *, .wlh *::before { transition-duration: 1ms !important; transition-delay: 0ms !important; }
+}

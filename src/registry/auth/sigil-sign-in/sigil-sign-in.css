@@ -1,0 +1,126 @@
+/* Sigil Sign-in — strokes draw themselves via stroke-dashoffset; strength arcs light up quarter by quarter. */
+
+.sig {
+  --s-void: #09080b;
+  --s-stage: #100b14;
+  --s-ink: #efe8dc;
+  --s-muted: #a7a1ab;
+  --s-faint: #7d7782;
+  --s-frost: #b9cce4;
+  --s-lilac: #c8b9ea;
+  --s-line: rgb(239 232 220 / 0.14);
+  container-type: inline-size;
+  display: grid;
+  min-height: 100%;
+  grid-template-columns: 1fr;
+  background: var(--s-void);
+  color: var(--s-ink);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+@container (min-width: 52rem) { .sig { grid-template-columns: 1.05fr 1fr; } }
+
+/* ——— Stage ——— */
+.sig__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1.25rem;
+  overflow: hidden;
+  padding: 2.5rem 1.5rem;
+  background: radial-gradient(70% 60% at 50% 45%, rgb(185 204 228 / 0.07), transparent 70%), var(--s-stage);
+}
+@container (max-width: 51.99rem) { .sig__stage { padding-block: 1.5rem; } .sig__svg { max-width: 15rem !important; } }
+.sig__grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgb(239 232 220 / 0.08) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent);
+  mask-image: radial-gradient(closest-side, #000 20%, transparent);
+}
+.sig__svg { position: relative; width: 100%; max-width: 26rem; overflow: visible; }
+
+.sig__guide { fill: none; stroke: rgb(239 232 220 / 0.09); stroke-width: 0.8; stroke-dasharray: 2 5; }
+
+.sig__arc { fill: none; stroke: rgb(239 232 220 / 0.14); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1; transition: stroke 400ms ease; }
+.sig__arc.is-on { stroke: var(--s-frost); filter: drop-shadow(0 0 5px rgb(185 204 228 / 0.6)); animation: sig-draw 600ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+.sig__arc.is-on[data-level="4"] { stroke: var(--s-lilac); filter: drop-shadow(0 0 7px rgb(200 185 234 / 0.75)); }
+.sig__arc.is-on[data-level="1"] { stroke: #e8b0a0; filter: drop-shadow(0 0 5px rgb(232 176 160 / 0.5)); }
+
+.sig__stroke path { fill: none; stroke: var(--s-ink); stroke-width: 1.4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: sig-draw 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0.9; }
+.sig__stroke circle { fill: var(--s-frost); opacity: 0; animation: sig-pop 300ms ease 380ms forwards; }
+.sig__core { fill: var(--s-faint); transition: fill 300ms ease, r 300ms ease; }
+.sig__core.is-valid { fill: var(--s-frost); filter: drop-shadow(0 0 8px rgb(185 204 228 / 0.9)); }
+
+.sig__caption { position: relative; margin: 0; font-family: ui-monospace, "SF Mono", monospace; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--s-faint); text-align: center; }
+
+@keyframes sig-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes sig-pop { from { opacity: 0; } to { opacity: 0.9; } }
+
+/* ——— Panel ——— */
+.sig__panel { display: flex; flex-direction: column; justify-content: center; padding: 2.5rem 1.5rem 3rem; max-width: 30rem; width: 100%; margin-inline: auto; }
+@container (min-width: 52rem) { .sig__panel { padding-inline: 3rem; margin-inline: 0; } }
+.sig__brand { margin: 0; font-family: ui-monospace, "SF Mono", monospace; font-size: 0.6875rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--s-faint); }
+.sig__title { margin: 1.25rem 0 0; font-family: "Newsreader", "Iowan Old Style", Georgia, serif; font-size: 2.75rem; font-weight: 400; letter-spacing: -0.02em; line-height: 1; }
+.sig__sub { margin: 0.9rem 0 0; max-width: 34ch; font-size: 0.9375rem; line-height: 1.6; color: var(--s-muted); }
+
+.sig__form { margin-top: 2rem; }
+.sig__form label { display: block; margin-top: 1.1rem; font-size: 0.8125rem; color: var(--s-muted); }
+.sig__form input {
+  display: block;
+  width: 100%;
+  height: 3rem;
+  margin-top: 0.45rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--s-line);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 0.025);
+  color: var(--s-ink);
+  font: inherit;
+  font-size: 1rem;
+  transition: border-color 220ms ease, box-shadow 220ms ease;
+}
+.sig__form input::placeholder { color: var(--s-faint); }
+.sig__form input:hover { border-color: rgb(239 232 220 / 0.26); }
+.sig__form input:focus { outline: none; border-color: rgb(185 204 228 / 0.7); box-shadow: 0 0 0 4px rgb(185 204 228 / 0.1); }
+
+.sig__pw { position: relative; }
+.sig__pw input { padding-right: 4.5rem; }
+.sig__show { position: absolute; right: 0.4rem; top: 0.75rem; min-height: 2.4rem; padding: 0 0.7rem; border: 0; border-radius: 8px; background: none; color: var(--s-muted); font: inherit; font-size: 0.8125rem; cursor: pointer; }
+.sig__show:hover { color: var(--s-ink); }
+.sig__show:focus-visible, .sig__submit:focus-visible { outline: 2px solid var(--s-frost); outline-offset: 2px; }
+
+.sig__strength { display: flex; align-items: center; gap: 0.7rem; margin: 0.65rem 0 0; font-size: 0.8125rem; color: var(--s-muted); }
+.sig__strength span { display: inline-flex; gap: 4px; }
+.sig__strength i { width: 1.6rem; height: 3px; border-radius: 3px; background: rgb(239 232 220 / 0.12); transition: background 300ms ease; }
+.sig__strength i.is-on { background: var(--s-frost); }
+.sig__strength[data-level="1"] i.is-on { background: #e8b0a0; }
+.sig__strength[data-level="4"] i.is-on { background: var(--s-lilac); }
+
+.sig__submit {
+  display: block;
+  width: 100%;
+  height: 3rem;
+  margin-top: 1.75rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--s-ink);
+  color: #120c15;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 250ms ease, transform 160ms ease, box-shadow 300ms ease;
+}
+.sig__submit:enabled:hover { box-shadow: 0 10px 40px -12px rgb(185 204 228 / 0.6); }
+.sig__submit:enabled:active { transform: translateY(1px); }
+.sig__submit:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.sig__foot { margin: 1.75rem 0 0; font-size: 0.875rem; color: var(--s-muted); }
+.sig__foot a { color: var(--s-frost); text-underline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sig__stroke path, .sig__arc.is-on { animation: none; stroke-dashoffset: 0; }
+  .sig__stroke circle { animation: none; opacity: 0.9; }
+}

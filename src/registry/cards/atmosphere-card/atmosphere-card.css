@@ -1,0 +1,159 @@
+/* Atmosphere Card — six stacked layers: atmosphere, bloom, parallax contour field, quiet scrim, pointer presence, accent ring. */
+
+.atm-card {
+  --atm-nx: 0.78;
+  --atm-ny: 0.82;
+  --atm-surface: #121110;
+  --atm-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: color-mix(in srgb, var(--atm-c) 34%, var(--atm-surface));
+  text-decoration: none;
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  transition: background-color 0.45s var(--atm-ease);
+}
+
+.atm-card--violet { --atm-accent: #7a72a4; --atm-a: #8f84c4; --atm-b: #7388c8; --atm-c: #6a6298; }
+.atm-card--cyan   { --atm-accent: #6a92a4; --atm-a: #6aa8bc; --atm-b: #4f8ea4; --atm-c: #3d7084; }
+.atm-card--teal   { --atm-accent: #6a9a88; --atm-a: #6aafa0; --atm-b: #4e9684; --atm-c: #3d786c; }
+
+.atm-atmosphere,
+.atm-bloom,
+.atm-quiet,
+.atm-presence,
+.atm-field {
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+/* 1 — colour pooled in the corners, breathing slowly */
+.atm-atmosphere {
+  inset: -28%;
+  background:
+    radial-gradient(ellipse 58% 52% at 8% 92%, color-mix(in srgb, var(--atm-a) 55%, transparent) 0%, transparent 68%),
+    radial-gradient(ellipse 48% 44% at 96% 10%, color-mix(in srgb, var(--atm-b) 48%, transparent) 0%, transparent 66%),
+    radial-gradient(ellipse 42% 38% at 88% 88%, color-mix(in srgb, var(--atm-c) 42%, transparent) 0%, transparent 70%),
+    linear-gradient(158deg, color-mix(in srgb, var(--atm-b) 22%, transparent) 0%, transparent 38%, color-mix(in srgb, var(--atm-a) 18%, transparent) 100%);
+  opacity: 0.62;
+  animation: atm-breathe 22s ease-in-out infinite;
+  transition: opacity 0.45s var(--atm-ease);
+}
+.atm-card--cyan .atm-atmosphere { animation-duration: 25s; animation-delay: -7s; }
+.atm-card--teal .atm-atmosphere { animation-duration: 19s; animation-delay: -11s; }
+
+/* 2 — inner bloom along the bottom and side */
+.atm-bloom {
+  inset: 0;
+  opacity: 0.85;
+  box-shadow:
+    inset 0 -56px 72px -38px color-mix(in srgb, var(--atm-a) 55%, transparent),
+    inset -22px 0 48px -30px color-mix(in srgb, var(--atm-b) 32%, transparent);
+}
+
+/* 3 — contour currents, parallaxing toward the pointer */
+.atm-field {
+  inset: 0;
+  overflow: hidden;
+  transform: translate3d(calc((var(--atm-nx) - 0.5) * 10px), calc((var(--atm-ny) - 0.5) * 8px), 0);
+  transition: transform 0.85s var(--atm-ease);
+}
+.atm-waves {
+  position: absolute;
+  inset: -38% -28% -42% -32%;
+  width: 160%;
+  height: 180%;
+  overflow: visible;
+}
+.atm-card--violet .atm-waves { transform: rotate(4deg) scale(1.08); transform-origin: 40% 60%; }
+.atm-card--cyan .atm-waves { transform: rotate(-6deg) scale(1.04); transform-origin: 60% 50%; }
+.atm-card--teal .atm-waves { transform: rotate(-2deg) scale(1.06); transform-origin: 50% 40%; }
+
+.atm-wave {
+  fill: none;
+  stroke: color-mix(in srgb, var(--atm-accent) 82%, white);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.atm-wave--1 { stroke-width: 0.95; opacity: 0.34; animation: atm-current-1 18s ease-in-out infinite; }
+.atm-wave--2 { stroke-width: 0.75; opacity: 0.24; animation: atm-current-2 22s ease-in-out -4s infinite; }
+.atm-wave--3 { stroke-width: 0.65; opacity: 0.18; animation: atm-current-3 25s ease-in-out -9s infinite; }
+.atm-wave--4 { stroke-width: 0.55; opacity: 0.14; animation: atm-current-1 21s ease-in-out -13s infinite reverse; }
+
+/* 4 — a quiet pool of shade behind the copy */
+.atm-quiet {
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse 56% 52% at 18% 28%, rgba(18, 17, 16, 0.72) 0%, rgba(18, 17, 16, 0.28) 46%, transparent 70%);
+}
+
+/* 5 — presence: a spotlight at the pointer */
+.atm-presence {
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse 46% 42% at calc(var(--atm-nx) * 100%) calc(var(--atm-ny) * 100%),
+    color-mix(in srgb, var(--atm-accent) 22%, transparent) 0%,
+    transparent 68%
+  );
+  opacity: 0;
+  transition: opacity 0.55s var(--atm-ease);
+}
+
+/* 6 — accent ring */
+.atm-card::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  box-shadow: inset 0 0 0 1px transparent;
+  transition: box-shadow 0.45s var(--atm-ease);
+}
+
+.atm-icon { transition: border-color 200ms var(--atm-ease), color 200ms var(--atm-ease), box-shadow 200ms var(--atm-ease); }
+.atm-icon svg { width: 1rem; height: 1rem; }
+
+.atm-card:hover,
+.atm-card:focus-visible { background-color: color-mix(in srgb, var(--atm-c) 38%, var(--atm-surface)); }
+.atm-card:hover .atm-atmosphere,
+.atm-card:focus-visible .atm-atmosphere { opacity: 0.72; }
+.atm-card:hover .atm-presence,
+.atm-card:focus-visible .atm-presence { opacity: 1; }
+.atm-card:hover::after,
+.atm-card:focus-visible::after { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--atm-accent) 28%, transparent); }
+.atm-card:hover .atm-icon,
+.atm-card:focus-visible .atm-icon {
+  border-color: color-mix(in srgb, var(--atm-accent) 38%, #33312e);
+  color: color-mix(in srgb, var(--atm-accent) 55%, white);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--atm-accent) 22%, transparent);
+}
+.atm-card:focus-visible { outline: 2px solid var(--atm-accent); outline-offset: -2px; }
+
+@keyframes atm-breathe {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(2.4%, -1.8%, 0) scale(1.05) rotate(1.2deg); }
+}
+@keyframes atm-current-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(2.8%, -2.2%, 0) rotate(1.6deg) scale(1.04); }
+}
+@keyframes atm-current-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate3d(-2.4%, 1.8%, 0) rotate(-1.1deg) scale(1.03); }
+  66% { transform: translate3d(1.6%, 2.4%, 0) rotate(0.8deg) scale(1.02); }
+}
+@keyframes atm-current-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(-1.8%, -2.6%, 0) rotate(-1.4deg) scale(1.05); }
+}
+
+@media (max-width: 639px) {
+  .atm-wave--3, .atm-wave--4 { display: none; }
+  .atm-atmosphere { opacity: 0.72; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atm-atmosphere, .atm-wave { animation: none; }
+  .atm-field { transform: none; transition: none; }
+}

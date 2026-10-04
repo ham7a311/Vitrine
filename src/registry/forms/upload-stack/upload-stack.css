@@ -1,0 +1,148 @@
+/* Upload Stack — ordered by attention: failures, moving, waiting, settled. */
+.upload-stack {
+  --us-bg: #ffffff;
+  --us-ink: #1b1a17;
+  --us-muted: #77736b;
+  --us-line: rgb(27 26 23 / 0.09);
+  --us-edge: rgb(27 26 23 / 0.14);
+  --us-field: #faf9f6;
+  --us-accent: #1b1a17;
+  --us-error: #b42318;
+  --us-ok: #15803d;
+  --us-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: min(100%, 34rem);
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--us-bg);
+  box-shadow: 0 0 0 1px var(--us-line), 0 24px 50px -36px rgb(30 24 12 / 0.4);
+  color: var(--us-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8438rem;
+  -webkit-font-smoothing: antialiased;
+  transition: box-shadow 200ms ease;
+}
+.upload-stack--night {
+  --us-bg: #16171a;
+  --us-ink: #ececea;
+  --us-muted: #8b8d93;
+  --us-line: rgb(255 255 255 / 0.08);
+  --us-edge: rgb(255 255 255 / 0.13);
+  --us-field: #1c1d21;
+  --us-accent: #ececea;
+  --us-error: #f0766e;
+  --us-ok: #4ade80;
+}
+.upload-stack[data-over] { box-shadow: 0 0 0 2px var(--us-ink), 0 24px 50px -36px rgb(30 24 12 / 0.4); }
+
+/* Drop surface. */
+.upload-stack__drop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--us-field);
+  box-shadow: inset 0 0 0 1px var(--us-line);
+}
+.upload-stack__drop svg { flex: none; width: 20px; height: 20px; fill: none; stroke: var(--us-muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.upload-stack__drop p { display: flex; flex-direction: column; gap: 2px; margin: 0; }
+.upload-stack__drop strong { font-weight: 500; }
+.upload-stack__drop p > span:last-child { font-size: 0.75rem; color: var(--us-muted); }
+.upload-stack__call { font-size: inherit; color: var(--us-ink); }
+.upload-stack__browse { font-weight: 500; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.upload-stack__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.upload-stack__input:focus-visible + * , .upload-stack__drop:has(.upload-stack__input:focus-visible) { outline: 2px solid var(--us-ink); outline-offset: 2px; }
+
+/* Overall progress: one hairline for the whole batch. */
+.upload-stack__meter { height: 2px; margin-top: -6px; border-radius: 2px; background: var(--us-line); overflow: hidden; }
+.upload-stack__meter span { display: block; height: 100%; background: var(--us-ink); transition: width 300ms linear; }
+
+.upload-stack__group header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0 4px 6px; }
+.upload-stack__group h3 { margin: 0; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--us-muted); }
+.upload-stack__group h3 span { font-weight: 500; }
+.upload-stack__group[data-group="error"] h3 { color: var(--us-error); }
+.upload-stack__header-actions { display: flex; gap: 4px; }
+.upload-stack__group ul { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+
+.upload-stack__row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 10px 10px 10px 12px;
+  border-radius: 12px;
+  background: var(--us-bg);
+  box-shadow: 0 0 0 1px var(--us-line), 0 6px 14px -10px rgb(0 0 0 / 0.25);
+}
+.upload-stack__row[data-status="error"] { box-shadow: 0 0 0 1px color-mix(in srgb, var(--us-error) 45%, transparent), 0 10px 20px -14px color-mix(in srgb, var(--us-error) 60%, transparent); }
+.upload-stack__glyph {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: color-mix(in srgb, currentColor 11%, transparent);
+  font: 600 0.625rem "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.02em;
+}
+.upload-stack__info { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+.upload-stack__name { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 500; }
+.upload-stack__meta { font-size: 0.75rem; color: var(--us-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.upload-stack__meta--error { color: var(--us-error); white-space: normal; }
+.upload-stack__bar { display: block; height: 3px; margin-top: 3px; border-radius: 3px; background: var(--us-line); overflow: hidden; }
+.upload-stack__bar span { display: block; height: 100%; background: var(--us-accent); transform-origin: 0 50%; transition: transform 220ms linear; }
+.upload-stack__pct { min-width: 3ch; font: 500 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--us-muted); text-align: right; }
+
+.upload-stack__actions { display: flex; align-items: center; gap: 4px; flex: none; }
+.upload-stack__actions button,
+.upload-stack__link {
+  height: 30px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--us-muted);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+}
+.upload-stack__link { height: 24px; padding: 0 6px; font-size: 0.75rem; }
+.upload-stack__actions button:hover, .upload-stack__link:hover { background: color-mix(in srgb, var(--us-ink) 6%, transparent); color: var(--us-ink); }
+.upload-stack__row[data-status="error"] .upload-stack__actions button:first-child { color: var(--us-ink); box-shadow: inset 0 0 0 1px var(--us-edge); }
+.upload-stack__actions button:focus-visible, .upload-stack__link:focus-visible { outline: 2px solid var(--us-ink); outline-offset: 1px; }
+
+/* The queue: the next file, then edges of the ones behind it. */
+.upload-stack__queue { position: relative; display: flex; flex-direction: column; margin-top: 6px; }
+.upload-stack__row--next { z-index: 0; min-height: 46px; background: var(--us-field); box-shadow: 0 0 0 1px var(--us-line); }
+.upload-stack__row--next .upload-stack__glyph { width: 28px; height: 28px; opacity: 0.7; }
+.upload-stack__row--next .upload-stack__name { font-weight: 400; color: var(--us-muted); }
+.upload-stack__edge { height: 6px; margin-top: -1px; border-radius: 0 0 10px 10px; background: var(--us-field); box-shadow: 0 0 0 1px var(--us-line); }
+.upload-stack__waiting { margin: 8px 4px 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 0.75rem; color: var(--us-muted); }
+
+/* Done: a quiet ledger. */
+.upload-stack__ledger .upload-stack__row { min-height: 0; padding: 7px 10px; gap: 10px; background: none; box-shadow: none; border-radius: 8px; }
+.upload-stack__ledger .upload-stack__name { flex: 1; font-weight: 400; }
+.upload-stack__check { flex: none; width: 15px; height: 15px; fill: none; stroke: var(--us-ok); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.upload-stack__group[data-group="done"] ul { gap: 0; }
+
+.upload-stack__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 420px) {
+  .upload-stack { padding: 10px; }
+  .upload-stack__pct { display: none; }
+  .upload-stack__row { gap: 10px; }
+  .upload-stack__row--next .upload-stack__meta { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .upload-stack__bar span, .upload-stack__meter span, .upload-stack { transition: none; }
+}

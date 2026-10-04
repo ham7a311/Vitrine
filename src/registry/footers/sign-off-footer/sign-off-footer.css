@@ -1,0 +1,53 @@
+/* Sign-off Footer — the way a letter ends. */
+.sign-off-footer {
+  --so-ink: #efe8dc;
+  --so-muted: #a8a59c;
+  --so-faint: #5f5b55;
+  --so-line: rgb(239 232 220 / 0.1);
+  --so-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem) 1.75rem;
+  font-family: "Hanken Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  color: var(--so-ink);
+}
+.sign-off-footer__line { max-width: 16ch; margin: 0; font: 400 clamp(2.6rem, 7.5vw, 6rem)/0.98 "Instrument Serif", Georgia, serif; letter-spacing: -0.03em; }
+.sign-off-footer__line::first-letter { font-style: italic; }
+
+.sign-off-footer__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem 3rem; margin-top: clamp(2rem, 5vw, 3.5rem); }
+.sign-off-footer__email {
+  display: inline-flex; align-items: center; gap: 0.9rem; height: 3.4rem; padding: 0 1.1rem 0 1.4rem; max-width: 100%;
+  border: 0; border-radius: 999px; background: var(--so-ink); color: #14120f; cursor: pointer;
+  font: 500 clamp(0.95rem, 2vw, 1.125rem) inherit; font-family: inherit; letter-spacing: -0.01em;
+  transition: transform 160ms ease, background 300ms ease;
+}
+.sign-off-footer__email:active { transform: scale(0.98); }
+.sign-off-footer__email:focus-visible { outline: 2px solid var(--so-accent); outline-offset: 4px; }
+.sign-off-footer__email[data-copied] { background: var(--so-accent); }
+.sign-off-footer__stage { display: grid; height: 1.3em; overflow: hidden; min-width: 0; }
+.sign-off-footer__stage span { grid-area: 1 / 1; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: transform 520ms var(--so-ease); }
+.sign-off-footer__stage span:last-child { transform: translateY(110%); }
+.sign-off-footer__email[data-copied] .sign-off-footer__stage span:first-child { transform: translateY(-110%); }
+.sign-off-footer__email[data-copied] .sign-off-footer__stage span:last-child { transform: none; }
+.sign-off-footer__email svg { width: 1.1rem; height: 1.1rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.sign-off-footer__copy { transition: opacity 200ms ease; }
+.sign-off-footer__tick { stroke-dasharray: 14; stroke-dashoffset: 14; transition: stroke-dashoffset 380ms var(--so-ease) 120ms; }
+.sign-off-footer__email[data-copied] .sign-off-footer__copy { opacity: 0; }
+.sign-off-footer__email[data-copied] .sign-off-footer__tick { stroke-dashoffset: 0; }
+
+.sign-off-footer__meta { display: grid; gap: 0.35rem; font-size: 0.875rem; color: var(--so-muted); }
+.sign-off-footer__meta p { display: flex; align-items: center; gap: 0.5rem; margin: 0; }
+.sign-off-footer__meta i { width: 7px; height: 7px; border-radius: 50%; background: var(--so-faint); }
+.sign-off-footer__meta i[data-on] { background: #8fe388; box-shadow: 0 0 0 3px rgb(143 227 136 / 0.15); animation: sign-off-footer-pulse 2.4s ease-in-out infinite; }
+.sign-off-footer__meta .sign-off-footer__clock { display: block; }
+.sign-off-footer__clock b { font: 500 0.875rem "Geist Mono", monospace; font-variant-numeric: tabular-nums; color: var(--so-ink); }
+.sign-off-footer__clock span { color: var(--so-faint); }
+
+.sign-off-footer__base { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin-top: clamp(3rem, 8vw, 5rem); padding-top: 1.2rem; border-top: 1px solid var(--so-line); font-size: 0.8125rem; color: var(--so-faint); }
+.sign-off-footer__base nav { display: flex; gap: 1.25rem; }
+.sign-off-footer__base a { color: var(--so-muted); text-decoration: none; transition: color 200ms ease; }
+.sign-off-footer__base a:hover, .sign-off-footer__base a:focus-visible { color: var(--so-ink); }
+.sign-off-footer__top { margin-left: auto; }
+.sign-off-footer__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+
+@keyframes sign-off-footer-pulse { 50% { box-shadow: 0 0 0 6px rgb(143 227 136 / 0.05); } }
+@media (prefers-reduced-motion: reduce) { .sign-off-footer * { transition-duration: 1ms !important; animation: none !important; } }

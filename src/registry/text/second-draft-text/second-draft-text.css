@@ -1,0 +1,172 @@
+.sd {
+  --ink: #1d1a16;
+  --muted: rgb(29 26 22 / 0.5);
+  --accent: #c2361b;
+  --pen: #c2361b;
+  --sel: #b9d4fb;
+  --caret: #1d1a16;
+  color: var(--ink);
+}
+.sd--night {
+  --ink: #f1ece2;
+  --muted: rgb(241 236 226 / 0.5);
+  --accent: #ffb86b;
+  --pen: #ff7a59;
+  --sel: #2c4a7a;
+  --caret: #f1ece2;
+}
+
+.sd__kicker {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  margin: 0 0 22px;
+  font: 500 11px/1 "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sd__draft {
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--ink) 18%, transparent);
+  letter-spacing: 0.08em;
+}
+
+.sd__line {
+  margin: 0;
+  min-height: 2.3em;
+  font-family: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.1rem, 6vw, 4.6rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+/* A selection like the system's, growing backwards. */
+.sd__sel {
+  background: var(--sel);
+  border-radius: 2px;
+}
+
+/* Struck in pen: the word dims and a hand-drawn line crosses it. */
+.sd__struck {
+  position: relative;
+  color: color-mix(in oklab, var(--ink) 42%, transparent);
+  transition: color 400ms ease;
+}
+.sd__struck svg {
+  /* Drawn by revealing it left to right (dashes don't mix with a non-scaling stroke). */
+  clip-path: inset(0 100% 0 0);
+  animation: sd-draw 440ms cubic-bezier(0.6, 0, 0.3, 1) forwards;
+  position: absolute;
+  left: -4%;
+  width: 108%;
+  top: 0.32em;
+  height: 0.4em;
+  overflow: visible;
+}
+.sd__struck path {
+  fill: none;
+  stroke: var(--pen);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* The word it settled on. */
+.sd__final {
+  position: relative;
+  font-style: italic;
+  color: var(--accent);
+}
+.sd__final svg {
+  /* Drawn by revealing it left to right (dashes don't mix with a non-scaling stroke). */
+  clip-path: inset(0 100% 0 0);
+  animation: sd-draw 900ms cubic-bezier(0.5, 0, 0.2, 1) forwards;
+  position: absolute;
+  left: -2%;
+  width: 106%;
+  top: 0.9em;
+  height: 0.32em;
+  overflow: visible;
+}
+.sd__final path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+@keyframes sd-draw {
+  to { clip-path: inset(0 -2% 0 0); }
+}
+
+/* The caret: steady while typing, blinking while it thinks. */
+.sd__caret {
+  display: inline-block;
+  width: 0.06em;
+  min-width: 2px;
+  height: 0.92em;
+  margin-left: 0.04em;
+  vertical-align: -0.1em;
+  background: var(--caret);
+  border-radius: 1px;
+  animation: sd-blink 1.05s steps(1) infinite;
+}
+.sd__caret[data-typing] {
+  animation: none;
+}
+.sd__caret[data-done] {
+  animation: sd-blink 1.05s steps(1) 4 forwards;
+}
+@keyframes sd-blink {
+  50% { opacity: 0; }
+}
+
+.sd__replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 30px;
+  font: 500 12px/1 "Geist Mono", ui-monospace, monospace;
+  color: var(--muted);
+  background: none;
+  border: 1px solid color-mix(in oklab, var(--ink) 18%, transparent);
+  border-radius: 999px;
+  padding: 8px 13px;
+  cursor: pointer;
+  transition: opacity 200ms ease, color 150ms ease;
+}
+.sd__replay:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.sd__replay:not(:disabled):hover { color: var(--ink); }
+.sd__replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sd__replay svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.sd__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sd[data-motion="reduced"] .sd__struck svg,
+.sd[data-motion="reduced"] .sd__final svg { animation: none; clip-path: none; }
+.sd[data-motion="reduced"] .sd__caret { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .sd__struck svg,
+  .sd__final svg { animation: none; clip-path: none; }
+  .sd__caret { animation: none; }
+}

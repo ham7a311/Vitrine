@@ -1,0 +1,13 @@
+.chapter-numeral { margin: 0; position: relative; display: inline-block; }
+.chapter-numeral__digits { position: relative; font: 400 clamp(10rem, 40vw, 20rem) / 0.82 "Anton", Impact, sans-serif; letter-spacing: 0.02em; }
+.chapter-numeral__line { display: block; color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--cn) 70%, transparent); }
+.chapter-numeral__fill {
+  position: absolute; inset: 0; color: var(--cn); clip-path: inset(100% 0 0 0);
+  transition: clip-path 2.2s cubic-bezier(0.5, 0, 0.2, 1);
+}
+.chapter-numeral[data-on] .chapter-numeral__fill { clip-path: inset(0 0 0 0); }
+.chapter-numeral__fill::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 100%; background: linear-gradient(transparent 62%, rgb(0 0 0 / 0.35)); mix-blend-mode: multiply; }
+.chapter-numeral__cap { position: absolute; left: 0; bottom: 0.4rem; white-space: nowrap; display: flex; flex-direction: column; gap: 0.15rem; padding-left: 0.6rem; mix-blend-mode: difference; }
+.chapter-numeral__name { font: italic 400 clamp(1.35rem, 4vw, 2.4rem) / 1 "Instrument Serif", Georgia, serif; color: #fff; letter-spacing: -0.01em; }
+.chapter-numeral__role { font: 500 0.6875rem "Geist Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+@media (prefers-reduced-motion: reduce) { .chapter-numeral__fill { transition: none; clip-path: inset(0 0 0 0); } }

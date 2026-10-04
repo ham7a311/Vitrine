@@ -1,0 +1,145 @@
+/* Tideline CTA — the tide rises to how full it is; the button floats on the line. */
+@property --tlc-p { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --tlc-x { syntax: "<length>"; inherits: true; initial-value: 0px; }
+
+.tlc {
+  --tlc-page: #0b0a0d;
+  --tlc-ink: #efe8dc;
+  --tlc-muted: #9c96a1;
+  --tlc-water: #8fd3cf;
+  --tlc-back: #3f7f86;
+  --tlc-water-ink: #082022;
+  --tlc-water-muted: rgb(8 32 34 / 0.72);
+  --tlc-accent: #f0b37a;
+  --tlc-water-accent: #0f4d52;
+  --tlc-buoy: #efe8dc;
+  --tlc-buoy-ink: #141216;
+  --tlc-wh: 16px;
+  --tlc-p: 0;
+  --tlc-wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 20' preserveAspectRatio='none'%3E%3Cpath d='M0 10 Q 30 0 60 10 T 120 10 T 180 10 T 240 10 V20 H0 Z'/%3E%3C/svg%3E");
+  --tlc-top: calc((1 - var(--tlc-p)) * var(--tlc-h));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  min-height: 36rem;
+  background: var(--tlc-page);
+  color: var(--tlc-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  animation: tlc-roll 4.5s linear infinite;
+  transition: --tlc-p 2.4s cubic-bezier(0.3, 1.25, 0.5, 1);
+}
+.tlc--paper {
+  --tlc-page: #f3f1ec;
+  --tlc-ink: #1b1a17;
+  --tlc-muted: #6f6a62;
+  --tlc-water: #1f4f6b;
+  --tlc-back: #6f98ad;
+  --tlc-water-ink: #f3efe4;
+  --tlc-water-muted: rgb(243 239 228 / 0.76);
+  --tlc-accent: #a8432f;
+  --tlc-water-accent: #ffd9a0;
+  --tlc-buoy: #1b1a17;
+  --tlc-buoy-ink: #fffdf8;
+}
+.tlc[data-seen] { --tlc-p: var(--tlc-target); }
+
+.tlc__layer { position: relative; z-index: 1; }
+.tlc__water {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--tlc-water);
+  color: var(--tlc-water-ink);
+  --tlc-muted: var(--tlc-water-muted);
+  --tlc-accent: var(--tlc-water-accent);
+  -webkit-mask-image: var(--tlc-wave), linear-gradient(#000 0 0);
+  mask-image: var(--tlc-wave), linear-gradient(#000 0 0);
+  -webkit-mask-size: 240px var(--tlc-wh), 100% calc(var(--tlc-h) - var(--tlc-top));
+  mask-size: 240px var(--tlc-wh), 100% calc(var(--tlc-h) - var(--tlc-top));
+  -webkit-mask-position: var(--tlc-x) calc(var(--tlc-top) - var(--tlc-wh) + 0.5px), 0 100%;
+  mask-position: var(--tlc-x) calc(var(--tlc-top) - var(--tlc-wh) + 0.5px), 0 100%;
+  -webkit-mask-repeat: repeat-x, no-repeat;
+  mask-repeat: repeat-x, no-repeat;
+  pointer-events: none;
+}
+.tlc__water--back {
+  z-index: 0;
+  background: var(--tlc-back);
+  opacity: 0.55;
+  -webkit-mask-size: 240px calc(var(--tlc-wh) * 1.5), 100% calc(var(--tlc-h) - var(--tlc-top));
+  mask-size: 240px calc(var(--tlc-wh) * 1.5), 100% calc(var(--tlc-h) - var(--tlc-top));
+  -webkit-mask-position: calc(var(--tlc-x) * -0.7 + 90px) calc(var(--tlc-top) - var(--tlc-wh) * 1.5 - 3px), 0 100%;
+  mask-position: calc(var(--tlc-x) * -0.7 + 90px) calc(var(--tlc-top) - var(--tlc-wh) * 1.5 - 3px), 0 100%;
+}
+
+.tlc__inner {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: max(3rem, calc(var(--tlc-h) * (1 - var(--tlc-target)) - 5rem)) clamp(1.25rem, 6vw, 4rem) 8rem;
+}
+.tlc__eyebrow { margin: 0 0 1.25rem; font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tlc-accent); }
+.tlc__headline { max-width: 13ch; margin: 0; font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 600; line-height: 0.98; letter-spacing: -0.045em; text-wrap: balance; }
+.tlc__sub { max-width: 30rem; margin: 1.6rem 0 0; font-size: clamp(0.9375rem, 1.6vw, 1.125rem); line-height: 1.55; color: var(--tlc-muted); text-wrap: pretty; }
+.tlc__details { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin: 1.6rem 0 0; padding: 0; list-style: none; font: 500 0.75rem/1.4 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.06em; color: var(--tlc-muted); }
+
+/* The level marker sits just under the surface, so it's printed in the water's colours. */
+.tlc__level {
+  position: absolute;
+  top: calc(var(--tlc-top) + 1.1rem);
+  left: clamp(1.25rem, 6vw, 4rem);
+  margin: 0;
+  font: 500 0.6875rem/1 "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tlc-accent);
+  opacity: 0;
+  transition: opacity 600ms ease 1.6s;
+}
+.tlc[data-seen] .tlc__level { opacity: 1; }
+/* The buoy rides the surface. */
+.tlc__buoy {
+  position: absolute;
+  z-index: 3;
+  top: var(--tlc-top);
+  right: clamp(1.25rem, 6vw, 4rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 3.25rem;
+  margin-top: -1.9rem;
+  padding: 0 1.4rem 0 1.65rem;
+  border-radius: 999px;
+  background: var(--tlc-buoy);
+  color: var(--tlc-buoy-ink);
+  box-shadow: 0 14px 30px -14px rgb(0 0 0 / 0.55);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  animation: tlc-bob 3.6s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.tlc__buoy svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1); }
+.tlc__buoy:hover svg, .tlc__buoy:focus-visible svg { transform: translateX(3px); }
+.tlc__buoy:hover, .tlc__buoy:focus-visible { animation-play-state: paused; }
+.tlc__buoy:focus-visible { outline: 2px solid var(--tlc-buoy); outline-offset: 4px; }
+
+@keyframes tlc-roll { to { --tlc-x: 240px; } }
+@keyframes tlc-bob { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(5px) rotate(1deg); } }
+
+.tlc[data-motion="reduced"] { animation: none; transition: none; }
+.tlc[data-motion="reduced"] .tlc__buoy { animation: none; }
+.tlc[data-motion="reduced"] .tlc__level { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .tlc { animation: none; transition: none; }
+  .tlc__buoy { animation: none; }
+  .tlc__level { transition: none; }
+}
+/* Narrow: the buoy needs the dry strip to itself, so the content starts just under the line. */
+@media (max-width: 560px) {
+  .tlc__inner { padding-top: calc(var(--tlc-h) * (1 - var(--tlc-target)) + 3rem); padding-bottom: 4rem; }
+  .tlc__level { top: calc(var(--tlc-top) - var(--tlc-wh) - 1.6rem); color: var(--tlc-ink); }
+  .tlc__water .tlc__level { visibility: hidden; }
+}
