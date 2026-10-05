@@ -192,6 +192,9 @@ data/activity-stream
 data/block-handles
 data/board-view
 data/league-table
+data/query-cell
+data/install-snippet
+data/column-profile
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
@@ -281,6 +284,7 @@ forms/sentence-settings
 forms/etched-field
 forms/insert-menu
 forms/word-bank
+forms/schema-drop
 feedback/toast-stack
 feedback/wet-ink
 feedback/undo-ribbon
@@ -300,6 +304,7 @@ sections/voices-carousel
 sections/partner-ribbon
 sections/product-atelier
 sections/page-header
+sections/quickstart-checklist
 type/dither-logo
 type/constellation-name
 type/seal-signature

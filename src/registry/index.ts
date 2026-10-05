@@ -188,6 +188,9 @@ import { meta as activityStream } from "./data/activity-stream/meta";
 import { meta as blockHandles } from "./data/block-handles/meta";
 import { meta as boardView } from "./data/board-view/meta";
 import { meta as leagueTable } from "./data/league-table/meta";
+import { meta as queryCell } from "./data/query-cell/meta";
+import { meta as installSnippet } from "./data/install-snippet/meta";
+import { meta as columnProfile } from "./data/column-profile/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -277,6 +280,7 @@ import { meta as sentenceSettings } from "./forms/sentence-settings/meta";
 import { meta as etchedField } from "./forms/etched-field/meta";
 import { meta as insertMenu } from "./forms/insert-menu/meta";
 import { meta as wordBank } from "./forms/word-bank/meta";
+import { meta as schemaDrop } from "./forms/schema-drop/meta";
 import { meta as toastStack } from "./feedback/toast-stack/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
@@ -296,6 +300,7 @@ import { meta as voicesCarousel } from "./sections/voices-carousel/meta";
 import { meta as partnerRibbon } from "./sections/partner-ribbon/meta";
 import { meta as productAtelier } from "./sections/product-atelier/meta";
 import { meta as pageHeader } from "./sections/page-header/meta";
+import { meta as quickstartChecklist } from "./sections/quickstart-checklist/meta";
 import { meta as ditherLogo } from "./type/dither-logo/meta";
 import { meta as constellationName } from "./type/constellation-name/meta";
 import { meta as sealSignature } from "./type/seal-signature/meta";
@@ -514,6 +519,9 @@ export const registry: ComponentMeta[] = [
   blockHandles,
   boardView,
   leagueTable,
+  queryCell,
+  installSnippet,
+  columnProfile,
   curtainFooter,
   signOffFooter,
   indexFooter,
@@ -603,6 +611,7 @@ export const registry: ComponentMeta[] = [
   etchedField,
   insertMenu,
   wordBank,
+  schemaDrop,
   toastStack,
   wetInk,
   undoRibbon,
@@ -622,6 +631,7 @@ export const registry: ComponentMeta[] = [
   partnerRibbon,
   productAtelier,
   pageHeader,
+  quickstartChecklist,
   ditherLogo,
   constellationName,
   sealSignature,
