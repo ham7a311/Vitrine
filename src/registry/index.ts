@@ -67,6 +67,7 @@ import { meta as presetKeys } from "./controls/preset-keys/meta";
 import { meta as gateSelector } from "./controls/gate-selector/meta";
 import { meta as shadowBoard } from "./controls/shadow-board/meta";
 import { meta as notificationDial } from "./controls/notification-dial/meta";
+import { meta as patchBay } from "./controls/patch-bay/meta";
 import { meta as glassCard } from "./cards/glass-card/meta";
 import { meta as haloFrame } from "./cards/halo-frame/meta";
 import { meta as ringFloodCard } from "./cards/ring-flood-card/meta";
@@ -431,6 +432,7 @@ export const registry: ComponentMeta[] = [
   gateSelector,
   shadowBoard,
   notificationDial,
+  patchBay,
   glassCard,
   haloFrame,
   ringFloodCard,

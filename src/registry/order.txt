@@ -71,6 +71,7 @@ controls/preset-keys
 controls/gate-selector
 controls/shadow-board
 controls/notification-dial
+controls/patch-bay
 cards/glass-card
 cards/halo-frame
 cards/ring-flood-card

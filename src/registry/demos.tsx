@@ -75,6 +75,7 @@ const loaders: Record<string, Loader> = {
   "gate-selector": () => import("./controls/gate-selector/demo"),
   "shadow-board": () => import("./controls/shadow-board/demo"),
   "notification-dial": () => import("./controls/notification-dial/demo"),
+  "patch-bay": () => import("./controls/patch-bay/demo"),
   "glass-card": () => import("./cards/glass-card/demo"),
   "halo-frame": () => import("./cards/halo-frame/demo"),
   "ring-flood-card": () => import("./cards/ring-flood-card/demo"),
