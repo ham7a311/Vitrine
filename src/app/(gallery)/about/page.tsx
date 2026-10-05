@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { pageMeta } from "@/site/seo";
 import { site } from "@/site.config";
 
@@ -39,12 +40,16 @@ export default function About() {
         <li>Fonts used inside components are named in their CSS; add them to your project (Google Fonts links are in the site&rsquo;s layout).</li>
       </ul>
 
-      <p className="mt-16 text-[0.9375rem] text-ink-2">
+      <p className="mt-16 max-w-[60ch] text-[0.9375rem] leading-relaxed text-ink-2">
         Source and issues live on{" "}
         <a href={site.github} target="_blank" rel="noreferrer" className="text-frost underline decoration-frost/30 underline-offset-4 hover:decoration-frost">
           GitHub
         </a>
-        .
+        . For feedback, a component you&rsquo;d like to see, or anything else,{" "}
+        <Link href="/contact" className="text-frost underline decoration-frost/30 underline-offset-4 hover:decoration-frost">
+          get in touch
+        </Link>
+        . The code is MIT licensed; the <Link href="/terms" className="text-frost underline decoration-frost/30 underline-offset-4 hover:decoration-frost">Terms</Link> and <Link href="/privacy" className="text-frost underline decoration-frost/30 underline-offset-4 hover:decoration-frost">Privacy</Link> pages say the rest.
       </p>
     </div>
   );
