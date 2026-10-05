@@ -228,6 +228,7 @@ pricing/stack-pricing
 pricing/chalk-menu-pricing
 commerce/build-sheet
 commerce/fit-compare
+commerce/exploded-view
 faq/index-faq
 faq/footnote-faq
 faq/help-desk-faq

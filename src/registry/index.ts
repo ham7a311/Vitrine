@@ -224,6 +224,7 @@ import { meta as stackPricing } from "./pricing/stack-pricing/meta";
 import { meta as chalkMenuPricing } from "./pricing/chalk-menu-pricing/meta";
 import { meta as buildSheet } from "./commerce/build-sheet/meta";
 import { meta as fitCompare } from "./commerce/fit-compare/meta";
+import { meta as explodedView } from "./commerce/exploded-view/meta";
 import { meta as indexFaq } from "./faq/index-faq/meta";
 import { meta as footnoteFaq } from "./faq/footnote-faq/meta";
 import { meta as helpDeskFaq } from "./faq/help-desk-faq/meta";
@@ -587,6 +588,7 @@ export const registry: ComponentMeta[] = [
   chalkMenuPricing,
   buildSheet,
   fitCompare,
+  explodedView,
   indexFaq,
   footnoteFaq,
   helpDeskFaq,
