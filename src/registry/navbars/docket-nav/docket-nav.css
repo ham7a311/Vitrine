@@ -1,0 +1,82 @@
+/* Docket Nav: a product navbar that knows where you are. */
+.docket-nav {
+  --dn-bg: #f6f5f1;
+  --dn-ink: #1b1a17;
+  --dn-muted: #6b6861;
+  --dn-line: rgb(27 26 23 / 0.1);
+  --dn-accent: #2f6bff;
+  --dn-on-ink: #ffffff;
+  --dn-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  container-type: inline-size;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--dn-ink);
+  -webkit-font-smoothing: antialiased;
+  background: color-mix(in srgb, var(--dn-bg) 92%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+.docket-nav--night {
+  --dn-bg: #0f1012;
+  --dn-ink: #ececea;
+  --dn-muted: #8d8f95;
+  --dn-line: rgb(255 255 255 / 0.09);
+  --dn-accent: #7aa2ff;
+  --dn-on-ink: #111214;
+}
+.docket-nav[data-scrolled], .docket-nav[data-open] { border-bottom-color: var(--dn-line); }
+
+.docket-nav__bar { display: flex; align-items: center; gap: 28px; height: 60px; padding: 0 clamp(16px, 4cqi, 32px); }
+.docket-nav__brand { display: inline-flex; align-items: center; gap: 9px; font: 600 0.9375rem/1 inherit; letter-spacing: -0.01em; color: inherit; text-decoration: none; border-radius: 6px; }
+.docket-nav__mark { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--dn-ink); color: var(--dn-on-ink); font-size: 12px; font-weight: 600; }
+
+.docket-nav__links { margin-left: 4px; }
+.docket-nav__links ul { position: relative; display: flex; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.docket-nav__link { display: block; padding: 21px 10px; font-size: 0.875rem; line-height: 18px; color: var(--dn-muted); text-decoration: none; border-radius: 6px; transition: color 160ms ease; }
+.docket-nav__link:hover, .docket-nav__link[aria-current] { color: var(--dn-ink); }
+
+/* The hairline: one element that slides to the measured box of the active link. */
+.docket-nav__marker { position: absolute; left: 0; bottom: -1px; width: 1px; height: 2px; background: var(--dn-ink); transform-origin: 0 50%; transform: translateX(calc(var(--dn-mx) + 10px)) scaleX(calc(var(--dn-mw, 0) - 20)); opacity: 0; transition: opacity 200ms ease; pointer-events: none; }
+.docket-nav__links ul[data-ready] .docket-nav__marker { opacity: 1; transition: transform 380ms var(--dn-ease), opacity 200ms ease; }
+
+.docket-nav__cta { margin-left: auto; display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 8px; background: var(--dn-ink); color: var(--dn-on-ink); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: opacity 160ms ease; }
+.docket-nav__cta:hover { opacity: 0.86; }
+
+.docket-nav__menu { display: none; margin-left: auto; align-items: center; gap: 10px; min-height: 44px; padding: 0 2px; border: 0; background: none; color: inherit; font: 500 0.875rem/1 inherit; cursor: pointer; border-radius: 6px; }
+.docket-nav__menu-now { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dn-muted); animation: dn-in 240ms var(--dn-ease) both; }
+.docket-nav__num { font-family: "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; font-size: 0.6875rem; letter-spacing: 0.08em; color: var(--dn-muted); }
+.docket-nav__menu-now .docket-nav__num { color: var(--dn-accent); }
+
+:is(.docket-nav__brand, .docket-nav__link, .docket-nav__cta, .docket-nav__menu, .docket-nav__docket a):focus-visible { outline: 2px solid var(--dn-ink); outline-offset: 2px; }
+
+/* The docket: rows of a numbered list, current one ticked. */
+.docket-nav__docket { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 320ms var(--dn-ease); }
+.docket-nav__docket > nav { overflow: hidden; min-height: 0; padding: 0 clamp(16px, 4cqi, 32px); visibility: hidden; transition: visibility 0s 320ms; }
+.docket-nav[data-open] .docket-nav__docket { grid-template-rows: 1fr; }
+.docket-nav[data-open] .docket-nav__docket > nav { visibility: visible; transition-delay: 0s; }
+.docket-nav__docket ol { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--dn-line); }
+.docket-nav__docket li { border-bottom: 1px solid var(--dn-line); }
+.docket-nav__docket li a { display: grid; grid-template-columns: 2.25rem 1fr auto; align-items: baseline; min-height: 52px; padding: 14px 0; color: var(--dn-muted); text-decoration: none; font: 400 1.5rem/1.1 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.015em; }
+.docket-nav__docket li a[aria-current] { color: var(--dn-ink); }
+.docket-nav__tick { width: 16px; height: 16px; fill: none; stroke: var(--dn-accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 280ms var(--dn-ease); }
+.docket-nav__tick path { stroke-dasharray: 14; stroke-dashoffset: 14; transition: stroke-dashoffset 280ms var(--dn-ease); }
+.docket-nav__docket a[aria-current] .docket-nav__tick path { stroke-dashoffset: 0; }
+.docket-nav__tick { stroke-dasharray: none; stroke-dashoffset: 0; }
+.docket-nav[data-open] .docket-nav__docket li, .docket-nav[data-open] .docket-nav__cta--wide { animation: dn-in 320ms var(--dn-ease) both; animation-delay: calc(60ms + var(--i, 0) * 40ms); }
+.docket-nav__cta--wide { display: flex; justify-content: center; width: 100%; height: 48px; margin: 16px 0 20px; }
+
+/* Narrow: the links become a Menu that still says where you are. */
+@container (max-width: 44rem) {
+  .docket-nav__links, .docket-nav__bar > .docket-nav__cta { display: none; }
+  .docket-nav__menu { display: inline-flex; }
+}
+@container (min-width: 44.0001rem) { .docket-nav__docket { display: none; } }
+
+@keyframes dn-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .docket-nav *, .docket-nav { transition-duration: 1ms !important; animation: none !important; }
+}
+.docket-nav[data-motion="reduced"] *, .docket-nav[data-motion="reduced"] { transition-duration: 1ms !important; animation: none !important; }

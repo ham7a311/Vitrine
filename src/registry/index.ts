@@ -300,6 +300,7 @@ import { meta as weightWaveText } from "./text/weight-wave-text/meta";
 import { meta as looseLetters } from "./text/loose-letters/meta";
 import { meta as wordCarousel } from "./text/word-carousel/meta";
 import { meta as secondDraftText } from "./text/second-draft-text/meta";
+import { meta as docketNav } from "./navbars/docket-nav/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -604,6 +605,7 @@ export const registry: ComponentMeta[] = [
   looseLetters,
   wordCarousel,
   secondDraftText,
+  docketNav,
 ];
 
 export function getComponent(slug: string) {
