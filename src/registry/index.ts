@@ -206,6 +206,7 @@ import { meta as allocationFaders } from "./decisions/allocation-faders/meta";
 import { meta as undoTree } from "./time/undo-tree/meta";
 import { meta as conflictResolver } from "./time/conflict-resolver/meta";
 import { meta as cronBuilder } from "./time/cron-builder/meta";
+import { meta as timezoneOverlap } from "./time/timezone-overlap/meta";
 import { meta as queryTokens } from "./developer/query-tokens/meta";
 import { meta as keymap } from "./developer/keymap/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
@@ -306,6 +307,7 @@ import { meta as schemaDrop } from "./forms/schema-drop/meta";
 import { meta as spendControls } from "./forms/spend-controls/meta";
 import { meta as transferComposer } from "./forms/transfer-composer/meta";
 import { meta as scrubNumber } from "./forms/scrub-number/meta";
+import { meta as segmentCounter } from "./forms/segment-counter/meta";
 import { meta as toastStack } from "./feedback/toast-stack/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
@@ -562,6 +564,7 @@ export const registry: ComponentMeta[] = [
   undoTree,
   conflictResolver,
   cronBuilder,
+  timezoneOverlap,
   queryTokens,
   keymap,
   curtainFooter,
@@ -662,6 +665,7 @@ export const registry: ComponentMeta[] = [
   spendControls,
   transferComposer,
   scrubNumber,
+  segmentCounter,
   toastStack,
   wetInk,
   undoRibbon,
