@@ -65,6 +65,7 @@ import { meta as bracketCheckbox } from "./controls/bracket-checkbox/meta";
 import { meta as timeWindow } from "./controls/time-window/meta";
 import { meta as presetKeys } from "./controls/preset-keys/meta";
 import { meta as gateSelector } from "./controls/gate-selector/meta";
+import { meta as shadowBoard } from "./controls/shadow-board/meta";
 import { meta as glassCard } from "./cards/glass-card/meta";
 import { meta as haloFrame } from "./cards/halo-frame/meta";
 import { meta as ringFloodCard } from "./cards/ring-flood-card/meta";
@@ -208,6 +209,7 @@ import { meta as lightboxCompare } from "./pricing/lightbox-compare/meta";
 import { meta as calendarPricing } from "./pricing/calendar-pricing/meta";
 import { meta as stackPricing } from "./pricing/stack-pricing/meta";
 import { meta as chalkMenuPricing } from "./pricing/chalk-menu-pricing/meta";
+import { meta as buildSheet } from "./commerce/build-sheet/meta";
 import { meta as indexFaq } from "./faq/index-faq/meta";
 import { meta as footnoteFaq } from "./faq/footnote-faq/meta";
 import { meta as helpDeskFaq } from "./faq/help-desk-faq/meta";
@@ -406,6 +408,7 @@ export const registry: ComponentMeta[] = [
   timeWindow,
   presetKeys,
   gateSelector,
+  shadowBoard,
   glassCard,
   haloFrame,
   ringFloodCard,
@@ -549,6 +552,7 @@ export const registry: ComponentMeta[] = [
   calendarPricing,
   stackPricing,
   chalkMenuPricing,
+  buildSheet,
   indexFaq,
   footnoteFaq,
   helpDeskFaq,

@@ -69,6 +69,7 @@ controls/bracket-checkbox
 controls/time-window
 controls/preset-keys
 controls/gate-selector
+controls/shadow-board
 cards/glass-card
 cards/halo-frame
 cards/ring-flood-card
@@ -212,6 +213,7 @@ pricing/lightbox-compare
 pricing/calendar-pricing
 pricing/stack-pricing
 pricing/chalk-menu-pricing
+commerce/build-sheet
 faq/index-faq
 faq/footnote-faq
 faq/help-desk-faq

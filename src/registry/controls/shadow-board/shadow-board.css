@@ -1,0 +1,92 @@
+.shboard {
+  --shb-bar: #ffffff;
+  --shb-ink: #1f1d1a;
+  --shb-muted: #625b51;
+  --shb-line: rgb(31 29 26 / 0.14);
+  --shb-board: #c4a273;
+  --shb-hole: rgb(60 38 15 / 0.45);
+  --shb-paint: #d9480f;
+  --shb-tile: #f3f2ee;
+  --shb-tile-edge: #b9b5ac;
+  --shb-hook: #8a8f96;
+  --shb-focus: #1f4ea8;
+  --shb-ease: cubic-bezier(.2, .8, .2, 1);
+  color: var(--shb-ink);
+  font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  container-type: inline-size;
+}
+.shboard--dark {
+  --shb-bar: #1c1d20;
+  --shb-ink: #ecebe7;
+  --shb-muted: #a5a29a;
+  --shb-line: rgb(255 255 255 / 0.12);
+  --shb-board: #2b2621;
+  --shb-hole: rgb(0 0 0 / 0.7);
+  --shb-paint: #ff7a3d;
+  --shb-tile: #3a3d42;
+  --shb-tile-edge: #55595f;
+  --shb-hook: #8e949b;
+  --shb-focus: #93b4ff;
+}
+
+.shboard__top { display: flex; align-items: center; gap: 10px; padding: 6px; border-radius: 12px; background: var(--shb-bar); border: 1px solid var(--shb-line); box-shadow: 0 8px 20px -14px rgb(0 0 0 / 0.4); }
+.shboard__bar { display: flex; flex-wrap: wrap; gap: 2px; flex: 1; min-width: 0; }
+.shboard__tool {
+  position: relative; width: 38px; height: 38px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 8px;
+  background: transparent; color: inherit; cursor: pointer; transition: background 120ms var(--shb-ease);
+}
+.shboard__tool:hover { background: color-mix(in srgb, var(--shb-ink) 8%, transparent); }
+.shboard__tool:focus-visible, .shboard__toggle:focus-visible, .shboard__restore:focus-visible, .shboard__hanging:focus-visible { outline: 2px solid var(--shb-focus); outline-offset: 2px; }
+.shboard[data-editing] .shboard__tool { background: color-mix(in srgb, var(--shb-ink) 6%, transparent); }
+.shboard__x {
+  position: absolute; top: -4px; right: -4px; width: 15px; height: 15px; display: grid; place-items: center; border-radius: 50%;
+  background: var(--shb-ink); color: var(--shb-bar); font-size: 11px; line-height: 1;
+}
+.shboard__empty { width: 38px; height: 38px; border-radius: 8px; border: 1px dashed var(--shb-line); }
+.shboard__icon { display: grid; place-items: center; width: 20px; height: 20px; }
+.shboard__icon svg { width: 100%; height: 100%; }
+.shboard__toggle, .shboard__restore {
+  flex: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--shb-line); background: transparent; color: inherit;
+  font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.shboard[data-editing] .shboard__toggle { background: var(--shb-ink); color: var(--shb-bar); border-color: var(--shb-ink); }
+.shboard__restore:disabled { opacity: 0.45; cursor: default; }
+
+.shboard__board {
+  margin-top: 12px; padding: 16px 18px 20px; border-radius: 10px;
+  background: radial-gradient(circle, var(--shb-hole) 2.3px, transparent 2.8px) 9px 9px / 22px 22px, var(--shb-board);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12), 0 12px 24px -18px rgb(0 0 0 / 0.5);
+  animation: shb-open 260ms var(--shb-ease);
+}
+.shboard__board[hidden] { display: none; }
+@keyframes shb-open { from { opacity: 0; transform: translateY(-6px); } }
+.shboard__board-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; margin-bottom: 12px; }
+.shboard__hint { margin: 0; padding: 4px 8px; border-radius: 6px; background: var(--shb-bar); font-size: 12px; color: var(--shb-muted); }
+.shboard__restore { background: var(--shb-bar); }
+
+.shboard__pegs { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px 4px; margin: 0; padding: 0; list-style: none; }
+.shboard__spot { position: relative; display: grid; justify-items: center; height: 104px; }
+.shboard__hook { position: absolute; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--shb-hook); box-shadow: 0 2px 0 rgb(0 0 0 / 0.3); }
+.shboard__shadow {
+  position: absolute; top: 18px; width: 54px; height: 54px; display: grid; place-items: center; border-radius: 10px;
+  border: 2.5px solid var(--shb-paint); color: var(--shb-paint);
+}
+.shboard__shadow .shboard__icon { width: 26px; height: 26px; }
+.shboard__hanging {
+  position: absolute; top: 18px; width: 54px; height: 54px; display: grid; place-items: center; padding: 0; cursor: pointer;
+  border-radius: 10px; border: 1px solid var(--shb-tile-edge); background: var(--shb-tile); color: var(--shb-ink);
+  box-shadow: 0 6px 10px -4px rgb(0 0 0 / 0.45); rotate: -2deg; transform-origin: 50% 0;
+  transition: rotate 200ms var(--shb-ease), translate 200ms var(--shb-ease);
+}
+.shboard__spot:nth-child(3n) .shboard__hanging { rotate: 1.5deg; }
+.shboard__hanging:hover { rotate: 0deg; translate: 0 -3px; }
+.shboard__hanging .shboard__icon { width: 26px; height: 26px; }
+.shboard__name {
+  position: absolute; top: 80px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: 10.5px; font-weight: 800; font-stretch: 85%; letter-spacing: 0.08em; text-transform: uppercase; color: var(--shb-ink);
+}
+
+.shboard__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.shboard[data-motion="off"] *, .shboard[data-motion="off"] *::before { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .shboard * { animation: none !important; transition: none !important; } }
