@@ -306,6 +306,7 @@ const loaders: Record<string, Loader> = {
   "hover-reel": () => import("./media/hover-reel/demo"),
   "dither-portrait": () => import("./media/dither-portrait/demo"),
   "contact-sheet": () => import("./media/contact-sheet/demo"),
+  "transcript-player": () => import("./media/transcript-player/demo"),
   "route-globe": () => import("./maps/route-globe/demo"),
   "pulse-globe": () => import("./maps/pulse-globe/demo"),
   "dot-atlas": () => import("./maps/dot-atlas/demo"),

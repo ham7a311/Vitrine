@@ -302,6 +302,7 @@ media/image-compare
 media/hover-reel
 media/dither-portrait
 media/contact-sheet
+media/transcript-player
 maps/route-globe
 maps/pulse-globe
 maps/dot-atlas

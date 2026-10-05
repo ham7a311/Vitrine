@@ -298,6 +298,7 @@ import { meta as imageCompare } from "./media/image-compare/meta";
 import { meta as hoverReel } from "./media/hover-reel/meta";
 import { meta as ditherPortrait } from "./media/dither-portrait/meta";
 import { meta as contactSheet } from "./media/contact-sheet/meta";
+import { meta as transcriptPlayer } from "./media/transcript-player/meta";
 import { meta as routeGlobe } from "./maps/route-globe/meta";
 import { meta as pulseGlobe } from "./maps/pulse-globe/meta";
 import { meta as dotAtlas } from "./maps/dot-atlas/meta";
@@ -663,6 +664,7 @@ export const registry: ComponentMeta[] = [
   hoverReel,
   ditherPortrait,
   contactSheet,
+  transcriptPlayer,
   routeGlobe,
   pulseGlobe,
   dotAtlas,
