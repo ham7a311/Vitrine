@@ -318,3 +318,4 @@ feedback/nearest-page
 overlays/gloss-term
 overlays/plain-consent
 navigation/folio-pager
+overlays/shortcut-palette

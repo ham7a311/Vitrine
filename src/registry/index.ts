@@ -314,6 +314,7 @@ import { meta as nearestPage } from "./feedback/nearest-page/meta";
 import { meta as glossTerm } from "./overlays/gloss-term/meta";
 import { meta as plainConsent } from "./overlays/plain-consent/meta";
 import { meta as folioPager } from "./navigation/folio-pager/meta";
+import { meta as shortcutPalette } from "./overlays/shortcut-palette/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -632,6 +633,7 @@ export const registry: ComponentMeta[] = [
   glossTerm,
   plainConsent,
   folioPager,
+  shortcutPalette,
 ];
 
 export function getComponent(slug: string) {

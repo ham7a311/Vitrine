@@ -322,6 +322,7 @@ const loaders: Record<string, Loader> = {
   "gloss-term": () => import("./overlays/gloss-term/demo"),
   "plain-consent": () => import("./overlays/plain-consent/demo"),
   "folio-pager": () => import("./navigation/folio-pager/demo"),
+  "shortcut-palette": () => import("./overlays/shortcut-palette/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();
