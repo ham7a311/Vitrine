@@ -317,3 +317,4 @@ feedback/tuck-banner
 feedback/nearest-page
 overlays/gloss-term
 overlays/plain-consent
+navigation/folio-pager

@@ -321,6 +321,7 @@ const loaders: Record<string, Loader> = {
   "nearest-page": () => import("./feedback/nearest-page/demo"),
   "gloss-term": () => import("./overlays/gloss-term/demo"),
   "plain-consent": () => import("./overlays/plain-consent/demo"),
+  "folio-pager": () => import("./navigation/folio-pager/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();
