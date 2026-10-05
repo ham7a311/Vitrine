@@ -113,7 +113,7 @@ export function PairwiseRanker({ items, question = "Which matters more?", onComp
           <header className="prank__head">
             <h3 id={`${id}-q`} className="prank__q">{finished ? "Your ranking" : question}</h3>
             <p className="prank__count">
-              {finished ? `${items.length} items, ${asked} answers` : left <= 1 ? "Last question" : `Question ${asked + 1} · about ${left - 1} more`}
+              {finished ? `${items.length} items, ${asked} answers` : left <= 1 ? "Last question" : `Question ${asked + 1} · up to ${left - 1} more`}
             </p>
             <div className="prank__meter" role="progressbar" aria-label="Progress" aria-valuemin={0} aria-valuemax={total || 1} aria-valuenow={asked}>
               <span style={{ width: `${total ? (asked / total) * 100 : 100}%` }} />

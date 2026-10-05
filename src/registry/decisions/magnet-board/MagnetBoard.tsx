@@ -101,37 +101,37 @@ export function MagnetBoard({ items, attributes, initialMagnets = [], noun = "it
   const scored = [...items].map((i) => ({ item: i, pulls: magnets.map((m) => pull(i, m, R)) })).sort((a, b) => b.pulls.reduce((s, x) => s + x, 0) - a.pulls.reduce((s, x) => s + x, 0));
 
   return (
-    <section className={`mgb mgb--${theme} ${className}`} data-motion={motion ? undefined : "off"} aria-labelledby={`${id}-h`}>
-      <header className="mgb__bar">
-        <h3 id={`${id}-h`} className="mgb__title">{items.length} {noun}</h3>
-        <div className="mgb__tray" role="group" aria-label="Magnets">
+    <section className={`mgbd mgbd--${theme} ${className}`} data-motion={motion ? undefined : "off"} aria-labelledby={`${id}-h`}>
+      <header className="mgbd__bar">
+        <h3 id={`${id}-h`} className="mgbd__title">{items.length} {noun}</h3>
+        <div className="mgbd__tray" role="group" aria-label="Magnets">
           {attributes.map((a, i) => {
             const m = magnets.find((x) => x.key === a.key);
             return m ? (
-              <span key={a.key} className="mgb__chip" data-on style={{ "--mc": `var(--mgb-m${(i % 4) + 1})` } as CSSProperties}>
-                <span className="mgb__chip-dot" aria-hidden="true" />{a.label}
+              <span key={a.key} className="mgbd__chip" data-on style={{ "--mc": `var(--mgbd-m${(i % 4) + 1})` } as CSSProperties}>
+                <span className="mgbd__chip-dot" aria-hidden="true" />{a.label}
                 <button type="button" aria-pressed={!!m.invert} onClick={() => update(a.key, { invert: !m.invert }, true)} aria-label={`${a.label}: pull ${m.invert ? "low" : "high"} values. Switch`}>{m.invert ? "Low" : "High"}</button>
                 <button type="button" onClick={() => remove(a.key)} aria-label={`Remove ${a.label} magnet`}>×</button>
               </span>
             ) : (
-              <button key={a.key} type="button" className="mgb__chip mgb__chip--add" onClick={() => add(a.key)} style={{ "--mc": `var(--mgb-m${(i % 4) + 1})` } as CSSProperties}>+ {a.label}</button>
+              <button key={a.key} type="button" className="mgbd__chip mgbd__chip--add" onClick={() => add(a.key)} style={{ "--mc": `var(--mgbd-m${(i % 4) + 1})` } as CSSProperties}>+ {a.label}</button>
             );
           })}
         </div>
-        <div className="mgb__views" role="group" aria-label="View">
+        <div className="mgbd__views" role="group" aria-label="View">
           <button type="button" aria-pressed={view === "board"} onClick={() => setView("board")}>Board</button>
           <button type="button" aria-pressed={view === "list"} onClick={() => setView("list")}>List</button>
         </div>
       </header>
 
       {view === "board" ? (
-        <div className="mgb__board" ref={board} data-dragging={drag ? true : undefined}>
-          {magnets.length === 0 && <p className="mgb__empty">Add a magnet above. Each one pulls the {noun} that have the most of it.</p>}
-          <ul className="mgb__dots" aria-hidden="true">
+        <div className="mgbd__board" ref={board} data-dragging={drag ? true : undefined}>
+          {magnets.length === 0 && <p className="mgbd__empty">Add a magnet above. Each one pulls the {noun} that have the most of it.</p>}
+          <ul className="mgbd__dots" aria-hidden="true">
             {items.map((item, i) => (
               <li
                 key={item.id}
-                className="mgb__dot"
+                className="mgbd__dot"
                 data-lead={leaders.has(item.id) || undefined}
                 data-hover={hover === item.id || undefined}
                 style={{ transform: `translate(${pos[i].x}px, ${pos[i].y}px)` }}
@@ -139,8 +139,8 @@ export function MagnetBoard({ items, attributes, initialMagnets = [], noun = "it
                 onPointerLeave={() => setHover((h) => (h === item.id ? null : h))}
                 onClick={() => { setHover(item.id); onSelect?.(item); }}
               >
-                <span className="mgb__dot-mark" />
-                <span className="mgb__dot-label">{item.label}</span>
+                <span className="mgbd__dot-mark" />
+                <span className="mgbd__dot-label">{item.label}</span>
               </li>
             ))}
           </ul>
@@ -151,10 +151,10 @@ export function MagnetBoard({ items, attributes, initialMagnets = [], noun = "it
                 key={m.key}
                 ref={(el) => { if (el) pucks.current.set(m.key, el); else pucks.current.delete(m.key); }}
                 type="button"
-                className="mgb__puck"
+                className="mgbd__puck"
                 data-invert={m.invert || undefined}
                 data-drag={drag === m.key || undefined}
-                style={{ left: `${m.x * 100}%`, top: `${m.y * 100}%`, "--mc": `var(--mgb-m${(i % 4) + 1})` } as CSSProperties}
+                style={{ left: `${m.x * 100}%`, top: `${m.y * 100}%`, "--mc": `var(--mgbd-m${(i % 4) + 1})` } as CSSProperties}
                 aria-label={`${attr.get(m.key)?.label} magnet, pulling ${m.invert ? "low" : "high"} values. Arrow keys move it, I flips it, Delete removes it.`}
                 onPointerDown={(e) => onPuckDown(e, m.key)}
                 onPointerMove={(e) => onPuckMove(e, m.key)}
@@ -162,8 +162,8 @@ export function MagnetBoard({ items, attributes, initialMagnets = [], noun = "it
                 onPointerCancel={() => onPuckUp(m.key)}
                 onKeyDown={(e) => onPuckKey(e, m)}
               >
-                <span className="mgb__puck-code" aria-hidden="true">{code(m.key)}</span>
-                <span className="mgb__puck-name" aria-hidden="true">{attr.get(m.key)?.label}{m.invert ? " · low" : ""}</span>
+                <span className="mgbd__puck-code" aria-hidden="true">{code(m.key)}</span>
+                <span className="mgbd__puck-name" aria-hidden="true">{attr.get(m.key)?.label}{m.invert ? " · low" : ""}</span>
               </button>
             );
           })}
@@ -171,7 +171,7 @@ export function MagnetBoard({ items, attributes, initialMagnets = [], noun = "it
             const p = pos[items.indexOf(hovered)];
             const flip = p.x > size.w - 220;
             return (
-              <div className="mgb__card" style={{ left: p.x, top: p.y, "--fx": flip ? "-100%" : "0%" } as CSSProperties} aria-hidden="true">
+              <div className="mgbd__card" style={{ left: p.x, top: p.y, "--fx": flip ? "-100%" : "0%" } as CSSProperties} aria-hidden="true">
                 <strong>{hovered.label}</strong>
                 {attributes.map((a) => <span key={a.key}><em>{a.label}</em>{fmt(a.key, hovered.values[a.key])}</span>)}
               </div>
@@ -179,13 +179,13 @@ export function MagnetBoard({ items, attributes, initialMagnets = [], noun = "it
           })()}
         </div>
       ) : (
-        <div className="mgb__list" tabIndex={0} role="region" aria-label={`${noun} ranked by magnet pull`}>
+        <div className="mgbd__list" tabIndex={0} role="region" aria-label={`${noun} ranked by magnet pull`}>
           <table>
             <thead>
               <tr>
                 <th scope="col">{noun[0].toUpperCase() + noun.slice(1)}</th>
                 {magnets.map((m) => <th key={m.key} scope="col">{attr.get(m.key)?.label}{m.invert ? " (low)" : ""}</th>)}
-                {attributes.filter((a) => !magnets.some((m) => m.key === a.key)).map((a) => <th key={a.key} scope="col" className="mgb__muted">{a.label}</th>)}
+                {attributes.filter((a) => !magnets.some((m) => m.key === a.key)).map((a) => <th key={a.key} scope="col" className="mgbd__muted">{a.label}</th>)}
               </tr>
             </thead>
             <tbody>
@@ -194,18 +194,18 @@ export function MagnetBoard({ items, attributes, initialMagnets = [], noun = "it
                   <th scope="row">{item.label}</th>
                   {magnets.map((m, k) => (
                     <td key={m.key}>
-                      <span className="mgb__pull" style={{ "--p": pulls[k] } as CSSProperties} aria-hidden="true" />
+                      <span className="mgbd__pull" style={{ "--p": pulls[k] } as CSSProperties} aria-hidden="true" />
                       {fmt(m.key, item.values[m.key])}
                     </td>
                   ))}
-                  {attributes.filter((a) => !magnets.some((m) => m.key === a.key)).map((a) => <td key={a.key} className="mgb__muted">{fmt(a.key, item.values[a.key])}</td>)}
+                  {attributes.filter((a) => !magnets.some((m) => m.key === a.key)).map((a) => <td key={a.key} className="mgbd__muted">{fmt(a.key, item.values[a.key])}</td>)}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       )}
-      <p className="mgb__sr" aria-live="polite">{message}</p>
+      <p className="mgbd__sr" aria-live="polite">{message}</p>
     </section>
   );
 }

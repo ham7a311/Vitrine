@@ -21,8 +21,8 @@ export const meta: ComponentMeta = {
   responsive: "Two columns from 52rem with a sticky sheet; below that the sheet follows the options. Option grids reflow by available width.",
   touchFallback: "Every option and slip action is a full tap target; nothing relies on hover.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --bsheet-accent #1f3a8a; --bsheet-accent-ink #ffffff; --bsheet-carbon #e9eefb; --bsheet-carbon-ink #1f3a8a; --bsheet-card #ffffff; --bsheet-grid rgb(31 58 138 / 0.06); --bsheet-ink #1c2230; --bsheet-line rgb(28 34 48 / 0.14); --bsheet-mark #fff0b3; --bsheet-muted #5c6474; --bsheet-paper #fbfaf6; --bsheet-warn #a3341f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --bsheet-accent #9db4ff; --bsheet-accent-ink #0f1424; --bsheet-carbon #1f2740; --bsheet-carbon-ink #c4d2ff; --bsheet-card #1d2027; --bsheet-grid rgb(140 170 255 / 0.05); --bsheet-ink #dfe5f1; --bsheet-line rgb(255 255 255 / 0.1); --bsheet-mark #4a4020; --bsheet-muted #98a1b3; --bsheet-paper #16181d; --bsheet-warn #ff9a80. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ecebe5", mode: "fill", frame: [1200, 820] },
   isNew: true,

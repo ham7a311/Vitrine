@@ -22,8 +22,8 @@ export const meta: ComponentMeta = {
     "The master column moves under the channels below 46rem. Below 34rem each channel becomes a horizontal row: tape label and readout on top, a full-width horizontal fader, then the lock pin.",
   touchFallback: "Drag a cap or tap anywhere along a slot to jump; the horizontal layout on phones gives each fader the full width.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --afad-bg #e7e2d8; --afad-c1 #b4532a; --afad-c2 #2f6f73; --afad-c3 #5a5aa8; --afad-c4 #9a7a22; --afad-c5 #5f7032; --afad-c6 #8a4f7d; --afad-cap #1e1c1a; --afad-cap-line #f3efe7; --afad-focus #2f5fd0; --afad-ink #1e1c1a; --afad-line rgb(30 28 26 / 0.14); --afad-lock #b8361f; --afad-muted #655f57; --afad-panel #efebe3; --afad-readout-bg #1e1c1a; --afad-readout-ink #f6efe2; --afad-slot #2b2825; --afad-tape #efe2bd; --afad-tape-ink #3a342b. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --afad-bg #161718; --afad-c1 #e07a4f; --afad-c2 #4fb3b1; --afad-c3 #9a9af2; --afad-c4 #d4ad4f; --afad-c5 #a3b860; --afad-c6 #c98bbb; --afad-cap #d8d4cb; --afad-cap-line #1d1e20; --afad-focus #8ab4ff; --afad-ink #ecebe7; --afad-line rgb(255 255 255 / 0.1); --afad-lock #ff7a5c; --afad-muted #a29f97; --afad-panel #1d1e20; --afad-readout-bg #0b0c0d; --afad-readout-ink #f3e9d6; --afad-slot #060607; --afad-tape #d9cfb0; --afad-tape-ink #2a251d. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#d9d3c7", mode: "fill", frame: [1000, 620] },
   isNew: true,

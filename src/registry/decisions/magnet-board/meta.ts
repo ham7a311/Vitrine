@@ -21,8 +21,8 @@ export const meta: ComponentMeta = {
   responsive: "The board's height scales with the viewport between 340px and 500px and its layout follows its measured size; the header wraps chips onto a second line on narrow screens.",
   touchFallback: "Drag pucks with a finger (the board disables scrolling under it); tap a dot to see its card; the List view works without dragging at all.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --mgbd-bg #f6f3ea; --mgbd-dot #1d2633; --mgbd-focus #2b5fa8; --mgbd-grid rgb(52 84 130 / 0.1); --mgbd-grid-major rgb(52 84 130 / 0.18); --mgbd-ink #1d2633; --mgbd-line rgb(29 38 51 / 0.14); --mgbd-m1 #c2412d; --mgbd-m2 #2b5fa8; --mgbd-m3 #b8860b; --mgbd-m4 #3f7d4e; --mgbd-muted #5d6573; --mgbd-panel #fffdf8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --mgbd-bg #15181d; --mgbd-dot #e4e9f1; --mgbd-focus #9cc0ff; --mgbd-grid rgb(160 190 240 / 0.06); --mgbd-grid-major rgb(160 190 240 / 0.12); --mgbd-ink #e4e9f1; --mgbd-line rgb(255 255 255 / 0.1); --mgbd-m1 #ef7a62; --mgbd-m2 #79a6f0; --mgbd-m3 #e7bd4f; --mgbd-m4 #7cc08c; --mgbd-muted #9aa3b2; --mgbd-panel #1b1f25. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e8e3d6", mode: "fill", frame: [1200, 760] },
   isNew: true,

@@ -21,8 +21,8 @@ export const meta: ComponentMeta = {
   responsive: "Side padding and type size scale with the viewport; the bar wraps under 30rem and stays sticky at the top of the article while reading.",
   touchFallback: "Tap a depth; scroll position is held the same way as with a mouse.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --stx-accent #8a3b12; --stx-ink #1f1c17; --stx-line rgb(31 28 23 / 0.14); --stx-muted #6b6457; --stx-paper #fbf8f1; --stx-seg #f1ebdd; --stx-wash #fde9a3. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --stx-accent #f0a46d; --stx-ink #ece5d6; --stx-line rgb(255 255 255 / 0.1); --stx-muted #a59c8b; --stx-paper #17150f; --stx-seg #221f18; --stx-wash #5a4a17. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ebe5d8", mode: "page", frame: [1000, 760] },
   isNew: true,

@@ -21,8 +21,8 @@ export const meta: ComponentMeta = {
   responsive: "The panel fills its column and the list scrolls vertically past 340px; the lane diagram's width grows with the number of branches and labels truncate with an ellipsis.",
   touchFallback: "Tap a row to restore it. Hover previews are a bonus, since the restored state is visible immediately and can be undone.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --utree-accent #2457d6; --utree-bg #ffffff; --utree-ink #16181d; --utree-line rgb(22 24 29 / 0.1); --utree-muted #6a707c; --utree-pencil #b9bdc6; --utree-row #f2f5fd. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --utree-accent #7ea3ff; --utree-bg #121417; --utree-ink #e8eaee; --utree-line rgb(255 255 255 / 0.09); --utree-muted #8c93a0; --utree-pencil #474c56; --utree-row #1a1f2b. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#eef0f4", mode: "fill", frame: [1000, 700] },
   isNew: true,

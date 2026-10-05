@@ -21,8 +21,8 @@ export const meta: ComponentMeta = {
   responsive: "Padding and type size scale with the viewport; inputs never wrap internally, and the chart stretches to the column width.",
   touchFallback: "Drag sideways with a finger (the number blocks scrolling only while it's being dragged); tap to type with the decimal keypad.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --rprose-bad #a3341f; --rprose-ink #1e1d1a; --rprose-knob #1f3a8a; --rprose-knob-wash rgb(31 58 138 / 0.08); --rprose-line rgb(30 29 26 / 0.14); --rprose-muted #6a655c; --rprose-out-wash #fbe7a6; --rprose-paper #fbf9f4. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --rprose-bad #ff9a80; --rprose-ink #ece6d8; --rprose-knob #9fb8ff; --rprose-knob-wash rgb(159 184 255 / 0.12); --rprose-line rgb(255 255 255 / 0.1); --rprose-muted #a69f90; --rprose-out-wash #57491a; --rprose-paper #15140f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e3d6", mode: "page", frame: [1000, 760] },
   isNew: true,

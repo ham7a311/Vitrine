@@ -21,8 +21,8 @@ export const meta: ComponentMeta = {
   responsive: "The toolbar wraps onto a second row when narrow; the board's grid fits as many 84px spots per row as there is room for.",
   touchFallback: "Tap tools to move them; nothing depends on hover or dragging.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --shb-bar #ffffff; --shb-board #c4a273; --shb-focus #1f4ea8; --shb-hole rgb(60 38 15 / 0.45); --shb-hook #8a8f96; --shb-ink #1f1d1a; --shb-line rgb(31 29 26 / 0.14); --shb-muted #625b51; --shb-paint #d9480f; --shb-tile #f3f2ee; --shb-tile-edge #b9b5ac. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --shb-bar #1c1d20; --shb-board #2b2621; --shb-focus #93b4ff; --shb-hole rgb(0 0 0 / 0.7); --shb-hook #8e949b; --shb-ink #ecebe7; --shb-line rgb(255 255 255 / 0.12); --shb-muted #a5a29a; --shb-paint #ff7a3d; --shb-tile #3a3d42; --shb-tile-edge #55595f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e7e3db", mode: "center", frame: [900, 600] },
   isNew: true,

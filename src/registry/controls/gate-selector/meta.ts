@@ -21,8 +21,8 @@ export const meta: ComponentMeta = {
   responsive: "The plate scales with its container from its fixed viewBox aspect ratio; engraved labels shrink down to 9px on narrow screens, and the component caps its own width at 34rem.",
   touchFallback: "Tap a state name; the knob makes the same trip. The knob itself has a 52-unit touch target for dragging.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --gsel-accent #1f4ea8; --gsel-cut #232220; --gsel-cut-lip #8e8a82; --gsel-danger #a6311f; --gsel-edge #a9a59c; --gsel-engrave #3d3a35; --gsel-engrave-hi rgb(255 255 255 / 0.55); --gsel-ink #1f1e1b; --gsel-knob #f4f1ea; --gsel-knob-ring #6b665d; --gsel-muted #5e5a52; --gsel-plate #cfccc5; --gsel-plate-line rgb(0 0 0 / 0.05); --gsel-stop #a6311f; --gsel-stop-screw #f2c4b8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --gsel-accent #93b4ff; --gsel-cut #08090a; --gsel-cut-lip #505357; --gsel-danger #ff8c75; --gsel-edge #45474a; --gsel-engrave #d9d7d1; --gsel-engrave-hi rgb(0 0 0 / 0.6); --gsel-ink #ecebe7; --gsel-knob #e2dfd7; --gsel-knob-ring #8d8a83; --gsel-muted #a3a19b; --gsel-plate #2a2b2d; --gsel-plate-line rgb(255 255 255 / 0.03); --gsel-stop #e0634c; --gsel-stop-screw #5a1d14. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e6df", mode: "center", frame: [900, 600] },
   isNew: true,

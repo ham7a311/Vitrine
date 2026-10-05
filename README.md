@@ -8,7 +8,7 @@
 Read the source. Read the prompt behind it. Take it and make it yours.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-333-c8b9ea)
+![Components](https://img.shields.io/badge/components-343-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -48,19 +48,21 @@ There is no package, no CLI and no registry install. You copy a file or two into
 
 ## What's inside
 
-**333 components in 27 categories.**
+**343 components in 31 categories.**
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
 | Buttons | 46 | Backgrounds | 39 | Cards | 31 |
-| Controls | 19 | AI & Chat | 17 | Stats | 17 |
-| Authentication | 15 | Cursors | 13 | Analytics | 12 |
-| Type & Names | 10 | CTAs | 10 | Text Animations | 8 |
-| Micro-animations | 8 | FAQ | 9 | Forms | 12 |
-| Pricing | 6 | Navigation | 7 | Media | 5 |
-| Feedback | 14 | Data | 13 | Heroes | 4 |
-| Overlays | 3 | Maps & Globes | 3 | Footers | 3 |
-| Sidebars | 2 | Sections | 6 | Navbars | 1 |
+| Controls | 21 | AI & Chat | 17 | Stats | 17 |
+| Authentication | 15 | Feedback | 14 | Data | 14 |
+| Cursors | 13 | Analytics | 12 | Forms | 12 |
+| Type & Names | 10 | CTAs | 10 | FAQ | 9 |
+| Text Animations | 8 | Micro-animations | 8 | Navigation | 7 |
+| Pricing | 6 | Sections | 6 | Media | 5 |
+| Heroes | 4 | Decisions | 3 | Overlays | 3 |
+| Maps & Globes | 3 | Footers | 3 | Reading | 2 |
+| Sidebars | 2 | Time | 1 | Commerce | 1 |
+| Navbars | 1 | | | | |
 
 A few to start with:
 
@@ -76,6 +78,10 @@ A few to start with:
 - **Lesson Path, Word Bank, League Table**: chunky, pressable learning UI where progress always says what it means.
 - **Query Cell, Schema Drop, Column Profile**: a hard-edged data toolkit that parses CSV and profiles columns in the browser.
 - **Card Wallet, Transfer Composer, Approval Inbox**: precise banking flows that await real callbacks and never fake success.
+- **Reactive Prose, Stretchtext**: text you can operate. Drag a number in a sentence and the figures that depend on it recalculate; choose how deep an article goes and the detail grows inside its sentences.
+- **Pairwise Ranker, Magnet Board, Allocation Faders**: decisions made visible. Rank by answering "this or that?", sort by dropping quality magnets on a board, split a budget on faders that always add up.
+- **Sieve, Build Sheet, Gate Selector**: rules you can see. Filters that show what they removed, a configurator that explains its conflicts and offers the fix, a status control shaped like the workflow it allows.
+- **Undo Tree, Shadow Board**: history that branches instead of forgetting, and toolbar customisation where every tool keeps its painted outline.
 
 ## Run the gallery locally
 
@@ -105,7 +111,7 @@ Press **⌘K** (or **Ctrl K**) in the gallery to search by name, tag or feel, fo
 3. **Copy**: copy each file into your project. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file.
 
-The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 333 exported examples in isolation.
+The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 343 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source. Live demos load them through `src/site/ComponentFonts.tsx`; gallery fonts are self-hosted through Fontsource packages. Add the listed font families to your own project.
 

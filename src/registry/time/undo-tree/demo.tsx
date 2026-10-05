@@ -49,7 +49,7 @@ export default function Demo({ variant = "light" }: { variant?: string }) {
             <button type="button" className={btn} onClick={t.undo} disabled={!t.canUndo}>Undo</button>
             <button type="button" className={btn} onClick={t.redo} disabled={!t.canRedo}>Redo</button>
           </div>
-          <p className={`mt-4 text-[13px] leading-relaxed ${muted}`}>Undo a few steps and change something: the old future stays on the right as its own branch.</p>
+          <p className={`mt-4 text-[13px] leading-relaxed ${muted}`}>Undo a few steps and change something: the old future stays in the history as its own branch.</p>
         </div>
         <UndoTree
           history={t.history}
