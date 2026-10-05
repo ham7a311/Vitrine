@@ -279,6 +279,9 @@ import { meta as unlitGallery404 } from "./feedback/unlit-gallery-404/meta";
 import { meta as wayfinder404 } from "./feedback/wayfinder-404/meta";
 import { meta as errata404 } from "./feedback/errata-404/meta";
 import { meta as quietReturn404 } from "./feedback/quiet-return-404/meta";
+import { meta as trace404 } from "./feedback/trace-404/meta";
+import { meta as forwarding404 } from "./feedback/forwarding-404/meta";
+import { meta as underside404 } from "./feedback/underside-404/meta";
 import { meta as stepPath } from "./sections/step-path/meta";
 import { meta as voicesCarousel } from "./sections/voices-carousel/meta";
 import { meta as partnerRibbon } from "./sections/partner-ribbon/meta";
@@ -592,6 +595,9 @@ export const registry: ComponentMeta[] = [
   wayfinder404,
   errata404,
   quietReturn404,
+  trace404,
+  forwarding404,
+  underside404,
   stepPath,
   voicesCarousel,
   partnerRibbon,

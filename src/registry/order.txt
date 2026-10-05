@@ -283,6 +283,9 @@ feedback/unlit-gallery-404
 feedback/wayfinder-404
 feedback/errata-404
 feedback/quiet-return-404
+feedback/trace-404
+feedback/forwarding-404
+feedback/underside-404
 sections/step-path
 sections/voices-carousel
 sections/partner-ribbon
