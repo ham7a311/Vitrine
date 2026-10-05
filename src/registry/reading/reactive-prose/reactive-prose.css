@@ -1,0 +1,70 @@
+.rprose {
+  --rprose-paper: #fbf9f4;
+  --rprose-ink: #1e1d1a;
+  --rprose-muted: #6a655c;
+  --rprose-line: rgb(30 29 26 / 0.14);
+  --rprose-knob: #1f3a8a;
+  --rprose-knob-wash: rgb(31 58 138 / 0.08);
+  --rprose-out-wash: #fbe7a6;
+  --rprose-bad: #a3341f;
+  --rprose-ease: cubic-bezier(.2, .8, .2, 1);
+  color: var(--rprose-ink);
+  background: var(--rprose-paper);
+  border: 1px solid var(--rprose-line);
+  border-radius: 14px;
+  padding: clamp(22px, 5vw, 52px);
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(18px, 1.7vw, 21px);
+  line-height: 1.7;
+}
+.rprose--dark {
+  --rprose-paper: #15140f;
+  --rprose-ink: #ece6d8;
+  --rprose-muted: #a69f90;
+  --rprose-line: rgb(255 255 255 / 0.1);
+  --rprose-knob: #9fb8ff;
+  --rprose-knob-wash: rgb(159 184 255 / 0.12);
+  --rprose-out-wash: #57491a;
+  --rprose-bad: #ff9a80;
+}
+.rprose > p { margin: 0 0 1em; text-wrap: pretty; }
+.rprose > h3 { margin: 0 0 0.6em; font-size: 1.6em; font-weight: 500; line-height: 1.15; letter-spacing: -0.012em; }
+
+.rprose__scrub { position: relative; display: inline-block; cursor: ew-resize; touch-action: none; white-space: nowrap; }
+.rprose__input {
+  margin: 0; padding: 0 2px; border: 0; border-radius: 4px; background: transparent; outline: none;
+  font: inherit; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--rprose-knob); text-align: center;
+  border-bottom: 2px dotted currentColor; cursor: inherit; field-sizing: content; min-width: 2ch;
+  transition: background 140ms var(--rprose-ease);
+}
+.rprose__scrub:hover .rprose__input, .rprose__scrub[data-drag] .rprose__input { background: var(--rprose-knob-wash); }
+.rprose__input:focus { cursor: text; background: var(--rprose-knob-wash); border-bottom-style: solid; }
+.rprose__input:focus-visible { box-shadow: 0 0 0 2px var(--rprose-knob); }
+.rprose__scrub[data-invalid] .rprose__input { color: var(--rprose-bad); }
+.rprose__ruler {
+  position: absolute; left: 50%; bottom: calc(100% + 2px); width: 96px; height: 12px; translate: -50% 4px; opacity: 0; pointer-events: none;
+  background: linear-gradient(90deg, var(--rprose-knob) 0 1px, transparent 1px) 0 100% / 6px 6px repeat-x;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+  transition: opacity 140ms var(--rprose-ease), translate 140ms var(--rprose-ease);
+}
+.rprose__ruler::after { content: ""; position: absolute; left: 50%; top: 0; width: 2px; height: 12px; translate: -50% 0; background: var(--rprose-knob); }
+.rprose__scrub[data-drag] .rprose__ruler { opacity: 1; translate: -50% 0; }
+
+.rprose__out { font-weight: 600; font-variant-numeric: tabular-nums; border-radius: 3px; transition: box-shadow 160ms var(--rprose-ease); }
+.rprose__out[data-lit] { box-shadow: 0 2px 0 var(--rprose-knob); }
+.rprose__out-text[data-changed] { background: linear-gradient(var(--rprose-out-wash), var(--rprose-out-wash)) 0 100% / 0% 100% no-repeat; animation: rprose-sweep 900ms var(--rprose-ease); }
+@keyframes rprose-sweep { 0% { background-size: 0% 100%; } 35% { background-size: 100% 100%; } 100% { background-size: 100% 100%; background-color: transparent; background-image: none; } }
+
+.rprose__trend { margin: 0.4em 0 1.2em; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--rprose-line); transition: border-color 160ms var(--rprose-ease); }
+.rprose__trend[data-lit] { border-color: var(--rprose-knob); }
+.rprose__trend svg { display: block; width: 100%; height: 64px; overflow: visible; }
+.rprose__line { fill: none; stroke: var(--rprose-ink); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.rprose__target { stroke: var(--rprose-knob); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+.rprose__end { fill: var(--rprose-ink); }
+.rprose__trend figcaption { margin-top: 6px; font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; font-size: 12px; color: var(--rprose-muted); line-height: 1.4; }
+
+.rprose__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.rprose[data-motion="off"] * { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .rprose * { animation: none !important; transition: none !important; } }

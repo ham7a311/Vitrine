@@ -1,0 +1,66 @@
+.stx {
+  --stx-paper: #fbf8f1;
+  --stx-ink: #1f1c17;
+  --stx-muted: #6b6457;
+  --stx-line: rgb(31 28 23 / 0.14);
+  --stx-wash: #fde9a3;
+  --stx-accent: #8a3b12;
+  --stx-seg: #f1ebdd;
+  --stx-ease: cubic-bezier(.2, .8, .2, 1);
+  position: relative;
+  color: var(--stx-ink);
+  background: var(--stx-paper);
+  border: 1px solid var(--stx-line);
+  border-radius: 14px;
+  padding: 0 clamp(18px, 5vw, 56px) clamp(24px, 4vw, 44px);
+  font-family: "Newsreader", Georgia, serif;
+}
+.stx--dark {
+  --stx-paper: #17150f;
+  --stx-ink: #ece5d6;
+  --stx-muted: #a59c8b;
+  --stx-line: rgb(255 255 255 / 0.1);
+  --stx-wash: #5a4a17;
+  --stx-accent: #f0a46d;
+  --stx-seg: #221f18;
+}
+
+.stx__bar {
+  position: sticky; top: 0; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px;
+  margin: 0 calc(-1 * clamp(18px, 5vw, 56px)); padding: 14px clamp(18px, 5vw, 56px);
+  background: color-mix(in srgb, var(--stx-paper) 92%, transparent); border-bottom: 1px solid var(--stx-line); border-radius: 14px 14px 0 0;
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.stx__depth { display: inline-flex; gap: 2px; margin: 0; padding: 3px; border: 0; border-radius: 10px; background: var(--stx-seg); }
+.stx__legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.stx__seg { position: relative; display: grid; justify-items: center; gap: 0; padding: 5px 12px; border-radius: 7px; cursor: pointer; transition: background 160ms var(--stx-ease); }
+.stx__seg input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.stx__seg[data-on] { background: var(--stx-paper); box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); }
+.stx__seg:has(input:focus-visible) { outline: 2px solid var(--stx-accent); outline-offset: 1px; }
+.stx__seg-name { font-size: 13px; font-weight: 700; }
+.stx__seg-count { font-size: 10.5px; color: var(--stx-muted); font-variant-numeric: tabular-nums; }
+.stx__time { font-size: 12px; color: var(--stx-muted); }
+
+.stx__title { margin: 28px 0 6px; font-size: clamp(28px, 4vw, 38px); font-weight: 500; line-height: 1.12; letter-spacing: -0.015em; }
+.stx__body { display: grid; gap: 0; }
+.stx__block { position: relative; }
+.stx__block > p { margin: 18px 0 0; font-size: clamp(17px, 1.5vw, 19px); line-height: 1.62; text-wrap: pretty; }
+.stx__block > h3 { margin: 30px 0 0; font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stx-muted); }
+/* A dotted rule in the margin: this paragraph has more to say at a greater depth. */
+.stx__block[data-more]::before {
+  content: ""; position: absolute; left: calc(-1 * clamp(10px, 2.6vw, 28px)); top: 24px; bottom: 6px; width: 0;
+  border-left: 2px dotted color-mix(in srgb, var(--stx-accent) 55%, transparent);
+}
+
+.stx__more { border-radius: 3px; }
+.stx__more[data-fresh] { animation: stx-wash 1200ms var(--stx-ease); }
+@keyframes stx-wash { from, 25% { background: var(--stx-wash); } to { background: transparent; } }
+
+.stx__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.stx[data-motion="off"] * { animation: none !important; transition: none !important; }
+.stx[data-motion="off"] .stx__more[data-fresh] { background: var(--stx-wash); }
+@media (prefers-reduced-motion: reduce) {
+  .stx * { animation: none !important; transition: none !important; }
+  .stx .stx__more[data-fresh] { background: var(--stx-wash); }
+}

@@ -204,6 +204,7 @@ data/sieve
 decisions/pairwise-ranker
 decisions/magnet-board
 decisions/allocation-faders
+time/undo-tree
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
@@ -223,6 +224,8 @@ faq/chat-thread-faq
 faq/origami-faq
 faq/card-catalogue-faq
 faq/colour-register-faq
+reading/reactive-prose
+reading/stretchtext
 ctas/tideline-cta
 ctas/liquid-glass-cta
 ctas/focus-pull-cta

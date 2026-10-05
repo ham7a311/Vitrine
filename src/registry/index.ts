@@ -200,6 +200,7 @@ import { meta as sieve } from "./data/sieve/meta";
 import { meta as pairwiseRanker } from "./decisions/pairwise-ranker/meta";
 import { meta as magnetBoard } from "./decisions/magnet-board/meta";
 import { meta as allocationFaders } from "./decisions/allocation-faders/meta";
+import { meta as undoTree } from "./time/undo-tree/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -219,6 +220,8 @@ import { meta as chatThreadFaq } from "./faq/chat-thread-faq/meta";
 import { meta as origamiFaq } from "./faq/origami-faq/meta";
 import { meta as cardCatalogueFaq } from "./faq/card-catalogue-faq/meta";
 import { meta as colourRegisterFaq } from "./faq/colour-register-faq/meta";
+import { meta as reactiveProse } from "./reading/reactive-prose/meta";
+import { meta as stretchtext } from "./reading/stretchtext/meta";
 import { meta as tidelineCta } from "./ctas/tideline-cta/meta";
 import { meta as liquidGlassCta } from "./ctas/liquid-glass-cta/meta";
 import { meta as focusPullCta } from "./ctas/focus-pull-cta/meta";
@@ -543,6 +546,7 @@ export const registry: ComponentMeta[] = [
   pairwiseRanker,
   magnetBoard,
   allocationFaders,
+  undoTree,
   curtainFooter,
   signOffFooter,
   indexFooter,
@@ -562,6 +566,8 @@ export const registry: ComponentMeta[] = [
   origamiFaq,
   cardCatalogueFaq,
   colourRegisterFaq,
+  reactiveProse,
+  stretchtext,
   tidelineCta,
   liquidGlassCta,
   focusPullCta,
