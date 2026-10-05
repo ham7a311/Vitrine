@@ -308,3 +308,4 @@ navbars/docket-nav
 sections/running-head
 heroes/typeset-hero
 footers/colophon-footer
+sections/annotated-plate

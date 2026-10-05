@@ -312,6 +312,7 @@ const loaders: Record<string, Loader> = {
   "running-head": () => import("./sections/running-head/demo"),
   "typeset-hero": () => import("./heroes/typeset-hero/demo"),
   "colophon-footer": () => import("./footers/colophon-footer/demo"),
+  "annotated-plate": () => import("./sections/annotated-plate/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();

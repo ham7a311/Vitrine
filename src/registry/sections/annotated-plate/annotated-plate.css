@@ -1,0 +1,54 @@
+/* Annotated Plate: a figure with numbered notes and a leader line. */
+.annotated-plate__grid { display: grid; gap: 32px; }
+.annotated-plate {
+  --ap-bg: #f6f5f1;
+  --ap-ink: #1b1a17;
+  --ap-muted: #6b6861;
+  --ap-line: rgb(27 26 23 / 0.13);
+  --ap-plate: #ffffff;
+  --ap-accent: #2f6bff;
+  --ap-dim: rgb(246 245 241 / 0.72);
+  --ap-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  container-type: inline-size;
+  position: relative;
+  margin: 0;
+  color: var(--ap-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.annotated-plate--night { --ap-bg: #0f1012; --ap-ink: #ececea; --ap-muted: #8d8f95; --ap-line: rgb(255 255 255 / 0.12); --ap-plate: #17181b; --ap-accent: #7aa2ff; --ap-dim: rgb(15 16 18 / 0.7); }
+@container (min-width: 46rem) { .annotated-plate__grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 56px; align-items: start; } }
+
+.annotated-plate__title { margin: 0 0 18px; font: 400 1.75rem/1.1 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.015em; }
+.annotated-plate__notes ol { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ap-line); }
+.annotated-plate__notes li { border-bottom: 1px solid var(--ap-line); }
+.annotated-plate__note { display: grid; grid-template-columns: 2rem 1fr; column-gap: 4px; width: 100%; padding: 14px 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.annotated-plate__n { grid-row: 1 / span 2; padding-top: 5px; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; color: var(--ap-muted); transition: color 160ms ease; }
+.annotated-plate__term { font: 400 1.25rem/1.25 "Instrument Serif", ui-serif, Georgia, serif; }
+.annotated-plate__body { margin-top: 4px; font-size: 0.875rem; line-height: 1.55; color: var(--ap-muted); text-wrap: pretty; }
+.annotated-plate__note[data-on] .annotated-plate__n { color: var(--ap-accent); }
+.annotated-plate__note:focus-visible { outline: 2px solid var(--ap-ink); outline-offset: -2px; }
+
+.annotated-plate__frame { position: relative; overflow: hidden; border-radius: 10px; background: var(--ap-plate); box-shadow: 0 0 0 1px var(--ap-line); }
+.annotated-plate__art, .annotated-plate__art > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+.annotated-plate__veil { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.annotated-plate__dim { fill: var(--ap-dim); opacity: 0; transition: opacity 200ms ease; }
+.annotated-plate[data-active] .annotated-plate__dim { opacity: 1; }
+.annotated-plate__cut, .annotated-plate__outline { transform-box: view-box; transform-origin: 0 0; transition: transform 320ms var(--ap-ease); }
+.annotated-plate__outline { fill: none; stroke: var(--ap-accent); stroke-width: 1.5px; opacity: 0; transition: transform 320ms var(--ap-ease), opacity 160ms ease; }
+.annotated-plate[data-active] .annotated-plate__outline { opacity: 1; }
+
+.annotated-plate__marker { position: absolute; display: grid; place-items: center; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: var(--ap-ink); color: var(--ap-plate); font: 500 0.625rem/1 "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; pointer-events: none; transition: background 160ms ease; }
+.annotated-plate__marker[data-on] { background: var(--ap-accent); }
+
+.annotated-plate__caption { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 12px; font-size: 0.8125rem; color: var(--ap-muted); }
+.annotated-plate__caption span:first-child { font: 500 0.6875rem/1.6 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ap-ink); }
+
+.annotated-plate__leader { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.annotated-plate__leader path { fill: none; stroke: var(--ap-accent); stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ap-draw 320ms var(--ap-ease) forwards; }
+@keyframes ap-draw { to { stroke-dashoffset: 0; } }
+
+.annotated-plate__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) { .annotated-plate * { transition-duration: 1ms !important; animation-duration: 1ms !important; } }
+.annotated-plate[data-motion="reduced"] * { transition-duration: 1ms !important; animation-duration: 1ms !important; }
