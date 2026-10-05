@@ -316,6 +316,7 @@ const loaders: Record<string, Loader> = {
   "ribbon-changelog": () => import("./sections/ribbon-changelog/demo"),
   "enquiry-slip": () => import("./forms/enquiry-slip/demo"),
   "phrase-date": () => import("./forms/phrase-date/demo"),
+  "next-issue": () => import("./ctas/next-issue/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();

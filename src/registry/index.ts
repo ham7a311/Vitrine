@@ -308,6 +308,7 @@ import { meta as annotatedPlate } from "./sections/annotated-plate/meta";
 import { meta as ribbonChangelog } from "./sections/ribbon-changelog/meta";
 import { meta as enquirySlip } from "./forms/enquiry-slip/meta";
 import { meta as phraseDate } from "./forms/phrase-date/meta";
+import { meta as nextIssue } from "./ctas/next-issue/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -620,6 +621,7 @@ export const registry: ComponentMeta[] = [
   ribbonChangelog,
   enquirySlip,
   phraseDate,
+  nextIssue,
 ];
 
 export function getComponent(slug: string) {
