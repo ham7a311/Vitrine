@@ -320,6 +320,7 @@ const loaders: Record<string, Loader> = {
   "tuck-banner": () => import("./feedback/tuck-banner/demo"),
   "nearest-page": () => import("./feedback/nearest-page/demo"),
   "gloss-term": () => import("./overlays/gloss-term/demo"),
+  "plain-consent": () => import("./overlays/plain-consent/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();

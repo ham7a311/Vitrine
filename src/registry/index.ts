@@ -312,6 +312,7 @@ import { meta as nextIssue } from "./ctas/next-issue/meta";
 import { meta as tuckBanner } from "./feedback/tuck-banner/meta";
 import { meta as nearestPage } from "./feedback/nearest-page/meta";
 import { meta as glossTerm } from "./overlays/gloss-term/meta";
+import { meta as plainConsent } from "./overlays/plain-consent/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -628,6 +629,7 @@ export const registry: ComponentMeta[] = [
   tuckBanner,
   nearestPage,
   glossTerm,
+  plainConsent,
 ];
 
 export function getComponent(slug: string) {
