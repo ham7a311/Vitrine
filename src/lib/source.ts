@@ -1,6 +1,5 @@
 import "server-only";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
+import { sourceBundle } from "./source-bundle";
 import { createHighlighter, type ThemeRegistrationRaw } from "shiki";
 import type { ComponentMeta } from "@/registry/types";
 
@@ -43,26 +42,8 @@ export interface SourceFile {
   role: "component" | "style" | "usage";
 }
 
-const REGISTRY_DIR = path.join(process.cwd(), "src", "registry");
-
 export async function loadSource(meta: ComponentMeta): Promise<SourceFile[]> {
-  const dir = path.join(REGISTRY_DIR, meta.category, meta.slug);
   const hl = await getHighlighter();
-  const entries: { name: string; file: string; role: SourceFile["role"] }[] = [
-    ...meta.files.map((f) => ({ name: f, file: f, role: f.endsWith(".css") ? ("style" as const) : ("component" as const) })),
-    { name: "usage.tsx", file: "demo.tsx", role: "usage" as const },
-  ];
-  return Promise.all(
-    entries.map(async ({ name, file, role }) => {
-      let code = await readFile(path.join(dir, file), "utf8");
-      if (role === "usage") code = toUsage(code);
-      const html = hl.codeToHtml(code, { lang: langOf(name), theme: "vitrine" });
-      return { name, code, html, role };
-    }),
-  );
-}
-
-/** Demo files import siblings with "./"; in usage we show the same, minus the gallery-only variant plumbing. */
-function toUsage(code: string) {
-  return code.replace(/^"use client";\n\n/, '"use client";\n\n').trimEnd() + "\n";
+  const files = await sourceBundle(meta);
+  return files.map((file) => ({ ...file, html: hl.codeToHtml(file.code, { lang: langOf(file.name), theme: "vitrine" }) }));
 }

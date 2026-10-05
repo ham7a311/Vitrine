@@ -1,0 +1,39 @@
+name: Launch checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run release:check
+      - run: npm audit --audit-level=moderate
+      - run: npx playwright install --with-deps chromium
+      - name: Start production server and verify routes and browser flows
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3147 > /tmp/vitrine-server.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            curl --fail --silent http://127.0.0.1:3147/ > /dev/null && break
+            sleep 1
+          done
+          npm run test:routes
+          npm run test:browser
+          npm run test:expansion-browser
+          npm run test:demo-navigation
+      - name: Show server diagnostics on failure
+        if: failure()
+        run: cat /tmp/vitrine-server.log || true
+      - name: Upload expansion screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: expansion-screenshots
+          path: .next-release/expansion-screenshots
+          if-no-files-found: ignore

@@ -1,4 +1,4 @@
-.pc {
+.postcard-card {
   container-type: inline-size;
   width: min(100%, 580px);
   display: grid;
@@ -6,7 +6,7 @@
   gap: 18px;
   font-family: Geist, ui-sans-serif, system-ui, sans-serif;
 }
-.pc__btn {
+.postcard-card__btn {
   width: 100%;
   padding: 0;
   border: 0;
@@ -15,26 +15,26 @@
   perspective: 1400px;
   border-radius: 8px;
 }
-.pc__btn:focus-visible { outline: 3px solid #23357e; outline-offset: 6px; }
+.postcard-card__btn:focus-visible { outline: 3px solid #23357e; outline-offset: 6px; }
 
-.pc__card {
+.postcard-card__card {
   position: relative;
   width: 100%;
   aspect-ratio: 3 / 2;
   transform-style: preserve-3d;
   transition: transform 900ms cubic-bezier(0.3, 0.7, 0.2, 1);
 }
-.pc__card[data-back] {
+.postcard-card__card[data-back] {
   transform: rotateY(180deg);
   /* The thud of the postmark coming down. */
-  animation: pc-thud 260ms ease-out var(--pm) both;
+  animation: postcard-card-thud 260ms ease-out var(--pm) both;
 }
-@keyframes pc-thud {
+@keyframes postcard-card-thud {
   0% { translate: 0 0; }
   30% { translate: 0 4px; scale: 0.992; }
   100% { translate: 0 0; scale: 1; }
 }
-.pc__face {
+.postcard-card__face {
   position: absolute;
   inset: 0;
   border-radius: 8px;
@@ -43,18 +43,18 @@
   background: #f7f1e4;
   box-shadow: 0 1px 1px rgb(0 0 0 / 0.1), 0 26px 44px -22px rgb(40 25 10 / 0.6);
 }
-.pc__back { transform: rotateY(180deg); }
+.postcard-card__back { transform: rotateY(180deg); }
 
 /* Front: the scene behind a white border, and the big lettering. */
-.pc__front { padding: 3.2cqw; }
-.pc__scene {
+.postcard-card__front { padding: 3.2cqw; }
+.postcard-card__scene {
   position: absolute;
   inset: 3.2cqw;
   border-radius: 3px;
   overflow: hidden;
 }
-.pc__scene > svg { display: block; width: 100%; height: 100%; }
-.pc__lettering {
+.postcard-card__scene > svg { display: block; width: 100%; height: 100%; }
+.postcard-card__lettering {
   position: absolute;
   inset: 3.2cqw;
   display: grid;
@@ -62,7 +62,7 @@
   justify-items: center;
   text-align: center;
 }
-.pc__greet {
+.postcard-card__greet {
   font-family: "Pinyon Script", var(--font-newsreader), cursive;
   font-size: 8.6cqw;
   line-height: 1;
@@ -72,7 +72,7 @@
   margin-bottom: -1.2cqw;
   z-index: 2;
 }
-.pc__word {
+.postcard-card__word {
   position: relative;
   display: inline-grid;
   font-family: Anton, "Bebas Neue", Impact, sans-serif;
@@ -82,28 +82,28 @@
   text-transform: uppercase;
   transform: perspective(400px) rotateX(10deg) scaleY(1.12);
 }
-.pc__word > span { grid-area: 1 / 1; }
+.postcard-card__word > span { grid-area: 1 / 1; }
 /* Block depth behind the letters. */
-.pc__word-shadow {
+.postcard-card__word-shadow {
   color: #6a1f12;
   text-shadow:
     0.25cqw 0.25cqw 0 #6a1f12, 0.5cqw 0.5cqw 0 #6a1f12, 0.75cqw 0.75cqw 0 #5a190e, 1cqw 1cqw 0 #4a140b,
     1.2cqw 1.6cqw 1.6cqw rgb(0 0 0 / 0.45);
 }
 /* The letters, filled with the sky. */
-.pc__word-fill {
+.postcard-card__word-fill {
   background: linear-gradient(180deg, var(--s0), var(--s1) 55%, var(--s2));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 /* A white inline, the classic touch. */
-.pc__word-line {
+.postcard-card__word-line {
   color: transparent;
   -webkit-text-stroke: 0.32cqw #fff8e8;
   translate: -0.12cqw -0.12cqw;
 }
-.pc__grain {
+.postcard-card__grain {
   position: absolute;
   inset: 0;
   background:
@@ -114,7 +114,7 @@
 }
 
 /* Back: message on the left, stamp and address on the right. */
-.pc__back {
+.postcard-card__back {
   text-align: left;
   display: grid;
   grid-template-columns: 1.15fr auto 1fr;
@@ -124,9 +124,9 @@
     repeating-radial-gradient(circle at 70% 20%, rgb(0 0 0 / 0.02) 0 1px, transparent 1px 3px),
     linear-gradient(#f7f1e4, #f1e8d6);
 }
-.pc__divider { width: 1px; background: rgb(60 40 20 / 0.25); }
-.pc__msg { display: grid; align-content: start; gap: 0.6cqw; padding-top: 1cqw; }
-.pc__line {
+.postcard-card__divider { width: 1px; background: rgb(60 40 20 / 0.25); }
+.postcard-card__msg { display: grid; align-content: start; gap: 0.6cqw; padding-top: 1cqw; }
+.postcard-card__line {
   margin: 0;
   font-family: "Instrument Serif", var(--font-newsreader), Georgia, serif;
   font-style: italic;
@@ -134,11 +134,11 @@
   line-height: 1.32;
   color: #23357e;
   clip-path: inset(0 100% 0 0);
-  animation: pc-write 520ms cubic-bezier(0.45, 0.1, 0.4, 1) var(--d) forwards;
+  animation: postcard-card-write 520ms cubic-bezier(0.45, 0.1, 0.4, 1) var(--d) forwards;
 }
-@keyframes pc-write { to { clip-path: inset(-10% -4% -10% 0); } }
-.pc__right { display: grid; grid-template-rows: auto 1fr; position: relative; }
-.pc__stamp {
+@keyframes postcard-card-write { to { clip-path: inset(-10% -4% -10% 0); } }
+.postcard-card__right { display: grid; grid-template-rows: auto 1fr; position: relative; }
+.postcard-card__stamp {
   justify-self: end;
   position: relative;
   width: 17cqw;
@@ -153,12 +153,12 @@
   filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.2));
   rotate: 2deg;
 }
-.pc__stamp-art {
+.postcard-card__stamp-art {
   height: calc(100% - 3cqw);
   overflow: hidden;
 }
-.pc__stamp-art > svg { display: block; width: 100%; height: 100%; }
-.pc__stamp-val {
+.postcard-card__stamp-art > svg { display: block; width: 100%; height: 100%; }
+.postcard-card__stamp-val {
   display: block;
   margin-top: 0.5cqw;
   font: 600 1.6cqw/1 "Geist Mono", ui-monospace, monospace;
@@ -167,7 +167,7 @@
   text-align: center;
 }
 /* The postmark comes down on the stamp. */
-.pc__postmark {
+.postcard-card__postmark {
   position: absolute;
   right: 4cqw;
   top: 2cqw;
@@ -175,31 +175,31 @@
   overflow: visible;
   opacity: 0;
   transform-origin: 30% 50%;
-  animation: pc-stamp 260ms cubic-bezier(0.6, 0, 0.9, 0.6) var(--pm) forwards;
+  animation: postcard-card-stamp 260ms cubic-bezier(0.6, 0, 0.9, 0.6) var(--pm) forwards;
   mix-blend-mode: multiply;
 }
-@keyframes pc-stamp {
+@keyframes postcard-card-stamp {
   from { opacity: 0; transform: scale(1.5) rotate(-14deg); }
   to { opacity: 0.82; transform: scale(1) rotate(-8deg); }
 }
-.pc__pm-ring { fill: none; stroke: #2a2440; stroke-width: 2.4; }
-.pc__pm-ring--in { stroke-width: 1.2; }
-.pc__pm-text { font: 600 9.5px/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 1.6px; fill: #2a2440; }
-.pc__pm-date { font: 700 13px/1 "Geist Mono", ui-monospace, monospace; fill: #2a2440; text-anchor: middle; }
-.pc__pm-date--sm { font-size: 9px; }
-.pc__pm-wave { fill: none; stroke: #2a2440; stroke-width: 2.2; stroke-linecap: round; }
-.pc__addr {
+.postcard-card__pm-ring { fill: none; stroke: #2a2440; stroke-width: 2.4; }
+.postcard-card__pm-ring--in { stroke-width: 1.2; }
+.postcard-card__pm-text { font: 600 9.5px/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 1.6px; fill: #2a2440; }
+.postcard-card__pm-date { font: 700 13px/1 "Geist Mono", ui-monospace, monospace; fill: #2a2440; text-anchor: middle; }
+.postcard-card__pm-date--sm { font-size: 9px; }
+.postcard-card__pm-wave { fill: none; stroke: #2a2440; stroke-width: 2.2; stroke-linecap: round; }
+.postcard-card__addr {
   align-self: end;
   display: grid;
   gap: 0.4cqw;
 }
-.pc__line--addr {
+.postcard-card__line--addr {
   padding-bottom: 0.4cqw;
   border-bottom: 1px solid rgb(60 40 20 / 0.28);
   font-size: 3.1cqw;
 }
 
-.pc__hint {
+.postcard-card__hint {
   margin: 0;
   font: 500 11px/1 "Geist Mono", ui-monospace, monospace;
   letter-spacing: 0.18em;
@@ -207,11 +207,11 @@
   color: rgb(60 40 20 / 0.55);
 }
 
-.pc[data-motion="reduced"] .pc__card { transition: none; animation: none; }
-.pc[data-motion="reduced"] .pc__line { animation: none; clip-path: none; }
-.pc[data-motion="reduced"] .pc__postmark { animation: none; opacity: 0.82; transform: rotate(-8deg); }
+.postcard-card[data-motion="reduced"] .postcard-card__card { transition: none; animation: none; }
+.postcard-card[data-motion="reduced"] .postcard-card__line { animation: none; clip-path: none; }
+.postcard-card[data-motion="reduced"] .postcard-card__postmark { animation: none; opacity: 0.82; transform: rotate(-8deg); }
 @media (prefers-reduced-motion: reduce) {
-  .pc__card { transition: none; animation: none !important; }
-  .pc__line { animation: none !important; clip-path: none; }
-  .pc__postmark { animation: none !important; opacity: 0.82; transform: rotate(-8deg); }
+  .postcard-card__card { transition: none; animation: none !important; }
+  .postcard-card__line { animation: none !important; clip-path: none; }
+  .postcard-card__postmark { animation: none !important; opacity: 0.82; transform: rotate(-8deg); }
 }

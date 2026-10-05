@@ -28,30 +28,30 @@ export function BlueprintCard({ title, code, drawing, specs }: Props) {
   }, []);
 
   return (
-    <article ref={ref} className="bp" data-drawn={drawn || undefined}>
-      <svg className="bp__frame" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
+    <article ref={ref} className="blueprint-card" data-drawn={drawn || undefined}>
+      <svg className="blueprint-card__frame" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
         <rect x="1" y="1" width="398" height="298" pathLength={1} />
         <path d="M1 236 H399" pathLength={1} />
         <path d="M300 236 V299" pathLength={1} />
       </svg>
 
-      <header className="bp__head">
+      <header className="blueprint-card__head">
         <h3>{title}</h3>
         <span>{code}</span>
       </header>
 
-      <div className="bp__drawing" aria-hidden="true">
+      <div className="blueprint-card__drawing" aria-hidden="true">
         {drawing}
         {specs.map((_, i) => (
-          <span key={i} className="bp__leader" data-on={active === i || undefined} style={{ ["--i" as string]: i, top: `${22 + i * 20}%` }}>
+          <span key={i} className="blueprint-card__leader" data-on={active === i || undefined} style={{ ["--i" as string]: i, top: `${22 + i * 20}%` }}>
             <i>{i + 1}</i>
           </span>
         ))}
       </div>
 
-      <dl className="bp__specs">
+      <dl className="blueprint-card__specs">
         {specs.map((s, i) => (
-          <div key={s.key} className="bp__row" tabIndex={0} onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)} onFocus={() => setActive(i)} onBlur={() => setActive(null)} data-on={active === i || undefined}>
+          <div key={s.key} className="blueprint-card__row" tabIndex={0} onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)} onFocus={() => setActive(i)} onBlur={() => setActive(null)} data-on={active === i || undefined}>
             <dt><i>{i + 1}</i>{s.key}</dt>
             <dd>{s.value}</dd>
           </div>

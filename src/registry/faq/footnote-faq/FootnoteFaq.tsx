@@ -108,7 +108,7 @@ export function FootnoteFaq({ paragraphs, anchor = "faq", theme = "paper", motio
         <ol>
           {notes.map((x) => (
             <li key={x.n}>
-              <a href={`#${anchor}-${x.n}`} onClick={(e) => { e.preventDefault(); history.replaceState(null, "", `#${anchor}-${x.n}`); reveal(x.n); }} data-open={open.includes(x.n) || undefined}>
+              <a href={`#${anchor}-${x.n}`} onClick={(e) => { if (!e.defaultPrevented) history.replaceState(null, "", `#${anchor}-${x.n}`); e.preventDefault(); reveal(x.n); }} data-open={open.includes(x.n) || undefined}>
                 <span className="fnf__index-n">{x.n}</span>
                 {x.q}
               </a>

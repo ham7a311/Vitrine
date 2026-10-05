@@ -288,35 +288,35 @@ export function PresenceCursors({ people, me = { name: "You", color: "#d6409f" }
   };
 
   return (
-    <div ref={hostRef} className={`pc pc--${theme} ${className}`} data-motion={motion} style={{ ...style, ["--pc-me" as string]: me.color }}>
+    <div ref={hostRef} className={`presence-cursors presence-cursors--${theme} ${className}`} data-motion={motion} style={{ ...style, ["--presence-cursors-me" as string]: me.color }}>
       {children}
 
-      <div className="pc__layer" aria-hidden="true">
+      <div className="presence-cursors__layer" aria-hidden="true">
         {people.map((p) => (
-          <div key={p.id} ref={(el) => { cursorRefs.current[p.id] = el; }} className="pc__cursor" style={{ ["--c" as string]: p.color }}>
+          <div key={p.id} ref={(el) => { cursorRefs.current[p.id] = el; }} className="presence-cursors__cursor" style={{ ["--c" as string]: p.color }}>
             <svg viewBox="0 0 20 22" width="20" height="22">
               <path d={ARROW} />
             </svg>
-            <span className="pc__name">{p.name}</span>
-            <span className="pc__chat">
+            <span className="presence-cursors__name">{p.name}</span>
+            <span className="presence-cursors__chat">
               <span ref={(el) => { bubbleRefs.current[p.id] = el; }} />
             </span>
           </div>
         ))}
         {posted.map((q) => (
-          <div key={q.id} className="pc__mine" data-out={q.out || undefined} style={{ transform: `translate3d(${q.x}px, ${q.y}px, 0)` }}>
+          <div key={q.id} className="presence-cursors__mine" data-out={q.out || undefined} style={{ transform: `translate3d(${q.x}px, ${q.y}px, 0)` }}>
             {q.text}
           </div>
         ))}
       </div>
 
       {chat && (
-        <div className="pc__compose" style={{ transform: `translate3d(${chat.x}px, ${chat.y}px, 0)` }}>
-          <label htmlFor="pc-chat" className="pc__sr">
+        <div className="presence-cursors__compose" style={{ transform: `translate3d(${chat.x}px, ${chat.y}px, 0)` }}>
+          <label htmlFor="presence-cursors-chat" className="presence-cursors__sr">
             Say something to everyone on the board
           </label>
           <input
-            id="pc-chat"
+            id="presence-cursors-chat"
             autoFocus
             value={draft}
             maxLength={80}
@@ -331,22 +331,22 @@ export function PresenceCursors({ people, me = { name: "You", color: "#d6409f" }
         </div>
       )}
 
-      <div className="pc__people">
-        <ul className="pc__stack" aria-label={`${people.length + 1} people on this board`}>
+      <div className="presence-cursors__people">
+        <ul className="presence-cursors__stack" aria-label={`${people.length + 1} people on this board`}>
           {people.map((p) => (
             <li key={p.id} style={{ ["--c" as string]: p.color }} title={`${p.name} · ${status[p.id]}`}>
               <span aria-hidden="true">{p.name[0]}</span>
-              <span className="pc__sr">
+              <span className="presence-cursors__sr">
                 {p.name}, {status[p.id]?.toLowerCase()}
               </span>
             </li>
           ))}
-          <li className="pc__me" style={{ ["--c" as string]: me.color }} title={me.name}>
+          <li className="presence-cursors__me" style={{ ["--c" as string]: me.color }} title={me.name}>
             <span aria-hidden="true">{me.name.length <= 3 ? me.name : me.name[0]}</span>
-            <span className="pc__sr">{me.name}</span>
+            <span className="presence-cursors__sr">{me.name}</span>
           </li>
         </ul>
-        <button type="button" className="pc__say" onClick={openChat} aria-keyshortcuts="/">
+        <button type="button" className="presence-cursors__say" onClick={openChat} aria-keyshortcuts="/">
           Say something <kbd>/</kbd>
         </button>
       </div>

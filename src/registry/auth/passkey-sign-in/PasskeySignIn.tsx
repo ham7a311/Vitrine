@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import "./passkey-sign-in.css";
 
 /**
@@ -9,12 +9,13 @@ import "./passkey-sign-in.css";
  * while the passkey ceremony runs they draw in from the centre outward, with a
  * soft scan line passing over them. On success the ridges fade as a check
  * draws in their place. On failure they shiver and fade back to faint.
- * Swap `verify` for navigator.credentials.get() in production.
+ * `verify` obtains a credential and verifies its assertion on your server.
+ * Resolve true only after server verification succeeds.
  */
 
 type Phase = "idle" | "scanning" | "ok" | "fail";
 
-type Props = { verify?: () => Promise<boolean>; product?: string; theme?: "night" | "paper"; className?: string };
+type Props = { verify: () => Promise<boolean>; onSendLink?: (email: string) => Promise<void>; welcomeName?: string; product?: string; theme?: "night" | "paper"; className?: string };
 
 // concentric, slightly broken arcs — a stylised print, centre first
 const RIDGES = [
@@ -28,18 +29,20 @@ const RIDGES = [
   "M24 44.5c.8 2.4 2 4.6 3.5 6.5M31 42c.3 3.5 1.4 6.8 3.2 9.6M35.5 45c.6 2 1.4 3.9 2.5 5.6",
 ];
 
-let tries = 0;
-const demoVerify = () => new Promise<boolean>((r) => setTimeout(() => r(++tries !== 1), 2200));
-
-export function PasskeySignIn({ verify = demoVerify, product = "Vitrine", theme = "night", className = "" }: Props) {
+export function PasskeySignIn({ verify, onSendLink, welcomeName, product = "Vitrine", theme = "night", className = "" }: Props) {
   const [phase, setPhase] = useState<Phase>("idle");
   const [email, setEmail] = useState(false);
 
+  const pending = useRef(false);
+  const [linkStatus, setLinkStatus] = useState("");
+  const [sending, setSending] = useState(false);
   const start = async () => {
-    if (phase === "scanning") return;
+    if (pending.current || phase === "ok") return;
+    pending.current = true;
     setPhase("scanning");
-    const ok = await verify();
-    setPhase(ok ? "ok" : "fail");
+    try { setPhase(await verify() ? "ok" : "fail"); }
+    catch { setPhase("fail"); }
+    finally { pending.current = false; }
   };
 
   const status = {
@@ -64,24 +67,33 @@ export function PasskeySignIn({ verify = demoVerify, product = "Vitrine", theme 
         <span className="passkey-sign-in__scan" aria-hidden="true" />
       </button>
 
-      <h2 className="passkey-sign-in__title">{phase === "ok" ? "Welcome back, Hamza" : `Sign in to ${product}`}</h2>
+      <h2 className="passkey-sign-in__title">{phase === "ok" ? welcomeName ? `Welcome back, ${welcomeName}` : "Welcome back" : `Sign in to ${product}`}</h2>
       <p className="passkey-sign-in__status" aria-live="polite">{status}</p>
 
       <button type="button" className="passkey-sign-in__primary" onClick={start} disabled={phase === "scanning" || phase === "ok"}>
         {phase === "fail" ? "Try again" : phase === "scanning" ? "Verifying…" : phase === "ok" ? "Signed in" : "Continue with passkey"}
       </button>
 
-      <div className="passkey-sign-in__alt" data-open={email || undefined}>
+      {onSendLink && <div className="passkey-sign-in__alt" data-open={email || undefined}>
         <button type="button" className="passkey-sign-in__link" onClick={() => setEmail((e) => !e)} aria-expanded={email}>
           {email ? "Hide email sign-in" : "Use email instead"}
         </button>
         <div className="passkey-sign-in__email">
-          <div>
-            <input type="email" placeholder="you@company.com" aria-label="Email" autoComplete="email" tabIndex={email ? 0 : -1} />
-            <button type="button" tabIndex={email ? 0 : -1}>Send link</button>
-          </div>
+          <form onSubmit={async (e) => {
+            e.preventDefault();
+            if (sending) return;
+            const address = String(new FormData(e.currentTarget).get("email") ?? "").trim();
+            setSending(true); setLinkStatus("");
+            try { await onSendLink(address); setLinkStatus("Check your email for a sign-in link."); }
+            catch { setLinkStatus("The link could not be sent. Please try again."); }
+            finally { setSending(false); }
+          }}>
+            <input name="email" required type="email" placeholder="you@company.com" aria-label="Email" autoComplete="email" tabIndex={email ? 0 : -1} />
+            <button type="submit" disabled={sending} tabIndex={email ? 0 : -1}>{sending ? "Sending…" : "Send link"}</button>
+          </form>
         </div>
-      </div>
+      </div>}
+      {onSendLink && <p role="status">{linkStatus}</p>}
     </section>
   );
 }

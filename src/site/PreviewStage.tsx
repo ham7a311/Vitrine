@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { rovingFocus } from "./rovingFocus";
+
+import { useId, useState } from "react";
 import type { SourceFile } from "@/lib/source";
 import { isThemeOnly, type PreviewMode, type Variant } from "@/registry/types";
 import { CodeViewer } from "./CodeViewer";
@@ -33,6 +35,7 @@ export function PreviewStage({
   src?: string;
   title?: string;
 }) {
+  const id = useId();
   const [tab, setTab] = useState<"preview" | "code">("preview");
   const shared = useVariantState();
   const [own, setOwn] = useState(variants?.[0]?.id);
@@ -48,12 +51,15 @@ export function PreviewStage({
   return (
     <section aria-label="Component preview">
       <div className="mb-3 flex flex-wrap items-center gap-3">
-        <div role="tablist" aria-label="View" className="flex rounded-lg border border-line p-0.5">
+        <div role="tablist" onKeyDown={rovingFocus} aria-label="View" className="flex rounded-lg border border-line p-0.5">
           {(files ? (["preview", "code"] as const) : (["preview"] as const)).map((t) => (
             <button
               key={t}
               role="tab"
               type="button"
+              id={`${id}-${t}`}
+              aria-controls={`${id}-panel`}
+              tabIndex={tab === t ? 0 : -1}
               aria-selected={tab === t}
               onClick={() => setTab(t)}
               className={`rounded-md px-3.5 py-1.5 text-[0.8125rem] capitalize transition-colors duration-200 ${
@@ -66,12 +72,13 @@ export function PreviewStage({
         </div>
 
         {variants && variants.length > 1 && (
-          <div role="radiogroup" aria-label="Variant" className="flex max-w-full flex-wrap gap-1">
+          <div role="radiogroup" onKeyDown={rovingFocus} aria-label="Variant" className="flex max-w-full flex-wrap gap-1">
             {variants.map((v) => (
               <button
                 key={v.id}
                 role="radio"
                 type="button"
+                tabIndex={variant === v.id ? 0 : -1}
                 aria-checked={variant === v.id}
                 onClick={() => setVariant(v.id)}
                 className={`rounded-full border px-3 py-1 text-[0.75rem] transition-colors duration-200 ${
@@ -86,12 +93,13 @@ export function PreviewStage({
 
         {tab === "preview" && (
           <div className="ml-auto flex items-center gap-1">
-            <div role="radiogroup" aria-label="Preview width" className="hidden items-center gap-0.5 rounded-lg border border-line p-0.5 md:flex">
+            <div role="radiogroup" onKeyDown={rovingFocus} aria-label="Preview width" className="hidden items-center gap-0.5 rounded-lg border border-line p-0.5 md:flex">
               {VIEWPORTS.map(({ id, label, Icon }) => (
                 <button
                   key={id}
                   role="radio"
                   type="button"
+                  tabIndex={viewport === id ? 0 : -1}
                   aria-checked={viewport === id}
                   aria-label={label}
                   title={label}
@@ -125,6 +133,7 @@ export function PreviewStage({
         )}
       </div>
 
+      <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${tab}`} tabIndex={0}>
       {tab === "preview" ? (
         <div
           className="h-[min(var(--stage-h),78svh)] overflow-hidden rounded-[14px] border border-line bg-plum-950 md:h-[var(--stage-h)]"
@@ -161,6 +170,7 @@ export function PreviewStage({
           </>
         )
       )}
+      </div>
     </section>
   );
 }

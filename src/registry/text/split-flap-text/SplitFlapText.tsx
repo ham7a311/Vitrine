@@ -53,13 +53,13 @@ export function SplitFlapText({ boards, hold = 3200, title = "Departures", subti
     if (!grid) return;
     const rm = matchMedia("(prefers-reduced-motion: reduce)");
     const still = () => motion === "reduced" || rm.matches;
-    const cells: Cell[] = Array.from(grid.querySelectorAll<HTMLDivElement>(".sf__cell")).map((el) => {
+    const cells: Cell[] = Array.from(grid.querySelectorAll<HTMLDivElement>(".split-flap-text__cell")).map((el) => {
       const c = at(el.dataset.c ?? " ");
       return {
         el,
-        top: el.querySelector(".sf__top span")!, bottom: el.querySelector(".sf__bottom span")!,
-        front: el.querySelector(".sf__front span")!, back: el.querySelector(".sf__back span")!,
-        leaf: el.querySelector(".sf__leaf")!,
+        top: el.querySelector(".split-flap-text__top span")!, bottom: el.querySelector(".split-flap-text__bottom span")!,
+        front: el.querySelector(".split-flap-text__front span")!, back: el.querySelector(".split-flap-text__back span")!,
+        leaf: el.querySelector(".split-flap-text__leaf")!,
         cur: c, to: c, next: 0, busy: false,
       };
     });
@@ -170,27 +170,27 @@ export function SplitFlapText({ boards, hold = 3200, title = "Departures", subti
   const first = boards[0].map(pad);
 
   return (
-    <section className={`sf sf--${theme} ${className}`} data-motion={motion} aria-label={title}>
-      <header className="sf__head">
-        <span className="sf__title">{title}</span>
-        <span className="sf__sub">{subtitle}</span>
-        <button type="button" className="sf__pause" onClick={() => setPaused((p) => !p)} aria-pressed={paused}>
+    <section className={`split-flap-text split-flap-text--${theme} ${className}`} data-motion={motion} aria-label={title}>
+      <header className="split-flap-text__head">
+        <span className="split-flap-text__title">{title}</span>
+        <span className="split-flap-text__sub">{subtitle}</span>
+        <button type="button" className="split-flap-text__pause" onClick={() => setPaused((p) => !p)} aria-pressed={paused}>
           {paused ? "Resume board" : "Pause board"}
         </button>
       </header>
-      <div className="sf__frame" style={{ ["--cols" as string]: cols }}>
-        <div ref={gridRef} className="sf__grid" aria-hidden="true">
+      <div className="split-flap-text__frame" style={{ ["--cols" as string]: cols }}>
+        <div ref={gridRef} className="split-flap-text__grid" aria-hidden="true">
           {Array.from({ length: rows }, (_, r) => (
-            <div key={r} className="sf__row">
+            <div key={r} className="split-flap-text__row">
               {Array.from({ length: cols }, (_, k) => (
-                <div key={k} className="sf__cell" data-c={first[r][k]}>
-                  <div className="sf__half sf__top"><span /></div>
-                  <div className="sf__half sf__bottom"><span /></div>
-                  <div className="sf__leaf">
-                    <div className="sf__half sf__front"><span /></div>
-                    <div className="sf__half sf__back"><span /></div>
+                <div key={k} className="split-flap-text__cell" data-c={first[r][k]}>
+                  <div className="split-flap-text__half split-flap-text__top"><span /></div>
+                  <div className="split-flap-text__half split-flap-text__bottom"><span /></div>
+                  <div className="split-flap-text__leaf">
+                    <div className="split-flap-text__half split-flap-text__front"><span /></div>
+                    <div className="split-flap-text__half split-flap-text__back"><span /></div>
                   </div>
-                  <i className="sf__hinge" />
+                  <i className="split-flap-text__hinge" />
                 </div>
               ))}
             </div>
@@ -198,7 +198,7 @@ export function SplitFlapText({ boards, hold = 3200, title = "Departures", subti
         </div>
       </div>
       {/* What the board says, for screen readers; not announced on every change. */}
-      <ul className="sf__sr">
+      <ul className="split-flap-text__sr">
         {boards[index].map((r, i) => <li key={i}>{r.replace(/\s+/g, " ").trim()}</li>)}
       </ul>
     </section>

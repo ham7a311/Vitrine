@@ -58,7 +58,7 @@ export function SearchProvider({ items, children }: { items: ComponentSummary[];
   const onInputKey = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActive((a) => Math.min(a + 1, flat.length - 1));
+      setActive((a) => Math.max(0, Math.min(a + 1, flat.length - 1)));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setActive((a) => Math.max(a - 1, 0));
@@ -95,8 +95,9 @@ export function SearchProvider({ items, children }: { items: ComponentSummary[];
             aria-controls={listId}
             aria-activedescendant={flat[active] ? `${listId}-${active}` : undefined}
             aria-autocomplete="list"
+            aria-label="Search components"
           />
-          <kbd className="hidden rounded border border-line px-1.5 py-0.5 font-mono text-[0.625rem] text-ink-3 sm:block">ESC</kbd>
+          <button type="button" onClick={close} aria-label="Close search" className="rounded-md px-3 py-2 text-sm text-ink-2">Close</button>
         </div>
 
         <div id={listId} role="listbox" aria-label="Results" className="max-h-[min(26rem,60vh)] overflow-y-auto p-2">
@@ -112,6 +113,7 @@ export function SearchProvider({ items, children }: { items: ComponentSummary[];
                     key={item.slug}
                     id={`${listId}-${idx}`}
                     role="option"
+                    tabIndex={-1}
                     aria-selected={isActive}
                     href={`/components/${item.slug}`}
                     onClick={(e) => {

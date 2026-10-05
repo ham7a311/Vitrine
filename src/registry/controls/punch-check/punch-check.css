@@ -33,15 +33,15 @@
 .pt__title { float: left; width: 100%; margin: 0 0 6px; padding: 0; font: 400 1.5rem/1.1 "Instrument Serif", Georgia, serif; }
 .pt__rows { clear: both; display: flex; flex-direction: column; }
 
-.pc { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 52px; padding: 8px 0; border-top: 1px solid var(--rule, rgb(0 0 0 / 0.12)); cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.pc__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.pc__title { font-size: 0.9375rem; font-weight: 500; }
-.pc__hint { font: 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--muted, #888); }
-.pc__input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-.pc__spot { position: relative; flex: none; width: 26px; height: 26px; }
-.pc__ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed color-mix(in oklab, var(--ink, #222) 45%, transparent); transition: opacity 200ms ease; }
-.pc[data-on] .pc__ring { opacity: 0; }
-.pc__hole {
+.punch-check { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 52px; padding: 8px 0; border-top: 1px solid var(--rule, rgb(0 0 0 / 0.12)); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.punch-check__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.punch-check__title { font-size: 0.9375rem; font-weight: 500; }
+.punch-check__hint { font: 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--muted, #888); }
+.punch-check__input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.punch-check__spot { position: relative; flex: none; width: 26px; height: 26px; }
+.punch-check__ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed color-mix(in oklab, var(--ink, #222) 45%, transparent); transition: opacity 200ms ease; }
+.punch-check[data-on] .punch-check__ring { opacity: 0; }
+.punch-check__hole {
   position: absolute;
   inset: 3px;
   border-radius: 50%;
@@ -50,8 +50,8 @@
   scale: 0;
   transition: scale 120ms cubic-bezier(0.3, 1.6, 0.5, 1);
 }
-.pc[data-on] .pc__hole { scale: 1; }
-.pc__chad {
+.punch-check[data-on] .punch-check__hole { scale: 1; }
+.punch-check__chad {
   position: absolute;
   inset: 3px;
   border-radius: 50%;
@@ -60,27 +60,27 @@
   opacity: 0;
   pointer-events: none;
 }
-.pc[data-beat="in"] .pc__chad { animation: pc-fall 900ms cubic-bezier(0.4, 0, 0.9, 0.5) forwards; }
-.pc[data-beat="out"] .pc__chad { animation: pc-return 420ms cubic-bezier(0.2, 0.8, 0.3, 1) forwards; }
-@keyframes pc-fall {
+.punch-check[data-beat="in"] .punch-check__chad { animation: punch-check-fall 900ms cubic-bezier(0.4, 0, 0.9, 0.5) forwards; }
+.punch-check[data-beat="out"] .punch-check__chad { animation: punch-check-return 420ms cubic-bezier(0.2, 0.8, 0.3, 1) forwards; }
+@keyframes punch-check-fall {
   0% { opacity: 1; translate: 0 0; rotate: 0deg; scale: 1 1; }
   12% { scale: 0.9 0.9; }
   100% { opacity: 0; translate: var(--drift) 150px; rotate: var(--spin); scale: 0.95 0.35; }
 }
-@keyframes pc-return {
+@keyframes punch-check-return {
   0% { opacity: 0; translate: var(--drift) 60px; rotate: var(--spin); scale: 0.9 0.4; }
   80% { opacity: 1; }
   100% { opacity: 1; translate: 0 0; rotate: 0deg; scale: 1 1; }
 }
-.pc[data-beat="in"] .pc__spot { animation: pc-squash 220ms ease-out; }
-@keyframes pc-squash { 40% { scale: 0.86; } 100% { scale: 1; } }
-.pc[data-beat="out"] .pc__chad { animation-fill-mode: forwards; }
-.pc:not([data-on])[data-beat="out"] .pc__chad { animation-name: pc-return; }
-.pc__input:focus-visible + .pc__spot { outline: 2px solid var(--ink, #222); outline-offset: 4px; border-radius: 50%; }
-.pc__input:focus-visible ~ .pc__text .pc__title { text-decoration: underline; }
+.punch-check[data-beat="in"] .punch-check__spot { animation: punch-check-squash 220ms ease-out; }
+@keyframes punch-check-squash { 40% { scale: 0.86; } 100% { scale: 1; } }
+.punch-check[data-beat="out"] .punch-check__chad { animation-fill-mode: forwards; }
+.punch-check:not([data-on])[data-beat="out"] .punch-check__chad { animation-name: punch-check-return; }
+.punch-check__input:focus-visible + .punch-check__spot { outline: 2px solid var(--ink, #222); outline-offset: 4px; border-radius: 50%; }
+.punch-check__input:focus-visible ~ .punch-check__text .punch-check__title { text-decoration: underline; }
 /* when the punch returns, the chad sits in the hole, then fades into the paper */
-.pc:not([data-on]) .pc__chad { transition: opacity 200ms ease 420ms; }
+.punch-check:not([data-on]) .punch-check__chad { transition: opacity 200ms ease 420ms; }
 @media (prefers-reduced-motion: reduce) {
-  .pc__chad, .pc__spot { animation: none !important; }
-  .pc__hole, .pc__ring { transition: none; }
+  .punch-check__chad, .punch-check__spot { animation: none !important; }
+  .punch-check__hole, .punch-check__ring { transition: none; }
 }

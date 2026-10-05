@@ -198,16 +198,16 @@ export function Loupe({ children, zoom = 2.5, min = 1.5, max = 4, size = 200, th
   }, [zoom, min, max, size, motion]);
 
   return (
-    <div ref={hostRef} className={`lp lp--${theme} ${className}`} data-motion={motion} style={{ ...style, ["--lp-size" as string]: `${size}px` }}>
+    <div ref={hostRef} className={`loupe loupe--${theme} ${className}`} data-motion={motion} style={{ ...style, ["--loupe-size" as string]: `${size}px` }}>
       {children}
-      <div ref={lensRef} className="lp__lens" aria-hidden="true">
+      <div ref={lensRef} className="loupe__lens" aria-hidden="true">
         {/* The second copy: inert, unreadable to assistive tech, only ever seen through the glass. */}
-        <div ref={viewRef} className="lp__view" inert>
+        <div ref={viewRef} className="loupe__view" inert>
           {children}
         </div>
-        <span className="lp__rim" />
-        <span className="lp__cross" />
-        <span className="lp__zoom">
+        <span className="loupe__rim" />
+        <span className="loupe__cross" />
+        <span className="loupe__zoom">
           <span ref={readRef}>{`${zoom}×`}</span>
         </span>
       </div>

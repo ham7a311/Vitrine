@@ -18,12 +18,12 @@ const TRACE = "M0 20 H14 Q18 13 22 20 H28 L31 25 L37 3 L43 36 L47 20 H57 Q63 10 
 
 export function PulseLoader({ label = "Loading", size = "md", color = "#b9cce4" }: Props) {
   return (
-    <span className={`pl pl--${size}`} role="status" style={{ "--pl-color": color } as CSSProperties}>
-      <svg className="pl__svg" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
-        <path className="pl__ghost" d={TRACE} pathLength={1} />
-        <path className="pl__line" d={TRACE} pathLength={1} />
+    <span className={`pulse-loader pulse-loader--${size}`} role="status" style={{ "--pulse-loader-color": color } as CSSProperties}>
+      <svg className="pulse-loader__svg" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
+        <path className="pulse-loader__ghost" d={TRACE} pathLength={1} />
+        <path className="pulse-loader__line" d={TRACE} pathLength={1} />
       </svg>
-      <span className="pl__label">{label}</span>
+      <span className="pulse-loader__label">{label}</span>
     </span>
   );
 }

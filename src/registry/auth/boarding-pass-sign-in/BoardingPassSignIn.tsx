@@ -90,25 +90,25 @@ export function BoardingPassSignIn({ product = "Vitrine", onSignIn = demo, theme
   const printed = stage === "printed" || stage === "torn";
 
   return (
-    <div className={`bp bp--${theme} ${className}`} data-motion={motion} data-stage={stage}>
-      <form className="bp__main" onSubmit={submit} noValidate aria-labelledby={`${id}-t`}>
-        <header className="bp__band">
-          <span className="bp__brand">
+    <div className={`boarding-pass boarding-pass--${theme} ${className}`} data-motion={motion} data-stage={stage}>
+      <form className="boarding-pass__main" onSubmit={submit} noValidate aria-labelledby={`${id}-t`}>
+        <header className="boarding-pass__band">
+          <span className="boarding-pass__brand">
             <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 11.5l16-6-4.5 11-3-4.2zM10.5 12.3L18 5.5" /></svg>
             {product} Air
           </span>
-          <span className="bp__kind" id={`${id}-t`}>{done ? "Checked in" : "Boarding pass · Sign in"}</span>
+          <span className="boarding-pass__kind" id={`${id}-t`}>{done ? "Checked in" : "Boarding pass · Sign in"}</span>
         </header>
 
-        <div className="bp__route" aria-hidden="true">
+        <div className="boarding-pass__route" aria-hidden="true">
           <span><b>MCT</b> Muscat</span>
-          <span className="bp__path"><i /></span>
-          <span className="bp__to"><b>ATL</b> {product}</span>
+          <span className="boarding-pass__path"><i /></span>
+          <span className="boarding-pass__to"><b>ATL</b> {product}</span>
         </div>
 
         {!done ? (
-          <div className="bp__fields">
-            <div className="bp__field" data-err={errors.email ? "" : undefined}>
+          <div className="boarding-pass__fields">
+            <div className="boarding-pass__field" data-err={errors.email ? "" : undefined}>
               <label htmlFor={`${id}-e`}>Passenger · email</label>
               <input
                 id={`${id}-e`}
@@ -122,11 +122,11 @@ export function BoardingPassSignIn({ product = "Vitrine", onSignIn = demo, theme
                 placeholder="hamza@tryvitrine.dev"
                 disabled={stage === "checking" || printed}
               />
-              {errors.email && <p className="bp__err" id={`${id}-ee`}>{errors.email}</p>}
+              {errors.email && <p className="boarding-pass__err" id={`${id}-ee`}>{errors.email}</p>}
             </div>
-            <div className="bp__field" data-err={errors.password || errors.form ? "" : undefined}>
+            <div className="boarding-pass__field" data-err={errors.password || errors.form ? "" : undefined}>
               <label htmlFor={`${id}-p`}>Passcode · password</label>
-              <div className="bp__pw">
+              <div className="boarding-pass__pw">
                 <input
                   id={`${id}-p`}
                   type={show ? "text" : "password"}
@@ -138,54 +138,54 @@ export function BoardingPassSignIn({ product = "Vitrine", onSignIn = demo, theme
                   placeholder="••••••••"
                   disabled={stage === "checking" || printed}
                 />
-                <button type="button" className="bp__eye" onClick={() => setShow((s) => !s)} aria-pressed={show} aria-label={show ? "Hide password" : "Show password"} disabled={printed}>
+                <button type="button" className="boarding-pass__eye" onClick={() => setShow((s) => !s)} aria-pressed={show} aria-label={show ? "Hide password" : "Show password"} disabled={printed}>
                   {show ? "Hide" : "Show"}
                 </button>
               </div>
-              {errors.password ? <p className="bp__err" id={`${id}-pe`}>{errors.password}</p> : <p className="bp__hint" id={`${id}-ph`}>Any 8+ characters works in this demo — try “wrongpass” to see a refusal.</p>}
+              {errors.password ? <p className="boarding-pass__err" id={`${id}-pe`}>{errors.password}</p> : <p className="boarding-pass__hint" id={`${id}-ph`}>Any 8+ characters works in this demo — try “wrongpass” to see a refusal.</p>}
             </div>
-            {errors.form && <p className="bp__err bp__err--form" id={`${id}-fe`} role="alert">{errors.form}</p>}
-            <div className="bp__row">
-              <a href="#" className="bp__link" onClick={(e) => e.preventDefault()}>Forgot your passcode?</a>
-              <button type="submit" className="bp__board" disabled={stage === "checking" || printed}>
+            {errors.form && <p className="boarding-pass__err boarding-pass__err--form" id={`${id}-fe`} role="alert">{errors.form}</p>}
+            <div className="boarding-pass__row">
+              <a href="#" className="boarding-pass__link" onClick={(e) => e.preventDefault()}>Forgot your passcode?</a>
+              <button type="submit" className="boarding-pass__board" disabled={stage === "checking" || printed}>
                 {stage === "checking" ? "Checking…" : printed ? "Printing…" : "Board"}
                 <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
               </button>
             </div>
           </div>
         ) : (
-          <div className="bp__ok">
+          <div className="boarding-pass__ok">
             <h2 ref={okRef} tabIndex={-1}>Welcome aboard, {name}.</h2>
-            <dl className="bp__info">
+            <dl className="boarding-pass__info">
               <div><dt>Gate</dt><dd>A4</dd></div>
               <div><dt>Seat</dt><dd>{seat}</dd></div>
               <div><dt>Boarding</dt><dd>Now</dd></div>
             </dl>
-            <button type="button" className="bp__link bp__again" onClick={reset}>Sign out</button>
+            <button type="button" className="boarding-pass__link boarding-pass__again" onClick={reset}>Sign out</button>
           </div>
         )}
 
         {/* The stamp: pressed onto the pass when the details don't check out. */}
         {stage === "denied" && (
-          <span key={stamp} className="bp__stamp" aria-hidden="true">
+          <span key={stamp} className="boarding-pass__stamp" aria-hidden="true">
             Check details
           </span>
         )}
-        <p className="bp__sr" role="status" aria-live="polite">
+        <p className="boarding-pass__sr" role="status" aria-live="polite">
           {stage === "checking" ? "Checking you in…" : done ? `Signed in. Gate A4, seat ${seat}.` : ""}
         </p>
       </form>
 
       {/* The stub: perforated, barcoded, and torn away on success. */}
-      <aside className="bp__stub" aria-hidden="true">
-        <div className="bp__stub-in">
-          <p className="bp__stub-k">Passenger</p>
-          <p className="bp__stub-v">{email ? name : "—"}</p>
-          <div className="bp__stub-grid">
+      <aside className="boarding-pass__stub" aria-hidden="true">
+        <div className="boarding-pass__stub-in">
+          <p className="boarding-pass__stub-k">Passenger</p>
+          <p className="boarding-pass__stub-v">{email ? name : "—"}</p>
+          <div className="boarding-pass__stub-grid">
             <span><i>Gate</i>{printed ? "A4" : "—"}</span>
             <span><i>Seat</i>{printed ? seat : "—"}</span>
           </div>
-          <div className="bp__code" data-on={printed || undefined}>
+          <div className="boarding-pass__code" data-on={printed || undefined}>
             {bars(email).map((w, i) => (
               <span key={i} style={{ width: w * 1.6, ["--i" as string]: i }} />
             ))}

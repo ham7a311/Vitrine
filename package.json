@@ -6,10 +6,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit",
-    "registry": "python3 src/registry/gen.py && node --experimental-strip-types --no-warnings scripts/check-prompts.mts"
+    "typecheck": "next typegen && tsc --noEmit",
+    "registry": "python3 src/registry/gen.py && node --experimental-strip-types --no-warnings scripts/check-prompts.mts",
+    "check:prompts": "node --experimental-strip-types --no-warnings scripts/check-prompts.mts",
+    "check:registry": "node --experimental-strip-types --no-warnings scripts/check-registry.mts",
+    "check:exports": "node --experimental-strip-types --no-warnings scripts/check-exports.mts",
+    "test": "node --experimental-strip-types --no-warnings scripts/check-interactions.mts",
+    "check": "npm run check:prompts && npm run check:registry && npm run check:workshop && npm run check:exports && npm test",
+    "prebuild": "npm run check:prompts && npm run check:registry && npm run check:workshop",
+    "test:browser": "node --experimental-strip-types --no-warnings scripts/check-browser.mts",
+    "test:routes": "node --experimental-strip-types --no-warnings scripts/check-routes.mts",
+    "release:check": "npm run check && npm run build",
+    "check:workshop": "node --experimental-strip-types --no-warnings scripts/check-workshop.mts",
+    "test:expansion-browser": "node --experimental-strip-types --no-warnings scripts/check-expansion-browser.mts",
+    "test:demo-navigation": "node --experimental-strip-types --no-warnings scripts/check-demo-navigation.mts"
   },
   "dependencies": {
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
     "@vercel/analytics": "^2.0.1",
     "next": "^15.5.26",
     "react": "^19.3.0",
@@ -22,8 +37,15 @@
     "@types/node": "^26.6.3",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "jsdom": "^29.1.1",
     "playwright": "^1.63.0",
     "tailwindcss": "^4.3.3",
     "typescript": "5.9"
+  },
+  "overrides": {
+    "postcss": "^8.5.28"
+  },
+  "engines": {
+    "node": ">=22.6"
   }
 }

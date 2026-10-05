@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { composePrompt, isThemeOnly, type Variant } from "@/registry/types";
+import { componentBrief, type ComponentMeta, type Variant } from "@/registry/types";
 import { CopyButton } from "./CopyButton";
 
 type Ctx = { variant: string | undefined; setVariant: (id: string) => void; variants?: Variant[] };
@@ -12,12 +12,18 @@ export function VariantProvider({ variants, children }: { variants?: Variant[]; 
   const [variant, set] = useState(variants?.[0]?.id);
 
   useEffect(() => {
-    const id = new URLSearchParams(location.search).get("variant");
-    if (id && variants?.some((v) => v.id === id)) set(id);
+    const sync = () => {
+      const id = new URLSearchParams(location.search).get("variant");
+      set(variants?.find((v) => v.id === id)?.id ?? variants?.[0]?.id);
+    };
+    sync();
+    window.addEventListener("popstate", sync);
+    return () => window.removeEventListener("popstate", sync);
   }, [variants]);
 
   const setVariant = useCallback(
     (id: string) => {
+      if (!variants?.some((v) => v.id === id)) return;
       set(id);
       const url = new URL(location.href);
       if (id === variants?.[0]?.id) url.searchParams.delete("variant");
@@ -32,12 +38,12 @@ export function VariantProvider({ variants, children }: { variants?: Variant[]; 
 
 export const useVariantState = () => useContext(VariantContext);
 
-export function PromptPanel({ prompt }: { prompt: string }) {
+export function PromptPanel({ meta }: { meta: ComponentMeta }) {
   const ctx = useVariantState();
   const variants = ctx?.variants;
-  const configurable = variants && variants.length > 1 && !isThemeOnly(variants);
+  const configurable = variants && variants.length > 1;
   const selected = variants?.find((v) => v.id === ctx?.variant) ?? variants?.[0];
-  const text = composePrompt(prompt, variants, selected?.id);
+  const text = componentBrief(meta, selected?.id);
 
   return (
     <section aria-labelledby="prompt-h">

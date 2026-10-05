@@ -16,21 +16,21 @@ type Step = "email" | "sending" | "code" | "checking" | "done";
 type Props = {
   title?: string;
   subtitle?: string;
-  /** Resolve true to accept the code. Defaults to accepting anything but 000000. */
-  verify?: (code: string) => Promise<boolean>;
+  /** Send a real code, then verify it against the same email on your server. */
+  sendCode: (email: string) => Promise<void>;
+  verify: (code: string, email: string) => Promise<boolean>;
   onSignedIn?: (email: string) => void;
   accent?: string;
   theme?: "night" | "paper";
   className?: string;
 };
 
-const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const mask = (e: string) => {
   const [u, d] = e.split("@");
   return `${u.slice(0, 1)}${"•".repeat(Math.max(2, Math.min(6, u.length - 1)))}@${d}`;
 };
 
-export function OneFieldSignIn({ title = "Sign in", subtitle = "We'll email you a six-digit code. No password needed.", verify, onSignedIn, accent = "#b9cce4", theme = "night", className = "" }: Props) {
+export function OneFieldSignIn({ title = "Sign in", subtitle = "We'll email you a six-digit code. No password needed.", sendCode: deliverCode, verify, onSignedIn, accent = "#b9cce4", theme = "night", className = "" }: Props) {
   const uid = useId();
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
@@ -45,19 +45,28 @@ export function OneFieldSignIn({ title = "Sign in", subtitle = "We'll email you 
     if (step === "email") requestAnimationFrame(() => emailRef.current?.focus({ preventScroll: true }));
   }, [step]);
 
+  const pending = useRef(false);
   const sendCode = async (e?: FormEvent) => {
     e?.preventDefault();
+    if (pending.current || step !== "email") return;
     if (!/^\S+@\S+\.\S+$/.test(email)) { setError("That doesn't look like an email address."); setShake((s) => s + 1); return; }
     setError(null); setStep("sending");
-    await wait(900);
-    setStep("code");
+    pending.current = true;
+    try { await deliverCode(email.trim()); setStep("code"); }
+    catch { setError("We could not send a code. Please try again."); setStep("email"); }
+    finally { pending.current = false; }
   };
 
   const check = async (value: string) => {
+    if (pending.current || step !== "code") return;
+    pending.current = true;
     setStep("checking");
-    const ok = verify ? await verify(value) : (await wait(900), value !== "000000");
-    if (ok) { setStep("done"); onSignedIn?.(email); }
-    else { setError("That code didn't match. Try again."); setCode(""); setShake((s) => s + 1); setStep("code"); }
+    try {
+      const ok = await verify(value, email.trim());
+      if (ok) { setStep("done"); onSignedIn?.(email.trim()); }
+      else { setError("That code didn't match. Try again."); setCode(""); setShake((s) => s + 1); setStep("code"); }
+    } catch { setError("We could not check the code. Please try again."); setCode(""); setStep("code"); }
+    finally { pending.current = false; }
   };
 
   const onCode = (v: string) => {

@@ -76,8 +76,8 @@
 .passkey-sign-in__link { padding: 0.3rem; border: 0; background: none; color: var(--pk-muted); font: 500 0.875rem inherit; font-family: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--pk-muted) 40%, transparent); cursor: pointer; }
 .passkey-sign-in__email { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 420ms var(--pk-ease); }
 .passkey-sign-in__alt[data-open] .passkey-sign-in__email { grid-template-rows: 1fr; }
-.passkey-sign-in__email > div { display: flex; gap: 0.4rem; min-height: 0; overflow: hidden; padding: 0 0.1rem; }
-.passkey-sign-in__alt[data-open] .passkey-sign-in__email > div { padding-top: 0.6rem; }
+.passkey-sign-in__email > form { display: flex; gap: 0.4rem; min-height: 0; overflow: hidden; padding: 0 0.1rem; }
+.passkey-sign-in__alt[data-open] .passkey-sign-in__email > form { padding-top: 0.6rem; }
 .passkey-sign-in__email input {
   flex: 1; min-width: 0; height: 2.6rem; padding: 0 0.8rem; border: 0; border-radius: 10px; background: var(--pk-surface); color: var(--pk-ink);
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pk-ink) 12%, transparent); font: 400 16px inherit; font-family: inherit; outline: none;

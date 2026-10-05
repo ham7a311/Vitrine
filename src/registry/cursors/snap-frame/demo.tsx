@@ -78,10 +78,10 @@ export default function Demo({ variant = "paper" }: { variant?: string }) {
         </div>
 
         <article className={`mt-4 rounded-2xl border p-5 sm:p-7 ${c.line} ${c.card}`}>
-          <label htmlFor="sf-title" className={`font-mono text-[11px] uppercase tracking-[0.14em] ${c.muted}`}>
+          <label htmlFor="snap-frame-title" className={`font-mono text-[11px] uppercase tracking-[0.14em] ${c.muted}`}>
             Title
           </label>
-          <input id="sf-title" defaultValue="Release 2.4 — offline drafts" className={`mt-1 block w-full text-[22px] font-semibold tracking-[-0.02em] outline-none ${c.field}`} />
+          <input id="snap-frame-title" defaultValue="Release 2.4 — offline drafts" className={`mt-1 block w-full text-[22px] font-semibold tracking-[-0.02em] outline-none ${c.field}`} />
           <p className={`mt-4 text-[15px] leading-[1.7] ${c.muted}`}>
             Notes now save to the device first and sync when the signal comes back — on the Nizwa road, in the lift at Muscat Grand Mall, wherever. Point at this paragraph: the pointer becomes a caret the height of the type and settles on the line you’re reading.
           </p>

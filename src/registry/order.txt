@@ -48,6 +48,7 @@ buttons/glass-lens-switch
 buttons/draw-link
 buttons/entry-point-button
 buttons/stack-button
+buttons/offset-press-button
 controls/gamut-picker
 controls/fraction-checkbox
 controls/mood-slider
@@ -204,6 +205,7 @@ faq/focus-faq
 faq/chat-thread-faq
 faq/origami-faq
 faq/card-catalogue-faq
+faq/colour-register-faq
 ctas/tideline-cta
 ctas/liquid-glass-cta
 ctas/focus-pull-cta
@@ -276,8 +278,15 @@ feedback/wet-ink
 feedback/undo-ribbon
 feedback/first-light
 feedback/progressive-reveal
+feedback/missing-glyph-404
+feedback/unlit-gallery-404
+feedback/wayfinder-404
+feedback/errata-404
+feedback/quiet-return-404
 sections/step-path
 sections/voices-carousel
+sections/partner-ribbon
+sections/product-atelier
 type/dither-logo
 type/constellation-name
 type/seal-signature

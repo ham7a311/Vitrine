@@ -63,10 +63,10 @@ export function PlainPointer({ arrow = "dark", motion = "full", className = "", 
   }, []);
 
   return (
-    <div ref={hostRef} className={`pp pp--${arrow} ${className}`} data-motion={motion} style={style}>
+    <div ref={hostRef} className={`plain-pointer plain-pointer--${arrow} ${className}`} data-motion={motion} style={style}>
       {children}
-      <div ref={layerRef} className="pp__layer" aria-hidden="true">
-        <div ref={arrowRef} className="pp__arrow">
+      <div ref={layerRef} className="plain-pointer__layer" aria-hidden="true">
+        <div ref={arrowRef} className="plain-pointer__arrow">
           <svg viewBox="0 0 32 32" width="32" height="32">
             <path d={ARROW} />
           </svg>

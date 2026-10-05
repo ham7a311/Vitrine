@@ -309,10 +309,10 @@ export function SnapFrame({ theme = "paper", motion = "full", targets = TARGETS,
   }, [motion, targets, text]);
 
   return (
-    <div ref={hostRef} className={`sf sf--${theme} ${className}`} data-motion={motion} style={style}>
+    <div ref={hostRef} className={`snap-frame snap-frame--${theme} ${className}`} data-motion={motion} style={style}>
       {children}
-      <div ref={layerRef} className="sf__layer" aria-hidden="true" data-mode="dot">
-        <div ref={shapeRef} className="sf__shape" />
+      <div ref={layerRef} className="snap-frame__layer" aria-hidden="true" data-mode="dot">
+        <div ref={shapeRef} className="snap-frame__shape" />
       </div>
     </div>
   );

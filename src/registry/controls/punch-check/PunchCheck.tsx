@@ -26,15 +26,15 @@ export function PunchCheck({ children, hint, checked, defaultChecked, onChange, 
   const drift = ((seed * 37) % 60) - 30;
   const spin = 280 + ((seed * 53) % 260);
   return (
-    <label className={`pc ${className}`} htmlFor={inputId} data-on={on ? "" : undefined} data-beat={beat ? (on ? "in" : "out") : undefined}>
-      <span className="pc__text">
-        <span className="pc__title">{children}</span>
-        {hint && <span className="pc__hint">{hint}</span>}
+    <label className={`punch-check ${className}`} htmlFor={inputId} data-on={on ? "" : undefined} data-beat={beat ? (on ? "in" : "out") : undefined}>
+      <span className="punch-check__text">
+        <span className="punch-check__title">{children}</span>
+        {hint && <span className="punch-check__hint">{hint}</span>}
       </span>
       <input
         id={inputId}
         type="checkbox"
-        className="pc__input"
+        className="punch-check__input"
         checked={on}
         onChange={(e) => {
           if (checked === undefined) setInner(e.target.checked);
@@ -43,10 +43,10 @@ export function PunchCheck({ children, hint, checked, defaultChecked, onChange, 
         }}
         {...rest}
       />
-      <span className="pc__spot" aria-hidden="true" style={{ ["--drift" as string]: `${drift}px`, ["--spin" as string]: `${spin}deg` }}>
-        <span className="pc__ring" />
-        <span className="pc__hole" />
-        <span className="pc__chad" key={beat} />
+      <span className="punch-check__spot" aria-hidden="true" style={{ ["--drift" as string]: `${drift}px`, ["--spin" as string]: `${spin}deg` }}>
+        <span className="punch-check__ring" />
+        <span className="punch-check__hole" />
+        <span className="punch-check__chad" key={beat} />
       </span>
     </label>
   );

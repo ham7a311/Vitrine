@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { rovingFocus } from "./rovingFocus";
+
+import { useId, useState } from "react";
 import type { SourceFile } from "@/lib/source";
 import { CopyButton } from "./CopyButton";
 
 export function CodeViewer({ files, className = "" }: { files: SourceFile[]; className?: string }) {
+  const id = useId();
   const [active, setActive] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const file = files[active];
@@ -14,12 +17,15 @@ export function CodeViewer({ files, className = "" }: { files: SourceFile[]; cla
   return (
     <div className={`overflow-hidden rounded-[14px] border border-line bg-[#100b12] ${className}`}>
       <div className="flex items-center gap-2 border-b border-line pl-2 pr-2">
-        <div role="tablist" aria-label="Files" className="-mb-px flex min-w-0 flex-1 overflow-x-auto">
+        <div role="tablist" onKeyDown={rovingFocus} aria-label="Files" className="-mb-px flex min-w-0 flex-1 overflow-x-auto">
           {files.map((f, i) => (
             <button
               key={f.name}
               role="tab"
               type="button"
+              id={`${id}-${i}`}
+              aria-controls={`${id}-panel`}
+              tabIndex={i === active ? 0 : -1}
               aria-selected={i === active}
               onClick={() => {
                 setActive(i);
@@ -39,6 +45,8 @@ export function CodeViewer({ files, className = "" }: { files: SourceFile[]; cla
       </div>
       <div className="relative">
         <div
+          id={`${id}-panel`}
+          aria-labelledby={`${id}-${active}`}
           role="tabpanel"
           tabIndex={0}
           aria-label={file.name}

@@ -39,9 +39,9 @@ export function ChalkMenuPricing({ plans, title = "Vitrine", subtitle = "Plans Â
   };
 
   return (
-    <section className={`cm cm--${theme} ${className}`} data-motion={motion} data-yearly={yearly || undefined} aria-labelledby={`${id}-h`}>
+    <section className={`chalk-menu chalk-menu--${theme} ${className}`} data-motion={motion} data-yearly={yearly || undefined} aria-labelledby={`${id}-h`}>
       {/* Chalk: grainy, slightly broken edges on everything written on the board. */}
-      <svg className="cm__defs" aria-hidden="true" focusable="false">
+      <svg className="chalk-menu__defs" aria-hidden="true" focusable="false">
         <filter id={`${id}-chalk`} x="-5%" y="-20%" width="110%" height="140%">
           <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n" />
           <feDisplacementMap in="SourceGraphic" in2="n" scale={theme === "chalk" ? 2.2 : 0.8} xChannelSelector="R" yChannelSelector="G" result="d" />
@@ -52,16 +52,16 @@ export function ChalkMenuPricing({ plans, title = "Vitrine", subtitle = "Plans Â
         </filter>
       </svg>
 
-      <div className="cm__board" style={{ ["--chalk" as string]: `url(#${id}-chalk)` }}>
-        <header className="cm__head">
-          <h2 id={`${id}-h`} className="cm__title">{title}</h2>
-          <p className="cm__sub">{subtitle}</p>
-          <div className="cm__bill" role="radiogroup" aria-label="Billing">
+      <div className="chalk-menu__board" style={{ ["--chalk" as string]: `url(#${id}-chalk)` }}>
+        <header className="chalk-menu__head">
+          <h2 id={`${id}-h`} className="chalk-menu__title">{title}</h2>
+          <p className="chalk-menu__sub">{subtitle}</p>
+          <div className="chalk-menu__bill" role="radiogroup" aria-label="Billing">
             {[false, true].map((y) => (
-              <button key={String(y)} type="button" role="radio" aria-checked={yearly === y} className="cm__opt" onClick={() => set(y)}>
+              <button key={String(y)} type="button" role="radio" aria-checked={yearly === y} className="chalk-menu__opt" onClick={() => set(y)}>
                 <span>{y ? "Yearly" : "Monthly"}</span>
                 {/* The circle drawn round the chosen one */}
-                <svg viewBox="0 0 120 44" className="cm__ring" aria-hidden="true" key={`${y}-${round}`}>
+                <svg viewBox="0 0 120 44" className="chalk-menu__ring" aria-hidden="true" key={`${y}-${round}`}>
                   <path d="M14 26 C 10 8, 64 2, 104 10 C 122 16, 114 38, 66 40 C 26 42, 6 34, 18 18" pathLength={1} />
                 </svg>
               </button>
@@ -69,36 +69,36 @@ export function ChalkMenuPricing({ plans, title = "Vitrine", subtitle = "Plans Â
           </div>
         </header>
 
-        <ul className="cm__menu">
+        <ul className="chalk-menu__menu">
           {plans.map((p, i) => (
-            <li key={p.name} className="cm__item" data-pick={p.pick || undefined}>
-              <div className="cm__row">
-                <h3 className="cm__name">{p.name}</h3>
-                <span className="cm__dots" aria-hidden="true" />
-                <span className="cm__prices">
-                  <span className="cm__price cm__price--m">
-                    <span className="cm__sr">{yearly ? `Was ${currency} ${fmt(p.monthly)} a month; ` : ""}</span>
+            <li key={p.name} className="chalk-menu__item" data-pick={p.pick || undefined}>
+              <div className="chalk-menu__row">
+                <h3 className="chalk-menu__name">{p.name}</h3>
+                <span className="chalk-menu__dots" aria-hidden="true" />
+                <span className="chalk-menu__prices">
+                  <span className="chalk-menu__price chalk-menu__price--m">
+                    <span className="chalk-menu__sr">{yearly ? `Was ${currency} ${fmt(p.monthly)} a month; ` : ""}</span>
                     <span aria-hidden={yearly || undefined}>{fmt(p.monthly)}</span>
-                    <svg viewBox="0 0 100 24" className="cm__strike" aria-hidden="true" key={`s-${round}`}>
+                    <svg viewBox="0 0 100 24" className="chalk-menu__strike" aria-hidden="true" key={`s-${round}`}>
                       <path d={strike(i)} pathLength={1} style={{ animationDelay: `${i * 260}ms` }} />
                     </svg>
                   </span>
                   {yearly && (
-                    <span className="cm__price cm__price--y" key={`y-${round}`} style={{ ["--d" as string]: `${i * 260 + 340}ms` }}>
-                      <span className="cm__sr">now {currency} {fmt(p.yearly)} a month, billed yearly</span>
+                    <span className="chalk-menu__price chalk-menu__price--y" key={`y-${round}`} style={{ ["--d" as string]: `${i * 260 + 340}ms` }}>
+                      <span className="chalk-menu__sr">now {currency} {fmt(p.yearly)} a month, billed yearly</span>
                       <span aria-hidden="true">{fmt(p.yearly)}</span>
-                      <span className="cm__dust" aria-hidden="true">
+                      <span className="chalk-menu__dust" aria-hidden="true">
                         {[0, 1, 2, 3, 4, 5].map((k) => <i key={k} style={{ ["--k" as string]: k }} />)}
                       </span>
                     </span>
                   )}
                 </span>
               </div>
-              <p className="cm__blurb">{p.blurb}</p>
-              <p className="cm__items">{p.items.join(" Â· ")}</p>
-              <button type="button" className="cm__order">Order {p.name}<span className="cm__sr">, {currency} {fmt(yearly ? p.yearly : p.monthly)} a month</span></button>
+              <p className="chalk-menu__blurb">{p.blurb}</p>
+              <p className="chalk-menu__items">{p.items.join(" Â· ")}</p>
+              <button type="button" className="chalk-menu__order">Order {p.name}<span className="chalk-menu__sr">, {currency} {fmt(yearly ? p.yearly : p.monthly)} a month</span></button>
               {p.pick && (
-                <p className="cm__note" aria-hidden="true">
+                <p className="chalk-menu__note" aria-hidden="true">
                   <span>most teams<br />order this</span>
                   <svg viewBox="0 0 70 40"><path d="M66 6 C 46 4, 22 10, 10 30 M10 30 L 9 18 M10 30 L 21 27" /></svg>
                 </p>
@@ -106,7 +106,7 @@ export function ChalkMenuPricing({ plans, title = "Vitrine", subtitle = "Plans Â
             </li>
           ))}
         </ul>
-        <p className="cm__foot">Prices in {currency} a month{yearly ? ", billed yearly" : ""} Â· per workspace Â· no service charge</p>
+        <p className="chalk-menu__foot">Prices in {currency} a month{yearly ? ", billed yearly" : ""} Â· per workspace Â· no service charge</p>
       </div>
     </section>
   );

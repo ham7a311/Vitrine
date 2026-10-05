@@ -26,6 +26,11 @@
 }
 
 @layer base {
+  :root {
+    --font-newsreader: "Newsreader Variable";
+    --font-hanken: "Hanken Grotesk Variable";
+    --font-jetbrains: "JetBrains Mono Variable";
+  }
   html {
     background: var(--color-void);
     color: var(--color-cream);

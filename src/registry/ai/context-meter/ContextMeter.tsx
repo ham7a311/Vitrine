@@ -41,20 +41,20 @@ export function ContextMeter({ limit = 200000, initial = DEFAULT, theme = "paper
   const focusSeg = segs.find((s) => s.id === hover);
 
   return (
-    <div className={`cm cm--${theme} ${className}`} data-level={level}>
-      <div className="cm__top">
+    <div className={`context-meter context-meter--${theme} ${className}`} data-level={level}>
+      <div className="context-meter__top">
         <div>
-          <p className="cm__eyebrow">Context window</p>
-          <p className="cm__num">
+          <p className="context-meter__eyebrow">Context window</p>
+          <p className="context-meter__num">
             <strong>{fmt(used)}</strong> / {fmt(limit)} tokens
           </p>
         </div>
-        <p className="cm__pct" aria-hidden="true">
+        <p className="context-meter__pct" aria-hidden="true">
           {Math.round(pct * 100)}%
         </p>
       </div>
       <div
-        className="cm__bar"
+        className="context-meter__bar"
         role="meter"
         aria-label="Context used"
         aria-valuemin={0}
@@ -66,35 +66,35 @@ export function ContextMeter({ limit = 200000, initial = DEFAULT, theme = "paper
         {segs.map((s) => (
           <span
             key={s.id}
-            className="cm__seg"
+            className="context-meter__seg"
             data-dim={hover && hover !== s.id ? "" : undefined}
             style={{ width: `${(s.tokens / limit) * 100}%`, background: s.colour }}
             onPointerEnter={() => setHover(s.id)}
             onPointerLeave={() => setHover(null)}
           />
         ))}
-        <span className="cm__limit" style={{ left: "90%" }} aria-hidden="true" />
+        <span className="context-meter__limit" style={{ left: "90%" }} aria-hidden="true" />
       </div>
-      <p className="cm__hint" aria-live="polite">
+      <p className="context-meter__hint" aria-live="polite">
         {focusSeg ? `${focusSeg.label}: ${fmt(focusSeg.tokens)} tokens (${Math.round((focusSeg.tokens / used) * 100)}% of what's used)` : level === "full" ? "Almost full — older turns will be dropped soon. Compact to keep going." : level === "warn" ? "Getting full. Compacting will summarise the conversation." : "Plenty of room."}
       </p>
-      <ul className="cm__legend">
+      <ul className="context-meter__legend">
         {segs.map((s) => (
           <li key={s.id} onPointerEnter={() => setHover(s.id)} onPointerLeave={() => setHover(null)}>
             <i style={{ background: s.colour }} aria-hidden="true" />
             <span>{s.label}</span>
-            <span className="cm__t">{fmt(s.tokens)}</span>
+            <span className="context-meter__t">{fmt(s.tokens)}</span>
           </li>
         ))}
       </ul>
-      <div className="cm__actions">
+      <div className="context-meter__actions">
         <button type="button" onClick={() => add("files", 24000)}>
           + Attach report.pdf
         </button>
         <button type="button" onClick={() => add("chat", 18000)}>
           + Long reply
         </button>
-        <button type="button" className="cm__compact" onClick={compact} disabled={compacting || segs.find((s) => s.id === "chat")!.tokens < 8000}>
+        <button type="button" className="context-meter__compact" onClick={compact} disabled={compacting || segs.find((s) => s.id === "chat")!.tokens < 8000}>
           Compact
         </button>
       </div>

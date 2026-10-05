@@ -43,9 +43,9 @@ export function SpotlightGrid({ accent = "#86efac", gap = 28, radius = 450, clas
       cx += (tx - cx) * LERP;
       cy += (ty - cy) * LERP;
       co += (to - co) * OPACITY_LERP;
-      grid.style.setProperty("--sg-x", `${cx}px`);
-      grid.style.setProperty("--sg-y", `${cy}px`);
-      grid.style.setProperty("--sg-o", String(co));
+      grid.style.setProperty("--spotlight-grid-x", `${cx}px`);
+      grid.style.setProperty("--spotlight-grid-y", `${cy}px`);
+      grid.style.setProperty("--spotlight-grid-o", String(co));
       const settled = Math.abs(tx - cx) < 0.5 && Math.abs(ty - cy) < 0.5 && Math.abs(to - co) < 0.008 && to === 0;
       raf = settled ? null : requestAnimationFrame(tick);
     };
@@ -86,11 +86,11 @@ export function SpotlightGrid({ accent = "#86efac", gap = 28, radius = 450, clas
   return (
     <div
       ref={sectionRef}
-      className={`sg ${className}`}
-      style={{ "--sg-accent": accent, "--sg-gap": `${gap}px`, "--sg-radius": `${radius}px` } as CSSProperties}
+      className={`spotlight-grid ${className}`}
+      style={{ "--spotlight-grid-accent": accent, "--spotlight-grid-gap": `${gap}px`, "--spotlight-grid-radius": `${radius}px` } as CSSProperties}
     >
-      <div ref={gridRef} className="sg__grid" aria-hidden="true" />
-      {children && <div className="sg__content">{children}</div>}
+      <div ref={gridRef} className="spotlight-grid__grid" aria-hidden="true" />
+      {children && <div className="spotlight-grid__content">{children}</div>}
     </div>
   );
 }

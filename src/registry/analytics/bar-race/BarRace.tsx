@@ -85,36 +85,36 @@ export function BarRace({ racers, months, regions, show = 8, title = "Bookings b
   })();
 
   return (
-    <section className={`br br--${theme} ${className}`} data-motion={motion} aria-labelledby={`${id}-t`}>
-      <header className="br__head">
+    <section className={`bar-race bar-race--${theme} ${className}`} data-motion={motion} aria-labelledby={`${id}-t`}>
+      <header className="bar-race__head">
         <div>
-          <h3 id={`${id}-t`} className="br__title">{title}</h3>
-          <p className="br__insight"><strong>{leader.name}</strong> leads in {month} — {Math.round(order[0].v).toLocaleString("en-GB")} bookings.</p>
+          <h3 id={`${id}-t`} className="bar-race__title">{title}</h3>
+          <p className="bar-race__insight"><strong>{leader.name}</strong> leads in {month} — {Math.round(order[0].v).toLocaleString("en-GB")} bookings.</p>
         </div>
-        <button type="button" className="br__view" aria-pressed={view === "table"} onClick={() => setView((v) => (v === "chart" ? "table" : "chart"))}>{view === "chart" ? "Table" : "Chart"}</button>
+        <button type="button" className="bar-race__view" aria-pressed={view === "table"} onClick={() => setView((v) => (v === "chart" ? "table" : "chart"))}>{view === "chart" ? "Table" : "Chart"}</button>
       </header>
-      <div className="br__legend" aria-hidden="true">
+      <div className="bar-race__legend" aria-hidden="true">
         {regions.map((g, k) => <span key={g}><i style={{ background: `var(--s${k + 1})` }} />{g}</span>)}
       </div>
 
-      <div ref={wrapRef} className="br__plot" hidden={view === "table"} role="img" aria-label={summary}>
-        <div className="br__month" aria-hidden="true">{month}</div>
-        <div className="br__axis" aria-hidden="true">
+      <div ref={wrapRef} className="bar-race__plot" hidden={view === "table"} role="img" aria-label={summary}>
+        <div className="bar-race__month" aria-hidden="true">{month}</div>
+        <div className="bar-race__axis" aria-hidden="true">
           {scale.map((v) => (
             <span key={v} style={{ left: `${(v / max) * 100}%` }}><i />{v >= 1000 ? `${v / 1000}k` : v}</span>
           ))}
         </div>
-        <div className="br__rows" style={{ height: H }} aria-hidden="true">
+        <div className="bar-race__rows" style={{ height: H }} aria-hidden="true">
           {racers.map((r, k) => {
             const row = smoothed[k];
             if (row > show + 0.5) return null;
             const w = (vals[k] / max) * 100;
             return (
-              <div key={r.name} className="br__row" style={{ transform: `translateY(${row * (ROW + GAP)}px)`, opacity: Math.max(0, Math.min(1, show + 0.5 - row)) }}>
-                <div className="br__bar" style={{ width: `${w}%`, background: `var(--s${r.region + 1})` }}>
-                  <span className="br__name" data-out={w < 26 || undefined}>{r.name}</span>
+              <div key={r.name} className="bar-race__row" style={{ transform: `translateY(${row * (ROW + GAP)}px)`, opacity: Math.max(0, Math.min(1, show + 0.5 - row)) }}>
+                <div className="bar-race__bar" style={{ width: `${w}%`, background: `var(--s${r.region + 1})` }}>
+                  <span className="bar-race__name" data-out={w < 26 || undefined}>{r.name}</span>
                 </div>
-                <span className="br__val" style={{ left: `${w}%` }}>{Math.round(vals[k]).toLocaleString("en-GB")}</span>
+                <span className="bar-race__val" style={{ left: `${w}%` }}>{Math.round(vals[k]).toLocaleString("en-GB")}</span>
               </div>
             );
           })}
@@ -122,17 +122,17 @@ export function BarRace({ racers, months, regions, show = 8, title = "Bookings b
       </div>
 
       {view === "table" && (
-        <div className="br__table-wrap">
-          <table className="br__table">
-            <caption className="br__sr">{summary}</caption>
+        <div className="bar-race__table-wrap">
+          <table className="bar-race__table">
+            <caption className="bar-race__sr">{summary}</caption>
             <thead><tr><th scope="col">Destination</th>{months.map((m) => <th key={m} scope="col">{m}</th>)}</tr></thead>
             <tbody>{racers.map((r) => <tr key={r.name}><th scope="row">{r.name}</th>{r.values.map((v, k) => <td key={k}>{Math.round(v).toLocaleString("en-GB")}</td>)}</tr>)}</tbody>
           </table>
         </div>
       )}
 
-      <div className="br__time">
-        <button type="button" className="br__play" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause" : t >= last ? "Replay the year" : "Play"}>
+      <div className="bar-race__time">
+        <button type="button" className="bar-race__play" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause" : t >= last ? "Replay the year" : "Play"}>
           {playing ? <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4h3v12H6zM11 4h3v12h-3z" /></svg> : <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.2v11.6L16 10z" /></svg>}
         </button>
         <input
@@ -150,7 +150,7 @@ export function BarRace({ racers, months, regions, show = 8, title = "Bookings b
             if (e.key === "ArrowLeft" || e.key === "ArrowDown") { e.preventDefault(); setPlaying(false); setT((v) => Math.max(0, Math.ceil(v - 1e-6) - 1)); }
           }}
         />
-        <span className="br__now" aria-hidden="true">{month}</span>
+        <span className="bar-race__now" aria-hidden="true">{month}</span>
       </div>
     </section>
   );

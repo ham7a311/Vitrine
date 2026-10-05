@@ -35,3 +35,19 @@ Open an issue first for a new component, so we can check it fits the collection:
 ## Pull requests
 
 Keep them focused, describe what changed and why, and include a screenshot or short recording for visual changes. Be kind in reviews; we'll do the same.
+
+## Required checks before a release
+
+Run `npm run release:check` before opening a pull request. This checks every component and variant prompt, workshop briefs, portable examples, CSS namespaces, auth failure/retry flows and the production build. New components must use a unique class prefix; the registry check rejects shared selectors.
+
+The code viewer resolves local imports automatically and presents a flat copyable folder. Keep external dependencies explicit in metadata. Verify the exported usage example with `npm run check:exports`.
+
+Declare all selectable appearances in `meta.variants`. Non-theme variants need a focused prompt for the selected option. Theme-only variants share the main brief, but the final copied prompt always states the selected theme and behavior requirements. Keep prompts synchronized with API and interaction changes. Test both rejection and retry for asynchronous callbacks; simulated services belong in `demo.tsx`.
+
+After starting the production build on port 3147, run `npm run test:routes` and `npm run test:browser`. The browser check needs `npx playwright install chromium`. CI runs these checks for pushes and pull requests.
+
+## Design and demo gate
+
+Before implementation, state the familiar job and one specific design idea, compare it with the nearest existing component, and review a still desktop and mobile composition without colour or effects. Explain what the interaction communicates. Category coverage and component counts do not justify a new entry. Replacements require concept review first.
+
+Demo links must stay inside the preview. Use buttons for local actions, or prevent link navigation and simulate the result locally. Never use internal Vitrine routes as example destinations. The live preview and exported `usage.tsx` both use the portable `DemoBoundary`; run `usage.tsx` to try a copied example safely. The underlying component may accept caller-owned URLs for real applications.

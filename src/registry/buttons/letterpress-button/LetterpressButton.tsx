@@ -26,7 +26,7 @@ export function LetterpressButton({ children, reach = 46, tone = "paper", classN
   const press = (x: number | null) => {
     const btn = ref.current;
     if (!btn) return;
-    const letters = btn.querySelectorAll<HTMLElement>(".lp__char");
+    const letters = btn.querySelectorAll<HTMLElement>(".letterpress-button__char");
     letters.forEach((el) => {
       if (x === null) return el.style.setProperty("--d", "0");
       const r = el.getBoundingClientRect();
@@ -48,7 +48,7 @@ export function LetterpressButton({ children, reach = 46, tone = "paper", classN
       ref={ref}
       type="button"
       aria-label={children}
-      className={`lp lp--${tone} ${className}`}
+      className={`letterpress-button letterpress-button--${tone} ${className}`}
       onPointerMove={onMove}
       onPointerLeave={() => {
         cancelAnimationFrame(frame.current);
@@ -61,13 +61,13 @@ export function LetterpressButton({ children, reach = 46, tone = "paper", classN
         btn.setAttribute("data-stamp", "");
         onPointerDown?.(e);
       }}
-      onAnimationEnd={(e) => e.animationName === "lp-stamp" && e.currentTarget.removeAttribute("data-stamp")}
+      onAnimationEnd={(e) => e.animationName === "letterpress-button-stamp" && e.currentTarget.removeAttribute("data-stamp")}
       {...rest}
     >
-      <span className="lp__plate" aria-hidden="true" />
-      <span className="lp__line" aria-hidden="true">
+      <span className="letterpress-button__plate" aria-hidden="true" />
+      <span className="letterpress-button__line" aria-hidden="true">
         {chars.map((c, i) => (
-          <span key={i} className="lp__char" style={{ ["--i" as string]: i }}>
+          <span key={i} className="letterpress-button__char" style={{ ["--i" as string]: i }}>
             {c === " " ? " " : c}
           </span>
         ))}

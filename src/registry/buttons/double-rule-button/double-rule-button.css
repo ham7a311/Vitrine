@@ -1,58 +1,58 @@
 /* Double Rule Button — two rules and an engraved band, closing into one frame. */
-.drb {
-  --drb-face: #fbf8ef;
-  --drb-ink: #1f4d3a;
-  --drb-band: 5px;
-  --drb-ease: cubic-bezier(0.16, 1, 0.3, 1);
+.double-rule {
+  --double-rule-face: #fbf8ef;
+  --double-rule-ink: #1f4d3a;
+  --double-rule-band: 5px;
+  --double-rule-ease: cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   display: inline-grid;
   place-items: center;
   height: 3.25rem;
   padding: 0 2rem;
-  border: 1px solid var(--drb-ink);
+  border: 1px solid var(--double-rule-ink);
   border-radius: 3px;
-  background: var(--drb-face);
-  color: var(--drb-ink);
+  background: var(--double-rule-face);
+  color: var(--double-rule-ink);
   font: 500 0.9375rem/1 "Cinzel", "Instrument Serif", Georgia, serif;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: letter-spacing 520ms var(--drb-ease), transform 160ms ease, box-shadow 520ms var(--drb-ease);
+  transition: letter-spacing 520ms var(--double-rule-ease), transform 160ms ease, box-shadow 520ms var(--double-rule-ease);
 }
-.drb--night {
-  --drb-face: #12241c;
-  --drb-ink: #d8bf86;
+.double-rule--night {
+  --double-rule-face: #12241c;
+  --double-rule-ink: #d8bf86;
 }
 /* The engraving: fine crossed lines, shown only in the band between the rules. */
-.drb__engraving {
+.double-rule__engraving {
   position: absolute;
   inset: 1px;
   border-radius: 2px;
   background:
-    repeating-linear-gradient(60deg, color-mix(in srgb, var(--drb-ink) 32%, transparent) 0 0.6px, transparent 0.6px 2.4px),
-    repeating-linear-gradient(-60deg, color-mix(in srgb, var(--drb-ink) 32%, transparent) 0 0.6px, transparent 0.6px 2.4px);
-  padding: var(--drb-band);
+    repeating-linear-gradient(60deg, color-mix(in srgb, var(--double-rule-ink) 32%, transparent) 0 0.6px, transparent 0.6px 2.4px),
+    repeating-linear-gradient(-60deg, color-mix(in srgb, var(--double-rule-ink) 32%, transparent) 0 0.6px, transparent 0.6px 2.4px);
+  padding: var(--double-rule-band);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
   transition: opacity 360ms ease;
 }
-.drb__inner {
+.double-rule__inner {
   position: absolute;
-  inset: calc(var(--drb-band) + 1px);
-  border: 1px solid var(--drb-ink);
+  inset: calc(var(--double-rule-band) + 1px);
+  border: 1px solid var(--double-rule-ink);
   border-radius: 1px;
-  transition: inset 520ms var(--drb-ease), border-width 520ms var(--drb-ease);
+  transition: inset 520ms var(--double-rule-ease), border-width 520ms var(--double-rule-ease);
 }
-.drb__label { position: relative; }
+.double-rule__label { position: relative; }
 
 /* Sealed: the inner rule meets the outer and the frame becomes one firm line. */
-.drb:hover .drb__inner, .drb:focus-visible .drb__inner { inset: 0; border-width: 1.5px; }
-.drb:hover .drb__engraving, .drb:focus-visible .drb__engraving { opacity: 0; }
-.drb:hover, .drb:focus-visible { letter-spacing: 0.12em; box-shadow: 0 10px 24px -16px color-mix(in srgb, var(--drb-ink) 70%, transparent); }
-.drb:active { transform: translateY(1px); }
-.drb:focus-visible { outline: 2px solid var(--drb-ink); outline-offset: 4px; }
+.double-rule:hover .double-rule__inner, .double-rule:focus-visible .double-rule__inner { inset: 0; border-width: 1.5px; }
+.double-rule:hover .double-rule__engraving, .double-rule:focus-visible .double-rule__engraving { opacity: 0; }
+.double-rule:hover, .double-rule:focus-visible { letter-spacing: 0.12em; box-shadow: 0 10px 24px -16px color-mix(in srgb, var(--double-rule-ink) 70%, transparent); }
+.double-rule:active { transform: translateY(1px); }
+.double-rule:focus-visible { outline: 2px solid var(--double-rule-ink); outline-offset: 4px; }
 
-.drb[data-motion="reduced"], .drb[data-motion="reduced"] * { transition-duration: 1ms !important; }
-@media (prefers-reduced-motion: reduce) { .drb, .drb * { transition-duration: 1ms !important; } }
+.double-rule[data-motion="reduced"], .double-rule[data-motion="reduced"] * { transition-duration: 1ms !important; }
+@media (prefers-reduced-motion: reduce) { .double-rule, .double-rule * { transition-duration: 1ms !important; } }

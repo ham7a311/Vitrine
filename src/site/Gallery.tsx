@@ -1,5 +1,7 @@
 "use client";
 
+import { rovingFocus } from "./rovingFocus";
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { ComponentSummary } from "@/registry";
@@ -40,14 +42,16 @@ export function Gallery({ items }: { items: ComponentSummary[] }) {
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const category = params.get("category") ?? "all";
+  const requestedCategory = params.get("category");
+  const category = CATEGORIES.some((c) => c.id === requestedCategory) ? requestedCategory! : "all";
   const filterNew = params.get("filter") === "new";
   const [q, setQ] = useState(params.get("q") ?? "");
 
   useEffect(() => setQ(params.get("q") ?? ""), [params]);
 
   const setParam = (key: string, value: string | null) => {
-    const next = new URLSearchParams(params.toString());
+    const next = new URLSearchParams(window.location.search);
+    if (key !== "q") { if (q) next.set("q", q); else next.delete("q"); }
     if (value === null || value === "") next.delete(key);
     else next.set(key, value);
     const s = next.toString();
@@ -81,7 +85,7 @@ export function Gallery({ items }: { items: ComponentSummary[] }) {
   return (
     <div>
       <div className="flex flex-col gap-4 border-b border-line pb-5 lg:flex-row lg:items-center">
-        <div role="radiogroup" aria-label="Category" className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:pb-0">
+        <div role="radiogroup" onKeyDown={rovingFocus} aria-label="Category" className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:pb-0">
           {tabs.map((t) => {
             const active = category === t.id;
             const count = t.id === "all" ? Object.values(counts).reduce((a, b) => a + b, 0) : counts[t.id];
@@ -90,6 +94,7 @@ export function Gallery({ items }: { items: ComponentSummary[] }) {
                 key={t.id}
                 type="button"
                 role="radio"
+                tabIndex={active ? 0 : -1}
                 aria-checked={active}
                 onClick={() => setParam("category", t.id === "all" ? null : t.id)}
                 className={`flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-1.5 text-[0.8125rem] transition-colors duration-200 ${

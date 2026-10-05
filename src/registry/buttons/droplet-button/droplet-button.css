@@ -1,65 +1,65 @@
 /* Droplet Button — the arrow pulls out of the pill like a drop of water. */
-.drb {
-  --drb-fill: #efe8dc;
-  --drb-ink: #141216;
-  --drb-focus: #efe8dc;
-  --drb-h: 3.25rem;
-  --drb-d: 2.6rem; /* drop diameter */
-  --drb-room: 3.6rem; /* space kept free to the right for the drop */
-  --drb-out: 3.75rem; /* how far the drop travels */
-  --drb-spring: cubic-bezier(0.34, 1.35, 0.64, 1);
+.droplet {
+  --droplet-fill: #efe8dc;
+  --droplet-ink: #141216;
+  --droplet-focus: #efe8dc;
+  --droplet-h: 3.25rem;
+  --droplet-d: 2.6rem; /* drop diameter */
+  --droplet-room: 3.6rem; /* space kept free to the right for the drop */
+  --droplet-out: 3.75rem; /* how far the drop travels */
+  --droplet-spring: cubic-bezier(0.34, 1.35, 0.64, 1);
   position: relative;
   isolation: isolate;
   display: inline-flex;
   align-items: center;
-  height: var(--drb-h);
-  padding: 0 calc(var(--drb-room) + var(--drb-d) + 0.6rem) 0 1.6rem;
+  height: var(--droplet-h);
+  padding: 0 calc(var(--droplet-room) + var(--droplet-d) + 0.6rem) 0 1.6rem;
   border: 0;
   background: none;
-  color: var(--drb-ink);
+  color: var(--droplet-ink);
   font: 600 0.9375rem/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   letter-spacing: -0.01em;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.drb--paper { --drb-fill: #1b1a17; --drb-ink: #fffdf8; --drb-focus: #2f5fd0; }
-.drb__defs { position: absolute; }
-.drb__goo { position: absolute; inset: -12px; z-index: -1; pointer-events: none; }
-.drb__pill { position: absolute; top: 12px; bottom: 12px; left: 12px; right: calc(var(--drb-room) + 12px); border-radius: 999px; background: var(--drb-fill); }
-.drb__drop, .drb__arrow {
+.droplet--paper { --droplet-fill: #1b1a17; --droplet-ink: #fffdf8; --droplet-focus: #2f5fd0; }
+.droplet__defs { position: absolute; }
+.droplet__goo { position: absolute; inset: -12px; z-index: -1; pointer-events: none; }
+.droplet__pill { position: absolute; top: 12px; bottom: 12px; left: 12px; right: calc(var(--droplet-room) + 12px); border-radius: 999px; background: var(--droplet-fill); }
+.droplet__drop, .droplet__arrow {
   position: absolute;
-  top: calc((var(--drb-h) - var(--drb-d)) / 2);
-  right: calc(var(--drb-room) + (var(--drb-h) - var(--drb-d)) / 2);
-  width: var(--drb-d);
-  height: var(--drb-d);
+  top: calc((var(--droplet-h) - var(--droplet-d)) / 2);
+  right: calc(var(--droplet-room) + (var(--droplet-h) - var(--droplet-d)) / 2);
+  width: var(--droplet-d);
+  height: var(--droplet-d);
   border-radius: 50%;
-  transition: transform 720ms var(--drb-spring);
+  transition: transform 720ms var(--droplet-spring);
 }
-.drb__drop { top: calc((var(--drb-h) - var(--drb-d)) / 2 + 12px); right: calc(var(--drb-room) + (var(--drb-h) - var(--drb-d)) / 2 + 12px); background: var(--drb-fill); }
+.droplet__drop { top: calc((var(--droplet-h) - var(--droplet-d)) / 2 + 12px); right: calc(var(--droplet-room) + (var(--droplet-h) - var(--droplet-d)) / 2 + 12px); background: var(--droplet-fill); }
 /* At rest the arrow sits in the pill's end, marked by a faint well. */
-.drb__arrow { display: grid; place-items: center; background: color-mix(in srgb, var(--drb-ink) 8%, transparent); }
-.drb__arrow svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.drb__label { position: relative; white-space: nowrap; }
+.droplet__arrow { display: grid; place-items: center; background: color-mix(in srgb, var(--droplet-ink) 8%, transparent); }
+.droplet__arrow svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.droplet__label { position: relative; white-space: nowrap; }
 
-.drb:hover .drb__drop, .drb:hover .drb__arrow, .drb:focus-visible .drb__drop, .drb:focus-visible .drb__arrow { transform: translateX(var(--drb-out)); }
-.drb:hover .drb__arrow, .drb:focus-visible .drb__arrow { background: transparent; }
+.droplet:hover .droplet__drop, .droplet:hover .droplet__arrow, .droplet:focus-visible .droplet__drop, .droplet:focus-visible .droplet__arrow { transform: translateX(var(--droplet-out)); }
+.droplet:hover .droplet__arrow, .droplet:focus-visible .droplet__arrow { background: transparent; }
 /* Leaving: it drifts back more slowly than it left, and merges. */
-.drb:not(:hover):not(:focus-visible) .drb__drop, .drb:not(:hover):not(:focus-visible) .drb__arrow { transition: transform 900ms cubic-bezier(0.45, 0, 0.2, 1); }
-.drb:active .drb__pill { transform: scaleX(0.985); }
-.drb:focus-visible { outline: none; }
-.drb:focus-visible .drb__pill { box-shadow: 0 0 0 2px var(--drb-page, transparent), 0 0 0 4px var(--drb-focus); }
+.droplet:not(:hover):not(:focus-visible) .droplet__drop, .droplet:not(:hover):not(:focus-visible) .droplet__arrow { transition: transform 900ms cubic-bezier(0.45, 0, 0.2, 1); }
+.droplet:active .droplet__pill { transform: scaleX(0.985); }
+.droplet:focus-visible { outline: none; }
+.droplet:focus-visible .droplet__pill { box-shadow: 0 0 0 2px var(--droplet-page, transparent), 0 0 0 4px var(--droplet-focus); }
 
 /* Click: the drop flies off ahead, and a new one wells up from the pill's end and pulls out again. */
-.drb[data-fly] .drb__drop, .drb[data-fly] .drb__arrow { animation: drb-fly 980ms both; }
-@keyframes drb-fly {
-  0% { transform: translateX(var(--drb-out)); opacity: 1; animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
-  34% { transform: translateX(calc(var(--drb-out) + 5rem)) scale(0.5); opacity: 0; }
+.droplet[data-fly] .droplet__drop, .droplet[data-fly] .droplet__arrow { animation: droplet-fly 980ms both; }
+@keyframes droplet-fly {
+  0% { transform: translateX(var(--droplet-out)); opacity: 1; animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  34% { transform: translateX(calc(var(--droplet-out) + 5rem)) scale(0.5); opacity: 0; }
   35% { transform: translateX(0) scale(0.2); opacity: 0; animation-timing-function: ease-out; }
-  55% { transform: translateX(0) scale(1); opacity: 1; animation-timing-function: var(--drb-spring); }
-  100% { transform: translateX(var(--drb-out)); opacity: 1; }
+  55% { transform: translateX(0) scale(1); opacity: 1; animation-timing-function: var(--droplet-spring); }
+  100% { transform: translateX(var(--droplet-out)); opacity: 1; }
 }
 
-.drb[data-motion="reduced"] .drb__drop, .drb[data-motion="reduced"] .drb__arrow { transition: none !important; animation: none !important; }
+.droplet[data-motion="reduced"] .droplet__drop, .droplet[data-motion="reduced"] .droplet__arrow { transition: none !important; animation: none !important; }
 @media (prefers-reduced-motion: reduce) {
-  .drb__drop, .drb__arrow { transition: none !important; animation: none !important; }
+  .droplet__drop, .droplet__arrow { transition: none !important; animation: none !important; }
 }

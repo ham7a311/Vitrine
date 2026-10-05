@@ -16,8 +16,9 @@ type Props = {
   sentTo: string;
   length?: number;
   /** Resolve true when the code is right. */
-  verify?: (code: string) => Promise<boolean>;
-  onResend?: () => void;
+  verify: (code: string) => Promise<boolean>;
+  onResend?: () => Promise<void>;
+  changeEmailHref?: string;
   /** Seconds before another code can be sent. */
   cooldown?: number;
   theme?: "paper" | "night";
@@ -27,9 +28,7 @@ type Props = {
 
 type Phase = "typing" | "checking" | "wrong" | "ok";
 
-const demoVerify = (code: string) => new Promise<boolean>((r) => setTimeout(() => r(code === "246810"), 700));
-
-export function CodeCascadeVerify({ sentTo, length = 6, verify = demoVerify, onResend, cooldown = 30, theme = "night", motion = "full", className = "" }: Props) {
+export function CodeCascadeVerify({ sentTo, length = 6, verify, onResend, changeEmailHref, cooldown = 30, theme = "night", motion = "full", className = "" }: Props) {
   const uid = useId().replace(/:/g, "");
   const input = useRef<HTMLInputElement>(null);
   const [code, setCode] = useState("");
@@ -42,6 +41,10 @@ export function CodeCascadeVerify({ sentTo, length = 6, verify = demoVerify, onR
   const [left, setLeft] = useState(cooldown);
   const [sent, setSent] = useState(0);
   const [note, setNote] = useState("");
+  const pending = useRef(false);
+  const clearTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const [resending, setResending] = useState(false);
+  useEffect(() => () => clearTimeout(clearTimer.current), []);
 
   // Resend countdown.
   useEffect(() => {
@@ -67,9 +70,15 @@ export function CodeCascadeVerify({ sentTo, length = 6, verify = demoVerify, onR
   };
 
   const check = async (value: string, from: number) => {
+    if (pending.current) return;
+    pending.current = true;
+    clearTimeout(clearTimer.current);
     setPhase("checking");
     setNote("Checking the code…");
-    const ok = await verify(value);
+    let ok = false;
+    try { ok = await verify(value); }
+    catch { setPhase("typing"); setCode(""); setNote("We could not verify the code. Please try again."); return; }
+    finally { pending.current = false; }
     if (ok) {
       setPhase("ok");
       setNote("Verified. Signing you in.");
@@ -79,26 +88,27 @@ export function CodeCascadeVerify({ sentTo, length = 6, verify = demoVerify, onR
     setWaves((w) => w + 1);
     setPhase("wrong");
     setNote("That code didn't match. Check the latest email — each code works for 10 minutes.");
-    setTimeout(() => {
+    clearTimer.current = setTimeout(() => {
       setCode((c) => (c === value ? "" : c));
       setDelays([]);
       input.current?.focus();
     }, 900);
   };
 
-  const resend = () => {
-    if (left > 0) return;
-    onResend?.();
-    setSent((s) => s + 1);
-    setCode("");
-    setDelays([]);
-    setPhase("typing");
-    setNote(`A new code is on its way to ${sentTo}.`);
-    input.current?.focus();
+  const resend = async () => {
+    if (left > 0 || pending.current || !onResend) return;
+    pending.current = true; setResending(true); clearTimeout(clearTimer.current);
+    try {
+      await onResend();
+      setSent((s) => s + 1); setCode(""); setDelays([]); setPhase("typing");
+      setNote(`A new code is on its way to ${sentTo}.`);
+      input.current?.focus();
+    } catch { setNote("A new code could not be sent. Please try again."); }
+    finally { pending.current = false; setResending(false); }
   };
 
   const at = Math.min(code.length, length - 1);
-  const p = left / cooldown;
+  const p = cooldown > 0 ? left / cooldown : 0;
 
   return (
     <section className={`ccv ccv--${theme} ${className}`} data-motion={motion} data-phase={phase}>
@@ -121,7 +131,7 @@ export function CodeCascadeVerify({ sentTo, length = 6, verify = demoVerify, onR
           maxLength={length}
           aria-describedby={`${uid}-note`}
           aria-invalid={phase === "wrong" || undefined}
-          readOnly={phase === "checking" || phase === "ok"}
+          readOnly={phase === "checking" || phase === "ok" || resending}
         />
         {Array.from({ length }, (_, i) => {
           const d = code[i];
@@ -152,8 +162,9 @@ export function CodeCascadeVerify({ sentTo, length = 6, verify = demoVerify, onR
       </p>
 
       <div className="ccv__foot">
-        <button
+        {onResend && <button
           type="button"
+          disabled={resending || phase === "checking" || phase === "ok"}
           className="ccv__resend"
           onClick={resend}
           aria-disabled={left > 0 || undefined}
@@ -162,8 +173,8 @@ export function CodeCascadeVerify({ sentTo, length = 6, verify = demoVerify, onR
         >
           <span className="ccv__ring" aria-hidden="true" />
           <span>{left > 0 ? `Resend code in 0:${String(left).padStart(2, "0")}` : "Resend code"}</span>
-        </button>
-        <a className="ccv__alt" href="#">Use a different email</a>
+        </button>}
+        {changeEmailHref && <a className="ccv__alt" href={changeEmailHref}>Use a different email</a>}
       </div>
     </section>
   );

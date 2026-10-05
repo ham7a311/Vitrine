@@ -130,10 +130,10 @@ export function PerimeterHoldButton({ label = "Hold to delete", confirmedLabel =
         <path ref={pathRef} className="ph__line" d={d} pathLength={1} />
       </svg>
       <span className="ph__labels">
-        <span className="ph__label" data-on={!done || undefined}>
+        <span className="ph__label" aria-hidden={done} data-on={!done || undefined}>
           {label}
         </span>
-        <span className="ph__label ph__label--done" data-on={done || undefined}>
+        <span className="ph__label ph__label--done" aria-hidden={!done} data-on={done || undefined}>
           <svg viewBox="0 0 20 20" aria-hidden="true">
             <path d="M4.5 10.5 8.2 14 15.5 6.5" pathLength={1} />
           </svg>

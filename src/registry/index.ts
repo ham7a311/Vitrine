@@ -44,6 +44,7 @@ import { meta as glassLensSwitch } from "./buttons/glass-lens-switch/meta";
 import { meta as drawLink } from "./buttons/draw-link/meta";
 import { meta as entryPointButton } from "./buttons/entry-point-button/meta";
 import { meta as stackButton } from "./buttons/stack-button/meta";
+import { meta as offsetPressButton } from "./buttons/offset-press-button/meta";
 import { meta as gamutPicker } from "./controls/gamut-picker/meta";
 import { meta as fractionCheckbox } from "./controls/fraction-checkbox/meta";
 import { meta as moodSlider } from "./controls/mood-slider/meta";
@@ -200,6 +201,7 @@ import { meta as focusFaq } from "./faq/focus-faq/meta";
 import { meta as chatThreadFaq } from "./faq/chat-thread-faq/meta";
 import { meta as origamiFaq } from "./faq/origami-faq/meta";
 import { meta as cardCatalogueFaq } from "./faq/card-catalogue-faq/meta";
+import { meta as colourRegisterFaq } from "./faq/colour-register-faq/meta";
 import { meta as tidelineCta } from "./ctas/tideline-cta/meta";
 import { meta as liquidGlassCta } from "./ctas/liquid-glass-cta/meta";
 import { meta as focusPullCta } from "./ctas/focus-pull-cta/meta";
@@ -272,8 +274,15 @@ import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
 import { meta as firstLight } from "./feedback/first-light/meta";
 import { meta as progressiveReveal } from "./feedback/progressive-reveal/meta";
+import { meta as missingGlyph404 } from "./feedback/missing-glyph-404/meta";
+import { meta as unlitGallery404 } from "./feedback/unlit-gallery-404/meta";
+import { meta as wayfinder404 } from "./feedback/wayfinder-404/meta";
+import { meta as errata404 } from "./feedback/errata-404/meta";
+import { meta as quietReturn404 } from "./feedback/quiet-return-404/meta";
 import { meta as stepPath } from "./sections/step-path/meta";
 import { meta as voicesCarousel } from "./sections/voices-carousel/meta";
+import { meta as partnerRibbon } from "./sections/partner-ribbon/meta";
+import { meta as productAtelier } from "./sections/product-atelier/meta";
 import { meta as ditherLogo } from "./type/dither-logo/meta";
 import { meta as constellationName } from "./type/constellation-name/meta";
 import { meta as sealSignature } from "./type/seal-signature/meta";
@@ -348,6 +357,7 @@ export const registry: ComponentMeta[] = [
   drawLink,
   entryPointButton,
   stackButton,
+  offsetPressButton,
   gamutPicker,
   fractionCheckbox,
   moodSlider,
@@ -504,6 +514,7 @@ export const registry: ComponentMeta[] = [
   chatThreadFaq,
   origamiFaq,
   cardCatalogueFaq,
+  colourRegisterFaq,
   tidelineCta,
   liquidGlassCta,
   focusPullCta,
@@ -576,8 +587,15 @@ export const registry: ComponentMeta[] = [
   undoRibbon,
   firstLight,
   progressiveReveal,
+  missingGlyph404,
+  unlitGallery404,
+  wayfinder404,
+  errata404,
+  quietReturn404,
   stepPath,
   voicesCarousel,
+  partnerRibbon,
+  productAtelier,
   ditherLogo,
   constellationName,
   sealSignature,

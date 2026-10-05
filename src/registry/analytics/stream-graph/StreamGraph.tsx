@@ -135,15 +135,15 @@ export function StreamGraph({ streams, dates, title = "Sessions by channel", the
   const tipX = col !== null ? x(col) : 0;
 
   return (
-    <section className={`sg sg--${theme} ${className}`} data-motion={motion} aria-labelledby={`${id}-t`}>
-      <header className="sg__head">
+    <section className={`stream-graph stream-graph--${theme} ${className}`} data-motion={motion} aria-labelledby={`${id}-t`}>
+      <header className="stream-graph__head">
         <div>
-          <h3 id={`${id}-t`} className="sg__title">{title}</h3>
-          <p className="sg__insight"><strong>{lead.label}</strong> is still the biggest source — but social is catching up fast.</p>
+          <h3 id={`${id}-t`} className="stream-graph__title">{title}</h3>
+          <p className="stream-graph__insight"><strong>{lead.label}</strong> is still the biggest source — but social is catching up fast.</p>
         </div>
-        <button type="button" className="sg__view" aria-pressed={view === "table"} onClick={() => setView((v) => (v === "chart" ? "table" : "chart"))}>{view === "chart" ? "Table" : "Chart"}</button>
+        <button type="button" className="stream-graph__view" aria-pressed={view === "table"} onClick={() => setView((v) => (v === "chart" ? "table" : "chart"))}>{view === "chart" ? "Table" : "Chart"}</button>
       </header>
-      <div className="sg__legend" role="group" aria-label="Show or hide channels">
+      <div className="stream-graph__legend" role="group" aria-label="Show or hide channels">
         {streams.map((s, i) => (
           <button key={s.key} type="button" aria-pressed={!hidden.has(s.key)} onClick={() => toggle(s.key)} onPointerEnter={() => setFocus(s.key)} onPointerLeave={() => setFocus(null)} onFocus={() => setFocus(s.key)} onBlur={() => setFocus(null)} style={{ ["--c" as string]: `var(--s${i + 1})` }}>
             <i />{s.label}
@@ -151,20 +151,20 @@ export function StreamGraph({ streams, dates, title = "Sessions by channel", the
         ))}
       </div>
 
-      <div ref={wrapRef} className="sg__plot" hidden={view === "table"}>
+      <div ref={wrapRef} className="stream-graph__plot" hidden={view === "table"}>
         <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} width="100%" height={H} role="img" aria-label={summary} tabIndex={0} onPointerMove={pick} onPointerLeave={() => { setCol(null); setFocus(null); }} onKeyDown={onKey} onBlur={() => setCol(null)} data-seen={seen || undefined}>
           {monthTicks.map(({ d, j }) => (
             <g key={j}>
-              <line x1={x(j)} x2={x(j)} y1={PAD.t} y2={H - PAD.b} className="sg__grid" />
-              <text x={x(j) + 4} y={H - 10} className="sg__tick">{mon.format(d)}</text>
+              <line x1={x(j)} x2={x(j)} y1={PAD.t} y2={H - PAD.b} className="stream-graph__grid" />
+              <text x={x(j) + 4} y={H - 10} className="stream-graph__tick">{mon.format(d)}</text>
             </g>
           ))}
-          <g className="sg__river">
+          <g className="stream-graph__river">
             {streams.map((s, i) => (
               <path
                 key={s.key}
                 d={paths[i]}
-                className="sg__stream"
+                className="stream-graph__stream"
                 style={{ fill: `var(--s${i + 1})`, transitionDelay: `${i * 70}ms` }}
                 data-dim={(focus && focus !== s.key) || undefined}
                 onPointerEnter={() => setFocus(s.key)}
@@ -173,19 +173,19 @@ export function StreamGraph({ streams, dates, title = "Sessions by channel", the
           </g>
           {/* Names laid along each stream at its widest, where there's room. */}
           {seen && streams.map((s, i) => labelAt[i].h > 18 && !hidden.has(s.key) && (
-            <text key={s.key} x={Math.min(W - PAD.r - 34, Math.max(PAD.l + 34, x(labelAt[i].j)))} y={y((y0[i][labelAt[i].j] + y1[i][labelAt[i].j]) / 2)} className="sg__label" dy="0.34em" textAnchor="middle" data-dim={(focus && focus !== s.key) || undefined}>{s.label}</text>
+            <text key={s.key} x={Math.min(W - PAD.r - 34, Math.max(PAD.l + 34, x(labelAt[i].j)))} y={y((y0[i][labelAt[i].j] + y1[i][labelAt[i].j]) / 2)} className="stream-graph__label" dy="0.34em" textAnchor="middle" data-dim={(focus && focus !== s.key) || undefined}>{s.label}</text>
           ))}
           {col !== null && (
             <g aria-hidden="true">
-              <line x1={tipX} x2={tipX} y1={PAD.t} y2={H - PAD.b} className="sg__cross" />
+              <line x1={tipX} x2={tipX} y1={PAD.t} y2={H - PAD.b} className="stream-graph__cross" />
             </g>
           )}
         </svg>
         {col !== null && (
-          <div className="sg__tip" style={{ left: `${(tipX / W) * 100}%` }} data-side={tipX > W * 0.62 ? "left" : "right"} role="status">
-            <span className="sg__tip-d">Week of {wk.format(dates[col])}</span>
+          <div className="stream-graph__tip" style={{ left: `${(tipX / W) * 100}%` }} data-side={tipX > W * 0.62 ? "left" : "right"} role="status">
+            <span className="stream-graph__tip-d">Week of {wk.format(dates[col])}</span>
             {streams.map((s, i) => !hidden.has(s.key) && (
-              <span key={s.key} className="sg__tip-r" data-on={focus === s.key || undefined}>
+              <span key={s.key} className="stream-graph__tip-r" data-on={focus === s.key || undefined}>
                 <i style={{ background: `var(--s${i + 1})` }} />{s.label}<b>{fmt(s.values[col])}</b>
               </span>
             ))}
@@ -194,9 +194,9 @@ export function StreamGraph({ streams, dates, title = "Sessions by channel", the
       </div>
 
       {view === "table" && (
-        <div className="sg__table-wrap">
-          <table className="sg__table">
-            <caption className="sg__sr">{summary}</caption>
+        <div className="stream-graph__table-wrap">
+          <table className="stream-graph__table">
+            <caption className="stream-graph__sr">{summary}</caption>
             <thead><tr><th scope="col">Week of</th>{streams.map((s) => <th key={s.key} scope="col">{s.label}</th>)}</tr></thead>
             <tbody>{dates.map((d, j) => <tr key={j}><th scope="row">{wk.format(d)}</th>{streams.map((s) => <td key={s.key}>{Math.round(s.values[j]).toLocaleString("en-GB")}</td>)}</tr>)}</tbody>
           </table>

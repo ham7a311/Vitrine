@@ -1,22 +1,22 @@
-.sf {
+.snap-frame {
   position: relative;
-  --sf-ink: #1d1c19;
-  --sf-beam: #2f6fed;
-  --sf-blend: multiply;
+  --snap-frame-ink: #1d1c19;
+  --snap-frame-beam: #2f6fed;
+  --snap-frame-blend: multiply;
 }
-.sf--night {
-  --sf-ink: #f3f1ec;
-  --sf-beam: #8ab4ff;
-  --sf-blend: plus-lighter;
+.snap-frame--night {
+  --snap-frame-ink: #f3f1ec;
+  --snap-frame-beam: #8ab4ff;
+  --snap-frame-blend: plus-lighter;
 }
 
 /* The drawn shape replaces the system cursor everywhere inside the host — fields included, it draws their I-beam too. */
-.sf[data-live],
-.sf[data-live] * {
+.snap-frame[data-live],
+.snap-frame[data-live] * {
   cursor: none !important;
 }
 
-.sf__layer {
+.snap-frame__layer {
   position: absolute;
   inset: 0;
   z-index: 50;
@@ -25,11 +25,11 @@
   opacity: 0;
   transition: opacity 160ms ease;
 }
-.sf__layer[data-in] {
+.snap-frame__layer[data-in] {
   opacity: 1;
 }
 
-.sf__shape {
+.snap-frame__shape {
   position: absolute;
   left: 0;
   top: 0;
@@ -37,32 +37,32 @@
   height: 16px;
   border-radius: 8px;
   will-change: transform, width, height;
-  mix-blend-mode: var(--sf-blend);
-  background: color-mix(in oklab, var(--sf-ink) 26%, transparent);
-  box-shadow: 0 0 0 0.5px color-mix(in oklab, var(--sf-ink) 14%, transparent);
+  mix-blend-mode: var(--snap-frame-blend);
+  background: color-mix(in oklab, var(--snap-frame-ink) 26%, transparent);
+  box-shadow: 0 0 0 0.5px color-mix(in oklab, var(--snap-frame-ink) 14%, transparent);
   transition: background-color 180ms ease, box-shadow 180ms ease;
 }
 
 /* Over a control the shape becomes a highlight in its shape: light enough to read through, with a hairline edge. */
-.sf__layer[data-mode="frame"] .sf__shape {
-  background: color-mix(in oklab, var(--sf-ink) 8%, transparent);
+.snap-frame__layer[data-mode="frame"] .snap-frame__shape {
+  background: color-mix(in oklab, var(--snap-frame-ink) 8%, transparent);
   box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--sf-ink) 13%, transparent),
-    0 0 0 4px color-mix(in oklab, var(--sf-ink) 3%, transparent);
+    0 0 0 1px color-mix(in oklab, var(--snap-frame-ink) 13%, transparent),
+    0 0 0 4px color-mix(in oklab, var(--snap-frame-ink) 3%, transparent);
 }
-.sf--night .sf__layer[data-mode="frame"] .sf__shape {
-  background: color-mix(in oklab, var(--sf-ink) 9%, transparent);
+.snap-frame--night .snap-frame__layer[data-mode="frame"] .snap-frame__shape {
+  background: color-mix(in oklab, var(--snap-frame-ink) 9%, transparent);
 }
 
-.sf__layer[data-mode="beam"] .sf__shape {
+.snap-frame__layer[data-mode="beam"] .snap-frame__shape {
   mix-blend-mode: normal;
-  background: var(--sf-beam);
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--sf-beam) 22%, transparent);
+  background: var(--snap-frame-beam);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--snap-frame-beam) 22%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sf__shape,
-  .sf__layer { transition: none; }
+  .snap-frame__shape,
+  .snap-frame__layer { transition: none; }
 }
-.sf[data-motion="reduced"] .sf__shape,
-.sf[data-motion="reduced"] .sf__layer { transition: none; }
+.snap-frame[data-motion="reduced"] .snap-frame__shape,
+.snap-frame[data-motion="reduced"] .snap-frame__layer { transition: none; }

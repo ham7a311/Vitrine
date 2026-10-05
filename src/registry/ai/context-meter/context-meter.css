@@ -1,30 +1,30 @@
-.cm { --bg: #fbfaf7; --ink: #1b1a17; --muted: #77736b; --line: rgb(27 26 23 / 0.1); --track: rgb(27 26 23 / 0.06); width: min(100%, 34rem); padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--bg); color: var(--ink); font: 0.875rem/1.5 "Geist", ui-sans-serif, system-ui, sans-serif; }
-.cm--night { --bg: #111015; --ink: #ecebf0; --muted: #8f8b97; --line: rgb(236 235 240 / 0.1); --track: rgb(236 235 240 / 0.06); }
-.cm__top { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
-.cm__eyebrow { margin: 0; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-.cm__num { margin: 8px 0 0; color: var(--muted); font-variant-numeric: tabular-nums; }
-.cm__num strong { color: var(--ink); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
-.cm__pct { margin: 0; font: 600 1.5rem/1 "Geist", sans-serif; font-variant-numeric: tabular-nums; transition: color 300ms ease; }
-.cm[data-level="warn"] .cm__pct { color: #b45309; }
-.cm[data-level="full"] .cm__pct { color: #dc2626; }
-.cm__bar { position: relative; display: flex; gap: 2px; height: 14px; margin-top: 14px; padding: 0; border-radius: 999px; background: var(--track); overflow: hidden; }
-.cm__seg { height: 100%; transition: width 650ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease, filter 300ms ease; }
-.cm__seg:first-child { border-radius: 999px 0 0 999px; }
-.cm__seg[data-dim] { opacity: 0.35; }
-.cm__bar[data-compacting] .cm__seg { filter: saturate(0.4) brightness(1.2); animation: cm-squeeze 650ms ease-in-out; }
-@keyframes cm-squeeze { 40% { scale: 1 0.6; } }
-.cm[data-level="full"] .cm__bar { box-shadow: 0 0 0 2px rgb(220 38 38 / 0.25); animation: cm-warn 1.6s ease-in-out infinite; }
-@keyframes cm-warn { 50% { box-shadow: 0 0 0 4px rgb(220 38 38 / 0.12); } }
-.cm__limit { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--ink); opacity: 0.35; }
-.cm__hint { margin: 10px 0 0; min-height: 1.5em; color: var(--muted); font-size: 0.8125rem; }
-.cm__legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 6px 14px; margin: 12px 0 0; padding: 0; list-style: none; }
-.cm__legend li { display: flex; align-items: center; gap: 8px; font-size: 0.8125rem; }
-.cm__legend i { width: 9px; height: 9px; border-radius: 3px; flex: none; }
-.cm__t { margin-left: auto; font: 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--muted); font-variant-numeric: tabular-nums; }
-.cm__actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-.cm__actions button { height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: none; color: inherit; font: inherit; font-size: 0.8125rem; cursor: pointer; }
-.cm__actions button:hover:not(:disabled) { border-color: color-mix(in oklab, var(--ink) 30%, transparent); }
-.cm__actions button:disabled { opacity: 0.4; cursor: default; }
-.cm__actions button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.cm__compact { margin-left: auto; background: var(--ink) !important; color: var(--bg) !important; border-color: transparent !important; }
-@media (prefers-reduced-motion: reduce) { .cm *, .cm__bar { animation: none !important; transition: none !important; } }
+.context-meter { --bg: #fbfaf7; --ink: #1b1a17; --muted: #77736b; --line: rgb(27 26 23 / 0.1); --track: rgb(27 26 23 / 0.06); width: min(100%, 34rem); padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--bg); color: var(--ink); font: 0.875rem/1.5 "Geist", ui-sans-serif, system-ui, sans-serif; }
+.context-meter--night { --bg: #111015; --ink: #ecebf0; --muted: #8f8b97; --line: rgb(236 235 240 / 0.1); --track: rgb(236 235 240 / 0.06); }
+.context-meter__top { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.context-meter__eyebrow { margin: 0; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.context-meter__num { margin: 8px 0 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+.context-meter__num strong { color: var(--ink); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+.context-meter__pct { margin: 0; font: 600 1.5rem/1 "Geist", sans-serif; font-variant-numeric: tabular-nums; transition: color 300ms ease; }
+.context-meter[data-level="warn"] .context-meter__pct { color: #b45309; }
+.context-meter[data-level="full"] .context-meter__pct { color: #dc2626; }
+.context-meter__bar { position: relative; display: flex; gap: 2px; height: 14px; margin-top: 14px; padding: 0; border-radius: 999px; background: var(--track); overflow: hidden; }
+.context-meter__seg { height: 100%; transition: width 650ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease, filter 300ms ease; }
+.context-meter__seg:first-child { border-radius: 999px 0 0 999px; }
+.context-meter__seg[data-dim] { opacity: 0.35; }
+.context-meter__bar[data-compacting] .context-meter__seg { filter: saturate(0.4) brightness(1.2); animation: context-meter-squeeze 650ms ease-in-out; }
+@keyframes context-meter-squeeze { 40% { scale: 1 0.6; } }
+.context-meter[data-level="full"] .context-meter__bar { box-shadow: 0 0 0 2px rgb(220 38 38 / 0.25); animation: context-meter-warn 1.6s ease-in-out infinite; }
+@keyframes context-meter-warn { 50% { box-shadow: 0 0 0 4px rgb(220 38 38 / 0.12); } }
+.context-meter__limit { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--ink); opacity: 0.35; }
+.context-meter__hint { margin: 10px 0 0; min-height: 1.5em; color: var(--muted); font-size: 0.8125rem; }
+.context-meter__legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 6px 14px; margin: 12px 0 0; padding: 0; list-style: none; }
+.context-meter__legend li { display: flex; align-items: center; gap: 8px; font-size: 0.8125rem; }
+.context-meter__legend i { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+.context-meter__t { margin-left: auto; font: 0.75rem "Geist Mono", ui-monospace, monospace; color: var(--muted); font-variant-numeric: tabular-nums; }
+.context-meter__actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.context-meter__actions button { height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: none; color: inherit; font: inherit; font-size: 0.8125rem; cursor: pointer; }
+.context-meter__actions button:hover:not(:disabled) { border-color: color-mix(in oklab, var(--ink) 30%, transparent); }
+.context-meter__actions button:disabled { opacity: 0.4; cursor: default; }
+.context-meter__actions button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.context-meter__compact { margin-left: auto; background: var(--ink) !important; color: var(--bg) !important; border-color: transparent !important; }
+@media (prefers-reduced-motion: reduce) { .context-meter *, .context-meter__bar { animation: none !important; transition: none !important; } }

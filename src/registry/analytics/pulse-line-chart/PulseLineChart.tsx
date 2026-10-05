@@ -157,34 +157,34 @@ export function PulseLineChart({ daily, currency = "OMR", title = "Revenue", the
   const summary = `${title}, last ${range === "12M" ? "12 months" : range.replace("D", " days")}: ${currency} ${fmtFull(total)}, ${delta >= 0 ? "up" : "down"} ${Math.abs(delta * 100).toFixed(1)}% on the previous period. Peak ${currency} ${fmtFull(pts[peakI].value)} on ${label(pts[peakI].date)}.`;
 
   return (
-    <section className={`pl pl--${theme} ${className}`} data-motion={motion} aria-labelledby={`${id}-t`}>
-      <header className="pl__head">
+    <section className={`pulse-line-chart pulse-line-chart--${theme} ${className}`} data-motion={motion} aria-labelledby={`${id}-t`}>
+      <header className="pulse-line-chart__head">
         <div>
-          <h3 id={`${id}-t`} className="pl__title">{title}</h3>
-          <p className="pl__hero">
-            <span className="pl__cur">{currency}</span> <Counter value={total} reduced={reduced()} />
-            <span className="pl__delta" data-dir={delta >= 0 ? "up" : "down"}>
+          <h3 id={`${id}-t`} className="pulse-line-chart__title">{title}</h3>
+          <p className="pulse-line-chart__hero">
+            <span className="pulse-line-chart__cur">{currency}</span> <Counter value={total} reduced={reduced()} />
+            <span className="pulse-line-chart__delta" data-dir={delta >= 0 ? "up" : "down"}>
               <svg viewBox="0 0 10 10" aria-hidden="true"><path d={delta >= 0 ? "M5 1.5 9 7.5H1z" : "M5 8.5 1 2.5h8z"} /></svg>
               {Math.abs(delta * 100).toFixed(1)}% vs previous
             </span>
           </p>
         </div>
-        <div className="pl__ctl">
-          <div className="pl__seg" role="radiogroup" aria-label="Time range">
+        <div className="pulse-line-chart__ctl">
+          <div className="pulse-line-chart__seg" role="radiogroup" aria-label="Time range">
             {(["7D", "30D", "90D", "12M"] as Range[]).map((r) => (
               <button key={r} type="button" role="radio" aria-checked={range === r} onClick={() => { setRange(r); setHover(null); }}>{r}</button>
             ))}
           </div>
-          <button type="button" className="pl__view" aria-pressed={view === "table"} onClick={() => setView((v) => (v === "chart" ? "table" : "chart"))}>{view === "chart" ? "Table" : "Chart"}</button>
+          <button type="button" className="pulse-line-chart__view" aria-pressed={view === "table"} onClick={() => setView((v) => (v === "chart" ? "table" : "chart"))}>{view === "chart" ? "Table" : "Chart"}</button>
         </div>
       </header>
 
-      <div className="pl__legend" aria-hidden="true">
-        <span><i className="pl__k pl__k--now" />This period</span>
-        <span><i className="pl__k pl__k--prev" />Previous period</span>
+      <div className="pulse-line-chart__legend" aria-hidden="true">
+        <span><i className="pulse-line-chart__k pulse-line-chart__k--now" />This period</span>
+        <span><i className="pulse-line-chart__k pulse-line-chart__k--prev" />Previous period</span>
       </div>
 
-      <div ref={wrapRef} className="pl__plot" hidden={view === "table"}>
+      <div ref={wrapRef} className="pulse-line-chart__plot" hidden={view === "table"}>
         <svg
           ref={svgRef}
           viewBox={`0 0 ${W} ${H}`}
@@ -201,34 +201,34 @@ export function PulseLineChart({ daily, currency = "OMR", title = "Revenue", the
         >
           <defs>
             <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" className="pl__fill-a" />
-              <stop offset="1" className="pl__fill-b" />
+              <stop offset="0" className="pulse-line-chart__fill-a" />
+              <stop offset="1" className="pulse-line-chart__fill-b" />
             </linearGradient>
-            <clipPath id={`${id}-reveal`}><rect x="0" y="0" height={H} className="pl__reveal" /></clipPath>
+            <clipPath id={`${id}-reveal`}><rect x="0" y="0" height={H} className="pulse-line-chart__reveal" /></clipPath>
           </defs>
           {ticks.map((v) => (
             <g key={v}>
-              <line x1={PAD.l} x2={W - PAD.r} y1={y(v)} y2={y(v)} className={v === 0 ? "pl__base" : "pl__grid"} />
-              <text x={PAD.l - 10} y={y(v)} className="pl__ytick" dy="0.32em">{fmtK(v)}</text>
+              <line x1={PAD.l} x2={W - PAD.r} y1={y(v)} y2={y(v)} className={v === 0 ? "pulse-line-chart__base" : "pulse-line-chart__grid"} />
+              <text x={PAD.l - 10} y={y(v)} className="pulse-line-chart__ytick" dy="0.32em">{fmtK(v)}</text>
             </g>
           ))}
-          {xTicks.map((i) => <text key={i} x={xAt(i)} y={H - 8} className="pl__xtick" textAnchor={xAt(i) < PAD.l + 24 ? "start" : i === lastI ? "end" : "middle"}>{label(pts[i].date)}</text>)}
+          {xTicks.map((i) => <text key={i} x={xAt(i)} y={H - 8} className="pulse-line-chart__xtick" textAnchor={xAt(i) < PAD.l + 24 ? "start" : i === lastI ? "end" : "middle"}>{label(pts[i].date)}</text>)}
           <g clipPath={`url(#${id}-reveal)`}>
-            <path d={area} fill={`url(#${id}-fill)`} className="pl__area" />
-            <path d={ghost} className="pl__ghost" />
-            <path d={line} className="pl__line" />
+            <path d={area} fill={`url(#${id}-fill)`} className="pulse-line-chart__area" />
+            <path d={ghost} className="pulse-line-chart__ghost" />
+            <path d={line} className="pulse-line-chart__line" />
           </g>
           {/* Direct labels: the peak and the latest point. */}
           {seen && hover === null && (
-            <g className="pl__notes" aria-hidden="true">
+            <g className="pulse-line-chart__notes" aria-hidden="true">
               {[peakI, lastI].filter((v, k, a) => a.indexOf(v) === k).map((i) => {
                 const px = xAt(i), py = y(pts[i].value), end = i === lastI;
                 const anchor = px > W - 120 ? "end" : px < PAD.l + 60 ? "start" : "middle";
                 return (
                   <g key={i}>
-                    <circle cx={px} cy={py} r="4" className="pl__dot" />
-                    <text x={px + (anchor === "end" ? -2 : 0)} y={py - 12} textAnchor={anchor} className="pl__note">
-                      {end && i !== peakI ? "Latest " : "Peak "}<tspan className="pl__note-v">{fmtK(pts[i].value)}</tspan>
+                    <circle cx={px} cy={py} r="4" className="pulse-line-chart__dot" />
+                    <text x={px + (anchor === "end" ? -2 : 0)} y={py - 12} textAnchor={anchor} className="pulse-line-chart__note">
+                      {end && i !== peakI ? "Latest " : "Peak "}<tspan className="pulse-line-chart__note-v">{fmtK(pts[i].value)}</tspan>
                     </text>
                   </g>
                 );
@@ -237,26 +237,26 @@ export function PulseLineChart({ daily, currency = "OMR", title = "Revenue", the
           )}
           {hp && (
             <g aria-hidden="true">
-              <line x1={hx} x2={hx} y1={PAD.t} y2={PAD.t + ih} className="pl__cross" />
-              <circle cx={hx} cy={y(hp.prev)} r="3.5" className="pl__dot pl__dot--prev" />
-              <circle cx={hx} cy={hy} r="5" className="pl__dot pl__dot--hi" />
+              <line x1={hx} x2={hx} y1={PAD.t} y2={PAD.t + ih} className="pulse-line-chart__cross" />
+              <circle cx={hx} cy={y(hp.prev)} r="3.5" className="pulse-line-chart__dot pulse-line-chart__dot--prev" />
+              <circle cx={hx} cy={hy} r="5" className="pulse-line-chart__dot pulse-line-chart__dot--hi" />
             </g>
           )}
         </svg>
         {hp && (
-          <div className="pl__tip" style={{ left: `${(hx / W) * 100}%`, top: hy - 12 }} data-side={hx > W * 0.66 ? "left" : "right"} role="status">
-            <span className="pl__tip-d">{label(hp.date)}</span>
-            <span className="pl__tip-v">{currency} {fmtFull(hp.value)}</span>
-            <span className="pl__tip-p">Previous {fmtFull(hp.prev)}</span>
-            <span className="pl__tip-x" data-dir={hd >= 0 ? "up" : "down"}>{hd >= 0 ? "▲" : "▼"} {Math.abs(hd * 100).toFixed(1)}%</span>
+          <div className="pulse-line-chart__tip" style={{ left: `${(hx / W) * 100}%`, top: hy - 12 }} data-side={hx > W * 0.66 ? "left" : "right"} role="status">
+            <span className="pulse-line-chart__tip-d">{label(hp.date)}</span>
+            <span className="pulse-line-chart__tip-v">{currency} {fmtFull(hp.value)}</span>
+            <span className="pulse-line-chart__tip-p">Previous {fmtFull(hp.prev)}</span>
+            <span className="pulse-line-chart__tip-x" data-dir={hd >= 0 ? "up" : "down"}>{hd >= 0 ? "▲" : "▼"} {Math.abs(hd * 100).toFixed(1)}%</span>
           </div>
         )}
       </div>
 
       {view === "table" && (
-        <div className="pl__table-wrap">
-          <table className="pl__table">
-            <caption className="pl__sr">{summary}</caption>
+        <div className="pulse-line-chart__table-wrap">
+          <table className="pulse-line-chart__table">
+            <caption className="pulse-line-chart__sr">{summary}</caption>
             <thead><tr><th scope="col">{range === "12M" ? "Month" : "Day"}</th><th scope="col">This period ({currency})</th><th scope="col">Previous ({currency})</th><th scope="col">Change</th></tr></thead>
             <tbody>
               {pts.map((p) => {
@@ -288,5 +288,5 @@ function Counter({ value, reduced }: { value: number; reduced: boolean }) {
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
   }, [value, reduced]);
-  return <span className="pl__num">{fmtFull(v)}</span>;
+  return <span className="pulse-line-chart__num">{fmtFull(v)}</span>;
 }

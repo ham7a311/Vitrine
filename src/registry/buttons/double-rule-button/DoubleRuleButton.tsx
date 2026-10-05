@@ -18,10 +18,10 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export function DoubleRuleButton({ theme = "paper", motion = "full", className = "", children, ...rest }: Props) {
   return (
-    <button type="button" className={`drb drb--${theme} ${className}`} data-motion={motion} {...rest}>
-      <span className="drb__engraving" aria-hidden="true" />
-      <span className="drb__inner" aria-hidden="true" />
-      <span className="drb__label">{children}</span>
+    <button type="button" className={`double-rule double-rule--${theme} ${className}`} data-motion={motion} {...rest}>
+      <span className="double-rule__engraving" aria-hidden="true" />
+      <span className="double-rule__inner" aria-hidden="true" />
+      <span className="double-rule__label">{children}</span>
     </button>
   );
 }

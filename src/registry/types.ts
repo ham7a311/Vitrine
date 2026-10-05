@@ -17,14 +17,15 @@ export interface Variant {
 
 const THEME_LABELS = new Set(["paper", "night", "light", "dark", "light surface", "dark surface"]);
 
-/** Theme-only pairs (Paper / Night, Light / Dark) share one prompt; every other variant set describes its selection. */
+/** Theme-only pairs share a visual brief; composition always includes the selected theme. */
 export const isThemeOnly = (variants?: Variant[]) => !variants || variants.every((v) => THEME_LABELS.has(v.label.toLowerCase()));
 
 /** Base prompt plus the selected variant's own description — never the options that weren't chosen. */
 export function composePrompt(prompt: string, variants: Variant[] | undefined, id: string | undefined) {
   const v = variants?.find((x) => x.id === id) ?? variants?.[0];
-  if (!v?.prompt) return prompt;
-  return `${prompt}\n\nSelected variant — ${v.label}:\n${v.prompt}`;
+  if (!v) return prompt;
+  const direction = v.prompt?.trim() || `Use the ${v.label.toLowerCase()} theme shown in the preview. Keep the geometry and interactions described above.`;
+  return `${prompt}\n\nSelected variant — ${v.label} (${v.id}):\n${direction}\nThis selection takes precedence over references to other themes or options in the general brief. Implement this selected appearance; do not add a variant picker or alternative appearances unless requested.`;
 }
 
 export interface ComponentMeta {
@@ -95,3 +96,21 @@ export const TRAIT_LABEL: Record<Trait, string> = {
   ambient: "Ambient",
   touch: "Touch",
 };
+
+/** A portable brief includes the behavior contract, even when the visual prompt omits it. */
+export function componentBrief(meta: ComponentMeta, id?: string) {
+  return [
+    composePrompt(meta.prompt, meta.variants, id),
+    "",
+    "Implementation requirements:",
+    "Use React and TypeScript. Keep the component self-contained, with uniquely scoped CSS and no animation libraries. Include required imports, styles and font setup in the result.",
+    `Interaction: ${meta.interaction}`,
+    `Motion: ${meta.animation}`,
+    `Accessibility: ${meta.a11y}`,
+    `Responsive behavior: ${meta.responsive}`,
+    ...(meta.touchFallback ? [`Touch: ${meta.touchFallback}`] : []),
+    "Preserve keyboard access, visible focus and reduced-motion behavior. Keep fictional demo data and simulated service calls in a separate usage example; expose callbacks for real actions and recover from rejected requests.",
+    "Keep usage-example links inside the demo: use local buttons or prevent navigation. Demonstration links must not navigate to Vitrine routes or open other pages; preserve real URL support in the reusable component itself.",
+    "Verify the result at narrow and wide viewport sizes, with keyboard input and reduced motion enabled.",
+  ].join("\n");
+}

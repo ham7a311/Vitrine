@@ -1,65 +1,46 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { CheckIcon, CopyIcon } from "./icons";
 
 function legacyCopy(text: string) {
+  const previous = document.activeElement as HTMLElement | null;
   const ta = document.createElement("textarea");
   ta.value = text;
-  ta.setAttribute("readonly", "");
   ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none";
-  document.body.appendChild(ta);
-  ta.select();
+  document.body.appendChild(ta); ta.select();
   let ok = false;
-  try {
-    ok = document.execCommand("copy");
-  } catch {
-    ok = false;
-  }
-  ta.remove();
+  try { ok = document.execCommand("copy"); } catch { /* manual fallback below */ }
+  ta.remove(); previous?.focus({ preventScroll: true });
   return ok;
 }
 
 export function CopyButton({ text, label = "Copy", className = "" }: { text: string; label?: string; className?: string }) {
-  const [state, setState] = useState<"idle" | "copied" | "error">("idle");
-  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
-
+  const [copied, setCopied] = useState(false);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const field = useRef<HTMLTextAreaElement>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const id = useId();
   useEffect(() => () => clearTimeout(timer.current), []);
-
   const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setState("copied");
-    } catch {
-      // Clipboard API unavailable (insecure context, embedded webview, permissions): fall back to a hidden selection.
-      setState(legacyCopy(text) ? "copied" : "error");
-    }
+    let ok = false;
+    try { await navigator.clipboard.writeText(text); ok = true; }
+    catch { ok = legacyCopy(text); }
     clearTimeout(timer.current);
-    timer.current = setTimeout(() => setState("idle"), 1800);
+    if (ok) { setCopied(true); timer.current = setTimeout(() => setCopied(false), 1800); }
+    else { dialog.current?.showModal(); field.current?.focus(); field.current?.select(); }
   };
-
-  const copied = state === "copied";
-  return (
-    <button
-      type="button"
-      onClick={copy}
-      data-state={state}
-      className={`copy-btn group relative inline-flex h-8 items-center gap-2 overflow-hidden rounded-md border px-2.5 text-[0.75rem] font-medium transition-[border-color,background-color,color] duration-300 ${
-        copied ? "border-frost/40 bg-frost/10 text-frost" : "border-line-strong text-ink-2 hover:border-frost/30 hover:text-cream"
-      } ${className}`}
-    >
-      <span className="relative grid size-3.5 place-items-center">
-        <CopyIcon className={`absolute size-3.5 transition-[opacity,transform] duration-300 ${copied ? "scale-50 opacity-0" : "opacity-100"}`} />
-        <CheckIcon className={`copy-btn__tick absolute size-3.5 ${copied ? "is-on" : ""}`} strokeWidth={2} />
-      </span>
-      <span className="relative">
-        <span className={`block transition-[opacity,transform] duration-300 ${copied || state === "error" ? "-translate-y-3 opacity-0" : ""}`}>{label}</span>
-        <span className={`absolute inset-0 block transition-[opacity,transform] duration-300 ${copied ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}>Copied</span>
-        <span className={`absolute inset-0 block whitespace-nowrap transition-opacity duration-300 ${state === "error" ? "opacity-100" : "opacity-0"}`}>Press ⌘C</span>
-      </span>
-      <span className="sr-only" aria-live="polite">
-        {copied ? "Copied to clipboard" : state === "error" ? "Copy failed" : ""}
-      </span>
+  return <>
+    <button type="button" onClick={copy} data-state={copied ? "copied" : "idle"} className={`copy-btn inline-flex h-8 items-center gap-2 rounded-md border border-line-strong px-2.5 text-xs font-medium text-ink-2 hover:text-cream ${className}`}>
+      {copied ? <CheckIcon className="size-3.5" /> : <CopyIcon className="size-3.5" />}
+      <span>{copied ? "Copied" : label}</span>
+      <span className="sr-only" aria-live="polite">{copied ? "Copied to clipboard" : ""}</span>
     </button>
-  );
+    <dialog ref={dialog} aria-labelledby={`${id}-title`} onClick={(e) => { if (e.target === dialog.current) dialog.current.close(); }} className="m-auto w-[min(40rem,calc(100vw-2rem))] rounded-xl border border-line-strong bg-plum-950 p-5 text-cream backdrop:bg-void/80">
+      <h2 id={`${id}-title`} className="text-lg">Copy this text</h2>
+      <p className="my-3 text-sm text-ink-2">Automatic copying is unavailable. Copy the selected text using your device’s copy command.</p>
+      <textarea ref={field} aria-label="Text to copy" readOnly value={text} onFocus={(e) => e.currentTarget.select()} className="h-64 w-full rounded-md border border-line bg-void p-3 font-mono text-xs" />
+      <button type="button" onClick={() => dialog.current?.close()} className="mt-3 rounded-md border border-line-strong px-4 py-2">Close</button>
+    </dialog>
+  </>;
 }

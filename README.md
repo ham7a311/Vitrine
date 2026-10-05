@@ -8,17 +8,17 @@
 Read the source. Read the prompt behind it. Take it and make it yours.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-301-c8b9ea)
+![Components](https://img.shields.io/badge/components-310-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
 ![Copy/paste](https://img.shields.io/badge/install-copy%2Fpaste-1f1a24)
 
-[Browse the collection](#run-the-gallery-locally) · [How it works](#how-it-works) · [Workshop](#the-workshop) · [Contributing](#contributing)
+[Browse the collection](https://tryvitrine.dev) · [How it works](#how-it-works) · [Workshop](#the-workshop) · [Contributing](#contributing)
 
 </div>
 
-<!-- Add a hero GIF or screenshot here once the site is deployed: ![Vitrine gallery](docs/hero.gif) -->
+[Explore live previews, source files and prompts at tryvitrine.dev](https://tryvitrine.dev/components).
 
 ---
 
@@ -41,26 +41,26 @@ There is no package, no CLI and no registry install. You copy a file or two into
 |---|---|
 | **Taste over count** | Components have a point of view. A button doesn't just have a hover state, it shatters from one impact point, or fills like a glass being poured. |
 | **Prompt-as-artifact** | Each component carries the written brief it was built from, with per-variant prompts. Paste it into an LLM to adapt the piece to your product. |
-| **Zero lock-in** | Plain React + TypeScript, Tailwind only where it helps, plain CSS for real keyframes. **No animation libraries.** Nothing to keep updated. |
+| **Zero lock-in** | Plain React + TypeScript, Tailwind only where it helps, plain CSS for real keyframes. **No animation libraries.** You maintain the copied source in your project. |
 | **Accessible by rule** | Keyboard access, visible focus, `prefers-reduced-motion` and a touch fallback for anything hover-dependent are requirements, not extras. |
 | **Well-behaved visuals** | WebGL and canvas pieces pause offscreen and in hidden tabs, cap device pixel ratio, and fall back gracefully. |
 | **More than parts** | Full-page recipes and ready-made AI skills show how to compose the pieces into a site that doesn't look templated. |
 
 ## What's inside
 
-**301 components in 27 categories.**
+**310 components in 27 categories.**
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
-| Buttons | 45 | Backgrounds | 39 | Cards | 30 |
+| Buttons | 46 | Backgrounds | 39 | Cards | 30 |
 | Controls | 19 | AI & Chat | 17 | Stats | 15 |
 | Authentication | 15 | Cursors | 13 | Analytics | 12 |
 | Type & Names | 10 | CTAs | 10 | Text Animations | 8 |
-| Micro-animations | 8 | FAQ | 8 | Forms | 7 |
+| Micro-animations | 8 | FAQ | 9 | Forms | 7 |
 | Pricing | 6 | Navigation | 6 | Media | 5 |
-| Feedback | 5 | Data | 5 | Heroes | 4 |
+| Feedback | 10 | Data | 5 | Heroes | 4 |
 | Overlays | 3 | Maps & Globes | 3 | Footers | 3 |
-| Sidebars | 2 | Sections | 2 | Navbars | 1 |
+| Sidebars | 2 | Sections | 4 | Navbars | 1 |
 
 A few to start with:
 
@@ -100,9 +100,9 @@ Press **⌘K** (or **Ctrl K**) in the gallery to search by name, tag or feel, fo
 3. **Copy**: copy each file into your project. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file.
 
-The code tab reads the real files from disk at build time, so what you copy is exactly what runs in the preview.
+The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 310 exported examples in isolation.
 
-> **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). The site loads them from Google Fonts in `src/app/layout.tsx`. Add the ones you use to your own project.
+> **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source. Live demos load them through `src/site/ComponentFonts.tsx`; gallery fonts are self-hosted through Fontsource packages. Add the listed font families to your own project.
 
 ## The Workshop
 
@@ -190,3 +190,15 @@ Contributions are welcome: new components that fit the collection, accessibility
 ## Licence
 
 [MIT](./LICENSE) © 2026 Hamza Al-Bulushi. Copy the components into your own projects, commercial or not.
+
+## Release verification
+
+Run `npm ci` and `npm run release:check`. This validates prompts and variants, registry consistency, CSS isolation, all portable examples, authentication failure/retry behavior, and the production build. `npm audit --audit-level=moderate` checks the installed dependency advisories.
+
+For production route and browser checks, build and start on port 3147, then run `npm run test:routes` and `npm run test:browser`, then `npm run test:expansion-browser`. The expansion browser check saves responsive screenshots and verifies seamless partner loops in both directions. Install the test browser with `npx playwright install chromium`. Set `VITRINE_TEST_URL` to test another deployment. CI runs these checks automatically. To avoid sharing output with a running development server, set `VITRINE_DIST_DIR=.next-release` for both build and start.
+
+Prompts include the selected variant (including theme-only variants), interaction, motion, accessibility, responsive and touch requirements. The checks verify composition and selection; AI-generated results still need review against the live preview and source.
+
+### Authentication examples
+
+The gallery demonstrates UI. It does not authenticate visitors or send email. Passkey Sign-in requires `verify`, One-Field Sign-in requires `sendCode` and `verify`, and Code Cascade Verify requires `verify`. Optional email/resend actions appear only when their callbacks are supplied. Demo callbacks live in `usage.tsx`; replace them with your own server-backed integrations before production use. Never accept an authentication result solely on the client.
