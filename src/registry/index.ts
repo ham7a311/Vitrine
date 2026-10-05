@@ -195,7 +195,9 @@ import { meta as installSnippet } from "./data/install-snippet/meta";
 import { meta as columnProfile } from "./data/column-profile/meta";
 import { meta as transactionLedger } from "./data/transaction-ledger/meta";
 import { meta as approvalInbox } from "./data/approval-inbox/meta";
+import { meta as sieve } from "./data/sieve/meta";
 import { meta as pairwiseRanker } from "./decisions/pairwise-ranker/meta";
+import { meta as magnetBoard } from "./decisions/magnet-board/meta";
 import { meta as allocationFaders } from "./decisions/allocation-faders/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
@@ -534,7 +536,9 @@ export const registry: ComponentMeta[] = [
   columnProfile,
   transactionLedger,
   approvalInbox,
+  sieve,
   pairwiseRanker,
+  magnetBoard,
   allocationFaders,
   curtainFooter,
   signOffFooter,

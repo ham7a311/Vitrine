@@ -199,7 +199,9 @@ data/install-snippet
 data/column-profile
 data/transaction-ledger
 data/approval-inbox
+data/sieve
 decisions/pairwise-ranker
+decisions/magnet-board
 decisions/allocation-faders
 footers/curtain-footer
 footers/sign-off-footer
