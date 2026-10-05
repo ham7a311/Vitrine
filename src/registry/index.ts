@@ -210,6 +210,7 @@ import { meta as cronBuilder } from "./time/cron-builder/meta";
 import { meta as timezoneOverlap } from "./time/timezone-overlap/meta";
 import { meta as queryTokens } from "./developer/query-tokens/meta";
 import { meta as keymap } from "./developer/keymap/meta";
+import { meta as logTail } from "./developer/log-tail/meta";
 import { meta as spanWaterfall } from "./developer/span-waterfall/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
@@ -570,6 +571,7 @@ export const registry: ComponentMeta[] = [
   timezoneOverlap,
   queryTokens,
   keymap,
+  logTail,
   spanWaterfall,
   curtainFooter,
   signOffFooter,

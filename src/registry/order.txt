@@ -214,6 +214,7 @@ time/cron-builder
 time/timezone-overlap
 developer/query-tokens
 developer/keymap
+developer/log-tail
 developer/span-waterfall
 footers/curtain-footer
 footers/sign-off-footer

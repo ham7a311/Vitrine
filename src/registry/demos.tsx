@@ -218,6 +218,7 @@ const loaders: Record<string, Loader> = {
   "timezone-overlap": () => import("./time/timezone-overlap/demo"),
   "query-tokens": () => import("./developer/query-tokens/demo"),
   "keymap": () => import("./developer/keymap/demo"),
+  "log-tail": () => import("./developer/log-tail/demo"),
   "span-waterfall": () => import("./developer/span-waterfall/demo"),
   "curtain-footer": () => import("./footers/curtain-footer/demo"),
   "sign-off-footer": () => import("./footers/sign-off-footer/demo"),
