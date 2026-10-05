@@ -20,8 +20,8 @@ export const meta: ComponentMeta = {
   responsive: "The map scales from its viewBox; under 36rem it switches to vertical strip maps.",
   touchFallback: "Tap a station to open it; the strip maps give phones large, plain targets.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --lmap-bg #fbfaf6; --lmap-focus #1c1d1f; --lmap-ink #1c1d1f; --lmap-line rgb(28 29 31 / 0.12); --lmap-muted #6b6c70; --lmap-station #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --lmap-bg #121315; --lmap-focus #ecebe7; --lmap-ink #ecebe7; --lmap-line rgb(255 255 255 / 0.1); --lmap-muted #9c9da3; --lmap-station #121315. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e7e0", mode: "center", frame: [1000, 620] },
   isNew: true,

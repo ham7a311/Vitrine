@@ -20,8 +20,8 @@ export const meta: ComponentMeta = {
   responsive: "The grid fits as many 168px frames per row as there is room for; arrow movement follows the actual number of columns.",
   touchFallback: "Tap a frame to focus it and tap stars directly; on touch screens the marks and filter work without a keyboard, and the loupe is optional.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --csheet-edge #e38b3a; --csheet-film #191817; --csheet-focus #1d5fd6; --csheet-glow #ffffff; --csheet-ink #1d1e20; --csheet-line rgb(29 30 32 / 0.12); --csheet-muted #62666d; --csheet-pencil #d3231b; --csheet-table #eef2f6. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --csheet-edge #f0a35e; --csheet-film #0b0b0b; --csheet-focus #8db2ff; --csheet-glow #3a4048; --csheet-ink #eceae6; --csheet-line rgb(255 255 255 / 0.12); --csheet-muted #a8acb3; --csheet-pencil #ff5a4a; --csheet-table #23272c. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#d9dde2", mode: "fill", frame: [1200, 820] },
   isNew: true,

@@ -20,8 +20,8 @@ export const meta: ComponentMeta = {
   responsive: "The chart scales with its container from its viewBox; the footer wraps under narrow widths.",
   touchFallback: "Draw with a finger: the chart disables scrolling under it while you draw. Buttons are full-size tap targets.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --ydraw-bg #fbfaf7; --ydraw-gap rgb(212 76 40 / 0.16); --ydraw-guess #2d5fd2; --ydraw-ink #1e1d1b; --ydraw-line rgb(30 29 27 / 0.1); --ydraw-muted #6b675f; --ydraw-truth #1e1d1b; --ydraw-zone rgb(45 95 210 / 0.06). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --ydraw-bg #141413; --ydraw-gap rgb(255 140 100 / 0.2); --ydraw-guess #86a8ff; --ydraw-ink #eceae5; --ydraw-line rgb(255 255 255 / 0.1); --ydraw-muted #a29d94; --ydraw-truth #eceae5; --ydraw-zone rgb(134 168 255 / 0.08). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e7e3da", mode: "center", frame: [1000, 640] },
   isNew: true,

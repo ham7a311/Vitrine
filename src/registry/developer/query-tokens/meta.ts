@@ -20,8 +20,8 @@ export const meta: ComponentMeta = {
   responsive: "The bar fills its container; long queries scroll horizontally with the overlay kept in step; pills wrap.",
   touchFallback: "Tap a suggestion to accept it; pills have their own remove buttons.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --qtok-bad #c23a1f; --qtok-bg #ffffff; --qtok-chip rgb(11 91 211 / 0.1); --qtok-ink #1b1f24; --qtok-key #0b5bd3; --qtok-line rgb(27 31 36 / 0.14); --qtok-muted #66707c; --qtok-neg #b4261a; --qtok-neg-chip rgb(180 38 26 / 0.09); --qtok-text rgb(27 31 36 / 0.07). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --qtok-bad #ff9b85; --qtok-bg #16191d; --qtok-chip rgb(127 176 255 / 0.14); --qtok-ink #e6e9ee; --qtok-key #7fb0ff; --qtok-line rgb(255 255 255 / 0.12); --qtok-muted #96a0ad; --qtok-neg #ff8f80; --qtok-neg-chip rgb(255 143 128 / 0.12); --qtok-text rgb(255 255 255 / 0.08). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#eef0f3", mode: "fill", frame: [1000, 720] },
   isNew: true,

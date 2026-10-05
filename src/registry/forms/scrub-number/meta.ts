@@ -21,8 +21,8 @@ export const meta: ComponentMeta = {
   responsive: "Fields fill their grid cell; the group's column count is a prop and the preview demo stacks the panel under the canvas on narrow screens.",
   touchFallback: "Drag the handle with a finger to scrub; tap the value to type with the decimal keypad.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --scrubn-accent #2f6fe4; --scrubn-bad #c4321c; --scrubn-field #f3f3f1; --scrubn-ink #1c1c1a; --scrubn-line rgb(28 28 26 / 0.12); --scrubn-muted #77756f; --scrubn-panel #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --scrubn-accent #6aa0ff; --scrubn-bad #ff8a73; --scrubn-field #2a2a2d; --scrubn-ink #ececec; --scrubn-line rgb(255 255 255 / 0.1); --scrubn-muted #9a9a9f; --scrubn-panel #1e1e20. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e9e6", mode: "center", frame: [1000, 560] },
   isNew: true,

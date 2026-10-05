@@ -20,8 +20,8 @@ export const meta: ComponentMeta = {
   responsive: "The builder wraps; below 30rem the strip shows one week and field labels shrink.",
   touchFallback: "All controls are native selects, a time input and buttons.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --cronb-accent #0f6b5c; --cronb-accent-soft rgb(15 107 92 / 0.1); --cronb-bad #b3261e; --cronb-bg #fbfbfa; --cronb-card #ffffff; --cronb-ink #17191c; --cronb-line rgb(23 25 28 / 0.12); --cronb-muted #676c74. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --cronb-accent #5fd0b8; --cronb-accent-soft rgb(95 208 184 / 0.12); --cronb-bad #ff8a80; --cronb-bg #131517; --cronb-card #1a1d20; --cronb-ink #e7e9ec; --cronb-line rgb(255 255 255 / 0.1); --cronb-muted #9aa0a8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e8ebe9", mode: "center", frame: [900, 860] },
   isNew: true,

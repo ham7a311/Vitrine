@@ -21,8 +21,8 @@ export const meta: ComponentMeta = {
   responsive: "Side by side from 44rem, stacked below; the day columns and list fill the card's width.",
   touchFallback: "Drag the dial with a finger (scrolling is disabled only on the dial) or tap a level pill.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --ndial-accent #c96a12; --ndial-bg #f3f1ec; --ndial-card #ffffff; --ndial-face #fbfaf7; --ndial-ink #1f1d1a; --ndial-line rgb(31 29 26 / 0.12); --ndial-muted #6c675e; --ndial-s0 #2f6bd8; --ndial-s1 #c96a12; --ndial-s2 #2b8a5e; --ndial-s3 #8b55c7; --ndial-track #e2ded6. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --ndial-accent #f5a524; --ndial-bg #161719; --ndial-card #1d1f22; --ndial-face #222428; --ndial-ink #ebe9e4; --ndial-line rgb(255 255 255 / 0.1); --ndial-muted #a29e95; --ndial-s0 #7fa8ff; --ndial-s1 #f5a524; --ndial-s2 #6fd1a2; --ndial-s3 #c49bff; --ndial-track #2c2f33. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e4e1da", mode: "center", frame: [1000, 620] },
   isNew: true,

@@ -20,8 +20,8 @@ export const meta: ComponentMeta = {
   responsive: "Side by side from 56rem, final under the drafts between 48 and 56rem, and drafts as tabs below 48rem.",
   touchFallback: "Tap sentences to pick them; row tools are always visible on touch screens.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --splc-bg #f7f6f2; --splc-c1 #2c62c9; --splc-c2 #b0491f; --splc-c3 #1f7a55; --splc-c4 #7a4bb0; --splc-card #ffffff; --splc-ink #1d1c19; --splc-line rgb(29 28 25 / 0.12); --splc-muted #6b675f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --splc-bg #121314; --splc-c1 #7fa6ff; --splc-c2 #f0956c; --splc-c3 #6fd1a2; --splc-c4 #c49bff; --splc-card #1a1b1d; --splc-ink #ebe9e4; --splc-line rgb(255 255 255 / 0.1); --splc-muted #a19d95. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e7e1", mode: "fill", frame: [1300, 760] },
   isNew: true,

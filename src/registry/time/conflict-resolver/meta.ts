@@ -20,8 +20,8 @@ export const meta: ComponentMeta = {
   responsive: "Below 40rem the original pane is hidden and yours and theirs stack, each still marked against the original.",
   touchFallback: "Every choice is a button; keyboard shortcuts are optional.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --cres-add rgb(36 140 76 / 0.16); --cres-bad #b3261e; --cres-bg #fbfaf8; --cres-card #ffffff; --cres-ink #1d1c1a; --cres-line rgb(29 28 26 / 0.12); --cres-mine #2457c5; --cres-muted #6b6760; --cres-ok #23704a; --cres-theirs #8a3fb0; --cres-warn #b45309. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --cres-add rgb(90 200 130 / 0.2); --cres-bad #ff8a80; --cres-bg #141416; --cres-card #1b1b1e; --cres-ink #e9e8e4; --cres-line rgb(255 255 255 / 0.1); --cres-mine #86a8ff; --cres-muted #a19d95; --cres-ok #74d3a1; --cres-theirs #d39bf2; --cres-warn #f2b25c. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ebe9e4", mode: "fill", frame: [1100, 900] },
   isNew: true,
