@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/site.config";
+import { issueUrl } from "@/lib/feedback";
 import { LogoMark, Wordmark } from "./Logo";
 
 const COLUMNS = [
@@ -19,12 +20,20 @@ const COLUMNS = [
       { label: "About", href: "/about" },
     ],
   },
+  {
+    title: "Get in touch",
+    links: [
+      { label: "Contact", href: "/contact" },
+      { label: "Send feedback", href: "/contact#feedback" },
+      { label: "Report an issue", href: issueUrl({ title: "Bug: " }), external: true },
+    ],
+  },
 ];
 
 export function Footer() {
   return (
     <footer className="mt-32 border-t border-line">
-      <div className="shell-container grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="shell-container grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="max-w-sm">
           <Link href="/" className="inline-flex items-center gap-2 text-cream">
             <LogoMark className="size-[22px]" />
@@ -63,7 +72,10 @@ export function Footer() {
         >
           made by ham7a311
         </a>
-        <span className="sm:justify-self-end">React · TypeScript · Tailwind CSS</span>
+        <nav aria-label="Legal" className="flex gap-5 sm:justify-self-end">
+          <Link href="/terms" className="transition-colors hover:text-cream">Terms</Link>
+          <Link href="/privacy" className="transition-colors hover:text-cream">Privacy</Link>
+        </nav>
       </div>
     </footer>
   );

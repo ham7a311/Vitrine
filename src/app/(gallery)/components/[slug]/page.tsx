@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { issueUrl } from "@/lib/feedback";
 import { componentFonts, exampleUsesTailwind } from "@/lib/component-fonts";
 import { loadSource } from "@/lib/source";
 import { getComponent, registry } from "@/registry";
@@ -190,6 +191,21 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 <dd className="mt-2 text-[0.875rem] text-ink-2">{meta.variants.map((v) => v.label).join(", ")}</dd>
               </div>
             )}
+            <div>
+              <dt className="eyebrow">Feedback</dt>
+              <dd className="mt-2 text-[0.8125rem] leading-relaxed text-ink-3">
+                Something off in {meta.name}?{" "}
+                <a
+                  href={issueUrl({ title: `${meta.name}: `, body: `**Component:** ${abs(`/components/${meta.slug}`)}\n**Variant:** \n**Browser and device:** \n\n**What happened**\n\n**What I expected**\n` })}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-frost underline decoration-frost/30 underline-offset-4 hover:decoration-frost"
+                >
+                  Report it on GitHub<span className="sr-only"> (opens in a new tab)</span>
+                </a>
+                .
+              </dd>
+            </div>
             <div>
               <dt className="eyebrow">How to use</dt>
               <dd className="mt-2 text-[0.8125rem] leading-relaxed text-ink-3">

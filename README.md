@@ -192,6 +192,10 @@ That's what it's for. Each prompt describes geometry, timing, states and fallbac
 
 Contributions are welcome: new components that fit the collection, accessibility fixes, bug fixes and docs. Please read [CONTRIBUTING.md](./CONTRIBUTING.md) first. It covers the component rules, how to add one, and the licence terms for contributions (MIT, with commit sign-off).
 
+## Feedback and contact
+
+Found a bug or want a component that isn't here? [Open an issue](https://github.com/ham7a311/vitrine/issues/new). For anything else, the [contact page](https://tryvitrine.dev/contact) lists the right channel. The site's [terms](https://tryvitrine.dev/terms) and [privacy notes](https://tryvitrine.dev/privacy) explain how it may be used and what it collects.
+
 ## Licence
 
 [MIT](./LICENSE) © 2026 Hamza Al-Bulushi. Copy the components into your own projects, commercial or not.

@@ -4,7 +4,7 @@ import path from "node:path";
 const base = process.env.VITRINE_TEST_URL ?? "http://127.0.0.1:3147";
 const root = path.resolve(import.meta.dirname, "../src");
 const entries = readFileSync(path.join(root, "registry/order.txt"), "utf8").split("\n").filter(s => s && !s.startsWith("#"));
-const routes = ["/", "/about", "/categories", "/components", "/workshop", "/robots.txt", "/sitemap.xml", "/opengraph-image"];
+const routes = ["/", "/about", "/contact", "/terms", "/privacy", "/categories", "/components", "/workshop", "/robots.txt", "/sitemap.xml", "/opengraph-image"];
 for (const entry of entries) { const slug = entry.split("/")[1]; routes.push(`/components/${slug}`, `/preview/${slug}`); }
 const recipes = [...readFileSync(path.join(root, "workshop/recipes.ts"), "utf8").matchAll(/^    slug: "([^"]+)"/gm)].map(m => m[1]);
 for (const slug of recipes) routes.push(`/workshop/recipes/${slug}`, `/workshop/recipes/${slug}/preview`);
