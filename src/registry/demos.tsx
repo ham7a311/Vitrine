@@ -317,6 +317,7 @@ const loaders: Record<string, Loader> = {
   "enquiry-slip": () => import("./forms/enquiry-slip/demo"),
   "phrase-date": () => import("./forms/phrase-date/demo"),
   "next-issue": () => import("./ctas/next-issue/demo"),
+  "tuck-banner": () => import("./feedback/tuck-banner/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();
