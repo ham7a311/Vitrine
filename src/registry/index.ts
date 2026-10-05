@@ -98,6 +98,7 @@ import { meta as postcardCard } from "./cards/postcard-card/meta";
 import { meta as eclipseEventCard } from "./cards/eclipse-event-card/meta";
 import { meta as specimenCard } from "./cards/specimen-card/meta";
 import { meta as cardWallet } from "./cards/card-wallet/meta";
+import { meta as patina } from "./cards/patina/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
@@ -209,6 +210,7 @@ import { meta as cronBuilder } from "./time/cron-builder/meta";
 import { meta as timezoneOverlap } from "./time/timezone-overlap/meta";
 import { meta as queryTokens } from "./developer/query-tokens/meta";
 import { meta as keymap } from "./developer/keymap/meta";
+import { meta as spanWaterfall } from "./developer/span-waterfall/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -456,6 +458,7 @@ export const registry: ComponentMeta[] = [
   eclipseEventCard,
   specimenCard,
   cardWallet,
+  patina,
   silkField,
   glassTiles,
   ditherFlow,
@@ -567,6 +570,7 @@ export const registry: ComponentMeta[] = [
   timezoneOverlap,
   queryTokens,
   keymap,
+  spanWaterfall,
   curtainFooter,
   signOffFooter,
   indexFooter,

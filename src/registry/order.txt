@@ -102,6 +102,7 @@ cards/postcard-card
 cards/eclipse-event-card
 cards/specimen-card
 cards/card-wallet
+cards/patina
 backgrounds/silk-field
 backgrounds/glass-tiles
 backgrounds/dither-flow
@@ -213,6 +214,7 @@ time/cron-builder
 time/timezone-overlap
 developer/query-tokens
 developer/keymap
+developer/span-waterfall
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
