@@ -98,6 +98,7 @@ cards/dither-card
 cards/postcard-card
 cards/eclipse-event-card
 cards/specimen-card
+cards/card-wallet
 backgrounds/silk-field
 backgrounds/glass-tiles
 backgrounds/dither-flow
@@ -195,6 +196,8 @@ data/league-table
 data/query-cell
 data/install-snippet
 data/column-profile
+data/transaction-ledger
+data/approval-inbox
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
@@ -285,6 +288,8 @@ forms/etched-field
 forms/insert-menu
 forms/word-bank
 forms/schema-drop
+forms/spend-controls
+forms/transfer-composer
 feedback/toast-stack
 feedback/wet-ink
 feedback/undo-ribbon

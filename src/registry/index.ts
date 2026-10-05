@@ -94,6 +94,7 @@ import { meta as ditherCard } from "./cards/dither-card/meta";
 import { meta as postcardCard } from "./cards/postcard-card/meta";
 import { meta as eclipseEventCard } from "./cards/eclipse-event-card/meta";
 import { meta as specimenCard } from "./cards/specimen-card/meta";
+import { meta as cardWallet } from "./cards/card-wallet/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
@@ -191,6 +192,8 @@ import { meta as leagueTable } from "./data/league-table/meta";
 import { meta as queryCell } from "./data/query-cell/meta";
 import { meta as installSnippet } from "./data/install-snippet/meta";
 import { meta as columnProfile } from "./data/column-profile/meta";
+import { meta as transactionLedger } from "./data/transaction-ledger/meta";
+import { meta as approvalInbox } from "./data/approval-inbox/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -281,6 +284,8 @@ import { meta as etchedField } from "./forms/etched-field/meta";
 import { meta as insertMenu } from "./forms/insert-menu/meta";
 import { meta as wordBank } from "./forms/word-bank/meta";
 import { meta as schemaDrop } from "./forms/schema-drop/meta";
+import { meta as spendControls } from "./forms/spend-controls/meta";
+import { meta as transferComposer } from "./forms/transfer-composer/meta";
 import { meta as toastStack } from "./feedback/toast-stack/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
@@ -425,6 +430,7 @@ export const registry: ComponentMeta[] = [
   postcardCard,
   eclipseEventCard,
   specimenCard,
+  cardWallet,
   silkField,
   glassTiles,
   ditherFlow,
@@ -522,6 +528,8 @@ export const registry: ComponentMeta[] = [
   queryCell,
   installSnippet,
   columnProfile,
+  transactionLedger,
+  approvalInbox,
   curtainFooter,
   signOffFooter,
   indexFooter,
@@ -612,6 +620,8 @@ export const registry: ComponentMeta[] = [
   insertMenu,
   wordBank,
   schemaDrop,
+  spendControls,
+  transferComposer,
   toastStack,
   wetInk,
   undoRibbon,
