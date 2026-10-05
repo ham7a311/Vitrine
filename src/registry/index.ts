@@ -201,6 +201,7 @@ import { meta as pairwiseRanker } from "./decisions/pairwise-ranker/meta";
 import { meta as magnetBoard } from "./decisions/magnet-board/meta";
 import { meta as allocationFaders } from "./decisions/allocation-faders/meta";
 import { meta as undoTree } from "./time/undo-tree/meta";
+import { meta as cronBuilder } from "./time/cron-builder/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -296,6 +297,7 @@ import { meta as wordBank } from "./forms/word-bank/meta";
 import { meta as schemaDrop } from "./forms/schema-drop/meta";
 import { meta as spendControls } from "./forms/spend-controls/meta";
 import { meta as transferComposer } from "./forms/transfer-composer/meta";
+import { meta as scrubNumber } from "./forms/scrub-number/meta";
 import { meta as toastStack } from "./feedback/toast-stack/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
@@ -547,6 +549,7 @@ export const registry: ComponentMeta[] = [
   magnetBoard,
   allocationFaders,
   undoTree,
+  cronBuilder,
   curtainFooter,
   signOffFooter,
   indexFooter,
@@ -642,6 +645,7 @@ export const registry: ComponentMeta[] = [
   schemaDrop,
   spendControls,
   transferComposer,
+  scrubNumber,
   toastStack,
   wetInk,
   undoRibbon,

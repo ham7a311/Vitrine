@@ -205,6 +205,7 @@ decisions/pairwise-ranker
 decisions/magnet-board
 decisions/allocation-faders
 time/undo-tree
+time/cron-builder
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
@@ -300,6 +301,7 @@ forms/word-bank
 forms/schema-drop
 forms/spend-controls
 forms/transfer-composer
+forms/scrub-number
 feedback/toast-stack
 feedback/wet-ink
 feedback/undo-ribbon

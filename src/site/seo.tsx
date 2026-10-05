@@ -38,5 +38,5 @@ export const CATEGORY_NOUN: Record<string, string> = {
   overlays: "dialog & overlay", data: "data component", footers: "footer", pricing: "pricing section", faq: "FAQ section",
   ctas: "call to action", auth: "sign-in component", stats: "stats section", analytics: "chart", forms: "form component",
   feedback: "toast & notice", sections: "page section", type: "typography component", media: "gallery & image component", maps: "map & globe", micro: "micro-animation",
-  decisions: "decision component", reading: "reading component", commerce: "commerce component", time: "time & history component",
+  decisions: "decision component", reading: "reading component", commerce: "commerce component", time: "time & history component", developer: "developer tool component",
 };

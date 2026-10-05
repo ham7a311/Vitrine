@@ -1,7 +1,7 @@
 export type Category =
   | "buttons" | "controls" | "cards" | "backgrounds" | "cursors" | "heroes" | "navbars" | "navigation" | "footers" | "pricing"
   | "faq" | "ctas" | "auth" | "stats" | "analytics" | "media" | "maps" | "micro" | "forms" | "feedback" | "sections" | "type" | "text" | "ai" | "sidebars" | "overlays" | "data"
-  | "decisions" | "reading" | "commerce" | "time";
+  | "decisions" | "reading" | "commerce" | "time" | "developer";
 
 export type Source = "original";
 
@@ -73,6 +73,7 @@ export const CATEGORIES: { id: Category; label: string; blurb: string }[] = [
   { id: "data", label: "Data", blurb: "Search, tables and dense information, kept readable." },
   { id: "decisions", label: "Decisions", blurb: "Ranking, weighing and allocating, with the choice made visible as you make it." },
   { id: "time", label: "Time", blurb: "History, versions and schedules you can move through." },
+  { id: "developer", label: "Developer", blurb: "Tools for people who build: shortcuts, query syntax, and soon logs and traces." },
   { id: "footers", label: "Footers", blurb: "Endings that close the page properly instead of dumping a sitemap." },
   { id: "commerce", label: "Commerce", blurb: "Configuring and buying, with the reasons on the page." },
   { id: "pricing", label: "Pricing", blurb: "Plans you can compare at a glance, without three identical cards." },
