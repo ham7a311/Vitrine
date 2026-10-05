@@ -68,6 +68,7 @@ controls/ink-tick
 controls/bracket-checkbox
 controls/time-window
 controls/preset-keys
+controls/gate-selector
 cards/glass-card
 cards/halo-frame
 cards/ring-flood-card
@@ -198,6 +199,8 @@ data/install-snippet
 data/column-profile
 data/transaction-ledger
 data/approval-inbox
+decisions/pairwise-ranker
+decisions/allocation-faders
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer

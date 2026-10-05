@@ -1,0 +1,85 @@
+.gsel {
+  --gsel-plate: #cfccc5;
+  --gsel-plate-line: rgb(0 0 0 / 0.05);
+  --gsel-edge: #a9a59c;
+  --gsel-cut: #232220;
+  --gsel-cut-lip: #8e8a82;
+  --gsel-engrave: #3d3a35;
+  --gsel-engrave-hi: rgb(255 255 255 / 0.55);
+  --gsel-ink: #1f1e1b;
+  --gsel-muted: #5e5a52;
+  --gsel-knob: #f4f1ea;
+  --gsel-knob-ring: #6b665d;
+  --gsel-stop: #a6311f;
+  --gsel-stop-screw: #f2c4b8;
+  --gsel-accent: #1f4ea8;
+  --gsel-danger: #a6311f;
+  --gsel-ease: cubic-bezier(.2, .8, .2, 1);
+  color: var(--gsel-ink);
+  font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  max-width: 34rem;
+  margin-inline: auto;
+}
+.gsel--dark {
+  --gsel-plate: #2a2b2d;
+  --gsel-plate-line: rgb(255 255 255 / 0.03);
+  --gsel-edge: #45474a;
+  --gsel-cut: #08090a;
+  --gsel-cut-lip: #505357;
+  --gsel-engrave: #d9d7d1;
+  --gsel-engrave-hi: rgb(0 0 0 / 0.6);
+  --gsel-ink: #ecebe7;
+  --gsel-muted: #a3a19b;
+  --gsel-knob: #e2dfd7;
+  --gsel-knob-ring: #8d8a83;
+  --gsel-stop: #e0634c;
+  --gsel-stop-screw: #5a1d14;
+  --gsel-accent: #93b4ff;
+  --gsel-danger: #ff8c75;
+}
+
+.gsel__label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gsel-muted); }
+.gsel__label span { font-size: 15px; letter-spacing: 0.02em; text-transform: none; color: var(--gsel-ink); }
+
+.gsel__plate { position: relative; width: 100%; }
+.gsel__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; touch-action: none; }
+.gsel__face {
+  fill: var(--gsel-plate); stroke: var(--gsel-edge); stroke-width: 2;
+  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.18));
+}
+.gsel__screw circle { fill: var(--gsel-plate); stroke: var(--gsel-edge); stroke-width: 1.5; }
+.gsel__screw path { stroke: var(--gsel-edge); stroke-width: 1.5; stroke-linecap: round; }
+.gsel__cut path { fill: none; stroke: var(--gsel-cut-lip); stroke-width: 40; stroke-linecap: round; }
+.gsel__cut-inner path { fill: none; stroke: var(--gsel-cut); stroke-width: 36; stroke-linecap: round; }
+
+.gsel__stop rect { fill: var(--gsel-stop); }
+.gsel__stop circle { fill: var(--gsel-stop-screw); }
+
+.gsel__knob { cursor: grab; transition: none; }
+.gsel[data-dragging] .gsel__knob { cursor: grabbing; }
+.gsel__knob-hit { fill: transparent; }
+.gsel__knob-ball { fill: var(--gsel-knob); stroke: var(--gsel-knob-ring); stroke-width: 2; }
+.gsel__knob-ring { fill: none; stroke: var(--gsel-knob-ring); stroke-width: 1.5; }
+.gsel__knob[data-pending] .gsel__knob-ring { stroke: var(--gsel-accent); stroke-dasharray: 4 4; animation: gsel-spin 900ms linear infinite; transform-origin: center; transform-box: fill-box; }
+@keyframes gsel-spin { to { rotate: 360deg; } }
+
+.gsel__states { position: absolute; inset: 0; pointer-events: none; }
+.gsel__state {
+  position: absolute; translate: -50% -50%; pointer-events: auto; white-space: nowrap;
+  padding: 4px 8px; border: 0; border-radius: 6px; background: transparent; cursor: pointer;
+  font: inherit; font-size: clamp(9px, 2.2vw, 11px); font-weight: 700; font-stretch: 118%; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gsel-engrave); text-shadow: 0 1px 0 var(--gsel-engrave-hi);
+  transition: color 160ms var(--gsel-ease), opacity 160ms var(--gsel-ease);
+}
+.gsel__state[data-blocked] { opacity: 0.5; }
+.gsel__state[data-current] { color: var(--gsel-accent); text-shadow: none; }
+.gsel__state[data-current]::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: 16px; height: 2px; translate: -50% 0; border-radius: 1px; background: currentColor; }
+.gsel__state[data-pending] { color: var(--gsel-accent); opacity: 1; }
+.gsel__state:focus-visible { outline: 2px solid var(--gsel-accent); outline-offset: 2px; opacity: 1; }
+
+.gsel__note { min-height: 2.6em; margin: 12px 0 0; font-size: 13px; line-height: 1.4; color: var(--gsel-muted); }
+.gsel__note[data-kind="blocked"], .gsel__note[data-kind="error"] { color: var(--gsel-danger); }
+.gsel__note[data-kind="done"] { color: var(--gsel-ink); }
+
+.gsel[data-motion="off"] *, .gsel[data-motion="off"] *::after { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .gsel *, .gsel *::after { animation: none !important; transition: none !important; } }

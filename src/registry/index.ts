@@ -64,6 +64,7 @@ import { meta as inkTick } from "./controls/ink-tick/meta";
 import { meta as bracketCheckbox } from "./controls/bracket-checkbox/meta";
 import { meta as timeWindow } from "./controls/time-window/meta";
 import { meta as presetKeys } from "./controls/preset-keys/meta";
+import { meta as gateSelector } from "./controls/gate-selector/meta";
 import { meta as glassCard } from "./cards/glass-card/meta";
 import { meta as haloFrame } from "./cards/halo-frame/meta";
 import { meta as ringFloodCard } from "./cards/ring-flood-card/meta";
@@ -194,6 +195,8 @@ import { meta as installSnippet } from "./data/install-snippet/meta";
 import { meta as columnProfile } from "./data/column-profile/meta";
 import { meta as transactionLedger } from "./data/transaction-ledger/meta";
 import { meta as approvalInbox } from "./data/approval-inbox/meta";
+import { meta as pairwiseRanker } from "./decisions/pairwise-ranker/meta";
+import { meta as allocationFaders } from "./decisions/allocation-faders/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -400,6 +403,7 @@ export const registry: ComponentMeta[] = [
   bracketCheckbox,
   timeWindow,
   presetKeys,
+  gateSelector,
   glassCard,
   haloFrame,
   ringFloodCard,
@@ -530,6 +534,8 @@ export const registry: ComponentMeta[] = [
   columnProfile,
   transactionLedger,
   approvalInbox,
+  pairwiseRanker,
+  allocationFaders,
   curtainFooter,
   signOffFooter,
   indexFooter,

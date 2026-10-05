@@ -1,6 +1,7 @@
 export type Category =
   | "buttons" | "controls" | "cards" | "backgrounds" | "cursors" | "heroes" | "navbars" | "navigation" | "footers" | "pricing"
-  | "faq" | "ctas" | "auth" | "stats" | "analytics" | "media" | "maps" | "micro" | "forms" | "feedback" | "sections" | "type" | "text" | "ai" | "sidebars" | "overlays" | "data";
+  | "faq" | "ctas" | "auth" | "stats" | "analytics" | "media" | "maps" | "micro" | "forms" | "feedback" | "sections" | "type" | "text" | "ai" | "sidebars" | "overlays" | "data"
+  | "decisions" | "reading" | "commerce" | "time";
 
 export type Source = "original";
 
@@ -70,8 +71,12 @@ export const CATEGORIES: { id: Category; label: string; blurb: string }[] = [
   { id: "navigation", label: "Navigation", blurb: "Tabs, indexes and steppers that show where you are and where you're going." },
   { id: "overlays", label: "Overlays", blurb: "Dialogs, sheets and popovers that keep you oriented while they're open." },
   { id: "data", label: "Data", blurb: "Search, tables and dense information, kept readable." },
+  { id: "decisions", label: "Decisions", blurb: "Ranking, weighing and allocating, with the choice made visible as you make it." },
+  { id: "time", label: "Time", blurb: "History, versions and schedules you can move through." },
   { id: "footers", label: "Footers", blurb: "Endings that close the page properly instead of dumping a sitemap." },
+  { id: "commerce", label: "Commerce", blurb: "Configuring and buying, with the reasons on the page." },
   { id: "pricing", label: "Pricing", blurb: "Plans you can compare at a glance, without three identical cards." },
+  { id: "reading", label: "Reading", blurb: "Text that adapts to the reader: how deep, which numbers, how much detail." },
   { id: "faq", label: "FAQ", blurb: "Questions and answers where typography and spacing do most of the work." },
   { id: "ctas", label: "CTAs", blurb: "Calls to action built on composition and focus rather than gradients." },
   { id: "auth", label: "Authentication", blurb: "Sign-in flows that stay practical under the polish." },
