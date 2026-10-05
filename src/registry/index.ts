@@ -67,6 +67,7 @@ import { meta as presetKeys } from "./controls/preset-keys/meta";
 import { meta as gateSelector } from "./controls/gate-selector/meta";
 import { meta as shadowBoard } from "./controls/shadow-board/meta";
 import { meta as notificationDial } from "./controls/notification-dial/meta";
+import { meta as patchBay } from "./controls/patch-bay/meta";
 import { meta as glassCard } from "./cards/glass-card/meta";
 import { meta as haloFrame } from "./cards/halo-frame/meta";
 import { meta as ringFloodCard } from "./cards/ring-flood-card/meta";
@@ -98,6 +99,7 @@ import { meta as postcardCard } from "./cards/postcard-card/meta";
 import { meta as eclipseEventCard } from "./cards/eclipse-event-card/meta";
 import { meta as specimenCard } from "./cards/specimen-card/meta";
 import { meta as cardWallet } from "./cards/card-wallet/meta";
+import { meta as patina } from "./cards/patina/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
@@ -168,6 +170,7 @@ import { meta as messageActions } from "./ai/message-actions/meta";
 import { meta as inlineDiff } from "./ai/inline-diff/meta";
 import { meta as citedAnswer } from "./ai/cited-answer/meta";
 import { meta as splice } from "./ai/splice/meta";
+import { meta as confidenceInk } from "./ai/confidence-ink/meta";
 import { meta as conversationSidebar } from "./sidebars/conversation-sidebar/meta";
 import { meta as workspaceSidebar } from "./sidebars/workspace-sidebar/meta";
 import { meta as glassTorus } from "./heroes/glass-torus/meta";
@@ -206,8 +209,11 @@ import { meta as allocationFaders } from "./decisions/allocation-faders/meta";
 import { meta as undoTree } from "./time/undo-tree/meta";
 import { meta as conflictResolver } from "./time/conflict-resolver/meta";
 import { meta as cronBuilder } from "./time/cron-builder/meta";
+import { meta as timezoneOverlap } from "./time/timezone-overlap/meta";
 import { meta as queryTokens } from "./developer/query-tokens/meta";
 import { meta as keymap } from "./developer/keymap/meta";
+import { meta as logTail } from "./developer/log-tail/meta";
+import { meta as spanWaterfall } from "./developer/span-waterfall/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -218,6 +224,8 @@ import { meta as calendarPricing } from "./pricing/calendar-pricing/meta";
 import { meta as stackPricing } from "./pricing/stack-pricing/meta";
 import { meta as chalkMenuPricing } from "./pricing/chalk-menu-pricing/meta";
 import { meta as buildSheet } from "./commerce/build-sheet/meta";
+import { meta as fitCompare } from "./commerce/fit-compare/meta";
+import { meta as explodedView } from "./commerce/exploded-view/meta";
 import { meta as indexFaq } from "./faq/index-faq/meta";
 import { meta as footnoteFaq } from "./faq/footnote-faq/meta";
 import { meta as helpDeskFaq } from "./faq/help-desk-faq/meta";
@@ -290,6 +298,7 @@ import { meta as imageCompare } from "./media/image-compare/meta";
 import { meta as hoverReel } from "./media/hover-reel/meta";
 import { meta as ditherPortrait } from "./media/dither-portrait/meta";
 import { meta as contactSheet } from "./media/contact-sheet/meta";
+import { meta as transcriptPlayer } from "./media/transcript-player/meta";
 import { meta as routeGlobe } from "./maps/route-globe/meta";
 import { meta as pulseGlobe } from "./maps/pulse-globe/meta";
 import { meta as dotAtlas } from "./maps/dot-atlas/meta";
@@ -306,6 +315,7 @@ import { meta as schemaDrop } from "./forms/schema-drop/meta";
 import { meta as spendControls } from "./forms/spend-controls/meta";
 import { meta as transferComposer } from "./forms/transfer-composer/meta";
 import { meta as scrubNumber } from "./forms/scrub-number/meta";
+import { meta as segmentCounter } from "./forms/segment-counter/meta";
 import { meta as toastStack } from "./feedback/toast-stack/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
@@ -423,6 +433,7 @@ export const registry: ComponentMeta[] = [
   gateSelector,
   shadowBoard,
   notificationDial,
+  patchBay,
   glassCard,
   haloFrame,
   ringFloodCard,
@@ -454,6 +465,7 @@ export const registry: ComponentMeta[] = [
   eclipseEventCard,
   specimenCard,
   cardWallet,
+  patina,
   silkField,
   glassTiles,
   ditherFlow,
@@ -524,6 +536,7 @@ export const registry: ComponentMeta[] = [
   inlineDiff,
   citedAnswer,
   splice,
+  confidenceInk,
   conversationSidebar,
   workspaceSidebar,
   glassTorus,
@@ -562,8 +575,11 @@ export const registry: ComponentMeta[] = [
   undoTree,
   conflictResolver,
   cronBuilder,
+  timezoneOverlap,
   queryTokens,
   keymap,
+  logTail,
+  spanWaterfall,
   curtainFooter,
   signOffFooter,
   indexFooter,
@@ -574,6 +590,8 @@ export const registry: ComponentMeta[] = [
   stackPricing,
   chalkMenuPricing,
   buildSheet,
+  fitCompare,
+  explodedView,
   indexFaq,
   footnoteFaq,
   helpDeskFaq,
@@ -646,6 +664,7 @@ export const registry: ComponentMeta[] = [
   hoverReel,
   ditherPortrait,
   contactSheet,
+  transcriptPlayer,
   routeGlobe,
   pulseGlobe,
   dotAtlas,
@@ -662,6 +681,7 @@ export const registry: ComponentMeta[] = [
   spendControls,
   transferComposer,
   scrubNumber,
+  segmentCounter,
   toastStack,
   wetInk,
   undoRibbon,

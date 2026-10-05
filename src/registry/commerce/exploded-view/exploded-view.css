@@ -1,0 +1,88 @@
+.xview {
+  --xview-bg: #eef1f4;
+  --xview-sheet: #fbfcfd;
+  --xview-ink: #1c2733;
+  --xview-muted: #66727f;
+  --xview-line: rgb(28 39 51 / 0.12);
+  --xview-grid: rgb(48 104 168 / 0.07);
+  --xview-paper: #ffffff;
+  --xview-tint: #dfe9f6;
+  --xview-accent: #2f6db5;
+  --xview-glow: #fff3c4;
+  --xview-focus: #2f6db5;
+  color: var(--xview-ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-size: 13px;
+  container-type: inline-size; color-scheme: light;
+}
+.xview--dark {
+  --xview-bg: #0f141a;
+  --xview-sheet: #131a22;
+  --xview-ink: #d9e2ec;
+  --xview-muted: #8a97a5;
+  --xview-line: rgb(217 226 236 / 0.12);
+  --xview-grid: rgb(120 170 230 / 0.07);
+  --xview-paper: #18212b;
+  --xview-tint: #1f3550;
+  --xview-accent: #78aef0;
+  --xview-glow: #574a1c;
+  --xview-focus: #78aef0;
+  color-scheme: dark;
+}
+.xview__wrap { display: grid; gap: 16px; }
+@container (min-width: 50rem) { .xview__wrap { grid-template-columns: minmax(0, 1fr) 17rem; align-items: start; } }
+.xview :focus-visible { outline: 2px solid var(--xview-focus); outline-offset: 2px; }
+
+.xview__sheet { display: grid; gap: 10px; padding: 16px; background: var(--xview-sheet); border: 1px solid var(--xview-line); border-radius: 12px; }
+.xview__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 12px; }
+.xview__title { margin: 0; font-size: 16px; font-weight: 600; }
+.xview__stamp { font: 500 11px "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--xview-muted); }
+.xview__svg { display: block; width: 100%; height: auto; max-height: 34rem; }
+.xview__grid { fill: none; stroke: var(--xview-grid); stroke-width: 1; }
+
+.xview__part { cursor: pointer; }
+.xview__s { fill: var(--xview-paper); stroke: var(--xview-ink); stroke-width: 1.5; stroke-linejoin: round; transition: fill 0.2s; }
+.xview__d { fill: none; stroke: var(--xview-ink); stroke-width: 1; stroke-linecap: round; opacity: 0.55; }
+.xview__glass { fill: var(--xview-paper); stroke: var(--xview-ink); stroke-width: 1.5; transition: fill 0.2s; }
+.xview__rod { fill: none; stroke: var(--xview-ink); stroke-width: 10; stroke-linecap: round; }
+.xview__rod-in { fill: none; stroke: var(--xview-paper); stroke-width: 7; stroke-linecap: round; transition: stroke 0.2s; }
+.xview__part[data-on] .xview__s { fill: var(--xview-tint); }
+.xview__part[data-on] .xview__rod-in { stroke: var(--xview-tint); }
+.xview__part[data-on] .xview__glass { fill: var(--xview-glow); }
+.xview__part { transition: opacity 0.2s; }
+.xview[data-focus] .xview__part:not([data-on]) { opacity: 0.45; }
+
+.xview__axis { stroke: var(--xview-accent); stroke-width: 1; stroke-dasharray: 6 3 1 3; opacity: 0.6; }
+.xview__leader { fill: none; stroke: var(--xview-muted); stroke-width: 0.8; }
+.xview__dot { fill: var(--xview-muted); }
+.xview__ring { fill: var(--xview-sheet); stroke: var(--xview-muted); stroke-width: 1; }
+.xview__balloon text { font: 600 11px "IBM Plex Mono", ui-monospace, monospace; fill: var(--xview-ink); }
+.xview__balloon[data-on] .xview__leader { stroke: var(--xview-accent); stroke-width: 1.4; }
+.xview__balloon[data-on] .xview__dot, .xview__balloon[data-on] .xview__ring { fill: var(--xview-accent); stroke: var(--xview-accent); }
+.xview__balloon[data-on] text { fill: var(--xview-sheet); }
+
+.xview__scrub { display: flex; align-items: center; gap: 12px; }
+.xview__scrub label { flex: none; width: 7.5rem; color: var(--xview-muted); }
+.xview__scrub output { color: var(--xview-ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.xview__scrub input { flex: 1; min-width: 0; accent-color: var(--xview-accent); }
+.xview__scrub button {
+  flex: none; width: 6.5rem; height: 30px; font: 600 12.5px "IBM Plex Sans", ui-sans-serif, sans-serif;
+  color: var(--xview-ink); background: var(--xview-paper); border: 1px solid var(--xview-line); border-radius: 7px; cursor: pointer;
+}
+
+.xview__list { padding: 14px; background: var(--xview-sheet); border: 1px solid var(--xview-line); border-radius: 12px; }
+.xview__list h4 { margin: 0 0 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--xview-muted); }
+.xview__list ol { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.xview__list button {
+  display: grid; grid-template-columns: 24px 1fr; gap: 2px 10px; width: 100%; padding: 8px; text-align: left;
+  font: inherit; color: inherit; background: none; border: 0; border-radius: 8px; cursor: pointer;
+}
+.xview__list button[data-on] { background: var(--xview-tint); }
+.xview__list button[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--xview-accent); }
+.xview__n { grid-row: span 2; display: grid; place-items: center; width: 22px; height: 22px; font: 600 11px "IBM Plex Mono", ui-monospace, monospace; border: 1px solid var(--xview-muted); border-radius: 50%; }
+.xview__list button[data-on] .xview__n { color: var(--xview-sheet); background: var(--xview-accent); border-color: var(--xview-accent); }
+.xview__name { font-weight: 600; }
+.xview__detail { color: var(--xview-muted); font-size: 12px; line-height: 1.4; }
+.xview__hint { margin: 10px 0 0; color: var(--xview-muted); font-size: 12px; }
+
+.xview[data-motion="off"] .xview__part { transition: none; }
+@media (prefers-reduced-motion: reduce) { .xview__part { transition: none; } }

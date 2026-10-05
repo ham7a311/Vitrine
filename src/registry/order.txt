@@ -71,6 +71,7 @@ controls/preset-keys
 controls/gate-selector
 controls/shadow-board
 controls/notification-dial
+controls/patch-bay
 cards/glass-card
 cards/halo-frame
 cards/ring-flood-card
@@ -102,6 +103,7 @@ cards/postcard-card
 cards/eclipse-event-card
 cards/specimen-card
 cards/card-wallet
+cards/patina
 backgrounds/silk-field
 backgrounds/glass-tiles
 backgrounds/dither-flow
@@ -172,6 +174,7 @@ ai/message-actions
 ai/inline-diff
 ai/cited-answer
 ai/splice
+ai/confidence-ink
 sidebars/conversation-sidebar
 sidebars/workspace-sidebar
 heroes/glass-torus
@@ -210,8 +213,11 @@ decisions/allocation-faders
 time/undo-tree
 time/conflict-resolver
 time/cron-builder
+time/timezone-overlap
 developer/query-tokens
 developer/keymap
+developer/log-tail
+developer/span-waterfall
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
@@ -222,6 +228,8 @@ pricing/calendar-pricing
 pricing/stack-pricing
 pricing/chalk-menu-pricing
 commerce/build-sheet
+commerce/fit-compare
+commerce/exploded-view
 faq/index-faq
 faq/footnote-faq
 faq/help-desk-faq
@@ -294,6 +302,7 @@ media/image-compare
 media/hover-reel
 media/dither-portrait
 media/contact-sheet
+media/transcript-player
 maps/route-globe
 maps/pulse-globe
 maps/dot-atlas
@@ -310,6 +319,7 @@ forms/schema-drop
 forms/spend-controls
 forms/transfer-composer
 forms/scrub-number
+forms/segment-counter
 feedback/toast-stack
 feedback/wet-ink
 feedback/undo-ribbon

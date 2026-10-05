@@ -8,7 +8,7 @@
 Read the source. Read the prompt behind it. Take it and make it yours.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-353-c8b9ea)
+![Components](https://img.shields.io/badge/components-363-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -48,7 +48,7 @@ There is no package, no CLI and no registry install. You copy a file or two into
 
 ## What's inside
 
-**353 components in 32 categories.**
+**363 components in 32 categories.**
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
@@ -85,6 +85,9 @@ A few to start with:
 - **Line Map, Notification Dial, You Draw It**: structure drawn as a transit map, a setting that shows its consequence before you commit, and a chart that asks for your guess before it shows the answer.
 - **Splice, Contact Sheet**: choosing as the main act. Assemble one text from the best sentences of several drafts; mark photos with a grease pencil on a light table.
 - **Query Tokens, Keymap, Cron Builder, Scrub Number, Conflict Resolver**: tools for people who build. Filter syntax that stays editable, shortcuts on a drawn keyboard, schedules in three linked forms, design-tool number fields, and a three-way merge that only asks about real conflicts.
+- **Transcript Player, Log Tail, Span Waterfall**: media and tooling you read as much as operate. A transcript that is the player, a live log that holds still when you scroll up, a trace drawn as bars with its critical path.
+- **Segment Counter, Timezone Overlap, Patina**: the honest details. The one character that doubled your SMS bill, everyone's working hours on one axis, cards that visibly age until someone checks them.
+- **Confidence Ink, Patch Bay, Fit Compare, Exploded View**: model uncertainty printed as lighter ink, routing as cables that sag, products shown at true size, and drawings that come apart.
 
 ## Run the gallery locally
 
@@ -114,7 +117,7 @@ Press **⌘K** (or **Ctrl K**) in the gallery to search by name, tag or feel, fo
 3. **Copy**: copy each file into your project. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file.
 
-The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 353 exported examples in isolation.
+The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 363 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source. Live demos load them through `src/site/ComponentFonts.tsx`; gallery fonts are self-hosted through Fontsource packages. Add the listed font families to your own project.
 
