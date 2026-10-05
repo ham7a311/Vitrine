@@ -1,0 +1,126 @@
+/* Underside 404 — a blank sheet whose back is printed with the site index. */
+.us404 {
+  --us-desk: #e3dfd6;
+  --us-sheet: #fbfaf6;
+  --us-verso: #f3f0e8;
+  --us-ink: #1f1d19;
+  --us-muted: #6e695f;
+  --us-faint: #aaa498;
+  --us-rule: rgb(31 29 25 / 0.12);
+  --us-accent: #a2361f;
+  --us-shadow: drop-shadow(0 1px 1px rgb(31 29 25 / 0.08)) drop-shadow(0 14px 22px rgb(31 29 25 / 0.12));
+  --us-fold: 40px;
+  box-sizing: border-box;
+  container-type: inline-size;
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: clamp(28px, 6vw, 72px) 16px;
+  background: var(--us-desk);
+  color: var(--us-ink);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.us404--night {
+  --us-desk: #141416;
+  --us-sheet: #222226;
+  --us-verso: #1c1c20;
+  --us-ink: #ece9e2;
+  --us-muted: #a19d94;
+  --us-faint: #67645e;
+  --us-rule: rgb(236 233 226 / 0.12);
+  --us-accent: #f08a6c;
+  --us-shadow: drop-shadow(0 1px 1px rgb(0 0 0 / 0.4)) drop-shadow(0 16px 26px rgb(0 0 0 / 0.45));
+}
+.us404 *, .us404 *::before, .us404 *::after { box-sizing: border-box; }
+
+/* The shadow sits on the stage so it follows the cut corner (clip-path would clip a box-shadow). */
+.us404__stage { width: min(100%, 30rem); perspective: 1800px; filter: var(--us-shadow); }
+.us404__sheet {
+  position: relative;
+  display: grid;
+  transform-style: preserve-3d;
+  transform: rotateY(calc(var(--us-turn) * -180deg));
+  transition: transform 720ms cubic-bezier(.2,.8,.2,1);
+}
+.us404__sheet[data-dragging] { transition: none; }
+
+.us404__face {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  min-height: min(40rem, 128cqi);
+  padding: clamp(22px, 6cqi, 40px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.us404__front {
+  position: relative;
+  background: var(--us-sheet);
+  /* The turned-up corner is missing from the sheet. */
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--us-fold)), calc(100% - var(--us-fold)) 100%, 0 100%);
+  transition: clip-path 220ms cubic-bezier(.2,.8,.2,1);
+}
+.us404__sheet[data-turned="false"] .us404__back, .us404__sheet[data-turned="true"] .us404__front { pointer-events: none; }
+.us404__back { background: var(--us-verso); transform: rotateY(180deg); }
+
+.us404__meta { display: flex; justify-content: space-between; margin: 0; padding-bottom: 14px; border-bottom: 1px solid var(--us-rule); font: 11px/1.4 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--us-muted); }
+.us404__body { margin: auto 0; padding: 40px 0; }
+.us404__title { margin: 0; font: 400 clamp(36px, 10cqi, 52px)/1 "Instrument Serif", Georgia, serif; letter-spacing: -0.01em; }
+.us404__description { margin: 16px 0 0; max-width: 30ch; font-size: 15px; line-height: 1.65; color: var(--us-muted); }
+
+.us404__turn, .us404__return {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px;
+  border: 1px solid var(--us-ink); border-radius: 999px; background: transparent; color: var(--us-ink);
+  font: 500 14px/1 "Geist", ui-sans-serif, system-ui, sans-serif; cursor: pointer;
+  transition: background-color 160ms cubic-bezier(.2,.8,.2,1), color 160ms cubic-bezier(.2,.8,.2,1);
+}
+.us404__turn:hover, .us404__return:hover { background: var(--us-ink); color: var(--us-sheet); }
+
+/* The dog-ear: a flap of the back tone folded over the corner, with its shadow on the page. */
+/* The handle sits outside the clipped face so the whole corner can be grabbed. */
+.us404__corner {
+  grid-area: 1 / 1; align-self: end; justify-self: end; position: relative; z-index: 1;
+  width: calc(var(--us-fold) + 24px); height: calc(var(--us-fold) + 24px);
+  cursor: grab; touch-action: none; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+.us404__sheet[data-turned="true"] .us404__corner { visibility: hidden; }
+.us404__corner::before, .us404__corner::after {
+  content: ""; position: absolute; right: 0; bottom: 0; width: var(--us-fold); height: var(--us-fold);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  transition: width 220ms cubic-bezier(.2,.8,.2,1), height 220ms cubic-bezier(.2,.8,.2,1);
+}
+.us404__corner::after { background: var(--us-verso); }
+.us404__corner::before { background: rgb(0 0 0 / 0.08); transform: translate(-3px, -3px); }
+.us404__sheet:has(.us404__corner:hover), .us404__sheet:has(.us404__turn:hover), .us404__sheet:has(.us404__turn:focus-visible) { --us-fold: 54px; }
+.us404__sheet[data-dragging] .us404__corner { cursor: grabbing; }
+
+.us404__index { list-style: none; margin: 0; padding: 22px 0 0; flex: 1; }
+.us404__index a {
+  display: flex; align-items: baseline; gap: 10px; min-height: 44px; padding: 10px 0;
+  color: var(--us-ink); text-decoration: none;
+}
+.us404__label { font: 400 21px/1.2 "Instrument Serif", Georgia, serif; }
+.us404__leader { flex: 1; min-width: 24px; border-bottom: 1.5px dotted var(--us-faint); transform: translateY(-4px); }
+.us404__folio { font: 12px "Geist Mono", ui-monospace, monospace; color: var(--us-muted); font-variant-numeric: tabular-nums; }
+.us404__index a:hover .us404__label { color: var(--us-accent); }
+.us404__index a:hover .us404__leader { border-color: var(--us-accent); }
+.us404__backfoot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--us-rule); }
+.us404__home { font: 11px "Geist Mono", ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--us-muted); text-underline-offset: 4px; min-height: 32px; display: inline-flex; align-items: center; }
+.us404 a:focus-visible, .us404 button:focus-visible { outline: 2px solid var(--us-accent); outline-offset: 3px; }
+
+/* Reduced motion: no page turn — the sides cross-fade in place. */
+.us404[data-motion="reduced"] .us404__sheet { transform: none; transition: none; }
+.us404[data-motion="reduced"] .us404__back { transform: none; }
+.us404[data-motion="reduced"] .us404__face { backface-visibility: visible; transition: opacity 200ms linear; }
+.us404[data-motion="reduced"] .us404__front { opacity: calc(1 - var(--us-turn)); }
+.us404[data-motion="reduced"] .us404__back { opacity: var(--us-turn); }
+@media (prefers-reduced-motion: reduce) {
+  .us404__sheet { transform: none; transition: none; }
+  .us404__back { transform: none; }
+  .us404__face { backface-visibility: visible; transition: opacity 200ms linear; }
+  .us404__front { opacity: calc(1 - var(--us-turn)); }
+  .us404__back { opacity: var(--us-turn); }
+  .us404__corner::before, .us404__corner::after, .us404__front { transition: none; }
+}

@@ -1,0 +1,116 @@
+/* Word Bank — build a sentence from chunky tiles, then check it. */
+.wbank {
+  --wb-bg: #ffffff;
+  --wb-ink: #4b4b4b;
+  --wb-muted: #777777;
+  --wb-faint: #afafaf;
+  --wb-swan: #e5e5e5;
+  --wb-tile: #ffffff;
+  --wb-green: #58cc02;
+  --wb-green-lip: #58a700;
+  --wb-green-pale: #d7ffb8;
+  --wb-green-ink: #58a700;
+  --wb-red: #ff4b4b;
+  --wb-red-lip: #ea2b2b;
+  --wb-red-pale: #ffdfe0;
+  --wb-red-ink: #ea2b2b;
+  --wb-focus: #1cb0f6;
+  box-sizing: border-box;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 100%;
+  background: var(--wb-bg);
+  color: var(--wb-ink);
+  font-family: "Nunito", "Varela Round", ui-rounded, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.wbank--dark {
+  --wb-bg: #131f24;
+  --wb-ink: #dce6ec;
+  --wb-muted: #8ea3ad;
+  --wb-faint: #52656d;
+  --wb-swan: #37464f;
+  --wb-tile: #131f24;
+  --wb-green-pale: #202f36;
+  --wb-green-ink: #79d634;
+  --wb-red-pale: #202f36;
+  --wb-red-ink: #ff7878;
+  --wb-focus: #49c0f8;
+}
+.wbank *, .wbank *::before, .wbank *::after { box-sizing: border-box; }
+
+.wbank__main { flex: 1; width: min(100%, 38rem); margin: 0 auto; padding: clamp(24px, 6cqi, 48px) 16px 32px; }
+.wbank__instruction { margin: 0 0 22px; font-size: clamp(22px, 5cqi, 30px); font-weight: 800; line-height: 1.2; }
+.wbank__prompt { display: flex; margin-bottom: 26px; }
+.wbank__bubble {
+  position: relative; margin: 0 0 0 14px; padding: 12px 16px; border: 2px solid var(--wb-swan); border-radius: 16px;
+  font-size: 19px; font-weight: 600; line-height: 1.4;
+}
+.wbank__bubble::before {
+  content: ""; position: absolute; left: -9px; top: 18px; width: 14px; height: 14px;
+  background: var(--wb-bg); border: solid var(--wb-swan); border-width: 0 0 2px 2px; transform: rotate(45deg);
+}
+
+.wbank__answer { position: relative; min-height: 124px; margin-bottom: 34px; }
+.wbank__lines { position: absolute; inset: 0; display: grid; grid-template-rows: 62px 62px; pointer-events: none; }
+.wbank__lines span { border-bottom: 2px solid var(--wb-swan); }
+.wbank__picked { position: relative; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 16px 8px; padding-top: 9px; min-height: 124px; }
+
+.wbank__bank { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 8px; }
+.wbank__slot { display: inline-flex; }
+.wbank__tile, .wbank__ghost {
+  display: inline-flex; align-items: center; min-height: 46px; padding: 0 14px; border-radius: 12px;
+  font: 700 17px/1 "Nunito", ui-rounded, system-ui, sans-serif;
+}
+.wbank__tile {
+  border: 2px solid var(--wb-swan); background: var(--wb-tile); color: var(--wb-ink); cursor: pointer;
+  box-shadow: 0 2px 0 var(--wb-swan); transition: transform 80ms cubic-bezier(.2,.8,.2,1), box-shadow 80ms cubic-bezier(.2,.8,.2,1), background-color 120ms linear;
+}
+.wbank__tile:hover:not(:disabled) { background: color-mix(in srgb, var(--wb-swan) 30%, var(--wb-tile)); }
+.wbank__tile:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 0 0 var(--wb-swan); }
+.wbank__tile:disabled { cursor: default; }
+.wbank__ghost { border: 2px solid transparent; background: var(--wb-swan); color: transparent; box-shadow: 0 2px 0 transparent; }
+
+/* The bottom bar: idle, then a coloured verdict. */
+.wbank__bar { border-top: 2px solid var(--wb-swan); background: var(--wb-bg); transition: background-color 200ms cubic-bezier(.2,.8,.2,1); }
+.wbank__bar[data-state="correct"] { border-top-color: transparent; background: var(--wb-green-pale); }
+.wbank__bar[data-state="wrong"] { border-top-color: transparent; background: var(--wb-red-pale); }
+.wbank__bar-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; width: min(100%, 38rem); margin: 0 auto; padding: 20px 16px; }
+.wbank__bar[data-state="correct"] .wbank__bar-inner, .wbank__bar[data-state="wrong"] .wbank__bar-inner { animation: wbank-rise 260ms cubic-bezier(.2,.8,.2,1); }
+.wbank__verdict { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.wbank__badge { display: grid; place-items: center; flex: none; width: 52px; height: 52px; border-radius: 50%; background: var(--wb-bg); }
+.wbank__badge svg { width: 28px; height: 28px; fill: none; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+.wbank__bar[data-state="correct"] .wbank__badge svg { stroke: var(--wb-green); }
+.wbank__bar[data-state="wrong"] .wbank__badge svg { stroke: var(--wb-red); }
+.wbank__verdict-title { margin: 0; font-size: 22px; font-weight: 800; }
+.wbank__bar[data-state="correct"] .wbank__verdict-title { color: var(--wb-green-ink); }
+.wbank__bar[data-state="wrong"] .wbank__verdict-title, .wbank__verdict-answer { color: var(--wb-red-ink); }
+.wbank__verdict-answer { margin: 2px 0 0; font-size: 16px; font-weight: 700; }
+
+.wbank__go, .wbank__skip {
+  min-width: 140px; min-height: 50px; padding: 0 24px; border-radius: 16px; cursor: pointer;
+  font: 800 15px/1 "Nunito", ui-rounded, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
+  transition: transform 80ms cubic-bezier(.2,.8,.2,1), box-shadow 80ms cubic-bezier(.2,.8,.2,1), filter 120ms linear;
+}
+.wbank__go { margin-left: auto; border: 0; background: var(--wb-green); color: #fff; box-shadow: 0 4px 0 var(--wb-green-lip); }
+.wbank__bar[data-state="wrong"] .wbank__go { background: var(--wb-red); box-shadow: 0 4px 0 var(--wb-red-lip); }
+.wbank__go:hover:not(:disabled) { filter: brightness(1.06); }
+.wbank__go:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 0 0 transparent; }
+.wbank__go:disabled { background: var(--wb-swan); color: var(--wb-faint); box-shadow: none; cursor: default; }
+.wbank__skip { border: 2px solid var(--wb-swan); background: transparent; color: var(--wb-faint); box-shadow: 0 4px 0 var(--wb-swan); }
+.wbank__skip:active { transform: translateY(4px); box-shadow: 0 0 0 transparent; }
+.wbank button:focus-visible { outline: 3px solid var(--wb-focus); outline-offset: 3px; }
+
+@container (max-width: 30rem) {
+  .wbank__go, .wbank__skip { min-width: 0; flex: 1; }
+  .wbank__verdict { flex-basis: 100%; }
+}
+@keyframes wbank-rise { from { opacity: 0; transform: translateY(10px); } }
+.wbank[data-motion="reduced"] .wbank__bar-inner { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .wbank__bar-inner { animation: none !important; }
+  .wbank__tile, .wbank__go, .wbank__skip, .wbank__bar { transition: none; }
+}

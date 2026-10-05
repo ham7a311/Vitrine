@@ -1,0 +1,135 @@
+/* Card Wallet — a stack of virtual cards with guarded details. */
+.cwal {
+  --cw-bg: #0b0b0c;
+  --cw-panel: #121214;
+  --cw-raised: #18181b;
+  --cw-ink: #ededed;
+  --cw-muted: #8d8d93;
+  --cw-faint: #5b5b61;
+  --cw-line: rgb(255 255 255 / 0.08);
+  --cw-line-strong: rgb(255 255 255 / 0.16);
+  --cw-accent: #8b93ff;
+  --cw-warn: #f5a524;
+  --cw-error: #ff8a80;
+  box-sizing: border-box;
+  container-type: inline-size;
+  width: 100%;
+  color: var(--cw-ink);
+  font: 14px/1.5 "Inter", ui-sans-serif, -apple-system, system-ui, sans-serif;
+  font-feature-settings: "tnum", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+.cwal--light {
+  --cw-bg: #f6f6f7;
+  --cw-panel: #ffffff;
+  --cw-raised: #f3f3f5;
+  --cw-ink: #0c0c0d;
+  --cw-muted: #66666d;
+  --cw-faint: #a3a3aa;
+  --cw-line: rgb(0 0 0 / 0.08);
+  --cw-line-strong: rgb(0 0 0 / 0.16);
+  --cw-accent: #4b53d6;
+  --cw-warn: #b26b00;
+  --cw-error: #c2322a;
+}
+.cwal *, .cwal *::before, .cwal *::after { box-sizing: border-box; }
+/* The grid lives on an inner element: a container can't match its own @container rule. */
+.cwal__grid { display: grid; gap: 28px; }
+@container (min-width: 46rem) { .cwal__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 36px; } }
+
+/* Card faces */
+.cwal [data-color="graphite"] { --face: #1f1f23; --face-ink: #f2f2f2; }
+.cwal [data-color="ink"] { --face: #1a2554; --face-ink: #eef0ff; }
+.cwal [data-color="plum"] { --face: #3b2049; --face-ink: #f7eefc; }
+.cwal [data-color="moss"] { --face: #22382b; --face-ink: #eef7f0; }
+.cwal [data-color="sand"] { --face: #ddd3c3; --face-ink: #1b1a17; }
+
+.cwal__deck { position: relative; display: grid; padding-top: 42px; }
+.cwal__face {
+  grid-area: 1 / 1; position: relative; display: flex; flex-direction: column; justify-content: space-between;
+  aspect-ratio: 1.586; padding: 18px 20px; border-radius: 14px; overflow: hidden;
+  background: var(--face); color: var(--face-ink);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08), 0 1px 1px rgb(0 0 0 / 0.2), 0 12px 32px rgb(0 0 0 / 0.28);
+  transform: translateY(calc(var(--depth) * -14px)) scale(calc(1 - var(--depth) * 0.05));
+  transform-origin: 50% 0;
+  transition: transform 420ms cubic-bezier(.2,.8,.2,1), filter 420ms cubic-bezier(.2,.8,.2,1), opacity 300ms linear;
+  filter: brightness(calc(1 - var(--depth) * 0.12));
+}
+.cwal__face[data-hidden] { opacity: 0; pointer-events: none; }
+/* Cards peeking behind can be clicked forward; the radio list is the keyboard path. */
+.cwal__face:not([style*="--depth: 0"]) { cursor: pointer; }
+.cwal__face-top, .cwal__face-bottom { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.cwal__face-name { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cwal__face-kind { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.6; }
+.cwal__chip { width: 36px; height: 26px; border-radius: 6px; background: color-mix(in srgb, var(--face-ink) 22%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--face-ink) 30%, transparent); }
+.cwal__face-num { font-size: clamp(15px, 3.6cqi, 19px); font-weight: 500; letter-spacing: 0.06em; }
+.cwal__face-exp { font-size: 13px; opacity: 0.7; }
+/* A frozen card is hatched, like a voided cheque. */
+.cwal__face[data-frozen]::after {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(135deg, transparent 0 9px, color-mix(in srgb, var(--face-ink) 12%, transparent) 9px 10px);
+}
+.cwal__frozen {
+  position: absolute; right: 18px; top: 50%; z-index: 1; padding: 3px 10px; border: 1.5px solid currentColor; border-radius: 999px;
+  transform: translateY(-50%); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+.cwal__list { display: grid; gap: 2px; min-width: 0; margin: 18px 0 0; padding: 0; border: 0; }
+.cwal__option {
+  position: relative; display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  min-height: 52px; padding: 8px 12px; border-radius: 10px; cursor: pointer;
+  transition: background-color 140ms cubic-bezier(.2,.8,.2,1);
+}
+.cwal__option:hover { background: var(--cw-raised); }
+.cwal__option[data-checked] { background: var(--cw-raised); box-shadow: inset 0 0 0 1px var(--cw-line-strong); }
+.cwal__option input { position: absolute; opacity: 0; pointer-events: none; }
+.cwal__option:has(input:focus-visible) { outline: 2px solid var(--cw-accent); outline-offset: 1px; }
+.cwal__swatch { width: 22px; height: 15px; border-radius: 3px; background: var(--face); box-shadow: inset 0 0 0 1px var(--cw-line-strong); }
+.cwal__option-name { display: flex; flex-direction: column; min-width: 0; font-weight: 500; }
+.cwal__option-sub { font-size: 12px; font-weight: 400; color: var(--cw-muted); }
+.cwal__option-spent { color: var(--cw-muted); font-size: 13px; }
+
+/* Details */
+.cwal__details { padding: 22px; border-radius: 16px; background: var(--cw-panel); box-shadow: inset 0 0 0 1px var(--cw-line); }
+.cwal__name { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+.cwal__holder { margin: 2px 0 0; color: var(--cw-muted); font-size: 13px; }
+.cwal__spend { margin: 20px 0 22px; }
+.cwal__spend p { margin: 0 0 8px; color: var(--cw-muted); }
+.cwal__amount { color: var(--cw-ink); font-weight: 600; }
+.cwal__meter { height: 6px; border-radius: 999px; background: var(--cw-line-strong); overflow: hidden; }
+.cwal__meter span { display: block; height: 100%; width: calc(var(--used) * 100%); border-radius: inherit; background: var(--cw-ink); transition: width 420ms cubic-bezier(.2,.8,.2,1); }
+.cwal__meter span[data-high] { background: var(--cw-warn); }
+
+.cwal__secrets { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin: 0; border-radius: 12px; overflow: hidden; background: var(--cw-line); box-shadow: inset 0 0 0 1px var(--cw-line); }
+.cwal__secret { padding: 12px 14px; background: var(--cw-panel); }
+.cwal__secret--wide { grid-column: 1 / -1; }
+.cwal__secret dt { font-size: 12px; color: var(--cw-muted); }
+.cwal__secret dd { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 30px; margin: 2px 0 0; }
+.cwal__mono { font-size: 15px; font-weight: 500; letter-spacing: 0.04em; }
+.cwal__secrets[data-shown] .cwal__mono { animation: cwal-in 260ms cubic-bezier(.2,.8,.2,1); }
+.cwal__copy { min-height: 28px; padding: 0 10px; border: 0; border-radius: 6px; background: var(--cw-raised); color: var(--cw-ink); font: 500 12px/1 "Inter", ui-sans-serif, system-ui, sans-serif; cursor: pointer; }
+.cwal__copy:hover { background: var(--cw-line-strong); }
+
+.cwal__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; }
+.cwal__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--cw-ink); color: var(--cw-panel); font: 600 13px/1 "Inter", ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: opacity 140ms linear; }
+.cwal__btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.cwal__ring { width: 16px; height: 16px; transform: rotate(-90deg); }
+.cwal__ring circle { fill: none; stroke-width: 2.5; }
+.cwal__ring circle:first-child { stroke: color-mix(in srgb, var(--cw-panel) 30%, transparent); }
+.cwal__ring circle:last-child { stroke: var(--cw-panel); stroke-dasharray: 50.27; stroke-dashoffset: calc(50.27 * (1 - var(--p))); transition: stroke-dashoffset 250ms linear; }
+.cwal__switch { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 4px; border: 0; background: none; color: var(--cw-ink); font: 500 13px/1 "Inter", ui-sans-serif, system-ui, sans-serif; cursor: pointer; }
+.cwal__switch:disabled { cursor: progress; opacity: 0.7; }
+.cwal__track { position: relative; width: 36px; height: 22px; border-radius: 999px; background: var(--cw-line-strong); transition: background-color 160ms linear; }
+.cwal__track span { position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--cw-ink); transition: transform 200ms cubic-bezier(.2,.8,.2,1); }
+.cwal__switch[aria-checked="true"] .cwal__track { background: var(--cw-accent); }
+.cwal__switch[aria-checked="true"] .cwal__track span { transform: translateX(14px); background: #fff; }
+.cwal__note { min-height: 1.5em; margin: 12px 0 0; font-size: 13px; color: var(--cw-muted); }
+.cwal__note:has(+ *) { margin-bottom: 0; }
+.cwal button:focus-visible { outline: 2px solid var(--cw-accent); outline-offset: 2px; }
+.cwal__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@keyframes cwal-in { from { opacity: 0; filter: blur(3px); } }
+@media (prefers-reduced-motion: reduce) {
+  .cwal__face, .cwal__meter span, .cwal__track, .cwal__track span, .cwal__ring circle, .cwal__option { transition: none; }
+  .cwal__secrets[data-shown] .cwal__mono { animation: none; }
+}

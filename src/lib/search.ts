@@ -71,6 +71,13 @@ const SYNONYMS: Record<string, string[]> = {
   icon: ["micro-animation", "icons"],
   benchmark: ["bench", "models"],
   llm: ["ai", "chat", "model"],
+  error: ["404", "recovery"],
+  kanban: ["board"],
+  leaderboard: ["league", "ranking"],
+  payment: ["transfer", "fintech"],
+  bank: ["fintech", "banking"],
+  csv: ["import", "schema"],
+  editor: ["blocks", "document"],
 };
 
 /**

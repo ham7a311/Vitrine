@@ -1,0 +1,74 @@
+/* Install Snippet — tabs, numbered steps and hard-edged code blocks. */
+.isnip {
+  --is-page: #f4efea;
+  --is-paper: #ffffff;
+  --is-ink: #383838;
+  --is-muted: #6f6a64;
+  --is-line: #383838;
+  --is-shadow: #383838;
+  --is-code-bg: #383838;
+  --is-code-ink: #f4efea;
+  --is-code-faint: #a39e97;
+  --is-yellow: #ffde00;
+  --is-sky: #6fc2ff;
+  --is-teal: #16aa98;
+  --is-coral: #ff9538;
+  box-sizing: border-box;
+  container-type: inline-size;
+  width: 100%;
+  color: var(--is-ink);
+  font: 300 15px/1.5 "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+.isnip--dark {
+  --is-page: #1f1f1f;
+  --is-paper: #2a2927;
+  --is-ink: #f4efea;
+  --is-muted: #b9b2a9;
+  --is-line: #f4efea;
+  --is-shadow: #000000;
+  --is-code-bg: #151515;
+  --is-code-ink: #f4efea;
+  --is-code-faint: #7d776f;
+}
+.isnip *, .isnip *::before, .isnip *::after { box-sizing: border-box; }
+
+.isnip__tabs { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: -2px; }
+.isnip__tab {
+  position: relative; min-height: 40px; padding: 0 16px; margin-right: -2px;
+  border: 2px solid var(--is-line); border-radius: 2px 2px 0 0; background: var(--is-page); color: var(--is-muted); cursor: pointer;
+  font: 500 13px/1 "DM Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.02em; text-transform: uppercase;
+}
+.isnip__tab:hover { color: var(--is-ink); }
+.isnip__tab[aria-selected="true"] { z-index: 1; background: var(--is-paper); color: var(--is-ink); border-bottom-color: var(--is-paper); }
+.isnip__tab[aria-selected="true"]::before { content: ""; position: absolute; left: -2px; right: -2px; top: -2px; height: 6px; background: var(--is-yellow); border: 2px solid var(--is-line); border-bottom: 0; }
+.isnip__panel { padding: clamp(16px, 4cqi, 24px); border: 2px solid var(--is-line); border-radius: 0 2px 2px 2px; background: var(--is-paper); box-shadow: 4px 4px 0 var(--is-shadow); }
+
+.isnip__steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+.isnip__step-title { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; font-size: 15px; font-weight: 400; }
+.isnip__num { display: grid; place-items: center; min-width: 32px; height: 24px; padding: 0 4px; border: 2px solid var(--is-line); background: var(--is-sky); color: #383838; font: 500 12px/1 "DM Mono", ui-monospace, monospace; }
+.isnip__step:nth-child(2) .isnip__num { background: var(--is-teal); color: #fff; }
+.isnip__step:nth-child(3) .isnip__num { background: var(--is-coral); }
+.isnip__block { position: relative; }
+.isnip__code {
+  margin: 0; padding: 14px 92px 14px 16px; overflow-x: auto; border: 2px solid var(--is-line); border-radius: 2px;
+  background: var(--is-code-bg); color: var(--is-code-ink); font: 14px/1.65 "DM Mono", "JetBrains Mono", ui-monospace, monospace;
+}
+.isnip__code:focus-visible { outline: 2px solid var(--is-sky); outline-offset: 2px; }
+.isnip__line { display: block; white-space: pre; }
+.isnip__prompt { color: var(--is-yellow); user-select: none; }
+.isnip__string { color: #ffd38a; }
+.isnip__comment { color: var(--is-code-faint); font-style: italic; }
+.isnip__copy {
+  position: absolute; top: 8px; right: 8px; min-width: 72px; min-height: 30px; padding: 0 10px;
+  border: 2px solid var(--is-code-ink); border-radius: 2px; background: transparent; color: var(--is-code-ink); cursor: pointer;
+  font: 500 11px/1 "DM Mono", ui-monospace, monospace; letter-spacing: 0.04em; text-transform: uppercase;
+  transition: background-color 120ms cubic-bezier(.2,.8,.2,1), color 120ms cubic-bezier(.2,.8,.2,1);
+}
+.isnip__copy:hover { background: var(--is-code-ink); color: var(--is-code-bg); }
+.isnip__copy[data-state="done"] { background: var(--is-teal); border-color: var(--is-teal); color: #fff; }
+.isnip__copy[data-state="failed"] { background: var(--is-coral); border-color: var(--is-coral); color: #383838; }
+.isnip button:focus-visible { outline: 2px solid var(--is-sky); outline-offset: 2px; }
+.isnip__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@container (max-width: 28rem) { .isnip__code { padding-right: 16px; padding-top: 44px; } .isnip__tab { flex: 1; padding: 0 8px; } }
+@media (prefers-reduced-motion: reduce) { .isnip__copy { transition: none; } }

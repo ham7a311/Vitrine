@@ -94,6 +94,7 @@ import { meta as ditherCard } from "./cards/dither-card/meta";
 import { meta as postcardCard } from "./cards/postcard-card/meta";
 import { meta as eclipseEventCard } from "./cards/eclipse-event-card/meta";
 import { meta as specimenCard } from "./cards/specimen-card/meta";
+import { meta as cardWallet } from "./cards/card-wallet/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
@@ -176,6 +177,7 @@ import { meta as thumbedEdge } from "./navigation/thumbed-edge/meta";
 import { meta as rulerIndex } from "./navigation/ruler-index/meta";
 import { meta as pleatCrumbs } from "./navigation/pleat-crumbs/meta";
 import { meta as threadStepper } from "./navigation/thread-stepper/meta";
+import { meta as lessonPath } from "./navigation/lesson-path/meta";
 import { meta as depthDialog } from "./overlays/depth-dialog/meta";
 import { meta as contextLens } from "./overlays/context-lens/meta";
 import { meta as foldSheet } from "./overlays/fold-sheet/meta";
@@ -184,6 +186,14 @@ import { meta as mediaInspector } from "./data/media-inspector/meta";
 import { meta as focusTable } from "./data/focus-table/meta";
 import { meta as marginalia } from "./data/marginalia/meta";
 import { meta as activityStream } from "./data/activity-stream/meta";
+import { meta as blockHandles } from "./data/block-handles/meta";
+import { meta as boardView } from "./data/board-view/meta";
+import { meta as leagueTable } from "./data/league-table/meta";
+import { meta as queryCell } from "./data/query-cell/meta";
+import { meta as installSnippet } from "./data/install-snippet/meta";
+import { meta as columnProfile } from "./data/column-profile/meta";
+import { meta as transactionLedger } from "./data/transaction-ledger/meta";
+import { meta as approvalInbox } from "./data/approval-inbox/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -242,6 +252,8 @@ import { meta as streakFieldStats } from "./stats/streak-field-stats/meta";
 import { meta as balanceStats } from "./stats/balance-stats/meta";
 import { meta as splitBarStats } from "./stats/split-bar-stats/meta";
 import { meta as thenNowStats } from "./stats/then-now-stats/meta";
+import { meta as lessonSummary } from "./stats/lesson-summary/meta";
+import { meta as dailyQuests } from "./stats/daily-quests/meta";
 import { meta as modelBench } from "./analytics/model-bench/meta";
 import { meta as sankeyFlow } from "./analytics/sankey-flow/meta";
 import { meta as pulseLineChart } from "./analytics/pulse-line-chart/meta";
@@ -269,6 +281,11 @@ import { meta as uploadStack } from "./forms/upload-stack/meta";
 import { meta as progressiveForm } from "./forms/progressive-form/meta";
 import { meta as sentenceSettings } from "./forms/sentence-settings/meta";
 import { meta as etchedField } from "./forms/etched-field/meta";
+import { meta as insertMenu } from "./forms/insert-menu/meta";
+import { meta as wordBank } from "./forms/word-bank/meta";
+import { meta as schemaDrop } from "./forms/schema-drop/meta";
+import { meta as spendControls } from "./forms/spend-controls/meta";
+import { meta as transferComposer } from "./forms/transfer-composer/meta";
 import { meta as toastStack } from "./feedback/toast-stack/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
@@ -279,10 +296,16 @@ import { meta as unlitGallery404 } from "./feedback/unlit-gallery-404/meta";
 import { meta as wayfinder404 } from "./feedback/wayfinder-404/meta";
 import { meta as errata404 } from "./feedback/errata-404/meta";
 import { meta as quietReturn404 } from "./feedback/quiet-return-404/meta";
+import { meta as trace404 } from "./feedback/trace-404/meta";
+import { meta as forwarding404 } from "./feedback/forwarding-404/meta";
+import { meta as underside404 } from "./feedback/underside-404/meta";
+import { meta as blankPageStarter } from "./feedback/blank-page-starter/meta";
 import { meta as stepPath } from "./sections/step-path/meta";
 import { meta as voicesCarousel } from "./sections/voices-carousel/meta";
 import { meta as partnerRibbon } from "./sections/partner-ribbon/meta";
 import { meta as productAtelier } from "./sections/product-atelier/meta";
+import { meta as pageHeader } from "./sections/page-header/meta";
+import { meta as quickstartChecklist } from "./sections/quickstart-checklist/meta";
 import { meta as ditherLogo } from "./type/dither-logo/meta";
 import { meta as constellationName } from "./type/constellation-name/meta";
 import { meta as sealSignature } from "./type/seal-signature/meta";
@@ -407,6 +430,7 @@ export const registry: ComponentMeta[] = [
   postcardCard,
   eclipseEventCard,
   specimenCard,
+  cardWallet,
   silkField,
   glassTiles,
   ditherFlow,
@@ -489,6 +513,7 @@ export const registry: ComponentMeta[] = [
   rulerIndex,
   pleatCrumbs,
   threadStepper,
+  lessonPath,
   depthDialog,
   contextLens,
   foldSheet,
@@ -497,6 +522,14 @@ export const registry: ComponentMeta[] = [
   focusTable,
   marginalia,
   activityStream,
+  blockHandles,
+  boardView,
+  leagueTable,
+  queryCell,
+  installSnippet,
+  columnProfile,
+  transactionLedger,
+  approvalInbox,
   curtainFooter,
   signOffFooter,
   indexFooter,
@@ -555,6 +588,8 @@ export const registry: ComponentMeta[] = [
   balanceStats,
   splitBarStats,
   thenNowStats,
+  lessonSummary,
+  dailyQuests,
   modelBench,
   sankeyFlow,
   pulseLineChart,
@@ -582,6 +617,11 @@ export const registry: ComponentMeta[] = [
   progressiveForm,
   sentenceSettings,
   etchedField,
+  insertMenu,
+  wordBank,
+  schemaDrop,
+  spendControls,
+  transferComposer,
   toastStack,
   wetInk,
   undoRibbon,
@@ -592,10 +632,16 @@ export const registry: ComponentMeta[] = [
   wayfinder404,
   errata404,
   quietReturn404,
+  trace404,
+  forwarding404,
+  underside404,
+  blankPageStarter,
   stepPath,
   voicesCarousel,
   partnerRibbon,
   productAtelier,
+  pageHeader,
+  quickstartChecklist,
   ditherLogo,
   constellationName,
   sealSignature,

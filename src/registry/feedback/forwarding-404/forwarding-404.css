@@ -1,0 +1,102 @@
+/* Forwarding 404 — a retired address and the trail to where it lives now. */
+.fw404 {
+  --fw-bg: #eef1f4;
+  --fw-ink: #15202b;
+  --fw-muted: #586574;
+  --fw-faint: #8a96a3;
+  --fw-line: rgb(21 32 43 / 0.14);
+  --fw-rail: rgb(21 32 43 / 0.22);
+  --fw-accent: #2643c4;
+  --fw-on-accent: #ffffff;
+  --fw-warn: #b4232c;
+  --fw-field: #ffffff;
+  box-sizing: border-box;
+  container-type: inline-size;
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  align-items: center;
+  padding: clamp(40px, 7vw, 96px) clamp(16px, 5vw, 64px);
+  background: var(--fw-bg);
+  color: var(--fw-ink);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.fw404--night {
+  --fw-bg: #0f1318;
+  --fw-ink: #e6ebf0;
+  --fw-muted: #98a4b1;
+  --fw-faint: #5f6b78;
+  --fw-line: rgb(230 235 240 / 0.12);
+  --fw-rail: rgb(230 235 240 / 0.2);
+  --fw-accent: #8ea2ff;
+  --fw-on-accent: #0f1318;
+  --fw-warn: #ff7b84;
+  --fw-field: #161b22;
+}
+.fw404 *, .fw404 *::before, .fw404 *::after { box-sizing: border-box; }
+.fw404__column { width: min(100%, 40rem); margin: 0 auto; }
+.fw404 code { font-family: "Geist Mono", "JetBrains Mono", ui-monospace, monospace; font-size: 0.9em; overflow-wrap: anywhere; }
+
+.fw404__eyebrow { margin: 0 0 20px; font: 11px/1.4 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fw-muted); }
+.fw404__title { margin: 0; font-size: clamp(30px, 6.4cqi, 48px); line-height: 1.06; letter-spacing: -0.035em; font-weight: 500; text-wrap: balance; }
+.fw404__lede { margin: 16px 0 0; max-width: 46ch; font-size: 15px; line-height: 1.65; color: var(--fw-muted); }
+.fw404__lede code { color: var(--fw-ink); }
+
+/* The rail: one line that draws downwards, with a node at every address. */
+.fw404__trail { position: relative; list-style: none; margin: 36px 0 0; padding: 0 0 0 32px; }
+.fw404__trail::before {
+  content: ""; position: absolute; left: 5px; top: 10px; bottom: 30px; width: 1.5px;
+  background: var(--fw-rail); transform-origin: top;
+  animation: fw404-rail 900ms cubic-bezier(.16,1,.3,1) both;
+}
+.fw404__stop { position: relative; padding: 0 0 22px; animation: fw404-stop 420ms cubic-bezier(.16,1,.3,1) both; animation-delay: calc(120ms + var(--i) * 220ms); }
+.fw404__stop:last-child { padding-bottom: 0; }
+.fw404__address::before {
+  content: ""; position: absolute; left: -32px; top: calc(0.62em - 6px); width: 12px; height: 12px; border-radius: 50%;
+  background: var(--fw-bg); border: 1.5px solid var(--fw-faint);
+}
+.fw404__stop[data-live] .fw404__address::before { background: var(--fw-accent); border-color: var(--fw-accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--fw-accent) 18%, transparent); }
+.fw404__stop[data-loop] .fw404__address::before { border-color: var(--fw-warn); border-style: dashed; }
+
+.fw404__move { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 0 0 8px; font: 11px/1.4 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fw-muted); }
+.fw404__move span::before { content: "↓ "; color: var(--fw-faint); }
+.fw404__move time { color: var(--fw-faint); }
+.fw404__address { margin: 0; display: flex; position: relative; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; font-size: 17px; }
+.fw404__address s { color: var(--fw-faint); text-decoration-thickness: 1px; }
+.fw404__stop[data-live] .fw404__address { font-size: clamp(18px, 4cqi, 22px); }
+.fw404__stop[data-live] a { color: var(--fw-accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--fw-accent) 40%, transparent); }
+.fw404__stop[data-live] a:hover { border-bottom-color: var(--fw-accent); }
+.fw404__stop[data-loop] s { color: var(--fw-warn); }
+.fw404__tag { flex-basis: 100%; font: 10px/1.4 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fw-faint); }
+.fw404__stop[data-live] .fw404__tag { color: var(--fw-accent); }
+.fw404__stop[data-loop] .fw404__tag { color: var(--fw-warn); }
+
+.fw404__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.fw404__primary, .fw404__secondary, .fw404__search button {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 8px;
+  font: 500 14px/1 "Geist", ui-sans-serif, system-ui, sans-serif; text-decoration: none; cursor: pointer;
+  transition: background-color 160ms cubic-bezier(.2,.8,.2,1), border-color 160ms cubic-bezier(.2,.8,.2,1);
+}
+.fw404__primary { background: var(--fw-accent); color: var(--fw-on-accent); border: 1px solid var(--fw-accent); overflow-wrap: anywhere; }
+.fw404__primary:hover { background: color-mix(in srgb, var(--fw-accent) 86%, var(--fw-ink)); }
+.fw404__secondary { background: transparent; color: var(--fw-ink); border: 1px solid var(--fw-line); }
+.fw404__secondary:hover { border-color: var(--fw-faint); }
+.fw404__status { min-height: 1.4em; margin: 10px 0 0; font-size: 13px; color: var(--fw-muted); }
+.fw404__home { display: inline-flex; align-items: center; min-height: 32px; margin-top: 8px; font: 11px "Geist Mono", ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fw-muted); text-underline-offset: 4px; }
+.fw404__home:hover { color: var(--fw-ink); }
+
+.fw404__search { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--fw-line); }
+.fw404__search label { display: block; margin-bottom: 10px; font: 11px "Geist Mono", ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fw-muted); }
+.fw404__search div { display: flex; gap: 8px; }
+.fw404__search input { flex: 1; min-width: 0; min-height: 44px; padding: 0 14px; border: 1px solid var(--fw-line); border-radius: 8px; background: var(--fw-field); color: var(--fw-ink); font: 15px "Geist", ui-sans-serif, system-ui, sans-serif; }
+.fw404__search input::placeholder { color: var(--fw-faint); }
+.fw404__search button { background: var(--fw-ink); color: var(--fw-bg); border: 1px solid var(--fw-ink); }
+.fw404 a:focus-visible, .fw404 button:focus-visible, .fw404 input:focus-visible { outline: 2px solid var(--fw-accent); outline-offset: 3px; }
+
+@keyframes fw404-rail { from { transform: scaleY(0); } }
+@keyframes fw404-stop { from { opacity: 0; transform: translateY(6px); } }
+
+.fw404[data-motion="reduced"] .fw404__trail::before, .fw404[data-motion="reduced"] .fw404__stop { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fw404__trail::before, .fw404__stop { animation: none; }
+}

@@ -1,0 +1,91 @@
+/* Lesson Summary — three chunky result tiles and the week's streak. */
+.lsum {
+  --ls-bg: #ffffff;
+  --ls-ink: #4b4b4b;
+  --ls-muted: #777777;
+  --ls-swan: #e5e5e5;
+  --ls-tile: #ffffff;
+  --ls-title: #ffb100;
+  --ls-fire: #ff9600;
+  --ls-fire-lip: #e08600;
+  --ls-green: #58cc02;
+  --ls-green-lip: #58a700;
+  --ls-focus: #1cb0f6;
+  box-sizing: border-box;
+  container-type: inline-size;
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: clamp(28px, 6cqi, 56px) 16px;
+  background: var(--ls-bg);
+  color: var(--ls-ink);
+  font-family: "Nunito", "Varela Round", ui-rounded, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.lsum--dark {
+  --ls-bg: #131f24;
+  --ls-ink: #dce6ec;
+  --ls-muted: #8ea3ad;
+  --ls-swan: #37464f;
+  --ls-tile: #131f24;
+  --ls-focus: #49c0f8;
+}
+.lsum *, .lsum *::before, .lsum *::after { box-sizing: border-box; }
+.lsum [data-tone="gold"] { --t: #ffc800; --t-ink: #e5a400; }
+.lsum [data-tone="green"] { --t: #58cc02; --t-ink: #58a700; }
+.lsum [data-tone="blue"] { --t: #1cb0f6; --t-ink: #1899d6; }
+.lsum--dark [data-tone] { --t-ink: var(--t); }
+
+.lsum__inner { width: min(100%, 34rem); text-align: center; }
+.lsum__title { margin: 0 0 28px; color: var(--ls-title); font-size: clamp(28px, 7cqi, 36px); font-weight: 900; line-height: 1.1; animation: lsum-pop 420ms cubic-bezier(.34,1.56,.64,1) both; }
+
+.lsum__tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.lsum__tile { overflow: hidden; border: 2px solid var(--t); border-radius: 16px; background: var(--t); animation: lsum-rise 420ms cubic-bezier(.2,.8,.2,1) both; animation-delay: var(--d); }
+.lsum__tile dt { padding: 6px 4px 5px; color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.lsum__tile dd {
+  display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0; padding: 14px 6px 16px;
+  border-radius: 14px; background: var(--ls-tile); color: var(--t-ink); font-size: clamp(20px, 5cqi, 24px); font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.lsum__tile svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.lsum__tile[data-tone="gold"] svg { fill: currentColor; stroke-width: 1.2; }
+
+.lsum__streak { margin: 30px auto 0; padding: 16px 18px 18px; border: 2px solid var(--ls-swan); border-radius: 16px; }
+.lsum__streak-label { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0 0 12px; color: var(--ls-fire); font-size: 17px; font-weight: 800; }
+.lsum__streak-label svg { width: 22px; height: 22px; fill: currentColor; }
+.lsum__week { list-style: none; display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin: 0; padding: 0; }
+.lsum__week li { display: grid; justify-items: center; gap: 6px; }
+.lsum__day { font-size: 13px; font-weight: 800; color: var(--ls-muted); }
+.lsum__week li[data-today] .lsum__day { color: var(--ls-fire); }
+.lsum__dot { position: relative; width: 28px; height: 28px; border-radius: 50%; background: var(--ls-swan); }
+.lsum__week li[data-met] .lsum__dot { background: var(--ls-fire); box-shadow: 0 3px 0 var(--ls-fire-lip); }
+.lsum__week li[data-met] .lsum__dot::after { content: ""; position: absolute; left: 9px; top: 7px; width: 9px; height: 5px; border: solid #fff; border-width: 0 0 2.5px 2.5px; transform: rotate(-45deg); }
+.lsum__week li[data-today][data-met] .lsum__dot { animation: lsum-today 520ms cubic-bezier(.34,1.56,.64,1) 900ms both; }
+
+.lsum__actions { display: flex; gap: 12px; margin-top: 30px; }
+.lsum__actions button {
+  flex: 1; min-height: 50px; padding: 0 20px; border-radius: 16px; cursor: pointer;
+  font: 800 15px/1 "Nunito", ui-rounded, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
+  transition: transform 80ms cubic-bezier(.2,.8,.2,1), box-shadow 80ms cubic-bezier(.2,.8,.2,1), filter 120ms linear;
+}
+.lsum__continue { border: 0; background: var(--ls-green); color: #fff; box-shadow: 0 4px 0 var(--ls-green-lip); }
+.lsum__review { border: 2px solid var(--ls-swan); background: transparent; color: var(--ls-muted); box-shadow: 0 4px 0 var(--ls-swan); }
+.lsum__actions button:hover { filter: brightness(1.05); }
+.lsum__actions button:active { transform: translateY(4px); box-shadow: 0 0 0 transparent; }
+.lsum button:focus-visible { outline: 3px solid var(--ls-focus); outline-offset: 3px; }
+.lsum__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@container (max-width: 26rem) {
+  .lsum__tiles { gap: 8px; }
+  .lsum__tile dt { font-size: 10px; letter-spacing: 0.04em; }
+  .lsum__tile svg { display: none; }
+  .lsum__actions { flex-direction: column-reverse; }
+}
+@keyframes lsum-pop { from { opacity: 0; transform: scale(0.8); } }
+@keyframes lsum-rise { from { opacity: 0; transform: translateY(12px); } }
+@keyframes lsum-today { 0% { transform: scale(0.4); opacity: 0; } }
+.lsum[data-motion="reduced"] :is(.lsum__title, .lsum__tile, .lsum__dot) { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .lsum__title, .lsum__tile, .lsum__dot { animation: none !important; }
+  .lsum__actions button { transition: none; }
+}
