@@ -17,8 +17,8 @@ export const meta: ComponentMeta = {
   a11y: "Phrases are role=button spans (Enter and Space work) with aria-expanded/aria-controls whose names include the question, so a screen reader hears 'per seat, monthly or yearly, note 4: What counts as a seat?'. Notes are labelled regions and inert while closed. The index is a nav of real links with hash deep links. Reduced motion opens notes instantly.",
   responsive: "Prose reflows like any paragraph; notes take the full measure. Works from 320px up.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --fn-body #3b3832; --fn-ink #1d1b17; --fn-line rgb(29 27 23 / 0.12); --fn-mark #2f5fd0; --fn-muted #77716a; --fn-note #f6f3ec; --fn-wash rgb(47 95 208 / 0.08). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --fn-body #cfc8bd; --fn-ink #efe8dc; --fn-line rgb(239 232 220 / 0.12); --fn-mark #b9cce4; --fn-muted #8f8994; --fn-note #17161b; --fn-wash rgb(185 204 228 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#fbfaf6", mode: "fill", height: 640 },
 };

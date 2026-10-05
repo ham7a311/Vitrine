@@ -23,8 +23,8 @@ Under the frame: a role=status line explaining the current step, optional demo b
   responsive: "The card is up to 24rem and the frame is a fixed 248px, which fits a 320px screen.",
   touchFallback: "The ticker keeps its normal speed; everything else is the same.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --qhs-accent #b9cce4; --qhs-band #1b191f; --qhs-bg #141217; --qhs-dot #141217; --qhs-focus #b9cce4; --qhs-ink #efe8dc; --qhs-muted #9c96a1; --qhs-ok #7fd1a8; --qhs-paper #fffaf1; --qhs-rim rgb(239 232 220 / 0.1); --qhs-tick rgb(239 232 220 / 0.62). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --qhs-accent #2f5fd0; --qhs-band #f3efe7; --qhs-bg #fffdf8; --qhs-dot #1b1a17; --qhs-focus #2f5fd0; --qhs-ink #1b1a17; --qhs-muted #6f6a62; --qhs-ok #1f7a4d; --qhs-paper #ffffff; --qhs-rim rgb(27 26 23 / 0.1); --qhs-tick rgb(27 26 23 / 0.6). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

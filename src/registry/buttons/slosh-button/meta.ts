@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Measured with a ResizeObserver, so the liquid fits any label.",
   touchFallback: "Tapping fills or empties it with a slosh.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --slb-edge rgb(239 232 220 / 0.22); --slb-glass rgb(255 255 255 / 0.05); --slb-ink #efe8dc; --slb-ink-on #0e1420; --slb-liquid #b9cce4; --slb-shine rgb(255 255 255 / 0.7). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --slb-edge rgb(27 26 23 / 0.16); --slb-glass rgb(255 255 255 / 0.6); --slb-ink #1b1a17; --slb-ink-on #f3efe4; --slb-liquid #1f6f6b; --slb-shine rgb(255 255 255 / 0.55). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

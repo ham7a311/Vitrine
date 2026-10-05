@@ -23,8 +23,8 @@ Right: the total in large tabular figures, easing to its new value over 420ms (e
   responsive: "Two columns from 720px; one column below, with the stack under the list.",
   touchFallback: "Whole rows are labels, so the switch can be toggled from anywhere on the row.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --stk-base #1b1a17; --stk-card #fffdf8; --stk-focus #2a78d6; --stk-ink #1b1a17; --stk-line rgb(27 26 23 / 0.1); --stk-muted #6f6a62; --stk-s0 #2a78d6; --stk-s1 #eb6834; --stk-s2 #1baf7a; --stk-s3 #eda100; --stk-s4 #e87ba4; --stk-tint 24%. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --stk-base #efe8dc; --stk-card #1a1a19; --stk-focus #8fb8ff; --stk-ink #ffffff; --stk-line rgb(255 255 255 / 0.1); --stk-muted #c3c2b7; --stk-s0 #3987e5; --stk-s1 #d95926; --stk-s2 #199e70; --stk-s3 #c98500; --stk-s4 #d55181; --stk-tint 30%. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ece8e0", mode: "fill" },
 };

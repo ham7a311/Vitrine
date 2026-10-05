@@ -21,8 +21,8 @@ Dragging left moves the hint with the finger; past 90px the gesture is 'armed': 
   responsive: "The capsule fills the available width up to 24rem.",
   touchFallback: "Designed for thumbs: pointer capture keeps tracking outside the button; long-press menus and text selection are suppressed.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --vc-accent #c4673f; --vc-faint #a39b8f; --vc-ink #1f1b16; --vc-line rgb(31 27 22 / 0.1); --vc-muted #6b645a; --vc-rose #c2413a; --vc-surface #fffdf8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --vc-accent #b9cce4; --vc-faint #6f6a74; --vc-ink #efe8dc; --vc-line rgb(239 232 220 / 0.1); --vc-muted #a7a1ab; --vc-rose #f0a2a2; --vc-surface #1b191e. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f5f1e8", mode: "fill" },
 };

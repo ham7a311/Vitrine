@@ -29,8 +29,8 @@ The demo has step buttons for each phase and a Play through button. Paper and Ni
   a11y: "A labelled section; the visual countdown is aria-hidden and a polite status region announces 'starts in 12 min' and 'is on now' at the right moments. Every phase has a real button with a text label. Reduced motion snaps between compositions.",
   responsive: "Fluid to 320px; the date block and countdown scale down under 380px.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --nu-accent #1b1a17; --nu-bg #ffffff; --nu-ink #1b1a17; --nu-line rgb(27 26 23 / 0.09); --nu-live #b3402f; --nu-muted #77736b; --nu-on #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --nu-accent #ececea; --nu-bg #16171a; --nu-ink #ececea; --nu-line rgb(255 255 255 / 0.08); --nu-live #f0766e; --nu-muted #8b8d93; --nu-on #16171a. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

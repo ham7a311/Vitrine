@@ -25,8 +25,8 @@ Header: an insight sentence ("Search is still the biggest source — but social 
   responsive: "Width follows the container; month ticks thin out under 560px.",
   touchFallback: "Drag along the chart for the crosshair; tap legend chips to filter.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --axis #c3c2b7; --grid #e1e0d9; --ink #0b0b0b; --ink-2 #52514e; --ring rgba(11, 11, 11, 0.1); --s1 #2a78d6; --s2 #eb6834; --s3 #1baf7a; --s4 #eda100; --s5 #e87ba4; --surface #fcfcfb. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --axis #383835; --grid #2c2c2a; --ink #ffffff; --ink-2 #c3c2b7; --ring rgba(255, 255, 255, 0.1); --s1 #3987e5; --s2 #d95926; --s3 #199e70; --s4 #c98500; --s5 #d55181; --surface #1a1a19. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f9f9f7", mode: "fill" },
 };

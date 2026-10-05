@@ -23,8 +23,8 @@ Production behaviour: role dialog (alertdialog for danger), aria-modal, labelled
   responsive: "Dialog width is min(100%, 28rem) with a 16px gutter; its body scrolls if content is tall. Actions stack below 22rem; the context card truncates.",
   touchFallback: "Tap the scrim to cancel; everything else is a button.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --dd-accent #1b1a17; --dd-chip #f4f2ec; --dd-danger #b42318; --dd-field #faf9f6; --dd-ink #1b1a17; --dd-line rgb(27 26 23 / 0.1); --dd-muted #6b6861; --dd-on-accent #ffffff; --dd-scrim rgb(24 20 14 / 0.2); --dd-shadow 0 30px 70px -28px rgb(30 24 12 / 0.45), 0 8px 18px -12px rgb(30 24 12 / 0.25); --dd-surface #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --dd-accent #ececea; --dd-chip #232428; --dd-danger #e5534b; --dd-field #141517; --dd-ink #ececea; --dd-line rgb(255 255 255 / 0.08); --dd-muted #8d8f95; --dd-on-accent #111214; --dd-scrim rgb(0 0 0 / 0.45); --dd-shadow 0 30px 80px -24px rgb(0 0 0 / 0.8), 0 0 0 1px rgb(255 255 255 / 0.06); --dd-surface #1a1b1e. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f6f5f1", mode: "fill" },
 };

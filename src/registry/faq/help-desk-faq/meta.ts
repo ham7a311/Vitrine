@@ -25,8 +25,8 @@ Responsive: between 769 and 1000px the topics collapse to an icon rail with hidd
   responsive: "Three panes on wide screens, an icon rail at tablet widths, and a one-pane drill-down on phones.",
   touchFallback: "The phone drill-down is designed for taps, with large rows and a Back button at each level.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --hdk-accent #1f4e8c; --hdk-card #fffdf8; --hdk-focus #1f4e8c; --hdk-ink #1b1a17; --hdk-line rgb(27 26 23 / 0.1); --hdk-muted #6f6a62; --hdk-sel rgb(31 78 140 / 0.1); --hdk-side #f6f2ea. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --hdk-accent #8fb8ff; --hdk-card #18191c; --hdk-focus #8fb8ff; --hdk-ink #efe8dc; --hdk-line rgb(239 232 220 / 0.1); --hdk-muted #9a98a0; --hdk-sel rgb(143 184 255 / 0.14); --hdk-side #1d1e22. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ece8e0", mode: "fill" },
 };

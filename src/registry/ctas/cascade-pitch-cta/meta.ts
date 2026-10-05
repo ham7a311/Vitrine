@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Fluid type with clamp(); words wrap only at spaces, so mid-word breaks can't happen during a roll.",
   touchFallback: "Tap a role; everything else is the same.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --cpc-accent #c8b9ea; --cpc-chip #1a181e; --cpc-ink #efe8dc; --cpc-line rgb(239 232 220 / 0.14); --cpc-muted #9c96a1; --cpc-on #efe8dc; --cpc-on-ink #141216; --cpc-page #0b0a0d. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --cpc-accent #7c5cc4; --cpc-chip #fffdf8; --cpc-ink #1b1a17; --cpc-line rgb(27 26 23 / 0.14); --cpc-muted #6f6a62; --cpc-on #1b1a17; --cpc-on-ink #fffdf8; --cpc-page #f3f1ec. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

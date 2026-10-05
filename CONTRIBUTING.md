@@ -42,7 +42,7 @@ Run `npm run release:check` before opening a pull request. This checks every com
 
 The code viewer resolves local imports automatically and presents a flat copyable folder. Keep external dependencies explicit in metadata. Verify the exported usage example with `npm run check:exports`.
 
-Declare all selectable appearances in `meta.variants`. Non-theme variants need a focused prompt for the selected option. Theme-only variants share the main brief, but the final copied prompt always states the selected theme and behavior requirements. Keep prompts synchronized with API and interaction changes. Test both rejection and retry for asynchronous callbacks; simulated services belong in `demo.tsx`.
+Declare all selectable appearances in `meta.variants`. Non-theme variants need a focused prompt for the selected option. Theme-only variants share the main brief, but the final copied prompt always states the selected theme and behavior requirements. When a theme is declared as custom-property overrides on `.root--<id>`, `python3 scripts/theme-prompts.py` writes its real palette into the variant description and `npm run check:themes` fails if the CSS and the prompt drift apart. Keep prompts synchronized with API and interaction changes. Test both rejection and retry for asynchronous callbacks; simulated services belong in `demo.tsx`.
 
 After starting the production build on port 3147, run `npm run test:routes` and `npm run test:browser`. The browser check needs `npx playwright install chromium`. CI runs these checks for pushes and pull requests.
 

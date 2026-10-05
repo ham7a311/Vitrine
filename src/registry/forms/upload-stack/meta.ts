@@ -27,8 +27,8 @@ The uploader is injected as (file, report, signal) => Promise, so it works with 
   responsive: "Rows compress under 420px (percentages hide); names truncate; the error reason wraps in full.",
   touchFallback: "Tap 'browse' to pick files.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --us-accent #1b1a17; --us-bg #ffffff; --us-edge rgb(27 26 23 / 0.14); --us-error #b42318; --us-field #faf9f6; --us-ink #1b1a17; --us-line rgb(27 26 23 / 0.09); --us-muted #77736b; --us-ok #15803d. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --us-accent #ececea; --us-bg #16171a; --us-edge rgb(255 255 255 / 0.13); --us-error #f0766e; --us-field #1c1d21; --us-ink #ececea; --us-line rgb(255 255 255 / 0.08); --us-muted #8b8d93; --us-ok #4ade80. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

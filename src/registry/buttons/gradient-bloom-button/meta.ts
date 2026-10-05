@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Intrinsic width from its label, 10rem minimum.",
   touchFallback: "Blooms from your finger on press, then drains.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --gbb-face #141217; --gbb-grad conic-gradient(from var(--gbb-a) at 50% 50%, #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4); --gbb-ink #efe8dc; --gbb-ink-on #141216. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --gbb-face #fffdf8; --gbb-grad conic-gradient(from var(--gbb-a) at 50% 50%, #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0); --gbb-ink #1b1a17; --gbb-ink-on #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

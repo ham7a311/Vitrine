@@ -23,8 +23,8 @@ You: press / while the pointer is over the board (or focus is inside it) to open
   responsive: "Targets are elements and fractions, re-measured on every move, so scripts keep working as the columns stack on phones.",
   touchFallback: "The collaborators keep moving; the Say something button opens cursor chat without a keyboard shortcut.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --presence-cursors-bg #f6f5f1; --presence-cursors-chip #ffffff; --presence-cursors-ink #1d1c19; --presence-cursors-line rgb(0 0 0 / 0.1); --presence-cursors-ring #f6f5f1. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --presence-cursors-bg #131416; --presence-cursors-chip #1d1e22; --presence-cursors-ink #eeece7; --presence-cursors-line rgb(255 255 255 / 0.1); --presence-cursors-ring #131416. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f6f5f1", mode: "fill" },
 };

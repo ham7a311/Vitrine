@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Cards sit in an auto-fit grid (min 17rem) and stack on phones; titles balance.",
   touchFallback: "The colour blooms from your finger when you press.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --epc-accent #a8432f; --epc-card #fffdf8; --epc-fill #3b2140; --epc-fill-accent #f3b58c; --epc-fill-ink #f6eee6; --epc-fill-line rgb(246 238 230 / 0.2); --epc-fill-muted rgb(246 238 230 / 0.72); --epc-focus #2f5fd0; --epc-ink #1b1a17; --epc-line rgb(27 26 23 / 0.12); --epc-muted #6f6a62. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --epc-accent #f0b37a; --epc-card #141217; --epc-fill #b9cce4; --epc-fill-accent #2f4f86; --epc-fill-ink #0e1420; --epc-fill-line rgb(14 20 32 / 0.16); --epc-fill-muted rgb(14 20 32 / 0.7); --epc-focus #b9cce4; --epc-ink #efe8dc; --epc-line rgb(239 232 220 / 0.12); --epc-muted #9c96a1. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

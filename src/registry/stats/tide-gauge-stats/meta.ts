@@ -23,8 +23,8 @@ An IntersectionObserver (35%) starts the fill once: --p transitions to value/max
   responsive: "Auto-fit columns; under 560px a 2×2 grid with shorter tubes.",
   touchFallback: "The swell stays at its resting height; everything else is the same.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --tgs-back #6fb3aa; --tgs-bg #fffdf8; --tgs-focus #2f5fd0; --tgs-glass rgb(27 26 23 / 0.035); --tgs-gloss rgb(255 255 255 / 0.7); --tgs-goal rgb(168 67 47 / 0.85); --tgs-ink #1b1a17; --tgs-muted #6f6a62; --tgs-rim rgb(27 26 23 / 0.14); --tgs-water #1f6f6b; --tgs-water-ink #f3efe4. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --tgs-back #4d6382; --tgs-bg #141217; --tgs-focus #b9cce4; --tgs-glass rgb(239 232 220 / 0.04); --tgs-gloss rgb(255 255 255 / 0.16); --tgs-goal rgb(240 179 122 / 0.9); --tgs-ink #efe8dc; --tgs-muted #9c96a1; --tgs-rim rgb(239 232 220 / 0.14); --tgs-water #b9cce4; --tgs-water-ink #0e1420. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

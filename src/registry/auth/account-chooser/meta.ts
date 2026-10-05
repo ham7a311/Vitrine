@@ -25,8 +25,8 @@ Remove: "Remove an account" (aria-pressed) turns the rows into remove actions ("
   responsive: "A single 25rem card, fluid on phones; long names and emails ellipsise.",
   touchFallback: "Identical on touch.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ac-accent #2a5bd7; --ac-av-l 52%; --ac-card #fffdf8; --ac-err #b4432f; --ac-hover rgb(27 26 23 / 0.04); --ac-ink #1b1a17; --ac-line rgb(27 26 23 / 0.1); --ac-muted #6f6a62. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ac-accent #8fb8ff; --ac-av-l 60%; --ac-card #1b1c1f; --ac-err #f08a74; --ac-hover rgb(239 232 220 / 0.05); --ac-ink #efe8dc; --ac-line rgb(239 232 220 / 0.11); --ac-muted #9a98a0. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#efebe3", mode: "fill" },
 };

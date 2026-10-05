@@ -19,8 +19,8 @@ The conversation state changes behaviour, not icons. A single level signal (0–
   responsive: "The sphere scales with the viewport; controls stay 52px.",
   touchFallback: "Designed for taps; nothing depends on hover.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --vo-a #7fb2ff; --vo-b #d9ecff; --vo-bg #ffffff; --vo-c #3b6cff; --vo-ink #0d0d0d; --vo-muted #8f8f8f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --vo-a #6f8dff; --vo-b #bfe3ff; --vo-bg #0d0d0d; --vo-c #3050ff; --vo-ink #ececec; --vo-muted #7a7a7a. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ffffff", mode: "fill" },
 };

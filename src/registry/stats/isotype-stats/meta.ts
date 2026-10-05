@@ -25,8 +25,8 @@ Motion: when 30% of the panel is in view (IntersectionObserver, once), figures s
   responsive: "Figures share the row's width, so a figure is always one unit; under 560px the figures move to their own line.",
   touchFallback: "Rows highlight on tap focus; everything else works the same.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --iso-bg #fbf8f1; --iso-down #b4432f; --iso-fig #1f4e8c; --iso-fig-hot #163a6b; --iso-focus #1f4e8c; --iso-ink #1b1a17; --iso-muted #6f6a62; --iso-rim rgb(27 26 23 / 0.1); --iso-up #1d7a4f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --iso-bg #121417; --iso-down #f08a74; --iso-fig #7fa9ec; --iso-fig-hot #b3cdf6; --iso-focus #b3cdf6; --iso-ink #efe8dc; --iso-muted #9a98a0; --iso-rim rgb(239 232 220 / 0.1); --iso-up #5fc996. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f1eee6", mode: "fill" },
 };

@@ -25,8 +25,8 @@ Outcomes: the correct number → the notification gives way to a green Approved 
   responsive: "Side by side from 760px; stacked below, with the wire turning vertical.",
   touchFallback: "Identical on touch; the phone buttons are 48px tall.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --nm-accent #2a5bd7; --nm-card #fffdf8; --nm-err #c2402b; --nm-ink #1b1a17; --nm-line rgb(27 26 23 / 0.1); --nm-muted #6f6a62; --nm-note rgb(250 249 246 / 0.88); --nm-note-ink #15161a; --nm-ok #1d7a4f; --nm-phone #121316. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --nm-accent #8fb8ff; --nm-card #1b1c1f; --nm-err #f08a74; --nm-ink #efe8dc; --nm-line rgb(239 232 220 / 0.11); --nm-muted #9a98a0; --nm-note rgb(44 45 50 / 0.9); --nm-note-ink #f3f1ec; --nm-ok #5fc996; --nm-phone #050506. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ece8e0", mode: "fill" },
 };

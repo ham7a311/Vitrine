@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Wraps onto a second row on very narrow screens; offsets are re-measured on resize.",
   touchFallback: "Without hover the edges rest at their faint rim; pressed toggles still show their fill.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --spg-bg #121015; --spg-btn #19171d; --spg-ink #c9c2b6; --spg-ink-hot #ffffff; --spg-light #c8b9ea; --spg-light-2 #b9cce4; --spg-rim rgb(239 232 220 / 0.08); --spg-wash rgb(200 185 234 / 0.16). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --spg-bg #fffdf8; --spg-btn #f6f3ec; --spg-ink #4a463f; --spg-ink-hot #1b1a17; --spg-light #7c5cc4; --spg-light-2 #2f5fd0; --spg-rim rgb(27 26 23 / 0.08); --spg-wash rgb(124 92 196 / 0.12). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

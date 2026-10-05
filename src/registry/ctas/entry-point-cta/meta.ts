@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Type and padding scale with clamp(); details wrap onto separate lines on phones.",
   touchFallback: "Colour blooms from your finger on press.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ep-card #141217; --ep-fill #c8b9ea; --ep-fill-ink #150f1d; --ep-fill-line rgb(21 15 29 / 0.2); --ep-fill-muted rgb(21 15 29 / 0.7); --ep-focus #c8b9ea; --ep-ink #efe8dc; --ep-line rgb(239 232 220 / 0.14); --ep-muted #9c96a1; --ep-page #0b0a0d. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ep-card #fffdf8; --ep-fill #a8432f; --ep-fill-ink #fdf3ea; --ep-fill-line rgb(253 243 234 / 0.28); --ep-fill-muted rgb(253 243 234 / 0.78); --ep-focus #2f5fd0; --ep-ink #1b1a17; --ep-line rgb(27 26 23 / 0.12); --ep-muted #6f6a62; --ep-page #f3f1ec. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

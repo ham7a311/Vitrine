@@ -23,8 +23,8 @@ Drawing: the cord is an SVG path through the points with quadratic curves via th
   responsive: "The nail is placed by fractions of the host and re-placed on resize; the tag is clamped inside the host.",
   touchFallback: "On touch the tag hangs from its nail and swings when the nail is tapped; it stays a normal link.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --tt-card #fffdf8; --tt-ink #1c1b17; --tt-line rgb(0 0 0 / 0.1); --tt-nail radial-gradient(circle at 35% 30%, #fff6d8, #c9a25a 45%, #7d5f2a 100%). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --tt-card #1d1c1a; --tt-ink #f1ece2; --tt-line rgb(255 255 255 / 0.09); --tt-nail radial-gradient(circle at 35% 30%, #f6f1e6, #a59a86 45%, #4c463b 100%). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#efebe2", mode: "fill" },
 };

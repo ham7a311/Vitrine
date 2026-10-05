@@ -25,8 +25,8 @@ Flow: validate (email shape; 8+ characters). On failure, or when onSignIn reject
   responsive: "Two columns from 640px; below that the stub sits under the pass with a horizontal perforation.",
   touchFallback: "Identical on touch.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --boarding-pass-accent #e0603a; --boarding-pass-band #123b5e; --boarding-pass-band-ink #f4efe4; --boarding-pass-card #fffdf8; --boarding-pass-err #b4432f; --boarding-pass-focus #123b5e; --boarding-pass-ink #1b1a17; --boarding-pass-line rgb(27 26 23 / 0.12); --boarding-pass-muted #6f6a62; --boarding-pass-stamp #c2402b. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --boarding-pass-accent #f08a5d; --boarding-pass-band #0f2c47; --boarding-pass-band-ink #e8eef6; --boarding-pass-card #1b1c1f; --boarding-pass-err #f08a74; --boarding-pass-focus #8fb8ff; --boarding-pass-ink #efe8dc; --boarding-pass-line rgb(239 232 220 / 0.12); --boarding-pass-muted #9a98a0; --boarding-pass-stamp #ef6a52. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ece7dd", mode: "fill" },
 };

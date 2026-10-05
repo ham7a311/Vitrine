@@ -25,8 +25,8 @@ Hover floods the centre: a second copy of the centre with an inverted ink colour
   responsive: "Auto-fit columns; under 560px a 2×2 grid of 10.25rem dials, and one column under 360px.",
   touchFallback: "No flood or slow-down on touch; the arcs, numbers and orbit still play.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ors-bead #fffaf1; --ors-face #141217; --ors-ink #efe8dc; --ors-muted #9c96a1; --ors-on-ink #141216; --ors-orbit rgb(239 232 220 / 0.5); --ors-ring conic-gradient(from var(--ors-a), #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4); --ors-tone rgb(20 18 23 / 0.08); --ors-track rgb(239 232 220 / 0.08). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ors-bead #fffdf8; --ors-face #fffdf8; --ors-ink #1b1a17; --ors-muted #6f6a62; --ors-on-ink #1b1a17; --ors-orbit rgb(27 26 23 / 0.5); --ors-ring conic-gradient(from var(--ors-a), #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0); --ors-tone rgb(255 253 248 / 0.6); --ors-track rgb(27 26 23 / 0.07). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

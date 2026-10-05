@@ -17,8 +17,8 @@ export const meta: ComponentMeta = {
   a11y: "A real button whose label is its text; the label colour changes with the fill so contrast holds in both states. Focus does exactly what hover does and adds an outline. Reduced motion stops the loop.",
   responsive: "Intrinsic width from its label.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --rfb-face #121015; --rfb-ink #efe8dc; --rfb-ink-on #141216; --rfb-ring conic-gradient(from var(--rfb-a), #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --rfb-face #fbfaf6; --rfb-ink #1b1a17; --rfb-ink-on #ffffff; --rfb-ring conic-gradient(from var(--rfb-a), #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

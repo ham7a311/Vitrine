@@ -19,8 +19,8 @@ Running a tool turns the edge into light: the frame is a 1.5px padded wrapper wh
   responsive: "Fluid up to 34rem; tool chips wrap.",
   touchFallback: "Nothing depends on hover.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --af-bg #ffffff; --af-chip rgb(0 0 0 / 0.05); --af-ink #1c1c1e; --af-line rgb(0 0 0 / 0.1); --af-muted #6e6e73. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --af-bg #1c1c1e; --af-chip rgb(255 255 255 / 0.08); --af-ink #f5f5f7; --af-line rgb(255 255 255 / 0.12); --af-muted #98989d. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f2f2f7", mode: "fill" },
   featured: true,

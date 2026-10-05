@@ -25,8 +25,8 @@ Hand: a line from the hub to the rim with a knob, rotated on a spring (k 240, ζ
   responsive: "The dial scales to its column (max 25rem); the copy stacks above it on narrow screens.",
   touchFallback: "Drag the hand with a finger — touch-action is off on the dial so it doesn't scroll.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --hd-accent #b5541f; --hd-bar #dcc9b2; --hd-bg #fbf7f0; --hd-face-1 #fffdf8; --hd-face-2 #f3ece0; --hd-focus #b5541f; --hd-ink #1b1a17; --hd-muted #706a60; --hd-night rgb(27 26 23 / 0.06); --hd-rim rgb(27 26 23 / 0.1); --hd-rise #e09a2c; --hd-set #8a5a9c; --hd-tick rgb(27 26 23 / 0.22); --hd-wash rgb(181 84 31 / 0.08). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --hd-accent #f0a36a; --hd-bar #4a4038; --hd-bg #141312; --hd-face-1 #1e1c1a; --hd-face-2 #171614; --hd-focus #f0a36a; --hd-ink #efe8dc; --hd-muted #9c968c; --hd-night rgb(0 0 0 / 0.28); --hd-rim rgb(239 232 220 / 0.1); --hd-rise #f2c14e; --hd-set #b99ad0; --hd-tick rgb(239 232 220 / 0.25); --hd-wash rgb(240 163 106 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f2ede4", mode: "fill" },
 };

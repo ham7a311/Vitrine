@@ -24,7 +24,7 @@ export const isThemeOnly = (variants?: Variant[]) => !variants || variants.every
 export function composePrompt(prompt: string, variants: Variant[] | undefined, id: string | undefined) {
   const v = variants?.find((x) => x.id === id) ?? variants?.[0];
   if (!v) return prompt;
-  const direction = v.prompt?.trim() || `Use the ${v.label.toLowerCase()} theme shown in the preview. Keep the geometry and interactions described above.`;
+  const direction = v.prompt?.trim() || `Apply the ${v.label.toLowerCase()} theme. Where the brief above gives no colour values for it, choose a restrained ${v.label.toLowerCase()} palette with text at 4.5:1 contrast or better. Keep the geometry, states and motion described above unchanged.`;
   return `${prompt}\n\nSelected variant — ${v.label} (${v.id}):\n${direction}\nThis selection takes precedence over references to other themes or options in the general brief. Implement this selected appearance; do not add a variant picker or alternative appearances unless requested.`;
 }
 

@@ -24,8 +24,8 @@ Everything is announced through a polite live region. Paper and night themes, ne
   responsive: "Fluid up to 38rem; reason pills wrap.",
   touchFallback: "On touch the row is always at full opacity; tooltips appear only as confirmations.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ma-accent #c4673f; --ma-faint #a39b8f; --ma-ink #1f1b16; --ma-line rgb(31 27 22 / 0.1); --ma-muted #6b645a; --ma-surface #fffdf8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ma-accent #b9cce4; --ma-faint #6f6a74; --ma-ink #efe8dc; --ma-line rgb(239 232 220 / 0.1); --ma-muted #a7a1ab; --ma-surface #1b191e. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f5f1e8", mode: "fill" },
 };

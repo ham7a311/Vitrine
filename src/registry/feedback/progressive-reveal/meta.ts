@@ -30,8 +30,8 @@ The demo has Cards (project cards: name and count, then label and description, t
   a11y: "The container is aria-busy until complete, with a status message when done. Placeholders are aria-hidden, and failed tiers expose a real Retry button. Reduced motion removes the breathing and the fade; tiers simply appear.",
   responsive: "Placeholders are measured in ch and em, so they scale with the type. Cards stack to one column on small screens.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --pr-accent #b4532a; --pr-muted #77736b; --pr-ph rgb(27 26 23 / 0.075); --pr-ph-strong rgb(27 26 23 / 0.11). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --pr-accent #e8956b; --pr-muted #8b8d93; --pr-ph rgb(255 255 255 / 0.07); --pr-ph-strong rgb(255 255 255 / 0.11). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

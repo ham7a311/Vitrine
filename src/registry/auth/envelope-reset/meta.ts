@@ -23,8 +23,8 @@ Folding (2.15s, keyframes on every part): the card disappears at once and the le
   responsive: "The card is 25rem at most and fluid below; the envelope is sized to sit inside it on phones.",
   touchFallback: "Identical on touch.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --er-accent #1f4e8c; --er-card #fffdf8; --er-env #e9dcc4; --er-env-flap #e2d2b5; --er-env-front #f1e6d1; --er-err #b4432f; --er-ink #1b1a17; --er-line rgb(27 26 23 / 0.12); --er-muted #6f6a62; --er-ok #1d7a4f; --er-wax #b3362a. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --er-accent #8fb8ff; --er-card #1b1c1f; --er-env #3a342b; --er-env-flap #514839; --er-env-front #463f34; --er-err #f08a74; --er-ink #efe8dc; --er-line rgb(239 232 220 / 0.14); --er-muted #9a98a0; --er-ok #5fc996; --er-wax #d0503f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#efe9df", mode: "fill" },
 };

@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Intrinsic width; re-measured on resize so the lens always sits on its option.",
   touchFallback: "Tap an option, or drag the lens with a finger; vertical scrolling still works.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --gls-edge rgb(255 255 255 / 0.18); --gls-focus rgb(255 255 255 / 0.9); --gls-ink rgb(255 255 255 / 0.72); --gls-ink-on #ffffff; --gls-lens rgb(255 255 255 / 0.2); --gls-track rgb(255 255 255 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --gls-edge rgb(27 26 23 / 0.1); --gls-focus #2f5fd0; --gls-ink rgb(27 26 23 / 0.62); --gls-ink-on #1b1a17; --gls-lens rgb(255 255 255 / 0.55); --gls-track rgb(255 255 255 / 0.45). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b1220", mode: "fill" },
 };

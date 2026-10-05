@@ -21,8 +21,8 @@ Caret: a thin bar after the last character that is solid while typing and blinks
   responsive: "The line wraps normally, so typing only ever pushes words forward, and it reserves its height, so revisions never shift the layout below.",
   touchFallback: "Not pointer-driven; identical on touch.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --accent #c2361b; --caret #1d1a16; --ink #1d1a16; --muted rgb(29 26 22 / 0.5); --pen #c2361b; --sel #b9d4fb. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --accent #ffb86b; --caret #f1ece2; --ink #f1ece2; --muted rgb(241 236 226 / 0.5); --pen #ff7a59; --sel #2c4a7a. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f5f0e7", mode: "fill" },
 };

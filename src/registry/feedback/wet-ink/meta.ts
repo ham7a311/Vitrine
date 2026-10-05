@@ -26,8 +26,8 @@ Wet is the ink colour shifted to a blue (#1f3f95) with text-shadow: 0 1px 0 rgb(
   a11y: "A real labelled textarea sits above a decorative mirror. The status line is a polite live region that always states the save state in words, including how many edits are unsaved; colour and gloss are additive. Retry is a button and returns focus to the field. Reduced motion removes the drying transition.",
   responsive: "Fluid width; type and padding step down under 480px.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --wi-bg #fffefb; --wi-dry #2a2823; --wi-fail #b42318; --wi-gloss rgb(255 255 255 / 0.9); --wi-line rgb(27 26 23 / 0.1); --wi-muted #77736b; --wi-ok #15803d; --wi-wet #1f3f95. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --wi-bg #16171a; --wi-dry #d9d9d4; --wi-fail #f0766e; --wi-gloss rgb(255 255 255 / 0.22); --wi-line rgb(255 255 255 / 0.08); --wi-muted #8b8d93; --wi-ok #4ade80; --wi-wet #a9c4ff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

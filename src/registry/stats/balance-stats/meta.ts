@@ -29,8 +29,8 @@ Header: the difference in large tabular figures, green with + for a surplus and 
   responsive: "The SVG scales to its column; the legend reflows into two columns on phones.",
   touchFallback: "Identical on touch — the month switch is the only control.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --bal-bg #fbf8f2; --bal-coin #d9a63e; --bal-coin-edge #a87a1f; --bal-dish #e9e1d3; --bal-focus #1f4e8c; --bal-ink #1b1a17; --bal-l #1baf7a; --bal-metal #9b8e7b; --bal-metal-hi #c9bda8; --bal-muted #6f6a62; --bal-neg #b4432f; --bal-pos #137a52; --bal-r #eb6834; --bal-rim rgb(27 26 23 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --bal-bg #131312; --bal-coin #e2b04a; --bal-coin-edge #9a6e1a; --bal-dish #2a2723; --bal-focus #b3cdf6; --bal-ink #efe8dc; --bal-l #199e70; --bal-metal #6d665b; --bal-metal-hi #9b927f; --bal-muted #9c968c; --bal-neg #f08a74; --bal-pos #5fc996; --bal-r #d95926; --bal-rim rgb(239 232 220 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f0ece4", mode: "fill" },
 };

@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "The outline is rebuilt from the measured size, so it fits any label.",
   touchFallback: "No ring on touch; pressing floods the face as feedback.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --erb-a #b9cce4; --erb-b #c8b9ea; --erb-c #f0b37a; --erb-edge rgb(239 232 220 / 0.14); --erb-face #141217; --erb-glow rgb(200 185 234 / 0.55); --erb-ink #efe8dc; --erb-ink-on #141216. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --erb-a #2f5fd0; --erb-b #7c5cc4; --erb-c #d9733a; --erb-edge rgb(27 26 23 / 0.16); --erb-face #fffdf8; --erb-glow rgb(124 92 196 / 0.35); --erb-ink #1b1a17; --erb-ink-on #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

@@ -26,8 +26,8 @@ Focus moves to the page title on open and back to the note's card on close. Esca
   a11y: "Notes are a list of buttons; opening moves focus to the note's heading and closing returns it to the card. A status region announces what is open and that the rest are in the margin. Arrow keys roam the list and Escape goes back. Reduced motion recomposes instantly.",
   responsive: "Columns follow the component's own width (three, two, or a compact list). In page mode the margin sits left, or becomes a scrolling strip above the note when narrow; opening a note brings it into view.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ma-accent #7a3b22; --ma-card #ffffff; --ma-hover rgb(27 26 23 / 0.03); --ma-ink #1b1a17; --ma-line rgb(27 26 23 / 0.1); --ma-muted #77736b. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ma-accent #e8b48f; --ma-card #16171a; --ma-hover rgb(255 255 255 / 0.04); --ma-ink #ececea; --ma-line rgb(255 255 255 / 0.09); --ma-muted #8b8d93. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "scroll" },
 };

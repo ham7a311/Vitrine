@@ -27,8 +27,8 @@ UndoInsert is the same ribbon unrolling under the control that caused a bulk act
   responsive: "The ribbon truncates its message. The ⌘Z hint is hidden on touch and narrow screens, and row actions stay visible on touch.",
   touchFallback: "Row actions are always visible below the sm breakpoint; tap Undo.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ur-accent #ffd27a; --ur-bg #1d1c19; --ur-ink #f5f3ee; --ur-line #f5f3ee; --ur-muted rgb(245 243 238 / 0.58). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ur-accent #8a4b00; --ur-bg #ecebe7; --ur-ink #161618; --ur-line #161618; --ur-muted rgb(22 22 24 / 0.55). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f4f2ed", mode: "fill" },
 };

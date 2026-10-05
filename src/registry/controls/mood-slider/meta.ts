@@ -21,8 +21,8 @@ Motion: the face leans into the drag — slider velocity kicks a damped rotation
   responsive: "The card is at most 420px wide and fills narrower screens.",
   touchFallback: "Native range drag on touch.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --card-edge rgb(0 0 0 / 0.06); --ink #2a2117; --muted rgb(42 33 23 / 0.55). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --card-edge rgb(255 255 255 / 0.07); --ink #f2ece2; --muted rgb(242 236 226 / 0.55). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ece7dc", mode: "fill" },
 };

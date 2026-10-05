@@ -23,8 +23,8 @@ The total, percentages and legend amounts are digit reels keyed from the right; 
   responsive: "Fills its container; the legend auto-fits and becomes two columns under 560px.",
   touchFallback: "Tap a legend entry to open its segment.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --sbs-bg #fffdf8; --sbs-focus #2f5fd0; --sbs-ink #1b1a17; --sbs-muted #6f6a62; --sbs-on #fffdf8; --sbs-rim rgb(27 26 23 / 0.1); --sbs-tint 20%. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --sbs-bg #141217; --sbs-focus #b9cce4; --sbs-ink #efe8dc; --sbs-muted #9c96a1; --sbs-on #141217; --sbs-rim rgb(239 232 220 / 0.1); --sbs-tint 24%. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

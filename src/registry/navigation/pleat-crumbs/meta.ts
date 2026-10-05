@@ -26,8 +26,8 @@ Under 521px, when the path is longer than three levels only the last two show, p
   a11y: "A nav landmark with an ordered list; the last crumb has aria-current=page. Each chevron is a button with aria-expanded, aria-controls and a label naming its level. Focus moves to the current sibling on open and back to the chevron on Escape or choice; arrow keys roam siblings. Folded crumbs keep their full names as accessible labels. Reduced motion removes the folds.",
   responsive: "Never wraps. Under 521px only the last two levels show behind an ellipsis button.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --pc-chip rgb(27 26 23 / 0.06); --pc-ink #1b1a17; --pc-line rgb(27 26 23 / 0.12); --pc-muted #77736b. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --pc-chip rgb(255 255 255 / 0.08); --pc-ink #ececea; --pc-line rgb(255 255 255 / 0.14); --pc-muted #8b8d93. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

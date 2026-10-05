@@ -18,6 +18,8 @@ type Props = {
   /** Resolve true when the code is right. */
   verify: (code: string) => Promise<boolean>;
   onResend?: () => Promise<void>;
+  /** Called once, after `verify` resolves true. */
+  onVerified?: (code: string) => void;
   changeEmailHref?: string;
   /** Seconds before another code can be sent. */
   cooldown?: number;
@@ -28,7 +30,7 @@ type Props = {
 
 type Phase = "typing" | "checking" | "wrong" | "ok";
 
-export function CodeCascadeVerify({ sentTo, length = 6, verify, onResend, changeEmailHref, cooldown = 30, theme = "night", motion = "full", className = "" }: Props) {
+export function CodeCascadeVerify({ sentTo, length = 6, verify, onResend, onVerified, changeEmailHref, cooldown = 30, theme = "night", motion = "full", className = "" }: Props) {
   const uid = useId().replace(/:/g, "");
   const input = useRef<HTMLInputElement>(null);
   const [code, setCode] = useState("");
@@ -82,6 +84,7 @@ export function CodeCascadeVerify({ sentTo, length = 6, verify, onResend, change
     if (ok) {
       setPhase("ok");
       setNote("Verified. Signing you in.");
+      onVerified?.(value);
       return;
     }
     setOrigin(from);

@@ -25,8 +25,8 @@ What-if: the SVG is role=slider (min, max, now, valuetext "21 min, faster than 7
   responsive: "The SVG scales to its column; the headline wraps on narrow screens.",
   touchFallback: "Drag horizontally on the curve; vertical swipes still scroll the page (touch-action: pan-y).",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --pcs-accent #2a78d6; --pcs-area rgb(27 26 23 / 0.05); --pcs-beat rgb(42 120 214 / 0.26); --pcs-bg #fbf9f4; --pcs-curve #1b1a17; --pcs-focus #2a78d6; --pcs-ink #1b1a17; --pcs-muted #6f6a62; --pcs-rim rgb(27 26 23 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --pcs-accent #3987e5; --pcs-area rgb(239 232 220 / 0.05); --pcs-beat rgb(57 135 229 / 0.32); --pcs-bg #121316; --pcs-curve #e6e1d8; --pcs-focus #8fb8ff; --pcs-ink #efe8dc; --pcs-muted #9a98a0; --pcs-rim rgb(239 232 220 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f1eee7", mode: "fill" },
 };

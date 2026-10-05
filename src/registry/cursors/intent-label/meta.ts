@@ -25,8 +25,8 @@ States: pressing a data-intent-drag element spreads the drag arrows (scaleX 1.22
   responsive: "The grid stacks under 640px; the pill is host-scoped and works in scaled previews.",
   touchFallback: "Touch shows no pill and keeps native behaviour: the strip scrolls natively and every target is a normal tap.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --il-bar #e0603a; --il-bg #f4efe6; --il-fg #15140f; --il-ring rgb(0 0 0 / 0.35). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --il-bar #f0a36a; --il-bg #17160f; --il-fg #f7f3ea; --il-ring rgb(255 255 255 / 0.9). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0e0e0c", mode: "fill" },
 };

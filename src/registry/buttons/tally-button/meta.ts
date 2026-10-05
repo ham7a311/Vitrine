@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Intrinsic width; tabular numerals keep the count from jittering.",
   touchFallback: "Same on touch.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --tlb-edge rgb(239 232 220 / 0.14); --tlb-face #141217; --tlb-ink #efe8dc; --tlb-muted #9c96a1; --tlb-on #f0b37a; --tlb-on-face #1d1712. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --tlb-edge rgb(27 26 23 / 0.14); --tlb-face #fffdf8; --tlb-ink #1b1a17; --tlb-muted #6f6a62; --tlb-on #c2410c; --tlb-on-face #fff4ec. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

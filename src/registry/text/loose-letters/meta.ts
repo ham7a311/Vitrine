@@ -21,8 +21,8 @@ Click (or the Drop button): every tile leaves its hook with its current swing tu
   responsive: "Words wrap onto separate rows on narrow screens; pins are re-measured on resize.",
   touchFallback: "Dragging a finger across the letters swings them; tap drops them.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --accent #c2361b; --ink #1f1b16; --muted rgb(31 27 22 / 0.55); --rail #3a3128; --shadow rgb(60 40 20 / 0.22); --string #6b5a44; --tile #fbf6ea; --tile-edge #e3d8c2. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --accent #ffc76b; --ink #ffc76b; --muted rgb(255 240 220 / 0.5); --rail #6a5f52; --shadow rgb(0 0 0 / 0.55); --string #8a7b66; --tile #1a1917; --tile-edge #2b2926. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3ead8", mode: "fill" },
 };

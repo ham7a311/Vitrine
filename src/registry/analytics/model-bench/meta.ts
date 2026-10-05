@@ -21,8 +21,8 @@ Right: the same models ranked by score as compact bars with their interval as a 
   responsive: "The scatter and ranking sit side by side and stack under 760px; the SVG scales with its width.",
   touchFallback: "Tap rows or dots to highlight; the table view covers precise reading.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --grid #e9e8e2; --ink #0b0b0b; --ink-2 #52514e; --muted #898781; --ring rgba(11, 11, 11, 0.1); --surface #fcfcfb. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --grid #2c2c2a; --ink #ffffff; --ink-2 #c3c2b7; --muted #8f8d85; --ring rgba(255, 255, 255, 0.1); --surface #1a1a19. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f2f1ed", mode: "fill", height: 640 },
 };

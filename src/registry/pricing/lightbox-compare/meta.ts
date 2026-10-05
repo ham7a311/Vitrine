@@ -17,8 +17,8 @@ export const meta: ComponentMeta = {
   a11y: "A semantic table with caption, scope and grouped rows; ticks and dashes have text alternatives. Focusing a plan's button lights it exactly as hovering does. The narrow layout replaces the table instead of duplicating it for assistive tech. Reduced motion moves the lamp instantly.",
   responsive: "Fixed table layout down to 680px of container width, then one plan at a time.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --lb-accent #b4541f; --lb-dim rgb(27 26 23 / 0.38); --lb-film rgb(255 255 255 / 0.35); --lb-focus #2f5fd0; --lb-glow rgb(255 236 190 / 0.9); --lb-ink #1b1a17; --lb-light #fffdf6; --lb-line rgb(27 26 23 / 0.08); --lb-muted #6f6a62; --lb-panel #e9e6df. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --lb-accent #f0b37a; --lb-dim rgb(239 232 220 / 0.32); --lb-film rgb(255 255 255 / 0.02); --lb-focus #b9cce4; --lb-glow rgb(185 204 228 / 0.22); --lb-ink #efe8dc; --lb-light #24222a; --lb-line rgb(239 232 220 / 0.07); --lb-muted #9c96a1; --lb-panel #141318. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f4f2ed", mode: "fill", height: 640 },
 };

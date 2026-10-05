@@ -29,8 +29,8 @@ Each band is a real button in an ol inside a nav. ↑/↓ (←/→ when horizont
   responsive: "In a narrow container the edge becomes a horizontal strip across the top of the document, with the ribbon hanging into the text.",
   touchFallback: "Tap a band to jump; the tab label appears on focus.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --te-here #1b1a17; --te-ink #1b1a17; --te-line rgb(27 26 23 / 0.16); --te-muted #77736b; --te-paper #f1ece2; --te-ribbon #b3402f; --te-wear 92 74 48. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --te-here #ececea; --te-ink #ececea; --te-line rgb(255 255 255 / 0.12); --te-muted #8b8d93; --te-paper #26241f; --te-ribbon #e2604e; --te-wear 0 0 0. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

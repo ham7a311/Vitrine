@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { componentFonts } from "@/lib/component-fonts";
+import { componentFonts, exampleUsesTailwind } from "@/lib/component-fonts";
 import { loadSource } from "@/lib/source";
 import { getComponent, registry } from "@/registry";
 import { CATEGORIES, TRAIT_LABEL } from "@/registry/types";
@@ -28,6 +28,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
   const files = await loadSource(meta);
   const fonts = componentFonts(files);
+  const tailwindExample = exampleUsesTailwind(files);
   const category = CATEGORIES.find((c) => c.id === meta.category)!;
   const index = registry.indexOf(meta) + 1;
   const siblings = registry.filter((c) => c.category === meta.category);
@@ -162,6 +163,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
               </div>
             )}
             {fonts.length > 0 && <div><dt className="eyebrow">Fonts</dt><dd className="mt-2 text-[0.8125rem] text-ink-2">{fonts.join(", ")}. Load these font families in your project to match the preview; the copied styles include fallback fonts.</dd></div>}
+            {tailwindExample && <div><dt className="eyebrow">Example styling</dt><dd className="mt-2 text-[0.8125rem] text-ink-2">The component needs only its own stylesheet. example.tsx and usage.tsx stage it with Tailwind utility classes, so run them in a Tailwind project or restyle the wrapper.</dd></div>}
             <div>
               <dt className="eyebrow">Files</dt>
               <dd className="mt-2">

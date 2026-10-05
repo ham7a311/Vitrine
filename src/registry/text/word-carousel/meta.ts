@@ -25,8 +25,8 @@ Accessibility: the animated text is aria-hidden; a visually hidden sentence list
   responsive: "Type is fluid (clamp(2.3rem, 7.4vw, 5.6rem)); the slot is inline, so on narrow screens it wraps under the prefix.",
   touchFallback: "Tap Pause to hold a word.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --glow-k 34%; --ink #f4f1ea; --muted rgb(244 241 234 / 0.5). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --glow-k 22%; --ink #18171a; --muted rgb(24 23 26 / 0.5). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#08080a", mode: "fill" },
 };

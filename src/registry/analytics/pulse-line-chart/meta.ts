@@ -23,8 +23,8 @@ Hover: pointer x snaps to the nearest real point (magnetic): a vertical hairline
   responsive: "Width follows the container (ResizeObserver); x ticks thin out under 520px; the header wraps.",
   touchFallback: "Drag along the chart to move the crosshair; the page still scrolls vertically.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --axis #c3c2b7; --down #d03b3b; --grid #e1e0d9; --ink #0b0b0b; --ink-2 #52514e; --muted #898781; --ring rgba(11, 11, 11, 0.1); --s1 #2a78d6; --surface #fcfcfb; --up #006300. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --axis #383835; --down #e66767; --grid #2c2c2a; --ink #ffffff; --ink-2 #c3c2b7; --muted #898781; --ring rgba(255, 255, 255, 0.1); --s1 #3987e5; --surface #1a1a19; --up #0ca30c. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f9f9f7", mode: "fill" },
 };

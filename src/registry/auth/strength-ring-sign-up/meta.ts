@@ -23,8 +23,8 @@ Below, the rules are a two-column list; each has a circle that fills green as a 
   responsive: "Up to 25rem; rules fall to one column under 420px. The ring is remeasured on resize.",
   touchFallback: "Identical on touch.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --srs-bg #fffdf8; --srs-btn #1b1a17; --srs-btn-ink #fffdf8; --srs-err #b4372a; --srs-field #f7f4ee; --srs-focus #2f5fd0; --srs-g1 #2f5fd0; --srs-g2 #7c5cc4; --srs-g3 #d9733a; --srs-ink #1b1a17; --srs-muted #6f6a62; --srs-ok #1f7a4d; --srs-rim rgb(27 26 23 / 0.1); --srs-track rgb(27 26 23 / 0.14). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --srs-bg #141217; --srs-btn #efe8dc; --srs-btn-ink #141217; --srs-err #f08a7a; --srs-field #1b191f; --srs-focus #b9cce4; --srs-g1 #b9cce4; --srs-g2 #c8b9ea; --srs-g3 #f0b37a; --srs-ink #efe8dc; --srs-muted #9c96a1; --srs-ok #7fd1a8; --srs-rim rgb(239 232 220 / 0.1); --srs-track rgb(239 232 220 / 0.14). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

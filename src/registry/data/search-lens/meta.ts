@@ -32,8 +32,8 @@ Keyboard: '/' focuses from anywhere. ↑/↓ moves an active match in place (ari
   responsive: "Fluid to 280px. Facets scroll horizontally and the header field shrinks to 9rem until focused.",
   touchFallback: "Tap the field; tap a facet or suggestion; tap a match to unfold it.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --sl-accent #b4532a; --sl-active rgb(27 26 23 / 0.045); --sl-bg #ffffff; --sl-field #f6f5f1; --sl-hair rgb(27 26 23 / 0.16); --sl-ink #1b1a17; --sl-line rgb(27 26 23 / 0.09); --sl-mark rgb(245 190 80 / 0.38); --sl-muted #77736b. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --sl-accent #e8956b; --sl-active rgb(255 255 255 / 0.05); --sl-bg #151619; --sl-field #1c1d21; --sl-hair rgb(255 255 255 / 0.16); --sl-ink #ececea; --sl-line rgb(255 255 255 / 0.07); --sl-mark rgb(232 149 107 / 0.3); --sl-muted #8b8d93. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

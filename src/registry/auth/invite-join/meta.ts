@@ -23,8 +23,8 @@ Joining inserts you at slot 1, right beside the inviter, so every other face's s
   responsive: "A single card up to 26rem; the cluster fits phone widths.",
   touchFallback: "Identical on touch.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ij-accent #2a5bd7; --ij-card #fffdf8; --ij-err #b4432f; --ij-ink #1b1a17; --ij-l 56%; --ij-line rgb(27 26 23 / 0.1); --ij-muted #6f6a62; --ij-ring #fffdf8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ij-accent #8fb8ff; --ij-card #1b1c1f; --ij-err #f08a74; --ij-ink #efe8dc; --ij-l 62%; --ij-line rgb(239 232 220 / 0.11); --ij-muted #9a98a0; --ij-ring #1b1c1f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ece8e0", mode: "fill" },
 };

@@ -23,8 +23,8 @@ Motion: power and appearance are springs (k 240 ζ 0.9 for power, k 420 ζ 0.72 
   responsive: "The sheet stacks under 1024px; the lens copy tracks the host's size, so it lines up at every width and inside scaled previews.",
   touchFallback: "Press and hold for 380ms, then drag: the lens rises above your finger so it isn't hidden by it. A quick swipe still scrolls.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --loupe-ink #1d1c19; --loupe-rim rgb(255 255 255 / 0.7). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --loupe-ink #f1ece2; --loupe-rim rgb(255 255 255 / 0.28). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3eee2", mode: "fill" },
 };

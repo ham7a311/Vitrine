@@ -24,8 +24,8 @@ The only animation is a 140ms opacity fade on a word that has just changed (keye
   a11y: "Each choice is a button with a listbox popup, labelled 'Field: Value'. Arrow keys, Home, End, Enter, Space, Escape and Tab behave as in a select; focus returns to the word. A polite live region announces the whole rewritten sentence after each change.",
   responsive: "It is prose: it wraps. The listbox is clamped to the viewport under 420px.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ss-accent #7a3b22; --ss-bg #ffffff; --ss-ink #1b1a17; --ss-line rgb(27 26 23 / 0.14); --ss-muted #77736b. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ss-accent #e8b48f; --ss-bg #16171a; --ss-ink #ececea; --ss-line rgb(255 255 255 / 0.2); --ss-muted #8b8d93. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

@@ -23,8 +23,8 @@ Header: net profit as the hero, its change vs the other quarter with ▲/▼ and
   responsive: "Width follows the container; step names angle under 600px.",
   touchFallback: "Tap a step for its tooltip.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --axis #c3c2b7; --down #e34948; --grid #e1e0d9; --ink #0b0b0b; --ink-2 #52514e; --neg-text #d03b3b; --pos-text #006300; --ring rgba(11, 11, 11, 0.1); --surface #fcfcfb; --total #52514e; --up #2a78d6. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --axis #383835; --down #e66767; --grid #2c2c2a; --ink #ffffff; --ink-2 #c3c2b7; --neg-text #e66767; --pos-text #0ca30c; --ring rgba(255, 255, 255, 0.1); --surface #1a1a19; --total #9a998f; --up #3987e5. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f9f9f7", mode: "fill" },
 };

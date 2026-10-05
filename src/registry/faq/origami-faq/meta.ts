@@ -21,8 +21,8 @@ Answer: a region whose wrapper height animates from 0 to the sheet's natural hei
   responsive: "One column up to 40rem; the serif scales with the viewport.",
   touchFallback: "Identical on touch.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --og-accent #b5541f; --og-crease rgb(80 60 30 / 0.18); --og-focus #1f4e8c; --og-ink #1f1c17; --og-line rgb(31 28 23 / 0.14); --og-muted #77705f; --og-paper #fbf6ea; --og-paper-2 #f6efdf. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --og-accent #f0a36a; --og-crease rgb(0 0 0 / 0.4); --og-focus #8fb8ff; --og-ink #efe8dc; --og-line rgb(239 232 220 / 0.14); --og-muted #9c968c; --og-paper #26241f; --og-paper-2 #2c2a24. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#efe8d8", mode: "fill" },
 };

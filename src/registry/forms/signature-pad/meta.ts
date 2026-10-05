@@ -19,8 +19,8 @@ Clear doesn't wipe: it rewinds, rendering only the first total·(1 − ease(k)) 
   responsive: "The pad keeps its 600:220 ratio and scales with the card (max 38rem); the footer stacks under 480px.",
   touchFallback: "Touch and pen draw directly (touch-action none on the pad only); pen pressure varies the width.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --sp-bg #fbf8f1; --sp-fg #1b1a17; --sp-line rgb(27 26 23 / 0.16); --sp-muted #7a7366. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --sp-bg #15140f; --sp-fg #efe9da; --sp-line rgb(239 233 218 / 0.14); --sp-muted #8f8778. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ebe5d8", mode: "fill", height: 560 },
 };

@@ -26,8 +26,8 @@ Below 480px, rows stack label over value. Reduced motion (the media query, or mo
   a11y: "A real <form> with labelled inputs; focus goes to the first field on edit and back to Edit on close. A status region announces editing, saved and discarded. Errors use role=alert. The pane is aria-hidden and never blocks pointer or text selection. Locked sections say who manages them, in text.",
   responsive: "Rows stack below 480px; the lid scales with the case.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --gl-accent #1b1a17; --gl-bg #ffffff; --gl-error #b42318; --gl-field #faf9f6; --gl-frost #9fb6d3; --gl-frost-deep #4e6d93; --gl-glass rgb(185 204 228 / 0.1); --gl-ink #1b1a17; --gl-line rgb(27 26 23 / 0.09); --gl-muted #77736b; --gl-on-accent #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --gl-accent #ececea; --gl-bg #16171a; --gl-error #f0766e; --gl-field #1c1d21; --gl-frost #b9cce4; --gl-frost-deep #8fa9cb; --gl-glass rgb(185 204 228 / 0.06); --gl-ink #ececea; --gl-line rgb(255 255 255 / 0.08); --gl-muted #8b8d93; --gl-on-accent #16171a. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

@@ -19,8 +19,8 @@ Prepare five prints of the same picture up front, at dither cells of 6, 4, 3, 2 
   responsive: "Width is min(100%, 22.5rem); prints are prepared at a fixed size and scaled, so they stay crisp on any screen.",
   touchFallback: "On touch, focus (tap) resolves the picture; a second tap follows the link.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --dc-bg #f6f2ea; --dc-ink #161412; --dc-line rgb(22 20 18 / 0.14); --dc-muted #6d675e. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --dc-bg #11100f; --dc-ink #f2efe9; --dc-line rgb(242 239 233 / 0.14); --dc-muted #8f897f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e3d6", mode: "fill", height: 620 },
 };

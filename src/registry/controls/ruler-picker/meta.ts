@@ -25,8 +25,8 @@ Units: a kg/lb segmented radiogroup. Switching converts the value (×2.20462) an
   responsive: "The ruler fills the card's width (max 460px) and redraws on resize.",
   touchFallback: "Drag or flick with a finger; vertical page scrolling still works over it (touch-action: pan-y).",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --accent #e2531f; --band rgb(47 191 113 / 0.14); --band-edge rgb(47 191 113 / 0.65); --card #fbf8f1; --edge rgb(0 0 0 / 0.07); --ink #1d1a15; --muted rgb(29 26 21 / 0.5). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --accent #ff7a3d; --band rgb(62 220 140 / 0.12); --band-edge rgb(62 220 140 / 0.6); --card #141517; --edge rgb(255 255 255 / 0.07); --ink #f0ece4; --muted rgb(240 236 228 / 0.5). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ebe5d9", mode: "fill" },
 };

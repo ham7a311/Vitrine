@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Fluid type and padding with clamp(); actions wrap and centre on phones.",
   touchFallback: "No flood on touch; the ring and a solid button carry the section.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --rf-btn #efe8dc; --rf-btn-ink #141216; --rf-face #121015; --rf-ink #efe8dc; --rf-muted #9c96a1; --rf-on #141216; --rf-on-btn #efe8dc; --rf-on-muted rgb(20 18 22 / 0.72); --rf-page #0b0a0d; --rf-ring conic-gradient(from var(--rf-a) at 50% 50%, #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4); --rf-tone rgb(255 255 255 / 0.06). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --rf-btn #1b1a17; --rf-btn-ink #fffdf8; --rf-face #fffdf8; --rf-ink #1b1a17; --rf-muted #6f6a62; --rf-on #1b1a17; --rf-on-btn #fffdf8; --rf-on-muted rgb(27 26 23 / 0.74); --rf-page #f3f1ec; --rf-ring conic-gradient(from var(--rf-a) at 50% 50%, #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0); --rf-tone rgb(255 253 248 / 0.6). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

@@ -15,7 +15,7 @@ import "./passkey-sign-in.css";
 
 type Phase = "idle" | "scanning" | "ok" | "fail";
 
-type Props = { verify: () => Promise<boolean>; onSendLink?: (email: string) => Promise<void>; welcomeName?: string; product?: string; theme?: "night" | "paper"; className?: string };
+type Props = { verify: () => Promise<boolean>; /** Called once, after `verify` resolves true. */ onSignedIn?: () => void; onSendLink?: (email: string) => Promise<void>; welcomeName?: string; product?: string; theme?: "night" | "paper"; className?: string };
 
 // concentric, slightly broken arcs — a stylised print, centre first
 const RIDGES = [
@@ -29,7 +29,7 @@ const RIDGES = [
   "M24 44.5c.8 2.4 2 4.6 3.5 6.5M31 42c.3 3.5 1.4 6.8 3.2 9.6M35.5 45c.6 2 1.4 3.9 2.5 5.6",
 ];
 
-export function PasskeySignIn({ verify, onSendLink, welcomeName, product = "Vitrine", theme = "night", className = "" }: Props) {
+export function PasskeySignIn({ verify, onSignedIn, onSendLink, welcomeName, product = "Vitrine", theme = "night", className = "" }: Props) {
   const [phase, setPhase] = useState<Phase>("idle");
   const [email, setEmail] = useState(false);
 
@@ -40,7 +40,7 @@ export function PasskeySignIn({ verify, onSendLink, welcomeName, product = "Vitr
     if (pending.current || phase === "ok") return;
     pending.current = true;
     setPhase("scanning");
-    try { setPhase(await verify() ? "ok" : "fail"); }
+    try { const ok = await verify(); setPhase(ok ? "ok" : "fail"); if (ok) onSignedIn?.(); }
     catch { setPhase("fail"); }
     finally { pending.current = false; }
   };

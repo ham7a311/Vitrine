@@ -23,8 +23,8 @@ Pressing a streak dims every other day to 30% and lights its run in order, 40ms 
   responsive: "Two columns above 760px; stacked below, with the field scrolling sideways inside its card and the streaks side by side.",
   touchFallback: "Tap a day to ripple and show its value; streak buttons work the same.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --sfs-bg #fffdf8; --sfs-focus #2f5fd0; --sfs-glow #d9733a; --sfs-ink #1b1a17; --sfs-l0 rgb(27 26 23 / 0.06); --sfs-l1 #c9dccb; --sfs-l2 #8fbf98; --sfs-l3 #4f9a63; --sfs-l4 #1f6b3f; --sfs-muted #6f6a62; --sfs-rim rgb(27 26 23 / 0.1); --sfs-tip #1b1a17; --sfs-tip-ink #fffdf8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --sfs-bg #141217; --sfs-focus #b9cce4; --sfs-glow #f0b37a; --sfs-ink #efe8dc; --sfs-l0 rgb(239 232 220 / 0.06); --sfs-l1 #2b3b4f; --sfs-l2 #46628a; --sfs-l3 #7d9cc8; --sfs-l4 #c9dbf2; --sfs-muted #9c96a1; --sfs-rim rgb(239 232 220 / 0.1); --sfs-tip #efe8dc; --sfs-tip-ink #141217. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

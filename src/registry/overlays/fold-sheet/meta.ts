@@ -21,8 +21,8 @@ Once open it is an ordinary panel: sticky header with title, description and clo
   responsive: "Right sheet (min(100% − 24px, 25rem)) from 640px; bottom sheet at 88% height below. Body scrolls; header and footer stay put.",
   touchFallback: "Drag the handle to fold the sheet away, or tap the scrim.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --fs-crease rgb(40 30 10 / 0.34); --fs-ink #1c1b18; --fs-line rgb(28 27 24 / 0.09); --fs-muted #6d6a62; --fs-scrim rgb(24 20 14 / 0.26); --fs-surface #fbfaf7. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --fs-crease rgb(0 0 0 / 0.7); --fs-ink #ebebe8; --fs-line rgb(255 255 255 / 0.08); --fs-muted #8e9096; --fs-scrim rgb(0 0 0 / 0.5); --fs-surface #18191c. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

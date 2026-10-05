@@ -23,8 +23,8 @@ Flow: the agent greets. Suggestions are pill buttons that fade up 60ms apart. Ch
   responsive: "A fixed-height card up to 30rem wide; bubbles widen on phones.",
   touchFallback: "Identical on touch; chips are full-size tap targets.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ct-card #fffdf8; --ct-focus #1f4e8c; --ct-ink #1b1a17; --ct-line rgb(27 26 23 / 0.1); --ct-muted #6f6a62; --ct-them #f1ede5; --ct-you #1f4e8c; --ct-you-ink #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ct-card #18191c; --ct-focus #8fb8ff; --ct-ink #efe8dc; --ct-line rgb(239 232 220 / 0.1); --ct-muted #9a98a0; --ct-them #25262b; --ct-you #8fb8ff; --ct-you-ink #0d1a33. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ece8e0", mode: "fill" },
 };

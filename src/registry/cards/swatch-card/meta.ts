@@ -17,8 +17,8 @@ export const meta: ComponentMeta = {
   a11y: "Swatches are a labelled radiogroup with roving tabindex and names like 'Copper lustre, sold out'. The glaze name is announced politely when it changes. The cup drawings are decorative. Reduced motion swaps the glaze instantly.",
   responsive: "Two columns side by side; one column under 560px of container width, with a wider, shorter stage.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --swc-bg #fbf9f4; --swc-focus #2f5fd0; --swc-ink #1d1b17; --swc-line rgb(29 27 23 / 0.1); --swc-low #b4541f; --swc-muted #736c62. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --swc-bg #16151a; --swc-focus #b9cce4; --swc-ink #efe8dc; --swc-line rgb(239 232 220 / 0.1); --swc-low #f0b37a; --swc-muted #9c96a1. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#efebe3", mode: "fill" },
 };

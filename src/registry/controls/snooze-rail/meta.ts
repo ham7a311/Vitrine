@@ -27,8 +27,8 @@ The thumb is role=slider with aria-valuemin/max/now and an aria-valuetext of the
   responsive: "Fluid to 320px; the track and thumb grow under 420px for touch.",
   touchFallback: "Tap a suggestion chip, or drag the larger thumb.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --sr-accent #1b1a17; --sr-bg #ffffff; --sr-ink #1b1a17; --sr-line rgb(27 26 23 / 0.12); --sr-muted #77736b; --sr-on #ffffff; --sr-usual #b3402f. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --sr-accent #ececea; --sr-bg #16171a; --sr-ink #ececea; --sr-line rgb(255 255 255 / 0.1); --sr-muted #8b8d93; --sr-on #16171a; --sr-usual #f0766e. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

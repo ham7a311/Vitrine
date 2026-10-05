@@ -25,8 +25,8 @@ The plot is a role="slider" (1–30) with an aria-valuetext of the date, value a
   responsive: "Auto-fit tiles separated by hairlines; one column under 560px. Touch scrubbing keeps vertical scrolling.",
   touchFallback: "Press and drag along the line; lift to return to today.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --sss-bad #b4372a; --sss-bg #fffdf8; --sss-dim rgb(27 26 23 / 0.2); --sss-focus #2f5fd0; --sss-good #1f7a4d; --sss-ink #1b1a17; --sss-line rgb(27 26 23 / 0.1); --sss-muted #6f6a62; --sss-plot #2f5fd0. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --sss-bad #f08a7a; --sss-bg #141217; --sss-dim rgb(239 232 220 / 0.18); --sss-focus #b9cce4; --sss-good #7fd1a8; --sss-ink #efe8dc; --sss-line rgb(239 232 220 / 0.09); --sss-muted #9c96a1; --sss-plot #b9cce4. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

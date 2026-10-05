@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Cards sit in an auto-fit grid (min 15.5rem) and stack to one column on phones.",
   touchFallback: "Tap to choose; the flood is the confirmation.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --rfc-face #141217; --rfc-focus #efe8dc; --rfc-ink #efe8dc; --rfc-lift 0 30px 60px -32px rgb(0 0 0 / 0.85); --rfc-muted #9c96a1; --rfc-on-ink #141216; --rfc-on-muted rgb(20 18 22 / 0.7); --rfc-ring conic-gradient(from var(--rfc-a) at 50% 50%, #b9cce4, #c8b9ea, #f0b37a, #7fd1a8, #b9cce4); --rfc-tone rgb(255 255 255 / 0.06). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --rfc-face #fffdf8; --rfc-focus #2f5fd0; --rfc-ink #1b1a17; --rfc-lift 0 30px 50px -34px rgb(60 40 20 / 0.45); --rfc-muted #6f6a62; --rfc-on-ink #1b1a17; --rfc-on-muted rgb(27 26 23 / 0.72); --rfc-ring conic-gradient(from var(--rfc-a) at 50% 50%, #2f5fd0, #7c5cc4, #d9733a, #1f7a4d, #2f5fd0); --rfc-tone rgb(255 253 248 / 0.62). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

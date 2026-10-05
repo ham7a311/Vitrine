@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Full width up to 34rem; file names truncate with an ellipsis.",
   touchFallback: "Tap to open the file picker; the wave starts from where you tapped.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --rrc-bad #f08a7a; --rrc-face #141217; --rrc-hot #b9cce4; --rrc-ink #efe8dc; --rrc-line rgb(239 232 220 / 0.1); --rrc-muted #9c96a1; --rrc-ok #7fd1a8; --rrc-rim rgb(239 232 220 / 0.32); --rrc-row #18161c; --rrc-tint #1a1d24. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --rrc-bad #b3412e; --rrc-face #fffdf8; --rrc-hot #2f5fd0; --rrc-ink #1b1a17; --rrc-line rgb(27 26 23 / 0.1); --rrc-muted #6f6a62; --rrc-ok #1f7a4d; --rrc-rim rgb(27 26 23 / 0.3); --rrc-row #ffffff; --rrc-tint #f1f4fb. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

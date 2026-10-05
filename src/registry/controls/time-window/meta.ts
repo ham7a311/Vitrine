@@ -35,8 +35,8 @@ Below 560px of container width it becomes a vertical day column (48px per hour) 
   responsive: "Container width decides the orientation: horizontal from 560px, a scrolling vertical day column below.",
   touchFallback: "In the vertical layout, drag the window or the edge grips with a finger; the page scrolls elsewhere.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --tw-accent #b4532a; --tw-bg #ffffff; --tw-busy rgb(27 26 23 / 0.08); --tw-error #b42318; --tw-ink #1b1a17; --tw-line rgb(27 26 23 / 0.08); --tw-muted #77736b; --tw-night rgb(40 44 70 / 0.06); --tw-shade rgb(250 249 246 / 0.52). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --tw-accent #e8956b; --tw-bg #16171a; --tw-busy rgb(255 255 255 / 0.08); --tw-error #f0766e; --tw-ink #ececea; --tw-line rgb(255 255 255 / 0.07); --tw-muted #8b8d93; --tw-night rgb(120 140 255 / 0.06); --tw-shade rgb(22 23 26 / 0.5). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

@@ -17,8 +17,8 @@ export const meta: ComponentMeta = {
   a11y: "Two real buttons; the caret is a menu button with a descriptive label. The menu is a radio group of menu items so screen readers hear which action is current. Focus is managed in and out of the menu; the closed leaf is inert. Reduced motion removes the swing.",
   responsive: "Intrinsic width; the leaf caps at 22rem or the viewport width minus 2rem.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --hsb-accent #b9cce4; --hsb-face #efe8dc; --hsb-hover rgb(239 232 220 / 0.06); --hsb-ink #141216; --hsb-leaf #1a181d; --hsb-leaf-ink #efe8dc; --hsb-line rgb(239 232 220 / 0.1); --hsb-muted #9c96a1; --hsb-seam rgb(20 18 22 / 0.16). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --hsb-accent #2f5fd0; --hsb-face #1b1a17; --hsb-hover rgb(27 26 23 / 0.05); --hsb-ink #f6f3ec; --hsb-leaf #ffffff; --hsb-leaf-ink #1b1a17; --hsb-line rgb(27 26 23 / 0.1); --hsb-muted #6f6a62; --hsb-seam rgb(246 243 236 / 0.2). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

@@ -25,8 +25,8 @@ Motion: when 30% is in view, the bands are revealed left to right by a clip rect
   responsive: "The chart scales to its column and keeps a 560px minimum inside its own scroller on phones.",
   touchFallback: "Tap a legend button to pin a source; tap again to clear.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ff-bg #fcfbf8; --ff-focus #2a78d6; --ff-ink #1b1a17; --ff-muted #6f6a62; --ff-rim rgb(27 26 23 / 0.1); --ff-s0 #2a78d6; --ff-s1 #eb6834; --ff-s2 #1baf7a; --ff-s3 #eda100. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ff-bg #1a1a19; --ff-focus #8fb8ff; --ff-ink #ffffff; --ff-muted #c3c2b7; --ff-rim rgb(239 232 220 / 0.1); --ff-s0 #3987e5; --ff-s1 #d95926; --ff-s2 #199e70; --ff-s3 #c98500. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f1eee7", mode: "fill" },
 };

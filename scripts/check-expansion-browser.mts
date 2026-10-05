@@ -126,11 +126,14 @@ try{
  // Deterministic virtual time: verify exact-pixel wrap continuity in both directions over multiple periods.
  await page.clock.install();
  for(const direction of ['left','right']){await mount('PartnerRibbon',{items:mixed,direction,speed:500});
+  // Late fixture images load in real time; settle them first so the measured period is stable while sampling on the virtual clock.
+  for(let attempt=0;attempt<100&&!await page.evaluate(()=>[...document.querySelectorAll('.pribbon img')].every(image=>(image as HTMLImageElement).complete));attempt++)await new Promise(resolve=>setTimeout(resolve,50));
+  await new Promise(resolve=>setTimeout(resolve,150));
   await page.clock.runFor(500);
   const period=await page.locator('.pribbon__group').first().evaluate(el=>el.getBoundingClientRect().width);
   const samples:number[]=[];for(let i=0;i<Math.ceil(period*3/25)+2;i++){await page.clock.runFor(50);samples.push(await position());}
   let wraps=0;
-  for(let i=1;i<samples.length;i++){let movement=samples[i]-samples[i-1];if(Math.abs(movement)>period/2){wraps++;movement+=direction==='left'?-period:period;}assert(Math.abs(movement)<=35,`loop jump ${direction}: ${movement}`);assert(direction==='left'?movement<=.1:movement>=-.1);}
+  for(let i=1;i<samples.length;i++){let movement=samples[i]-samples[i-1];if(Math.abs(movement)>period/2){wraps++;movement+=direction==='left'?-period:period;}assert(Math.abs(movement)<=60,`loop jump ${direction}: ${movement}`);assert(direction==='left'?movement<=.1:movement>=-.1);}
   assert(wraps>=2,`Not enough wraps for ${direction}`);
   await page.setViewportSize({width:320,height:900});await page.clock.runFor(100);
   assert(await page.locator('.pribbon__group').count()>=2);

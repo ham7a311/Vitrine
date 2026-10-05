@@ -23,8 +23,8 @@ Resend counts down 30s as a line round the pill-shaped button: a conic-gradient 
   responsive: "Up to 25rem; cells tighten under 400px.",
   touchFallback: "The numeric keypad opens; iOS and Android offer the code from the message.",
   variants: [
-    { id: "night", label: "Night" },
-    { id: "paper", label: "Paper" },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ccv-accent #b9cce4; --ccv-bg #141217; --ccv-cell #1b191f; --ccv-err #f08a7a; --ccv-focus #b9cce4; --ccv-ink #efe8dc; --ccv-line rgb(239 232 220 / 0.16); --ccv-muted #9c96a1; --ccv-ok #7fd1a8; --ccv-rim rgb(239 232 220 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ccv-accent #2f5fd0; --ccv-bg #fffdf8; --ccv-cell #f7f4ee; --ccv-err #b4372a; --ccv-focus #2f5fd0; --ccv-ink #1b1a17; --ccv-line rgb(27 26 23 / 0.14); --ccv-muted #6f6a62; --ccv-ok #1f7a4d; --ccv-rim rgb(27 26 23 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0b0a0d", mode: "fill" },
 };

@@ -28,8 +28,8 @@ Below 640px of container width (a ResizeObserver, not the viewport), rows render
   responsive: "A container-width switch to compact records under 640px, with no horizontal scrolling. Sort becomes a select.",
   touchFallback: "Tap a record to expand it and tap its checkbox to select. The falloff follows the last tapped record.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ft-accent #2f6bff; --ft-bg #ffffff; --ft-head #faf9f6; --ft-ink #1b1a17; --ft-line rgb(27 26 23 / 0.08); --ft-line-strong rgb(27 26 23 / 0.14); --ft-muted #76726a; --ft-select rgb(47 107 255 / 0.07). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ft-accent #7aa2ff; --ft-bg #151619; --ft-head #191a1d; --ft-ink #ececea; --ft-line rgb(255 255 255 / 0.06); --ft-line-strong rgb(255 255 255 / 0.1); --ft-muted #8b8d93; --ft-select rgb(122 162 255 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f3f1ec", mode: "fill" },
 };

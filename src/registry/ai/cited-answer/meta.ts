@@ -19,8 +19,8 @@ Make the link between claim and evidence physical and bidirectional. Hovering or
   responsive: "Container query drops the sources to two columns below 34rem.",
   touchFallback: "Tapping a citation focuses it, which lifts its source.",
   variants: [
-    { id: "paper", label: "Paper" },
-    { id: "night", label: "Night" },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --ca-accent #20808d; --ca-bg #fcfcf9; --ca-card #f3f3ee; --ca-ink #13343b; --ca-line rgb(19 52 59 / 0.1); --ca-muted #5f7479. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --ca-accent #3ec5d3; --ca-bg #191a1a; --ca-card #202222; --ca-ink #e8e8e6; --ca-line rgb(255 255 255 / 0.08); --ca-muted #8d9191. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#fcfcf9", mode: "fill" },
 };
