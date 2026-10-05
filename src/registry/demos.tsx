@@ -319,6 +319,7 @@ const loaders: Record<string, Loader> = {
   "next-issue": () => import("./ctas/next-issue/demo"),
   "tuck-banner": () => import("./feedback/tuck-banner/demo"),
   "nearest-page": () => import("./feedback/nearest-page/demo"),
+  "gloss-term": () => import("./overlays/gloss-term/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();
