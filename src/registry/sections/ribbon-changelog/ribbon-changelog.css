@@ -1,0 +1,55 @@
+/* Ribbon Changelog: release notes with a bookmark where you stopped. */
+.ribbon-changelog {
+  --rc-ink: #1b1a17;
+  --rc-muted: #6b6861;
+  --rc-line: rgb(27 26 23 / 0.13);
+  --rc-accent: #2f6bff;
+  --rc-new: #1f7a4d;
+  --rc-fix: #a15c00;
+  --rc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  container-type: inline-size;
+  color: var(--rc-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.ribbon-changelog--night { --rc-ink: #ececea; --rc-muted: #8d8f95; --rc-line: rgb(255 255 255 / 0.12); --rc-accent: #7aa2ff; --rc-new: #6fd29e; --rc-fix: #e6b25c; }
+
+.ribbon-changelog__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-bottom: 14px; border-bottom: 1px solid var(--rc-line); }
+.ribbon-changelog__filters { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.ribbon-changelog__filters button { min-height: 44px; padding: 0; border: 0; background: none; color: var(--rc-muted); font: inherit; font-size: 0.875rem; cursor: pointer; background: linear-gradient(var(--rc-ink), var(--rc-ink)) 0 calc(100% - 9px) / 0 1px no-repeat; transition: color 160ms ease, background-size 280ms var(--rc-ease); }
+.ribbon-changelog__filters button span { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; margin-left: 2px; }
+.ribbon-changelog__filters button:hover { color: var(--rc-ink); }
+.ribbon-changelog__filters button[aria-pressed="true"] { color: var(--rc-ink); background-size: 100% 1px; }
+.ribbon-changelog__filters button:focus-visible { outline: 2px solid var(--rc-ink); outline-offset: 2px; }
+.ribbon-changelog__since { margin: 0; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rc-muted); }
+
+.ribbon-changelog__list { margin: 0; padding: 0; list-style: none; }
+/* Folding: a row of height 0 that grows to its content. Nothing is removed, so nothing jumps. */
+.ribbon-changelog__fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 280ms var(--rc-ease), opacity 200ms ease; opacity: 0; }
+[data-open="true"] > .ribbon-changelog__fold { grid-template-rows: 1fr; opacity: 1; }
+.ribbon-changelog__fold > div { min-height: 0; overflow: hidden; }
+
+.ribbon-changelog__release article { display: grid; gap: 6px; padding: 26px 0; border-bottom: 1px solid var(--rc-line); }
+.ribbon-changelog__date { margin: 0; font: 500 0.6875rem/1.6 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; font-variant-numeric: tabular-nums; color: var(--rc-muted); }
+.ribbon-changelog__release[data-new] .ribbon-changelog__date { color: var(--rc-accent); }
+.ribbon-changelog__main h3 { margin: 0; font: 400 1.625rem/1.15 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.01em; }
+.ribbon-changelog__version { font: 500 0.75rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.04em; color: var(--rc-muted); margin-right: 6px; vertical-align: 0.25em; }
+.ribbon-changelog__main ul { margin: 14px 0 0; padding: 0; list-style: none; }
+.ribbon-changelog__main li p { margin: 0; padding: 5px 0; display: grid; grid-template-columns: 5.25rem 1fr; gap: 12px; font-size: 0.9375rem; line-height: 1.55; text-wrap: pretty; }
+.ribbon-changelog__main b { font: 500 0.6875rem/1.9 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rc-muted); }
+.ribbon-changelog__main b[data-kind="new"] { color: var(--rc-new); }
+.ribbon-changelog__main b[data-kind="fixed"] { color: var(--rc-fix); }
+@container (min-width: 40rem) {
+  .ribbon-changelog__release article { grid-template-columns: 8.5rem 1fr; gap: 24px; }
+  .ribbon-changelog__date { padding-top: 12px; }
+}
+@container (max-width: 26rem) { .ribbon-changelog__main li p { grid-template-columns: 1fr; gap: 0; } }
+
+/* The ribbon: a notched tag hung from a rule, laid between the last release you saw and the first you did not. */
+.ribbon-changelog__ribbon { position: relative; display: flex; align-items: center; gap: 10px; height: 34px; margin: -1px 0; border-bottom: 1px solid var(--rc-accent); color: var(--rc-accent); font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; }
+.ribbon-changelog__ribbon svg { width: 14px; height: 22px; margin-bottom: -22px; fill: var(--rc-accent); align-self: flex-end; position: relative; z-index: 1; animation: rc-hang 520ms var(--rc-ease) both; transform-origin: 50% 0; }
+.ribbon-changelog__ribbon span { padding-bottom: 1px; }
+@keyframes rc-hang { from { transform: scaleY(0); } to { transform: none; } }
+
+@media (prefers-reduced-motion: reduce) { .ribbon-changelog * { transition-duration: 1ms !important; animation: none !important; } }
+.ribbon-changelog[data-motion="reduced"] * { transition-duration: 1ms !important; animation: none !important; }

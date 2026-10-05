@@ -305,6 +305,7 @@ import { meta as runningHead } from "./sections/running-head/meta";
 import { meta as typesetHero } from "./heroes/typeset-hero/meta";
 import { meta as colophonFooter } from "./footers/colophon-footer/meta";
 import { meta as annotatedPlate } from "./sections/annotated-plate/meta";
+import { meta as ribbonChangelog } from "./sections/ribbon-changelog/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -614,6 +615,7 @@ export const registry: ComponentMeta[] = [
   typesetHero,
   colophonFooter,
   annotatedPlate,
+  ribbonChangelog,
 ];
 
 export function getComponent(slug: string) {

@@ -313,6 +313,7 @@ const loaders: Record<string, Loader> = {
   "typeset-hero": () => import("./heroes/typeset-hero/demo"),
   "colophon-footer": () => import("./footers/colophon-footer/demo"),
   "annotated-plate": () => import("./sections/annotated-plate/demo"),
+  "ribbon-changelog": () => import("./sections/ribbon-changelog/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();
