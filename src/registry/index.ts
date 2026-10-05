@@ -310,6 +310,7 @@ import { meta as enquirySlip } from "./forms/enquiry-slip/meta";
 import { meta as phraseDate } from "./forms/phrase-date/meta";
 import { meta as nextIssue } from "./ctas/next-issue/meta";
 import { meta as tuckBanner } from "./feedback/tuck-banner/meta";
+import { meta as nearestPage } from "./feedback/nearest-page/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -624,6 +625,7 @@ export const registry: ComponentMeta[] = [
   phraseDate,
   nextIssue,
   tuckBanner,
+  nearestPage,
 ];
 
 export function getComponent(slug: string) {

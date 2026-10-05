@@ -318,6 +318,7 @@ const loaders: Record<string, Loader> = {
   "phrase-date": () => import("./forms/phrase-date/demo"),
   "next-issue": () => import("./ctas/next-issue/demo"),
   "tuck-banner": () => import("./feedback/tuck-banner/demo"),
+  "nearest-page": () => import("./feedback/nearest-page/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();
