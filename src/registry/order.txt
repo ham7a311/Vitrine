@@ -188,6 +188,8 @@ data/media-inspector
 data/focus-table
 data/marginalia
 data/activity-stream
+data/block-handles
+data/board-view
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
@@ -273,6 +275,7 @@ forms/upload-stack
 forms/progressive-form
 forms/sentence-settings
 forms/etched-field
+forms/insert-menu
 feedback/toast-stack
 feedback/wet-ink
 feedback/undo-ribbon
@@ -286,10 +289,12 @@ feedback/quiet-return-404
 feedback/trace-404
 feedback/forwarding-404
 feedback/underside-404
+feedback/blank-page-starter
 sections/step-path
 sections/voices-carousel
 sections/partner-ribbon
 sections/product-atelier
+sections/page-header
 type/dither-logo
 type/constellation-name
 type/seal-signature

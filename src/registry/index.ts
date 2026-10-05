@@ -184,6 +184,8 @@ import { meta as mediaInspector } from "./data/media-inspector/meta";
 import { meta as focusTable } from "./data/focus-table/meta";
 import { meta as marginalia } from "./data/marginalia/meta";
 import { meta as activityStream } from "./data/activity-stream/meta";
+import { meta as blockHandles } from "./data/block-handles/meta";
+import { meta as boardView } from "./data/board-view/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -269,6 +271,7 @@ import { meta as uploadStack } from "./forms/upload-stack/meta";
 import { meta as progressiveForm } from "./forms/progressive-form/meta";
 import { meta as sentenceSettings } from "./forms/sentence-settings/meta";
 import { meta as etchedField } from "./forms/etched-field/meta";
+import { meta as insertMenu } from "./forms/insert-menu/meta";
 import { meta as toastStack } from "./feedback/toast-stack/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
@@ -282,10 +285,12 @@ import { meta as quietReturn404 } from "./feedback/quiet-return-404/meta";
 import { meta as trace404 } from "./feedback/trace-404/meta";
 import { meta as forwarding404 } from "./feedback/forwarding-404/meta";
 import { meta as underside404 } from "./feedback/underside-404/meta";
+import { meta as blankPageStarter } from "./feedback/blank-page-starter/meta";
 import { meta as stepPath } from "./sections/step-path/meta";
 import { meta as voicesCarousel } from "./sections/voices-carousel/meta";
 import { meta as partnerRibbon } from "./sections/partner-ribbon/meta";
 import { meta as productAtelier } from "./sections/product-atelier/meta";
+import { meta as pageHeader } from "./sections/page-header/meta";
 import { meta as ditherLogo } from "./type/dither-logo/meta";
 import { meta as constellationName } from "./type/constellation-name/meta";
 import { meta as sealSignature } from "./type/seal-signature/meta";
@@ -500,6 +505,8 @@ export const registry: ComponentMeta[] = [
   focusTable,
   marginalia,
   activityStream,
+  blockHandles,
+  boardView,
   curtainFooter,
   signOffFooter,
   indexFooter,
@@ -585,6 +592,7 @@ export const registry: ComponentMeta[] = [
   progressiveForm,
   sentenceSettings,
   etchedField,
+  insertMenu,
   toastStack,
   wetInk,
   undoRibbon,
@@ -598,10 +606,12 @@ export const registry: ComponentMeta[] = [
   trace404,
   forwarding404,
   underside404,
+  blankPageStarter,
   stepPath,
   voicesCarousel,
   partnerRibbon,
   productAtelier,
+  pageHeader,
   ditherLogo,
   constellationName,
   sealSignature,
