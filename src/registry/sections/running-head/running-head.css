@@ -10,7 +10,8 @@
 }
 .running-head--night { --rh-ink: #ececea; --rh-muted: #8d8f95; --rh-line: rgb(255 255 255 / 0.13); --rh-bg: #0f1012; }
 
-.running-head { container-type: inline-size; color: var(--rh-ink); }
+
+.running-head { container-type: inline-size; width: 100%; color: var(--rh-ink); }
 .running-head__top { display: flex; align-items: center; gap: 14px; }
 .running-head__num, .running-head__meta, .running-head__bar-meta { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; font-variant-numeric: tabular-nums; color: var(--rh-muted); white-space: nowrap; }
 .running-head__rule { flex: 1; height: 1px; background: var(--rh-line); transform-origin: 0 50%; transform: scaleX(0); }

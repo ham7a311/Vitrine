@@ -314,6 +314,7 @@ const loaders: Record<string, Loader> = {
   "colophon-footer": () => import("./footers/colophon-footer/demo"),
   "annotated-plate": () => import("./sections/annotated-plate/demo"),
   "ribbon-changelog": () => import("./sections/ribbon-changelog/demo"),
+  "enquiry-slip": () => import("./forms/enquiry-slip/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();

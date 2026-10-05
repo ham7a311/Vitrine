@@ -5,6 +5,7 @@
   --cf-line: rgb(27 26 23 / 0.13);
   --cf-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   container-type: inline-size;
+  width: 100%;
   color: var(--cf-ink);
   font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;

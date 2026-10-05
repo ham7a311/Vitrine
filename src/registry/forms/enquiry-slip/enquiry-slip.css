@@ -1,0 +1,74 @@
+/* Enquiry Slip: a contact form set as a correspondence slip. */
+.enquiry-slip {
+  --es-ink: #1b1a17;
+  --es-muted: #6b6861;
+  --es-line: rgb(27 26 23 / 0.16);
+  --es-paper: #fffefb;
+  --es-accent: #2f6bff;
+  --es-danger: #b42318;
+  --es-stamp: #b42318;
+  --es-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  padding: clamp(18px, 4vw, 34px);
+  border-radius: 4px;
+  background: var(--es-paper);
+  box-shadow: 0 0 0 1px var(--es-line), 0 24px 48px -30px rgb(40 30 10 / 0.35);
+  color: var(--es-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.enquiry-slip--night { --es-ink: #ececea; --es-muted: #8d8f95; --es-line: rgb(255 255 255 / 0.14); --es-paper: #17181b; --es-accent: #7aa2ff; --es-danger: #f0766e; --es-stamp: #f0766e; box-shadow: 0 0 0 1px var(--es-line), 0 24px 48px -26px rgb(0 0 0 / 0.7); }
+
+.enquiry-slip__row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0 12px; align-items: baseline; margin: 0; padding: 12px 0; border: 0; border-bottom: 1px solid var(--es-line); min-width: 0; }
+.enquiry-slip__row:first-of-type { border-top: 1px solid var(--es-line); }
+.enquiry-slip__label { padding: 0; font: 500 0.6875rem/1.4 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--es-muted); }
+.enquiry-slip__field { min-width: 0; }
+@container (max-width: 28rem) { .enquiry-slip__row { grid-template-columns: 1fr; gap: 6px; } }
+
+.enquiry-slip input:not([type="radio"]), .enquiry-slip textarea { width: 100%; padding: 0; border: 0; border-radius: 0; background: none; color: inherit; font: 400 1.0625rem/1.5 inherit; outline: none; resize: none; }
+.enquiry-slip textarea { display: block; min-height: 6em; }
+.enquiry-slip ::placeholder { color: color-mix(in srgb, var(--es-muted) 70%, transparent); }
+.enquiry-slip__row:focus-within { border-bottom-color: var(--es-ink); }
+.enquiry-slip__row:focus-within .enquiry-slip__label { color: var(--es-ink); }
+.enquiry-slip__row[data-invalid] { border-bottom-color: var(--es-danger); }
+.enquiry-slip__error { margin: 6px 0 0; font-size: 0.8125rem; color: var(--es-danger); }
+.enquiry-slip input:not([type="radio"]):disabled, .enquiry-slip textarea:disabled { opacity: 1; color: var(--es-ink); }
+
+.enquiry-slip__to { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; }
+.enquiry-slip__to-name { font: 400 1.375rem/1.2 "Instrument Serif", ui-serif, Georgia, serif; }
+.enquiry-slip__copy { min-height: 32px; padding: 0; border: 0; background: none; color: var(--es-muted); font: 400 0.8125rem/1 "Geist Mono", ui-monospace, monospace; cursor: pointer; text-decoration: underline; text-decoration-color: var(--es-line); text-underline-offset: 5px; }
+.enquiry-slip__copy:hover { color: var(--es-ink); text-decoration-color: currentColor; }
+
+.enquiry-slip__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.enquiry-slip__chips label { position: relative; }
+.enquiry-slip__chips input { position: absolute; opacity: 0; inset: 0; margin: 0; }
+.enquiry-slip__chips span { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--es-line); font-size: 0.875rem; cursor: pointer; transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease; }
+.enquiry-slip__chips label:hover span { box-shadow: inset 0 0 0 1px var(--es-ink); }
+.enquiry-slip__chips input:checked + span { background: var(--es-ink); color: var(--es-paper); box-shadow: none; }
+.enquiry-slip__chips input:disabled + span { cursor: default; }
+.enquiry-slip__chips input:focus-visible + span { outline: 2px solid var(--es-ink); outline-offset: 2px; }
+
+.enquiry-slip__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; padding-top: 20px; }
+.enquiry-slip__note { margin: 0; max-width: 30ch; font-size: 0.8125rem; line-height: 1.5; color: var(--es-muted); }
+.enquiry-slip__note time { font-family: "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; color: var(--es-ink); }
+.enquiry-slip__send { min-width: 7rem; height: 44px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--es-ink); color: var(--es-paper); font: 500 0.9375rem/1 inherit; cursor: pointer; transition: opacity 160ms ease; }
+.enquiry-slip__send:hover { opacity: 0.88; }
+.enquiry-slip__send:disabled { opacity: 0.6; cursor: progress; }
+.enquiry-slip__again { min-height: 44px; padding: 0; border: 0; background: none; color: var(--es-ink); font: inherit; font-size: 0.9375rem; text-decoration: underline; text-underline-offset: 5px; cursor: pointer; }
+.enquiry-slip__fail { margin: 14px 0 0; font-size: 0.875rem; color: var(--es-danger); }
+:is(.enquiry-slip__send, .enquiry-slip__again, .enquiry-slip__copy):focus-visible { outline: 2px solid var(--es-ink); outline-offset: 3px; }
+
+/* The stamp: pressed once, slightly crooked, over the lower right of the slip. */
+.enquiry-slip__stamp { position: absolute; right: clamp(18px, 4vw, 34px); bottom: 96px; display: grid; gap: 4px; padding: 10px 16px; border: 2px solid var(--es-stamp); border-radius: 4px; color: var(--es-stamp); text-align: center; text-transform: uppercase; transform: rotate(-6deg); pointer-events: none; animation: es-press 220ms var(--es-ease) both; mix-blend-mode: multiply; }
+.enquiry-slip--night .enquiry-slip__stamp { mix-blend-mode: normal; }
+.enquiry-slip__stamp span { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.24em; }
+.enquiry-slip__stamp b { font: 500 1.125rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
+@keyframes es-press { from { opacity: 0; transform: rotate(-6deg) scale(1.35); } to { opacity: 0.9; transform: rotate(-6deg); } }
+.enquiry-slip[data-phase="sent"] .enquiry-slip__stamp { opacity: 0.9; }
+
+.enquiry-slip__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .enquiry-slip * { transition-duration: 1ms !important; animation: none !important; } }
+.enquiry-slip[data-motion="reduced"] * { transition-duration: 1ms !important; animation: none !important; }

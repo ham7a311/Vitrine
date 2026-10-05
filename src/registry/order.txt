@@ -310,3 +310,4 @@ heroes/typeset-hero
 footers/colophon-footer
 sections/annotated-plate
 sections/ribbon-changelog
+forms/enquiry-slip
