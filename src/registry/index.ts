@@ -182,6 +182,7 @@ import { meta as rulerIndex } from "./navigation/ruler-index/meta";
 import { meta as pleatCrumbs } from "./navigation/pleat-crumbs/meta";
 import { meta as threadStepper } from "./navigation/thread-stepper/meta";
 import { meta as lessonPath } from "./navigation/lesson-path/meta";
+import { meta as lineMap } from "./navigation/line-map/meta";
 import { meta as depthDialog } from "./overlays/depth-dialog/meta";
 import { meta as contextLens } from "./overlays/context-lens/meta";
 import { meta as foldSheet } from "./overlays/fold-sheet/meta";
@@ -282,11 +283,13 @@ import { meta as sunburstDrill } from "./analytics/sunburst-drill/meta";
 import { meta as calendarHeatmap } from "./analytics/calendar-heatmap/meta";
 import { meta as barRace } from "./analytics/bar-race/meta";
 import { meta as slopeChart } from "./analytics/slope-chart/meta";
+import { meta as youDrawIt } from "./analytics/you-draw-it/meta";
 import { meta as glassCarousel } from "./media/glass-carousel/meta";
 import { meta as artGallery } from "./media/art-gallery/meta";
 import { meta as imageCompare } from "./media/image-compare/meta";
 import { meta as hoverReel } from "./media/hover-reel/meta";
 import { meta as ditherPortrait } from "./media/dither-portrait/meta";
+import { meta as contactSheet } from "./media/contact-sheet/meta";
 import { meta as routeGlobe } from "./maps/route-globe/meta";
 import { meta as pulseGlobe } from "./maps/pulse-globe/meta";
 import { meta as dotAtlas } from "./maps/dot-atlas/meta";
@@ -535,6 +538,7 @@ export const registry: ComponentMeta[] = [
   pleatCrumbs,
   threadStepper,
   lessonPath,
+  lineMap,
   depthDialog,
   contextLens,
   foldSheet,
@@ -635,11 +639,13 @@ export const registry: ComponentMeta[] = [
   calendarHeatmap,
   barRace,
   slopeChart,
+  youDrawIt,
   glassCarousel,
   artGallery,
   imageCompare,
   hoverReel,
   ditherPortrait,
+  contactSheet,
   routeGlobe,
   pulseGlobe,
   dotAtlas,

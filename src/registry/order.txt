@@ -186,6 +186,7 @@ navigation/ruler-index
 navigation/pleat-crumbs
 navigation/thread-stepper
 navigation/lesson-path
+navigation/line-map
 overlays/depth-dialog
 overlays/context-lens
 overlays/fold-sheet
@@ -286,11 +287,13 @@ analytics/sunburst-drill
 analytics/calendar-heatmap
 analytics/bar-race
 analytics/slope-chart
+analytics/you-draw-it
 media/glass-carousel
 media/art-gallery
 media/image-compare
 media/hover-reel
 media/dither-portrait
+media/contact-sheet
 maps/route-globe
 maps/pulse-globe
 maps/dot-atlas

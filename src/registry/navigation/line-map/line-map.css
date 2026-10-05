@@ -1,0 +1,81 @@
+.lmap {
+  --lmap-bg: #fbfaf6;
+  --lmap-ink: #1c1d1f;
+  --lmap-muted: #6b6c70;
+  --lmap-line: rgb(28 29 31 / 0.12);
+  --lmap-station: #ffffff;
+  --lmap-focus: #1c1d1f;
+  --lmap-ease: cubic-bezier(.2, .8, .2, 1);
+  display: grid; gap: 14px; padding: 20px;
+  color: var(--lmap-ink); background: var(--lmap-bg);
+  border: 1px solid var(--lmap-line); border-radius: 14px;
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  container-type: inline-size;
+}
+.lmap--dark {
+  --lmap-bg: #121315;
+  --lmap-ink: #ecebe7;
+  --lmap-muted: #9c9da3;
+  --lmap-line: rgb(255 255 255 / 0.1);
+  --lmap-station: #121315;
+  --lmap-focus: #ecebe7;
+}
+.lmap__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.lmap__title { margin: 0; font-size: 15px; font-weight: 700; }
+.lmap__legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0; padding: 0; list-style: none; font-size: 13px; font-weight: 600; }
+.lmap__legend li { display: inline-flex; align-items: center; gap: 7px; }
+.lmap__swatch { width: 18px; height: 6px; border-radius: 3px; background: var(--c); }
+.lmap__progress { font-weight: 500; color: var(--lmap-muted); font-variant-numeric: tabular-nums; }
+
+.lmap__map { position: relative; width: 100%; }
+.lmap__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.lmap__track { fill: none; stroke: color-mix(in srgb, var(--c) 32%, var(--lmap-bg)); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+.lmap__track[data-done] { stroke: var(--c); }
+.lmap__dot { fill: var(--lmap-station); stroke: color-mix(in srgb, var(--c) 40%, var(--lmap-bg)); stroke-width: 3.5; transition: r 160ms var(--lmap-ease); }
+.lmap__station[data-done] .lmap__dot { stroke: var(--c); }
+.lmap__station[data-inter] .lmap__dot { stroke: var(--lmap-ink); stroke-width: 3.5; }
+.lmap__station[data-current] .lmap__dot { fill: var(--c); stroke: var(--lmap-ink); }
+.lmap__station[data-focus] .lmap__dot { stroke: var(--lmap-focus); stroke-width: 4.5; }
+.lmap__label { fill: var(--lmap-ink); font-size: 13px; font-weight: 600; paint-order: stroke; stroke: var(--lmap-bg); stroke-width: 4px; stroke-linejoin: round; }
+.lmap__station:not([data-done]) .lmap__label { fill: var(--lmap-muted); font-weight: 500; }
+.lmap__here { fill: var(--lmap-ink); font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; paint-order: stroke; stroke: var(--lmap-bg); stroke-width: 4px; }
+.lmap__pulse { fill: none; stroke: var(--c); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; animation: lmap-pulse 1400ms var(--lmap-ease) 300ms 2; }
+@keyframes lmap-pulse { from { opacity: 0.9; transform: scale(0.5); } to { opacity: 0; transform: scale(1.4); } }
+
+.lmap__hits { position: absolute; inset: 0; }
+.lmap__hit { position: absolute; width: 34px; height: 34px; translate: -50% -50%; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.lmap__hit:focus-visible { outline: 2px solid var(--lmap-focus); outline-offset: 2px; }
+
+.lmap__card {
+  position: absolute; z-index: 2; display: grid; gap: 4px; min-width: 150px; padding: 9px 11px; translate: -50% calc(-100% - 22px);
+  border-radius: 9px; background: var(--lmap-bg); border: 1px solid var(--lmap-line); box-shadow: 0 12px 26px -12px rgb(0 0 0 / 0.35);
+  font-size: 12px; pointer-events: none; animation: lmap-card 140ms var(--lmap-ease);
+}
+@keyframes lmap-card { from { opacity: 0; translate: -50% calc(-100% - 16px); } }
+.lmap__card strong { font-size: 13px; }
+.lmap__card span { display: flex; flex-wrap: wrap; gap: 6px; }
+.lmap__card i { font-style: normal; font-weight: 600; color: var(--c); }
+.lmap__card em { font-style: normal; color: var(--lmap-muted); }
+
+.lmap__strips { display: none; gap: 14px; }
+.lmap__strip h4 { display: flex; justify-content: space-between; margin: 0 0 6px; font-size: 13px; color: var(--c); }
+.lmap__strip h4 span { color: var(--lmap-muted); font-weight: 500; }
+.lmap__strip ol { margin: 0; padding: 0 0 0 4px; list-style: none; }
+.lmap__strip li { position: relative; padding: 0 0 0 26px; }
+.lmap__strip li::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 6px; background: color-mix(in srgb, var(--c) 32%, var(--lmap-bg)); }
+.lmap__strip li[data-done]::before { background: var(--c); }
+.lmap__strip li:first-child::before { top: 50%; }
+.lmap__strip li:last-child::before { bottom: 50%; }
+.lmap__strip li::after { content: ""; position: absolute; left: 2px; top: 50%; width: 14px; height: 14px; translate: 0 -50%; border-radius: 50%; background: var(--lmap-station); box-shadow: inset 0 0 0 3px var(--c); }
+.lmap__strip li[data-current]::after { background: var(--c); box-shadow: inset 0 0 0 3px var(--lmap-ink); }
+.lmap__strip button { display: grid; width: 100%; padding: 9px 4px; border: 0; background: none; color: inherit; font: inherit; font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; }
+.lmap__strip button:focus-visible { outline: 2px solid var(--lmap-focus); border-radius: 6px; }
+.lmap__change { font-size: 12px; font-weight: 500; color: var(--lmap-muted); }
+.lmap__keys { margin: 0; font-size: 12px; color: var(--lmap-muted); }
+
+@container (max-width: 36rem) {
+  .lmap__map, .lmap__keys { display: none; }
+  .lmap__strips { display: grid; }
+}
+.lmap[data-motion="off"] * { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .lmap * { animation: none !important; transition: none !important; } }

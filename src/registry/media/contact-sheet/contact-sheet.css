@@ -1,0 +1,72 @@
+.csheet {
+  --csheet-table: #eef2f6;
+  --csheet-glow: #ffffff;
+  --csheet-film: #191817;
+  --csheet-edge: #e38b3a;
+  --csheet-ink: #1d1e20;
+  --csheet-muted: #62666d;
+  --csheet-line: rgb(29 30 32 / 0.12);
+  --csheet-pencil: #d3231b;
+  --csheet-focus: #1d5fd6;
+  --csheet-ease: cubic-bezier(.2, .8, .2, 1);
+  display: grid; gap: 14px; padding: 18px;
+  color: var(--csheet-ink);
+  background: radial-gradient(ellipse at 50% 40%, var(--csheet-glow), var(--csheet-table) 70%);
+  border: 1px solid var(--csheet-line); border-radius: 14px;
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+}
+.csheet--dark {
+  --csheet-table: #23272c;
+  --csheet-glow: #3a4048;
+  --csheet-film: #0b0b0b;
+  --csheet-edge: #f0a35e;
+  --csheet-ink: #eceae6;
+  --csheet-muted: #a8acb3;
+  --csheet-line: rgb(255 255 255 / 0.12);
+  --csheet-pencil: #ff5a4a;
+  --csheet-focus: #8db2ff;
+}
+.csheet kbd { padding: 0 5px; border: 1px solid var(--csheet-line); border-radius: 4px; font: 500 11px/16px "IBM Plex Mono", ui-monospace, monospace; }
+.csheet__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.csheet__filters { display: inline-flex; padding: 3px; gap: 2px; border-radius: 9px; background: color-mix(in srgb, var(--csheet-ink) 7%, transparent); }
+.csheet__filters button, .csheet__loupe-btn { padding: 5px 10px; border: 0; border-radius: 6px; background: transparent; color: var(--csheet-muted); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer; }
+.csheet__filters button span { font-variant-numeric: tabular-nums; opacity: 0.8; }
+.csheet__filters button[aria-pressed="true"] { background: var(--csheet-glow); color: var(--csheet-ink); box-shadow: 0 1px 2px rgb(0 0 0 / 0.15); }
+.csheet__loupe-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--csheet-line); }
+.csheet__loupe-btn[aria-pressed="true"] { background: var(--csheet-ink); color: var(--csheet-glow); }
+.csheet button:focus-visible { outline: 2px solid var(--csheet-focus); outline-offset: 2px; }
+
+.csheet__grid { position: relative; display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 14px 10px; margin: 0; padding: 0; list-style: none; }
+.csheet[data-loupe] .csheet__grid { cursor: none; }
+.csheet__cell { display: grid; gap: 4px; min-width: 0; }
+.csheet__frame {
+  position: relative; display: block; width: 100%; padding: 16px 6px 24px; border: 0; border-radius: 2px; cursor: pointer;
+  background:
+    radial-gradient(circle, var(--csheet-table) 2.2px, transparent 2.6px) 4px 3px / 13px 10px repeat-x,
+    radial-gradient(circle, var(--csheet-table) 2.2px, transparent 2.6px) 4px calc(100% - 3px) / 13px 10px repeat-x,
+    var(--csheet-film);
+}
+.csheet__frame:focus-visible { outline: 3px solid var(--csheet-focus); outline-offset: 2px; }
+.csheet__frame img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: opacity 200ms var(--csheet-ease), filter 200ms var(--csheet-ease); }
+.csheet__frame[data-reject] img { opacity: 0.45; filter: grayscale(0.6); }
+.csheet__edge { position: absolute; left: 8px; right: 8px; bottom: 12px; display: flex; justify-content: space-between; font: 600 8.5px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.06em; color: var(--csheet-edge); pointer-events: none; }
+.csheet__marks { position: absolute; left: -2px; top: 6px; width: calc(100% + 4px); height: calc(100% - 22px); overflow: visible; pointer-events: none; }
+.csheet__pencil { fill: none; stroke: var(--csheet-pencil); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; animation: csheet-draw 300ms var(--csheet-ease) both; opacity: 0.92; }
+.csheet__pencil--late { animation-delay: 140ms; }
+@keyframes csheet-draw { from { stroke-dashoffset: 1; } }
+.csheet__under { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-width: 0; }
+.csheet__title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--csheet-muted); }
+.csheet__stars { display: inline-flex; flex: none; }
+.csheet__stars button { width: 16px; height: 18px; padding: 0; border: 0; background: none; color: color-mix(in srgb, var(--csheet-ink) 22%, transparent); font-size: 13px; line-height: 1; cursor: pointer; }
+.csheet__stars button[data-on] { color: var(--csheet-pencil); }
+.csheet__none { grid-column: 1 / -1; padding: 28px; text-align: center; color: var(--csheet-muted); }
+
+.csheet__lens {
+  position: absolute; z-index: 3; width: 180px; height: 180px; translate: -50% -50%; border-radius: 50%; pointer-events: none;
+  background-repeat: no-repeat; border: 6px solid var(--csheet-film); box-shadow: 0 0 0 1px var(--csheet-glow), 0 18px 30px -10px rgb(0 0 0 / 0.5);
+}
+.csheet__keys { margin: 0; font-size: 12px; color: var(--csheet-muted); }
+.csheet__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.csheet[data-motion="off"] * { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .csheet * { animation: none !important; transition: none !important; } }
