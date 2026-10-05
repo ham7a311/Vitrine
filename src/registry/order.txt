@@ -170,6 +170,7 @@ ai/thinking-trace
 ai/message-actions
 ai/inline-diff
 ai/cited-answer
+ai/splice
 sidebars/conversation-sidebar
 sidebars/workspace-sidebar
 heroes/glass-torus
@@ -205,7 +206,9 @@ decisions/pairwise-ranker
 decisions/magnet-board
 decisions/allocation-faders
 time/undo-tree
+time/conflict-resolver
 time/cron-builder
+developer/query-tokens
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer

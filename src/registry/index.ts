@@ -166,6 +166,7 @@ import { meta as thinkingTrace } from "./ai/thinking-trace/meta";
 import { meta as messageActions } from "./ai/message-actions/meta";
 import { meta as inlineDiff } from "./ai/inline-diff/meta";
 import { meta as citedAnswer } from "./ai/cited-answer/meta";
+import { meta as splice } from "./ai/splice/meta";
 import { meta as conversationSidebar } from "./sidebars/conversation-sidebar/meta";
 import { meta as workspaceSidebar } from "./sidebars/workspace-sidebar/meta";
 import { meta as glassTorus } from "./heroes/glass-torus/meta";
@@ -201,7 +202,9 @@ import { meta as pairwiseRanker } from "./decisions/pairwise-ranker/meta";
 import { meta as magnetBoard } from "./decisions/magnet-board/meta";
 import { meta as allocationFaders } from "./decisions/allocation-faders/meta";
 import { meta as undoTree } from "./time/undo-tree/meta";
+import { meta as conflictResolver } from "./time/conflict-resolver/meta";
 import { meta as cronBuilder } from "./time/cron-builder/meta";
+import { meta as queryTokens } from "./developer/query-tokens/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -514,6 +517,7 @@ export const registry: ComponentMeta[] = [
   messageActions,
   inlineDiff,
   citedAnswer,
+  splice,
   conversationSidebar,
   workspaceSidebar,
   glassTorus,
@@ -549,7 +553,9 @@ export const registry: ComponentMeta[] = [
   magnetBoard,
   allocationFaders,
   undoTree,
+  conflictResolver,
   cronBuilder,
+  queryTokens,
   curtainFooter,
   signOffFooter,
   indexFooter,
