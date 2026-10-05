@@ -1,0 +1,32 @@
+/* Running Head: a section header that stays pinned as a book's running head. */
+.running-head, .running-head__pin {
+  --rh-ink: #1b1a17;
+  --rh-muted: #6b6861;
+  --rh-line: rgb(27 26 23 / 0.14);
+  --rh-bg: #f6f5f1;
+  --rh-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.running-head--night { --rh-ink: #ececea; --rh-muted: #8d8f95; --rh-line: rgb(255 255 255 / 0.13); --rh-bg: #0f1012; }
+
+.running-head { container-type: inline-size; color: var(--rh-ink); }
+.running-head__top { display: flex; align-items: center; gap: 14px; }
+.running-head__num, .running-head__meta, .running-head__bar-meta { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; font-variant-numeric: tabular-nums; color: var(--rh-muted); white-space: nowrap; }
+.running-head__rule { flex: 1; height: 1px; background: var(--rh-line); transform-origin: 0 50%; transform: scaleX(0); }
+.running-head[data-seen] .running-head__rule { transform: none; transition: transform 700ms var(--rh-ease); }
+.running-head__title { margin: 22px 0 0; max-width: 20ch; font: 400 clamp(2rem, 7cqi, 3.5rem)/1.02 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.02em; text-wrap: balance; }
+.running-head__lede { margin: 16px 0 0; max-width: 46ch; font-size: 0.9375rem; line-height: 1.6; color: var(--rh-muted); text-wrap: pretty; }
+@container (max-width: 30rem) { .running-head__meta { display: none; } }
+
+/* The pin is a zero-height sticky anchor; the bar hangs from it and is only shown while the head is gone. */
+.running-head__pin { position: sticky; top: var(--rh-top, 0px); z-index: 5; height: 0; pointer-events: none; }
+.running-head__bar { position: absolute; inset: 0 0 auto 0; display: flex; align-items: center; gap: 12px; height: 38px; padding: 0; background: color-mix(in srgb, var(--rh-bg) 97%, transparent); border-bottom: 1px solid var(--rh-line); opacity: 0; transform: translateY(-6px); transition: opacity 160ms ease, transform 240ms var(--rh-ease); }
+.running-head__pin[data-stuck] .running-head__bar { opacity: 1; transform: none; pointer-events: auto; }
+.running-head__bar .running-head__num { color: var(--rh-ink); }
+.running-head__label { font: 400 1.0625rem/1 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.005em; color: var(--rh-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.running-head__bar-meta { margin-left: auto; }
+
+@media (prefers-reduced-motion: reduce) { .running-head *, .running-head__bar { transition-duration: 1ms !important; } .running-head__rule { transform: none; } }
+.running-head[data-motion="reduced"] .running-head__rule { transform: none; transition: none; }
+.running-head__pin[data-motion="reduced"] .running-head__bar { transition-duration: 1ms; }

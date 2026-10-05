@@ -309,6 +309,9 @@ const loaders: Record<string, Loader> = {
   "word-carousel": () => import("./text/word-carousel/demo"),
   "second-draft-text": () => import("./text/second-draft-text/demo"),
   "docket-nav": () => import("./navbars/docket-nav/demo"),
+  "running-head": () => import("./sections/running-head/demo"),
+  "typeset-hero": () => import("./heroes/typeset-hero/demo"),
+  "colophon-footer": () => import("./footers/colophon-footer/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();

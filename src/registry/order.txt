@@ -305,3 +305,6 @@ text/loose-letters
 text/word-carousel
 text/second-draft-text
 navbars/docket-nav
+sections/running-head
+heroes/typeset-hero
+footers/colophon-footer

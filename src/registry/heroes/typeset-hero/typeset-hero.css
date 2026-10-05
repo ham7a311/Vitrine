@@ -1,0 +1,60 @@
+/* Typeset Hero: the first screen as a typeset page. */
+.typeset-hero {
+  --th-bg: #0c0b0e;
+  --th-ink: #efe8dc;
+  --th-muted: #a7a1ab;
+  --th-line: rgb(239 232 220 / 0.18);
+  --th-btn: #efe8dc;
+  --th-on-btn: #0c0b0e;
+  --th-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  display: flex;
+  overflow: hidden;
+  background: var(--th-bg);
+  color: var(--th-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.typeset-hero--paper { --th-bg: #f6f5f1; --th-ink: #1b1a17; --th-muted: #5f5c55; --th-line: rgb(27 26 23 / 0.2); --th-btn: #1b1a17; --th-on-btn: #f6f5f1; }
+
+.typeset-hero__backdrop { position: absolute; inset: 0; z-index: -2; }
+.typeset-hero__backdrop > * { width: 100%; height: 100%; }
+/* A flat tint behind the text column, with a soft right edge so it reads as light falling off, not a panel. */
+.typeset-hero__scrim { position: absolute; inset: 0 auto 0 0; z-index: -1; width: min(100%, 52rem); background: color-mix(in srgb, var(--th-bg) calc(var(--th-scrim) * 100%), transparent); -webkit-mask-image: linear-gradient(to right, #000 62%, transparent); mask-image: linear-gradient(to right, #000 62%, transparent); }
+
+.typeset-hero__inner { width: 100%; max-width: 80rem; margin: 0 auto; padding: clamp(40px, 9cqi, 96px) clamp(20px, 5cqi, 56px) clamp(28px, 4cqi, 44px); display: flex; flex-direction: column; justify-content: flex-end; gap: clamp(40px, 8cqi, 88px); }
+.typeset-hero__copy { max-width: 44rem; }
+
+.typeset-hero__eyebrow { margin: 0; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--th-muted); }
+.typeset-hero__title { margin: 22px 0 -0.14em; padding-bottom: 0.14em; font: 400 clamp(2.6rem, 9.5cqi, 6.25rem)/0.96 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.03em; text-wrap: balance; }
+.typeset-hero__title em { font-style: italic; }
+.typeset-hero__lede { margin: 24px 0 0; max-width: 44ch; font-size: clamp(0.9375rem, 1.6cqi + 0.5rem, 1.125rem); line-height: 1.55; color: var(--th-muted); text-wrap: pretty; }
+.typeset-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 32px; }
+.typeset-hero__primary { display: inline-flex; align-items: center; height: 48px; padding: 0 22px; border-radius: 999px; background: var(--th-btn); color: var(--th-on-btn); font-size: 0.9375rem; font-weight: 500; text-decoration: none; transition: opacity 160ms ease; }
+.typeset-hero__primary:hover { opacity: 0.88; }
+.typeset-hero__secondary { padding: 12px 0; color: var(--th-ink); font-size: 0.9375rem; text-decoration: underline; text-decoration-color: var(--th-line); text-underline-offset: 6px; transition: text-decoration-color 160ms ease; }
+.typeset-hero__secondary:hover { text-decoration-color: currentColor; }
+:is(.typeset-hero__primary, .typeset-hero__secondary):focus-visible { outline: 2px solid var(--th-ink); outline-offset: 3px; }
+
+.typeset-hero__facts { display: grid; grid-template-columns: repeat(var(--th-n, 3), minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--th-line); }
+.typeset-hero__facts > div { padding: 16px 20px 0 0; }
+.typeset-hero__facts dt { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--th-muted); }
+.typeset-hero__facts dd { margin: 10px 0 0; font: 400 clamp(1.125rem, 2.4cqi, 1.5rem)/1.15 "Instrument Serif", ui-serif, Georgia, serif; font-variant-numeric: tabular-nums; }
+@container (max-width: 40rem) { .typeset-hero__scrim { -webkit-mask-image: none; mask-image: none; } }
+@container (max-width: 34rem) { .typeset-hero__facts { grid-template-columns: 1fr; } .typeset-hero__facts > div { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--th-line); } .typeset-hero__facts dd { margin: 0; } }
+
+/* Set once, in reading order: each block rises out of its own mask. */
+.typeset-hero__eyebrow, .typeset-hero__title, .typeset-hero__lede { overflow: hidden; }
+.typeset-hero__eyebrow > span, .typeset-hero__title > span, .typeset-hero__lede > span { display: block; animation: th-rise 900ms var(--th-ease) both; }
+.typeset-hero__title > span { animation-delay: 90ms; }
+.typeset-hero__lede > span { animation-delay: 190ms; }
+.typeset-hero__actions { animation: th-fade 700ms ease 320ms both; }
+.typeset-hero__facts { animation: th-fade 700ms ease 440ms both; }
+@keyframes th-rise { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes th-fade { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) { .typeset-hero * { animation: none !important; transition-duration: 1ms !important; } }
+.typeset-hero[data-motion="reduced"] * { animation: none !important; transition-duration: 1ms !important; }

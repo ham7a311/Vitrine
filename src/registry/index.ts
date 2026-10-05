@@ -301,6 +301,9 @@ import { meta as looseLetters } from "./text/loose-letters/meta";
 import { meta as wordCarousel } from "./text/word-carousel/meta";
 import { meta as secondDraftText } from "./text/second-draft-text/meta";
 import { meta as docketNav } from "./navbars/docket-nav/meta";
+import { meta as runningHead } from "./sections/running-head/meta";
+import { meta as typesetHero } from "./heroes/typeset-hero/meta";
+import { meta as colophonFooter } from "./footers/colophon-footer/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -606,6 +609,9 @@ export const registry: ComponentMeta[] = [
   wordCarousel,
   secondDraftText,
   docketNav,
+  runningHead,
+  typesetHero,
+  colophonFooter,
 ];
 
 export function getComponent(slug: string) {
