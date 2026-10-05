@@ -227,6 +227,7 @@ pricing/calendar-pricing
 pricing/stack-pricing
 pricing/chalk-menu-pricing
 commerce/build-sheet
+commerce/fit-compare
 faq/index-faq
 faq/footnote-faq
 faq/help-desk-faq

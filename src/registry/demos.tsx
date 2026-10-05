@@ -231,6 +231,7 @@ const loaders: Record<string, Loader> = {
   "stack-pricing": () => import("./pricing/stack-pricing/demo"),
   "chalk-menu-pricing": () => import("./pricing/chalk-menu-pricing/demo"),
   "build-sheet": () => import("./commerce/build-sheet/demo"),
+  "fit-compare": () => import("./commerce/fit-compare/demo"),
   "index-faq": () => import("./faq/index-faq/demo"),
   "footnote-faq": () => import("./faq/footnote-faq/demo"),
   "help-desk-faq": () => import("./faq/help-desk-faq/demo"),
