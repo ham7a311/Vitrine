@@ -1,0 +1,62 @@
+/* Phrase Date: write a date in words; a line reads it back; the grid agrees. */
+.phrase-date {
+  --pd-ink: #1b1a17;
+  --pd-muted: #6b6861;
+  --pd-line: rgb(27 26 23 / 0.16);
+  --pd-surface: #ffffff;
+  --pd-wash: rgb(27 26 23 / 0.05);
+  --pd-accent: #2f6bff;
+  --pd-danger: #b42318;
+  --pd-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  container-type: inline-size;
+  width: 100%;
+  max-width: 22rem;
+  color: var(--pd-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.phrase-date--night { --pd-ink: #ececea; --pd-muted: #8d8f95; --pd-line: rgb(255 255 255 / 0.16); --pd-surface: #17181b; --pd-wash: rgb(255 255 255 / 0.06); --pd-accent: #7aa2ff; --pd-danger: #f0766e; }
+
+.phrase-date__label { display: block; margin-bottom: 4px; font: 500 0.6875rem/1.4 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pd-muted); }
+.phrase-date__field { display: flex; align-items: center; border-bottom: 1px solid var(--pd-line); transition: border-color 160ms ease; }
+.phrase-date__field:focus-within { border-bottom-color: var(--pd-ink); }
+.phrase-date__field[data-invalid] { border-bottom-color: var(--pd-danger); }
+.phrase-date__field input { flex: 1; min-width: 0; padding: 8px 0; border: 0; background: none; color: inherit; font: 400 1.375rem/1.2 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.005em; outline: none; }
+.phrase-date__field input::placeholder { color: color-mix(in srgb, var(--pd-muted) 65%, transparent); }
+.phrase-date__toggle { display: grid; place-items: center; width: 44px; height: 44px; margin-right: -12px; border: 0; background: none; color: var(--pd-muted); cursor: pointer; border-radius: 8px; transition: color 160ms ease; }
+.phrase-date__toggle:hover, .phrase-date[data-open] .phrase-date__toggle { color: var(--pd-ink); }
+.phrase-date svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+:is(.phrase-date__toggle, .phrase-date__head button, .phrase-date__grid button):focus-visible { outline: 2px solid var(--pd-ink); outline-offset: 2px; }
+
+.phrase-date__reading { min-height: 1.5em; margin: 8px 0 0; font-size: 0.875rem; line-height: 1.5; color: var(--pd-muted); }
+.phrase-date__reading b { font-weight: 500; color: var(--pd-ink); animation: pd-in 200ms var(--pd-ease) both; }
+.phrase-date__reading[data-bad] { color: var(--pd-danger); }
+
+.phrase-date__fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 280ms var(--pd-ease); }
+.phrase-date[data-open] .phrase-date__fold { grid-template-rows: 1fr; }
+.phrase-date__fold > div { min-height: 0; overflow: hidden; visibility: hidden; transition: visibility 0s 280ms; }
+.phrase-date[data-open] .phrase-date__fold > div { visibility: visible; transition-delay: 0s; }
+.phrase-date__panel { margin-top: 12px; padding: 14px; border-radius: 10px; background: var(--pd-surface); box-shadow: 0 0 0 1px var(--pd-line); }
+
+.phrase-date__head { display: flex; align-items: center; gap: 2px; margin-bottom: 8px; }
+.phrase-date__month { flex: 1; font: 400 1.25rem/1 "Instrument Serif", ui-serif, Georgia, serif; }
+.phrase-date__head button { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 8px; background: none; color: var(--pd-muted); cursor: pointer; }
+.phrase-date__head button:hover { background: var(--pd-wash); color: var(--pd-ink); }
+
+.phrase-date__grid { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.phrase-date__grid th { padding: 4px 0 8px; font: 500 0.625rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pd-muted); }
+.phrase-date__grid td { padding: 1px; text-align: center; }
+.phrase-date__grid tbody { animation: pd-in 200ms ease both; }
+.phrase-date__grid button { position: relative; width: 100%; aspect-ratio: 1; min-height: 36px; border: 0; border-radius: 8px; background: none; color: var(--pd-ink); font: 400 0.875rem/1 inherit; font-variant-numeric: tabular-nums; cursor: pointer; transition: background 140ms ease, color 140ms ease; }
+.phrase-date__grid button:hover { background: var(--pd-wash); }
+.phrase-date__grid button[data-out] { color: color-mix(in srgb, var(--pd-muted) 60%, transparent); }
+.phrase-date__grid button[aria-disabled] { color: color-mix(in srgb, var(--pd-muted) 40%, transparent); text-decoration: line-through; cursor: default; }
+.phrase-date__grid button[aria-disabled]:hover { background: none; }
+.phrase-date__grid button[data-today]::after { content: ""; position: absolute; left: 50%; bottom: 5px; width: 3px; height: 3px; margin-left: -1.5px; border-radius: 50%; background: currentColor; }
+/* What you are typing is a dashed ring; what is chosen is filled. The two agree when they are the same day. */
+.phrase-date__grid button[data-reading] { box-shadow: inset 0 0 0 1.5px var(--pd-accent); }
+.phrase-date__grid button[data-selected] { background: var(--pd-ink); color: var(--pd-surface); }
+
+@keyframes pd-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .phrase-date * { transition-duration: 1ms !important; animation: none !important; } }
+.phrase-date[data-motion="reduced"] * { transition-duration: 1ms !important; animation: none !important; }

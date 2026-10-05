@@ -315,6 +315,7 @@ const loaders: Record<string, Loader> = {
   "annotated-plate": () => import("./sections/annotated-plate/demo"),
   "ribbon-changelog": () => import("./sections/ribbon-changelog/demo"),
   "enquiry-slip": () => import("./forms/enquiry-slip/demo"),
+  "phrase-date": () => import("./forms/phrase-date/demo"),
 };
 
 const cache = new Map<string, ComponentType<DemoProps>>();
