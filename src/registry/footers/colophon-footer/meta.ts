@@ -26,6 +26,6 @@ Back to top scrolls the given scroller (or window) to 0, smoothly unless reduced
     { id: "paper", label: "Paper" },
     { id: "night", label: "Night" },
   ],
-  preview: { bg: "#f6f5f1", mode: "fill", height: 560 },
+  preview: { bg: "#f6f5f1", mode: "fill", height: 560, frame: [720, 800] },
   isNew: true,
 };

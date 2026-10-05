@@ -29,11 +29,11 @@ export default function Demo({ variant = "paper" }: { variant?: string }) {
     >
       <header className={`flex h-14 items-center gap-6 border-b px-6 text-[0.875rem] ${night ? "border-white/[0.09]" : "border-black/[0.09]"}`}>
         <span className="font-semibold tracking-[-0.01em]">Relay</span>
-        <span className={muted}>Masar / production</span>
+        <span className={`hidden sm:inline ${muted}`}>Masar / production</span>
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className={`ml-auto flex h-9 items-center gap-3 rounded-lg px-3 text-[0.8125rem] ring-1 ${night ? "text-[#9a9ca2] ring-white/15 hover:bg-white/[0.05]" : "text-[#6b6861] ring-black/15 hover:bg-black/[0.04]"}`}
+          className={`ml-auto flex h-9 items-center gap-3 whitespace-nowrap rounded-lg px-3 text-[0.8125rem] ring-1 ${night ? "text-[#9a9ca2] ring-white/15 hover:bg-white/[0.05]" : "text-[#6b6861] ring-black/15 hover:bg-black/[0.04]"}`}
         >
           Run a command
           <kbd className="font-[family-name:Geist_Mono] text-[0.6875rem]">⌘K</kbd>

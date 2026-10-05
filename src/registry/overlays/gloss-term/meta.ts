@@ -28,6 +28,6 @@ Placement is measured, not guessed: with the term's rect and the card's size, pu
     { id: "paper", label: "Paper" },
     { id: "night", label: "Night" },
   ],
-  preview: { bg: "#f6f5f1", mode: "scroll", height: 560 },
+  preview: { bg: "#f6f5f1", mode: "scroll", height: 560, frame: [760, 475] },
   isNew: true,
 };

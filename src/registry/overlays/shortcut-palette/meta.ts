@@ -32,6 +32,6 @@ Teaching: running a command closes the palette, calls onRun, then shows a dark p
     { id: "paper", label: "Paper" },
     { id: "night", label: "Night" },
   ],
-  preview: { bg: "#f6f5f1", mode: "fill", height: 620 },
+  preview: { bg: "#f6f5f1", mode: "fill", height: 620, frame: [800, 520] },
   isNew: true,
 };

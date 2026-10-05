@@ -71,6 +71,9 @@ const SYNONYMS: Record<string, string[]> = {
   icon: ["micro-animation", "icons"],
   benchmark: ["bench", "models"],
   llm: ["ai", "chat", "model"],
+  cmdk: ["command", "palette"],
+  datepicker: ["date", "calendar"],
+  error: ["404", "feedback"],
 };
 
 /**

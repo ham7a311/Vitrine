@@ -168,16 +168,22 @@ import { meta as glassTorus } from "./heroes/glass-torus/meta";
 import { meta as localSkyHero } from "./heroes/local-sky-hero/meta";
 import { meta as letterformHero } from "./heroes/letterform-hero/meta";
 import { meta as waitlistHero } from "./heroes/waitlist-hero/meta";
+import { meta as typesetHero } from "./heroes/typeset-hero/meta";
 import { meta as mastheadNav } from "./navbars/masthead-nav/meta";
+import { meta as docketNav } from "./navbars/docket-nav/meta";
 import { meta as glassTabBar } from "./navigation/glass-tab-bar/meta";
 import { meta as slideTabs } from "./navigation/slide-tabs/meta";
 import { meta as thumbedEdge } from "./navigation/thumbed-edge/meta";
 import { meta as rulerIndex } from "./navigation/ruler-index/meta";
 import { meta as pleatCrumbs } from "./navigation/pleat-crumbs/meta";
 import { meta as threadStepper } from "./navigation/thread-stepper/meta";
+import { meta as folioPager } from "./navigation/folio-pager/meta";
 import { meta as depthDialog } from "./overlays/depth-dialog/meta";
 import { meta as contextLens } from "./overlays/context-lens/meta";
 import { meta as foldSheet } from "./overlays/fold-sheet/meta";
+import { meta as glossTerm } from "./overlays/gloss-term/meta";
+import { meta as plainConsent } from "./overlays/plain-consent/meta";
+import { meta as shortcutPalette } from "./overlays/shortcut-palette/meta";
 import { meta as searchLens } from "./data/search-lens/meta";
 import { meta as mediaInspector } from "./data/media-inspector/meta";
 import { meta as focusTable } from "./data/focus-table/meta";
@@ -186,6 +192,7 @@ import { meta as activityStream } from "./data/activity-stream/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
+import { meta as colophonFooter } from "./footers/colophon-footer/meta";
 import { meta as subtractivePricing } from "./pricing/subtractive-pricing/meta";
 import { meta as usageRuler } from "./pricing/usage-ruler/meta";
 import { meta as lightboxCompare } from "./pricing/lightbox-compare/meta";
@@ -210,6 +217,7 @@ import { meta as cascadePitchCta } from "./ctas/cascade-pitch-cta/meta";
 import { meta as entryPointCta } from "./ctas/entry-point-cta/meta";
 import { meta as inlineCta } from "./ctas/inline-cta/meta";
 import { meta as arrivalCta } from "./ctas/arrival-cta/meta";
+import { meta as nextIssue } from "./ctas/next-issue/meta";
 import { meta as nocturneSignIn } from "./auth/nocturne-sign-in/meta";
 import { meta as qrHandoffSignIn } from "./auth/qr-handoff-sign-in/meta";
 import { meta as consentSignIn } from "./auth/consent-sign-in/meta";
@@ -267,13 +275,20 @@ import { meta as uploadStack } from "./forms/upload-stack/meta";
 import { meta as progressiveForm } from "./forms/progressive-form/meta";
 import { meta as sentenceSettings } from "./forms/sentence-settings/meta";
 import { meta as etchedField } from "./forms/etched-field/meta";
+import { meta as enquirySlip } from "./forms/enquiry-slip/meta";
+import { meta as phraseDate } from "./forms/phrase-date/meta";
 import { meta as toastStack } from "./feedback/toast-stack/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
 import { meta as firstLight } from "./feedback/first-light/meta";
 import { meta as progressiveReveal } from "./feedback/progressive-reveal/meta";
+import { meta as tuckBanner } from "./feedback/tuck-banner/meta";
+import { meta as nearestPage } from "./feedback/nearest-page/meta";
 import { meta as stepPath } from "./sections/step-path/meta";
 import { meta as voicesCarousel } from "./sections/voices-carousel/meta";
+import { meta as runningHead } from "./sections/running-head/meta";
+import { meta as annotatedPlate } from "./sections/annotated-plate/meta";
+import { meta as ribbonChangelog } from "./sections/ribbon-changelog/meta";
 import { meta as ditherLogo } from "./type/dither-logo/meta";
 import { meta as constellationName } from "./type/constellation-name/meta";
 import { meta as sealSignature } from "./type/seal-signature/meta";
@@ -300,21 +315,6 @@ import { meta as weightWaveText } from "./text/weight-wave-text/meta";
 import { meta as looseLetters } from "./text/loose-letters/meta";
 import { meta as wordCarousel } from "./text/word-carousel/meta";
 import { meta as secondDraftText } from "./text/second-draft-text/meta";
-import { meta as docketNav } from "./navbars/docket-nav/meta";
-import { meta as runningHead } from "./sections/running-head/meta";
-import { meta as typesetHero } from "./heroes/typeset-hero/meta";
-import { meta as colophonFooter } from "./footers/colophon-footer/meta";
-import { meta as annotatedPlate } from "./sections/annotated-plate/meta";
-import { meta as ribbonChangelog } from "./sections/ribbon-changelog/meta";
-import { meta as enquirySlip } from "./forms/enquiry-slip/meta";
-import { meta as phraseDate } from "./forms/phrase-date/meta";
-import { meta as nextIssue } from "./ctas/next-issue/meta";
-import { meta as tuckBanner } from "./feedback/tuck-banner/meta";
-import { meta as nearestPage } from "./feedback/nearest-page/meta";
-import { meta as glossTerm } from "./overlays/gloss-term/meta";
-import { meta as plainConsent } from "./overlays/plain-consent/meta";
-import { meta as folioPager } from "./navigation/folio-pager/meta";
-import { meta as shortcutPalette } from "./overlays/shortcut-palette/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -487,16 +487,22 @@ export const registry: ComponentMeta[] = [
   localSkyHero,
   letterformHero,
   waitlistHero,
+  typesetHero,
   mastheadNav,
+  docketNav,
   glassTabBar,
   slideTabs,
   thumbedEdge,
   rulerIndex,
   pleatCrumbs,
   threadStepper,
+  folioPager,
   depthDialog,
   contextLens,
   foldSheet,
+  glossTerm,
+  plainConsent,
+  shortcutPalette,
   searchLens,
   mediaInspector,
   focusTable,
@@ -505,6 +511,7 @@ export const registry: ComponentMeta[] = [
   curtainFooter,
   signOffFooter,
   indexFooter,
+  colophonFooter,
   subtractivePricing,
   usageRuler,
   lightboxCompare,
@@ -529,6 +536,7 @@ export const registry: ComponentMeta[] = [
   entryPointCta,
   inlineCta,
   arrivalCta,
+  nextIssue,
   nocturneSignIn,
   qrHandoffSignIn,
   consentSignIn,
@@ -586,13 +594,20 @@ export const registry: ComponentMeta[] = [
   progressiveForm,
   sentenceSettings,
   etchedField,
+  enquirySlip,
+  phraseDate,
   toastStack,
   wetInk,
   undoRibbon,
   firstLight,
   progressiveReveal,
+  tuckBanner,
+  nearestPage,
   stepPath,
   voicesCarousel,
+  runningHead,
+  annotatedPlate,
+  ribbonChangelog,
   ditherLogo,
   constellationName,
   sealSignature,
@@ -619,21 +634,6 @@ export const registry: ComponentMeta[] = [
   looseLetters,
   wordCarousel,
   secondDraftText,
-  docketNav,
-  runningHead,
-  typesetHero,
-  colophonFooter,
-  annotatedPlate,
-  ribbonChangelog,
-  enquirySlip,
-  phraseDate,
-  nextIssue,
-  tuckBanner,
-  nearestPage,
-  glossTerm,
-  plainConsent,
-  folioPager,
-  shortcutPalette,
 ];
 
 export function getComponent(slug: string) {

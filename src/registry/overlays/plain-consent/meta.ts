@@ -28,6 +28,6 @@ After any decision: persist the choices in localStorage inside try/catch (read a
     { id: "paper", label: "Paper" },
     { id: "night", label: "Night" },
   ],
-  preview: { bg: "#f6f5f1", mode: "fill", height: 560 },
+  preview: { bg: "#f6f5f1", mode: "fill", height: 560, frame: [760, 520] },
   isNew: true,
 };

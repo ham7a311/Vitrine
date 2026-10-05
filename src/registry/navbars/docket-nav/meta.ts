@@ -28,6 +28,6 @@ Production behaviour: link clicks scroll the section to just under the bar (smoo
     { id: "paper", label: "Paper" },
     { id: "night", label: "Night" },
   ],
-  preview: { bg: "#f6f5f1", mode: "scroll", height: 640 },
+  preview: { bg: "#f6f5f1", mode: "scroll", height: 640, frame: [1000, 625] },
   isNew: true,
 };

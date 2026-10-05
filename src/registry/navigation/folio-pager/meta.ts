@@ -28,6 +28,6 @@ Layout by container query: above 44rem one row of range, controls and go-to; bel
     { id: "paper", label: "Paper" },
     { id: "night", label: "Night" },
   ],
-  preview: { bg: "#f6f5f1", mode: "scroll", height: 600 },
+  preview: { bg: "#f6f5f1", mode: "scroll", height: 600, frame: [860, 560] },
   isNew: true,
 };

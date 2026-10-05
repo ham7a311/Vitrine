@@ -8,7 +8,7 @@
 Read the source. Read the prompt behind it. Take it and make it yours.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-301-c8b9ea)
+![Components](https://img.shields.io/badge/components-316-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -48,19 +48,19 @@ There is no package, no CLI and no registry install. You copy a file or two into
 
 ## What's inside
 
-**301 components in 27 categories.**
+**316 components in 27 categories.**
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
 | Buttons | 45 | Backgrounds | 39 | Cards | 30 |
 | Controls | 19 | AI & Chat | 17 | Stats | 15 |
 | Authentication | 15 | Cursors | 13 | Analytics | 12 |
-| Type & Names | 10 | CTAs | 10 | Text Animations | 8 |
-| Micro-animations | 8 | FAQ | 8 | Forms | 7 |
-| Pricing | 6 | Navigation | 6 | Media | 5 |
-| Feedback | 5 | Data | 5 | Heroes | 4 |
-| Overlays | 3 | Maps & Globes | 3 | Footers | 3 |
-| Sidebars | 2 | Sections | 2 | Navbars | 1 |
+| Type & Names | 10 | CTAs | 11 | Text Animations | 8 |
+| Micro-animations | 8 | FAQ | 8 | Forms | 9 |
+| Pricing | 6 | Navigation | 7 | Media | 5 |
+| Feedback | 7 | Data | 5 | Heroes | 5 |
+| Overlays | 6 | Maps & Globes | 3 | Footers | 4 |
+| Sidebars | 2 | Sections | 5 | Navbars | 2 |
 
 A few to start with:
 
@@ -71,6 +71,8 @@ A few to start with:
 - **Prompt Composer, Thinking Trace, Cited Answer, Inline Diff**: the building blocks of a polished AI interface.
 - **Split-Flap Text, Chrome Text, Extrude Text**: type that moves with intent.
 - **Route Globe, Sankey Flow, Sunburst Drill, Cohort Retention**: data that rewards a closer look.
+- **Docket Nav, Running Head, Typeset Hero, Colophon Footer**: the structural pieces a real page needs, with the same care as the showpieces.
+- **Phrase Date, Shortcut Palette, Nearest Page, Plain Consent**: the small, honest utilities: a date you can write in words, a palette that teaches its shortcuts, a 404 that finds the page you meant, cookie consent without the tricks.
 
 ## Run the gallery locally
 
