@@ -180,6 +180,7 @@ navigation/thumbed-edge
 navigation/ruler-index
 navigation/pleat-crumbs
 navigation/thread-stepper
+navigation/lesson-path
 overlays/depth-dialog
 overlays/context-lens
 overlays/fold-sheet
@@ -190,6 +191,7 @@ data/marginalia
 data/activity-stream
 data/block-handles
 data/board-view
+data/league-table
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
@@ -248,6 +250,8 @@ stats/streak-field-stats
 stats/balance-stats
 stats/split-bar-stats
 stats/then-now-stats
+stats/lesson-summary
+stats/daily-quests
 analytics/model-bench
 analytics/sankey-flow
 analytics/pulse-line-chart
@@ -276,6 +280,7 @@ forms/progressive-form
 forms/sentence-settings
 forms/etched-field
 forms/insert-menu
+forms/word-bank
 feedback/toast-stack
 feedback/wet-ink
 feedback/undo-ribbon

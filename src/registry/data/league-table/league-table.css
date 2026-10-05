@@ -1,0 +1,85 @@
+/* League Table — a weekly leaderboard with promotion and demotion lines. */
+.league {
+  --lg-bg: #ffffff;
+  --lg-ink: #4b4b4b;
+  --lg-muted: #777777;
+  --lg-swan: #e5e5e5;
+  --lg-hover: #f7f7f7;
+  --lg-you: #ddf4ff;
+  --lg-you-line: #84d8ff;
+  --lg-up: #58cc02;
+  --lg-down: #ff4b4b;
+  --lg-badge: #ff7a59;
+  --lg-badge-lip: #d95f3f;
+  --lg-focus: #1cb0f6;
+  box-sizing: border-box;
+  container-type: inline-size;
+  width: 100%;
+  color: var(--lg-ink);
+  font-family: "Nunito", "Varela Round", ui-rounded, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.league--dark {
+  --lg-bg: #131f24;
+  --lg-ink: #dce6ec;
+  --lg-muted: #8ea3ad;
+  --lg-swan: #37464f;
+  --lg-hover: #1a2a31;
+  --lg-you: #193949;
+  --lg-you-line: #1f6e93;
+  --lg-focus: #49c0f8;
+}
+.league *, .league *::before, .league *::after { box-sizing: border-box; }
+
+.league__head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 0 4px 18px; border-bottom: 2px solid var(--lg-swan); }
+.league__badge { width: 46px; height: 50px; }
+.league__badge path:first-child { fill: var(--lg-badge); stroke: var(--lg-badge-lip); stroke-width: 3; stroke-linejoin: round; }
+.league__badge-mark { fill: #fff; opacity: 0.9; }
+.league__title { margin: 0; font-size: 22px; font-weight: 800; line-height: 1.2; }
+.league__rule { margin: 2px 0 0; font-size: 15px; font-weight: 600; color: var(--lg-muted); }
+.league__days { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--lg-badge); font-size: 15px; font-weight: 800; white-space: nowrap; }
+.league__days svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+
+.league__list { list-style: none; margin: 0; padding: 8px 0 0; }
+.league__row {
+  position: relative; display: grid; grid-template-columns: 34px 44px minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  min-height: 64px; padding: 6px 12px; border: 2px solid transparent; border-radius: 14px; background: var(--lg-bg);
+}
+.league__row:hover { background: var(--lg-hover); }
+.league__row[data-you] { z-index: 1; background: var(--lg-you); border-color: var(--lg-you-line); box-shadow: 0 3px 0 var(--lg-you-line); }
+.league__rank { display: grid; place-items: center; width: 30px; height: 30px; font-size: 17px; font-weight: 800; color: var(--lg-muted); font-variant-numeric: tabular-nums; }
+.league__row[data-zone="up"] .league__rank { color: var(--lg-up); }
+.league__row[data-zone="down"] .league__rank { color: var(--lg-down); }
+.league__rank[data-medal] { border-radius: 50%; color: #fff !important; font-size: 15px; }
+.league__rank[data-medal="1"] { background: #ffc800; box-shadow: 0 2px 0 #e5a400; }
+.league__rank[data-medal="2"] { background: #b9c7d0; box-shadow: 0 2px 0 #95a5b0; }
+.league__rank[data-medal="3"] { background: #e0915a; box-shadow: 0 2px 0 #c0703c; }
+.league__avatar { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #fff; font-size: 15px; font-weight: 800; }
+.league__name { display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 17px; font-weight: 700; white-space: nowrap; }
+.league__who { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.league__you { color: var(--lg-muted); font-weight: 600; }
+.league__moved { flex: none; padding: 1px 7px; border-radius: 8px; font-size: 13px; font-weight: 800; color: #fff; animation: league-pop 360ms cubic-bezier(.34,1.56,.64,1); }
+.league__moved[data-dir="up"] { background: var(--lg-up); }
+.league__moved[data-dir="down"] { background: var(--lg-down); }
+.league__xp { font-size: 15px; font-weight: 700; color: var(--lg-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.league__row[data-you] .league__xp { color: var(--lg-ink); }
+
+.league__zone {
+  display: flex; align-items: center; justify-content: center; gap: 8px; margin: 8px 0; padding: 4px 0;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.league__zone::before, .league__zone::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: currentColor; opacity: 0.35; }
+.league__zone[data-zone="up"] { color: var(--lg-up); }
+.league__zone[data-zone="down"] { color: var(--lg-down); }
+.league__zone svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.league__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@container (max-width: 26rem) {
+  .league__head { grid-template-columns: auto minmax(0, 1fr); }
+  .league__days { grid-column: 2; }
+  .league__row { grid-template-columns: 28px 36px minmax(0, 1fr) auto; gap: 8px; padding: 6px 8px; }
+  .league__avatar { width: 36px; height: 36px; font-size: 13px; }
+  .league__name { font-size: 15px; }
+}
+@keyframes league-pop { from { opacity: 0; transform: scale(0.6); } }
+@media (prefers-reduced-motion: reduce) { .league__moved { animation: none; } }

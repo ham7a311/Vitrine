@@ -1,0 +1,95 @@
+/* Daily Quests — chunky progress bars that turn gold and open a chest. */
+.dquest {
+  --dq-bg: #ffffff;
+  --dq-ink: #4b4b4b;
+  --dq-muted: #777777;
+  --dq-faint: #afafaf;
+  --dq-swan: #e5e5e5;
+  --dq-track: #e5e5e5;
+  --dq-fill: #ffc800;
+  --dq-shine: rgb(255 255 255 / 0.35);
+  --dq-done: #ffc800;
+  --dq-claim: #ff9600;
+  --dq-claim-lip: #cc7a00;
+  --dq-chest: #d18a3b;
+  --dq-chest-dark: #a86a26;
+  --dq-red: #ea2b2b;
+  --dq-focus: #1cb0f6;
+  box-sizing: border-box;
+  container-type: inline-size;
+  width: 100%;
+  color: var(--dq-ink);
+  font-family: "Nunito", "Varela Round", ui-rounded, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.dquest--dark {
+  --dq-bg: #131f24;
+  --dq-ink: #dce6ec;
+  --dq-muted: #8ea3ad;
+  --dq-faint: #52656d;
+  --dq-swan: #37464f;
+  --dq-track: #37464f;
+  --dq-red: #ff7878;
+  --dq-focus: #49c0f8;
+}
+.dquest *, .dquest *::before, .dquest *::after { box-sizing: border-box; }
+.dquest [data-icon="bolt"] { --i: #ffc800; }
+.dquest [data-icon="target"] { --i: #ff4b4b; }
+.dquest [data-icon="clock"] { --i: #1cb0f6; }
+.dquest [data-icon="book"] { --i: #ce82ff; }
+
+.dquest__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.dquest__title { margin: 0; font-size: 22px; font-weight: 800; }
+.dquest__reset { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--dq-claim); font-size: 15px; font-weight: 800; }
+.dquest__reset svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+
+.dquest__list { list-style: none; margin: 0; padding: 0; border: 2px solid var(--dq-swan); border-radius: 16px; }
+.dquest__quest { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 16px; }
+.dquest__quest + .dquest__quest { border-top: 2px solid var(--dq-swan); }
+.dquest__icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: color-mix(in srgb, var(--i) 16%, transparent); color: var(--i); }
+.dquest__icon svg { width: 28px; height: 28px; fill: currentColor; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.dquest__icon[data-icon="target"] svg, .dquest__icon[data-icon="clock"] svg, .dquest__icon[data-icon="book"] svg { fill: none; stroke-width: 2.4; }
+.dquest__name { margin: 0 0 8px; font-size: 17px; font-weight: 800; line-height: 1.25; }
+.dquest__quest[data-claimed] .dquest__name { color: var(--dq-muted); }
+
+.dquest__bar { position: relative; height: 20px; border-radius: 999px; background: var(--dq-track); overflow: hidden; }
+.dquest__fill {
+  position: absolute; inset: 0 auto 0 0; width: var(--p); border-radius: inherit; background: var(--dq-fill);
+  transition: width 320ms cubic-bezier(.2,.8,.2,1);
+}
+/* The gloss line that makes the bar read as a chunky physical object. */
+.dquest__fill::after { content: ""; position: absolute; left: 8px; right: 8px; top: 4px; height: 4px; border-radius: 999px; background: var(--dq-shine); }
+.dquest__quest[data-done] .dquest__fill { background: var(--dq-done); }
+.dquest__count { position: relative; display: block; text-align: center; font-size: 13px; font-weight: 800; line-height: 20px; color: var(--dq-muted); font-variant-numeric: tabular-nums; mix-blend-mode: normal; }
+.dquest__quest[data-done] .dquest__count { color: #8a6500; }
+.dquest__error { margin: 6px 0 0; font-size: 13px; font-weight: 700; color: var(--dq-red); }
+
+.dquest__reward { display: grid; place-items: center; min-width: 52px; }
+.dquest__chest { width: 40px; height: 36px; }
+.dquest__chest-box { fill: var(--dq-chest); }
+.dquest__chest-lid { fill: var(--dq-chest-dark); transform-origin: 5px 14px; transition: transform 360ms cubic-bezier(.34,1.56,.64,1); }
+.dquest__chest-lock { fill: #ffc800; }
+.dquest__chest[data-open] .dquest__chest-lid { transform: translateY(-4px) rotate(-14deg); }
+.dquest__chest[data-open] .dquest__chest-lock { fill: var(--dq-faint); }
+.dquest__quest:not([data-done]) .dquest__chest { filter: grayscale(0.6); opacity: 0.6; }
+
+.dquest__claim {
+  min-width: 92px; min-height: 44px; padding: 0 14px; border: 0; border-radius: 14px; background: var(--dq-claim); color: #fff; cursor: pointer;
+  font: 800 14px/1 "Nunito", ui-rounded, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
+  box-shadow: 0 4px 0 var(--dq-claim-lip); animation: dquest-pop 360ms cubic-bezier(.34,1.56,.64,1);
+  transition: transform 80ms cubic-bezier(.2,.8,.2,1), box-shadow 80ms cubic-bezier(.2,.8,.2,1);
+}
+.dquest__claim:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 0 0 transparent; }
+.dquest__claim:disabled { opacity: 0.7; cursor: progress; }
+.dquest__claim:focus-visible { outline: 3px solid var(--dq-focus); outline-offset: 3px; }
+
+@container (max-width: 24rem) {
+  .dquest__quest { grid-template-columns: 40px minmax(0, 1fr) auto; gap: 10px; padding: 14px 12px; }
+  .dquest__icon { width: 40px; height: 40px; border-radius: 12px; }
+  .dquest__icon svg { width: 22px; height: 22px; }
+  .dquest__claim { min-width: 0; }
+}
+@keyframes dquest-pop { from { opacity: 0; transform: scale(0.7); } }
+@media (prefers-reduced-motion: reduce) {
+  .dquest__fill, .dquest__chest-lid, .dquest__claim { transition: none; animation: none; }
+}
