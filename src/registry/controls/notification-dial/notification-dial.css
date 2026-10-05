@@ -1,0 +1,77 @@
+.ndial {
+  --ndial-bg: #f3f1ec;
+  --ndial-card: #ffffff;
+  --ndial-ink: #1f1d1a;
+  --ndial-muted: #6c675e;
+  --ndial-line: rgb(31 29 26 / 0.12);
+  --ndial-track: #e2ded6;
+  --ndial-accent: #c96a12;
+  --ndial-face: #fbfaf7;
+  --ndial-s0: #2f6bd8;
+  --ndial-s1: #c96a12;
+  --ndial-s2: #2b8a5e;
+  --ndial-s3: #8b55c7;
+  --ndial-ease: cubic-bezier(.2, .8, .2, 1);
+  color: var(--ndial-ink); background: var(--ndial-bg);
+  border: 1px solid var(--ndial-line); border-radius: 16px;
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  container-type: inline-size;
+}
+.ndial--dark {
+  --ndial-bg: #161719;
+  --ndial-card: #1d1f22;
+  --ndial-ink: #ebe9e4;
+  --ndial-muted: #a29e95;
+  --ndial-line: rgb(255 255 255 / 0.1);
+  --ndial-track: #2c2f33;
+  --ndial-accent: #f5a524;
+  --ndial-face: #222428;
+  --ndial-s0: #7fa8ff;
+  --ndial-s1: #f5a524;
+  --ndial-s2: #6fd1a2;
+  --ndial-s3: #c49bff;
+}
+.ndial__body { display: grid; gap: 22px; padding: 22px; }
+@container (min-width: 44rem) { .ndial__body { grid-template-columns: 15rem minmax(0, 1fr); align-items: start; } }
+
+.ndial__control { display: grid; justify-items: center; gap: 10px; }
+.ndial__title { justify-self: start; margin: 0; font-size: 15px; font-weight: 700; }
+.ndial__dial { width: 200px; height: 200px; cursor: grab; touch-action: none; outline: none; border-radius: 50%; }
+.ndial__dial[data-drag] { cursor: grabbing; }
+.ndial__dial:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--ndial-accent) 50%, transparent); }
+.ndial__track, .ndial__fill { fill: none; stroke-width: 8; stroke-linecap: round; }
+.ndial__track { stroke: var(--ndial-track); }
+.ndial__fill { stroke: var(--ndial-accent); transition: d 220ms var(--ndial-ease); }
+.ndial__tick { stroke: var(--ndial-track); stroke-width: 3; stroke-linecap: round; }
+.ndial__tick[data-on] { stroke: var(--ndial-accent); }
+.ndial__face { fill: var(--ndial-face); stroke: var(--ndial-line); filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.14)); }
+.ndial__pointer { stroke: var(--ndial-ink); stroke-width: 3; stroke-linecap: round; opacity: 0.15; }
+.ndial__dot { fill: var(--ndial-accent); }
+.ndial[data-off] .ndial__dot { fill: var(--ndial-muted); }
+.ndial__value { fill: var(--ndial-ink); font-size: 15px; font-weight: 700; text-anchor: middle; }
+.ndial__labels { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.ndial__labels button { padding: 4px 9px; border: 1px solid var(--ndial-line); border-radius: 999px; background: transparent; color: var(--ndial-muted); font: inherit; font-size: 12px; cursor: pointer; }
+.ndial__labels li[data-on] button { border-color: var(--ndial-accent); color: var(--ndial-ink); background: color-mix(in srgb, var(--ndial-accent) 12%, transparent); }
+.ndial__desc { min-height: 2.8em; margin: 0; font-size: 13px; line-height: 1.4; text-align: center; color: var(--ndial-muted); }
+
+.ndial__preview { display: grid; gap: 14px; padding: 16px; border-radius: 12px; background: var(--ndial-card); border: 1px solid var(--ndial-line); min-width: 0; }
+.ndial__count { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0; }
+.ndial__count span { font-size: 13px; color: var(--ndial-muted); }
+.ndial__count strong { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.ndial__week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.ndial__day { display: grid; gap: 4px; justify-items: center; font-size: 11px; color: var(--ndial-muted); }
+.ndial__stack { display: flex; flex-direction: column-reverse; align-items: center; gap: 3px; height: 64px; width: 100%; padding: 4px 0; border-radius: 6px; background: var(--ndial-bg); }
+.ndial__stack i, .ndial__list i { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--ndial-s0); animation: ndial-in 220ms var(--ndial-ease); }
+.ndial i[data-src="1"] { background: var(--ndial-s1); }
+.ndial i[data-src="2"] { background: var(--ndial-s2); }
+.ndial i[data-src="3"] { background: var(--ndial-s3); }
+@keyframes ndial-in { from { opacity: 0; transform: scale(0.4); } }
+.ndial__list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.ndial__list li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--ndial-line); font-size: 13.5px; }
+.ndial__item { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ndial__src { font-size: 12px; color: var(--ndial-muted); white-space: nowrap; }
+.ndial__list .ndial__more { display: block; color: var(--ndial-muted); font-size: 12.5px; }
+.ndial__empty { margin: 0; padding: 20px 12px; border: 1px dashed var(--ndial-line); border-radius: 8px; text-align: center; color: var(--ndial-muted); font-size: 14px; line-height: 1.5; }
+
+.ndial[data-motion="off"] * { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .ndial * { animation: none !important; transition: none !important; } }

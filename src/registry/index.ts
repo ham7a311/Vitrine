@@ -66,6 +66,7 @@ import { meta as timeWindow } from "./controls/time-window/meta";
 import { meta as presetKeys } from "./controls/preset-keys/meta";
 import { meta as gateSelector } from "./controls/gate-selector/meta";
 import { meta as shadowBoard } from "./controls/shadow-board/meta";
+import { meta as notificationDial } from "./controls/notification-dial/meta";
 import { meta as glassCard } from "./cards/glass-card/meta";
 import { meta as haloFrame } from "./cards/halo-frame/meta";
 import { meta as ringFloodCard } from "./cards/ring-flood-card/meta";
@@ -205,6 +206,7 @@ import { meta as undoTree } from "./time/undo-tree/meta";
 import { meta as conflictResolver } from "./time/conflict-resolver/meta";
 import { meta as cronBuilder } from "./time/cron-builder/meta";
 import { meta as queryTokens } from "./developer/query-tokens/meta";
+import { meta as keymap } from "./developer/keymap/meta";
 import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
@@ -417,6 +419,7 @@ export const registry: ComponentMeta[] = [
   presetKeys,
   gateSelector,
   shadowBoard,
+  notificationDial,
   glassCard,
   haloFrame,
   ringFloodCard,
@@ -556,6 +559,7 @@ export const registry: ComponentMeta[] = [
   conflictResolver,
   cronBuilder,
   queryTokens,
+  keymap,
   curtainFooter,
   signOffFooter,
   indexFooter,

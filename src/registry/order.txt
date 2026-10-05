@@ -70,6 +70,7 @@ controls/time-window
 controls/preset-keys
 controls/gate-selector
 controls/shadow-board
+controls/notification-dial
 cards/glass-card
 cards/halo-frame
 cards/ring-flood-card
@@ -209,6 +210,7 @@ time/undo-tree
 time/conflict-resolver
 time/cron-builder
 developer/query-tokens
+developer/keymap
 footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer

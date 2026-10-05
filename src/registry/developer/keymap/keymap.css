@@ -1,0 +1,89 @@
+.kmap {
+  --kmap-bg: #f2f2ef;
+  --kmap-card: #ffffff;
+  --kmap-ink: #1b1c1e;
+  --kmap-muted: #6c6f75;
+  --kmap-line: rgb(27 28 30 / 0.12);
+  --kmap-key: #fbfbf9;
+  --kmap-key-edge: #cfcfca;
+  --kmap-accent: #1f5fd6;
+  --kmap-clash: #c4321c;
+  --kmap-g1: #1f5fd6;
+  --kmap-g2: #b85a12;
+  --kmap-g3: #1f7a55;
+  --kmap-g4: #8a46c2;
+  --kmap-g5: #a1306a;
+  --kmap-ease: cubic-bezier(.2, .8, .2, 1);
+  display: grid; gap: 14px; padding: 18px;
+  color: var(--kmap-ink); background: var(--kmap-bg);
+  border: 1px solid var(--kmap-line); border-radius: 14px;
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  container-type: inline-size; color-scheme: light;
+}
+.kmap--dark {
+  --kmap-bg: #131416;
+  --kmap-card: #1b1c1f;
+  --kmap-ink: #ebebe8;
+  --kmap-muted: #9a9ea6;
+  --kmap-line: rgb(255 255 255 / 0.1);
+  --kmap-key: #24262a;
+  --kmap-key-edge: #0c0d0e;
+  --kmap-accent: #86aaff;
+  --kmap-clash: #ff8a73;
+  --kmap-g1: #86aaff;
+  --kmap-g2: #f0a35e;
+  --kmap-g3: #6fd1a2;
+  --kmap-g4: #c49bff;
+  --kmap-g5: #f28dbd;
+  color-scheme: dark;
+}
+.kmap kbd { padding: 1px 6px; border: 1px solid var(--kmap-line); border-radius: 5px; background: var(--kmap-card); font: 500 12px/18px "Geist Mono", ui-monospace, monospace; white-space: nowrap; }
+.kmap__bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.kmap__title { margin: 0 auto 0 0; font-size: 15px; font-weight: 600; }
+.kmap__mods, .kmap__views { display: inline-flex; padding: 3px; gap: 2px; border-radius: 9px; background: var(--kmap-card); border: 1px solid var(--kmap-line); }
+.kmap__mods button, .kmap__views button { min-width: 32px; padding: 4px 9px; border: 0; border-radius: 6px; background: transparent; color: var(--kmap-muted); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.kmap__mods button[aria-pressed="true"], .kmap__views button[aria-pressed="true"] { background: var(--kmap-ink); color: var(--kmap-bg); }
+.kmap__search input { width: 11rem; height: 32px; padding: 0 10px; border: 1px solid var(--kmap-line); border-radius: 8px; background: var(--kmap-card); color: inherit; font: inherit; font-size: 13px; }
+.kmap button:focus-visible, .kmap__search input:focus-visible { outline: 2px solid var(--kmap-accent); outline-offset: 2px; }
+
+.kmap__board { display: grid; gap: 5px; padding: 12px; border-radius: 12px; background: color-mix(in srgb, var(--kmap-ink) 6%, var(--kmap-bg)); overflow-x: auto; }
+.kmap__row { display: flex; gap: 5px; min-width: 40rem; }
+.kmap__key {
+  position: relative; flex-basis: 0; display: grid; align-content: space-between; justify-items: start; gap: 2px; height: 48px; padding: 5px 6px 4px; min-width: 0;
+  border: 0; border-radius: 6px; background: var(--kmap-key); color: var(--kmap-muted); box-shadow: inset 0 -3px 0 var(--kmap-key-edge), 0 1px 0 rgb(0 0 0 / 0.08);
+  font: inherit; text-align: left; cursor: pointer; transition: background 140ms var(--kmap-ease), color 140ms var(--kmap-ease), translate 80ms;
+}
+.kmap__key:active { translate: 0 1px; }
+.kmap__cap { font-size: 12px; font-weight: 600; line-height: 1; }
+.kmap__action { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 9.5px; font-weight: 600; letter-spacing: 0.01em; }
+.kmap__key[data-bound] { background: color-mix(in srgb, var(--c) 16%, var(--kmap-key)); color: var(--kmap-ink); box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--c) 60%, var(--kmap-key-edge)), inset 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent); }
+.kmap__key[data-bound] .kmap__action { color: var(--c); }
+.kmap__key[data-clash] { background: color-mix(in srgb, var(--kmap-clash) 16%, var(--kmap-key)); box-shadow: inset 0 -3px 0 var(--kmap-clash), inset 0 0 0 1px var(--kmap-clash); }
+.kmap__key[data-clash] .kmap__action { color: var(--kmap-clash); }
+.kmap__key[data-hit] { outline: 2px solid var(--kmap-accent); outline-offset: 1px; animation: kmap-hit 900ms var(--kmap-ease) infinite alternate; }
+@keyframes kmap-hit { to { outline-color: transparent; } }
+.kmap__key[data-mod="on"] { background: var(--kmap-ink); color: var(--kmap-bg); }
+
+.kmap__detail { min-height: 3.2em; padding: 10px 12px; border-radius: 10px; background: var(--kmap-card); border: 1px solid var(--kmap-line); font-size: 13px; }
+.kmap__detail p { margin: 0; color: var(--kmap-muted); line-height: 1.5; }
+.kmap__detail ul { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.kmap__detail li, .kmap__detail li button { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; }
+.kmap__detail li button { width: 100%; padding: 3px 4px; border: 0; border-radius: 6px; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.kmap__detail li button:hover { background: var(--kmap-bg); }
+.kmap__detail em { font-style: normal; font-size: 12px; color: var(--c); }
+.kmap__detail li[data-clash] em { color: var(--kmap-clash); font-weight: 600; }
+.kmap__legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0; padding: 0; list-style: none; font-size: 12px; color: var(--kmap-muted); }
+.kmap__legend li::before { content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 6px; border-radius: 3px; background: var(--c); }
+.kmap__legend .kmap__legend-clash { color: var(--kmap-clash); font-weight: 600; }
+.kmap__legend .kmap__legend-clash::before { background: var(--kmap-clash); }
+
+.kmap__list { display: grid; gap: 14px; }
+.kmap__list table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.kmap__list caption { padding: 0 0 6px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c); }
+.kmap__list th, .kmap__list td { padding: 7px 0; border-top: 1px solid var(--kmap-line); text-align: left; font-weight: 400; }
+.kmap__list td { text-align: right; }
+.kmap__list tr[data-clash] th { color: var(--kmap-clash); }
+.kmap__clash-note { font-size: 12px; }
+
+.kmap__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .kmap * { animation: none !important; transition: none !important; } }
