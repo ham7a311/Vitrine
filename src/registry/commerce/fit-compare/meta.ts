@@ -19,8 +19,8 @@ export const meta: ComponentMeta = {
   responsive: "Below 46rem the controls stack under the stage; the drawing scales with its viewBox.",
   touchFallback: "Every control is a tap target; nothing depends on hover.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --fitc-bg #f6f3ee; --fitc-chip #ffffff; --fitc-focus #c2552e; --fitc-ink #22201c; --fitc-item #c2552e; --fitc-item-fill rgb(194 85 46 / 0.12); --fitc-line rgb(34 32 28 / 0.11); --fitc-muted #77716a; --fitc-no #b23a2a; --fitc-ok #2c7a4b; --fitc-ref #d9d3c9; --fitc-ref-d #c9c1b5; --fitc-ref-s #b3a99a; --fitc-stage #fffdf9. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --fitc-bg #17161a; --fitc-chip #24232a; --fitc-focus #ff8a5c; --fitc-ink #eeebe6; --fitc-item #ff8a5c; --fitc-item-fill rgb(255 138 92 / 0.14); --fitc-line rgb(255 255 255 / 0.09); --fitc-muted #a19b93; --fitc-no #ff8576; --fitc-ok #63d18f; --fitc-ref #3a3842; --fitc-ref-d #47444f; --fitc-ref-s #5c5866; --fitc-stage #1e1d22. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e7e2d9", mode: "fill", frame: [1200, 680] },
   isNew: true,

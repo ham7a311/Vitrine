@@ -19,8 +19,8 @@ export const meta: ComponentMeta = {
   responsive: "Text steps down to 18px and the panel padding tightens below 520px; the menu stays clamped inside the panel.",
   touchFallback: "Tap a word to open its choices and tap one to swap.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --cink-bar rgb(107 91 210 / 0.14); --cink-bg #faf8f3; --cink-edit #1d7a5a; --cink-edit-bg rgb(29 122 90 / 0.1); --cink-focus #6b5bd2; --cink-ink #1f1d1a; --cink-line rgb(31 29 26 / 0.1); --cink-low #6b5bd2; --cink-menu #ffffff; --cink-muted #75706a; --cink-paper #fffdf8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --cink-bar rgb(169 156 255 / 0.18); --cink-bg #15141a; --cink-edit #5fd3a6; --cink-edit-bg rgb(95 211 166 / 0.12); --cink-focus #a99cff; --cink-ink #ecebf2; --cink-line rgb(255 255 255 / 0.09); --cink-low #a99cff; --cink-menu #222129; --cink-muted #9c99a8; --cink-paper #1b1a21. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ece9e1", mode: "center", frame: [1000, 620] },
   isNew: true,

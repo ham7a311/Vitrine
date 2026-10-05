@@ -19,8 +19,8 @@ export const meta: ComponentMeta = {
   responsive: "Below 50rem the parts list moves under the sheet; the drawing scales with its viewBox.",
   touchFallback: "Tap a row or a part to pin it out; tap again to put it back.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --xview-accent #2f6db5; --xview-bg #eef1f4; --xview-focus #2f6db5; --xview-glow #fff3c4; --xview-grid rgb(48 104 168 / 0.07); --xview-ink #1c2733; --xview-line rgb(28 39 51 / 0.12); --xview-muted #66727f; --xview-paper #ffffff; --xview-sheet #fbfcfd; --xview-tint #dfe9f6. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --xview-accent #78aef0; --xview-bg #0f141a; --xview-focus #78aef0; --xview-glow #574a1c; --xview-grid rgb(120 170 230 / 0.07); --xview-ink #d9e2ec; --xview-line rgb(217 226 236 / 0.12); --xview-muted #8a97a5; --xview-paper #18212b; --xview-sheet #131a22; --xview-tint #1f3550. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e4e8ec", mode: "fill", frame: [1200, 760] },
   isNew: true,

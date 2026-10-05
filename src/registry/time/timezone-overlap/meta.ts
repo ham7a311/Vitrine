@@ -19,8 +19,8 @@ export const meta: ComponentMeta = {
   responsive: "Below 34rem the name column narrows and the local time moves under the city; the lanes keep the full day.",
   touchFallback: "Drag the cursor with a finger; the day arrows are full buttons.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --tzo-bg #fbfbf9; --tzo-cursor #1b1d20; --tzo-ink #1b1d20; --tzo-lane #eceae4; --tzo-line rgb(27 29 32 / 0.1); --tzo-muted #6a6e75; --tzo-shared rgb(31 125 90 / 0.14); --tzo-shared-edge #1f7d5a; --tzo-work #8fb7a6. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --tzo-bg #141517; --tzo-cursor #ebebe7; --tzo-ink #ebebe7; --tzo-lane #23252a; --tzo-line rgb(255 255 255 / 0.1); --tzo-muted #9b9fa6; --tzo-shared rgb(111 214 168 / 0.14); --tzo-shared-edge #6fd6a8; --tzo-work #3f7a63. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e6e7e3", mode: "center", frame: [1000, 560] },
   isNew: true,

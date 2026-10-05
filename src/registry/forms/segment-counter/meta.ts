@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "The field and part bars fill their container; part bars wrap.",
   touchFallback: "Works with any on-screen keyboard; emoji from the keyboard show the encoding switch immediately.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --segc-accent #1f6b52; --segc-bad #c2361f; --segc-bad-wash rgb(194 54 31 / 0.16); --segc-bg #ffffff; --segc-dbl #9a6a00; --segc-field #f6f6f3; --segc-ink #1c1d1f; --segc-line rgb(28 29 31 / 0.14); --segc-muted #686b71. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --segc-accent #6fd1a8; --segc-bad #ff8a73; --segc-bad-wash rgb(255 138 115 / 0.2); --segc-bg #17181a; --segc-dbl #f2c14e; --segc-field #1f2023; --segc-ink #ebebe8; --segc-line rgb(255 255 255 / 0.12); --segc-muted #9ea1a8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e8e8e4", mode: "center", frame: [900, 560] },
   isNew: true,

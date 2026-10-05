@@ -19,8 +19,8 @@ export const meta: ComponentMeta = {
   responsive: "The detail card moves under the table below 52rem; below 34rem the name column narrows and service tags hide.",
   touchFallback: "Tap rows to select and carets to expand.",
   variants: [
-    { id: "light", label: "Light" },
-    { id: "dark", label: "Dark" },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --swfall-bad #c42d1f; --swfall-bg #fbfbfa; --swfall-card #ffffff; --swfall-crit #e0571f; --swfall-focus #2c5bd2; --swfall-ink #18191c; --swfall-line rgb(24 25 28 / 0.09); --swfall-muted #686c74; --swfall-s0 #4f7cd6; --swfall-s1 #2a9d7a; --swfall-s2 #b8862b; --swfall-s3 #8a5cc4; --swfall-s4 #c45482; --swfall-s5 #4a9bb5; --swfall-sel #eef2fb. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --swfall-bad #ff7b6b; --swfall-bg #121315; --swfall-card #18191c; --swfall-crit #ff8a4c; --swfall-focus #8eb0ff; --swfall-ink #e7e8ea; --swfall-line rgb(255 255 255 / 0.08); --swfall-muted #979ba3; --swfall-s0 #7aa2f0; --swfall-s1 #5cc9a5; --swfall-s2 #e3b45a; --swfall-s3 #b494ec; --swfall-s4 #ec86b0; --swfall-s5 #7cc6dc; --swfall-sel #1d2433. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e8e9e6", mode: "fill", frame: [1200, 640] },
   isNew: true,
