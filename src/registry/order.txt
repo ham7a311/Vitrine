@@ -308,6 +308,7 @@ media/hover-reel
 media/dither-portrait
 media/contact-sheet
 media/transcript-player
+media/helix-showcase
 maps/route-globe
 maps/pulse-globe
 maps/dot-atlas
