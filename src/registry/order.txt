@@ -50,6 +50,11 @@ buttons/entry-point-button
 buttons/stack-button
 buttons/offset-press-button
 buttons/platform-downloads
+buttons/core-button
+buttons/danger-button
+buttons/upload-button
+buttons/pulse-button
+buttons/corner-cut-button
 controls/gamut-picker
 controls/fraction-checkbox
 controls/mood-slider

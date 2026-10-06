@@ -46,6 +46,11 @@ import { meta as entryPointButton } from "./buttons/entry-point-button/meta";
 import { meta as stackButton } from "./buttons/stack-button/meta";
 import { meta as offsetPressButton } from "./buttons/offset-press-button/meta";
 import { meta as platformDownloads } from "./buttons/platform-downloads/meta";
+import { meta as coreButton } from "./buttons/core-button/meta";
+import { meta as dangerButton } from "./buttons/danger-button/meta";
+import { meta as uploadButton } from "./buttons/upload-button/meta";
+import { meta as pulseButton } from "./buttons/pulse-button/meta";
+import { meta as cornerCutButton } from "./buttons/corner-cut-button/meta";
 import { meta as gamutPicker } from "./controls/gamut-picker/meta";
 import { meta as fractionCheckbox } from "./controls/fraction-checkbox/meta";
 import { meta as moodSlider } from "./controls/mood-slider/meta";
@@ -422,6 +427,11 @@ export const registry: ComponentMeta[] = [
   stackButton,
   offsetPressButton,
   platformDownloads,
+  coreButton,
+  dangerButton,
+  uploadButton,
+  pulseButton,
+  cornerCutButton,
   gamutPicker,
   fractionCheckbox,
   moodSlider,
