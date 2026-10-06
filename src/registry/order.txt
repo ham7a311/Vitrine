@@ -49,6 +49,7 @@ buttons/draw-link
 buttons/entry-point-button
 buttons/stack-button
 buttons/offset-press-button
+buttons/platform-downloads
 controls/gamut-picker
 controls/fraction-checkbox
 controls/mood-slider

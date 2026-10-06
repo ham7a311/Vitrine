@@ -53,6 +53,7 @@ const loaders: Record<string, Loader> = {
   "entry-point-button": () => import("./buttons/entry-point-button/demo"),
   "stack-button": () => import("./buttons/stack-button/demo"),
   "offset-press-button": () => import("./buttons/offset-press-button/demo"),
+  "platform-downloads": () => import("./buttons/platform-downloads/demo"),
   "gamut-picker": () => import("./controls/gamut-picker/demo"),
   "fraction-checkbox": () => import("./controls/fraction-checkbox/demo"),
   "mood-slider": () => import("./controls/mood-slider/demo"),

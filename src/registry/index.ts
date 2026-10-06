@@ -45,6 +45,7 @@ import { meta as drawLink } from "./buttons/draw-link/meta";
 import { meta as entryPointButton } from "./buttons/entry-point-button/meta";
 import { meta as stackButton } from "./buttons/stack-button/meta";
 import { meta as offsetPressButton } from "./buttons/offset-press-button/meta";
+import { meta as platformDownloads } from "./buttons/platform-downloads/meta";
 import { meta as gamutPicker } from "./controls/gamut-picker/meta";
 import { meta as fractionCheckbox } from "./controls/fraction-checkbox/meta";
 import { meta as moodSlider } from "./controls/mood-slider/meta";
@@ -411,6 +412,7 @@ export const registry: ComponentMeta[] = [
   entryPointButton,
   stackButton,
   offsetPressButton,
+  platformDownloads,
   gamutPicker,
   fractionCheckbox,
   moodSlider,
