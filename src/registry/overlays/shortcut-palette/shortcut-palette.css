@@ -1,0 +1,66 @@
+/* Shortcut Palette: a command palette that tells you the shortcut after you use it. */
+.shortcut-palette__layer, .shortcut-palette__teach {
+  --sp-bg: #ffffff;
+  --sp-ink: #1b1a17;
+  --sp-muted: #6b6861;
+  --sp-line: rgb(27 26 23 / 0.12);
+  --sp-wash: rgb(27 26 23 / 0.06);
+  --sp-accent: #2f6bff;
+  --sp-scrim: rgb(24 20 14 / 0.22);
+  --sp-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--sp-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.shortcut-palette--night { --sp-bg: #1b1c20; --sp-ink: #ececea; --sp-muted: #9a9ca2; --sp-line: rgb(255 255 255 / 0.12); --sp-wash: rgb(255 255 255 / 0.07); --sp-accent: #7aa2ff; --sp-scrim: rgb(0 0 0 / 0.5); }
+
+.shortcut-palette__layer { position: fixed; inset: 0; z-index: 1000; display: flex; justify-content: center; align-items: flex-start; padding: min(14vh, 7rem) 16px 16px; }
+.shortcut-palette--contained { position: absolute; }
+.shortcut-palette__scrim { position: absolute; inset: 0; background: var(--sp-scrim); animation: sp-fade 160ms ease both; }
+.shortcut-palette__layer[data-phase="closing"] .shortcut-palette__scrim { animation: sp-fade-out 140ms ease both; }
+
+.shortcut-palette__panel { position: relative; width: min(36rem, 100%); overflow: hidden; border-radius: 12px; background: var(--sp-bg); box-shadow: 0 0 0 1px var(--sp-line), 0 30px 70px -28px rgb(30 24 12 / 0.5), 0 8px 18px -12px rgb(30 24 12 / 0.25); animation: sp-in 180ms var(--sp-ease) both; }
+.shortcut-palette--night .shortcut-palette__panel { box-shadow: 0 0 0 1px var(--sp-line), 0 30px 80px -24px rgb(0 0 0 / 0.8); }
+.shortcut-palette__layer[data-phase="closing"] .shortcut-palette__panel { animation: sp-out 140ms ease both; }
+
+.shortcut-palette__field { display: flex; align-items: center; gap: 12px; padding: 0 16px; border-bottom: 1px solid var(--sp-line); }
+.shortcut-palette__field input { flex: 1; min-width: 0; height: 54px; padding: 0; border: 0; background: none; color: inherit; font: 400 1.0625rem/1 inherit; outline: none; }
+.shortcut-palette__field input::placeholder { color: color-mix(in srgb, var(--sp-muted) 70%, transparent); }
+.shortcut-palette kbd { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 5px; box-shadow: inset 0 0 0 1px var(--sp-line); background: none; color: var(--sp-muted); font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; }
+
+.shortcut-palette__list { position: relative; max-height: min(20rem, 52vh); margin: 0; padding: 6px; overflow-y: auto; list-style: none; overscroll-behavior: contain; }
+.shortcut-palette__list ul { margin: 0; padding: 0; list-style: none; }
+.shortcut-palette__marker { position: absolute; left: 6px; right: 6px; top: 0; height: var(--sp-h, 0); border-radius: 8px; background: var(--sp-wash); transform: translateY(var(--sp-y, 0)); transition: transform 120ms var(--sp-ease), height 120ms var(--sp-ease); pointer-events: none; }
+.shortcut-palette__section { position: relative; }
+.shortcut-palette__group { display: block; padding: 10px 10px 6px; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sp-muted); }
+.shortcut-palette__list [role="option"] { position: relative; display: flex; align-items: center; gap: 12px; min-height: 40px; padding: 0 10px; border-radius: 8px; font-size: 0.9375rem; cursor: pointer; }
+.shortcut-palette__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.shortcut-palette__label b { font-weight: 600; color: var(--sp-accent); }
+.shortcut-palette__where { font: 500 0.625rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sp-muted); }
+.shortcut-palette__keys { display: flex; gap: 3px; }
+.shortcut-palette__empty { padding: 22px 10px; color: var(--sp-muted); font-size: 0.9375rem; }
+
+.shortcut-palette__foot { display: flex; gap: 16px; margin: 0; padding: 10px 16px; border-top: 1px solid var(--sp-line); font-size: 0.75rem; color: var(--sp-muted); }
+.shortcut-palette__foot span { display: inline-flex; align-items: center; gap: 4px; }
+.shortcut-palette__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* The lesson: a quiet line at the foot of the screen, after the action, when the shortcut is most useful to know. */
+.shortcut-palette__teach { position: fixed; left: 50%; bottom: 20px; z-index: 1001; display: flex; align-items: center; gap: 12px; margin: 0; padding: 10px 16px; border-radius: 999px; background: var(--sp-ink); color: var(--sp-bg); font-size: 0.8125rem; transform: translateX(-50%); animation: sp-teach 3600ms var(--sp-ease) both; white-space: nowrap; max-width: calc(100% - 32px); }
+.shortcut-palette__teach.shortcut-palette--contained { position: absolute; }
+.shortcut-palette__teach span { overflow: hidden; text-overflow: ellipsis; }
+.shortcut-palette__teach b { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; opacity: 0.85; }
+.shortcut-palette__teach kbd { min-width: 0; height: 20px; padding: 0 6px; color: inherit; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sp-bg) 40%, transparent); letter-spacing: 0.08em; }
+
+@keyframes sp-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sp-fade-out { to { opacity: 0; } }
+@keyframes sp-in { from { opacity: 0; transform: translateY(-6px) scale(0.985); } to { opacity: 1; transform: none; } }
+@keyframes sp-out { to { opacity: 0; transform: translateY(-4px) scale(0.99); } }
+@keyframes sp-teach { 0% { opacity: 0; transform: translate(-50%, 8px); } 8%, 90% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 4px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .shortcut-palette__panel, .shortcut-palette__scrim { animation: none !important; }
+  .shortcut-palette__marker { transition: none; }
+  .shortcut-palette__teach { animation: sp-fade 200ms ease both !important; }
+}
+.shortcut-palette__layer[data-motion="reduced"] .shortcut-palette__panel, .shortcut-palette__layer[data-motion="reduced"] .shortcut-palette__scrim { animation: none !important; }
+.shortcut-palette__layer[data-motion="reduced"] .shortcut-palette__marker { transition: none; }

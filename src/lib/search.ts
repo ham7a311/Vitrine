@@ -93,6 +93,8 @@ const SYNONYMS: Record<string, string[]> = {
   sweep: ["highlight", "cursors"],
   infinite: ["loop", "cursors"],
   loop: ["infinite", "animation"],
+  cmdk: ["command", "palette"],
+  datepicker: ["date", "calendar"],
   delete: ["danger", "buttons", "destructive"],
   destructive: ["delete", "danger"],
   danger: ["delete", "buttons", "alert"],

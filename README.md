@@ -8,7 +8,7 @@
 Read the source. Read the prompt behind it. Take it and make it yours.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-387-c8b9ea)
+![Components](https://img.shields.io/badge/components-402-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -48,21 +48,21 @@ There is no package, no CLI and no registry install. You copy a file or two into
 
 ## What's inside
 
-**387 components in 32 categories.**
+**402 components in 32 categories.**
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
-| Buttons | 46 | Backgrounds | 39 | Cards | 31 |
-| Controls | 22 | AI & Chat | 18 | Stats | 17 |
-| Authentication | 15 | Feedback | 14 | Data | 14 |
-| Forms | 13 | Cursors | 13 | Analytics | 13 |
-| Type & Names | 10 | CTAs | 10 | FAQ | 9 |
-| Text Animations | 8 | Navigation | 8 | Micro-animations | 8 |
-| Sections | 6 | Pricing | 6 | Media | 6 |
-| Heroes | 4 | Time | 3 | Decisions | 3 |
-| Overlays | 3 | Maps & Globes | 3 | Footers | 3 |
-| Reading | 2 | Developer | 2 | Sidebars | 2 |
-| Navbars | 1 | Commerce | 1 | | |
+| Buttons | 52 | Backgrounds | 40 | Cards | 34 |
+| Controls | 23 | AI & Chat | 20 | Feedback | 19 |
+| Stats | 17 | Analytics | 16 | Forms | 16 |
+| Authentication | 15 | Cursors | 14 | Data | 14 |
+| CTAs | 11 | Text Animations | 10 | Type & Names | 10 |
+| FAQ | 9 | Navigation | 9 | Sections | 9 |
+| Heroes | 8 | Media | 8 | Micro-animations | 8 |
+| Overlays | 6 | Pricing | 6 | Time | 5 |
+| Developer | 4 | Footers | 4 | Commerce | 3 |
+| Decisions | 3 | Maps & Globes | 3 | Navbars | 2 |
+| Reading | 2 | Sidebars | 2 | | |
 
 A few to start with:
 
@@ -92,6 +92,8 @@ A few to start with:
 - **Column Bloom, Satin Hero**: two heroes: a stepped orange glow ringed by keywords, and a headline pressed into drifting satin.
 - **Obsidian Flow**: a background of slowly folding black liquid under a faint grid (it began as a hero; the old link redirects).
 - **Refraction Blob, Ask Bar, Sweep Cards, Infinite Highlight Sweep**: a lumpy glass drop that reads a name through itself and turns with the scroll, an assistant's opening screen with one bar that grows, attaches and dictates, and pastel cards whose key phrases a demo cursor sweeps once. Highlight Sweep now plays once and rests; Infinite Highlight Sweep is the looping version.
+- **Docket Nav, Running Head, Typeset Hero, Colophon Footer**: the structural pieces a real page needs, with the same care as the showpieces.
+- **Phrase Date, Shortcut Palette, Nearest Page, Plain Consent**: the small, honest utilities: a date you can write in words, a palette that teaches its shortcuts, a 404 that finds the page you meant, cookie consent without the tricks.
 - **Core, Danger, Upload, Pulse and Corner Cut buttons**: the everyday set in eight styles, a delete that asks, holds or waits for the name and then offers undo, an upload that becomes its own progress, live and ping buttons, and chamfered panel buttons with true outlines.
 - **Status Badge, Alert Callout, Progress Bar, Activity Timeline**: twelve statuses with their own marks, alerts that fold away, five kinds of progress, and a feed, changelog and roadmap.
 - **Gradient Text, Outline Text**: aurora, metal and spotlight fills on real text, and hairline lettering that fills on hover, on scroll, as echoes or in a marquee.
@@ -126,7 +128,7 @@ Press **⌘K** (or **Ctrl K**) in the gallery to search by name, tag or feel, fo
 3. **Copy**: copy each file into your project. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file.
 
-The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 387 exported examples in isolation.
+The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 402 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source. Live demos load them through `src/site/ComponentFonts.tsx`; gallery fonts are self-hosted through Fontsource packages. Add the listed font families to your own project.
 

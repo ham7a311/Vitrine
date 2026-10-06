@@ -1,0 +1,77 @@
+/* Plain Consent: equal choices, an honest ledger, a way back. */
+.plain-consent {
+  --pc-bg: #ffffff;
+  --pc-ink: #1b1a17;
+  --pc-muted: #6b6861;
+  --pc-line: rgb(27 26 23 / 0.14);
+  --pc-wash: rgb(27 26 23 / 0.05);
+  --pc-accent: #2f6bff;
+  --pc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 50;
+  width: min(25rem, calc(100% - 32px));
+  color: var(--pc-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  visibility: hidden;
+}
+.plain-consent[data-ready] { visibility: visible; }
+.plain-consent--contained { position: absolute; }
+.plain-consent--night { --pc-bg: #1b1c20; --pc-ink: #ececea; --pc-muted: #9a9ca2; --pc-line: rgb(255 255 255 / 0.15); --pc-wash: rgb(255 255 255 / 0.07); --pc-accent: #7aa2ff; }
+
+.plain-consent__card { max-height: calc(100vh - 32px); overflow: hidden auto; overscroll-behavior: contain; padding: 18px 18px 16px; border-radius: 12px; background: var(--pc-bg); box-shadow: 0 0 0 1px var(--pc-line), 0 24px 48px -26px rgb(30 24 12 / 0.45); transform-origin: 0 100%; }
+.plain-consent[data-ready] .plain-consent__card { transition: opacity 240ms ease, transform 320ms var(--pc-ease), visibility 0s; }
+.plain-consent[data-decided] .plain-consent__card { opacity: 0; transform: translateY(8px) scale(0.97); visibility: hidden; position: absolute; left: 0; bottom: 0; width: 100%; pointer-events: none; transition: opacity 200ms ease, transform 320ms var(--pc-ease), visibility 0s 320ms; }
+
+.plain-consent__eyebrow { margin: 0; font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pc-muted); }
+.plain-consent__title { margin: 10px 0 0; font: 400 1.5rem/1.15 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.01em; outline: none; text-wrap: balance; }
+.plain-consent__lede { margin: 8px 0 0; font-size: 0.875rem; line-height: 1.55; color: var(--pc-muted); }
+
+/* Reject and accept are one style, one size, side by side. Neither is the default-looking one. */
+.plain-consent__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+.plain-consent__actions--single { grid-template-columns: 1fr; }
+.plain-consent__actions button { min-height: 44px; padding: 0 12px; border: 0; border-radius: 8px; background: none; color: var(--pc-ink); box-shadow: inset 0 0 0 1px var(--pc-ink); font: 500 0.875rem/1.2 inherit; cursor: pointer; transition: background 160ms ease, color 160ms ease; }
+.plain-consent__actions button:hover { background: var(--pc-ink); color: var(--pc-bg); }
+
+.plain-consent__more { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-top: 4px; padding: 0; border: 0; background: none; color: var(--pc-muted); font: inherit; font-size: 0.8125rem; cursor: pointer; text-decoration: underline; text-decoration-color: var(--pc-line); text-underline-offset: 5px; }
+.plain-consent__more:hover { color: var(--pc-ink); text-decoration-color: currentColor; }
+.plain-consent svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 240ms var(--pc-ease); }
+.plain-consent__more[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.plain-consent__fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 320ms var(--pc-ease); }
+.plain-consent__fold[data-open] { grid-template-rows: 1fr; }
+.plain-consent__fold > div { min-height: 0; overflow: hidden; visibility: hidden; transition: visibility 0s 320ms; }
+.plain-consent__fold[data-open] > div { visibility: visible; transition-delay: 0s; }
+
+.plain-consent__ledger { margin: 6px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--pc-line); }
+.plain-consent__ledger li { padding: 14px 0; border-bottom: 1px solid var(--pc-line); }
+.plain-consent__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.plain-consent__name { font: 400 1.1875rem/1.2 "Instrument Serif", ui-serif, Georgia, serif; }
+.plain-consent__always { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pc-muted); }
+.plain-consent__what { margin: 4px 0 0; font-size: 0.8125rem; line-height: 1.55; color: var(--pc-muted); text-wrap: pretty; }
+.plain-consent__facts { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 8px 0 0; }
+.plain-consent__facts div { display: flex; gap: 8px; align-items: baseline; }
+.plain-consent__facts dt { font: 500 0.625rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pc-muted); }
+.plain-consent__facts dd { margin: 0; font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+
+/* The switch is a native checkbox, so it is a real control for every input method. */
+.plain-consent__switch { position: relative; display: grid; place-items: center end; width: 44px; height: 44px; margin: -8px 0; cursor: pointer; }
+.plain-consent__switch input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.plain-consent__switch span { position: relative; pointer-events: none; width: 34px; height: 20px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--pc-ink); transition: background 160ms ease; }
+.plain-consent__switch span::after { content: ""; position: absolute; top: 4px; left: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--pc-ink); transition: transform 200ms var(--pc-ease), background 160ms ease; }
+.plain-consent__switch input:checked + span { background: var(--pc-ink); }
+.plain-consent__switch input:checked + span::after { transform: translateX(14px); background: var(--pc-bg); }
+.plain-consent__switch input:focus-visible + span { outline: 2px solid var(--pc-accent); outline-offset: 3px; }
+
+.plain-consent__tab { position: absolute; left: 0; bottom: 0; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px 0 12px; border: 0; border-radius: 999px; background: var(--pc-bg); color: var(--pc-ink); box-shadow: 0 0 0 1px var(--pc-line), 0 10px 22px -14px rgb(30 24 12 / 0.4); font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; cursor: pointer; opacity: 0; transform: translateY(8px); visibility: hidden; transition: opacity 200ms ease, transform 320ms var(--pc-ease), visibility 0s 320ms; }
+.plain-consent[data-decided] .plain-consent__tab { opacity: 1; transform: none; visibility: visible; transition-delay: 120ms, 120ms, 0s; }
+.plain-consent__tab i { width: 6px; height: 6px; border-radius: 50%; background: var(--pc-accent); }
+.plain-consent__tab span { color: var(--pc-muted); }
+.plain-consent[data-decided] { height: 36px; }
+.plain-consent[data-decided] { width: auto; }
+:is(.plain-consent__actions button, .plain-consent__more, .plain-consent__tab):focus-visible { outline: 2px solid var(--pc-accent); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) { .plain-consent * { transition-duration: 1ms !important; transition-delay: 0s !important; } }
+.plain-consent[data-motion="reduced"] * { transition-duration: 1ms !important; transition-delay: 0s !important; }
