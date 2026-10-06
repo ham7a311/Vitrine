@@ -183,6 +183,7 @@ const loaders: Record<string, Loader> = {
   "cited-answer": () => import("./ai/cited-answer/demo"),
   "splice": () => import("./ai/splice/demo"),
   "confidence-ink": () => import("./ai/confidence-ink/demo"),
+  "ask-bar": () => import("./ai/ask-bar/demo"),
   "conversation-sidebar": () => import("./sidebars/conversation-sidebar/demo"),
   "workspace-sidebar": () => import("./sidebars/workspace-sidebar/demo"),
   "glass-torus": () => import("./heroes/glass-torus/demo"),

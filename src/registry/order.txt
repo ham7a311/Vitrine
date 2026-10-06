@@ -179,6 +179,7 @@ ai/inline-diff
 ai/cited-answer
 ai/splice
 ai/confidence-ink
+ai/ask-bar
 sidebars/conversation-sidebar
 sidebars/workspace-sidebar
 heroes/glass-torus

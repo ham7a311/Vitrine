@@ -175,6 +175,7 @@ import { meta as inlineDiff } from "./ai/inline-diff/meta";
 import { meta as citedAnswer } from "./ai/cited-answer/meta";
 import { meta as splice } from "./ai/splice/meta";
 import { meta as confidenceInk } from "./ai/confidence-ink/meta";
+import { meta as askBar } from "./ai/ask-bar/meta";
 import { meta as conversationSidebar } from "./sidebars/conversation-sidebar/meta";
 import { meta as workspaceSidebar } from "./sidebars/workspace-sidebar/meta";
 import { meta as glassTorus } from "./heroes/glass-torus/meta";
@@ -549,6 +550,7 @@ export const registry: ComponentMeta[] = [
   citedAnswer,
   splice,
   confidenceInk,
+  askBar,
   conversationSidebar,
   workspaceSidebar,
   glassTorus,
