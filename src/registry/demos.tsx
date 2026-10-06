@@ -189,6 +189,7 @@ const loaders: Record<string, Loader> = {
   "waitlist-hero": () => import("./heroes/waitlist-hero/demo"),
   "column-bloom": () => import("./heroes/column-bloom/demo"),
   "satin-hero": () => import("./heroes/satin-hero/demo"),
+  "obsidian-hero": () => import("./heroes/obsidian-hero/demo"),
   "masthead-nav": () => import("./navbars/masthead-nav/demo"),
   "glass-tab-bar": () => import("./navigation/glass-tab-bar/demo"),
   "slide-tabs": () => import("./navigation/slide-tabs/demo"),

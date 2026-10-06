@@ -185,6 +185,7 @@ heroes/letterform-hero
 heroes/waitlist-hero
 heroes/column-bloom
 heroes/satin-hero
+heroes/obsidian-hero
 navbars/masthead-nav
 navigation/glass-tab-bar
 navigation/slide-tabs
