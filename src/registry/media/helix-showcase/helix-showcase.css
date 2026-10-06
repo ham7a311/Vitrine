@@ -1,0 +1,86 @@
+.hlx {
+  --hlx-bg: #010307;
+  --hlx-ink: #ffffff;
+  --hlx-soft: rgb(255 255 255 / 0.62);
+  --hlx-glass: rgb(12 14 20 / 0.62);
+  --hlx-edge: rgb(255 255 255 / 0.12);
+  --hlx-pill: #ffffff;
+  --hlx-pill-ink: #050607;
+  --hlx-track: rgb(255 255 255 / 0.16);
+  --hlx-knob: #ffffff;
+  --hlx-focus: #8fb4ff;
+  position: relative; display: block; background: var(--hlx-bg); color: var(--hlx-ink);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+.hlx--light {
+  --hlx-bg: #f3f6fb;
+  --hlx-ink: #0a0d14;
+  --hlx-soft: rgb(10 13 20 / 0.6);
+  --hlx-glass: rgb(255 255 255 / 0.7);
+  --hlx-edge: rgb(10 13 20 / 0.1);
+  --hlx-pill: #0a0d14;
+  --hlx-pill-ink: #ffffff;
+  --hlx-track: rgb(10 13 20 / 0.14);
+  --hlx-knob: #0a0d14;
+  --hlx-focus: #2f5fe0;
+}
+.hlx :focus-visible { outline: 2px solid var(--hlx-focus); outline-offset: 3px; }
+.hlx__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; padding: 0; }
+
+.hlx__stage { position: sticky; top: 0; height: 100svh; min-height: 30rem; overflow: hidden; isolation: isolate; container-type: inline-size; }
+.hlx__stage[data-fallback] { position: relative; height: auto; padding-bottom: 48px; }
+.hlx__canvas { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; display: block; }
+.hlx__stage[data-fallback] .hlx__canvas { display: none; }
+
+/* The glass bar along the top. */
+.hlx__nav {
+  position: absolute; left: 50%; top: clamp(12px, 2.4svh, 28px); translate: -50% 0; z-index: 2;
+  display: flex; align-items: center; gap: clamp(14px, 2.6cqi, 44px); width: min(68rem, calc(100% - 32px)); padding: 10px 12px 10px 22px;
+  background: var(--hlx-glass); border: 1px solid var(--hlx-edge); border-radius: 18px;
+  backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+.hlx__stage[data-fallback] .hlx__nav { position: relative; left: auto; top: auto; translate: none; margin: 20px auto 32px; }
+.hlx__brand { display: inline-flex; align-items: center; gap: 10px; color: var(--hlx-ink); font-size: clamp(18px, 1.8cqi, 26px); font-weight: 600; letter-spacing: -0.02em; text-decoration: none; }
+.hlx__brand span { display: grid; width: 1.15em; height: 1.15em; }
+.hlx__brand svg { width: 100%; height: 100%; }
+.hlx__nav nav { flex: 1; }
+.hlx__nav ul { display: flex; justify-content: center; gap: clamp(14px, 2.4cqi, 40px); margin: 0; padding: 0; list-style: none; }
+.hlx__nav nav a { color: var(--hlx-soft); font-size: clamp(14px, 1.3cqi, 19px); text-decoration: none; transition: color 0.2s; }
+.hlx__nav nav li:first-child a, .hlx__nav nav a:hover { color: var(--hlx-ink); }
+.hlx__switch { position: relative; flex: none; width: 60px; height: 32px; padding: 0; background: var(--hlx-track); border: 1px solid var(--hlx-edge); border-radius: 999px; cursor: pointer; }
+.hlx__switch i { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; background: var(--hlx-knob); border-radius: 50%; transition: translate 0.3s cubic-bezier(0.3, 0.7, 0.3, 1); }
+.hlx__switch[aria-checked="false"] i { translate: 28px 0; }
+.hlx__cta { flex: none; display: inline-flex; align-items: center; height: 46px; padding: 0 26px; color: var(--hlx-pill-ink); background: var(--hlx-pill); border-radius: 999px; font-size: clamp(14px, 1.2cqi, 18px); font-weight: 600; text-decoration: none; transition: transform 0.2s; }
+.hlx__cta:hover { transform: translateY(-1px); }
+
+/* The focus layer covers the stage, so keys work wherever focus lands; the caption sits bottom left. */
+.hlx__focus { position: absolute; inset: 0; z-index: 1; outline: none; }
+.hlx__focus:focus-visible { box-shadow: inset 0 0 0 2px var(--hlx-focus); }
+.hlx__caption {
+  position: absolute; left: clamp(16px, 4cqi, 56px); bottom: clamp(20px, 5svh, 48px); display: grid; gap: 4px;
+  color: var(--hlx-ink); text-decoration: none; animation: hlx-cap 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.hlx__caption span { font: 500 12px "Geist Mono", ui-monospace, monospace; letter-spacing: 0.16em; color: var(--hlx-soft); }
+.hlx__caption strong { font-size: clamp(22px, 2.6cqi, 38px); font-weight: 600; letter-spacing: -0.025em; }
+.hlx__caption em { font-style: normal; color: var(--hlx-soft); font-size: 14px; }
+@keyframes hlx-cap { from { opacity: 0; translate: 0 8px; } }
+.hlx__hint { position: absolute; right: clamp(16px, 4cqi, 56px); bottom: clamp(20px, 5svh, 48px); display: grid; justify-items: center; gap: 10px; margin: 0; color: var(--hlx-soft); font: 500 11px "Geist Mono", ui-monospace, monospace; letter-spacing: 0.24em; text-transform: uppercase; }
+.hlx__hint i { width: 1px; height: 38px; background: linear-gradient(var(--hlx-soft), transparent); animation: hlx-drip 2.2s ease-in-out infinite; transform-origin: top; }
+@keyframes hlx-drip { 0% { scale: 1 0; } 50% { scale: 1 1; } 100% { scale: 1 1; opacity: 0; } }
+
+/* Without WebGL: the same cards as a grid. */
+.hlx__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 16px; width: min(68rem, calc(100% - 32px)); margin: 0 auto; padding: 0; list-style: none; }
+.hlx__grid a { display: grid; gap: 6px; color: var(--hlx-ink); text-decoration: none; }
+.hlx__grid img { width: 100%; aspect-ratio: 512 / 330; border-radius: 12px; border: 1px solid var(--hlx-edge); }
+.hlx__grid em { font-style: normal; color: var(--hlx-soft); font-size: 13px; }
+
+@container (max-width: 52rem) {
+  .hlx__nav nav { display: none; }
+  .hlx__nav { justify-content: space-between; }
+  .hlx__brand { margin-right: auto; }
+}
+@container (max-width: 26rem) {
+  .hlx__cta { height: 40px; padding: 0 16px; }
+  .hlx__switch { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .hlx__caption, .hlx__hint i { animation: none; } .hlx__switch i, .hlx__cta { transition: none; } }

@@ -49,6 +49,7 @@ buttons/draw-link
 buttons/entry-point-button
 buttons/stack-button
 buttons/offset-press-button
+buttons/platform-downloads
 controls/gamut-picker
 controls/fraction-checkbox
 controls/mood-slider
@@ -104,6 +105,8 @@ cards/eclipse-event-card
 cards/specimen-card
 cards/card-wallet
 cards/patina
+cards/signal-tiles
+cards/sweep-cards
 backgrounds/silk-field
 backgrounds/glass-tiles
 backgrounds/dither-flow
@@ -145,6 +148,7 @@ backgrounds/caustic-pool
 backgrounds/ripple-tank
 cursors/glow-pointer
 cursors/highlight-sweep
+cursors/infinite-highlight-sweep
 cursors/eye-tracker
 cursors/nib-trail
 cursors/halo-pointer
@@ -175,12 +179,17 @@ ai/inline-diff
 ai/cited-answer
 ai/splice
 ai/confidence-ink
+ai/ask-bar
 sidebars/conversation-sidebar
 sidebars/workspace-sidebar
 heroes/glass-torus
 heroes/local-sky-hero
 heroes/letterform-hero
 heroes/waitlist-hero
+heroes/column-bloom
+heroes/satin-hero
+heroes/obsidian-hero
+heroes/refraction-blob
 navbars/masthead-nav
 navigation/glass-tab-bar
 navigation/slide-tabs
@@ -303,6 +312,7 @@ media/hover-reel
 media/dither-portrait
 media/contact-sheet
 media/transcript-player
+media/helix-showcase
 maps/route-globe
 maps/pulse-globe
 maps/dot-atlas

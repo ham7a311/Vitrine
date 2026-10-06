@@ -1,0 +1,123 @@
+.cbloom {
+  --cbloom-page: #fefdfc;
+  --cbloom-deep: #e4380e;
+  --cbloom-hot: #f45a1c;
+  --cbloom-warm: #f9822e;
+  --cbloom-soft: #fdb27a;
+  --cbloom-word: #e9480f;
+  --cbloom-on: #ffffff;
+  --cbloom-core: #ffffff;
+  --cbloom-px: 0;
+  --cbloom-py: 0;
+  position: relative; overflow: hidden; isolation: isolate;
+  min-height: clamp(30rem, 56vw, 46rem);
+  background: var(--cbloom-page);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  container-type: inline-size;
+}
+.cbloom--dark .cbloom__band { mix-blend-mode: screen; opacity: 0.35; }
+.cbloom--dark {
+  --cbloom-page: #0c0705;
+  --cbloom-deep: #b4260a;
+  --cbloom-hot: #e2470f;
+  --cbloom-warm: #f2701f;
+  --cbloom-soft: #a2481f;
+  --cbloom-word: #ff8a4a;
+  --cbloom-on: #fff4ec;
+  --cbloom-core: #fff7f1;
+}
+
+/* The glow: each column is a vertical ramp from deep red-orange up to a feathered, pale top. */
+.cbloom__glow { position: absolute; inset: 0; z-index: -1; }
+.cbloom__col {
+  position: absolute; display: block; transform-origin: 50% 100%;
+  background:
+    linear-gradient(90deg, rgb(120 20 0 / 0.1), transparent 22%, transparent 78%, rgb(120 20 0 / 0.1)),
+    linear-gradient(to top, var(--cbloom-deep) 0%, var(--cbloom-hot) 32%, var(--cbloom-warm) 62%, var(--cbloom-soft) 86%, color-mix(in srgb, var(--cbloom-soft) 0%, transparent) 100%);
+  -webkit-mask: linear-gradient(to bottom, transparent 0, #000 9%, #000 88%, transparent 100%);
+  mask: linear-gradient(to bottom, transparent 0, #000 9%, #000 88%, transparent 100%);
+  filter: blur(var(--cbloom-blur)) brightness(1);
+  animation: cbloom-breathe 9s ease-in-out infinite var(--cbloom-delay);
+  transition: filter 0.4s;
+}
+.cbloom__col[data-level="0"], .cbloom__col[data-level="1"] {
+  background:
+    linear-gradient(90deg, rgb(120 20 0 / 0.1), transparent 22%, transparent 78%, rgb(120 20 0 / 0.1)),
+    linear-gradient(to top, var(--cbloom-deep) 0%, var(--cbloom-hot) 34%, var(--cbloom-warm) 70%, color-mix(in srgb, var(--cbloom-warm) 70%, var(--cbloom-soft)) 92%, var(--cbloom-soft) 100%);
+  -webkit-mask: linear-gradient(to bottom, transparent 0, #000 7%);
+  mask: linear-gradient(to bottom, transparent 0, #000 7%);
+}
+.cbloom__col[data-level="0"] {
+  /* The centre carries two darker inner seams, as if lit from inside. */
+  background:
+    linear-gradient(90deg, transparent 18%, rgb(150 25 0 / 0.16) 30%, transparent 40%, transparent 60%, rgb(150 25 0 / 0.16) 70%, transparent 82%),
+    linear-gradient(to top, var(--cbloom-deep) 0%, var(--cbloom-hot) 32%, var(--cbloom-warm) 68%, color-mix(in srgb, var(--cbloom-warm) 70%, var(--cbloom-soft)) 92%, var(--cbloom-soft) 100%);
+}
+.cbloom__col[data-level="3"], .cbloom__col[data-level="4"] { opacity: 0.85; }
+.cbloom__col[data-lit] { filter: blur(var(--cbloom-blur)) brightness(1.14) saturate(1.1); }
+@keyframes cbloom-breathe { 50% { transform: scaleY(1.035); } }
+
+/* Bloom: the light spilling past the columns onto the paper. */
+.cbloom__haze {
+  position: absolute; left: 14%; right: 14%; top: 18%; bottom: -10%; display: block; z-index: -1;
+  background: radial-gradient(60% 55% at 50% 60%, color-mix(in srgb, var(--cbloom-warm) 55%, transparent), transparent 72%);
+  filter: blur(40px);
+}
+
+/* A slow band of light that rises through the middle. */
+.cbloom__band {
+  position: absolute; left: 41%; width: 18%; top: 0; bottom: 0; display: block; overflow: hidden;
+  background: linear-gradient(to top, transparent 0%, rgb(255 236 214 / 0.32) 48%, transparent 56%);
+  background-size: 100% 220%; mix-blend-mode: soft-light;
+  -webkit-mask: linear-gradient(to bottom, transparent 0, #000 14%); mask: linear-gradient(to bottom, transparent 0, #000 14%);
+  animation: cbloom-rise 11s linear infinite;
+}
+@keyframes cbloom-rise { from { background-position: 0 -120%; } to { background-position: 0 220%; } }
+
+.cbloom__core { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: clamp(14px, 2.4cqi, 28px); pointer-events: none; }
+.cbloom__mark {
+  margin: 0; color: var(--cbloom-core);
+  font-family: "Archivo", "Hanken Grotesk", ui-sans-serif, sans-serif; font-weight: 800; font-stretch: 112%;
+  font-size: clamp(64px, 11cqi, 150px); line-height: 0.9; letter-spacing: -0.045em;
+  text-shadow: 0 2px 24px rgb(160 30 0 / 0.25);
+}
+.cbloom__partners { display: flex; align-items: center; gap: 12px; margin: 0; padding: 0; list-style: none; color: var(--cbloom-core); }
+.cbloom__partners li { display: flex; align-items: center; gap: 12px; }
+.cbloom__x { font-size: 18px; opacity: 0.9; }
+.cbloom__partner { display: grid; justify-items: center; gap: 6px; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; }
+.cbloom__pmark { display: grid; place-items: center; width: 36px; height: 36px; }
+.cbloom__pmark svg { width: 100%; height: 100%; }
+
+.cbloom__words { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+.cbloom__word {
+  /* Kept a half-word from either edge so narrow screens never clip a word. */
+  position: absolute; left: clamp(var(--cbloom-hw), var(--cbloom-x), calc(100% - var(--cbloom-hw))); translate: -50% -50%;
+  font-size: clamp(11px, 1.15cqi, 15px);
+  transform: translate(calc(var(--cbloom-px) * var(--cbloom-d) * -16px), calc(var(--cbloom-py) * var(--cbloom-d) * -10px));
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.cbloom__word span {
+  display: block; padding: 4px 6px; white-space: nowrap; cursor: default;
+  font-size: inherit; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase;
+  color: var(--cbloom-word);
+  animation: cbloom-twinkle 7s ease-in-out infinite calc(var(--cbloom-i) * -0.83s);
+  transition: translate 0.25s, color 0.25s, opacity 0.25s;
+}
+.cbloom__word[data-on] span { color: var(--cbloom-on); }
+.cbloom__word:hover span { translate: 0 -3px; opacity: 1; animation-play-state: paused; }
+@keyframes cbloom-twinkle { 0%, 100% { opacity: 1; } 45% { opacity: 0.72; } 55% { opacity: 0.72; } }
+
+@container (max-width: 40rem) {
+  .cbloom__word[data-tier="3"] { display: none; }
+  .cbloom__word { font-size: 10px; }
+  .cbloom__word span { letter-spacing: 0.02em; }
+}
+@container (max-width: 30rem) {
+  .cbloom__word[data-tier="2"] { display: none; }
+}
+.cbloom[data-motion="off"] .cbloom__col, .cbloom[data-motion="off"] .cbloom__band, .cbloom[data-motion="off"] .cbloom__word span { animation: none; }
+.cbloom[data-motion="off"] .cbloom__word { transition: none; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .cbloom__col, .cbloom__band, .cbloom__word span { animation: none; }
+  .cbloom__word { transition: none; transform: none; }
+}

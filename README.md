@@ -8,7 +8,7 @@
 Read the source. Read the prompt behind it. Take it and make it yours.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-363-c8b9ea)
+![Components](https://img.shields.io/badge/components-373-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -48,7 +48,7 @@ There is no package, no CLI and no registry install. You copy a file or two into
 
 ## What's inside
 
-**363 components in 32 categories.**
+**373 components in 32 categories.**
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
@@ -88,6 +88,9 @@ A few to start with:
 - **Transcript Player, Log Tail, Span Waterfall**: media and tooling you read as much as operate. A transcript that is the player, a live log that holds still when you scroll up, a trace drawn as bars with its critical path.
 - **Segment Counter, Timezone Overlap, Patina**: the honest details. The one character that doubled your SMS bill, everyone's working hours on one axis, cards that visibly age until someone checks them.
 - **Confidence Ink, Patch Bay, Fit Compare, Exploded View**: model uncertainty printed as lighter ink, routing as cables that sag, products shown at true size, and drawings that come apart.
+- **Helix Showcase, Signal Tiles, Platform Downloads**: a portfolio wound into a spiral of curved cards that turns as you scroll, black service tiles that switch on with a dot field and a travelling border light, and download buttons that put the visitor's own system first.
+- **Column Bloom, Satin Hero, Obsidian Hero**: three heroes: a stepped orange glow ringed by keywords, a headline pressed into drifting satin, and a hairline-and-heavy headline over black liquid with an ambient sound switch.
+- **Refraction Blob, Ask Bar, Sweep Cards, Infinite Highlight Sweep**: a lumpy glass drop that reads a name through itself and turns with the scroll, an assistant's opening screen with one bar that grows, attaches and dictates, and pastel cards whose key phrases a demo cursor sweeps once. Highlight Sweep now plays once and rests; Infinite Highlight Sweep is the looping version.
 
 ## Run the gallery locally
 
@@ -117,7 +120,7 @@ Press **⌘K** (or **Ctrl K**) in the gallery to search by name, tag or feel, fo
 3. **Copy**: copy each file into your project. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file.
 
-The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 363 exported examples in isolation.
+The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 373 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source. Live demos load them through `src/site/ComponentFonts.tsx`; gallery fonts are self-hosted through Fontsource packages. Add the listed font families to your own project.
 

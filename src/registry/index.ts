@@ -45,6 +45,7 @@ import { meta as drawLink } from "./buttons/draw-link/meta";
 import { meta as entryPointButton } from "./buttons/entry-point-button/meta";
 import { meta as stackButton } from "./buttons/stack-button/meta";
 import { meta as offsetPressButton } from "./buttons/offset-press-button/meta";
+import { meta as platformDownloads } from "./buttons/platform-downloads/meta";
 import { meta as gamutPicker } from "./controls/gamut-picker/meta";
 import { meta as fractionCheckbox } from "./controls/fraction-checkbox/meta";
 import { meta as moodSlider } from "./controls/mood-slider/meta";
@@ -100,6 +101,8 @@ import { meta as eclipseEventCard } from "./cards/eclipse-event-card/meta";
 import { meta as specimenCard } from "./cards/specimen-card/meta";
 import { meta as cardWallet } from "./cards/card-wallet/meta";
 import { meta as patina } from "./cards/patina/meta";
+import { meta as signalTiles } from "./cards/signal-tiles/meta";
+import { meta as sweepCards } from "./cards/sweep-cards/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
@@ -141,6 +144,7 @@ import { meta as causticPool } from "./backgrounds/caustic-pool/meta";
 import { meta as rippleTank } from "./backgrounds/ripple-tank/meta";
 import { meta as glowPointer } from "./cursors/glow-pointer/meta";
 import { meta as highlightSweep } from "./cursors/highlight-sweep/meta";
+import { meta as infiniteHighlightSweep } from "./cursors/infinite-highlight-sweep/meta";
 import { meta as eyeTracker } from "./cursors/eye-tracker/meta";
 import { meta as nibTrail } from "./cursors/nib-trail/meta";
 import { meta as haloPointer } from "./cursors/halo-pointer/meta";
@@ -171,12 +175,17 @@ import { meta as inlineDiff } from "./ai/inline-diff/meta";
 import { meta as citedAnswer } from "./ai/cited-answer/meta";
 import { meta as splice } from "./ai/splice/meta";
 import { meta as confidenceInk } from "./ai/confidence-ink/meta";
+import { meta as askBar } from "./ai/ask-bar/meta";
 import { meta as conversationSidebar } from "./sidebars/conversation-sidebar/meta";
 import { meta as workspaceSidebar } from "./sidebars/workspace-sidebar/meta";
 import { meta as glassTorus } from "./heroes/glass-torus/meta";
 import { meta as localSkyHero } from "./heroes/local-sky-hero/meta";
 import { meta as letterformHero } from "./heroes/letterform-hero/meta";
 import { meta as waitlistHero } from "./heroes/waitlist-hero/meta";
+import { meta as columnBloom } from "./heroes/column-bloom/meta";
+import { meta as satinHero } from "./heroes/satin-hero/meta";
+import { meta as obsidianHero } from "./heroes/obsidian-hero/meta";
+import { meta as refractionBlob } from "./heroes/refraction-blob/meta";
 import { meta as mastheadNav } from "./navbars/masthead-nav/meta";
 import { meta as glassTabBar } from "./navigation/glass-tab-bar/meta";
 import { meta as slideTabs } from "./navigation/slide-tabs/meta";
@@ -299,6 +308,7 @@ import { meta as hoverReel } from "./media/hover-reel/meta";
 import { meta as ditherPortrait } from "./media/dither-portrait/meta";
 import { meta as contactSheet } from "./media/contact-sheet/meta";
 import { meta as transcriptPlayer } from "./media/transcript-player/meta";
+import { meta as helixShowcase } from "./media/helix-showcase/meta";
 import { meta as routeGlobe } from "./maps/route-globe/meta";
 import { meta as pulseGlobe } from "./maps/pulse-globe/meta";
 import { meta as dotAtlas } from "./maps/dot-atlas/meta";
@@ -411,6 +421,7 @@ export const registry: ComponentMeta[] = [
   entryPointButton,
   stackButton,
   offsetPressButton,
+  platformDownloads,
   gamutPicker,
   fractionCheckbox,
   moodSlider,
@@ -466,6 +477,8 @@ export const registry: ComponentMeta[] = [
   specimenCard,
   cardWallet,
   patina,
+  signalTiles,
+  sweepCards,
   silkField,
   glassTiles,
   ditherFlow,
@@ -507,6 +520,7 @@ export const registry: ComponentMeta[] = [
   rippleTank,
   glowPointer,
   highlightSweep,
+  infiniteHighlightSweep,
   eyeTracker,
   nibTrail,
   haloPointer,
@@ -537,12 +551,17 @@ export const registry: ComponentMeta[] = [
   citedAnswer,
   splice,
   confidenceInk,
+  askBar,
   conversationSidebar,
   workspaceSidebar,
   glassTorus,
   localSkyHero,
   letterformHero,
   waitlistHero,
+  columnBloom,
+  satinHero,
+  obsidianHero,
+  refractionBlob,
   mastheadNav,
   glassTabBar,
   slideTabs,
@@ -665,6 +684,7 @@ export const registry: ComponentMeta[] = [
   ditherPortrait,
   contactSheet,
   transcriptPlayer,
+  helixShowcase,
   routeGlobe,
   pulseGlobe,
   dotAtlas,
