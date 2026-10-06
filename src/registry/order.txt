@@ -112,6 +112,7 @@ backgrounds/glass-tiles
 backgrounds/dither-flow
 backgrounds/glass-orbs
 backgrounds/liquid-chrome
+backgrounds/obsidian-flow
 backgrounds/light-curtain
 backgrounds/glass-blinds
 backgrounds/star-trails
@@ -188,7 +189,6 @@ heroes/letterform-hero
 heroes/waitlist-hero
 heroes/column-bloom
 heroes/satin-hero
-heroes/obsidian-hero
 heroes/refraction-blob
 navbars/masthead-nav
 navigation/glass-tab-bar

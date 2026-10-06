@@ -84,7 +84,7 @@ const SYNONYMS: Record<string, string[]> = {
   satin: ["silk", "heroes", "fabric"],
   keyword: ["heroes", "cloud", "words"],
   services: ["cards", "agency"],
-  obsidian: ["liquid", "heroes", "dark"],
+  obsidian: ["liquid", "backgrounds", "dark"],
   blob: ["glass", "heroes", "refraction"],
   refraction: ["glass", "lens", "blob"],
   composer: ["ai", "chat", "prompt"],

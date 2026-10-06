@@ -108,6 +108,7 @@ import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
 import { meta as glassOrbs } from "./backgrounds/glass-orbs/meta";
 import { meta as liquidChrome } from "./backgrounds/liquid-chrome/meta";
+import { meta as obsidianFlow } from "./backgrounds/obsidian-flow/meta";
 import { meta as lightCurtain } from "./backgrounds/light-curtain/meta";
 import { meta as glassBlinds } from "./backgrounds/glass-blinds/meta";
 import { meta as starTrails } from "./backgrounds/star-trails/meta";
@@ -184,7 +185,6 @@ import { meta as letterformHero } from "./heroes/letterform-hero/meta";
 import { meta as waitlistHero } from "./heroes/waitlist-hero/meta";
 import { meta as columnBloom } from "./heroes/column-bloom/meta";
 import { meta as satinHero } from "./heroes/satin-hero/meta";
-import { meta as obsidianHero } from "./heroes/obsidian-hero/meta";
 import { meta as refractionBlob } from "./heroes/refraction-blob/meta";
 import { meta as mastheadNav } from "./navbars/masthead-nav/meta";
 import { meta as glassTabBar } from "./navigation/glass-tab-bar/meta";
@@ -484,6 +484,7 @@ export const registry: ComponentMeta[] = [
   ditherFlow,
   glassOrbs,
   liquidChrome,
+  obsidianFlow,
   lightCurtain,
   glassBlinds,
   starTrails,
@@ -560,7 +561,6 @@ export const registry: ComponentMeta[] = [
   waitlistHero,
   columnBloom,
   satinHero,
-  obsidianHero,
   refractionBlob,
   mastheadNav,
   glassTabBar,

@@ -89,7 +89,8 @@ A few to start with:
 - **Segment Counter, Timezone Overlap, Patina**: the honest details. The one character that doubled your SMS bill, everyone's working hours on one axis, cards that visibly age until someone checks them.
 - **Confidence Ink, Patch Bay, Fit Compare, Exploded View**: model uncertainty printed as lighter ink, routing as cables that sag, products shown at true size, and drawings that come apart.
 - **Helix Showcase, Signal Tiles, Platform Downloads**: a portfolio wound into a spiral of curved cards that turns as you scroll, black service tiles that switch on with a dot field and a travelling border light, and download buttons that put the visitor's own system first.
-- **Column Bloom, Satin Hero, Obsidian Hero**: three heroes: a stepped orange glow ringed by keywords, a headline pressed into drifting satin, and a hairline-and-heavy headline over black liquid with an ambient sound switch.
+- **Column Bloom, Satin Hero**: two heroes: a stepped orange glow ringed by keywords, and a headline pressed into drifting satin.
+- **Obsidian Flow**: a background of slowly folding black liquid under a faint grid (it began as a hero; the old link redirects).
 - **Refraction Blob, Ask Bar, Sweep Cards, Infinite Highlight Sweep**: a lumpy glass drop that reads a name through itself and turns with the scroll, an assistant's opening screen with one bar that grows, attaches and dictates, and pastel cards whose key phrases a demo cursor sweeps once. Highlight Sweep now plays once and rests; Infinite Highlight Sweep is the looping version.
 
 ## Run the gallery locally
