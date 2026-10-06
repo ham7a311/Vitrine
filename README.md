@@ -8,7 +8,7 @@
 Read the source. Read the prompt behind it. Take it and make it yours.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-373-c8b9ea)
+![Components](https://img.shields.io/badge/components-387-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -48,7 +48,7 @@ There is no package, no CLI and no registry install. You copy a file or two into
 
 ## What's inside
 
-**373 components in 32 categories.**
+**387 components in 32 categories.**
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
@@ -92,6 +92,11 @@ A few to start with:
 - **Column Bloom, Satin Hero**: two heroes: a stepped orange glow ringed by keywords, and a headline pressed into drifting satin.
 - **Obsidian Flow**: a background of slowly folding black liquid under a faint grid (it began as a hero; the old link redirects).
 - **Refraction Blob, Ask Bar, Sweep Cards, Infinite Highlight Sweep**: a lumpy glass drop that reads a name through itself and turns with the scroll, an assistant's opening screen with one bar that grows, attaches and dictates, and pastel cards whose key phrases a demo cursor sweeps once. Highlight Sweep now plays once and rests; Infinite Highlight Sweep is the looping version.
+- **Core, Danger, Upload, Pulse and Corner Cut buttons**: the everyday set in eight styles, a delete that asks, holds or waits for the name and then offers undo, an upload that becomes its own progress, live and ping buttons, and chamfered panel buttons with true outlines.
+- **Status Badge, Alert Callout, Progress Bar, Activity Timeline**: twelve statuses with their own marks, alerts that fold away, five kinds of progress, and a feed, changelog and roadmap.
+- **Gradient Text, Outline Text**: aurora, metal and spotlight fills on real text, and hairline lettering that fills on hover, on scroll, as echoes or in a marquee.
+- **Line Chart, Bar Chart, Donut Chart**: dashboard charts with morphing ranges, grouped and stacked bars that slide between layouts, a ring that steps out a part, keyboard reading and data tables.
+- Platform Downloads now shows one version at a time (the smart block, or solid, outline or light badges), and Refraction Blob, Helix Showcase and Satin Hero have new navigation.
 
 ## Run the gallery locally
 
@@ -121,7 +126,7 @@ Press **⌘K** (or **Ctrl K**) in the gallery to search by name, tag or feel, fo
 3. **Copy**: copy each file into your project. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file.
 
-The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 373 exported examples in isolation.
+The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 387 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source. Live demos load them through `src/site/ComponentFonts.tsx`; gallery fonts are self-hosted through Fontsource packages. Add the listed font families to your own project.
 
