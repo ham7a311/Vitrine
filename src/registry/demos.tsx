@@ -109,6 +109,7 @@ const loaders: Record<string, Loader> = {
   "specimen-card": () => import("./cards/specimen-card/demo"),
   "card-wallet": () => import("./cards/card-wallet/demo"),
   "patina": () => import("./cards/patina/demo"),
+  "signal-tiles": () => import("./cards/signal-tiles/demo"),
   "silk-field": () => import("./backgrounds/silk-field/demo"),
   "glass-tiles": () => import("./backgrounds/glass-tiles/demo"),
   "dither-flow": () => import("./backgrounds/dither-flow/demo"),

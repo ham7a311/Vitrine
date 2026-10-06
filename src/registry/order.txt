@@ -105,6 +105,7 @@ cards/eclipse-event-card
 cards/specimen-card
 cards/card-wallet
 cards/patina
+cards/signal-tiles
 backgrounds/silk-field
 backgrounds/glass-tiles
 backgrounds/dither-flow

@@ -1,0 +1,84 @@
+.sigt {
+  --sigt-bg: #000000;
+  --sigt-tile: #000000;
+  --sigt-edge: rgb(255 255 255 / 0.1);
+  --sigt-ink: #ffffff;
+  --sigt-muted: #8b8b8f;
+  --sigt-icon: #f4f4f5;
+  --sigt-beam: #3b82f6;
+  --sigt-beam-hot: #cfe0ff;
+  --sigt-pill: #ffffff;
+  --sigt-pill-ink: #0a0a0a;
+  --sigt-pill2: #1d1d20;
+  --sigt-pill2-ink: #f4f4f5;
+  --sigt-focus: #60a5fa;
+  display: grid; gap: clamp(28px, 5vw, 56px); padding: clamp(24px, 4vw, 48px);
+  color: var(--sigt-ink); background: var(--sigt-bg);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  container-type: inline-size; color-scheme: dark;
+}
+.sigt--light {
+  --sigt-bg: #f4f4f2;
+  --sigt-tile: #ffffff;
+  --sigt-edge: rgb(10 10 10 / 0.1);
+  --sigt-ink: #0a0a0a;
+  --sigt-muted: #6b6b70;
+  --sigt-icon: #111113;
+  --sigt-beam: #2563eb;
+  --sigt-beam-hot: #1d4ed8;
+  --sigt-pill: #0a0a0a;
+  --sigt-pill-ink: #ffffff;
+  --sigt-pill2: #e4e4e1;
+  --sigt-pill2-ink: #0a0a0a;
+  --sigt-focus: #2563eb;
+  color-scheme: light;
+}
+
+.sigt__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 32px; }
+.sigt__head h2 { margin: 0; max-width: 14ch; font-size: clamp(36px, 6.4cqi, 76px); font-weight: 600; line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; }
+.sigt__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.sigt__pill {
+  display: inline-flex; align-items: center; height: 48px; padding: 0 24px; font-size: 17px; font-weight: 500; text-decoration: none;
+  color: var(--sigt-pill2-ink); background: var(--sigt-pill2); border-radius: 999px; transition: transform 0.2s, background-color 0.2s;
+}
+.sigt__pill--primary { color: var(--sigt-pill-ink); background: var(--sigt-pill); }
+.sigt__pill:hover { transform: translateY(-1px); }
+.sigt__pill:focus-visible { outline: 2px solid var(--sigt-focus); outline-offset: 3px; }
+
+.sigt__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 0; list-style: none; }
+@container (max-width: 64rem) { .sigt__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@container (max-width: 40rem) { .sigt__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }
+@container (max-width: 16rem) { .sigt__grid { grid-template-columns: 1fr; } }
+
+.sigt__tile {
+  position: relative; display: grid; place-content: center; justify-items: center; gap: 20px; aspect-ratio: 1; padding: 20px;
+  color: var(--sigt-muted); background: var(--sigt-tile); text-decoration: none; text-align: center;
+  border: 1px solid var(--sigt-edge); border-radius: 14px; isolation: isolate; overflow: hidden; outline: none;
+}
+.sigt__dots { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+
+/* The arc: a conic sweep shown only in the 1.5px border ring, aimed at --sigt-a. */
+.sigt__beam {
+  position: absolute; inset: -1px; z-index: 1; padding: 1.5px; border-radius: inherit; pointer-events: none;
+  background: conic-gradient(from calc(var(--sigt-a) - 60deg), transparent 0deg, color-mix(in srgb, var(--sigt-beam) 60%, transparent) 30deg, var(--sigt-beam-hot) 60deg, color-mix(in srgb, var(--sigt-beam) 60%, transparent) 90deg, transparent 120deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: var(--sigt-on);
+}
+.sigt__beam--glow { padding: 3px; filter: blur(5px); opacity: calc(var(--sigt-on) * 0.85); }
+
+.sigt__glyph { display: grid; place-items: center; width: 44px; height: 44px; color: var(--sigt-icon); transition: transform 0.35s cubic-bezier(0.3, 0.7, 0.3, 1); }
+.sigt__icon { width: 100%; height: 100%; }
+.sigt__title { max-width: 12ch; font-size: clamp(16px, 1.8cqi, 22px); line-height: 1.38; color: var(--sigt-muted); text-wrap: balance; transition: color 0.25s; }
+.sigt__tile:hover .sigt__title, .sigt__tile:focus-visible .sigt__title { color: var(--sigt-ink); }
+.sigt__tile:hover .sigt__glyph, .sigt__tile:focus-visible .sigt__glyph { transform: translateY(-2px); }
+.sigt__tile:focus-visible { border-color: transparent; }
+
+@container (max-width: 40rem) {
+  .sigt__tile { gap: 12px; padding: 14px; }
+  .sigt__glyph { width: 30px; height: 30px; }
+  .sigt__title { font-size: 14.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sigt__glyph, .sigt__title, .sigt__pill { transition: none; }
+}

@@ -101,6 +101,7 @@ import { meta as eclipseEventCard } from "./cards/eclipse-event-card/meta";
 import { meta as specimenCard } from "./cards/specimen-card/meta";
 import { meta as cardWallet } from "./cards/card-wallet/meta";
 import { meta as patina } from "./cards/patina/meta";
+import { meta as signalTiles } from "./cards/signal-tiles/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
@@ -468,6 +469,7 @@ export const registry: ComponentMeta[] = [
   specimenCard,
   cardWallet,
   patina,
+  signalTiles,
   silkField,
   glassTiles,
   ditherFlow,
