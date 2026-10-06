@@ -147,6 +147,7 @@ backgrounds/caustic-pool
 backgrounds/ripple-tank
 cursors/glow-pointer
 cursors/highlight-sweep
+cursors/infinite-highlight-sweep
 cursors/eye-tracker
 cursors/nib-trail
 cursors/halo-pointer

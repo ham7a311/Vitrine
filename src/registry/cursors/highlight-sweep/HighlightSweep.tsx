@@ -8,19 +8,30 @@ import "./highlight-sweep.css";
  * A second cursor — not yours — that shows people what matters. It glides
  * in, presses at the start of a line and drags right, and a selection box
  * grows behind the text as it goes: the words turn the accent colour with a
- * crisp edge that travels with the cursor. It lets go, rests just past the
- * end, holds, and moves on to the next phrase. Your own pointer is left
- * alone throughout.
+ * crisp edge that travels with the cursor. It lets go and moves on to the
+ * next phrase. By default it plays once: every highlight stays, the arrow
+ * comes to rest past the last one, and nothing moves again. Pass
+ * repeat="forever" to fade and loop instead. Your own pointer is left alone.
  *
  * Wrap text in <SweepText text="…" order={n} />. Mark a phrase inside the
  * text with [[…]] to sweep just that; otherwise the whole text is swept.
  */
 
 type Props = {
-  /** Accent (hex): the arrow, the box and the swept text. */
+  /** Accent (hex): the arrow, the box and the swept text, unless set separately below. */
   color?: string;
-  /** Loop through the targets forever (true) or stop on the last one. */
+  /** "once" sweeps every target in turn, keeps each highlight, and stops for good; "forever" fades each one and loops. */
+  repeat?: "once" | "forever";
+  /** Older switch for the same thing: true is "forever", false is "once". `repeat` wins when both are given. */
   loop?: boolean;
+  /** Box background; defaults to the accent at 16%. */
+  fill?: string;
+  /** Box edge; defaults to the accent at 48%. */
+  ring?: string;
+  /** Colour the swept words turn; defaults to the accent. */
+  ink?: string;
+  /** Arrow fill; defaults to the accent. */
+  arrow?: string;
   /** Delay before the first sweep, once in view (ms). */
   startDelay?: number;
   /** Drag speed in px per second. */
@@ -73,15 +84,12 @@ const easeSine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 500, speed = 380, motion = "full", className = "", style, children }: Props) {
+export function HighlightSweep({ color = "#5fd4bf", repeat, loop, fill, ring, ink, arrow, startDelay = 500, speed = 380, motion = "full", className = "", style, children }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const underRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(motion === "reduced");
-  const [round, setRound] = useState(0); // bumping it replays from the first target
-  const pausedRef = useRef(paused);
-  pausedRef.current = paused;
+  const forever = repeat ? repeat === "forever" : loop === true;
 
   useEffect(() => {
     const rm = matchMedia("(prefers-reduced-motion: reduce)");
@@ -95,9 +103,10 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
     const host = hostRef.current, under = underRef.current, arr = arrowRef.current;
     if (!host || !under || !arr) return;
 
-    let raf = 0, lastT = 0, visible = false, alive = true;
+    let raf = 0, lastT = 0, visible = false, alive = true, finished = false;
     let steps: Step[] = [], si = 0, el = 0, target = 0;
-    let boxes: HTMLDivElement[] = [];
+    // Boxes are numbered across targets, so a kept highlight never shares a box with the next one.
+    let boxes: HTMLDivElement[] = [], base = 0;
     const cur = { x: 0, y: 0, o: 0, down: false };
 
     const scale = () => { const r = host.getBoundingClientRect(); return { r, s: r.width / host.offsetWidth || 1 }; };
@@ -141,9 +150,9 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
       }
       return boxes[i];
     };
-    /** Grow line i's box and its words' accent edge to x (host px). */
-    const fill = (l: Line, i: number, x: number) => {
-      const b = box(i);
+    /** Grow a line's box (box number n) and its words' accent edge to x (host px). */
+    const fillLine = (l: Line, n: number, x: number) => {
+      const b = box(n);
       const left = l.x - PAD_X;
       const w = Math.max(0, Math.min(l.w + PAD_X * 2, x - left));
       b.style.transform = `translate3d(${left.toFixed(2)}px, ${(l.y - PAD_Y).toFixed(2)}px, 0)`;
@@ -155,30 +164,33 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
     const clearAll = () => {
       boxes.forEach((b) => b.remove());
       boxes = [];
+      base = 0;
       host.querySelectorAll<HTMLElement>(".hs__w").forEach((w) => { w.style.removeProperty("--f"); w.removeAttribute("data-fade"); });
     };
+    const restAfter = (last: Line) => ({ x: last.x + last.w + PAD_X + 6, y: last.y + last.h + PAD_Y + 10 });
 
-    /** Build the timeline for one target. */
-    const plan = (block: HTMLElement) => {
+    /** Build the timeline for one target. `cont` means the arrow is already on screen and glides on from where it is. */
+    const plan = (block: HTMLElement, cont: boolean, isLast: boolean) => {
       const lines = measure(block);
       if (!lines.length) return [];
       const hostW = host.offsetWidth, hostH = host.offsetHeight;
       const mid = (l: Line) => l.y + l.h * 0.58;
       const first = lines[0], last = lines[lines.length - 1];
       const sx = first.x - 2, sy = mid(first);
-      const from = { x: Math.min(hostW - 20, sx + 260), y: Math.min(hostH - 10, sy + 170) };
-      const ctrl = { x: from.x - 40, y: sy + 30 };
+      const from = cont ? { x: cur.x, y: cur.y } : { x: Math.min(hostW - 20, sx + 260), y: Math.min(hostH - 10, sy + 170) };
+      const ctrl = cont ? { x: (from.x + sx) / 2, y: Math.max(from.y, sy) + 40 } : { x: from.x - 40, y: sy + 30 };
       const endX = last.x + last.w + PAD_X;
-      const rest = { x: endX + 6, y: last.y + last.h + PAD_Y + 10 };
+      const rest = restAfter(last);
       const away = { x: rest.x + 70, y: rest.y + 60 };
+      const at = base;
       const out: Step[] = [];
       out.push({ ms: 900, run: (t) => {
         const e = ease(t);
         cur.x = (1 - e) * (1 - e) * from.x + 2 * (1 - e) * e * ctrl.x + e * e * sx;
         cur.y = (1 - e) * (1 - e) * from.y + 2 * (1 - e) * e * ctrl.y + e * e * sy;
-        cur.o = Math.min(1, t * 4);
+        cur.o = cont ? 1 : Math.min(1, t * 4);
       } });
-      out.push({ ms: 160, run: () => { cur.down = true; }, done: () => fill(first, 0, first.x - PAD_X + 2) });
+      out.push({ ms: 160, run: () => { cur.down = true; }, done: () => fillLine(first, at, first.x - PAD_X + 2) });
       lines.forEach((l, i) => {
         const x0 = i === 0 ? sx : l.x - PAD_X;
         const x1 = l.x + l.w + PAD_X;
@@ -189,7 +201,7 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
           const e = fn(t);
           cur.x = lerp(x0, x1, e);
           cur.y = mid(l);
-          fill(l, i, cur.x);
+          fillLine(l, at + i, cur.x);
         } });
         if (i < lines.length - 1) {
           const n = lines[i + 1];
@@ -197,14 +209,19 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
             const e = easeSine(t);
             cur.x = lerp(x1, n.x - PAD_X, e);
             cur.y = lerp(mid(l), mid(n), e);
-            fill(l, i, x1);
-            fill(n, i + 1, Math.max(n.x - PAD_X, cur.x));
+            fillLine(l, at + i, x1);
+            fillLine(n, at + i + 1, Math.max(n.x - PAD_X, cur.x));
           } });
         }
       });
       out.push({ ms: 140, run: () => { cur.down = false; } });
       const end = { x: endX, y: mid(last) };
-      out.push({ ms: 520, run: (t) => { const e = easeOut(t); cur.x = lerp(end.x, rest.x, e); cur.y = lerp(end.y, rest.y, e); } });
+      out.push({ ms: 520, run: (t) => { const e = easeOut(t); cur.x = lerp(end.x, rest.x, e); cur.y = lerp(end.y, rest.y, e); }, done: () => { base = at + lines.length; } });
+      if (!forever) {
+        // Once: the highlight stays. Pause on it, then glide on to the next phrase; after the last, rest for good.
+        if (!isLast) out.push({ ms: 900, run: () => {} });
+        return out;
+      }
       out.push({ ms: 2400, run: () => {} });
       out.push({ ms: 420, run: (t) => {
         boxes.forEach((b) => (b.style.opacity = String(1 - t)));
@@ -220,28 +237,35 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
     const begin = (i: number) => {
       const all = targets();
       if (!all.length) return false;
-      if (i >= all.length) { if (!loop) return false; i = 0; }
+      if (i >= all.length) {
+        if (!forever) return false;
+        i = 0;
+      }
+      const cont = !forever && i > 0;
       target = i;
-      clearAll();
-      steps = plan(all[i]);
+      if (forever) clearAll();
+      steps = plan(all[i], cont, i === all.length - 1);
       si = 0; el = 0;
       return steps.length > 0;
     };
 
-    /** Reduced motion: the first target, swept and held, arrow at rest. */
-    const still = () => {
+    /** Highlights for targets [0, upto) drawn complete, with the arrow resting past the last of them. */
+    const settled = (upto: number) => {
       clearAll();
-      const all = targets();
-      if (!all.length) return;
-      const lines = measure(all[0]);
-      lines.forEach((l, i) => fill(l, i, l.x + l.w + PAD_X));
-      const last = lines[lines.length - 1];
-      if (last) { cur.x = last.x + last.w + PAD_X + 6; cur.y = last.y + last.h + PAD_Y + 10; cur.o = 1; cur.down = false; drawArrow(); }
+      const all = targets().slice(0, upto);
+      let lastLine: Line | undefined;
+      all.forEach((t) => {
+        const lines = measure(t);
+        lines.forEach((l, i) => fillLine(l, base + i, l.x + l.w + PAD_X));
+        base += lines.length;
+        lastLine = lines[lines.length - 1] ?? lastLine;
+      });
+      if (lastLine) { const r = restAfter(lastLine); cur.x = r.x; cur.y = r.y; cur.o = 1; cur.down = false; drawArrow(); }
     };
 
     const tick = (now: number) => {
       raf = 0;
-      if (!alive || pausedRef.current || !visible || document.hidden) { lastT = 0; return; }
+      if (!alive || finished || !visible || document.hidden) { lastT = 0; return; }
       const dt = lastT ? Math.min(50, now - lastT) : 16;
       lastT = now;
       el += dt;
@@ -252,18 +276,20 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
         si++;
       }
       if (si >= steps.length) {
-        if (!begin(target + 1)) { drawArrow(); return; }
+        if (!begin(target + 1)) { finished = true; drawArrow(); return; }
       } else steps[si].run(el / steps[si].ms);
       drawArrow();
       raf = requestAnimationFrame(tick);
     };
-    const wake = () => { if (!raf && alive) raf = requestAnimationFrame(tick); };
+    const wake = () => { if (!raf && alive && !finished) raf = requestAnimationFrame(tick); };
 
     if (reduced) {
-      still();
-      const ro = new ResizeObserver(() => still());
+      // Still frame: the finished state (every phrase when it plays once, the first when it loops).
+      const draw = () => settled(forever ? 1 : targets().length);
+      draw();
+      const ro = new ResizeObserver(draw);
       ro.observe(host);
-      document.fonts?.ready.then(() => alive && still());
+      document.fonts?.ready.then(() => alive && draw());
       return () => { alive = false; ro.disconnect(); clearAll(); };
     }
 
@@ -276,15 +302,19 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
     io.observe(host);
     const onVis = () => { if (!document.hidden) wake(); };
     document.addEventListener("visibilitychange", onVis);
-    // Reflow mid-sweep: start this target again with fresh measurements.
+    // Reflow: redraw what is already done and start the current target again with fresh measurements.
     let w0 = host.offsetWidth;
     const ro = new ResizeObserver(() => {
       if (host.offsetWidth === w0) return;
       w0 = host.offsetWidth;
-      if (target >= 0) { begin(target); cur.o = 0; drawArrow(); }
+      if (finished) return settled(targets().length);
+      if (target < 0) return;
+      if (forever) { begin(target); cur.o = 0; drawArrow(); return; }
+      settled(target);
+      begin(target);
+      drawArrow();
     });
     ro.observe(host);
-    (host as HTMLDivElement & { __hsWake?: () => void }).__hsWake = wake;
 
     return () => {
       alive = false;
@@ -295,15 +325,16 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
       document.removeEventListener("visibilitychange", onVis);
       clearAll();
     };
-  }, [reduced, loop, startDelay, speed, round]);
+  }, [reduced, forever, startDelay, speed]);
 
-  // Resuming from pause continues where it stopped.
-  useEffect(() => {
-    if (!paused) (hostRef.current as (HTMLDivElement & { __hsWake?: () => void }) | null)?.__hsWake?.();
-  }, [paused]);
+  const vars: Record<string, string> = { "--hs-c": color };
+  if (fill) vars["--hs-fill"] = fill;
+  if (ring) vars["--hs-ring"] = ring;
+  if (ink) vars["--hs-ink"] = ink;
+  if (arrow) vars["--hs-arrow"] = arrow;
 
   return (
-    <div ref={hostRef} className={`hs ${className}`} data-motion={motion} style={{ ...style, ["--hs-c" as string]: color }}>
+    <div ref={hostRef} className={`hs ${className}`} data-motion={motion} style={{ ...style, ...vars }}>
       <div ref={underRef} className="hs__under" aria-hidden="true" />
       <div className="hs__content">{children}</div>
       <div className="hs__layer" aria-hidden="true">
@@ -313,20 +344,6 @@ export function HighlightSweep({ color = "#5fd4bf", loop = true, startDelay = 50
           </svg>
         </div>
       </div>
-      {!reduced && (
-        <div className="hs__ctl">
-          <button type="button" className="hs__btn" onClick={() => setPaused((p) => !p)} aria-label={paused ? "Play highlight animation" : "Pause highlight animation"}>
-            {paused ? (
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z" /></svg>
-            ) : (
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5h2v9H5zM9 3.5h2v9H9z" /></svg>
-            )}
-          </button>
-          <button type="button" className="hs__btn" onClick={() => { setPaused(false); setRound((r) => r + 1); }} aria-label="Replay highlight animation">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 1 0 1.4-3.3M3.5 2.8v2.6h2.6" /></svg>
-          </button>
-        </div>
-      )}
     </div>
   );
 }

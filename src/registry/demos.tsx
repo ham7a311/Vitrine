@@ -151,6 +151,7 @@ const loaders: Record<string, Loader> = {
   "ripple-tank": () => import("./backgrounds/ripple-tank/demo"),
   "glow-pointer": () => import("./cursors/glow-pointer/demo"),
   "highlight-sweep": () => import("./cursors/highlight-sweep/demo"),
+  "infinite-highlight-sweep": () => import("./cursors/infinite-highlight-sweep/demo"),
   "eye-tracker": () => import("./cursors/eye-tracker/demo"),
   "nib-trail": () => import("./cursors/nib-trail/demo"),
   "halo-pointer": () => import("./cursors/halo-pointer/demo"),

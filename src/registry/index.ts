@@ -143,6 +143,7 @@ import { meta as causticPool } from "./backgrounds/caustic-pool/meta";
 import { meta as rippleTank } from "./backgrounds/ripple-tank/meta";
 import { meta as glowPointer } from "./cursors/glow-pointer/meta";
 import { meta as highlightSweep } from "./cursors/highlight-sweep/meta";
+import { meta as infiniteHighlightSweep } from "./cursors/infinite-highlight-sweep/meta";
 import { meta as eyeTracker } from "./cursors/eye-tracker/meta";
 import { meta as nibTrail } from "./cursors/nib-trail/meta";
 import { meta as haloPointer } from "./cursors/halo-pointer/meta";
@@ -515,6 +516,7 @@ export const registry: ComponentMeta[] = [
   rippleTank,
   glowPointer,
   highlightSweep,
+  infiniteHighlightSweep,
   eyeTracker,
   nibTrail,
   haloPointer,
