@@ -294,6 +294,9 @@ import { meta as splitBarStats } from "./stats/split-bar-stats/meta";
 import { meta as thenNowStats } from "./stats/then-now-stats/meta";
 import { meta as lessonSummary } from "./stats/lesson-summary/meta";
 import { meta as dailyQuests } from "./stats/daily-quests/meta";
+import { meta as lineChart } from "./analytics/line-chart/meta";
+import { meta as barChart } from "./analytics/bar-chart/meta";
+import { meta as donutChart } from "./analytics/donut-chart/meta";
 import { meta as modelBench } from "./analytics/model-bench/meta";
 import { meta as sankeyFlow } from "./analytics/sankey-flow/meta";
 import { meta as pulseLineChart } from "./analytics/pulse-line-chart/meta";
@@ -681,6 +684,9 @@ export const registry: ComponentMeta[] = [
   thenNowStats,
   lessonSummary,
   dailyQuests,
+  lineChart,
+  barChart,
+  donutChart,
   modelBench,
   sankeyFlow,
   pulseLineChart,

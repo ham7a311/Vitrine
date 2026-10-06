@@ -1,0 +1,73 @@
+.dnut {
+  --dnut-surface: #fcfcfb;
+  --dnut-ink: #0b0b0b;
+  --dnut-ink-2: #52514e;
+  --dnut-muted: #898781;
+  --dnut-ring: rgb(11 11 11 / 0.1);
+  --dnut-wash: rgb(11 11 11 / 0.04);
+  --dnut-s1: #2a78d6;
+  --dnut-s2: #eb6834;
+  --dnut-s3: #1baf7a;
+  --dnut-s4: #eda100;
+  --dnut-s5: #e87ba4;
+  --dnut-focus: #2a78d6;
+  position: relative; display: grid; gap: 18px; width: 100%; padding: 20px; color: var(--dnut-ink);
+  background: var(--dnut-surface); border-radius: 16px; box-shadow: inset 0 0 0 1px var(--dnut-ring);
+  font: 400 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color-scheme: light;
+}
+.dnut--dark {
+  --dnut-surface: #1a1a19;
+  --dnut-ink: #ffffff;
+  --dnut-ink-2: #c3c2b7;
+  --dnut-muted: #898781;
+  --dnut-ring: rgb(255 255 255 / 0.1);
+  --dnut-wash: rgb(255 255 255 / 0.05);
+  --dnut-s1: #3987e5;
+  --dnut-s2: #d95926;
+  --dnut-s3: #199e70;
+  --dnut-s4: #c98500;
+  --dnut-s5: #d55181;
+  --dnut-focus: #3987e5;
+  color-scheme: dark;
+}
+.dnut :focus-visible { outline: 2px solid var(--dnut-focus); outline-offset: 2px; }
+.dnut h3 { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+.dnut__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.dnut__body { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 36px; }
+.dnut__figure { position: relative; flex: none; width: 220px; height: 220px; }
+.dnut__figure svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.dnut__slice--1, .dnut__row--1 { --dnut-c: var(--dnut-s1); } .dnut__slice--2, .dnut__row--2 { --dnut-c: var(--dnut-s2); }
+.dnut__slice--3, .dnut__row--3 { --dnut-c: var(--dnut-s3); } .dnut__slice--4, .dnut__row--4 { --dnut-c: var(--dnut-s4); }
+.dnut__slice--5, .dnut__row--5 { --dnut-c: var(--dnut-s5); }
+/* A slice steps outward along its middle angle when pointed at. */
+.dnut__slice { fill: var(--dnut-c); stroke: var(--dnut-surface); stroke-width: 1; transition: transform 0.3s cubic-bezier(0.3, 0.7, 0.2, 1), opacity 0.2s; }
+.dnut__slice[data-on] { transform: translate(var(--dx), var(--dy)); }
+.dnut__slice[data-dim] { opacity: 0.35; }
+.dnut__reveal { fill: none; stroke: #ffffff; stroke-dashoffset: 0; }
+.dnut:not([data-in]) .dnut__reveal { stroke-dashoffset: var(--ring); }
+.dnut[data-in] .dnut__reveal { transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1); }
+.dnut__center { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 1px; text-align: center; pointer-events: none; }
+.dnut__center span { max-width: 120px; color: var(--dnut-ink-2); font-size: 12.5px; }
+.dnut__center strong { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.dnut__center small { color: var(--dnut-muted); font-size: 12px; }
+
+/* Legend: one row per part, the swatch carrying identity and the text in ink. */
+.dnut__legend { flex: 1; min-width: min(100%, 16rem); display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.dnut__row {
+  display: grid; grid-template-columns: 10px 1fr auto 3.8em; align-items: center; gap: 10px; width: 100%; padding: 8px 10px; color: var(--dnut-ink-2);
+  background: none; border: 0; border-radius: 8px; font: inherit; text-align: left; cursor: default; transition: background-color 0.15s;
+}
+.dnut__row[data-on] { background: var(--dnut-wash); }
+.dnut__row i { width: 10px; height: 10px; border-radius: 3px; background: var(--dnut-c); }
+.dnut__row strong { color: var(--dnut-ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.dnut__share { color: var(--dnut-muted); font-variant-numeric: tabular-nums; text-align: right; }
+
+/* The demo page. */
+.dnut-demo { display: grid; place-items: center; width: 100%; min-height: 100%; padding: clamp(16px, 4vw, 48px); }
+.dnut-demo--light { background: #f9f9f7; }
+.dnut-demo--dark { background: #0d0d0d; }
+.dnut-demo > .dnut { max-width: 40rem; }
+
+@media (max-width: 30rem) { .dnut__body { justify-content: center; } }
+@media (forced-colors: active) { .dnut__slice { stroke: CanvasText; } }
+@media (prefers-reduced-motion: reduce) { .dnut__slice, .dnut__row { transition: opacity 0.2s; } .dnut[data-in] .dnut__reveal { transition: none; } }

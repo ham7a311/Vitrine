@@ -298,6 +298,9 @@ stats/split-bar-stats
 stats/then-now-stats
 stats/lesson-summary
 stats/daily-quests
+analytics/line-chart
+analytics/bar-chart
+analytics/donut-chart
 analytics/model-bench
 analytics/sankey-flow
 analytics/pulse-line-chart

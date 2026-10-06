@@ -1,0 +1,26 @@
+import type { ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  slug: "line-chart",
+  name: "Line Chart",
+  category: "analytics",
+  description: "A dashboard line chart done properly: up to three series as smooth lines that never overshoot the data, a soft area under the first, a dashed previous period, range tabs that morph the lines, legend toggles, a crosshair that reads every series at once, keyboard stepping, and a table of the same numbers.",
+  tags: ["chart", "line chart", "area", "time series", "dashboard", "analytics", "tooltip", "crosshair", "svg"],
+  traits: ["hover", "click", "keyboard", "cursor"],
+  source: "original",
+  files: ["LineChart.tsx", "line-chart.css", "chart.ts"],
+  dependencies: [],
+  prompt:
+    "Build a dashboard line chart card in SVG with no chart library: 'Sessions by source' over 90 fictional days, three series (Organic, Paid, Referral) and the previous period for comparison.\n\nCard: the chart surface with a 1px hairline ring and 16px corners. Header: the title in secondary ink at 14px, then the total of the visible series over the window at 30px semibold, then the change of the first series against the previous period (a small triangle and '+12.4%' in success green or critical red, the word up/down for screen readers, 'vs previous 30 days' muted). On the right a segmented control of ranges (7d, 30d, 90d). Under it a legend of toggle buttons (aria-pressed): a 14×2.5px swatch in the series colour and the name in secondary ink; 'Previous period' has a dashed swatch. At least one series always stays on.\n\nPlot (260px tall, margins 14/88/30/46): hairline gridlines at nice ticks (1, 2, 2.5 or 5 × 10ⁿ, from zero) with compact muted tabular labels (12.4k), a stronger baseline, four date labels along the bottom. Lines are 2px monotone cubics (Fritsch–Carlson, so a curve never overshoots its data), round caps; the first has an area fading from its colour at 18% to nothing. The previous period is a 1.5px dashed muted line. Each visible series has a direct label past its right end (a 3.5px dot with a surface ring and the name in secondary ink), nudged at least 16px apart.\n\nMotion: changing the range or toggling a series resamples every curve to 96 points on its own monotone curve and morphs from what's on screen to the new shape over 520ms (ease-out cubic), with the axis top easing too.\n\nHover: a vertical hairline snaps to the nearest day, 4.5px dots with 2px surface rings mark each series, and one tooltip (surface, ring, soft shadow) lists the date, then every series with the value in semibold tabular figures first and the name after, flipping to the left near the right edge. Keyboard: one focusable layer over the plot; ←/→/Home/End step through the days, read out in a polite live region. A visually hidden table carries every number in the window.",
+  interaction: "Range tabs and legend toggles are buttons; hover or touch the plot for the crosshair; focus it and use the arrow keys to step day by day.",
+  animation: "520ms morphs between ranges and when series toggle; lines fade in and out. Reduced motion jumps straight to the new shape.",
+  a11y: "Identity never rests on colour alone: a legend with names, direct labels at the line ends, and a hidden table with every value. The plot is one keyboard stop that announces each day; toggles use aria-pressed; deltas say up or down in words.",
+  responsive: "The SVG is redrawn at the card's measured width (down to 280px); the header and legend wrap; the tooltip flips sides near the edge.",
+  touchFallback: "Touching the plot moves the crosshair to the nearest day without blocking vertical scrolling.",
+  variants: [
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --lnch-base #c3c2b7; --lnch-chip #f1f0ec; --lnch-down #d03b3b; --lnch-focus #2a78d6; --lnch-grid #e1e0d9; --lnch-ink #0b0b0b; --lnch-ink-2 #52514e; --lnch-muted #898781; --lnch-ring rgb(11 11 11 / 0.1); --lnch-s1 #2a78d6; --lnch-s2 #eb6834; --lnch-s3 #1baf7a; --lnch-surface #fcfcfb; --lnch-up #006300. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --lnch-base #383835; --lnch-chip #252523; --lnch-down #e66767; --lnch-focus #3987e5; --lnch-grid #2c2c2a; --lnch-ink #ffffff; --lnch-ink-2 #c3c2b7; --lnch-muted #898781; --lnch-ring rgb(255 255 255 / 0.1); --lnch-s1 #3987e5; --lnch-s2 #d95926; --lnch-s3 #199e70; --lnch-surface #1a1a19; --lnch-up #0ca30c. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+  ],
+  preview: { bg: "#f9f9f7", mode: "fill", frame: [1100, 600] },
+  isNew: true,
+};
