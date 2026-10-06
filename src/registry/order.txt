@@ -123,6 +123,9 @@ cards/sweep-cards
 backgrounds/silk-field
 backgrounds/glass-tiles
 backgrounds/dither-flow
+backgrounds/halftone-rise
+backgrounds/orbit-dawn
+backgrounds/light-pour
 backgrounds/glass-orbs
 backgrounds/liquid-chrome
 backgrounds/obsidian-flow
@@ -253,6 +256,7 @@ footers/curtain-footer
 footers/sign-off-footer
 footers/index-footer
 footers/colophon-footer
+pricing/haze-tier-card
 pricing/subtractive-pricing
 pricing/usage-ruler
 pricing/lightbox-compare

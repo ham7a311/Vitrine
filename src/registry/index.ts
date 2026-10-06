@@ -119,6 +119,9 @@ import { meta as sweepCards } from "./cards/sweep-cards/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
+import { meta as halftoneRise } from "./backgrounds/halftone-rise/meta";
+import { meta as orbitDawn } from "./backgrounds/orbit-dawn/meta";
+import { meta as lightPour } from "./backgrounds/light-pour/meta";
 import { meta as glassOrbs } from "./backgrounds/glass-orbs/meta";
 import { meta as liquidChrome } from "./backgrounds/liquid-chrome/meta";
 import { meta as obsidianFlow } from "./backgrounds/obsidian-flow/meta";
@@ -249,6 +252,7 @@ import { meta as curtainFooter } from "./footers/curtain-footer/meta";
 import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
 import { meta as colophonFooter } from "./footers/colophon-footer/meta";
+import { meta as hazeTierCard } from "./pricing/haze-tier-card/meta";
 import { meta as subtractivePricing } from "./pricing/subtractive-pricing/meta";
 import { meta as usageRuler } from "./pricing/usage-ruler/meta";
 import { meta as lightboxCompare } from "./pricing/lightbox-compare/meta";
@@ -543,6 +547,9 @@ export const registry: ComponentMeta[] = [
   silkField,
   glassTiles,
   ditherFlow,
+  halftoneRise,
+  orbitDawn,
+  lightPour,
   glassOrbs,
   liquidChrome,
   obsidianFlow,
@@ -673,6 +680,7 @@ export const registry: ComponentMeta[] = [
   signOffFooter,
   indexFooter,
   colophonFooter,
+  hazeTierCard,
   subtractivePricing,
   usageRuler,
   lightboxCompare,

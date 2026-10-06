@@ -1,0 +1,12 @@
+.lpor { position: relative; isolation: isolate; width: 100%; height: 100%; min-height: 20rem; overflow: hidden; background: var(--lpor-0); }
+.lpor__canvas { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; }
+.lpor[data-fallback] {
+  background:
+    linear-gradient(90deg, transparent calc(57% - 1px), var(--lpor-3) 57%, transparent calc(57% + 1px)),
+    radial-gradient(60% 22% at 57% 100%, var(--lpor-3), color-mix(in srgb, var(--lpor-1) 70%, transparent) 40%, transparent 75%),
+    radial-gradient(18% 60% at 57% 60%, color-mix(in srgb, var(--lpor-1) 45%, transparent), transparent 70%),
+    radial-gradient(35% 30% at 10% 100%, color-mix(in srgb, var(--lpor-1) 50%, transparent), transparent 70%),
+    var(--lpor-0);
+}
+.lpor[data-fallback] .lpor__canvas { display: none; }
+.lpor__content { position: relative; height: 100%; }
