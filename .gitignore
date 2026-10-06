@@ -1,6 +1,7 @@
 node_modules
 .next
 .next-release
+.next-dev
 out
 next-env.d.ts
 *.tsbuildinfo
