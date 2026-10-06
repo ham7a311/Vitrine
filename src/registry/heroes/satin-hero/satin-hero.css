@@ -1,0 +1,79 @@
+.satn {
+  --satn-ink: #1c3a5e;
+  --satn-ink-soft: #2a5a8c;
+  --satn-top: #3a6593;
+  --satn-bottom: #15304f;
+  --satn-hi: rgb(255 255 255 / 0.7);
+  --satn-lo: rgb(10 35 70 / 0.28);
+  --satn-chip: rgb(255 255 255 / 0.38);
+  --satn-chip-hover: rgb(255 255 255 / 0.62);
+  --satn-line: rgb(255 255 255 / 0.55);
+  --satn-focus: #1c3a5e;
+  --satn-fallback: radial-gradient(120% 90% at 85% 10%, #ffffff 0%, #b7dbfd 30%, #8fc2f3 55%, #d8ebff 85%);
+  position: relative; display: grid; grid-template-rows: auto 1fr auto; isolation: isolate; overflow: hidden;
+  min-height: clamp(36rem, 54vw, 62rem); padding: clamp(18px, 2.2vw, 30px) clamp(20px, 5.4%, 108px);
+  color: var(--satn-ink); background: var(--satn-fallback);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  container-type: inline-size;
+}
+.satn--dark {
+  --satn-ink: #e3edf9;
+  --satn-ink-soft: #b9cde6;
+  --satn-top: #ffffff;
+  --satn-bottom: #b4c8e2;
+  --satn-hi: rgb(0 0 0 / 0.55);
+  --satn-lo: rgb(255 255 255 / 0.25);
+  --satn-chip: rgb(255 255 255 / 0.08);
+  --satn-chip-hover: rgb(255 255 255 / 0.16);
+  --satn-line: rgb(255 255 255 / 0.08);
+  --satn-focus: #e3edf9;
+  --satn-fallback: radial-gradient(120% 90% at 85% 10%, #3c5f8f 0%, #1d3557 35%, #0c1830 70%, #070d18 100%);
+}
+.satn :focus-visible { outline: 2px solid var(--satn-focus); outline-offset: 3px; }
+.satn__cloth { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; display: block; }
+.satn[data-fallback] .satn__cloth { display: none; }
+
+/* Four columns of faint guide lines, from the content edge to the content edge. */
+.satn__grid { position: absolute; inset: 0 clamp(20px, 5.4%, 108px); z-index: -1; display: flex; justify-content: space-between; pointer-events: none; }
+.satn__grid i { width: 1px; background: linear-gradient(to bottom, transparent, var(--satn-line) 8%, var(--satn-line) 92%, transparent); }
+
+.satn__nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.satn__name { color: var(--satn-ink-soft); font-size: clamp(17px, 1.6cqi, 26px); letter-spacing: -0.01em; text-decoration: none; }
+.satn__nav ul, .satn__foot ul { display: flex; gap: clamp(6px, 1cqi, 18px); margin: 0; padding: 0; list-style: none; }
+.satn__nav a:not(.satn__name), .satn__chip {
+  display: inline-block; padding: 0.3em 0.55em; color: var(--satn-ink-soft); text-decoration: none; white-space: nowrap;
+  font-size: clamp(15px, 1.5cqi, 25px); letter-spacing: -0.01em;
+  background: var(--satn-chip); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: background-color 0.2s, color 0.2s;
+}
+.satn__nav a:not(.satn__name):hover, .satn__chip:hover { background: var(--satn-chip-hover); color: var(--satn-ink); }
+
+.satn__main { align-self: center; display: grid; justify-items: start; gap: clamp(18px, 2.4cqi, 34px); padding: clamp(32px, 5cqi, 90px) 0; }
+/* The headline is pressed into the cloth: a dark gradient fill, a light lip under each stroke and a shadow over it. */
+.satn__title {
+  margin: 0; display: grid;
+  font-family: "Newsreader", "Instrument Serif", Georgia, serif; font-weight: 500;
+  font-size: clamp(46px, 8.6cqi, 170px); line-height: 0.98; letter-spacing: -0.025em;
+}
+.satn__title span {
+  color: transparent; background: linear-gradient(180deg, var(--satn-top) 0%, var(--satn-bottom) 58%, color-mix(in srgb, var(--satn-top) 60%, var(--satn-bottom)) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  filter: drop-shadow(0 1.5px 0 var(--satn-hi)) drop-shadow(0 -1px 0.5px var(--satn-lo));
+  padding-bottom: 0.06em;
+}
+.satn__intro { margin: 0; max-width: 34rem; color: var(--satn-ink-soft); font-size: clamp(16px, 1.55cqi, 26px); line-height: 1.45; letter-spacing: -0.01em; }
+.satn__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.satn__talk { display: inline-flex; gap: 0.6em; color: var(--satn-ink); font-size: clamp(16px, 1.5cqi, 25px); text-decoration: none; letter-spacing: -0.01em; }
+.satn__talk span { color: var(--satn-ink-soft); transition: translate 0.25s; }
+.satn__talk:hover span { translate: 3px 2px; }
+
+.satn__foot { display: flex; align-items: center; justify-content: space-between; color: var(--satn-ink-soft); font-size: clamp(14px, 1.3cqi, 22px); }
+.satn__foot a { display: grid; place-items: center; width: 36px; height: 36px; color: var(--satn-ink); transition: opacity 0.2s; }
+.satn__foot a:hover { opacity: 0.7; }
+.satn__foot svg { width: 26px; height: 26px; }
+
+@container (max-width: 40rem) {
+  .satn__nav { flex-wrap: wrap; }
+  .satn__grid i:nth-child(2), .satn__grid i:nth-child(4) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .satn__talk span, .satn__nav a, .satn__chip { transition: none; } }

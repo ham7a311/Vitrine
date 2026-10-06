@@ -180,6 +180,7 @@ import { meta as localSkyHero } from "./heroes/local-sky-hero/meta";
 import { meta as letterformHero } from "./heroes/letterform-hero/meta";
 import { meta as waitlistHero } from "./heroes/waitlist-hero/meta";
 import { meta as columnBloom } from "./heroes/column-bloom/meta";
+import { meta as satinHero } from "./heroes/satin-hero/meta";
 import { meta as mastheadNav } from "./navbars/masthead-nav/meta";
 import { meta as glassTabBar } from "./navigation/glass-tab-bar/meta";
 import { meta as slideTabs } from "./navigation/slide-tabs/meta";
@@ -549,6 +550,7 @@ export const registry: ComponentMeta[] = [
   letterformHero,
   waitlistHero,
   columnBloom,
+  satinHero,
   mastheadNav,
   glassTabBar,
   slideTabs,

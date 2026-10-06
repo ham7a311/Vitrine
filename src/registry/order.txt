@@ -184,6 +184,7 @@ heroes/local-sky-hero
 heroes/letterform-hero
 heroes/waitlist-hero
 heroes/column-bloom
+heroes/satin-hero
 navbars/masthead-nav
 navigation/glass-tab-bar
 navigation/slide-tabs
