@@ -1,0 +1,72 @@
+.stbg {
+  /* Each tone: a strong ink, a soft fill, a hairline. */
+  --stbg-red: #c4161c; --stbg-red-soft: #fdecec; --stbg-red-line: #f6c1c2;
+  --stbg-green: #13703a; --stbg-green-soft: #e7f6ec; --stbg-green-line: #b6e2c4;
+  --stbg-amber: #935f00; --stbg-amber-soft: #fdf3dc; --stbg-amber-line: #f1d697;
+  --stbg-grey: #5c5f66; --stbg-grey-soft: #f0f1f3; --stbg-grey-line: #d9dbe0;
+  --stbg-blue: #1d4fd8; --stbg-blue-soft: #e9f0ff; --stbg-blue-line: #bfd0fb;
+  --stbg-violet: #6b2fd6; --stbg-violet-soft: #f2ecff; --stbg-violet-line: #d6c5fa;
+  --stbg-red-solid: #dc2626; --stbg-green-solid: #15803d; --stbg-amber-solid: #f5a524; --stbg-grey-solid: #5c5f66; --stbg-blue-solid: #2563eb; --stbg-violet-solid: #7c3aed;
+  --stbg-on-solid: #ffffff; --stbg-on-amber: #241700;
+  --stbg-text: #1d1e21;
+  position: relative; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 9px 0 8px; border-radius: 999px;
+  color: var(--stbg-ink); background: var(--stbg-soft); box-shadow: inset 0 0 0 1px var(--stbg-line);
+  font: 500 12.5px/1 "Inter", ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.005em; white-space: nowrap; vertical-align: middle;
+}
+.stbg--dark {
+  --stbg-red: #ff8a8d; --stbg-red-soft: #2c1214; --stbg-red-line: #5a2226;
+  --stbg-green: #6fdc93; --stbg-green-soft: #0f2416; --stbg-green-line: #1f4a2c;
+  --stbg-amber: #f8c45c; --stbg-amber-soft: #2a1f08; --stbg-amber-line: #574117;
+  --stbg-grey: #b3b6bd; --stbg-grey-soft: #1d1e21; --stbg-grey-line: #34363b;
+  --stbg-blue: #8db3ff; --stbg-blue-soft: #0f1b33; --stbg-blue-line: #23396a;
+  --stbg-violet: #c4a6ff; --stbg-violet-soft: #1d1430; --stbg-violet-line: #3d2b66;
+  --stbg-red-solid: #e5484d; --stbg-green-solid: #238636; --stbg-grey-solid: #4a4d54; --stbg-blue-solid: #2f6bff; --stbg-violet-solid: #7c4dff;
+  --stbg-text: #e8e9ec;
+}
+.stbg--red { --stbg-ink: var(--stbg-red); --stbg-soft: var(--stbg-red-soft); --stbg-line: var(--stbg-red-line); --stbg-solid: var(--stbg-red-solid); }
+.stbg--green { --stbg-ink: var(--stbg-green); --stbg-soft: var(--stbg-green-soft); --stbg-line: var(--stbg-green-line); --stbg-solid: var(--stbg-green-solid); }
+.stbg--amber { --stbg-ink: var(--stbg-amber); --stbg-soft: var(--stbg-amber-soft); --stbg-line: var(--stbg-amber-line); --stbg-solid: var(--stbg-amber-solid); }
+.stbg--grey { --stbg-ink: var(--stbg-grey); --stbg-soft: var(--stbg-grey-soft); --stbg-line: var(--stbg-grey-line); --stbg-solid: var(--stbg-grey-solid); }
+.stbg--blue { --stbg-ink: var(--stbg-blue); --stbg-soft: var(--stbg-blue-soft); --stbg-line: var(--stbg-blue-line); --stbg-solid: var(--stbg-blue-solid); }
+.stbg--violet { --stbg-ink: var(--stbg-violet); --stbg-soft: var(--stbg-violet-soft); --stbg-line: var(--stbg-violet-line); --stbg-solid: var(--stbg-violet-solid); }
+
+.stbg--sm { height: 20px; padding: 0 7px 0 6px; gap: 5px; font-size: 11.5px; }
+.stbg--outline { background: transparent; }
+.stbg--solid { color: var(--stbg-on-solid); background: var(--stbg-solid); box-shadow: none; }
+.stbg--solid.stbg--amber { color: var(--stbg-on-amber); }
+/* Dot: no pill, the mark in its colour and the word in plain text. */
+.stbg--dot { height: auto; padding: 0; color: var(--stbg-text); background: none; box-shadow: none; font-size: 13.5px; font-weight: 400; gap: 7px; }
+.stbg--dot .stbg__mark { color: var(--stbg-ink); }
+
+.stbg__mark { display: grid; place-items: center; width: 12px; height: 12px; flex: none; }
+.stbg__mark svg { width: 12px; height: 12px; }
+.stbg--sm .stbg__mark, .stbg--sm .stbg__mark svg { width: 10px; height: 10px; }
+.stbg__dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.stbg__dot--ring { background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; width: 8px; height: 8px; }
+.stbg__dot--minus { position: relative; width: 9px; height: 9px; }
+.stbg__dot--minus::after { content: ""; position: absolute; left: 2px; right: 2px; top: 50%; height: 1.5px; margin-top: -0.75px; border-radius: 1px; background: var(--stbg-soft); }
+.stbg--solid .stbg__dot--minus::after { background: var(--stbg-solid); }
+.stbg--dot .stbg__dot--minus::after { background: var(--stbg-page, #ffffff); }
+.stbg--dark.stbg--dot .stbg__dot--minus::after { background: var(--stbg-page, #0b0b0c); }
+.stbg__pulse { position: relative; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.stbg__pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: currentColor; animation: stbg-pulse 1.6s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.stbg__spin { width: 10px; height: 10px; border-radius: 50%; border: 1.6px solid currentColor; border-right-color: transparent; animation: stbg-spin 0.9s linear infinite; }
+
+@keyframes stbg-pulse { 75%, 100% { scale: 2.4; opacity: 0; } }
+@keyframes stbg-spin { to { rotate: 1turn; } }
+
+/* The demo's light and dark panels. */
+.stbg-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); width: 100%; min-height: 100%; font-family: "Inter", ui-sans-serif, system-ui, sans-serif; }
+.stbg-demo__panel { display: grid; align-content: center; gap: 22px; padding: clamp(24px, 5vw, 52px); }
+.stbg-demo__panel--light { background: #ffffff; color: #1d1e21; --stbg-page: #ffffff; }
+.stbg-demo__panel--dark { background: #0b0b0c; color: #e8e9ec; --stbg-page: #0b0b0c; }
+.stbg-demo__set { display: flex; flex-wrap: wrap; gap: 10px 8px; max-width: 30rem; }
+.stbg-demo__list { display: grid; max-width: 30rem; margin: 0; padding: 0; list-style: none; border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent); }
+.stbg-demo__list li { display: flex; align-items: center; gap: 12px; padding: 11px 2px; border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent); font-size: 14px; }
+.stbg-demo__list b { font-weight: 500; }
+.stbg-demo__list small { margin-left: auto; margin-right: 8px; opacity: 0.6; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stbg__pulse::after { animation: none; }
+  .stbg__spin { animation-duration: 2.4s; }
+}

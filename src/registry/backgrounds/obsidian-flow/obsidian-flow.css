@@ -1,0 +1,23 @@
+.obsf {
+  --obsf-grid: rgb(255 255 255 / 0.055);
+  --obsf-floor: #000000;
+  --obsf-fallback: radial-gradient(80% 70% at 60% 40%, #1b2430, #07090c 70%);
+  position: relative; isolation: isolate; overflow: hidden; min-height: 24rem;
+  background: var(--obsf-fallback); container-type: inline-size;
+}
+.obsf--light {
+  --obsf-grid: rgb(10 14 20 / 0.07);
+  --obsf-floor: #e9edf1;
+  --obsf-fallback: radial-gradient(80% 70% at 60% 40%, #f4f7fa, #c9cfd6 70%);
+}
+.obsf__pool { position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%; display: block; }
+.obsf[data-fallback] .obsf__pool { display: none; }
+/* A faint square grid over the liquid, and a floor the liquid sinks into. */
+.obsf__grid {
+  position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background-image: linear-gradient(var(--obsf-grid) 1px, transparent 1px), linear-gradient(90deg, var(--obsf-grid) 1px, transparent 1px);
+  background-size: clamp(56px, 6.8cqi, 136px) clamp(56px, 6.8cqi, 136px);
+  background-position: -1px -1px;
+}
+.obsf::after { content: ""; position: absolute; inset: auto 0 0; height: 22%; z-index: -1; background: linear-gradient(to bottom, transparent, var(--obsf-floor)); pointer-events: none; }
+.obsf__content { position: relative; height: 100%; }

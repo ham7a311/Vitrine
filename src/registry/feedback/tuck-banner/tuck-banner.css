@@ -1,0 +1,54 @@
+/* Tuck Banner: an announcement that is put away, not thrown away. */
+.tuck-banner {
+  --tb-ink: #1b1a17;
+  --tb-muted: #6b6861;
+  --tb-line: rgb(27 26 23 / 0.12);
+  --tb-bg: #ece9df;
+  --tb-accent: #2f6bff;
+  --tb-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  container-type: inline-size;
+  width: 100%;
+  background: var(--tb-bg);
+  border-bottom: 1px solid var(--tb-line);
+  color: var(--tb-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  visibility: hidden;
+}
+.tuck-banner[data-ready] { visibility: visible; }
+.tuck-banner--night { --tb-ink: #ececea; --tb-muted: #8d8f95; --tb-line: rgb(255 255 255 / 0.1); --tb-bg: #1a1b1e; --tb-accent: #7aa2ff; }
+
+/* Two folds share the space: the strip closes as the rail opens. */
+.tuck-banner__fold { display: grid; }
+.tuck-banner[data-ready] .tuck-banner__fold { transition: grid-template-rows 320ms var(--tb-ease); }
+.tuck-banner__fold > div { min-height: 0; overflow: hidden; }
+.tuck-banner__fold--open { grid-template-rows: 1fr; }
+.tuck-banner__fold--rail { grid-template-rows: 0fr; }
+.tuck-banner[data-tucked] .tuck-banner__fold--open { grid-template-rows: 0fr; }
+.tuck-banner[data-tucked] .tuck-banner__fold--rail { grid-template-rows: 1fr; }
+.tuck-banner__fold--open > div { transition: visibility 0s; }
+.tuck-banner[data-tucked] .tuck-banner__fold--open > div { visibility: hidden; transition-delay: 320ms; }
+.tuck-banner__fold--rail > div { visibility: hidden; transition: visibility 0s 320ms; }
+.tuck-banner[data-tucked] .tuck-banner__fold--rail > div { visibility: visible; transition-delay: 0s; }
+
+.tuck-banner__strip { display: flex; align-items: center; gap: 8px 24px; min-height: 48px; padding: 6px clamp(14px, 3cqi, 28px); }
+.tuck-banner__text { flex: 1; min-width: 0; margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; font-size: 0.875rem; line-height: 1.45; text-wrap: pretty; }
+.tuck-banner__tag { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tb-accent); white-space: nowrap; }
+.tuck-banner__action { font-size: 0.875rem; font-weight: 500; color: var(--tb-ink); text-decoration: underline; text-decoration-color: var(--tb-line); text-underline-offset: 5px; white-space: nowrap; padding: 12px 0; transition: text-decoration-color 160ms ease; }
+.tuck-banner__action:hover { text-decoration-color: currentColor; }
+.tuck-banner__tuck, .tuck-banner__tab { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; color: var(--tb-muted); font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: color 160ms ease; }
+.tuck-banner__tuck { min-height: 44px; padding: 0 2px; }
+.tuck-banner__tuck:hover, .tuck-banner__tab:hover { color: var(--tb-ink); }
+.tuck-banner svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 240ms var(--tb-ease); }
+.tuck-banner__tuck:hover svg { transform: translateY(2px); }
+.tuck-banner__tab:hover svg { transform: translateY(-2px); }
+@container (max-width: 34rem) { .tuck-banner__strip { flex-wrap: wrap; } .tuck-banner__text { flex: 1 1 100%; } .tuck-banner__tuck { margin-left: auto; } }
+
+/* The rail: 28px of edge with one tab on it, so the message is never further than a click away. */
+.tuck-banner__rail { display: flex; justify-content: flex-end; padding: 0 clamp(14px, 3cqi, 28px); }
+.tuck-banner__tab { height: 28px; padding: 0 2px; }
+.tuck-banner__tab i { width: 5px; height: 5px; border-radius: 50%; background: var(--tb-accent); }
+:is(.tuck-banner__tuck, .tuck-banner__tab, .tuck-banner__action):focus-visible { outline: 2px solid var(--tb-ink); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) { .tuck-banner * { transition-duration: 1ms !important; transition-delay: 0s !important; } }
+.tuck-banner[data-motion="reduced"] * { transition-duration: 1ms !important; transition-delay: 0s !important; }

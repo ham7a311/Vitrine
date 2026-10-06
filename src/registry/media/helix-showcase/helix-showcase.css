@@ -6,8 +6,6 @@
   --hlx-edge: rgb(255 255 255 / 0.12);
   --hlx-pill: #ffffff;
   --hlx-pill-ink: #050607;
-  --hlx-track: rgb(255 255 255 / 0.16);
-  --hlx-knob: #ffffff;
   --hlx-focus: #8fb4ff;
   position: relative; display: block; background: var(--hlx-bg); color: var(--hlx-ink);
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -20,8 +18,6 @@
   --hlx-edge: rgb(10 13 20 / 0.1);
   --hlx-pill: #0a0d14;
   --hlx-pill-ink: #ffffff;
-  --hlx-track: rgb(10 13 20 / 0.14);
-  --hlx-knob: #0a0d14;
   --hlx-focus: #2f5fe0;
 }
 .hlx :focus-visible { outline: 2px solid var(--hlx-focus); outline-offset: 3px; }
@@ -33,25 +29,41 @@
 .hlx__stage[data-fallback] .hlx__canvas { display: none; }
 
 /* The glass bar along the top. */
+/* Split nav: the brand alone in the corner, the links in a centred glass pill, a mode button and the CTA on the right. */
 .hlx__nav {
-  position: absolute; left: 50%; top: clamp(12px, 2.4svh, 28px); translate: -50% 0; z-index: 2;
-  display: flex; align-items: center; gap: clamp(14px, 2.6cqi, 44px); width: min(68rem, calc(100% - 32px)); padding: 10px 12px 10px 22px;
-  background: var(--hlx-glass); border: 1px solid var(--hlx-edge); border-radius: 18px;
-  backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  position: absolute; left: 0; right: 0; top: clamp(12px, 2.4svh, 28px); z-index: 2;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 0 clamp(16px, 3cqi, 48px);
 }
-.hlx__stage[data-fallback] .hlx__nav { position: relative; left: auto; top: auto; translate: none; margin: 20px auto 32px; }
-.hlx__brand { display: inline-flex; align-items: center; gap: 10px; color: var(--hlx-ink); font-size: clamp(18px, 1.8cqi, 26px); font-weight: 600; letter-spacing: -0.02em; text-decoration: none; }
+.hlx__stage[data-fallback] .hlx__nav { position: relative; top: auto; margin: 20px 0 32px; }
+.hlx__brand { justify-self: start; display: inline-flex; align-items: center; gap: 10px; color: var(--hlx-ink); font-size: clamp(18px, 1.7cqi, 24px); font-weight: 600; letter-spacing: -0.02em; text-decoration: none; }
 .hlx__brand span { display: grid; width: 1.15em; height: 1.15em; }
 .hlx__brand svg { width: 100%; height: 100%; }
-.hlx__nav nav { flex: 1; }
-.hlx__nav ul { display: flex; justify-content: center; gap: clamp(14px, 2.4cqi, 40px); margin: 0; padding: 0; list-style: none; }
-.hlx__nav nav a { color: var(--hlx-soft); font-size: clamp(14px, 1.3cqi, 19px); text-decoration: none; transition: color 0.2s; }
-.hlx__nav nav li:first-child a, .hlx__nav nav a:hover { color: var(--hlx-ink); }
-.hlx__switch { position: relative; flex: none; width: 60px; height: 32px; padding: 0; background: var(--hlx-track); border: 1px solid var(--hlx-edge); border-radius: 999px; cursor: pointer; }
-.hlx__switch i { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; background: var(--hlx-knob); border-radius: 50%; transition: translate 0.3s cubic-bezier(0.3, 0.7, 0.3, 1); }
-.hlx__switch[aria-checked="false"] i { translate: 28px 0; }
-.hlx__cta { flex: none; display: inline-flex; align-items: center; height: 46px; padding: 0 26px; color: var(--hlx-pill-ink); background: var(--hlx-pill); border-radius: 999px; font-size: clamp(14px, 1.2cqi, 18px); font-weight: 600; text-decoration: none; transition: transform 0.2s; }
-.hlx__cta:hover { transform: translateY(-1px); }
+.hlx__links {
+  padding: 6px; background: var(--hlx-glass); border: 1px solid var(--hlx-edge); border-radius: 999px;
+  backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+.hlx__links ul { display: flex; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.hlx__links a {
+  position: relative; display: block; padding: 9px clamp(12px, 1.3cqi, 18px) 11px; border-radius: 999px; color: var(--hlx-soft);
+  font-size: clamp(14px, 1.1cqi, 16px); line-height: 1.2; text-decoration: none; transition: color 0.2s, background-color 0.2s;
+}
+.hlx__links a:hover { color: var(--hlx-ink); background: color-mix(in srgb, var(--hlx-ink) 7%, transparent); }
+.hlx__links a[aria-current] { color: var(--hlx-ink); }
+.hlx__links a[aria-current]::after { content: ""; position: absolute; left: 50%; bottom: 3px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: currentColor; }
+.hlx__end { justify-self: end; display: flex; align-items: center; gap: 10px; }
+.hlx__mode {
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0; color: var(--hlx-ink); background: var(--hlx-glass); border: 1px solid var(--hlx-edge); border-radius: 50%; cursor: pointer;
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: rotate 0.4s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+.hlx__mode svg { width: 19px; height: 19px; }
+.hlx__mode:hover { rotate: -20deg; }
+.hlx__cta {
+  display: inline-flex; align-items: center; gap: 12px; height: 44px; padding: 0 5px 0 20px; color: var(--hlx-pill-ink); background: var(--hlx-pill); border-radius: 999px;
+  font-size: clamp(14px, 1.1cqi, 16px); font-weight: 600; text-decoration: none; white-space: nowrap;
+}
+.hlx__cta span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: var(--hlx-pill); background: var(--hlx-pill-ink); transition: rotate 0.25s; }
+.hlx__cta span svg { width: 15px; height: 15px; }
+.hlx__cta:hover span { rotate: 45deg; }
 
 /* The focus layer covers the stage, so keys work wherever focus lands; the caption sits bottom left. */
 .hlx__focus { position: absolute; inset: 0; z-index: 1; outline: none; }
@@ -75,12 +87,12 @@
 .hlx__grid em { font-style: normal; color: var(--hlx-soft); font-size: 13px; }
 
 @container (max-width: 52rem) {
-  .hlx__nav nav { display: none; }
-  .hlx__nav { justify-content: space-between; }
-  .hlx__brand { margin-right: auto; }
+  .hlx__links { display: none; }
+  .hlx__nav { grid-template-columns: 1fr auto; }
 }
 @container (max-width: 26rem) {
-  .hlx__cta { height: 40px; padding: 0 16px; }
-  .hlx__switch { display: none; }
+  .hlx__cta { height: 40px; padding: 0 4px 0 14px; gap: 8px; }
+  .hlx__cta span { width: 32px; height: 32px; }
+  .hlx__mode { width: 40px; height: 40px; }
 }
-@media (prefers-reduced-motion: reduce) { .hlx__caption, .hlx__hint i { animation: none; } .hlx__switch i, .hlx__cta { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .hlx__caption, .hlx__hint i { animation: none; } .hlx__mode, .hlx__cta span, .hlx__links a { transition: none; } }

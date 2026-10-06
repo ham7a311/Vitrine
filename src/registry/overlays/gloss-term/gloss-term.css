@@ -1,0 +1,36 @@
+/* Gloss Term: a definition that stays on screen. */
+.gloss-term {
+  --gt-bg: #ffffff;
+  --gt-ink: #1b1a17;
+  --gt-muted: #6b6861;
+  --gt-line: rgb(27 26 23 / 0.14);
+  --gt-accent: #2f6bff;
+  --gt-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.gloss-term--night { --gt-bg: #1d1e22; --gt-ink: #ececea; --gt-muted: #9a9ca2; --gt-line: rgb(255 255 255 / 0.16); --gt-accent: #7aa2ff; }
+
+.gloss-term__term { display: inline; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; cursor: help; text-decoration: underline dotted; text-decoration-thickness: 1.5px; text-underline-offset: 0.28em; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); transition: text-decoration-color 160ms ease; -webkit-tap-highlight-color: transparent; }
+.gloss-term__term:hover, .gloss-term[data-open] .gloss-term__term { text-decoration-style: solid; text-decoration-color: currentColor; }
+.gloss-term__term:focus-visible { outline: 2px solid var(--gt-ink, currentColor); outline-offset: 3px; border-radius: 2px; }
+
+.gloss-term__card { position: fixed; z-index: 60; display: block; box-sizing: border-box; width: min(20rem, calc(100vw - 24px)); padding: 14px 16px 15px; border-radius: 10px; background: var(--gt-bg); color: var(--gt-ink); box-shadow: 0 0 0 1px var(--gt-line), 0 18px 36px -18px rgb(30 24 12 / 0.4); font: 400 0.875rem/1.55 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; letter-spacing: 0; text-align: left; font-style: normal; text-indent: 0; text-transform: none; -webkit-font-smoothing: antialiased; animation: gt-in 160ms var(--gt-ease) both; }
+.gloss-term__card[hidden] { display: none; }
+.gloss-term--night .gloss-term__card { box-shadow: 0 0 0 1px var(--gt-line), 0 18px 36px -14px rgb(0 0 0 / 0.7); }
+.gloss-term__card[data-side="above"] { animation-name: gt-in-up; }
+
+/* The notch is a rotated square on the edge facing the word, placed by script so it survives being pushed aside. */
+.gloss-term__card::before { content: ""; position: absolute; left: var(--gt-notch, 50%); width: 10px; height: 10px; margin-left: -5px; background: var(--gt-bg); transform: rotate(45deg); }
+.gloss-term__card[data-side="below"]::before { top: -5px; box-shadow: -1px -1px 0 var(--gt-line); }
+.gloss-term__card[data-side="above"]::before { bottom: -5px; box-shadow: 1px 1px 0 var(--gt-line); }
+
+.gloss-term__name { display: block; margin-bottom: 4px; font: 400 1.1875rem/1.2 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.005em; }
+.gloss-term__body { display: block; color: color-mix(in srgb, var(--gt-ink) 82%, transparent); text-wrap: pretty; }
+.gloss-term__also { display: block; margin-top: 10px; font: 500 0.6875rem/1.4 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gt-muted); }
+.gloss-term__more { display: inline-block; margin-top: 10px; padding: 6px 0; color: var(--gt-ink); font-weight: 500; text-decoration: underline; text-decoration-color: var(--gt-line); text-underline-offset: 5px; }
+.gloss-term__more:hover { text-decoration-color: currentColor; }
+.gloss-term__more:focus-visible { outline: 2px solid var(--gt-ink); outline-offset: 2px; }
+
+@keyframes gt-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@keyframes gt-in-up { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .gloss-term__card { animation: none; } .gloss-term__term { transition: none; } }
+.gloss-term[data-motion="reduced"] .gloss-term__card { animation: none; }

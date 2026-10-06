@@ -1,0 +1,63 @@
+/* Folio Pager: pagination set like a book's leaves. */
+.folio-pager {
+  --fp-ink: #1b1a17;
+  --fp-muted: #6b6861;
+  --fp-line: rgb(27 26 23 / 0.14);
+  --fp-wash: rgb(27 26 23 / 0.05);
+  --fp-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  padding: 14px 0;
+  border-top: 1px solid var(--fp-line);
+  color: var(--fp-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.folio-pager--night { --fp-ink: #ececea; --fp-muted: #8d8f95; --fp-line: rgb(255 255 255 / 0.14); --fp-wash: rgb(255 255 255 / 0.07); }
+
+.folio-pager__inner { display: grid; gap: 12px 24px; }
+.folio-pager__range { margin: 0; font: 400 1.5rem/1.1 "Instrument Serif", ui-serif, Georgia, serif; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.folio-pager__of { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fp-muted); margin-left: 4px; }
+
+.folio-pager__roll { position: relative; display: inline-grid; overflow: hidden; vertical-align: bottom; height: 1.15em; }
+.folio-pager__roll > span { grid-area: 1 / 1; }
+.folio-pager__roll-in[data-moving] { animation: fp-in 320ms var(--fp-ease) both; }
+.folio-pager__roll-out { animation: fp-out 320ms var(--fp-ease) both; }
+.folio-pager__roll[data-dir="-1"] .folio-pager__roll-in[data-moving] { animation-name: fp-in-back; }
+.folio-pager__roll[data-dir="-1"] .folio-pager__roll-out { animation-name: fp-out-back; }
+@keyframes fp-in { from { transform: translateY(100%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fp-out { from { transform: none; opacity: 1; } to { transform: translateY(-100%); opacity: 0; } }
+@keyframes fp-in-back { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fp-out-back { from { transform: none; opacity: 1; } to { transform: translateY(100%); opacity: 0; } }
+
+.folio-pager__controls { display: flex; align-items: center; gap: 2px; }
+.folio-pager button { display: grid; place-items: center; min-width: 36px; height: 44px; padding: 0 6px; border: 0; border-radius: 8px; background: none; color: var(--fp-muted); font: 500 0.8125rem/1 "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; cursor: pointer; transition: color 140ms ease, background 140ms ease; }
+.folio-pager button:hover:not(:disabled) { color: var(--fp-ink); background: var(--fp-wash); }
+.folio-pager button:disabled { opacity: 0.35; cursor: default; }
+.folio-pager button:focus-visible { outline: 2px solid var(--fp-ink); outline-offset: 1px; }
+.folio-pager svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.folio-pager__run { display: flex; align-items: center; margin: 0 4px; padding: 0; list-style: none; }
+.folio-pager__run button { position: relative; }
+.folio-pager__run button[aria-current] { color: var(--fp-ink); }
+.folio-pager__run button[aria-current]::after { content: ""; position: absolute; left: 8px; right: 8px; bottom: 9px; height: 1.5px; background: var(--fp-ink); animation: fp-line 280ms var(--fp-ease) both; transform-origin: 0 50%; }
+@keyframes fp-line { from { transform: scaleX(0); } to { transform: none; } }
+.folio-pager__gap { padding: 0 2px; color: var(--fp-muted); font: 500 0.8125rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.1em; }
+.folio-pager__compact { display: none; margin: 0 6px; font: 500 0.75rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; font-variant-numeric: tabular-nums; color: var(--fp-muted); white-space: nowrap; }
+
+.folio-pager__jump { display: flex; align-items: center; gap: 8px; }
+.folio-pager__jump label { font: 500 0.6875rem/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fp-muted); }
+.folio-pager__jump input { width: 3.25rem; height: 36px; padding: 0; border: 0; border-bottom: 1px solid var(--fp-line); border-radius: 0; background: none; color: inherit; font: 500 0.875rem/1 "Geist Mono", ui-monospace, monospace; text-align: center; font-variant-numeric: tabular-nums; outline: none; transition: border-color 160ms ease; }
+.folio-pager__jump input:focus { border-bottom-color: var(--fp-ink); }
+.folio-pager__jump input::placeholder { color: color-mix(in srgb, var(--fp-muted) 55%, transparent); }
+.folio-pager__jump button { min-width: 44px; margin-left: -6px; }
+.folio-pager__note { position: absolute; right: 0; bottom: -10px; margin: 0; font-size: 0.75rem; color: var(--fp-muted); }
+.folio-pager__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@container (min-width: 44rem) { .folio-pager__inner { grid-template-columns: 1fr auto auto; align-items: center; } }
+@container (max-width: 36rem) { .folio-pager__run { display: none; } .folio-pager__compact { display: block; } .folio-pager__controls { justify-content: space-between; } }
+
+@media (prefers-reduced-motion: reduce) { .folio-pager * { animation: none !important; transition-duration: 1ms !important; } .folio-pager__roll-out { display: none; } }
+.folio-pager[data-motion="reduced"] * { animation: none !important; transition-duration: 1ms !important; }
+.folio-pager[data-motion="reduced"] .folio-pager__roll-out { display: none; }

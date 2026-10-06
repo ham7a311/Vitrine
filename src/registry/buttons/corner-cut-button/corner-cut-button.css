@@ -1,0 +1,69 @@
+.ccut {
+  --ccut-ink: #0d0d0e;
+  --ccut-paper: #ffffff;
+  --ccut-accent: #ff5a1f;
+  --ccut-accent-ink: #160600;
+  --ccut-wash: rgb(255 90 31 / 0.1);
+  --ccut-line: #0d0d0e;
+  --ccut-focus: #ff5a1f;
+  position: relative; display: inline-flex; align-items: center; justify-content: center; isolation: isolate;
+  height: 46px; padding: 0 24px; border: 0; border-radius: 0; color: var(--ccut-fg); background: transparent;
+  font: 600 13.5px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+  cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color 0.2s, translate 0.12s;
+}
+.ccut--dark {
+  --ccut-ink: #f1f1ef;
+  --ccut-paper: #0b0b0c;
+  --ccut-accent: #c6ff3d;
+  --ccut-accent-ink: #0b0f00;
+  --ccut-wash: rgb(198 255 61 / 0.1);
+  --ccut-line: #f1f1ef;
+  --ccut-focus: #c6ff3d;
+}
+.ccut:active { translate: 0 1px; }
+.ccut:focus-visible { outline: 2px solid var(--ccut-focus); outline-offset: 3px; }
+.ccut:disabled { cursor: not-allowed; opacity: 0.45; }
+.ccut__label { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 10px; }
+.ccut__icon { display: grid; place-items: center; width: 15px; height: 15px; transition: translate 0.2s cubic-bezier(0.3, 0.7, 0.3, 1); }
+.ccut__icon svg { width: 100%; height: 100%; }
+.ccut:hover .ccut__icon { translate: 3px 0; }
+.ccut--sm { height: 36px; padding: 0 16px; font-size: 12px; }
+.ccut--lg { height: 54px; padding: 0 30px; font-size: 14.5px; }
+
+/* The measured outline, inside the clip, so every edge (cut or straight) is the same weight. */
+.ccut__edge { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: visible; }
+.ccut__edge polygon { fill: none; stroke: var(--ccut-edge); transition: stroke 0.2s; }
+.ccut__shape { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--ccut-bg); }
+/* On hover an accent band sweeps in from the left, slanted to match the cut. */
+.ccut__sweep { position: absolute; top: 0; bottom: 0; left: -25%; width: 150%; z-index: 0; background: var(--ccut-sweep); transform: translateX(-101%) skewX(-30deg); transition: transform 0.38s cubic-bezier(0.3, 0.7, 0.2, 1); }
+.ccut:hover .ccut__sweep, .ccut:focus-visible .ccut__sweep { transform: translateX(0) skewX(-30deg); }
+
+.ccut--solid { --ccut-bg: var(--ccut-ink); --ccut-fg: var(--ccut-paper); --ccut-edge: var(--ccut-ink); --ccut-sweep: var(--ccut-accent); }
+.ccut--solid:hover, .ccut--solid:focus-visible { --ccut-fg: var(--ccut-accent-ink); --ccut-edge: var(--ccut-accent); }
+.ccut--outline { --ccut-bg: transparent; --ccut-fg: var(--ccut-ink); --ccut-edge: var(--ccut-line); --ccut-sweep: var(--ccut-wash); }
+.ccut--outline:hover, .ccut--outline:focus-visible { --ccut-edge: var(--ccut-accent); }
+
+/* Brackets: a square button whose four corner brackets close in on hover. */
+.ccut--brackets { --ccut-bg: transparent; --ccut-fg: var(--ccut-ink); --ccut-arm: 10px; --ccut-out: 5px; --ccut-bracket: color-mix(in srgb, var(--ccut-ink) 55%, transparent); transition: color 0.2s, background-color 0.25s, translate 0.12s; }
+.ccut--brackets { background: var(--ccut-bg); }
+.ccut--brackets.ccut--solid { --ccut-bg: color-mix(in srgb, var(--ccut-ink) 7%, transparent); }
+.ccut--brackets:hover, .ccut--brackets:focus-visible { --ccut-fg: var(--ccut-ink); --ccut-arm: 14px; --ccut-out: 0px; --ccut-bracket: var(--ccut-accent); background: var(--ccut-wash); }
+.ccut--brackets:focus-visible { outline-offset: 7px; }
+.ccut__corners { position: absolute; inset: calc(var(--ccut-out) * -1); pointer-events: none; transition: inset 0.3s cubic-bezier(0.3, 0.7, 0.2, 1); }
+.ccut__corners i { position: absolute; width: var(--ccut-arm); height: var(--ccut-arm); border: 0 solid var(--ccut-bracket); transition: width 0.3s, height 0.3s, border-color 0.2s; }
+.ccut__corners i:nth-child(1) { top: 0; left: 0; border-top-width: 1.5px; border-left-width: 1.5px; }
+.ccut__corners i:nth-child(2) { top: 0; right: 0; border-top-width: 1.5px; border-right-width: 1.5px; }
+.ccut__corners i:nth-child(3) { bottom: 0; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+.ccut__corners i:nth-child(4) { bottom: 0; left: 0; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.ccut--brackets .ccut__label { letter-spacing: 0.08em; transition: letter-spacing 0.3s; }
+.ccut--brackets:hover .ccut__label { letter-spacing: 0.12em; }
+
+/* The demo's light and dark panels. */
+.ccut-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); width: 100%; min-height: 100%; }
+.ccut-demo__panel { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; align-content: center; gap: 22px; padding: clamp(28px, 6vw, 64px) clamp(16px, 4vw, 48px); }
+.ccut-demo__panel--light { background: #efefec; }
+.ccut-demo__panel--dark { background: #0b0b0c; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ccut, .ccut__sweep, .ccut__icon, .ccut__corners, .ccut__corners i, .ccut--brackets .ccut__label { transition: none; }
+}

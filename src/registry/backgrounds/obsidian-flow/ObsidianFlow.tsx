@@ -1,21 +1,18 @@
 "use client";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { createDrone, type Drone } from "./drone";
-import "./obsidian-hero.css";
+import { useEffect, useRef, type ReactNode } from "react";
+import "./obsidian-flow.css";
 
-export type ObsidianLink = { label: string; href: string; menu?: boolean };
-export type ObsidianHeroProps = {
-  brand: { mark: ReactNode; name: string; sub?: string };
-  links: ObsidianLink[];
-  /** First line is set hairline-thin, second line heavy. */
-  headline: [string, string];
-  tagline: string;
-  primary: { label: string; href: string };
-  cta: { label: string; href: string };
-  /** Offer the ambient sound switch. */
-  sound?: boolean;
+export type ObsidianFlowProps = {
   theme?: "light" | "dark";
+  /** Strength of the reflections, 0.4 (matte) to 1.6 (wet). */
+  gloss?: number;
+  /** The faint square grid over the liquid. */
+  grid?: boolean;
+  /** Ripples follow a fine pointer. */
+  cursor?: boolean;
   motion?: boolean;
+  /** Optional content laid over the liquid. */
+  children?: ReactNode;
   className?: string;
 };
 
@@ -26,7 +23,7 @@ const VERT = "attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }"
 const FRAG = `
 precision highp float;
 uniform vec2 uRes; uniform float uTime; uniform vec3 uMouse;
-uniform vec3 uBase; uniform vec3 uRefl; uniform vec3 uHot; uniform float uLight;
+uniform vec3 uBase; uniform vec3 uRefl; uniform vec3 uHot; uniform float uLight; uniform float uGloss;
 float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float noise(vec2 p){
   vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
@@ -55,8 +52,8 @@ void main(){
   float sheen = pow(max(dot(reflect(-L, n), v), 0.0), 4.0);
   float fres = pow(1.0 - max(n.z, 0.0), 2.0);
   vec3 col = uBase;
-  col += uRefl * (sheen * 0.42 + fres * 1.25);
-  col += uHot * spec * 0.7;
+  col += uRefl * (sheen * 0.42 + fres * 1.25) * uGloss;
+  col += uHot * spec * 0.7 * uGloss;
   // Liquid settles darker toward the floor of the frame.
   col *= mix(1.0, smoothstep(-0.1, 0.6, uv.y), 1.0 - uLight * 0.6);
   gl_FragColor = vec4(col, 1.0);
@@ -70,17 +67,13 @@ const PAL = {
 };
 
 /**
- * Obsidian Hero
- * A dark studio hero over a pool of black liquid that slowly folds and
- * catches cold light, under a faint grid. A hairline-thin line of type sits
- * over a heavy one, and a sound switch plays a quiet ambient bed.
+ * Obsidian Flow
+ * A pool of black liquid that slowly folds and catches cold light, under a
+ * faint square grid. A background only: no text of its own.
  */
-export function ObsidianHero({ brand, links, headline, tagline, primary, cta, sound = true, theme = "dark", motion = true, className = "" }: ObsidianHeroProps) {
-  const host = useRef<HTMLElement>(null);
+export function ObsidianFlow({ theme = "dark", gloss = 1, grid = true, cursor = true, motion = true, children, className = "" }: ObsidianFlowProps) {
+  const host = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const wave = useRef<SVGPolylineElement>(null);
-  const drone = useRef<Drone | null>(null);
-  const [on, setOn] = useState(false);
 
   useEffect(() => {
     const el = host.current, cv = canvas.current;
@@ -106,6 +99,7 @@ export function ObsidianHero({ brand, links, headline, tagline, primary, cta, so
     gl.uniform3f(U("uRefl"), ...hex(pal.refl));
     gl.uniform3f(U("uHot"), ...hex(pal.hot));
     gl.uniform1f(U("uLight"), pal.light);
+    gl.uniform1f(U("uGloss"), Math.min(1.6, Math.max(0.4, gloss)));
     const uRes = U("uRes"), uTime = U("uTime"), uMouse = U("uMouse");
     delete el.dataset.fallback;
 
@@ -125,6 +119,7 @@ export function ObsidianHero({ brand, links, headline, tagline, primary, cta, so
       raf = 0;
       if (!visible || document.hidden) return;
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0.016;
+      // Touch devices draw at about 30fps.
       if (coarse && last && now - last < 33) return void (raf = requestAnimationFrame(tick));
       last = now;
       t += dt;
@@ -134,6 +129,7 @@ export function ObsidianHero({ brand, links, headline, tagline, primary, cta, so
     };
     const start = () => { if (still) return frame(); if (!raf) { last = 0; raf = requestAnimationFrame(tick); } };
     const onMove = (e: PointerEvent) => {
+      if (!cursor || e.pointerType !== "mouse") return;
       const r = el.getBoundingClientRect();
       m.x = ((e.clientX - r.left) / r.width) * aspect * 1.5; m.y = (1 - (e.clientY - r.top) / r.height) * 1.5; m.tz = 1;
     };
@@ -153,71 +149,13 @@ export function ObsidianHero({ brand, links, headline, tagline, primary, cta, so
       el.removeEventListener("pointerleave", onLeave);
       document.removeEventListener("visibilitychange", onVis);
     };
-  }, [theme, motion]);
-
-  // The sound line is flat while off and draws the live waveform while on.
-  useEffect(() => {
-    if (!on) { wave.current?.setAttribute("points", "0,6 140,6"); return; }
-    const buf = new Uint8Array(128);
-    let raf = 0;
-    const draw = () => {
-      drone.current?.level(buf);
-      const pts: string[] = [];
-      for (let i = 0; i < 48; i++) pts.push(`${((i / 47) * 140).toFixed(1)},${(6 + ((buf[i * 2] - 128) / 128) * 22).toFixed(1)}`);
-      wave.current?.setAttribute("points", pts.join(" "));
-      raf = requestAnimationFrame(draw);
-    };
-    raf = requestAnimationFrame(draw);
-    const hide = () => { if (document.hidden) { drone.current?.stop(); setOn(false); } };
-    document.addEventListener("visibilitychange", hide);
-    return () => { cancelAnimationFrame(raf); document.removeEventListener("visibilitychange", hide); };
-  }, [on]);
-  useEffect(() => () => { drone.current?.close(); drone.current = null; }, []);
-
-  const toggle = async () => {
-    if (!drone.current) drone.current = createDrone();
-    if (!drone.current) return;
-    if (on) { drone.current.stop(); setOn(false); }
-    else { await drone.current.start(); setOn(true); }
-  };
+  }, [theme, motion, gloss, cursor]);
 
   return (
-    <section ref={host} className={`obsd obsd--${theme} ${className}`} data-fallback="">
-      <canvas ref={canvas} className="obsd__pool" aria-hidden="true" />
-      <div className="obsd__grid" aria-hidden="true" />
-      <header className="obsd__nav">
-        <a className="obsd__brand" href="#">
-          <span className="obsd__mark" aria-hidden="true">{brand.mark}</span>
-          <span className="obsd__wordmark"><strong>{brand.name}</strong>{brand.sub && <small>{brand.sub}</small>}</span>
-        </a>
-        <nav aria-label="Main">
-          <ul>
-            {links.map((l) => (
-              <li key={l.label}>
-                <a href={l.href}>{l.label}{l.menu && <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div className="obsd__right">
-          {sound && (
-            <button type="button" className="obsd__sound" aria-pressed={on} onClick={toggle}>
-              <span className="obsd__sound-row"><span>Sound</span><span>{on ? "On" : "Off"}</span></span>
-              <svg viewBox="0 -8 140 28" aria-hidden="true" preserveAspectRatio="none">
-                <path d="M0.5 2V10M139.5 2V10" />
-                <polyline ref={wave} points="0,6 140,6" />
-              </svg>
-            </button>
-          )}
-          <a className="obsd__start" href={primary.href}>{primary.label}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" /></svg></a>
-        </div>
-      </header>
-
-      <div className="obsd__main">
-        <h1 className="obsd__title"><span className="obsd__thin">{headline[0]}</span><span className="obsd__heavy">{headline[1]}</span></h1>
-        <p className="obsd__tag">{tagline}</p>
-        <a className="obsd__cta" href={cta.href}>{cta.label}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" /></svg></a>
-      </div>
-    </section>
+    <div ref={host} className={`obsf obsf--${theme} ${className}`} data-fallback="">
+      <canvas ref={canvas} className="obsf__pool" aria-hidden="true" />
+      {grid && <div className="obsf__grid" aria-hidden="true" />}
+      {children && <div className="obsf__content">{children}</div>}
+    </div>
   );
 }

@@ -1,0 +1,75 @@
+.otxt {
+  --otxt-ink: #111214;
+  --otxt-page: #f4f3ef;
+  --otxt-accent: #ff4d1c;
+  --otxt-stroke: 1.5px;
+  display: block; color: var(--otxt-ink); container-type: inline-size;
+  font-family: "Inter", "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.otxt--dark {
+  --otxt-ink: #f1f0ec;
+  --otxt-page: #0b0b0c;
+  --otxt-accent: #d4ff3a;
+}
+.otxt h2 { margin: 0; font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; text-transform: uppercase; }
+/* The hairline: transparent letters with a stroke in the ink colour. */
+.otxt__outline, .otxt__w, .otxt__ghost, .otxt__hollow { color: transparent; -webkit-text-stroke: var(--otxt-stroke) var(--otxt-ink); }
+
+/* Hover: each word fills from the left under the pointer. */
+.otxt__words { display: grid; font-size: clamp(44px, 10.5cqi, 168px); }
+.otxt__wline { display: flex; flex-wrap: wrap; column-gap: 0.22em; }
+.otxt__w { position: relative; display: inline-block; cursor: default; }
+.otxt__w::after {
+  content: attr(data-text); position: absolute; inset: 0; color: var(--otxt-ink); -webkit-text-stroke: 0; clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.5s cubic-bezier(0.65, 0, 0.25, 1);
+}
+.otxt__w:hover::after { clip-path: inset(0 0 0 0); }
+.otxt__w:nth-child(3n)::after { color: var(--otxt-accent); }
+.otxt[data-seen] .otxt__w::after { animation: otxt-intro 1.6s cubic-bezier(0.65, 0, 0.25, 1) calc(var(--i) * 110ms) both; }
+.otxt[data-seen] .otxt__w:hover::after { animation: none; clip-path: inset(0 0 0 0); }
+
+/* Scroll: a sticky stage; each line's ink is clipped to its fill. */
+.otxt--scroll { position: relative; }
+.otxt__stage { position: sticky; top: 0; display: grid; align-content: center; height: 100svh; min-height: 26rem; padding: 0 clamp(16px, 5cqi, 72px); overflow: hidden; }
+.otxt__lines { display: grid; font-size: clamp(40px, 11cqi, 176px); }
+.otxt__line { position: relative; display: block; white-space: nowrap; }
+.otxt__ink { position: absolute; inset: 0; color: var(--otxt-ink); clip-path: inset(0 calc((1 - var(--f)) * 100%) 0 0); }
+.otxt__line:last-child .otxt__ink { color: var(--otxt-accent); }
+
+/* Echo: outlines stacked behind a solid word, offset along --dx/--dy. */
+.otxt--echo { display: grid; place-items: center; padding: clamp(24px, 6cqi, 72px) 16px; overflow: hidden; }
+.otxt__echo { display: grid; font-size: clamp(64px, 17cqi, 260px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.9; text-transform: uppercase; }
+.otxt__echo > span { grid-area: 1 / 1; white-space: nowrap; }
+.otxt__ghost { transform: translate(calc(var(--otxt-dx, 6px) * var(--k)), calc(var(--otxt-dy, 6px) * var(--k))); opacity: calc(1 - var(--k) * 0.14); transition: transform 0.55s cubic-bezier(0.2, 0.9, 0.2, 1); }
+.otxt__ghost:first-child { -webkit-text-stroke-color: var(--otxt-accent); }
+.otxt__front { position: relative; color: var(--otxt-ink); }
+
+/* Marquee: two rows sliding opposite ways, words alternating outline and solid. */
+.otxt--marquee { display: grid; gap: 0.1em; padding: clamp(20px, 4cqi, 48px) 0; overflow: hidden; font-size: clamp(40px, 8.5cqi, 128px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; text-transform: uppercase; }
+.otxt__row { display: flex; overflow: hidden; }
+.otxt__track { display: flex; flex: none; animation: otxt-run 38s linear infinite; }
+.otxt__row--back .otxt__track { animation-direction: reverse; animation-duration: 44s; }
+.otxt__row:hover .otxt__track { animation-play-state: paused; }
+.otxt__run { display: flex; flex: none; }
+.otxt__run > span { display: inline-flex; align-items: center; white-space: nowrap; }
+.otxt__run i { margin: 0 0.4em; color: var(--otxt-accent); -webkit-text-stroke: 0; font-size: 0.45em; font-style: normal; }
+.otxt__solid { color: var(--otxt-ink); }
+
+@keyframes otxt-intro { 0% { clip-path: inset(0 100% 0 0); } 35%, 60% { clip-path: inset(0 0 0 0); } 100% { clip-path: inset(0 0 0 100%); } }
+@keyframes otxt-run { to { transform: translateX(-50%); } }
+
+@media (forced-colors: active) { .otxt__outline, .otxt__w, .otxt__ghost, .otxt__hollow { color: CanvasText; -webkit-text-stroke: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .otxt__w::after, .otxt__ghost { transition: none; }
+  .otxt[data-seen] .otxt__w::after { animation: none; }
+  .otxt__track { animation: none; }
+}
+.otxt--still .otxt__track, .otxt--still[data-seen] .otxt__w::after { animation: none; }
+
+/* The demo. */
+.otxt-demo { display: grid; width: 100%; min-height: 100%; }
+.otxt-demo__panel { display: grid; align-content: center; min-width: 0; }
+.otxt-demo__panel--light { background: #f4f3ef; }
+.otxt-demo__panel--dark { background: #0b0b0c; }
+.otxt-demo__pad { padding: clamp(24px, 5vw, 64px) clamp(16px, 5vw, 72px); }
+.otxt-demo__hint { margin: 0 0 18px; color: #74726c; font: 600 12px "Inter", ui-sans-serif, sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
