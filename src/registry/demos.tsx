@@ -187,6 +187,7 @@ const loaders: Record<string, Loader> = {
   "local-sky-hero": () => import("./heroes/local-sky-hero/demo"),
   "letterform-hero": () => import("./heroes/letterform-hero/demo"),
   "waitlist-hero": () => import("./heroes/waitlist-hero/demo"),
+  "column-bloom": () => import("./heroes/column-bloom/demo"),
   "masthead-nav": () => import("./navbars/masthead-nav/demo"),
   "glass-tab-bar": () => import("./navigation/glass-tab-bar/demo"),
   "slide-tabs": () => import("./navigation/slide-tabs/demo"),

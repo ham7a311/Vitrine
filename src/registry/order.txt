@@ -183,6 +183,7 @@ heroes/glass-torus
 heroes/local-sky-hero
 heroes/letterform-hero
 heroes/waitlist-hero
+heroes/column-bloom
 navbars/masthead-nav
 navigation/glass-tab-bar
 navigation/slide-tabs
