@@ -22,9 +22,6 @@ export function dayLabel(at: Date, now: Date, tz = "UTC") {
   return `${DAYS[a.wd]} ${a.day} ${MONTHS[a.m]}`;
 }
 
-/** "4 Oct". */
-export const shortDate = (d: Date, tz = "UTC") => { const p = parts(d, tz); return `${p.day} ${MONTHS[p.m]}`; };
-
 export const clock = (d: Date, tz = "UTC") => { const p = parts(d, tz); return `${String(p.h).padStart(2, "0")}:${String(p.min).padStart(2, "0")}`; };
 
 /** "just now", "4m ago", "3h ago", then the clock time for anything older. */
@@ -46,16 +43,4 @@ export function groupByDay<T extends { at: Date }>(items: T[], now: Date, tz = "
     if (last && last.label === label) last.items.push(it); else groups.push({ label, items: [it] });
   }
   return groups;
-}
-
-/** Progress along a row of milestones: the index of the current one plus how far into the gap after it. */
-export function railProgress(dates: Date[], now: Date) {
-  const t = now.getTime();
-  if (!dates.length) return 0;
-  if (t <= dates[0].getTime()) return 0;
-  for (let i = 0; i < dates.length - 1; i++) {
-    const a = dates[i].getTime(), b = dates[i + 1].getTime();
-    if (t < b) return i + (t - a) / (b - a);
-  }
-  return dates.length - 1;
 }

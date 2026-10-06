@@ -67,15 +67,15 @@
 
 @keyframes alrt-in { from { opacity: 0; translate: 0 -4px; } }
 
-/* The demo's panels. */
-.alrt-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); width: 100%; min-height: 100%; }
-.alrt-demo__panel { display: grid; align-content: center; gap: 12px; padding: clamp(20px, 4.5vw, 48px); font-family: "Inter", ui-sans-serif, system-ui, sans-serif; }
-.alrt-demo__panel--light { background: #f7f7f6; }
-.alrt-demo__panel--dark { background: #0b0b0c; }
-.alrt-demo__panel--banner { align-content: start; padding: 0; gap: 0; }
-.alrt-demo__page { display: grid; gap: 10px; padding: 28px clamp(20px, 4vw, 40px); }
-.alrt-demo__page i { display: block; height: 10px; border-radius: 5px; background: color-mix(in srgb, #888 22%, transparent); }
-.alrt-demo__again { justify-self: start; padding: 4px 0; color: #6b6e75; background: none; border: 0; font: 500 13px "Inter", ui-sans-serif, sans-serif; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+/* The demo sheet: one theme, every look as a section. */
+.alrt-demo { display: grid; align-content: start; gap: 22px; width: 100%; min-height: 100%; padding: clamp(20px, 4vw, 44px); font-family: "Inter", ui-sans-serif, system-ui, sans-serif; }
+.alrt-demo--light { background: #f7f7f6; color: #6b6e75; }
+.alrt-demo--dark { background: #0b0b0c; color: #8f929a; }
+.alrt-demo section { display: grid; gap: 10px; max-width: 40rem; }
+.alrt-demo h3 { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.alrt-demo section.alrt-demo__banners { margin: 0 calc(clamp(20px, 4vw, 44px) * -1); max-width: none; }
+.alrt-demo__banners > h3 { margin-left: clamp(20px, 4vw, 44px); }
+.alrt-demo__again { justify-self: start; padding: 4px 0; color: inherit; background: none; border: 0; font: 500 13px "Inter", ui-sans-serif, sans-serif; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
 @media (max-width: 34rem) { .alrt--banner .alrt__actions { margin-left: 0; } }
 @media (prefers-reduced-motion: reduce) { .alrt { transition: none; animation: none; } .alrt__close { transition: none; } }

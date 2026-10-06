@@ -46,6 +46,7 @@ import { meta as entryPointButton } from "./buttons/entry-point-button/meta";
 import { meta as stackButton } from "./buttons/stack-button/meta";
 import { meta as offsetPressButton } from "./buttons/offset-press-button/meta";
 import { meta as platformDownloads } from "./buttons/platform-downloads/meta";
+import { meta as platformBadges } from "./buttons/platform-badges/meta";
 import { meta as coreButton } from "./buttons/core-button/meta";
 import { meta as dangerButton } from "./buttons/danger-button/meta";
 import { meta as holdDeleteButton } from "./buttons/hold-delete-button/meta";
@@ -234,6 +235,8 @@ import { meta as pairwiseRanker } from "./decisions/pairwise-ranker/meta";
 import { meta as magnetBoard } from "./decisions/magnet-board/meta";
 import { meta as allocationFaders } from "./decisions/allocation-faders/meta";
 import { meta as activityTimeline } from "./time/activity-timeline/meta";
+import { meta as changelogTimeline } from "./time/changelog-timeline/meta";
+import { meta as milestoneTimeline } from "./time/milestone-timeline/meta";
 import { meta as undoTree } from "./time/undo-tree/meta";
 import { meta as conflictResolver } from "./time/conflict-resolver/meta";
 import { meta as cronBuilder } from "./time/cron-builder/meta";
@@ -356,6 +359,10 @@ import { meta as toastStack } from "./feedback/toast-stack/meta";
 import { meta as statusBadge } from "./feedback/status-badge/meta";
 import { meta as alertCallout } from "./feedback/alert-callout/meta";
 import { meta as progressBar } from "./feedback/progress-bar/meta";
+import { meta as segmentedProgress } from "./feedback/segmented-progress/meta";
+import { meta as indeterminateProgress } from "./feedback/indeterminate-progress/meta";
+import { meta as gradientProgress } from "./feedback/gradient-progress/meta";
+import { meta as ringProgress } from "./feedback/ring-progress/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
 import { meta as firstLight } from "./feedback/first-light/meta";
@@ -400,7 +407,12 @@ import { meta as trashDrop } from "./micro/trash-drop/meta";
 import { meta as bookmarkFold } from "./micro/bookmark-fold/meta";
 import { meta as chromeText } from "./text/chrome-text/meta";
 import { meta as gradientText } from "./text/gradient-text/meta";
+import { meta as shineText } from "./text/shine-text/meta";
+import { meta as spotlightText } from "./text/spotlight-text/meta";
 import { meta as outlineText } from "./text/outline-text/meta";
+import { meta as scrollOutlineText } from "./text/scroll-outline-text/meta";
+import { meta as echoOutlineText } from "./text/echo-outline-text/meta";
+import { meta as marqueeOutlineText } from "./text/marquee-outline-text/meta";
 import { meta as splitFlapText } from "./text/split-flap-text/meta";
 import { meta as extrudeText } from "./text/extrude-text/meta";
 import { meta as scrollInkText } from "./text/scroll-ink-text/meta";
@@ -458,6 +470,7 @@ export const registry: ComponentMeta[] = [
   stackButton,
   offsetPressButton,
   platformDownloads,
+  platformBadges,
   coreButton,
   dangerButton,
   holdDeleteButton,
@@ -646,6 +659,8 @@ export const registry: ComponentMeta[] = [
   magnetBoard,
   allocationFaders,
   activityTimeline,
+  changelogTimeline,
+  milestoneTimeline,
   undoTree,
   conflictResolver,
   cronBuilder,
@@ -768,6 +783,10 @@ export const registry: ComponentMeta[] = [
   statusBadge,
   alertCallout,
   progressBar,
+  segmentedProgress,
+  indeterminateProgress,
+  gradientProgress,
+  ringProgress,
   wetInk,
   undoRibbon,
   firstLight,
@@ -812,7 +831,12 @@ export const registry: ComponentMeta[] = [
   bookmarkFold,
   chromeText,
   gradientText,
+  shineText,
+  spotlightText,
   outlineText,
+  scrollOutlineText,
+  echoOutlineText,
+  marqueeOutlineText,
   splitFlapText,
   extrudeText,
   scrollInkText,

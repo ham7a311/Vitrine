@@ -1,0 +1,36 @@
+.motx {
+  --motx-ink: #111214;
+  --motx-page: #f4f3ef;
+  --motx-accent: #ff4d1c;
+  --motx-stroke: 1.5px;
+  display: block; color: var(--motx-ink); container-type: inline-size;
+  font-family: "Inter", "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.motx--dark {
+  --motx-ink: #f1f0ec;
+  --motx-page: #0b0b0c;
+  --motx-accent: #d4ff3a;
+}
+.motx h2 { margin: 0; font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; text-transform: uppercase; }
+/* Two rows sliding opposite ways, words alternating hairline and solid. */
+.motx { display: grid; gap: 0.1em; padding: clamp(20px, 4cqi, 48px) 0; overflow: hidden; font-size: clamp(40px, 8.5cqi, 128px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; text-transform: uppercase; }
+.motx__row { display: flex; overflow: hidden; }
+.motx__track { display: flex; flex: none; animation: motx-run 38s linear infinite; }
+.motx__row--back .motx__track { animation-direction: reverse; animation-duration: 44s; }
+.motx__row:hover .motx__track { animation-play-state: paused; }
+.motx__run { display: flex; flex: none; }
+.motx__run > span { display: inline-flex; align-items: center; white-space: nowrap; }
+.motx__run i { margin: 0 0.4em; color: var(--motx-accent); -webkit-text-stroke: 0; font-size: 0.45em; font-style: normal; }
+.motx__hollow { color: transparent; -webkit-text-stroke: var(--motx-stroke) var(--motx-ink); }
+.motx__solid { color: var(--motx-ink); }
+
+@keyframes motx-run { to { transform: translateX(-50%); } }
+
+@media (forced-colors: active) { .motx__hollow { color: CanvasText; -webkit-text-stroke: 0; } }
+@media (prefers-reduced-motion: reduce) { .motx__track { animation: none; } }
+.motx--still .motx__track { animation: none; }
+
+/* The demo page: one theme. */
+.motx-demo { display: grid; align-content: center; width: 100%; min-height: 100%;  }
+.motx-demo--light { background: #f4f3ef; }
+.motx-demo--dark { background: #0b0b0c; }

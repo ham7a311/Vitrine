@@ -50,6 +50,7 @@ buttons/entry-point-button
 buttons/stack-button
 buttons/offset-press-button
 buttons/platform-downloads
+buttons/platform-badges
 buttons/core-button
 buttons/danger-button
 buttons/hold-delete-button
@@ -238,6 +239,8 @@ decisions/pairwise-ranker
 decisions/magnet-board
 decisions/allocation-faders
 time/activity-timeline
+time/changelog-timeline
+time/milestone-timeline
 time/undo-tree
 time/conflict-resolver
 time/cron-builder
@@ -360,6 +363,10 @@ feedback/toast-stack
 feedback/status-badge
 feedback/alert-callout
 feedback/progress-bar
+feedback/segmented-progress
+feedback/indeterminate-progress
+feedback/gradient-progress
+feedback/ring-progress
 feedback/wet-ink
 feedback/undo-ribbon
 feedback/first-light
@@ -404,7 +411,12 @@ micro/trash-drop
 micro/bookmark-fold
 text/chrome-text
 text/gradient-text
+text/shine-text
+text/spotlight-text
 text/outline-text
+text/scroll-outline-text
+text/echo-outline-text
+text/marquee-outline-text
 text/split-flap-text
 text/extrude-text
 text/scroll-ink-text

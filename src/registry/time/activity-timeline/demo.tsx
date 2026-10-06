@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ActivityTimeline, type ActivityEvent, type Milestone, type Release } from "./ActivityTimeline";
+import { ActivityTimeline, type ActivityEvent } from "./ActivityTimeline";
 
 // A fixed "now", so the server and the browser agree on every relative time.
 const NOW = Date.UTC(2026, 9, 6, 15, 20);
@@ -23,39 +23,12 @@ const NEXT: Omit<ActivityEvent, "id" | "at">[] = [
   { kind: "merge", who: "Yusuf Amin", action: "merged", target: "fix/billing-rounding", where: "into main" },
 ];
 
-const RELEASES: Release[] = [
-  { version: "v2.4.0", at: d(2026, 9, 5), title: "Shared folders", changes: [
-    { tag: "new", text: "Share a folder with your team; everyone sees the same files." },
-    { tag: "improved", text: "Search is about three times faster on large workspaces." },
-    { tag: "fixed", text: "Exports no longer drop the last row of a table." },
-  ] },
-  { version: "v2.3.2", at: d(2026, 8, 28), title: "Quieter notifications", changes: [
-    { tag: "improved", text: "Mentions are grouped into one digest per hour." },
-    { tag: "fixed", text: "Dark mode no longer flashes white on load." },
-  ] },
-  { version: "v2.3.0", at: d(2026, 8, 14), title: "Arabic and right-to-left layouts", changes: [
-    { tag: "new", text: "Full Arabic interface with mirrored layouts." },
-    { tag: "new", text: "Hijri dates alongside Gregorian ones." },
-  ] },
-];
-
-const MILESTONES: Milestone[] = [
-  { title: "Research", at: d(2026, 7, 3), note: "Interviews with 24 teams" },
-  { title: "Design", at: d(2026, 7, 31), note: "Prototype signed off" },
-  { title: "Private beta", at: d(2026, 8, 21), note: "40 workspaces" },
-  { title: "Public beta", at: d(2026, 9, 19), note: "Open sign-ups" },
-  { title: "Launch", at: d(2026, 10, 16), note: "Pricing goes live" },
-];
-
-const LAYOUTS = ["activity", "changelog", "milestones"] as const;
-
-export default function Demo({ variant = "activity" }: { variant?: string }) {
-  const layout = (LAYOUTS as readonly string[]).includes(variant) ? (variant as (typeof LAYOUTS)[number]) : "activity";
+export default function Demo({ variant = "light" }: { variant?: string }) {
+  const theme = variant === "dark" ? "dark" : "light";
   const [events, setEvents] = useState(EVENTS);
   const [now, setNow] = useState(new Date(NOW));
   // A new event every few seconds, so the feed shows how it updates.
   useEffect(() => {
-    if (layout !== "activity") return;
     let i = 0;
     const t = setInterval(() => {
       if (i >= NEXT.length) return clearInterval(t);
@@ -65,12 +38,10 @@ export default function Demo({ variant = "activity" }: { variant?: string }) {
       i++;
     }, 7000);
     return () => clearInterval(t);
-  }, [layout]);
-  const props = { layout, events, releases: RELEASES, milestones: MILESTONES, now, live: true };
+  }, []);
   return (
-    <div className={`actl-demo ${layout === "milestones" ? "actl-demo--wide" : ""}`}>
-      <div className="actl-demo__panel actl-demo__panel--light"><ActivityTimeline {...props} /></div>
-      <div className="actl-demo__panel actl-demo__panel--dark"><ActivityTimeline {...props} theme="dark" /></div>
+    <div className={`actl-demo actl-demo--${theme}`}>
+      <ActivityTimeline events={events} now={now} live theme={theme} />
     </div>
   );
 }
