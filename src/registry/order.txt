@@ -189,6 +189,7 @@ heroes/waitlist-hero
 heroes/column-bloom
 heroes/satin-hero
 heroes/obsidian-hero
+heroes/refraction-blob
 navbars/masthead-nav
 navigation/glass-tab-bar
 navigation/slide-tabs
