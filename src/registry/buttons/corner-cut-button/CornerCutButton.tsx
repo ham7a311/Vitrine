@@ -4,8 +4,8 @@ import { clip, CUTS, outline } from "./notch";
 import "./corner-cut-button.css";
 
 export type CornerCutButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> & {
-  /** one: the bottom-right corner; two: opposite corners; all: every corner; brackets: square, with four corner brackets that close in. */
-  cut?: "one" | "two" | "all" | "brackets";
+  /** one: the bottom-right corner; two: opposite corners; all: every corner. */
+  cut?: "one" | "two" | "all";
   tone?: "solid" | "outline";
   size?: "sm" | "md" | "lg";
   icon?: ReactNode;
@@ -19,30 +19,21 @@ const STROKE = 1.5;
 /**
  * Corner Cut Button
  * Chamfered buttons with a true border: the outline is drawn to the exact
- * measured shape, so the cut edges are as crisp as the straight ones. Or
- * four brackets that close in on the corners.
+ * measured shape, so the cut edges are as crisp as the straight ones.
  */
 export function CornerCutButton({ cut = "one", tone = "solid", size = "md", icon, theme = "light", className = "", children, style, ...rest }: CornerCutButtonProps) {
   const ref = useRef<HTMLButtonElement>(null);
   const [box, setBox] = useState<[number, number] | null>(null);
   useLayoutEffect(() => {
     const el = ref.current;
-    if (!el || cut === "brackets") return;
+    if (!el) return;
     const ro = new ResizeObserver(() => setBox([el.offsetWidth, el.offsetHeight]));
     ro.observe(el);
     return () => ro.disconnect();
-  }, [cut]);
+  }, []);
 
-  const cls = `ccut ccut--${cut} ccut--${tone} ccut--${size} ${theme === "dark" ? "ccut--dark" : ""} ${className}`;
-  if (cut === "brackets") {
-    return (
-      <button ref={ref} type="button" className={cls} style={style} {...rest}>
-        <span className="ccut__corners" aria-hidden="true"><i /><i /><i /><i /></span>
-        <span className="ccut__label">{children}{icon && <span className="ccut__icon" aria-hidden="true">{icon}</span>}</span>
-      </button>
-    );
-  }
   const corners = CUTS[cut], c = CUT_PX[size];
+  const cls = `ccut ccut--${tone} ccut--${size} ${theme === "dark" ? "ccut--dark" : ""} ${className}`;
   return (
     <button ref={ref} type="button" className={cls} style={{ ...style, ["--ccut-c" as string]: `${c}px` }} {...rest}>
       {/* The fill is clipped to the cut shape; the button itself isn't, so its focus ring still shows. */}

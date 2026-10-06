@@ -48,9 +48,16 @@ import { meta as offsetPressButton } from "./buttons/offset-press-button/meta";
 import { meta as platformDownloads } from "./buttons/platform-downloads/meta";
 import { meta as coreButton } from "./buttons/core-button/meta";
 import { meta as dangerButton } from "./buttons/danger-button/meta";
+import { meta as holdDeleteButton } from "./buttons/hold-delete-button/meta";
+import { meta as typeDeleteButton } from "./buttons/type-delete-button/meta";
 import { meta as uploadButton } from "./buttons/upload-button/meta";
+import { meta as dropUploadButton } from "./buttons/drop-upload-button/meta";
+import { meta as avatarUploadButton } from "./buttons/avatar-upload-button/meta";
 import { meta as pulseButton } from "./buttons/pulse-button/meta";
+import { meta as pingButton } from "./buttons/ping-button/meta";
+import { meta as breatheButton } from "./buttons/breathe-button/meta";
 import { meta as cornerCutButton } from "./buttons/corner-cut-button/meta";
+import { meta as cornerBracketButton } from "./buttons/corner-bracket-button/meta";
 import { meta as gamutPicker } from "./controls/gamut-picker/meta";
 import { meta as fractionCheckbox } from "./controls/fraction-checkbox/meta";
 import { meta as moodSlider } from "./controls/mood-slider/meta";
@@ -453,9 +460,16 @@ export const registry: ComponentMeta[] = [
   platformDownloads,
   coreButton,
   dangerButton,
+  holdDeleteButton,
+  typeDeleteButton,
   uploadButton,
+  dropUploadButton,
+  avatarUploadButton,
   pulseButton,
+  pingButton,
+  breatheButton,
   cornerCutButton,
+  cornerBracketButton,
   gamutPicker,
   fractionCheckbox,
   moodSlider,

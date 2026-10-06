@@ -65,65 +65,16 @@
 .upl__progress { position: absolute; inset: 0; z-index: -1; background: var(--upl-wash); transform-origin: left; }
 .upl__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* Drop: a wide dashed target. */
-.upl--drop { display: grid; width: min(100%, 28rem); }
-.upl__zone {
-  display: flex; align-items: center; gap: 16px; width: 100%; min-height: 104px; padding: 20px 22px; text-align: left; color: var(--upl-ink);
-  background: var(--upl-card); border: 1.5px dashed var(--upl-dash); border-radius: 16px; transition: border-color 0.15s, background-color 0.15s;
-}
-.upl__zone:hover { border-color: color-mix(in srgb, var(--upl-ink) 40%, transparent); }
-.upl[data-over] .upl__zone { border-style: solid; border-color: var(--upl-accent); background: var(--upl-wash); }
-.upl__cloud { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; color: var(--upl-ink); background: color-mix(in srgb, var(--upl-ink) 6%, transparent); transition: translate 0.25s cubic-bezier(0.3, 0.7, 0.3, 1), color 0.15s; }
-.upl__cloud svg { width: 28px; height: 28px; }
-.upl[data-over] .upl__cloud { color: var(--upl-accent); translate: 0 -4px; }
-.upl__lines { display: grid; gap: 6px; }
-.upl__lines u { color: var(--upl-accent); text-underline-offset: 3px; }
-.upl__lines small, .upl__meta small { color: var(--upl-soft); font-size: 13px; font-weight: 400; }
-.upl__card {
-  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 104px; padding: 18px 16px 18px 20px;
-  background: var(--upl-card); border: 1px solid var(--upl-edge); border-radius: 16px; animation: upl-in 0.2s ease-out;
-}
-.upl__card .upl__doc { width: 44px; height: 44px; border-radius: 12px; background: color-mix(in srgb, var(--upl-ink) 6%, transparent); }
-.upl__meta { flex: 1; min-width: 0; display: grid; gap: 5px; }
-.upl__meta strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.upl__bar { display: block; height: 4px; margin-top: 4px; overflow: hidden; border-radius: 4px; background: var(--upl-track); }
-.upl__bar i { display: block; height: 100%; background: var(--upl-accent); transform-origin: left; border-radius: inherit; }
-.upl[data-state="done"] .upl__bar i { background: var(--upl-ok); }
-
-/* Avatar: a round picker whose ring is the progress. */
-.upl--avatar { display: flex; align-items: center; gap: 18px; justify-items: initial; }
-.upl__face { position: relative; display: grid; place-items: center; flex: none; width: 96px; height: 96px; padding: 0; color: var(--upl-soft); background: var(--upl-card); border: 0; border-radius: 50%; }
-.upl__face img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; transition: opacity 0.2s; }
-.upl[data-state="sending"] .upl__face img { opacity: 0.45; }
-.upl__face-icon { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; background: color-mix(in srgb, var(--upl-ink) 5%, transparent); transition: background-color 0.15s, color 0.15s; }
-.upl__face-icon svg { width: 28px; height: 28px; }
-.upl__face:hover .upl__face-icon, .upl[data-over] .upl__face-icon { color: var(--upl-accent); background: var(--upl-wash); }
-.upl__ring { position: absolute; inset: 0; width: 100%; height: 100%; rotate: -90deg; pointer-events: none; }
-.upl__ring circle { fill: none; stroke-width: 2.5; }
-.upl__ring circle:first-child { stroke: var(--upl-dash); stroke-dasharray: 4 5; }
-.upl[data-state="sending"] .upl__ring circle:first-child, .upl[data-state="done"] .upl__ring circle:first-child { stroke: var(--upl-track); stroke-dasharray: none; }
-.upl__ring circle:last-child { stroke: var(--upl-accent); stroke-linecap: round; }
-.upl[data-state="done"] .upl__ring circle:last-child { stroke: var(--upl-ok); }
-.upl[data-state="error"] .upl__ring circle:first-child { stroke: var(--upl-bad); }
-.upl__pct { position: absolute; color: var(--upl-ink); font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.upl__badge { position: absolute; right: 2px; bottom: 2px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: var(--upl-btn-ink); background: var(--upl-btn); box-shadow: 0 0 0 3px var(--upl-card); }
-.upl__badge svg { width: 13px; height: 13px; }
-.upl__caption { display: grid; justify-items: start; gap: 4px; }
-.upl__caption span:not(.upl__error, .upl__error span) { color: var(--upl-soft); font-size: 13.5px; font-weight: 400; }
-.upl__ok { display: inline-flex; align-items: center; gap: 6px; color: var(--upl-ok); }
-.upl__ok svg { width: 15px; height: 15px; }
-
 @keyframes upl-in { from { opacity: 0; translate: 0 3px; } }
 @keyframes upl-grow { from { width: 9.5rem; opacity: 0.6; } }
 @keyframes upl-pop { from { scale: 0.4; } }
 
-/* The demo's light and dark panels. */
-.upl-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); width: 100%; min-height: 100%; }
-.upl-demo__panel { display: grid; place-items: center; padding: clamp(28px, 6vw, 64px) clamp(16px, 4vw, 48px); }
-.upl-demo__panel--light { background: #f6f6f5; }
-.upl-demo__panel--dark { background: #0a0a0a; }
+/* The demo page: one theme, the control in the middle. */
+.upl-demo { display: grid; place-items: center; width: 100%; min-height: 100%; padding: 32px 16px; }
+.upl-demo--light { background: #f6f6f5; }
+.upl-demo--dark { background: #0a0a0a; }
 
 @media (prefers-reduced-motion: reduce) {
-  .upl__pill, .upl__card, .upl__error, .upl__done { animation: none; }
-  .upl__btn svg, .upl__cloud, .upl__btn { transition: none; }
+  .upl__pill, .upl__error, .upl__done { animation: none; }
+  .upl__btn svg, .upl__btn { transition: none; }
 }

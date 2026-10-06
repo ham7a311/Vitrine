@@ -52,9 +52,16 @@ buttons/offset-press-button
 buttons/platform-downloads
 buttons/core-button
 buttons/danger-button
+buttons/hold-delete-button
+buttons/type-delete-button
 buttons/upload-button
+buttons/drop-upload-button
+buttons/avatar-upload-button
 buttons/pulse-button
+buttons/ping-button
+buttons/breathe-button
 buttons/corner-cut-button
+buttons/corner-bracket-button
 controls/gamut-picker
 controls/fraction-checkbox
 controls/mood-slider

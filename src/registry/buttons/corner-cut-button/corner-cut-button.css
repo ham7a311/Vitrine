@@ -43,27 +43,12 @@
 .ccut--outline { --ccut-bg: transparent; --ccut-fg: var(--ccut-ink); --ccut-edge: var(--ccut-line); --ccut-sweep: var(--ccut-wash); }
 .ccut--outline:hover, .ccut--outline:focus-visible { --ccut-edge: var(--ccut-accent); }
 
-/* Brackets: a square button whose four corner brackets close in on hover. */
-.ccut--brackets { --ccut-bg: transparent; --ccut-fg: var(--ccut-ink); --ccut-arm: 10px; --ccut-out: 5px; --ccut-bracket: color-mix(in srgb, var(--ccut-ink) 55%, transparent); transition: color 0.2s, background-color 0.25s, translate 0.12s; }
-.ccut--brackets { background: var(--ccut-bg); }
-.ccut--brackets.ccut--solid { --ccut-bg: color-mix(in srgb, var(--ccut-ink) 7%, transparent); }
-.ccut--brackets:hover, .ccut--brackets:focus-visible { --ccut-fg: var(--ccut-ink); --ccut-arm: 14px; --ccut-out: 0px; --ccut-bracket: var(--ccut-accent); background: var(--ccut-wash); }
-.ccut--brackets:focus-visible { outline-offset: 7px; }
-.ccut__corners { position: absolute; inset: calc(var(--ccut-out) * -1); pointer-events: none; transition: inset 0.3s cubic-bezier(0.3, 0.7, 0.2, 1); }
-.ccut__corners i { position: absolute; width: var(--ccut-arm); height: var(--ccut-arm); border: 0 solid var(--ccut-bracket); transition: width 0.3s, height 0.3s, border-color 0.2s; }
-.ccut__corners i:nth-child(1) { top: 0; left: 0; border-top-width: 1.5px; border-left-width: 1.5px; }
-.ccut__corners i:nth-child(2) { top: 0; right: 0; border-top-width: 1.5px; border-right-width: 1.5px; }
-.ccut__corners i:nth-child(3) { bottom: 0; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
-.ccut__corners i:nth-child(4) { bottom: 0; left: 0; border-bottom-width: 1.5px; border-left-width: 1.5px; }
-.ccut--brackets .ccut__label { letter-spacing: 0.08em; transition: letter-spacing 0.3s; }
-.ccut--brackets:hover .ccut__label { letter-spacing: 0.12em; }
-
-/* The demo's light and dark panels. */
-.ccut-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); width: 100%; min-height: 100%; }
-.ccut-demo__panel { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; align-content: center; gap: 22px; padding: clamp(28px, 6vw, 64px) clamp(16px, 4vw, 48px); }
-.ccut-demo__panel--light { background: #efefec; }
-.ccut-demo__panel--dark { background: #0b0b0c; }
+/* The demo page: one theme, the three cuts as rows. */
+.ccut-demo { display: grid; align-content: center; justify-items: center; gap: 28px; width: 100%; min-height: 100%; padding: 32px 16px; }
+.ccut-demo__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px; }
+.ccut-demo--light { background: #efefec; }
+.ccut-demo--dark { background: #0b0b0c; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ccut, .ccut__sweep, .ccut__icon, .ccut__corners, .ccut__corners i, .ccut--brackets .ccut__label { transition: none; }
+  .ccut, .ccut__sweep, .ccut__icon { transition: none; }
 }
