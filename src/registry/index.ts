@@ -102,6 +102,7 @@ import { meta as specimenCard } from "./cards/specimen-card/meta";
 import { meta as cardWallet } from "./cards/card-wallet/meta";
 import { meta as patina } from "./cards/patina/meta";
 import { meta as signalTiles } from "./cards/signal-tiles/meta";
+import { meta as sweepCards } from "./cards/sweep-cards/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
@@ -475,6 +476,7 @@ export const registry: ComponentMeta[] = [
   cardWallet,
   patina,
   signalTiles,
+  sweepCards,
   silkField,
   glassTiles,
   ditherFlow,

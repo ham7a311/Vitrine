@@ -32,6 +32,8 @@ type Props = {
   ink?: string;
   /** Arrow fill; defaults to the accent. */
   arrow?: string;
+  /** Space the box leaves either side of the words (px). */
+  padX?: number;
   /** Delay before the first sweep, once in view (ms). */
   startDelay?: number;
   /** Drag speed in px per second. */
@@ -75,7 +77,6 @@ export function SweepText({ text, order, as = "p", className = "", style }: { te
 type Line = { words: HTMLElement[]; lefts: number[]; widths: number[]; x: number; y: number; w: number; h: number };
 type Step = { ms: number; run: (t: number) => void; done?: () => void };
 
-const PAD_X = 6;
 const PAD_Y = 2;
 const ARROW = "M5.77 3.24 L28.12 10.61 A3 3 0 0 1 28.07 16.33 L20.61 18.63 A3 3 0 0 0 18.63 20.61 L16.33 28.07 A3 3 0 0 1 10.61 28.12 L3.24 5.77 A2 2 0 0 1 5.77 3.24 Z";
 
@@ -84,7 +85,7 @@ const easeSine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-export function HighlightSweep({ color = "#5fd4bf", repeat, loop, fill, ring, ink, arrow, startDelay = 500, speed = 380, motion = "full", className = "", style, children }: Props) {
+export function HighlightSweep({ color = "#5fd4bf", repeat, loop, fill, ring, ink, arrow, padX = 6, startDelay = 500, speed = 380, motion = "full", className = "", style, children }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const underRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<HTMLDivElement>(null);
@@ -102,6 +103,7 @@ export function HighlightSweep({ color = "#5fd4bf", repeat, loop, fill, ring, in
   useEffect(() => {
     const host = hostRef.current, under = underRef.current, arr = arrowRef.current;
     if (!host || !under || !arr) return;
+    const PAD_X = padX;
 
     let raf = 0, lastT = 0, visible = false, alive = true, finished = false;
     let steps: Step[] = [], si = 0, el = 0, target = 0;
@@ -325,7 +327,7 @@ export function HighlightSweep({ color = "#5fd4bf", repeat, loop, fill, ring, in
       document.removeEventListener("visibilitychange", onVis);
       clearAll();
     };
-  }, [reduced, forever, startDelay, speed]);
+  }, [reduced, forever, startDelay, speed, padX]);
 
   const vars: Record<string, string> = { "--hs-c": color };
   if (fill) vars["--hs-fill"] = fill;
