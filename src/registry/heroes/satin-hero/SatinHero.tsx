@@ -161,15 +161,15 @@ export function SatinHero({ name, links, headline, intro, primary, secondary, so
       <header className="satn__nav">
         <a className="satn__name" href="#">{name}</a>
         <nav aria-label="Main">
-          <ul>{links.map((l) => <li key={l.label}><a href={l.href}><span aria-hidden="true">[ </span>{l.label}<span aria-hidden="true"> ]</span></a></li>)}</ul>
+          <ol>{links.map((l, i) => <li key={l.label}><a href={l.href}><small aria-hidden="true">{String(i + 1).padStart(2, "0")}</small>{l.label}</a></li>)}</ol>
         </nav>
       </header>
       <div className="satn__main">
         <h1 className="satn__title">{headline.map((l, i) => <span key={i}>{l}</span>)}</h1>
         <p className="satn__intro">{intro}</p>
         <div className="satn__ctas">
-          <a className="satn__talk" href={primary.href}><span aria-hidden="true">↳</span> {primary.label}</a>
-          {secondary && <a className="satn__chip" href={secondary.href}><span aria-hidden="true">[ </span>{secondary.label}<span aria-hidden="true"> ]</span></a>}
+          <a className="satn__talk" href={primary.href}>{primary.label}<span aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M9 4l4 4-4 4" /></svg></span></a>
+          {secondary && <a className="satn__chip" href={secondary.href}>{secondary.label}</a>}
         </div>
       </div>
       <footer className="satn__foot">

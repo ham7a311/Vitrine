@@ -273,9 +273,19 @@ export function HelixShowcase({ projects, brand, links, cta, length = 4, theme =
         <canvas ref={canvas} className="hlx__canvas" aria-hidden="true" />
         <header className="hlx__nav">
           <a className="hlx__brand" href="#"><span aria-hidden="true">{brand.mark}</span>{brand.name}</a>
-          <nav aria-label="Main"><ul>{links.map((l) => <li key={l.label}><a href={l.href}>{l.label}</a></li>)}</ul></nav>
-          <button type="button" role="switch" aria-checked={mode === "dark"} aria-label="Dark theme" className="hlx__switch" onClick={() => setMode((m) => (m === "dark" ? "light" : "dark"))}><i /></button>
-          <a className="hlx__cta" href={cta.href}>{cta.label}</a>
+          <nav aria-label="Main" className="hlx__links">
+            <ul>{links.map((l, i) => <li key={l.label}><a href={l.href} aria-current={i === 0 ? "page" : undefined}>{l.label}</a></li>)}</ul>
+          </nav>
+          <div className="hlx__end">
+            <button type="button" aria-pressed={mode === "dark"} aria-label="Dark theme" className="hlx__mode" onClick={() => setMode((m) => (m === "dark" ? "light" : "dark"))}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+                {mode === "dark"
+                  ? <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />
+                  : <><circle cx="12" cy="12" r="4" /><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4" /></>}
+              </svg>
+            </button>
+            <a className="hlx__cta" href={cta.href}>{cta.label}<span aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 11 11 5M6 5h5v5" /></svg></span></a>
+          </div>
         </header>
 
         <h2 id={`${id}-t`} className="hlx__sr">Selected work</h2>

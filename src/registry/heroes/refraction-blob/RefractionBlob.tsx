@@ -8,10 +8,14 @@ export type RefractionBlobProps = {
   name: string;
   /** A short line seen through the glass, above the name. */
   label: string;
-  logo: ReactNode;
+  /** A small mark for the top-left corner (a monogram works well). */
+  mark: ReactNode;
   links: { label: string; href: string; current?: boolean }[];
+  /** The pill button at the top right. */
+  contact: { label: string; href: string };
+  /** A short status shown with a green dot, bottom left. */
+  status?: string;
   tagline: string;
-  more: { label: string; href: string };
   /** Scroll length of the section, in viewport heights. */
   length?: number;
   theme?: "light" | "dark";
@@ -101,7 +105,7 @@ function rotation(a: number, b: number) {
  * magnifying it. Scrolling turns the drop; scroll back and it turns the
  * other way, and it keeps drifting in whichever way you last went.
  */
-export function RefractionBlob({ name, label, logo, links, tagline, more, length = 2, theme = "light", motion = true, className = "" }: RefractionBlobProps) {
+export function RefractionBlob({ name, label, mark, links, contact, status, tagline, length = 2, theme = "light", motion = true, className = "" }: RefractionBlobProps) {
   const section = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -219,10 +223,11 @@ export function RefractionBlob({ name, label, logo, links, tagline, more, length
       <div ref={stage} className="rblob__stage" data-fallback="">
         <div className="rblob__frame" aria-hidden="true"><i /><i /><i /></div>
         <header className="rblob__nav">
-          <a className="rblob__logo" href="#" aria-label="Home">{logo}</a>
-          <nav aria-label="Main">
+          <a className="rblob__mark" href="#" aria-label="Home">{mark}</a>
+          <nav aria-label="Main" className="rblob__pill">
             <ul>{links.map((l) => <li key={l.label}><a href={l.href} aria-current={l.current ? "page" : undefined}>{l.label}</a></li>)}</ul>
           </nav>
+          <a className="rblob__contact" href={contact.href}>{contact.label}</a>
         </header>
         <h1 className="rblob__hero">
           <span className="rblob__label" data-rblob-ink>{label}</span>
@@ -231,8 +236,8 @@ export function RefractionBlob({ name, label, logo, links, tagline, more, length
         <div className="rblob__lens" aria-hidden="true" />
         <canvas ref={canvas} className="rblob__glass" aria-hidden="true" />
         <p className="rblob__about">
+          {status && <span className="rblob__status"><i aria-hidden="true" />{status}</span>}
           <span>{tagline}</span>
-          <a href={more.href}>{more.label}<span aria-hidden="true">→</span></a>
         </p>
       </div>
     </section>

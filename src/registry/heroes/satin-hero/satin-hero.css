@@ -9,6 +9,7 @@
   --satn-chip-hover: rgb(255 255 255 / 0.62);
   --satn-line: rgb(255 255 255 / 0.55);
   --satn-focus: #1c3a5e;
+  --satn-on-ink: #f4f8fd;
   --satn-fallback: radial-gradient(120% 90% at 85% 10%, #ffffff 0%, #b7dbfd 30%, #8fc2f3 55%, #d8ebff 85%);
   position: relative; display: grid; grid-template-rows: auto 1fr auto; isolation: isolate; overflow: hidden;
   min-height: clamp(36rem, 54vw, 62rem); padding: clamp(18px, 2.2vw, 30px) clamp(20px, 5.4%, 108px);
@@ -27,6 +28,7 @@
   --satn-chip-hover: rgb(255 255 255 / 0.16);
   --satn-line: rgb(255 255 255 / 0.08);
   --satn-focus: #e3edf9;
+  --satn-on-ink: #0c1830;
   --satn-fallback: radial-gradient(120% 90% at 85% 10%, #3c5f8f 0%, #1d3557 35%, #0c1830 70%, #070d18 100%);
 }
 .satn :focus-visible { outline: 2px solid var(--satn-focus); outline-offset: 3px; }
@@ -38,15 +40,17 @@
 .satn__grid i { width: 1px; background: linear-gradient(to bottom, transparent, var(--satn-line) 8%, var(--satn-line) 92%, transparent); }
 
 .satn__nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.satn__name { color: var(--satn-ink-soft); font-size: clamp(17px, 1.6cqi, 26px); letter-spacing: -0.01em; text-decoration: none; }
-.satn__nav ul, .satn__foot ul { display: flex; gap: clamp(6px, 1cqi, 18px); margin: 0; padding: 0; list-style: none; }
-.satn__nav a:not(.satn__name), .satn__chip {
-  display: inline-block; padding: 0.3em 0.55em; color: var(--satn-ink-soft); text-decoration: none; white-space: nowrap;
-  font-size: clamp(15px, 1.5cqi, 25px); letter-spacing: -0.01em;
-  background: var(--satn-chip); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  transition: background-color 0.2s, color 0.2s;
+.satn__name { color: var(--satn-ink); font-size: clamp(17px, 1.5cqi, 24px); font-weight: 500; letter-spacing: -0.015em; text-decoration: none; }
+.satn__nav ol, .satn__foot ul { display: flex; gap: clamp(14px, 2.6cqi, 44px); margin: 0; padding: 0; list-style: none; }
+/* Numbered links: a small figure, then the word, with a rule that draws in under it on hover. */
+.satn__nav ol a {
+  position: relative; display: inline-flex; align-items: baseline; gap: 0.5em; padding: 0.3em 0; color: var(--satn-ink-soft); text-decoration: none; white-space: nowrap;
+  font-size: clamp(15px, 1.35cqi, 22px); letter-spacing: -0.01em; transition: color 0.2s;
 }
-.satn__nav a:not(.satn__name):hover, .satn__chip:hover { background: var(--satn-chip-hover); color: var(--satn-ink); }
+.satn__nav ol small { font: 500 0.6em/1 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.04em; opacity: 0.7; }
+.satn__nav ol a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform 0.3s cubic-bezier(0.3, 0.7, 0.3, 1); }
+.satn__nav ol a:hover { color: var(--satn-ink); }
+.satn__nav ol a:hover::after { transform: scaleX(1); transform-origin: left; }
 
 .satn__main { align-self: center; display: grid; justify-items: start; gap: clamp(18px, 2.4cqi, 34px); padding: clamp(32px, 5cqi, 90px) 0; }
 /* The headline is pressed into the cloth: a dark gradient fill, a light lip under each stroke and a shadow over it. */
@@ -62,10 +66,21 @@
   padding-bottom: 0.06em;
 }
 .satn__intro { margin: 0; max-width: 34rem; color: var(--satn-ink-soft); font-size: clamp(16px, 1.55cqi, 26px); line-height: 1.45; letter-spacing: -0.01em; }
-.satn__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-.satn__talk { display: inline-flex; gap: 0.6em; color: var(--satn-ink); font-size: clamp(16px, 1.5cqi, 25px); text-decoration: none; letter-spacing: -0.01em; }
-.satn__talk span { color: var(--satn-ink-soft); transition: translate 0.25s; }
-.satn__talk:hover span { translate: 3px 2px; }
+.satn__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.satn__talk, .satn__chip {
+  display: inline-flex; align-items: center; gap: 0.7em; height: clamp(44px, 3.6cqi, 56px); padding: 0 1.3em; border-radius: 999px;
+  font-size: clamp(15px, 1.25cqi, 20px); letter-spacing: -0.01em; text-decoration: none; white-space: nowrap; transition: background-color 0.2s, translate 0.2s;
+}
+.satn__talk { padding-right: 0.5em; color: var(--satn-on-ink); background: var(--satn-ink); }
+.satn__talk span { display: grid; place-items: center; width: 2em; height: 2em; border-radius: 50%; color: var(--satn-ink); background: var(--satn-on-ink); transition: translate 0.25s; }
+.satn__talk svg { width: 0.9em; height: 0.9em; }
+.satn__talk:hover { translate: 0 -1px; }
+.satn__talk:hover span { translate: 3px 0; }
+.satn__chip {
+  color: var(--satn-ink); background: var(--satn-chip); border: 1px solid var(--satn-line);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.satn__chip:hover { background: var(--satn-chip-hover); }
 
 .satn__foot { display: flex; align-items: center; justify-content: space-between; color: var(--satn-ink-soft); font-size: clamp(14px, 1.3cqi, 22px); }
 .satn__foot a { display: grid; place-items: center; width: 36px; height: 36px; color: var(--satn-ink); transition: opacity 0.2s; }
@@ -74,6 +89,7 @@
 
 @container (max-width: 40rem) {
   .satn__nav { flex-wrap: wrap; }
+  .satn__nav ol { gap: 14px; }
   .satn__grid i:nth-child(2), .satn__grid i:nth-child(4) { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { .satn__talk span, .satn__nav a, .satn__chip { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .satn__talk, .satn__talk span, .satn__nav a, .satn__nav a::after, .satn__chip { transition: none; } }
