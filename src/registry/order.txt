@@ -378,6 +378,8 @@ micro/star-rate
 micro/trash-drop
 micro/bookmark-fold
 text/chrome-text
+text/gradient-text
+text/outline-text
 text/split-flap-text
 text/extrude-text
 text/scroll-ink-text

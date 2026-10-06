@@ -374,6 +374,8 @@ import { meta as starRate } from "./micro/star-rate/meta";
 import { meta as trashDrop } from "./micro/trash-drop/meta";
 import { meta as bookmarkFold } from "./micro/bookmark-fold/meta";
 import { meta as chromeText } from "./text/chrome-text/meta";
+import { meta as gradientText } from "./text/gradient-text/meta";
+import { meta as outlineText } from "./text/outline-text/meta";
 import { meta as splitFlapText } from "./text/split-flap-text/meta";
 import { meta as extrudeText } from "./text/extrude-text/meta";
 import { meta as scrollInkText } from "./text/scroll-ink-text/meta";
@@ -759,6 +761,8 @@ export const registry: ComponentMeta[] = [
   trashDrop,
   bookmarkFold,
   chromeText,
+  gradientText,
+  outlineText,
   splitFlapText,
   extrudeText,
   scrollInkText,
