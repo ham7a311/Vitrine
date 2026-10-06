@@ -28,12 +28,12 @@
   font-size: clamp(15.5px, 1.2cqi, 22px); line-height: 2.25; letter-spacing: -0.005em;
 }
 
-/* The sweep, tuned to the cards: a tighter box with a firmer edge and a smaller arrow. */
-.swpc__sweep .hs__box { border-radius: 5px; box-shadow: inset 0 0 0 1.5px var(--hs-ring); }
-.swpc__sweep .hs__arrow svg {
-  width: 19px; height: 19px;
-  margin: -2.2px 0 0 -2.2px; transform-origin: 2.2px 2.2px;
-  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.25));
+/* The sweep, tuned to the cards through its custom properties: a tighter box with a firmer edge,
+   a smaller arrow, and room for the arrow to rest just below the last line. */
+.swpc__sweep {
+  --hs-radius: 5px;
+  --hs-ring-w: 1.5px;
+  --hs-size: 19px;
+  --hs-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.25));
+  --hs-overflow: visible;
 }
-/* The arrow may come to rest just below the last line, so let it hang over the card. */
-.swpc__sweep .hs__layer { overflow: visible; }

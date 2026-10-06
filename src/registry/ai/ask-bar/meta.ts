@@ -19,8 +19,8 @@ export const meta: ComponentMeta = {
   responsive: "The bar fills the width on phones and keeps its controls; the model button tightens below 520px.",
   touchFallback: "Every control is a 44px tap target.",
   variants: [
-    { id: "dark", label: "Dark" },
-    { id: "light", label: "Light" },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --askb-accent #8ab4f8; --askb-bar #1f1f1f; --askb-bar-hi #2a2a2a; --askb-focus #8ab4f8; --askb-glow #1b2b6e; --askb-glow2 #090b14; --askb-ink #e8eaed; --askb-line rgb(255 255 255 / 0.08); --askb-me #2b2c30; --askb-menu #282a2c; --askb-muted #9aa0a6; --askb-page #0e0f14; --askb-send #e8eaed; --askb-send-ink #131314; --askb-soft #c4c7c5. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --askb-accent #1a5fd8; --askb-bar #ffffff; --askb-bar-hi #f0f2f5; --askb-focus #1a5fd8; --askb-glow #c9d7fb; --askb-glow2 #dde6fb; --askb-ink #1f1f1f; --askb-line rgb(0 0 0 / 0.08); --askb-me #e3e8f2; --askb-menu #ffffff; --askb-muted #5f6368; --askb-page #f2f4f8; --askb-send #1f1f1f; --askb-send-ink #ffffff; --askb-soft #444746. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0e0f14", mode: "fill", frame: [1440, 860] },
   isNew: true,

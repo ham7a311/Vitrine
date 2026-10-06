@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Three columns stack to one below 56rem; type and padding scale with the container, and wrapped phrases are swept line by line at any width.",
   touchFallback: "Identical on touch; it never depended on the pointer.",
   variants: [
-    { id: "dark", label: "Dark" },
-    { id: "light", label: "Light" },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --swpc-edge transparent; --swpc-page #000000. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --swpc-edge rgb(0 0 0 / 0.06); --swpc-page #f4f4f2. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#000000", mode: "fill", frame: [1400, 560] },
   isNew: true,
