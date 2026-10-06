@@ -220,6 +220,7 @@ import { meta as sieve } from "./data/sieve/meta";
 import { meta as pairwiseRanker } from "./decisions/pairwise-ranker/meta";
 import { meta as magnetBoard } from "./decisions/magnet-board/meta";
 import { meta as allocationFaders } from "./decisions/allocation-faders/meta";
+import { meta as activityTimeline } from "./time/activity-timeline/meta";
 import { meta as undoTree } from "./time/undo-tree/meta";
 import { meta as conflictResolver } from "./time/conflict-resolver/meta";
 import { meta as cronBuilder } from "./time/cron-builder/meta";
@@ -332,6 +333,9 @@ import { meta as transferComposer } from "./forms/transfer-composer/meta";
 import { meta as scrubNumber } from "./forms/scrub-number/meta";
 import { meta as segmentCounter } from "./forms/segment-counter/meta";
 import { meta as toastStack } from "./feedback/toast-stack/meta";
+import { meta as statusBadge } from "./feedback/status-badge/meta";
+import { meta as alertCallout } from "./feedback/alert-callout/meta";
+import { meta as progressBar } from "./feedback/progress-bar/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
 import { meta as firstLight } from "./feedback/first-light/meta";
@@ -601,6 +605,7 @@ export const registry: ComponentMeta[] = [
   pairwiseRanker,
   magnetBoard,
   allocationFaders,
+  activityTimeline,
   undoTree,
   conflictResolver,
   cronBuilder,
@@ -713,6 +718,9 @@ export const registry: ComponentMeta[] = [
   scrubNumber,
   segmentCounter,
   toastStack,
+  statusBadge,
+  alertCallout,
+  progressBar,
   wetInk,
   undoRibbon,
   firstLight,

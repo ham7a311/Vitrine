@@ -224,6 +224,7 @@ data/sieve
 decisions/pairwise-ranker
 decisions/magnet-board
 decisions/allocation-faders
+time/activity-timeline
 time/undo-tree
 time/conflict-resolver
 time/cron-builder
@@ -336,6 +337,9 @@ forms/transfer-composer
 forms/scrub-number
 forms/segment-counter
 feedback/toast-stack
+feedback/status-badge
+feedback/alert-callout
+feedback/progress-bar
 feedback/wet-ink
 feedback/undo-ribbon
 feedback/first-light
