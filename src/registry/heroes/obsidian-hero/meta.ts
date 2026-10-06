@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Below 60rem the centre links hide; below 34rem the sound switch and the wordmark subline hide and the tagline tightens. Type scales with the container.",
   touchFallback: "Without a pointer the liquid just drifts.",
   variants: [
-    { id: "dark", label: "Dark" },
-    { id: "light", label: "Light" },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --obsd-btn #ffffff; --obsd-btn-ink #050607; --obsd-edge rgb(255 255 255 / 0.55); --obsd-fallback radial-gradient(80% 70% at 60% 40%, #1b2430, #07090c 70%); --obsd-floor #000000; --obsd-focus #ffffff; --obsd-grid rgb(255 255 255 / 0.055); --obsd-ink #ffffff; --obsd-muted #a7adb6; --obsd-soft #d6dbe2. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --obsd-btn #0b0d10; --obsd-btn-ink #ffffff; --obsd-edge rgb(10 14 20 / 0.55); --obsd-fallback radial-gradient(80% 70% at 60% 40%, #f4f7fa, #c9cfd6 70%); --obsd-floor #e9edf1; --obsd-focus #0b0d10; --obsd-grid rgb(10 14 20 / 0.07); --obsd-ink #0b0d10; --obsd-muted #4a515a; --obsd-soft #23272d. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#07090c", mode: "fill", frame: [1440, 780] },
   isNew: true,

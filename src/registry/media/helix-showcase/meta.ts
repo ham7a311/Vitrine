@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Below 720px the camera pulls back and the helix centres; below 52rem the bar keeps only the brand, switch and button.",
   touchFallback: "Touch scrolling drives it the same way.",
   variants: [
-    { id: "dark", label: "Dark" },
-    { id: "light", label: "Light" },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --hlx-bg #010307; --hlx-edge rgb(255 255 255 / 0.12); --hlx-focus #8fb4ff; --hlx-glass rgb(12 14 20 / 0.62); --hlx-ink #ffffff; --hlx-knob #ffffff; --hlx-pill #ffffff; --hlx-pill-ink #050607; --hlx-soft rgb(255 255 255 / 0.62); --hlx-track rgb(255 255 255 / 0.16). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --hlx-bg #f3f6fb; --hlx-edge rgb(10 13 20 / 0.1); --hlx-focus #2f5fe0; --hlx-glass rgb(255 255 255 / 0.7); --hlx-ink #0a0d14; --hlx-knob #0a0d14; --hlx-pill #0a0d14; --hlx-pill-ink #ffffff; --hlx-soft rgb(10 13 20 / 0.6); --hlx-track rgb(10 13 20 / 0.14). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#010307", mode: "scroll", frame: [1440, 780], height: 760 },
   isNew: true,

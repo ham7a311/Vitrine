@@ -18,8 +18,8 @@ export const meta: ComponentMeta = {
   responsive: "Five, three, then two columns by container width (one below 16rem); tile padding and icon size step down on small screens.",
   touchFallback: "A tap lights the tile at the touch point before following the link.",
   variants: [
-    { id: "dark", label: "Dark" },
-    { id: "light", label: "Light" },
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --sigt-beam #3b82f6; --sigt-beam-hot #cfe0ff; --sigt-bg #000000; --sigt-edge rgb(255 255 255 / 0.1); --sigt-focus #60a5fa; --sigt-icon #f4f4f5; --sigt-ink #ffffff; --sigt-muted #8b8b8f; --sigt-pill #ffffff; --sigt-pill-ink #0a0a0a; --sigt-pill2 #1d1d20; --sigt-pill2-ink #f4f4f5; --sigt-tile #000000. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --sigt-beam #2563eb; --sigt-beam-hot #1d4ed8; --sigt-bg #f4f4f2; --sigt-edge rgb(10 10 10 / 0.1); --sigt-focus #2563eb; --sigt-icon #111113; --sigt-ink #0a0a0a; --sigt-muted #6b6b70; --sigt-pill #0a0a0a; --sigt-pill-ink #ffffff; --sigt-pill2 #e4e4e1; --sigt-pill2-ink #0a0a0a; --sigt-tile #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#000000", mode: "fill", frame: [1400, 860] },
   isNew: true,
