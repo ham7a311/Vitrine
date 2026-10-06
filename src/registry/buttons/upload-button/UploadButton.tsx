@@ -7,12 +7,11 @@ import "./upload-button.css";
 export type Uploader = (file: File, progress: (p: number) => void, signal: AbortSignal) => Promise<void>;
 
 export type UploadButtonProps = {
-  /** button: a compact button; drop: a wide drop target; avatar: a round photo picker. */
-  look?: "button" | "drop" | "avatar";
   accept?: string;
   maxBytes?: number;
   upload?: Uploader;
   onUploaded?: (file: File) => void;
+  /** The idle label ("Upload file"). */
   label?: string;
   hint?: string;
   theme?: "light" | "dark";
@@ -41,20 +40,17 @@ const simulate: Uploader = (file, progress, signal) => new Promise((resolve, rej
 });
 
 const Up = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 13.5V4M6 7.5 10 3.5l4 4M4 13v2.5h12V13" /></svg>;
-const Cloud = () => <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 23H8.5a5.5 5.5 0 0 1-.6-11A8 8 0 0 1 23.4 10 6.5 6.5 0 0 1 24 23h-2" /><path d="M16 26V15M12 19l4-4 4 4" /></svg>;
 const Doc = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" aria-hidden="true"><path d="M5 2.5h6.5L15 6v11.5H5Z" /><path d="M11.5 2.5V6H15" /></svg>;
 const X = () => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="m4.5 4.5 7 7M11.5 4.5l-7 7" /></svg>;
 const Tick = () => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m3.5 8.5 3 3 6-6.5" /></svg>;
-const Camera = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.5h6.8L17 8h3v11H4Z" /><circle cx="12" cy="13.2" r="3.4" /></svg>;
-const Pen = () => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true"><path d="m3 13 .7-2.8L10.6 3.3a1.4 1.4 0 0 1 2 2L5.8 12.3Z" /></svg>;
 
 /**
  * Upload Button
- * Click or drop a file. The control itself becomes the progress (name,
- * percentage, a cancel cross), then says it's done, or says what went wrong
- * and offers to retry.
+ * Click or drop a file onto it. The button becomes its own progress (the
+ * file name, a percentage, a cancel cross), then says it's done, or says
+ * what went wrong and offers to retry.
  */
-export function UploadButton({ look = "button", accept, maxBytes, upload = simulate, onUploaded, label, hint, theme = "light", className = "" }: UploadButtonProps) {
+export function UploadButton({ accept, maxBytes, upload = simulate, onUploaded, label, hint, theme = "light", className = "" }: UploadButtonProps) {
   const id = useId();
   const input = useRef<HTMLInputElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -62,11 +58,9 @@ export function UploadButton({ look = "button", accept, maxBytes, upload = simul
   const [state, setState] = useState<State>({ kind: "idle" });
   const [over, setOver] = useState(false);
   const [say, setSay] = useState("");
-  const [preview, setPreview] = useState<string | null>(null);
   const lastSaid = useRef(0);
 
   useEffect(() => () => { abort.current?.abort(); }, []);
-  useEffect(() => () => { if (preview) URL.revokeObjectURL(preview); }, [preview]);
 
   const start = useCallback((file: File) => {
     const why = reject(file, accept, maxBytes);
@@ -74,7 +68,6 @@ export function UploadButton({ look = "button", accept, maxBytes, upload = simul
     abort.current?.abort();
     const ctl = new AbortController();
     abort.current = ctl;
-    if (look === "avatar" && file.type.startsWith("image/")) setPreview(URL.createObjectURL(file));
     setState({ kind: "sending", file, p: 0 });
     setSay(`Uploading ${file.name}`);
     lastSaid.current = 0;
@@ -92,15 +85,15 @@ export function UploadButton({ look = "button", accept, maxBytes, upload = simul
         setState({ kind: "error", file, message }); setSay(`Upload failed. ${message}`);
       },
     );
-  }, [accept, maxBytes, look, upload, onUploaded]);
+  }, [accept, maxBytes, upload, onUploaded]);
 
   const pick = () => input.current?.click();
   const cancel = () => {
     abort.current?.abort();
-    setState({ kind: "idle" }); setPreview(null); setSay("Upload cancelled");
+    setState({ kind: "idle" }); setSay("Upload cancelled");
     requestAnimationFrame(() => trigger.current?.focus());
   };
-  const reset = () => { setState({ kind: "idle" }); setPreview(null); requestAnimationFrame(() => trigger.current?.focus()); };
+  const reset = () => { setState({ kind: "idle" }); requestAnimationFrame(() => trigger.current?.focus()); };
   const retry = () => { if (state.kind === "error" && state.file) start(state.file); else pick(); };
 
   const drag = {
@@ -124,63 +117,6 @@ export function UploadButton({ look = "button", accept, maxBytes, upload = simul
       <button type="button" className="upl__link" onClick={state.file ? retry : pick}>{state.file ? "Retry" : "Choose another"}</button>
     </span>
   );
-
-  if (look === "avatar") {
-    const r = 47, c = 2 * Math.PI * r;
-    return (
-      <div className={`upl upl--${theme} upl--avatar ${className}`} data-state={state.kind} data-over={over || undefined}>
-        <button ref={trigger} type="button" className="upl__face" onClick={busy ? undefined : pick} aria-busy={busy || undefined}
-          aria-label={state.kind === "done" ? "Change photo" : busy ? `Uploading photo, ${pct} percent` : label ?? "Add a photo"} {...drag}>
-          {preview ? <img src={preview} alt="" /> : <span className="upl__face-icon"><Camera /></span>}
-          <svg className="upl__ring" viewBox="0 0 100 100" aria-hidden="true">
-            <circle cx="50" cy="50" r={r} />
-            <circle cx="50" cy="50" r={r} style={{ strokeDasharray: c, strokeDashoffset: c * (1 - (busy ? state.p : state.kind === "done" ? 1 : 0)) }} />
-          </svg>
-          {state.kind === "done" && <span className="upl__badge"><Pen /></span>}
-          {busy && <span className="upl__pct">{pct}%</span>}
-        </button>
-        <div className="upl__caption">
-          {state.kind === "idle" && <><strong>{label ?? "Add a photo"}</strong><span>{hint ?? "Click or drop an image"}</span></>}
-          {busy && <><strong>Uploading…</strong><button type="button" className="upl__link" onClick={cancel}>Cancel</button></>}
-          {state.kind === "done" && <><strong className="upl__ok"><Tick /> Photo updated</strong><button type="button" className="upl__link" onClick={reset}>Remove</button></>}
-          {errorLine}
-        </div>
-        {hiddenInput}{status}
-      </div>
-    );
-  }
-
-  if (look === "drop") {
-    return (
-      <div className={`upl upl--${theme} upl--drop ${className}`} data-state={state.kind} data-over={over || undefined} {...drag}>
-        {busy || state.kind === "done" ? (
-          <div className="upl__card">
-            <span className="upl__doc"><Doc /></span>
-            <span className="upl__meta">
-              <strong title={file!.name}>{middle(file!.name, 26)}</strong>
-              <small>{busy ? `${formatBytes(Math.round(file!.size * state.p))} of ${formatBytes(file!.size)}` : `${formatBytes(file!.size)} · uploaded`}</small>
-              <span className="upl__bar" role="progressbar" aria-label={`Uploading ${file!.name}`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={busy ? pct : 100}>
-                <i style={{ transform: `scaleX(${busy ? state.p : 1})` }} />
-              </span>
-            </span>
-            {busy
-              ? <><span className="upl__num">{pct}%</span><button type="button" className="upl__x" onClick={cancel} aria-label={`Cancel uploading ${file!.name}`}><X /></button></>
-              : <><span className="upl__done" aria-hidden="true"><Tick /></span><button ref={trigger} type="button" className="upl__link" onClick={reset}>Upload another</button></>}
-          </div>
-        ) : (
-          <button ref={trigger} type="button" className="upl__zone" onClick={pick}>
-            <span className="upl__cloud"><Cloud /></span>
-            <span className="upl__lines">
-              <strong>{over ? "Drop to upload" : <>Drop a file here or <u>browse</u></>}</strong>
-              <small>{hint ?? "PDF, PNG or JPG, up to 20 MB"}</small>
-            </span>
-          </button>
-        )}
-        {errorLine}
-        {hiddenInput}{status}
-      </div>
-    );
-  }
 
   return (
     <div className={`upl upl--${theme} upl--button ${className}`} data-state={state.kind} data-over={over || undefined}>

@@ -1,0 +1,48 @@
+.ccbk {
+  --ccbk-ink: #0d0d0e;
+  --ccbk-accent: #ff5a1f;
+  --ccbk-wash: rgb(255 90 31 / 0.1);
+  --ccbk-focus: #ff5a1f;
+  --ccbk-arm: 10px;
+  --ccbk-out: 5px;
+  --ccbk-bracket: color-mix(in srgb, var(--ccbk-ink) 55%, transparent);
+  position: relative; display: inline-flex; align-items: center; justify-content: center; height: 46px; padding: 0 24px; border: 0; border-radius: 0;
+  color: var(--ccbk-ink); background: transparent;
+  font: 600 13.5px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+  cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color 0.25s, translate 0.12s;
+}
+.ccbk--dark {
+  --ccbk-ink: #f1f1ef;
+  --ccbk-accent: #c6ff3d;
+  --ccbk-wash: rgb(198 255 61 / 0.1);
+  --ccbk-focus: #c6ff3d;
+}
+.ccbk--solid { background: color-mix(in srgb, var(--ccbk-ink) 7%, transparent); }
+.ccbk--sm { height: 36px; padding: 0 16px; font-size: 12px; }
+.ccbk--lg { height: 54px; padding: 0 30px; font-size: 14.5px; }
+.ccbk:active { translate: 0 1px; }
+.ccbk:disabled { cursor: not-allowed; opacity: 0.45; }
+/* Closing in: the brackets step onto the corners and grow, and the label opens up. */
+.ccbk:hover, .ccbk:focus-visible { --ccbk-arm: 14px; --ccbk-out: 0px; --ccbk-bracket: var(--ccbk-accent); background: var(--ccbk-wash); }
+.ccbk:focus-visible { outline: 2px solid var(--ccbk-focus); outline-offset: 8px; }
+
+.ccbk__label { position: relative; display: inline-flex; align-items: center; gap: 10px; letter-spacing: inherit; transition: letter-spacing 0.3s; }
+.ccbk:hover .ccbk__label { letter-spacing: 0.12em; }
+.ccbk__icon { display: grid; place-items: center; width: 15px; height: 15px; transition: translate 0.2s cubic-bezier(0.3, 0.7, 0.3, 1); }
+.ccbk__icon svg { width: 100%; height: 100%; }
+.ccbk:hover .ccbk__icon { translate: 3px 0; }
+.ccbk__corners { position: absolute; inset: calc(var(--ccbk-out) * -1); pointer-events: none; transition: inset 0.3s cubic-bezier(0.3, 0.7, 0.2, 1); }
+.ccbk__corners i { position: absolute; width: var(--ccbk-arm); height: var(--ccbk-arm); border: 0 solid var(--ccbk-bracket); transition: width 0.3s, height 0.3s, border-color 0.2s; }
+.ccbk__corners i:nth-child(1) { top: 0; left: 0; border-top-width: 1.5px; border-left-width: 1.5px; }
+.ccbk__corners i:nth-child(2) { top: 0; right: 0; border-top-width: 1.5px; border-right-width: 1.5px; }
+.ccbk__corners i:nth-child(3) { bottom: 0; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+.ccbk__corners i:nth-child(4) { bottom: 0; left: 0; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+
+/* The demo page: one theme, the buttons in the middle. */
+.ccbk-demo { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; align-content: center; gap: 28px; width: 100%; min-height: 100%; padding: 32px 16px; }
+.ccbk-demo--light { background: #efefec; }
+.ccbk-demo--dark { background: #0b0b0c; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ccbk, .ccbk__label, .ccbk__icon, .ccbk__corners, .ccbk__corners i { transition: none; }
+}

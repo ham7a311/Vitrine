@@ -1,0 +1,80 @@
+.chgl {
+  --chgl-ink: #18181b;
+  --chgl-soft: #6b6b73;
+  --chgl-faint: #a1a1aa;
+  --chgl-card: #ffffff;
+  --chgl-line: #e6e6ea;
+  --chgl-chip: #f3f3f5;
+  --chgl-accent: #2563eb;
+  --chgl-ok: #15803d;
+  --chgl-bad: #c81e1e;
+  --chgl-run: #b45309;
+  --chgl-deploy: #18181b;
+  --chgl-merge: #7c3aed;
+  --chgl-alert: #dc2626;
+  --chgl-invite: #0e7490;
+  --chgl-release: #2563eb;
+  --chgl-new: #1d4fd8; --chgl-new-bg: #e9f0ff;
+  --chgl-improved: #6b2fd6; --chgl-improved-bg: #f2ecff;
+  --chgl-fixed: #13703a; --chgl-fixed-bg: #e7f6ec;
+  --chgl-focus: #2563eb;
+  position: relative; display: grid; gap: 18px; width: 100%; color: var(--chgl-ink);
+  font: 400 14.5px/1.5 "Inter", ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.005em;
+}
+.chgl--dark {
+  --chgl-ink: #ececef;
+  --chgl-soft: #a1a1aa;
+  --chgl-faint: #6b6b73;
+  --chgl-card: #111113;
+  --chgl-line: #26262b;
+  --chgl-chip: #1c1c20;
+  --chgl-accent: #6ea8fe;
+  --chgl-ok: #3fb950;
+  --chgl-bad: #ff6369;
+  --chgl-run: #f5b14c;
+  --chgl-deploy: #ececef;
+  --chgl-merge: #a98bff;
+  --chgl-alert: #ff6369;
+  --chgl-invite: #46c6db;
+  --chgl-release: #6ea8fe;
+  --chgl-new: #8db3ff; --chgl-new-bg: #0f1b33;
+  --chgl-improved: #c4a6ff; --chgl-improved-bg: #1d1430;
+  --chgl-fixed: #6fdc93; --chgl-fixed-bg: #0f2416;
+  --chgl-focus: #6ea8fe;
+}
+.chgl :focus-visible { outline: 2px solid var(--chgl-focus); outline-offset: 2px; }
+.chgl h3, .chgl h4 { margin: 0; }
+.chgl__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.chgl__head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.chgl__head h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; }
+/* Changelog: dates and versions on the left, notes on the right, a rail between. */
+.chgl__releases { display: grid; margin: 0; padding: 0; list-style: none; }
+.chgl__release { position: relative; display: grid; grid-template-columns: 8.5rem 20px 1fr; gap: 0 14px; padding-bottom: 26px; }
+.chgl__release::before { content: ""; position: absolute; left: calc(8.5rem + 14px + 9.5px); top: 18px; bottom: 0; width: 1px; background: var(--chgl-line); }
+.chgl__release:last-child::before { display: none; }
+.chgl__when { display: grid; justify-items: end; align-content: start; gap: 4px; padding-top: 1px; }
+.chgl__version { padding: 1px 8px; border-radius: 6px; color: var(--chgl-ink); background: var(--chgl-chip); box-shadow: inset 0 0 0 1px var(--chgl-line); font: 500 12.5px/1.6 ui-monospace, "SF Mono", Menlo, monospace; }
+.chgl__when time { color: var(--chgl-soft); font-size: 13px; }
+.chgl__dot { width: 11px; height: 11px; margin: 6px 0 0 4.5px; border-radius: 50%; background: var(--chgl-card); box-shadow: inset 0 0 0 2px var(--chgl-faint); }
+.chgl__release[data-latest] .chgl__dot { background: var(--chgl-accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--chgl-accent) 18%, transparent); }
+.chgl__notes h4 { font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em; }
+.chgl__notes ul { display: grid; gap: 7px; margin: 10px 0 0; padding: 0; list-style: none; color: var(--chgl-soft); }
+.chgl__notes li { display: flex; align-items: baseline; gap: 10px; }
+.chgl__tag { flex: none; width: 6.2em; padding: 0 7px; border-radius: 5px; font-size: 11.5px; font-weight: 600; line-height: 1.75; text-align: center; }
+.chgl__tag--new { color: var(--chgl-new); background: var(--chgl-new-bg); }
+.chgl__tag--improved { color: var(--chgl-improved); background: var(--chgl-improved-bg); }
+.chgl__tag--fixed { color: var(--chgl-fixed); background: var(--chgl-fixed-bg); }
+
+@media (max-width: 34rem) {
+  .chgl__release { grid-template-columns: 20px 1fr; }
+  .chgl__release::before { left: 9.5px; }
+  .chgl__when { grid-column: 2; grid-row: 1; display: flex; justify-items: start; gap: 8px; margin-bottom: 6px; }
+  .chgl__dot { grid-column: 1; grid-row: 1; }
+  .chgl__notes { grid-column: 2; }
+}
+
+/* The demo page: one theme. */
+.chgl-demo { display: grid; align-content: center; width: 100%; min-height: 100%; padding: clamp(20px, 4.5vw, 48px); }
+.chgl-demo > .chgl { width: min(100%, 40rem); margin: 0 auto; }
+.chgl-demo--light { background: #fafafa; }
+.chgl-demo--dark { background: #0b0b0c; }

@@ -3,12 +3,8 @@
   --prgb-soft: #6b6b73;
   --prgb-track: #ececef;
   --prgb-fill: #18181b;
-  --prgb-buffer: #c9c9cf;
   --prgb-done: #15803d;
-  --prgb-g1: #06b6d4;
-  --prgb-g2: #3b82f6;
-  --prgb-g3: #a855f7;
-  --prgb-g4: #ec4899;
+  --prgb-buffer: #c9c9cf;
   --prgb-h: 8px;
   display: grid; gap: 10px; width: 100%; color: var(--prgb-ink);
   font: 500 14px/1.3 "Inter", ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.01em;
@@ -18,69 +14,23 @@
   --prgb-soft: #a1a1aa;
   --prgb-track: #232327;
   --prgb-fill: #ececef;
-  --prgb-buffer: #4a4a52;
   --prgb-done: #3fb950;
+  --prgb-buffer: #4a4a52;
 }
 .prgb--sm { --prgb-h: 4px; gap: 8px; font-size: 13px; }
 .prgb--lg { --prgb-h: 12px; }
 .prgb__row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
 .prgb__value { color: var(--prgb-soft); font-weight: 400; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-/* Linear */
 .prgb__track { position: relative; height: var(--prgb-h); overflow: hidden; border-radius: 999px; background: var(--prgb-track); }
 .prgb__buffer, .prgb__fill { position: absolute; inset: 0; border-radius: inherit; transform-origin: left; }
 .prgb__buffer { background: var(--prgb-buffer); transition: transform 0.4s ease-out; }
 .prgb__fill { background: var(--prgb-fill); transform: scaleX(var(--prgb-v)); transition: transform 0.45s cubic-bezier(0.3, 0.7, 0.3, 1), background-color 0.3s; }
 .prgb--full .prgb__fill { background: var(--prgb-done); }
 
-/* Segmented: equal steps with a little air between them. */
-.prgb__steps { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; }
-.prgb__step { height: var(--prgb-h); overflow: hidden; border-radius: 3px; background: var(--prgb-track); }
-.prgb__step i { display: block; height: 100%; background: var(--prgb-fill); transform-origin: left; transition: transform 0.4s cubic-bezier(0.3, 0.7, 0.3, 1); }
-.prgb--full .prgb__step i { background: var(--prgb-done); }
+@media (prefers-reduced-motion: reduce) { .prgb__fill, .prgb__buffer { transition: none; } }
 
-/* Indeterminate: a bar that slides and stretches, or moving stripes. */
-.prgb__slide { position: absolute; top: 0; bottom: 0; left: 0; width: 40%; border-radius: inherit; background: var(--prgb-fill); animation: prgb-slide 1.5s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
-.prgb__track[data-striped] { background: repeating-linear-gradient(-45deg, var(--prgb-fill) 0 6px, var(--prgb-track) 6px 12px); background-size: 17px 17px; animation: prgb-stripes 0.6s linear infinite; opacity: 0.85; }
-.prgb__track[data-striped] .prgb__slide { display: none; }
-
-/* Gradient: the full gradient spans the track, so the colours arrive as the bar grows; a soft glow leads it. */
-.prgb--gradient .prgb__fill {
-  background: linear-gradient(90deg, var(--prgb-g1), var(--prgb-g2) 35%, var(--prgb-g3) 70%, var(--prgb-g4)); transform: none;
-  clip-path: inset(0 calc((1 - var(--prgb-v)) * 100%) 0 0 round 999px); transition: clip-path 0.45s cubic-bezier(0.3, 0.7, 0.3, 1);
-}
-.prgb--gradient .prgb__track { overflow: visible; }
-.prgb--gradient .prgb__track::after {
-  content: ""; position: absolute; top: 50%; left: calc(var(--prgb-v) * 100%); width: 18px; height: 18px; margin: -9px 0 0 -12px; border-radius: 50%;
-  background: var(--prgb-g3); filter: blur(8px); opacity: calc(min(var(--prgb-v) * 12, 1) * 0.8); pointer-events: none; transition: left 0.45s cubic-bezier(0.3, 0.7, 0.3, 1);
-}
-
-/* Ring */
-.prgb--ring { display: inline-grid; grid-template-columns: auto auto; align-items: center; gap: 14px; width: auto; }
-.prgb__ring { grid-area: 1 / 1; width: 72px; height: 72px; rotate: -90deg; }
-.prgb--lg .prgb__ring { width: 96px; height: 96px; }
-.prgb--sm .prgb__ring { width: 48px; height: 48px; }
-.prgb__ring circle { fill: none; stroke-width: 6; }
-.prgb__ring circle:first-child { stroke: var(--prgb-track); }
-.prgb__ring circle:last-child { stroke: var(--prgb-fill); stroke-linecap: round; transition: stroke-dashoffset 0.5s cubic-bezier(0.3, 0.7, 0.3, 1), stroke 0.3s; }
-.prgb--full .prgb__ring circle:last-child { stroke: var(--prgb-done); }
-.prgb__center { grid-area: 1 / 1; place-self: center; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.prgb--sm .prgb__center { font-size: 11.5px; }
-.prgb__caption { display: grid; gap: 3px; }
-.prgb__caption small { color: var(--prgb-soft); font-size: 13px; font-weight: 400; font-variant-numeric: tabular-nums; }
-
-@keyframes prgb-slide { 0% { translate: -100% 0; scale: 0.6 1; } 50% { scale: 1.2 1; } 100% { translate: 260% 0; scale: 0.6 1; } }
-@keyframes prgb-stripes { to { background-position: 17px 0; } }
-
-/* The demo's panels. */
-.prgb-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); width: 100%; min-height: 100%; }
-.prgb-demo__panel { display: grid; align-content: center; gap: 28px; padding: clamp(24px, 5vw, 56px); }
-.prgb-demo__panel--light { background: #ffffff; }
-.prgb-demo__panel--dark { background: #0b0b0c; }
-.prgb-demo__rings { display: flex; flex-wrap: wrap; gap: 24px 36px; }
-
-@media (prefers-reduced-motion: reduce) {
-  .prgb__fill, .prgb__buffer, .prgb__step i, .prgb__ring circle:last-child, .prgb--gradient .prgb__track::after { transition: none; }
-  .prgb__slide { animation-duration: 3s; }
-  .prgb__track[data-striped] { animation: none; }
-}
+/* The demo page: one theme, a few examples. */
+.prgb-demo { display: grid; align-content: center; gap: 28px; width: 100%; min-height: 100%; padding: clamp(24px, 5vw, 56px);  }
+.prgb-demo--light { background: #ffffff; }
+.prgb-demo--dark { background: #0b0b0c; }

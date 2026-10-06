@@ -14,14 +14,5 @@ export function next(phase: Phase, e: Event): Phase {
   }
 }
 
-/** How full a hold-to-confirm button is after holding for `held` ms; it drains at twice the speed. */
-export function holdLevel(level: number, dt: number, holding: boolean, duration: number) {
-  const step = dt / duration;
-  return Math.min(1, Math.max(0, holding ? level + step : level - step * 2));
-}
-
-/** Type-to-confirm matches the exact name, ignoring surrounding spaces. */
-export const matches = (typed: string, name: string) => typed.trim() === name;
-
 /** Seconds left in a countdown, rounded up, never negative. */
 export const secondsLeft = (ms: number) => Math.max(0, Math.ceil(ms / 1000));

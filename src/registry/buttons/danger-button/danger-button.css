@@ -1,7 +1,6 @@
 .dgr {
   --dgr-ink: #171717;
   --dgr-soft: #5f5f5f;
-  --dgr-paper: #ffffff;
   --dgr-card: #ffffff;
   --dgr-edge: #e3e3e3;
   --dgr-red: #dc2626;
@@ -18,7 +17,6 @@
 .dgr--dark {
   --dgr-ink: #ededed;
   --dgr-soft: #a1a1a1;
-  --dgr-paper: #0a0a0a;
   --dgr-card: #111111;
   --dgr-edge: #2a2a2a;
   --dgr-red: #e5484d;
@@ -34,45 +32,11 @@
 .dgr svg { width: 16px; height: 16px; flex: none; }
 .dgr__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .dgr button { font: inherit; letter-spacing: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-
-/* The resting button: quiet red outline that fills on hover. */
-.dgr__btn {
-  position: relative; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 18px; overflow: hidden; isolation: isolate;
-  color: var(--dgr-red-ink); background: var(--dgr-red-wash); border: 1px solid var(--dgr-red-edge); border-radius: 10px;
-  transition: background-color 0.15s, color 0.15s, border-color 0.15s, scale 0.12s; animation: dgr-in 0.2s ease-out;
-}
-.dgr__btn:hover { color: #ffffff; background: var(--dgr-red); border-color: var(--dgr-red); }
-.dgr__btn:active { scale: 0.97; }
-
-/* Hold: a red fill grows from the left while held, and drains when let go. */
-.dgr__btn--hold { touch-action: none; user-select: none; -webkit-user-select: none; min-width: 13.5rem; justify-content: center; }
-.dgr__btn--hold:hover { color: var(--dgr-red-ink); background: var(--dgr-red-wash); border-color: var(--dgr-red); }
-.dgr__fill { position: absolute; inset: -1px; display: flex; align-items: center; justify-content: center; color: #ffffff; background: var(--dgr-red); clip-path: inset(0 100% 0 0); }
-.dgr__face { display: inline-flex; align-items: center; gap: 8px; }
-.dgr__btn--hold[data-holding] { border-color: var(--dgr-red); }
-.dgr__hint { min-height: 1.2em; color: var(--dgr-soft); font-size: 13px; font-weight: 400; }
-
-/* Inline question: the button opens into a short sentence with a safe and a destructive answer. */
-.dgr__ask {
-  position: relative; display: inline-flex; align-items: center; gap: 6px; height: 42px; padding: 0 4px 0 14px; overflow: hidden;
-  background: var(--dgr-card); border: 1px solid var(--dgr-red-edge); border-radius: 10px; box-shadow: 0 6px 20px rgb(0 0 0 / 0.08);
-  animation: dgr-open 0.22s cubic-bezier(0.3, 0.7, 0.3, 1);
-}
-.dgr__q { margin-right: 6px; font-weight: 400; white-space: nowrap; }
-.dgr__q b, .dgr__state b { font-weight: 600; }
-.dgr__plain, .dgr__solid { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 7px; white-space: nowrap; transition: background-color 0.15s, scale 0.12s, opacity 0.15s; }
-.dgr__plain { color: var(--dgr-ink); background: transparent; border: 1px solid var(--dgr-edge); }
-.dgr__plain:hover:not(:disabled) { background: color-mix(in srgb, var(--dgr-ink) 6%, transparent); }
-.dgr__solid { color: #ffffff; background: var(--dgr-red); border: 1px solid var(--dgr-red); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.15); }
-.dgr__solid:hover:not(:disabled) { background: var(--dgr-red-hover); }
-.dgr__plain:active:not(:disabled), .dgr__solid:active:not(:disabled) { scale: 0.97; }
 .dgr button:disabled { cursor: not-allowed; opacity: 0.45; }
-/* A hairline that runs out while the question waits; pointing at it holds it. */
-.dgr__timer { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--dgr-red); transform-origin: left; animation: dgr-run linear forwards; opacity: 0.7; }
-.dgr__ask[data-paused] .dgr__timer { animation-play-state: paused; opacity: 0.3; }
 
 /* Working, done with undo, and gone. */
 .dgr__state { display: inline-flex; align-items: center; gap: 10px; min-height: 42px; color: var(--dgr-soft); font-weight: 400; animation: dgr-in 0.2s ease-out; }
+.dgr__state b { font-weight: 600; }
 .dgr__state--done { color: var(--dgr-ink); }
 .dgr__state--gone svg { color: var(--dgr-soft); }
 .dgr__spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--dgr-red); border-right-color: transparent; animation: dgr-spin 0.7s linear infinite; }
@@ -88,38 +52,47 @@
 .dgr__clock circle:first-child { stroke: var(--dgr-edge); }
 .dgr__clock circle:last-child { stroke: var(--dgr-ink); stroke-linecap: round; transition: stroke-dashoffset 0.1s linear; }
 
-/* Type to confirm: a danger-zone card. */
-.dgr--type { display: block; width: min(100%, 30rem); }
-.dgr__card { display: grid; gap: 10px; padding: 22px; background: var(--dgr-card); border: 1px solid var(--dgr-red-edge); border-radius: 14px; }
-.dgr__card h3 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.015em; }
-.dgr__card > p { margin: 0 0 6px; color: var(--dgr-soft); font-size: 14px; font-weight: 400; line-height: 1.5; }
-.dgr__card form { display: grid; gap: 8px; }
-.dgr__card label { color: var(--dgr-soft); font-size: 13.5px; font-weight: 400; }
-.dgr__card code { padding: 1px 6px; color: var(--dgr-ink); background: color-mix(in srgb, var(--dgr-ink) 7%, transparent); border-radius: 5px; font: 500 13px ui-monospace, "SF Mono", Menlo, monospace; }
-.dgr__card input {
-  height: 40px; padding: 0 12px; color: var(--dgr-ink); background: var(--dgr-field); border: 1px solid var(--dgr-edge); border-radius: 8px;
-  font: 400 14.5px ui-monospace, "SF Mono", Menlo, monospace; outline: none; transition: border-color 0.15s, box-shadow 0.15s;
-}
-.dgr__card input:focus { border-color: var(--dgr-red); box-shadow: 0 0 0 3px color-mix(in srgb, var(--dgr-red) 20%, transparent); }
-.dgr__actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
-.dgr__actions .dgr__plain, .dgr__actions .dgr__solid { height: 38px; padding: 0 14px; }
-.dgr__after { padding-top: 4px; }
-
 @keyframes dgr-in { from { opacity: 0; translate: 0 3px; } }
-@keyframes dgr-open { from { opacity: 0; clip-path: inset(0 60% 0 0 round 10px); } to { opacity: 1; clip-path: inset(0 0 0 0 round 10px); } }
-@keyframes dgr-run { to { transform: scaleX(0); } }
 @keyframes dgr-spin { to { rotate: 1turn; } }
 @keyframes dgr-pop { from { scale: 0.4; } }
 
-/* The demo's light and dark panels. */
-.dgr-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); width: 100%; min-height: 100%; }
-.dgr-demo__panel { display: grid; place-items: center; padding: clamp(28px, 6vw, 64px) clamp(16px, 4vw, 48px); }
-.dgr-demo__panel--light { background: #fafafa; }
-.dgr-demo__panel--dark { background: #0a0a0a; }
+/* The demo page: one theme, the control in the middle. */
+.dgr-demo { display: grid; place-items: center; width: 100%; min-height: 100%; padding: 32px 16px; }
+.dgr-demo--light { background: #fafafa; }
+.dgr-demo--dark { background: #0a0a0a; }
+
+/* The resting button: a quiet red outline that fills on hover. */
+.dgr__btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 18px; color: var(--dgr-red-ink); background: var(--dgr-red-wash);
+  border: 1px solid var(--dgr-red-edge); border-radius: 10px; transition: background-color 0.15s, color 0.15s, border-color 0.15s, scale 0.12s; animation: dgr-in 0.2s ease-out;
+}
+.dgr__btn:hover { color: #ffffff; background: var(--dgr-red); border-color: var(--dgr-red); }
+.dgr__btn:active { scale: 0.97; }
+
+/* The question: the button opens into a sentence with a safe and a destructive answer. */
+.dgr__ask {
+  position: relative; display: inline-flex; align-items: center; gap: 6px; height: 42px; padding: 0 4px 0 14px; overflow: hidden;
+  background: var(--dgr-card); border: 1px solid var(--dgr-red-edge); border-radius: 10px; box-shadow: 0 6px 20px rgb(0 0 0 / 0.08);
+  animation: dgr-open 0.22s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+.dgr__q { margin-right: 6px; font-weight: 400; white-space: nowrap; }
+.dgr__q b { font-weight: 600; }
+.dgr__plain, .dgr__solid { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 7px; white-space: nowrap; transition: background-color 0.15s, scale 0.12s; }
+.dgr__plain { color: var(--dgr-ink); background: transparent; border: 1px solid var(--dgr-edge); }
+.dgr__plain:hover { background: color-mix(in srgb, var(--dgr-ink) 6%, transparent); }
+.dgr__solid { color: #ffffff; background: var(--dgr-red); border: 1px solid var(--dgr-red); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.15); }
+.dgr__solid:hover { background: var(--dgr-red-hover); }
+.dgr__plain:active, .dgr__solid:active { scale: 0.97; }
+/* A hairline that runs out while the question waits; pointing at it holds it. */
+.dgr__timer { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--dgr-red); transform-origin: left; animation: dgr-run linear forwards; opacity: 0.7; }
+.dgr__ask[data-paused] .dgr__timer { animation-play-state: paused; opacity: 0.3; }
+
+@keyframes dgr-open { from { opacity: 0; clip-path: inset(0 60% 0 0 round 10px); } to { opacity: 1; clip-path: inset(0 0 0 0 round 10px); } }
+@keyframes dgr-run { to { transform: scaleX(0); } }
 
 @media (max-width: 30rem) { .dgr__q { display: none; } }
 @media (prefers-reduced-motion: reduce) {
-  .dgr__btn, .dgr__ask, .dgr__state, .dgr__tick { animation: none; }
-  .dgr__btn, .dgr__plain, .dgr__solid { transition: none; }
+  .dgr__state, .dgr__tick, .dgr__btn, .dgr__ask { animation: none; }
   .dgr__spin { animation-duration: 1.6s; }
 }
+@media (prefers-reduced-motion: reduce) { .dgr__btn, .dgr__plain, .dgr__solid { transition: none; } }

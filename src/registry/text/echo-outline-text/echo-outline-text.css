@@ -1,0 +1,29 @@
+.eotx {
+  --eotx-ink: #111214;
+  --eotx-page: #f4f3ef;
+  --eotx-accent: #ff4d1c;
+  --eotx-stroke: 1.5px;
+  display: block; color: var(--eotx-ink); container-type: inline-size;
+  font-family: "Inter", "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.eotx--dark {
+  --eotx-ink: #f1f0ec;
+  --eotx-page: #0b0b0c;
+  --eotx-accent: #d4ff3a;
+}
+.eotx h2 { margin: 0; font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; text-transform: uppercase; }
+/* Outlines stacked behind a solid word, offset along --eotx-dx and --eotx-dy. */
+.eotx { display: grid; place-items: center; padding: clamp(24px, 6cqi, 72px) 16px; overflow: hidden; }
+.eotx__echo { display: grid; font-size: clamp(64px, 17cqi, 260px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.9; text-transform: uppercase; }
+.eotx__echo > span { grid-area: 1 / 1; white-space: nowrap; }
+.eotx__ghost { color: transparent; -webkit-text-stroke: var(--eotx-stroke) var(--eotx-ink); transform: translate(calc(var(--eotx-dx, 6px) * var(--k)), calc(var(--eotx-dy, 6px) * var(--k))); opacity: calc(1 - var(--k) * 0.14); transition: transform 0.55s cubic-bezier(0.2, 0.9, 0.2, 1); }
+.eotx__ghost:first-child { -webkit-text-stroke-color: var(--eotx-accent); }
+.eotx__front { position: relative; color: var(--eotx-ink); }
+
+@media (forced-colors: active) { .eotx__ghost { color: CanvasText; -webkit-text-stroke: 0; } }
+@media (prefers-reduced-motion: reduce) { .eotx__ghost { transition: none; } }
+
+/* The demo page: one theme. */
+.eotx-demo { display: grid; align-content: center; width: 100%; min-height: 100%;  }
+.eotx-demo--light { background: #f4f3ef; }
+.eotx-demo--dark { background: #0b0b0c; }

@@ -1,0 +1,79 @@
+.hdlb {
+  --hdlb-ink: #171717;
+  --hdlb-soft: #5f5f5f;
+  --hdlb-card: #ffffff;
+  --hdlb-edge: #e3e3e3;
+  --hdlb-red: #dc2626;
+  --hdlb-red-hover: #b91c1c;
+  --hdlb-red-wash: #fef2f2;
+  --hdlb-red-edge: #fecaca;
+  --hdlb-red-ink: #b91c1c;
+  --hdlb-ok: #15803d;
+  --hdlb-field: #ffffff;
+  --hdlb-focus: #2563eb;
+  position: relative; display: inline-grid; justify-items: start; gap: 8px; color: var(--hdlb-ink);
+  font: 500 15px/1.2 "Inter", ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.01em;
+}
+.hdlb--dark {
+  --hdlb-ink: #ededed;
+  --hdlb-soft: #a1a1a1;
+  --hdlb-card: #111111;
+  --hdlb-edge: #2a2a2a;
+  --hdlb-red: #e5484d;
+  --hdlb-red-hover: #f2555a;
+  --hdlb-red-wash: #2a1215;
+  --hdlb-red-edge: #5c1f24;
+  --hdlb-red-ink: #ff6369;
+  --hdlb-ok: #3fb950;
+  --hdlb-field: #0a0a0a;
+  --hdlb-focus: #6ea8fe;
+}
+.hdlb :focus-visible { outline: 2px solid var(--hdlb-focus); outline-offset: 2px; }
+.hdlb svg { width: 16px; height: 16px; flex: none; }
+.hdlb__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.hdlb button { font: inherit; letter-spacing: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.hdlb button:disabled { cursor: not-allowed; opacity: 0.45; }
+
+/* Working, done with undo, and gone. */
+.hdlb__state { display: inline-flex; align-items: center; gap: 10px; min-height: 42px; color: var(--hdlb-soft); font-weight: 400; animation: hdlb-in 0.2s ease-out; }
+.hdlb__state b { font-weight: 600; }
+.hdlb__state--done { color: var(--hdlb-ink); }
+.hdlb__state--gone svg { color: var(--hdlb-soft); }
+.hdlb__spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--hdlb-red); border-right-color: transparent; animation: hdlb-spin 0.7s linear infinite; }
+.hdlb__tick { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: #ffffff; background: var(--hdlb-ok); animation: hdlb-pop 0.3s cubic-bezier(0.3, 1.5, 0.5, 1); }
+.hdlb__tick svg { width: 13px; height: 13px; }
+.hdlb__undo {
+  display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px 0 12px; color: var(--hdlb-ink); background: transparent;
+  border: 1px solid var(--hdlb-edge); border-radius: 999px; font-weight: 500;
+}
+.hdlb__undo:hover { background: color-mix(in srgb, var(--hdlb-ink) 6%, transparent); }
+.hdlb__clock { width: 18px !important; height: 18px !important; rotate: -90deg; }
+.hdlb__clock circle { fill: none; stroke-width: 2; }
+.hdlb__clock circle:first-child { stroke: var(--hdlb-edge); }
+.hdlb__clock circle:last-child { stroke: var(--hdlb-ink); stroke-linecap: round; transition: stroke-dashoffset 0.1s linear; }
+
+@keyframes hdlb-in { from { opacity: 0; translate: 0 3px; } }
+@keyframes hdlb-spin { to { rotate: 1turn; } }
+@keyframes hdlb-pop { from { scale: 0.4; } }
+
+/* The demo page: one theme, the control in the middle. */
+.hdlb-demo { display: grid; place-items: center; width: 100%; min-height: 100%; padding: 32px 16px; }
+.hdlb-demo--light { background: #fafafa; }
+.hdlb-demo--dark { background: #0a0a0a; }
+
+/* Hold: a red fill grows from the left while held and drains when let go. */
+.hdlb__btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; min-width: 13.5rem; height: 42px; padding: 0 18px; overflow: hidden; isolation: isolate;
+  color: var(--hdlb-red-ink); background: var(--hdlb-red-wash); border: 1px solid var(--hdlb-red-edge); border-radius: 10px;
+  touch-action: none; user-select: none; -webkit-user-select: none; animation: hdlb-in 0.2s ease-out;
+}
+.hdlb__btn:hover { border-color: var(--hdlb-red); }
+.hdlb__btn[data-holding] { border-color: var(--hdlb-red); }
+.hdlb__face { display: inline-flex; align-items: center; gap: 8px; }
+.hdlb__fill { position: absolute; inset: -1px; display: flex; align-items: center; justify-content: center; color: #ffffff; background: var(--hdlb-red); clip-path: inset(0 100% 0 0); }
+.hdlb__hint { min-height: 1.2em; color: var(--hdlb-soft); font-size: 13px; font-weight: 400; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hdlb__state, .hdlb__tick, .hdlb__btn { animation: none; }
+  .hdlb__spin { animation-duration: 1.6s; }
+}

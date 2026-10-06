@@ -10,49 +10,41 @@ const Check = () => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" s
 const Alert = () => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2 14.5 13.5h-13Z" /><path d="M8 6.5v3M8 11.6v.1" /></svg>;
 
 // What each kind of button would say in a real product.
-const COPY: Record<CoreVariant, { label: string; act: string; icon: typeof Plus }> = {
-  primary: { label: "Continue", act: "Deploy", icon: Plus },
-  secondary: { label: "Preview", act: "Duplicate", icon: Plus },
-  outline: { label: "Export", act: "Invite", icon: Plus },
-  ghost: { label: "Skip", act: "Settings", icon: Gear },
-  danger: { label: "Delete", act: "Remove", icon: Trash },
-  success: { label: "Approve", act: "Mark done", icon: Check },
-  warning: { label: "Override", act: "Force sync", icon: Alert },
-  link: { label: "Learn more", act: "View docs", icon: Plus },
-};
-const VARIANTS = Object.keys(COPY) as CoreVariant[];
+const STYLES: { id: CoreVariant; name: string; label: string; act: string; icon: typeof Plus }[] = [
+  { id: "primary", name: "Primary", label: "Continue", act: "Deploy", icon: Plus },
+  { id: "secondary", name: "Secondary", label: "Preview", act: "Duplicate", icon: Plus },
+  { id: "outline", name: "Outline", label: "Export", act: "Invite", icon: Plus },
+  { id: "ghost", name: "Ghost", label: "Skip", act: "Settings", icon: Gear },
+  { id: "danger", name: "Danger", label: "Delete", act: "Remove", icon: Trash },
+  { id: "success", name: "Success", label: "Approve", act: "Mark done", icon: Check },
+  { id: "warning", name: "Warning", label: "Override", act: "Force sync", icon: Alert },
+  { id: "link", name: "Link", label: "Learn more", act: "View docs", icon: Arrow },
+];
 
-function Panel({ variant, theme }: { variant: CoreVariant; theme: "light" | "dark" }) {
+function Row({ s, theme }: { s: (typeof STYLES)[number]; theme: "light" | "dark" }) {
   const [busy, setBusy] = useState(false);
-  const c = COPY[variant], Icon = c.icon;
+  const Icon = s.icon;
   const run = () => { setBusy(true); setTimeout(() => setBusy(false), 1600); };
   return (
-    <section className={`cbtn-demo__panel cbtn-demo__panel--${theme}`} aria-label={theme === "dark" ? "On dark" : "On light"}>
-      <h3>Sizes</h3>
-      <div className="cbtn-demo__row">
-        {(["sm", "md", "lg"] as const).map((s) => <CoreButton key={s} variant={variant} size={s} theme={theme}>{c.label}</CoreButton>)}
+    <div className="cbtn-demo__row">
+      <h3>{s.name}</h3>
+      <div className="cbtn-demo__set">
+        {(["sm", "md", "lg"] as const).map((z) => <CoreButton key={z} variant={s.id} size={z} theme={theme}>{s.label}</CoreButton>)}
+        <CoreButton variant={s.id} theme={theme} icon={<Icon />}>{s.act}</CoreButton>
+        <CoreButton variant={s.id} theme={theme} trailing={<Arrow />}>{s.label}</CoreButton>
+        {s.id !== "link" && <CoreButton variant={s.id} theme={theme} aria-label={s.act}><Icon /></CoreButton>}
+        <CoreButton variant={s.id} theme={theme} loading={busy} onClick={run}>Save</CoreButton>
+        <CoreButton variant={s.id} theme={theme} disabled>Unavailable</CoreButton>
       </div>
-      <h3>Icons</h3>
-      <div className="cbtn-demo__row">
-        <CoreButton variant={variant} theme={theme} icon={<Icon />}>{c.act}</CoreButton>
-        <CoreButton variant={variant} theme={theme} trailing={<Arrow />}>{c.label}</CoreButton>
-        {variant !== "link" && <CoreButton variant={variant} theme={theme} aria-label={c.act}><Icon /></CoreButton>}
-      </div>
-      <h3>States</h3>
-      <div className="cbtn-demo__row">
-        <CoreButton variant={variant} theme={theme} loading={busy} onClick={run}>Save changes</CoreButton>
-        <CoreButton variant={variant} theme={theme} disabled>Unavailable</CoreButton>
-      </div>
-    </section>
+    </div>
   );
 }
 
-export default function Demo({ variant = "primary" }: { variant?: string }) {
-  const v = (VARIANTS.includes(variant as CoreVariant) ? variant : "primary") as CoreVariant;
+export default function Demo({ variant = "light" }: { variant?: string }) {
+  const theme = variant === "dark" ? "dark" : "light";
   return (
-    <div className="cbtn-demo">
-      <Panel variant={v} theme="light" />
-      <Panel variant={v} theme="dark" />
+    <div className={`cbtn-demo cbtn-demo--${theme}`}>
+      {STYLES.map((s) => <Row key={s.id} s={s} theme={theme} />)}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { PlatformBadge, PlatformDownloads, type BadgeKind, type BadgeStyle, type OS } from "./PlatformDownloads";
+import { PlatformDownloads, type OS } from "./PlatformDownloads";
 
 const BUILDS = {
   macos: [
@@ -18,45 +18,9 @@ const BUILDS = {
   ],
 };
 const SYSTEMS: [OS, string][] = [["macos", "macOS"], ["windows", "Windows"], ["linux", "Linux"], ["ios", "iOS"], ["android", "Android"]];
-const DESKTOP: BadgeKind[] = ["macos", "windows", "linux"];
-const STORES: BadgeKind[] = ["app-store", "google-play", "microsoft-store", "mac-app-store", "android"];
-
-// Each badge style is its own version, on the page it suits best.
-const BADGE_VERSIONS: Record<string, { style: BadgeStyle; dark: boolean }> = {
-  solid: { style: "solid", dark: false },
-  outline: { style: "outline", dark: true },
-  "soft-light": { style: "light", dark: true },
-};
-
-function Badges({ style, dark }: { style: BadgeStyle; dark: boolean }) {
-  return (
-    <div className={`flex min-h-full w-full items-center justify-center px-4 py-10 ${dark ? "bg-[#060607]" : "bg-[#e9e9e6]"}`}>
-      <div className={`pdl__gallery ${dark ? "pdl__gallery--dark" : ""}`}>
-        <section aria-label="Desktop">
-          <h4>Desktop</h4>
-          <div className="pdl__row">{DESKTOP.map((k) => <PlatformBadge key={k} kind={k} href="#" variant={style} />)}</div>
-        </section>
-        <section aria-label="Stores">
-          <h4>Stores</h4>
-          <div className="pdl__row">{STORES.map((k) => <PlatformBadge key={k} kind={k} href="#" variant={style} />)}</div>
-        </section>
-        <section aria-label="Large">
-          <h4>Large</h4>
-          <div className="pdl__row">
-            <PlatformBadge kind="app-store" href="#" variant={style} size="lg" />
-            <PlatformBadge kind="google-play" href="#" variant={style} size="lg" />
-          </div>
-        </section>
-      </div>
-    </div>
-  );
-}
-
 export default function Demo({ variant = "light" }: { variant?: string }) {
-  const badges = BADGE_VERSIONS[variant];
   const dark = variant === "dark";
   const [os, setOs] = useState<OS>("macos");
-  if (badges) return <Badges {...badges} />;
   return (
     <div className={`min-h-full w-full px-4 py-10 ${dark ? "bg-[#060607]" : "bg-[#e9e9e6]"}`}>
       <div className="mx-auto grid w-full max-w-[44rem] gap-4">

@@ -1,0 +1,31 @@
+.sotx {
+  --sotx-ink: #111214;
+  --sotx-page: #f4f3ef;
+  --sotx-accent: #ff4d1c;
+  --sotx-stroke: 1.5px;
+  display: block; color: var(--sotx-ink); container-type: inline-size;
+  font-family: "Inter", "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.sotx--dark {
+  --sotx-ink: #f1f0ec;
+  --sotx-page: #0b0b0c;
+  --sotx-accent: #d4ff3a;
+}
+.sotx h2 { margin: 0; font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; text-transform: uppercase; }
+/* The hairline: transparent letters with a stroke in the ink colour. */
+.sotx__outline { color: transparent; -webkit-text-stroke: var(--sotx-stroke) var(--sotx-ink); }
+
+/* A sticky stage; each line's ink is clipped to its fill. */
+.sotx { position: relative; background: var(--sotx-page); }
+.sotx__stage { position: sticky; top: 0; display: grid; align-content: center; height: 100svh; min-height: 26rem; padding: 0 clamp(16px, 5cqi, 72px); overflow: hidden; background: var(--sotx-page); }
+.sotx__lines { display: grid; font-size: clamp(40px, 11cqi, 176px); }
+.sotx__line { position: relative; display: block; white-space: nowrap; }
+.sotx__ink { position: absolute; inset: 0; color: var(--sotx-ink); clip-path: inset(0 calc((1 - var(--f)) * 100%) 0 0); }
+.sotx__line:last-child .sotx__ink { color: var(--sotx-accent); }
+
+@media (forced-colors: active) { .sotx__outline { color: CanvasText; -webkit-text-stroke: 0; } }
+
+/* The demo page: one theme. */
+.sotx-demo { display: grid; align-content: center; width: 100%; min-height: 100%;  }
+.sotx-demo--light { background: #f4f3ef; }
+.sotx-demo--dark { background: #0b0b0c; }

@@ -1,0 +1,9 @@
+.orbd { position: relative; isolation: isolate; width: 100%; height: 100%; min-height: 20rem; overflow: hidden; background: var(--orbd-0); }
+.orbd__canvas { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; }
+.orbd[data-fallback] {
+  background:
+    radial-gradient(circle at 50% 92%, var(--orbd-3) 0 7%, color-mix(in srgb, var(--orbd-2) 70%, transparent) 12%, color-mix(in srgb, var(--orbd-1) 55%, transparent) 22%, transparent 48%),
+    var(--orbd-0);
+}
+.orbd[data-fallback] .orbd__canvas { display: none; }
+.orbd__content { position: relative; height: 100%; }

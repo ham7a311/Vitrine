@@ -1,0 +1,38 @@
+.shnt {
+  --shnt-metal-1: #1d1f24;
+  --shnt-metal-2: #5b616c;
+  --shnt-metal-3: #2a2d33;
+  --shnt-glint: #c9d3e0;
+  display: inline; color: transparent; -webkit-background-clip: text; background-clip: text; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.shnt--dark {
+  --shnt-metal-1: #f4f6f9;
+  --shnt-metal-2: #8a919c;
+  --shnt-metal-3: #d9dde3;
+  --shnt-glint: #ffffff;
+}
+.shnt::selection, .shnt *::selection { color: #ffffff; background: #2563eb; }
+
+/* Brushed metal, with a narrow band of light crossing every few seconds. */
+.shnt {
+  background-image:
+    linear-gradient(115deg, transparent 42%, var(--shnt-glint) 49%, var(--shnt-glint) 51%, transparent 58%),
+    linear-gradient(180deg, var(--shnt-metal-1) 0%, var(--shnt-metal-2) 52%, var(--shnt-metal-3) 53%, var(--shnt-metal-1) 100%);
+  background-size: 260% 100%, 100% 100%; background-repeat: no-repeat; background-position: 160% 0, 0 0;
+  animation: shnt-glint 4.2s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+}
+@keyframes shnt-glint { 0% { background-position: 160% 0, 0 0; } 55%, 100% { background-position: -60% 0, 0 0; } }
+
+@media (forced-colors: active) { .shnt { color: CanvasText; background: none; } }
+@media (prefers-reduced-motion: reduce) { .shnt { animation: none; } }
+.shnt--still { animation: none; }
+
+/* The demo: a headline and a sentence on one theme. */
+.shnt-demo { display: grid; align-content: center; gap: clamp(10px, 1.6cqi, 18px); width: 100%; min-height: 100%; padding: clamp(24px, 5cqi, 64px); container-type: inline-size; font-family: "Inter", ui-sans-serif, system-ui, sans-serif; }
+.shnt-demo--light { background: #fbfbfa; color: #17181b; }
+.shnt-demo--dark { background: #08090b; color: #eef0f3; }
+.shnt-demo__eyebrow { margin: 0; color: #6b6e75; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.shnt-demo h2 { margin: 0; max-width: 18ch; font-size: clamp(36px, 6.6cqi, 84px); font-weight: 650; line-height: 1.02; letter-spacing: -0.04em; }
+.shnt-demo p:not(.shnt-demo__eyebrow) { margin: 0; max-width: 42rem; color: #6b6e75; font-size: clamp(15px, 1.5cqi, 19px); line-height: 1.55; }
+.shnt-demo--dark p:not(.shnt-demo__eyebrow) { color: #9a9ea6; }
+.shnt-demo p .shnt { font-weight: 600; }

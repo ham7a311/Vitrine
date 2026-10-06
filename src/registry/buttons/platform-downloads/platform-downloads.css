@@ -1,4 +1,4 @@
-.pdl, .pdl__gallery {
+.pdl {
   --pdl-bg: #f7f7f5;
   --pdl-card: #ffffff;
   --pdl-ink: #141414;
@@ -17,7 +17,7 @@
   color: var(--pdl-ink);
   color-scheme: light;
 }
-.pdl--dark, .pdl__gallery--dark {
+.pdl--dark {
   --pdl-bg: #101011;
   --pdl-card: #17171a;
   --pdl-ink: #f2f2f0;
@@ -34,7 +34,7 @@
   --pdl-focus: #7aa2ff;
   color-scheme: dark;
 }
-.pdl :focus-visible, .pdl__gallery :focus-visible { outline: 2px solid var(--pdl-focus); outline-offset: 3px; }
+.pdl :focus-visible { outline: 2px solid var(--pdl-focus); outline-offset: 3px; }
 .pdl__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
 
 /* Badge */
@@ -133,14 +133,8 @@
 .pdl__grid[hidden] { display: none; }
 .pdl__grid:not([hidden]) { animation: pdl-pop 0.18s ease-out; }
 
-/* A set of badges in one style (the badge-only versions). */
-.pdl__gallery { display: grid; gap: 22px; width: 100%; max-width: 40rem; padding: 30px 32px; background: var(--pdl-bg); border: 1px solid var(--pdl-line); border-radius: 20px; }
-.pdl__gallery h4 { margin: 0 0 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pdl-muted); }
-.pdl__row { display: flex; flex-wrap: wrap; gap: 10px; }
-
 @media (max-width: 520px) {
   .pdl { padding: 18px; }
-  .pdl__gallery { padding: 22px 18px; }
   .pdl__split { display: flex; width: 100%; }
   .pdl__go { flex: 1; min-width: 0; }
   .pdl__go-text small { white-space: normal; }

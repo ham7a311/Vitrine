@@ -4,13 +4,6 @@
   --grdt-c: #7c3aed;
   --grdt-d: #db2777;
   --grdt-e: #ea580c;
-  --grdt-metal-1: #1d1f24;
-  --grdt-metal-2: #5b616c;
-  --grdt-metal-3: #2a2d33;
-  --grdt-glint: #c9d3e0;
-  --grdt-muted: #85888f;
-  --grdt-x: 50%;
-  --grdt-y: 50%;
   display: inline; color: transparent; -webkit-background-clip: text; background-clip: text; -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
 .grdt--dark {
@@ -19,50 +12,27 @@
   --grdt-c: #a78bfa;
   --grdt-d: #f472b6;
   --grdt-e: #fb923c;
-  --grdt-metal-1: #f4f6f9;
-  --grdt-metal-2: #8a919c;
-  --grdt-metal-3: #d9dde3;
-  --grdt-glint: #ffffff;
-  --grdt-muted: #5f636b;
 }
-.grdt::selection, .grdt *::selection { color: var(--grdt-selection, #ffffff); background: var(--grdt-b); }
+.grdt::selection, .grdt *::selection { color: #ffffff; background: #2563eb; }
 
-/* Aurora: a wide multi-stop gradient drifting slowly through the letters. */
-.grdt--aurora {
+/* A wide multi-stop gradient drifting slowly through the letters. */
+.grdt {
   background-image: linear-gradient(100deg, var(--grdt-a), var(--grdt-b) 22%, var(--grdt-c) 42%, var(--grdt-d) 62%, var(--grdt-e) 80%, var(--grdt-a));
   background-size: 300% 100%; animation: grdt-flow 14s ease-in-out infinite alternate;
 }
-/* Shine: brushed metal, with a narrow band of light crossing every few seconds. */
-.grdt--shine {
-  background-image:
-    linear-gradient(115deg, transparent 42%, var(--grdt-glint) 49%, var(--grdt-glint) 51%, transparent 58%),
-    linear-gradient(180deg, var(--grdt-metal-1) 0%, var(--grdt-metal-2) 52%, var(--grdt-metal-3) 53%, var(--grdt-metal-1) 100%);
-  background-size: 260% 100%, 100% 100%; background-repeat: no-repeat; background-position: 160% 0, 0 0;
-  animation: grdt-glint 4.2s cubic-bezier(0.5, 0, 0.3, 1) infinite;
-}
-/* Spotlight: muted letters with a pool of colour around the pointer. */
-.grdt--spotlight {
-  background-image:
-    radial-gradient(circle at var(--grdt-x) var(--grdt-y), var(--grdt-d) 0, var(--grdt-c) 9%, var(--grdt-b) 18%, var(--grdt-a) 27%, transparent 38%),
-    linear-gradient(var(--grdt-muted), var(--grdt-muted));
-  background-size: 140% 260%, 100% 100%; background-position: var(--grdt-x) var(--grdt-y), 0 0; background-repeat: no-repeat;
-}
-
 @keyframes grdt-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
-@keyframes grdt-glint { 0% { background-position: 160% 0, 0 0; } 55%, 100% { background-position: -60% 0, 0 0; } }
 
 /* High contrast: drop the fill and use the system text colour. */
 @media (forced-colors: active) { .grdt { color: CanvasText; background: none; } }
-@media (prefers-reduced-motion: reduce) { .grdt--aurora, .grdt--shine { animation: none; } .grdt--aurora { background-position: 30% 50%; } }
+@media (prefers-reduced-motion: reduce) { .grdt { animation: none; background-position: 30% 50%; } }
 .grdt--still { animation: none; }
 
-/* The demo. */
-.grdt-demo { display: grid; grid-template-rows: 1fr 1fr; width: 100%; min-height: 100%; font-family: "Inter", ui-sans-serif, system-ui, sans-serif; container-type: inline-size; }
-.grdt-demo__panel { display: grid; align-content: center; gap: clamp(10px, 1.6cqi, 18px); padding: clamp(24px, 5cqi, 64px); }
-.grdt-demo__panel--light { background: #fbfbfa; color: #17181b; }
-.grdt-demo__panel--dark { background: #08090b; color: #eef0f3; }
+/* The demo: a headline and a sentence on one theme. */
+.grdt-demo { display: grid; align-content: center; gap: clamp(10px, 1.6cqi, 18px); width: 100%; min-height: 100%; padding: clamp(24px, 5cqi, 64px); container-type: inline-size; font-family: "Inter", ui-sans-serif, system-ui, sans-serif; }
+.grdt-demo--light { background: #fbfbfa; color: #17181b; }
+.grdt-demo--dark { background: #08090b; color: #eef0f3; }
 .grdt-demo__eyebrow { margin: 0; color: #6b6e75; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
 .grdt-demo h2 { margin: 0; max-width: 18ch; font-size: clamp(36px, 6.6cqi, 84px); font-weight: 650; line-height: 1.02; letter-spacing: -0.04em; }
-.grdt-demo p { margin: 0; max-width: 42rem; color: #6b6e75; font-size: clamp(15px, 1.5cqi, 19px); line-height: 1.55; }
-.grdt-demo__panel--dark p { color: #9a9ea6; }
+.grdt-demo p:not(.grdt-demo__eyebrow) { margin: 0; max-width: 42rem; color: #6b6e75; font-size: clamp(15px, 1.5cqi, 19px); line-height: 1.55; }
+.grdt-demo--dark p:not(.grdt-demo__eyebrow) { color: #9a9ea6; }
 .grdt-demo p .grdt { font-weight: 600; }

@@ -1,0 +1,33 @@
+.sgpb {
+  --sgpb-ink: #18181b;
+  --sgpb-soft: #6b6b73;
+  --sgpb-track: #ececef;
+  --sgpb-fill: #18181b;
+  --sgpb-done: #15803d;
+  --sgpb-h: 8px;
+  display: grid; gap: 10px; width: 100%; color: var(--sgpb-ink);
+  font: 500 14px/1.3 "Inter", ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.01em;
+}
+.sgpb--dark {
+  --sgpb-ink: #ececef;
+  --sgpb-soft: #a1a1aa;
+  --sgpb-track: #232327;
+  --sgpb-fill: #ececef;
+  --sgpb-done: #3fb950;
+}
+.sgpb--sm { --sgpb-h: 4px; gap: 8px; font-size: 13px; }
+.sgpb--lg { --sgpb-h: 12px; }
+.sgpb__row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.sgpb__value { color: var(--sgpb-soft); font-weight: 400; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.sgpb__steps { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; }
+.sgpb__step { height: var(--sgpb-h); overflow: hidden; border-radius: 3px; background: var(--sgpb-track); }
+.sgpb__step i { display: block; height: 100%; background: var(--sgpb-fill); transform-origin: left; transition: transform 0.4s cubic-bezier(0.3, 0.7, 0.3, 1); }
+.sgpb--full .sgpb__step i { background: var(--sgpb-done); }
+
+@media (prefers-reduced-motion: reduce) { .sgpb__step i { transition: none; } }
+
+/* The demo page: one theme, a few examples. */
+.sgpb-demo { display: grid; align-content: center; gap: 28px; width: 100%; min-height: 100%; padding: clamp(24px, 5vw, 56px);  }
+.sgpb-demo--light { background: #ffffff; }
+.sgpb-demo--dark { background: #0b0b0c; }

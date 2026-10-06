@@ -1,0 +1,21 @@
+// The life of one destructive action: ask, work, finish, and a short window to take it back.
+export type Phase = "idle" | "confirm" | "working" | "done" | "gone";
+export type Event = "ask" | "cancel" | "confirm" | "finished" | "undo" | "expire" | "reset";
+
+export function next(phase: Phase, e: Event): Phase {
+  switch (e) {
+    case "ask": return phase === "idle" ? "confirm" : phase;
+    case "cancel": return phase === "confirm" ? "idle" : phase;
+    case "confirm": return phase === "confirm" || phase === "idle" ? "working" : phase;
+    case "finished": return phase === "working" ? "done" : phase;
+    case "undo": return phase === "done" ? "idle" : phase;
+    case "expire": return phase === "done" ? "gone" : phase;
+    case "reset": return "idle";
+  }
+}
+
+/** Type-to-confirm matches the exact name, ignoring surrounding spaces. */
+export const matches = (typed: string, name: string) => typed.trim() === name;
+
+/** Seconds left in a countdown, rounded up, never negative. */
+export const secondsLeft = (ms: number) => Math.max(0, Math.ceil(ms / 1000));

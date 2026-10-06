@@ -8,7 +8,7 @@
 Read the source. Read the prompt behind it. Take it and make it yours.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-402-c8b9ea)
+![Components](https://img.shields.io/badge/components-425-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -48,18 +48,18 @@ There is no package, no CLI and no registry install. You copy a file or two into
 
 ## What's inside
 
-**402 components in 32 categories.**
+**425 components in 32 categories.**
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
-| Buttons | 52 | Backgrounds | 40 | Cards | 34 |
-| Controls | 23 | AI & Chat | 20 | Feedback | 19 |
+| Buttons | 60 | Backgrounds | 43 | Cards | 34 |
+| Controls | 23 | Feedback | 23 | AI & Chat | 20 |
 | Stats | 17 | Analytics | 16 | Forms | 16 |
-| Authentication | 15 | Cursors | 14 | Data | 14 |
-| CTAs | 11 | Text Animations | 10 | Type & Names | 10 |
+| Authentication | 15 | Text Animations | 15 | Cursors | 14 |
+| Data | 14 | CTAs | 11 | Type & Names | 10 |
 | FAQ | 9 | Navigation | 9 | Sections | 9 |
 | Heroes | 8 | Media | 8 | Micro-animations | 8 |
-| Overlays | 6 | Pricing | 6 | Time | 5 |
+| Time | 7 | Pricing | 7 | Overlays | 6 |
 | Developer | 4 | Footers | 4 | Commerce | 3 |
 | Decisions | 3 | Maps & Globes | 3 | Navbars | 2 |
 | Reading | 2 | Sidebars | 2 | | |
@@ -94,11 +94,14 @@ A few to start with:
 - **Refraction Blob, Ask Bar, Sweep Cards, Infinite Highlight Sweep**: a lumpy glass drop that reads a name through itself and turns with the scroll, an assistant's opening screen with one bar that grows, attaches and dictates, and pastel cards whose key phrases a demo cursor sweeps once. Highlight Sweep now plays once and rests; Infinite Highlight Sweep is the looping version.
 - **Docket Nav, Running Head, Typeset Hero, Colophon Footer**: the structural pieces a real page needs, with the same care as the showpieces.
 - **Phrase Date, Shortcut Palette, Nearest Page, Plain Consent**: the small, honest utilities: a date you can write in words, a palette that teaches its shortcuts, a 404 that finds the page you meant, cookie consent without the tricks.
-- **Core, Danger, Upload, Pulse and Corner Cut buttons**: the everyday set in eight styles, a delete that asks, holds or waits for the name and then offers undo, an upload that becomes its own progress, live and ping buttons, and chamfered panel buttons with true outlines.
-- **Status Badge, Alert Callout, Progress Bar, Activity Timeline**: twelve statuses with their own marks, alerts that fold away, five kinds of progress, and a feed, changelog and roadmap.
-- **Gradient Text, Outline Text**: aurora, metal and spotlight fills on real text, and hairline lettering that fills on hover, on scroll, as echoes or in a marquee.
+- **Button Set, Danger, Hold to Delete, Type to Delete, Upload, Drop Zone, Avatar Upload, Live, Ping, Breathe, Corner Cut, Corner Brackets**: the everyday set in eight styles, three kinds of delete (ask in place, hold, or type the name) that all end in an undo, three kinds of upload that become their own progress, three kinds of live and attention button, and two kinds of chamfered panel button.
+- **Status Badge, Alert Callout**: twelve statuses with their own marks in four looks, and alerts in four tones and four looks that fold away.
+- **Linear, Segmented, Indeterminate, Gradient and Ring Progress**: five kinds of progress, each its own component.
+- **Activity, Changelog and Milestone Timelines**: a live feed grouped by day, release notes with tagged changes, and a roadmap with its line filled up to today.
+- **Halftone Rise, Orbit Dawn, Light Pour, Haze Tier Card**: a dome of light printed as a pixel-scale copper dither, a ringed dawn rising under a faint star chart, a shaft of light that pours down and flares across the floor, and a pricing tier whose edges glow with drifting haze. Each comes in four colours.
+- **Aurora, Shine and Spotlight Text; Hover, Scroll, Echo and Marquee Outline Text**: gradient fills that drift, glint or follow the pointer, and hairline lettering that fills on hover, on scroll, as echoes or in a marquee.
 - **Line Chart, Bar Chart, Donut Chart**: dashboard charts with morphing ranges, grouped and stacked bars that slide between layouts, a ring that steps out a part, keyboard reading and data tables.
-- Platform Downloads now shows one version at a time (the smart block, or solid, outline or light badges), and Refraction Blob, Helix Showcase and Satin Hero have new navigation.
+- **Smart Download** and **Platform Badges** are now two components (the badges come in solid, outline or light), and Refraction Blob, Helix Showcase and Satin Hero have new navigation.
 
 ## Run the gallery locally
 
@@ -128,7 +131,7 @@ Press **⌘K** (or **Ctrl K**) in the gallery to search by name, tag or feel, fo
 3. **Copy**: copy each file into your project. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file.
 
-The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 402 exported examples in isolation.
+The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 425 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source. Live demos load them through `src/site/ComponentFonts.tsx`; gallery fonts are self-hosted through Fontsource packages. Add the listed font families to your own project.
 
