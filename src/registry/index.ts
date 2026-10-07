@@ -90,6 +90,10 @@ import { meta as patchBay } from "./controls/patch-bay/meta";
 import { meta as glassCard } from "./cards/glass-card/meta";
 import { meta as haloFrame } from "./cards/halo-frame/meta";
 import { meta as ringFloodCard } from "./cards/ring-flood-card/meta";
+import { meta as conduitCard } from "./cards/conduit-card/meta";
+import { meta as lightLeakCard } from "./cards/light-leak-card/meta";
+import { meta as auroraFootCard } from "./cards/aurora-foot-card/meta";
+import { meta as rimGlowCard } from "./cards/rim-glow-card/meta";
 import { meta as tidefillCard } from "./cards/tidefill-card/meta";
 import { meta as liquidGlassCard } from "./cards/liquid-glass-card/meta";
 import { meta as holoFoilCard } from "./cards/holo-foil-card/meta";
@@ -260,6 +264,7 @@ import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
 import { meta as colophonFooter } from "./footers/colophon-footer/meta";
 import { meta as hazeTierCard } from "./pricing/haze-tier-card/meta";
+import { meta as creditTierPricing } from "./pricing/credit-tier-pricing/meta";
 import { meta as subtractivePricing } from "./pricing/subtractive-pricing/meta";
 import { meta as usageRuler } from "./pricing/usage-ruler/meta";
 import { meta as lightboxCompare } from "./pricing/lightbox-compare/meta";
@@ -525,6 +530,10 @@ export const registry: ComponentMeta[] = [
   glassCard,
   haloFrame,
   ringFloodCard,
+  conduitCard,
+  lightLeakCard,
+  auroraFootCard,
+  rimGlowCard,
   tidefillCard,
   liquidGlassCard,
   holoFoilCard,
@@ -695,6 +704,7 @@ export const registry: ComponentMeta[] = [
   indexFooter,
   colophonFooter,
   hazeTierCard,
+  creditTierPricing,
   subtractivePricing,
   usageRuler,
   lightboxCompare,

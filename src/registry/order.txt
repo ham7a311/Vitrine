@@ -94,6 +94,10 @@ controls/patch-bay
 cards/glass-card
 cards/halo-frame
 cards/ring-flood-card
+cards/conduit-card
+cards/light-leak-card
+cards/aurora-foot-card
+cards/rim-glow-card
 cards/tidefill-card
 cards/liquid-glass-card
 cards/holo-foil-card
@@ -264,6 +268,7 @@ footers/sign-off-footer
 footers/index-footer
 footers/colophon-footer
 pricing/haze-tier-card
+pricing/credit-tier-pricing
 pricing/subtractive-pricing
 pricing/usage-ruler
 pricing/lightbox-compare

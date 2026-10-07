@@ -1,0 +1,89 @@
+.cndc {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--cndc-page);
+  container-type: inline-size;
+}
+/* The scene keeps the reference's 4:3 frame; on narrow screens it stays at least 680px wide and the sides crop. */
+.cndc__scene {
+  position: relative;
+  width: max(100%, 680px);
+  max-width: 1200px;
+  aspect-ratio: 4 / 3;
+  margin: 0 auto;
+  left: 50%;
+  translate: -50% 0;
+  font-family: "Hanken Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(11.3px, 1.667cqw, 20px);
+}
+.cndc__fx { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cndc__star { fill: #c9c4ff; animation: cndc-twinkle 4s ease-in-out infinite alternate; }
+@keyframes cndc-twinkle { from { opacity: 0.25; } to { opacity: 0.9; } }
+.cndc__traces path { fill: none; stroke-width: 1.4; opacity: 0.5; }
+.cndc__bloom { opacity: 0.55; }
+.cndc__pulses path { fill: none; stroke: var(--cndc-mid); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 60 940; stroke-dashoffset: 1000; opacity: 0.55; animation: cndc-pulse 5.5s linear infinite; }
+@keyframes cndc-pulse { to { stroke-dashoffset: 0; } }
+.cndc__beam { transform-box: fill-box; animation: cndc-flicker 2.8s ease-in-out infinite alternate; transition: opacity 0.4s; }
+.cndc__beam--bottom { animation-delay: -1.4s; }
+@keyframes cndc-flicker {
+  0% { opacity: 0.86; }
+  40% { opacity: 1; }
+  55% { opacity: 0.92; }
+  100% { opacity: 1; }
+}
+
+.cndc__card {
+  position: absolute;
+  left: 31.25%;
+  top: 23.4%;
+  width: 37.9%;
+  height: 49.8%;
+  margin: 0;
+  border-radius: 1.75em;
+  background:
+    repeating-linear-gradient(135deg, rgb(255 255 255 / 0.028) 0 1px, transparent 1px 6px),
+    radial-gradient(90% 70% at 30% 85%, rgb(255 255 255 / 0.06), transparent 70%),
+    radial-gradient(80% 60% at 55% 45%, color-mix(in srgb, var(--cndc-a), #fff 6%), transparent 75%),
+    linear-gradient(180deg, var(--cndc-b), var(--cndc-a) 45%, var(--cndc-b));
+  box-shadow: 0 2em 4em -1.5em rgb(0 0 0 / 0.6);
+  color: var(--cndc-ink);
+  transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* The rim: white light across the top, round the top-right corner and along the bottom, cut to a 3px ring. */
+.cndc__rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 0.16em;
+  background:
+    linear-gradient(90deg, transparent 4%, #fff 26%, #fff 100%) top / 100% 0.5em no-repeat,
+    linear-gradient(#fff, rgb(255 255 255 / 0.6) 18%, transparent 42%) right / 0.5em 100% no-repeat,
+    linear-gradient(90deg, transparent 6%, #fff 24%, #fff 78%, transparent 97%) bottom / 100% 0.5em no-repeat;
+  -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+.cndc__rim--glow {
+  inset: -0.3em;
+  padding: 0.6em;
+  filter: blur(0.45em);
+  opacity: 0.9;
+  background:
+    linear-gradient(90deg, transparent 4%, var(--cndc-mid) 26%, #fff 60%, #fff 100%) top / 100% 1em no-repeat,
+    linear-gradient(#fff, var(--cndc-mid) 20%, transparent 46%) right / 1em 100% no-repeat,
+    linear-gradient(90deg, transparent 6%, var(--cndc-mid) 22%, #fff 45%, var(--cndc-mid) 80%, transparent 97%) bottom / 100% 1em no-repeat;
+}
+.cndc__mark { position: absolute; right: 9%; top: 10%; width: 22%; height: 29%; color: color-mix(in srgb, var(--cndc-ink) 32%, transparent); }
+.cndc__body { position: absolute; left: 1.75em; right: 1.75em; bottom: 2.75em; }
+.cndc__index { display: block; margin-bottom: 0.75em; color: color-mix(in srgb, var(--cndc-muted) 80%, transparent); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.6em; letter-spacing: 0.04em; }
+.cndc__title { margin: 0; font-size: 1.6em; font-weight: 300; line-height: 1.1; letter-spacing: -0.025em; }
+.cndc__text { max-width: 22.5em; margin: 0.35em 0 0; color: var(--cndc-muted); font-size: 0.7em; line-height: 1.32; }
+
+.cndc:hover .cndc__card { translate: 0 -0.2em; }
+.cndc:hover .cndc__beam { opacity: 1; animation-duration: 1.4s; }
+@media (prefers-reduced-motion: reduce) {
+  .cndc__star, .cndc__pulses path, .cndc__beam { animation: none; }
+  .cndc__pulses { display: none; }
+  .cndc__card { transition: none; }
+}
