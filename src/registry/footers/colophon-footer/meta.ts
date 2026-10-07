@@ -27,5 +27,4 @@ Back to top scrolls the given scroller (or window) to 0, smoothly unless reduced
     { id: "night", label: "Night", prompt: "Palette for this theme (Night): --cf-ink #ececea; --cf-line rgb(255 255 255 / 0.12); --cf-muted #8d8f95. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f6f5f1", mode: "fill", height: 560, frame: [720, 800] },
-  isNew: true,
 };

@@ -25,5 +25,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Dark theme: page #131f24, ink #dce6ec, muted #8ea3ad, ring and borders #37464f, locked nodes #37464f with lip #25333a and glyph #52656d, flag background #131f24, locked card #202f36, focus ring #49c0f8. Unit colours and lips stay the same bright values." },
   ],
   preview: { bg: "#ffffff", mode: "fill", frame: [560, 820] },
-  isNew: true,
 };

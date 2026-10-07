@@ -25,5 +25,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Dark theme: page #131f24, ink #dce6ec, muted #8ea3ad, rules #37464f, row hover #1a2a31, your row #193949 with border and lip #1f6e93; zone colours, medals and badge keep their bright values." },
   ],
   preview: { bg: "#ffffff", mode: "fill", frame: [640, 820] },
-  isNew: true,
 };

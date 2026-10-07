@@ -27,5 +27,4 @@ Memory: pass a storageKey and the tucked state is saved in localStorage (inside 
     { id: "night", label: "Night", prompt: "Palette for this theme (Night): --tb-accent #7aa2ff; --tb-bg #1a1b1e; --tb-ink #ececea; --tb-line rgb(255 255 255 / 0.1); --tb-muted #8d8f95. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f6f5f1", mode: "fill", height: 440 },
-  isNew: true,
 };

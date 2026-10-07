@@ -24,5 +24,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --splc-bg #121314; --splc-c1 #7fa6ff; --splc-c2 #f0956c; --splc-c3 #6fd1a2; --splc-c4 #c49bff; --splc-card #1a1b1d; --splc-ink #ebe9e4; --splc-line rgb(255 255 255 / 0.1); --splc-muted #a19d95. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e7e1", mode: "fill", frame: [1300, 760] },
-  isNew: true,
 };

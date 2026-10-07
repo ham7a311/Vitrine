@@ -29,5 +29,4 @@ Production behaviour: link clicks scroll the section to just under the bar (smoo
     { id: "night", label: "Night", prompt: "Palette for this theme (Night): --dn-accent #7aa2ff; --dn-bg #0f1012; --dn-ink #ececea; --dn-line rgb(255 255 255 / 0.09); --dn-muted #8d8f95; --dn-on-ink #111214. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f6f5f1", mode: "scroll", height: 640, frame: [1000, 625] },
-  isNew: true,
 };

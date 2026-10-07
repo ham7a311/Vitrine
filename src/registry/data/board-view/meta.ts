@@ -26,5 +26,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Dark theme: page #191919, cards #252525 (hover #2c2c2c), ink #e3e2e0, muted #9b9a97, faint #6f6e69, landing line and focus #529cca, card ring rgb(255 255 255 / 0.07). Pills on deep tints with light ink: gray rgb(255 255 255 / 0.09)/#b4b4b0, orange #5c3b23/#eeb07c, green #243d30/#8ccfa3, blue #143a4e/#7fc0e4, purple #3c2d49/#c7a2e2, red #522e2a/#f2a39c (brown, yellow and pink follow the same pattern)." },
   ],
   preview: { bg: "#ffffff", mode: "fill", frame: [1200, 700] },
-  isNew: true,
 };

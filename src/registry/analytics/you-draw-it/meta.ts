@@ -24,5 +24,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --ydraw-bg #141413; --ydraw-gap rgb(255 140 100 / 0.2); --ydraw-guess #86a8ff; --ydraw-ink #eceae5; --ydraw-line rgb(255 255 255 / 0.1); --ydraw-muted #a29d94; --ydraw-truth #eceae5; --ydraw-zone rgb(134 168 255 / 0.08). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e7e3da", mode: "center", frame: [1000, 640] },
-  isNew: true,
 };

@@ -23,5 +23,4 @@ export const meta: ComponentMeta = {
     { id: "light", label: "Light", prompt: "Palette for this theme (Light): --askb-accent #1a5fd8; --askb-bar #ffffff; --askb-bar-hi #f0f2f5; --askb-focus #1a5fd8; --askb-glow #c9d7fb; --askb-glow2 #dde6fb; --askb-ink #1f1f1f; --askb-line rgb(0 0 0 / 0.08); --askb-me #e3e8f2; --askb-menu #ffffff; --askb-muted #5f6368; --askb-page #f2f4f8; --askb-send #1f1f1f; --askb-send-ink #ffffff; --askb-soft #444746. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0e0f14", mode: "fill", frame: [1440, 860] },
-  isNew: true,
 };

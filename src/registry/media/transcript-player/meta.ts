@@ -23,5 +23,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --tplay-accent #ff8668; --tplay-bg #17150f; --tplay-card #201d16; --tplay-focus #ff8668; --tplay-hit #1f3550; --tplay-hit-on #3e6ea8; --tplay-ink #efeae1; --tplay-line rgb(255 255 255 / 0.09); --tplay-muted #a39b8f; --tplay-now #5a4318; --tplay-rail #38332a. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e4d9", mode: "fill", frame: [1000, 780] },
-  isNew: true,
 };

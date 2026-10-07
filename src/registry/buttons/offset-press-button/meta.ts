@@ -31,7 +31,6 @@ export const meta: ComponentMeta = {
     "bg": "#f1f0e9",
     "mode": "fill"
   },
-  "isNew": true,
   "variants": [
     {
       "id": "mint",

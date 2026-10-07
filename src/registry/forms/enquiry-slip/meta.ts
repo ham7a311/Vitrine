@@ -31,5 +31,4 @@ Sending: onSend may return a promise; the button reads "Sending" and is aria-bus
     { id: "night", label: "Night", prompt: "Palette for this theme (Night): --es-accent #7aa2ff; --es-danger #f0766e; --es-ink #ececea; --es-line rgb(255 255 255 / 0.14); --es-muted #8d8f95; --es-paper #17181b; --es-stamp #f0766e. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f1efe8", mode: "fill", height: 700 },
-  isNew: true,
 };

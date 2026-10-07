@@ -34,7 +34,6 @@ export const meta: ComponentMeta = {
       760
     ]
   },
-  "isNew": true,
   "variants": [
     {
       "id": "light",

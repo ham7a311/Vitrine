@@ -9,11 +9,14 @@ const order = readFileSync(path.join(root, "order.txt"), "utf8").split("\n").map
 assert.equal(new Set(order).size, order.length, "Duplicate registry entries");
 const slugs = new Set<string>();
 const classes = new Map<string, Set<string>>();
-let variants = 0, exported = 0;
+let variants = 0, exported = 0, fresh = 0;
+// The "New" label is kept to the newest components only; scripts/limit-new.py re-applies the rule.
+const NEW_LIMIT = 50;
 const errors: string[] = [];
 for (const entry of order) {
   const { meta } = await import(path.join(root, entry, "meta.ts")) as { meta: ComponentMeta };
   assert.equal(`${meta.category}/${meta.slug}`, entry, `Registry identity: ${entry}`);
+  if (meta.isNew) fresh++;
   assert(!slugs.has(meta.slug), `Duplicate slug: ${meta.slug}`); slugs.add(meta.slug);
   assert(CATEGORIES.some(c => c.id === meta.category), `Unknown category: ${entry}`);
   for (const key of ["name", "description", "prompt", "interaction", "animation", "a11y", "responsive"] as const) assert(meta[key]?.trim(), `${entry}: empty ${key}`);
@@ -44,10 +47,11 @@ for (const entry of order) {
     }
   }
 }
+if (fresh > NEW_LIMIT) errors.push(`${fresh} components are marked New; keep it to the newest ${NEW_LIMIT} (run python3 scripts/limit-new.py)`);
 for (const [name, owners] of classes) if (owners.size > 1) errors.push(`CSS .${name} shared by ${[...owners].join(", ")}`);
 for (const file of ["index.ts", "demos.tsx"]) {
   const code = readFileSync(path.join(root, file), "utf8");
   for (const entry of order) assert(code.includes(`./${entry}/${file === "index.ts" ? "meta" : "demo"}`), `${file}: missing ${entry}`);
 }
 if (errors.length) throw new Error(errors.join("\n"));
-console.log(`registry: ${order.length} components, ${variants} variants, ${exported} portable files; no CSS collisions`);
+console.log(`registry: ${order.length} components (${fresh} new), ${variants} variants, ${exported} portable files; no CSS collisions`);

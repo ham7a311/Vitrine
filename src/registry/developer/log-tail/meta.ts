@@ -23,5 +23,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --ltail-bg #111214; --ltail-debug #8b909a; --ltail-error #ff7a66; --ltail-error-bg rgb(255 122 102 / 0.07); --ltail-focus #79a8f2; --ltail-info #79a8f2; --ltail-ink #e4e5e8; --ltail-line rgb(255 255 255 / 0.08); --ltail-live #4ccf93; --ltail-mark #6b5a12; --ltail-mark-ink #fff6cc; --ltail-muted #959aa3; --ltail-new rgb(121 168 242 / 0.1); --ltail-panel #0b0c0d; --ltail-warn #e2b04a. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9eae7", mode: "fill", frame: [1200, 640] },
-  isNew: true,
 };

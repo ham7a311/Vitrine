@@ -25,5 +25,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --gsel-accent #93b4ff; --gsel-cut #08090a; --gsel-cut-lip #505357; --gsel-danger #ff8c75; --gsel-edge #45474a; --gsel-engrave #d9d7d1; --gsel-engrave-hi rgb(0 0 0 / 0.6); --gsel-ink #ecebe7; --gsel-knob #e2dfd7; --gsel-knob-ring #8d8a83; --gsel-muted #a3a19b; --gsel-plate #2a2b2d; --gsel-plate-line rgb(255 255 255 / 0.03); --gsel-stop #e0634c; --gsel-stop-screw #5a1d14. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e6df", mode: "center", frame: [900, 600] },
-  isNew: true,
 };

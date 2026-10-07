@@ -31,5 +31,4 @@ Motion happens once. The eyebrow, headline and lede each rise out of their own o
     { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --th-bg #f6f5f1; --th-btn #1b1a17; --th-ink #1b1a17; --th-line rgb(27 26 23 / 0.2); --th-muted #5f5c55; --th-on-btn #f6f5f1. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#0c0b0e", mode: "fill", height: 640, frame: [1280, 800] },
-  isNew: true,
 };

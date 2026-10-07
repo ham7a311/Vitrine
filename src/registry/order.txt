@@ -38,6 +38,7 @@ buttons/puddle-button
 buttons/gradient-bloom-button
 buttons/frost-bloom-button
 buttons/prism-rim-button
+buttons/spectrum-ring-button
 buttons/nebula-pill-button
 buttons/call-pill
 buttons/bell-subscribe-button
@@ -98,6 +99,7 @@ cards/conduit-card
 cards/light-leak-card
 cards/aurora-foot-card
 cards/rim-glow-card
+cards/filter-step-card
 cards/tidefill-card
 cards/liquid-glass-card
 cards/holo-foil-card
@@ -135,6 +137,8 @@ backgrounds/dither-flow
 backgrounds/halftone-rise
 backgrounds/orbit-dawn
 backgrounds/light-pour
+backgrounds/ember-globe
+backgrounds/point-bloom
 backgrounds/glass-orbs
 backgrounds/liquid-chrome
 backgrounds/obsidian-flow
@@ -269,6 +273,7 @@ footers/index-footer
 footers/colophon-footer
 pricing/haze-tier-card
 pricing/credit-tier-pricing
+pricing/glow-base-pricing
 pricing/subtractive-pricing
 pricing/usage-ruler
 pricing/lightbox-compare

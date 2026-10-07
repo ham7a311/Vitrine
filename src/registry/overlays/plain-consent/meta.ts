@@ -29,5 +29,4 @@ After any decision: persist the choices in localStorage inside try/catch (read a
     { id: "night", label: "Night", prompt: "Palette for this theme (Night): --pc-accent #7aa2ff; --pc-bg #1b1c20; --pc-ink #ececea; --pc-line rgb(255 255 255 / 0.15); --pc-muted #9a9ca2; --pc-wash rgb(255 255 255 / 0.07). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f6f5f1", mode: "fill", height: 560, frame: [760, 520] },
-  isNew: true,
 };

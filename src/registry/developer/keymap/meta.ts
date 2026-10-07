@@ -24,5 +24,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --kmap-accent #86aaff; --kmap-bg #131416; --kmap-card #1b1c1f; --kmap-clash #ff8a73; --kmap-g1 #86aaff; --kmap-g2 #f0a35e; --kmap-g3 #6fd1a2; --kmap-g4 #c49bff; --kmap-g5 #f28dbd; --kmap-ink #ebebe8; --kmap-key #24262a; --kmap-key-edge #0c0d0e; --kmap-line rgb(255 255 255 / 0.1); --kmap-muted #9a9ea6. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e6e6e2", mode: "center", frame: [1100, 640] },
-  isNew: true,
 };

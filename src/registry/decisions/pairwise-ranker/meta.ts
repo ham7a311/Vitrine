@@ -25,5 +25,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --prank-accent #a9bcff; --prank-accent-ink #10131c; --prank-bg #141412; --prank-card #1f1e1a; --prank-ink #eee8db; --prank-line rgb(255 255 255 / 0.1); --prank-margin #9c4c45; --prank-mark #4b4321; --prank-muted #a7a194; --prank-rule rgb(140 170 220 / 0.16). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e4ded2", mode: "center", frame: [1100, 720] },
-  isNew: true,
 };

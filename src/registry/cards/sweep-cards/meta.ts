@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "light", label: "Light", prompt: "Palette for this theme (Light): --swpc-edge rgb(0 0 0 / 0.06); --swpc-page #f4f4f2. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#000000", mode: "fill", frame: [1400, 560] },
-  isNew: true,
 };

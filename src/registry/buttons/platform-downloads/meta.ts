@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --pdl-accent #7aa2ff; --pdl-bg #101011; --pdl-card #17171a; --pdl-code #0c0c0d; --pdl-focus #7aa2ff; --pdl-ink #f2f2f0; --pdl-light #f4f4f2; --pdl-light-ink #0b0b0c; --pdl-line rgb(255 255 255 / 0.1); --pdl-muted #9b9b98; --pdl-ok #4ade80; --pdl-solid #000000; --pdl-solid-edge #5c5c5c; --pdl-solid-ink #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e9e9e6", mode: "fill", frame: [1100, 820] },
-  isNew: true,
 };

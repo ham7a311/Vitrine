@@ -39,5 +39,4 @@ Reduced motion: no animation: the first target is shown highlighted and the arro
     { id: "lime", label: "Lime", prompt: "Accent #a3e635 (lime)." },
   ],
   preview: { bg: "#050505", mode: "fill" },
-  isNew: true,
 };

@@ -29,5 +29,4 @@ The grid: the calendar button (or ArrowDown in the field) folds open a panel bel
     { id: "night", label: "Night", prompt: "Palette for this theme (Night): --pd-accent #7aa2ff; --pd-danger #f0766e; --pd-ink #ececea; --pd-line rgb(255 255 255 / 0.16); --pd-muted #8d8f95; --pd-surface #17181b; --pd-wash rgb(255 255 255 / 0.06). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f6f5f1", mode: "fill", height: 640 },
-  isNew: true,
 };

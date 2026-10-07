@@ -24,5 +24,4 @@ export const meta: ComponentMeta = {
     { id: "light", label: "Light", prompt: "Light theme: panel #ffffff, raised #f3f3f5, wells #fafafb, text #0c0c0d, muted #66666d, faint #a3a3aa, hairlines rgb(0 0 0 / 0.08) and 0.16, accent #4b53d6 with white text, amber #b26b00, decline red #c2322a; the toast is a near-black bar with white text." },
   ],
   preview: { bg: "#0b0b0c", mode: "fill", frame: [1100, 700] },
-  isNew: true,
 };

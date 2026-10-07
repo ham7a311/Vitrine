@@ -26,5 +26,4 @@ export const meta: ComponentMeta = {
     { id: "night", label: "Night", prompt: "Night theme: desk #141416, sheet #222226, back of sheet #1c1c20, ink #ece9e2, muted #a19d94, faint leaders #67645e, hairlines rgb(236 233 226 / 0.12), accent coral #f08a6c, deeper black shadows." },
   ],
   preview: { bg: "#e3dfd6", mode: "page", frame: [1280, 800] },
-  isNew: true,
 };
