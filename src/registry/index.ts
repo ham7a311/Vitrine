@@ -32,6 +32,11 @@ import { meta as ditherButton } from "./buttons/dither-button/meta";
 import { meta as marqueeLightsButton } from "./buttons/marquee-lights-button/meta";
 import { meta as puddleButton } from "./buttons/puddle-button/meta";
 import { meta as gradientBloomButton } from "./buttons/gradient-bloom-button/meta";
+import { meta as frostBloomButton } from "./buttons/frost-bloom-button/meta";
+import { meta as prismRimButton } from "./buttons/prism-rim-button/meta";
+import { meta as nebulaPillButton } from "./buttons/nebula-pill-button/meta";
+import { meta as callPill } from "./buttons/call-pill/meta";
+import { meta as bellSubscribeButton } from "./buttons/bell-subscribe-button/meta";
 import { meta as dropletButton } from "./buttons/droplet-button/meta";
 import { meta as magneticButton } from "./buttons/magnetic-button/meta";
 import { meta as doubleRuleButton } from "./buttons/double-rule-button/meta";
@@ -85,6 +90,10 @@ import { meta as patchBay } from "./controls/patch-bay/meta";
 import { meta as glassCard } from "./cards/glass-card/meta";
 import { meta as haloFrame } from "./cards/halo-frame/meta";
 import { meta as ringFloodCard } from "./cards/ring-flood-card/meta";
+import { meta as conduitCard } from "./cards/conduit-card/meta";
+import { meta as lightLeakCard } from "./cards/light-leak-card/meta";
+import { meta as auroraFootCard } from "./cards/aurora-foot-card/meta";
+import { meta as rimGlowCard } from "./cards/rim-glow-card/meta";
 import { meta as tidefillCard } from "./cards/tidefill-card/meta";
 import { meta as liquidGlassCard } from "./cards/liquid-glass-card/meta";
 import { meta as holoFoilCard } from "./cards/holo-foil-card/meta";
@@ -193,6 +202,8 @@ import { meta as citedAnswer } from "./ai/cited-answer/meta";
 import { meta as splice } from "./ai/splice/meta";
 import { meta as confidenceInk } from "./ai/confidence-ink/meta";
 import { meta as askBar } from "./ai/ask-bar/meta";
+import { meta as glyphHaloComposer } from "./ai/glyph-halo-composer/meta";
+import { meta as afterglowPrompt } from "./ai/afterglow-prompt/meta";
 import { meta as conversationSidebar } from "./sidebars/conversation-sidebar/meta";
 import { meta as workspaceSidebar } from "./sidebars/workspace-sidebar/meta";
 import { meta as glassTorus } from "./heroes/glass-torus/meta";
@@ -253,6 +264,7 @@ import { meta as signOffFooter } from "./footers/sign-off-footer/meta";
 import { meta as indexFooter } from "./footers/index-footer/meta";
 import { meta as colophonFooter } from "./footers/colophon-footer/meta";
 import { meta as hazeTierCard } from "./pricing/haze-tier-card/meta";
+import { meta as creditTierPricing } from "./pricing/credit-tier-pricing/meta";
 import { meta as subtractivePricing } from "./pricing/subtractive-pricing/meta";
 import { meta as usageRuler } from "./pricing/usage-ruler/meta";
 import { meta as lightboxCompare } from "./pricing/lightbox-compare/meta";
@@ -460,6 +472,11 @@ export const registry: ComponentMeta[] = [
   marqueeLightsButton,
   puddleButton,
   gradientBloomButton,
+  frostBloomButton,
+  prismRimButton,
+  nebulaPillButton,
+  callPill,
+  bellSubscribeButton,
   dropletButton,
   magneticButton,
   doubleRuleButton,
@@ -513,6 +530,10 @@ export const registry: ComponentMeta[] = [
   glassCard,
   haloFrame,
   ringFloodCard,
+  conduitCard,
+  lightLeakCard,
+  auroraFootCard,
+  rimGlowCard,
   tidefillCard,
   liquidGlassCard,
   holoFoilCard,
@@ -621,6 +642,8 @@ export const registry: ComponentMeta[] = [
   splice,
   confidenceInk,
   askBar,
+  glyphHaloComposer,
+  afterglowPrompt,
   conversationSidebar,
   workspaceSidebar,
   glassTorus,
@@ -681,6 +704,7 @@ export const registry: ComponentMeta[] = [
   indexFooter,
   colophonFooter,
   hazeTierCard,
+  creditTierPricing,
   subtractivePricing,
   usageRuler,
   lightboxCompare,

@@ -1,0 +1,100 @@
+.lklc {
+  --lklc-x: 50%;
+  --lklc-y: 0%;
+  position: relative;
+  isolation: isolate;
+  width: 19.5em;
+  max-width: 100%;
+  min-height: 23.8em;
+  overflow: hidden;
+  border-radius: 1.6em;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lklc-light) 40%, var(--lklc-deep)), var(--lklc-deep) 62%);
+  box-shadow:
+    inset 0 0 0 0.065em color-mix(in srgb, var(--lklc-rim) 45%, transparent),
+    inset 0 -0.08em 0.15em color-mix(in srgb, var(--lklc-rim) 35%, transparent),
+    0 1.6em 3em -1.4em rgb(0 0 8 / 0.8);
+  color: #e9ebfa;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+/* The leak: a broad coloured wash, a white-hot burst under the edge, and smoke to break it up. */
+.lklc__leak { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.lklc__leak > * { position: absolute; left: var(--lklc-x); top: var(--lklc-y); translate: -50% -50%; border-radius: 50%; transition: left 1s cubic-bezier(0.22, 1, 0.36, 1), top 1s cubic-bezier(0.22, 1, 0.36, 1); }
+.lklc__wash {
+  width: 150%;
+  height: 120%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--lklc-light), #fff 12%), color-mix(in srgb, var(--lklc-light) 70%, transparent) 45%, transparent);
+  filter: blur(1em);
+  animation: lklc-drift 9s ease-in-out infinite alternate;
+}
+.lklc__burst {
+  width: 70%;
+  height: 34%;
+  background: radial-gradient(closest-side, #fff, rgb(255 255 255 / 0.9) 35%, color-mix(in srgb, var(--lklc-light), #fff 55%) 60%, transparent);
+  filter: blur(0.9em);
+  animation: lklc-flare 5s ease-in-out infinite alternate;
+}
+.lklc__smoke {
+  width: 110%;
+  height: 60%;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.018 0.03' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='300' height='200' filter='url(%23n)'/%3E%3C/svg%3E") center / cover;
+  -webkit-mask: radial-gradient(closest-side, #000 30%, transparent);
+  mask: radial-gradient(closest-side, #000 30%, transparent);
+  animation: lklc-drift 13s ease-in-out infinite alternate-reverse;
+}
+@keyframes lklc-drift {
+  from { transform: translateX(-3%) scale(1); }
+  to { transform: translateX(3%) scale(1.06); }
+}
+@keyframes lklc-flare {
+  from { opacity: 0.85; transform: scaleX(0.94); }
+  to { opacity: 1; transform: scaleX(1.06); }
+}
+
+.lklc__spark { position: absolute; width: 0.7em; height: 0.7em; fill: color-mix(in srgb, var(--lklc-light), #fff 35%); animation: lklc-twinkle 3s ease-in-out infinite alternate; }
+.lklc__spark--a { left: 27%; top: 25.5%; }
+.lklc__spark--b { left: 70.5%; top: 42%; width: 0.55em; height: 0.55em; animation-delay: -1.5s; }
+@keyframes lklc-twinkle {
+  from { opacity: 0.35; transform: scale(0.75); }
+  to { opacity: 1; transform: scale(1.1); }
+}
+
+.lklc__body { display: flex; flex-direction: column; align-items: center; padding: 3.5em 1.6em 1.9em; }
+.lklc__mark-wrap { display: grid; place-items: center; width: 6.2em; height: 6.2em; color: #fff; filter: drop-shadow(0 0 0.5em color-mix(in srgb, var(--lklc-light), #fff 40%)) drop-shadow(0 0 1.4em var(--lklc-light)); }
+.lklc__mark { width: 100%; height: 100%; }
+.lklc__name {
+  margin: 0.45em 0 0;
+  padding: 0.04em 0.65em 0.1em;
+  border-radius: 0.6em;
+  background: radial-gradient(70% 90% at 50% 50%, rgb(255 255 255 / 0.07), transparent 75%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.04);
+  font-size: 2.45em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.lklc__name span { background: linear-gradient(180deg, #f2f2fb 20%, #a7a9c4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lklc__text { max-width: 19.5em; margin: 0.75em 0 0; color: #a8acc8; font-size: 0.8em; line-height: 1.55; }
+.lklc__action {
+  display: inline-grid;
+  place-items: center;
+  min-width: 7.8em;
+  height: 2.35em;
+  margin-top: 1.35em;
+  padding: 0 1.2em;
+  border: 1px solid color-mix(in srgb, var(--lklc-rim) 45%, transparent);
+  border-radius: 0.4em;
+  background: color-mix(in srgb, var(--lklc-deep) 80%, #000);
+  color: #f1f2fb;
+  font-size: 0.86em;
+  text-decoration: none;
+  transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.lklc__action:hover { background: color-mix(in srgb, var(--lklc-light) 28%, var(--lklc-deep)); border-color: var(--lklc-rim); box-shadow: 0 0 1.2em -0.3em var(--lklc-light); }
+.lklc__action:focus-visible { outline: 2px solid var(--lklc-rim); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .lklc__leak > *, .lklc__spark { animation: none; transition: none; }
+}

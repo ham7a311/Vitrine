@@ -1,0 +1,41 @@
+.prmb {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-width: 16.2em;
+  height: 4em;
+  padding: 0 2em;
+  border: 0.1em solid transparent;
+  border-radius: 999px;
+  background:
+    radial-gradient(60% 120% at 52% 50%, var(--prmb-sheen), transparent 70%) padding-box,
+    linear-gradient(90deg, var(--prmb-in-a), var(--prmb-in-b) 50%, var(--prmb-in-a)) padding-box,
+    var(--prmb-rim) border-box;
+  background-size: 100% 100%, 100% 100%, 200% 100%;
+  background-position: 0 0, 0 0, 0 0;
+  color: #f5f4f7;
+  font-family: "Poppins", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: -0.5em 0 1.4em -1.4em transparent, 0.5em 0 1.4em -1.4em transparent;
+  transition: box-shadow 0.5s, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-width 0.25s;
+}
+.prmb:hover {
+  animation: prmb-flow 3.2s linear infinite;
+  box-shadow: -0.6em 0 1.8em -0.7em var(--prmb-start), 0.6em 0 1.8em -0.7em var(--prmb-end);
+}
+@keyframes prmb-flow {
+  to { background-position: 0 0, 0 0, -200% 0; }
+}
+.prmb__label { display: inline-flex; align-items: center; gap: 0.75em; font-size: 1.08em; white-space: nowrap; }
+.prmb__plane { width: 1.15em; height: 1.15em; fill: currentColor; transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.prmb:hover .prmb__plane { transform: translate(0.14em, -0.14em) rotate(-6deg); }
+.prmb:active { transform: scale(0.98); }
+.prmb:focus-visible { outline: none; border-width: 0.14em; box-shadow: 0 0 0 0.2em rgb(255 255 255 / 0.22), -0.6em 0 1.8em -0.7em var(--prmb-start), 0.6em 0 1.8em -0.7em var(--prmb-end); }
+.prmb:disabled { cursor: not-allowed; opacity: 0.5; animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .prmb:hover { animation: none; }
+  .prmb, .prmb__plane { transition: none; }
+}

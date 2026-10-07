@@ -1,0 +1,70 @@
+.fbmb {
+  --fbmb-lean: 0%;
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  place-items: center;
+  min-width: 16.2em;
+  height: 4em;
+  padding: 0 2em;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background: var(--fbmb-base);
+  box-shadow: inset 0 0 0 0.075em var(--fbmb-rim), inset 0 0.08em 0.25em rgb(255 255 255 / 0.55);
+  color: var(--fbmb-ink);
+  font-family: "Poppins", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
+}
+.fbmb__paint {
+  position: absolute;
+  inset: -10%;
+  z-index: -1;
+  filter: blur(0.55em) saturate(1.05);
+  translate: var(--fbmb-lean) 0;
+  transition: translate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fbmb__blob { position: absolute; border-radius: 50%; animation: fbmb-drift 11s ease-in-out infinite alternate; transition: filter 0.4s; }
+.fbmb__blob--1 { animation-duration: 13s; animation-delay: -4s; }
+.fbmb__blob--2 { animation-duration: 15s; animation-delay: -7s; }
+.fbmb__blob--3 { animation-duration: 12s; animation-delay: -2s; }
+.fbmb__blob--4 { animation: fbmb-rise 6s ease-in-out infinite alternate; }
+@keyframes fbmb-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(6%, -5%) scale(1.08); }
+}
+@keyframes fbmb-rise {
+  0% { transform: translateY(4%) scale(0.96); }
+  100% { transform: translateY(-4%) scale(1.04); }
+}
+/* The white dome: sharper than the paint, rising from under the bottom edge. */
+.fbmb__glow {
+  position: absolute;
+  z-index: -1;
+  bottom: -1.5em;
+  width: 9em;
+  height: 3em;
+  translate: calc(-50% + var(--fbmb-lean)) 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #fff, #fff 45%, rgb(255 255 255 / 0.6) 70%, transparent);
+  filter: blur(0.35em);
+  transition: translate 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s, scale 0.6s;
+  animation: fbmb-rise 6s ease-in-out infinite alternate;
+}
+.fbmb:hover .fbmb__glow { scale: 1.08; }
+.fbmb__label { display: inline-flex; align-items: center; gap: 0.75em; font-size: 1.08em; white-space: nowrap; }
+.fbmb__plane { width: 1.15em; height: 1.15em; fill: currentColor; transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.fbmb:hover .fbmb__plane { transform: translate(0.14em, -0.14em) rotate(-6deg); }
+.fbmb:hover .fbmb__blob--4 { filter: brightness(1.15); }
+.fbmb:active { transform: scale(0.98); }
+.fbmb:focus-visible { outline: 0.1em solid var(--fbmb-ink); outline-offset: 0.2em; }
+.fbmb:disabled { cursor: not-allowed; opacity: 0.55; }
+@media (prefers-reduced-motion: reduce) {
+  .fbmb__blob, .fbmb__glow { animation: none; }
+  .fbmb__paint, .fbmb__plane, .fbmb { transition: none; }
+}

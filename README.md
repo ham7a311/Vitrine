@@ -8,7 +8,7 @@
 Read the source. Read the prompt behind it. Take it and make it yours.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-425-c8b9ea)
+![Components](https://img.shields.io/badge/components-437-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -48,18 +48,18 @@ There is no package, no CLI and no registry install. You copy a file or two into
 
 ## What's inside
 
-**425 components in 32 categories.**
+**437 components in 32 categories.**
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
-| Buttons | 60 | Backgrounds | 43 | Cards | 34 |
-| Controls | 23 | Feedback | 23 | AI & Chat | 20 |
+| Buttons | 65 | Backgrounds | 43 | Cards | 38 |
+| Controls | 23 | Feedback | 23 | AI & Chat | 22 |
 | Stats | 17 | Analytics | 16 | Forms | 16 |
 | Authentication | 15 | Text Animations | 15 | Cursors | 14 |
 | Data | 14 | CTAs | 11 | Type & Names | 10 |
 | FAQ | 9 | Navigation | 9 | Sections | 9 |
 | Heroes | 8 | Media | 8 | Micro-animations | 8 |
-| Time | 7 | Pricing | 7 | Overlays | 6 |
+| Time | 7 | Pricing | 8 | Overlays | 6 |
 | Developer | 4 | Footers | 4 | Commerce | 3 |
 | Decisions | 3 | Maps & Globes | 3 | Navbars | 2 |
 | Reading | 2 | Sidebars | 2 | | |
@@ -99,6 +99,8 @@ A few to start with:
 - **Linear, Segmented, Indeterminate, Gradient and Ring Progress**: five kinds of progress, each its own component.
 - **Activity, Changelog and Milestone Timelines**: a live feed grouped by day, release notes with tagged changes, and a roadmap with its line filled up to today.
 - **Halftone Rise, Orbit Dawn, Light Pour, Haze Tier Card**: a dome of light printed as a pixel-scale copper dither, a ringed dawn rising under a faint star chart, a shaft of light that pours down and flares across the floor, and a pricing tier whose edges glow with drifting haze. Each comes in four colours.
+- **Frost Bloom, Prism Rim, Nebula Pill, Call Pill, Bell Subscribe, Glyph Halo Composer, Afterglow Prompt**: glass pills tinted from inside, a dark pill in a hairline spectrum, clouds of colour under grain, a booking button with a breathing dot, a neo-brutalist subscribe toggle that rings, and two AI prompt boxes, one glowing from both ends over drifting characters and one with a rim lit like a low sun.
+- **Conduit, Light Leak, Aurora Foot and Rim Glow Cards, Credit Tier Pricing**: light as the material. A card a beam pours through, a card lit through its top edge, cards whose feet catch fire in four colours, tiles rim-lit from below, and a three-plan pricing section over a glowing dome of dots.
 - **Aurora, Shine and Spotlight Text; Hover, Scroll, Echo and Marquee Outline Text**: gradient fills that drift, glint or follow the pointer, and hairline lettering that fills on hover, on scroll, as echoes or in a marquee.
 - **Line Chart, Bar Chart, Donut Chart**: dashboard charts with morphing ranges, grouped and stacked bars that slide between layouts, a ring that steps out a part, keyboard reading and data tables.
 - **Smart Download** and **Platform Badges** are now two components (the badges come in solid, outline or light), and Refraction Blob, Helix Showcase and Satin Hero have new navigation.
@@ -131,7 +133,7 @@ Press **⌘K** (or **Ctrl K**) in the gallery to search by name, tag or feel, fo
 3. **Copy**: copy each file into your project. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file.
 
-The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 425 exported examples in isolation.
+The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 437 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source. Live demos load them through `src/site/ComponentFonts.tsx`; gallery fonts are self-hosted through Fontsource packages. Add the listed font families to your own project.
 

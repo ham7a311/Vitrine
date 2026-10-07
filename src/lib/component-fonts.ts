@@ -1,4 +1,4 @@
-const FAMILIES = ["Anton", "Cinzel Decorative", "Cinzel", "Pinyon Script", "Poiret One", "UnifrakturMaguntia", "Archivo", "Geist Mono", "Geist", "IBM Plex Mono", "IBM Plex Sans", "Instrument Serif", "Hanken Grotesk", "JetBrains Mono", "Newsreader", "Inter", "Nunito", "DM Mono"];
+const FAMILIES = ["Anton", "Cinzel Decorative", "Cinzel", "Pinyon Script", "Poiret One", "UnifrakturMaguntia", "Archivo", "Geist Mono", "Geist", "IBM Plex Mono", "IBM Plex Sans", "Instrument Serif", "Hanken Grotesk", "JetBrains Mono", "Newsreader", "Inter", "Nunito", "DM Mono", "Poppins"];
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 /** A family counts when it is named as a font, not merely contained in a word ("Inter" inside "IntersectionObserver"). */
 const pattern = (font: string) => new RegExp(`(?:["'\`]${escape(font)}["'\`]|family-name:${escape(font)}(?![\\w ]*[A-Za-z]{2})|(?:^|[\\s:,("'\`])${escape(font)}\\s*[,;])`, "m");
