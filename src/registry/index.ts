@@ -32,6 +32,11 @@ import { meta as ditherButton } from "./buttons/dither-button/meta";
 import { meta as marqueeLightsButton } from "./buttons/marquee-lights-button/meta";
 import { meta as puddleButton } from "./buttons/puddle-button/meta";
 import { meta as gradientBloomButton } from "./buttons/gradient-bloom-button/meta";
+import { meta as frostBloomButton } from "./buttons/frost-bloom-button/meta";
+import { meta as prismRimButton } from "./buttons/prism-rim-button/meta";
+import { meta as nebulaPillButton } from "./buttons/nebula-pill-button/meta";
+import { meta as callPill } from "./buttons/call-pill/meta";
+import { meta as bellSubscribeButton } from "./buttons/bell-subscribe-button/meta";
 import { meta as dropletButton } from "./buttons/droplet-button/meta";
 import { meta as magneticButton } from "./buttons/magnetic-button/meta";
 import { meta as doubleRuleButton } from "./buttons/double-rule-button/meta";
@@ -193,6 +198,8 @@ import { meta as citedAnswer } from "./ai/cited-answer/meta";
 import { meta as splice } from "./ai/splice/meta";
 import { meta as confidenceInk } from "./ai/confidence-ink/meta";
 import { meta as askBar } from "./ai/ask-bar/meta";
+import { meta as glyphHaloComposer } from "./ai/glyph-halo-composer/meta";
+import { meta as afterglowPrompt } from "./ai/afterglow-prompt/meta";
 import { meta as conversationSidebar } from "./sidebars/conversation-sidebar/meta";
 import { meta as workspaceSidebar } from "./sidebars/workspace-sidebar/meta";
 import { meta as glassTorus } from "./heroes/glass-torus/meta";
@@ -460,6 +467,11 @@ export const registry: ComponentMeta[] = [
   marqueeLightsButton,
   puddleButton,
   gradientBloomButton,
+  frostBloomButton,
+  prismRimButton,
+  nebulaPillButton,
+  callPill,
+  bellSubscribeButton,
   dropletButton,
   magneticButton,
   doubleRuleButton,
@@ -621,6 +633,8 @@ export const registry: ComponentMeta[] = [
   splice,
   confidenceInk,
   askBar,
+  glyphHaloComposer,
+  afterglowPrompt,
   conversationSidebar,
   workspaceSidebar,
   glassTorus,

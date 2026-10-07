@@ -1,0 +1,73 @@
+.clpl {
+  --clpl-ink: #13235a;
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  place-items: center;
+  min-width: 14.6em;
+  height: 3.95em;
+  padding: 0 1.7em;
+  border: 0;
+  border-radius: 999px;
+  background: #e4f7fd;
+  box-shadow:
+    inset 0 0 0 0.07em rgb(255 255 255 / 0.95),
+    inset 0 0.12em 0.3em rgb(255 255 255 / 0.8),
+    inset 0 -0.15em 0.4em rgb(30 90 170 / 0.18),
+    0 0.35em 0.9em -0.2em rgb(0 8 30 / 0.55);
+  color: var(--clpl-ink);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.012em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
+}
+.clpl__paint { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; }
+.clpl__mist {
+  position: absolute;
+  inset: -12%;
+  filter: blur(0.7em);
+  transition: translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.clpl__blob { position: absolute; border-radius: 50%; animation: clpl-breathe 9s ease-in-out infinite alternate; }
+.clpl__blob:nth-child(2) { animation-duration: 11s; animation-delay: -3s; }
+.clpl__blob:nth-child(3) { animation-duration: 7s; animation-delay: -5s; }
+@keyframes clpl-breathe {
+  from { transform: translate(-3%, 2%) scale(1); }
+  to { transform: translate(3%, -3%) scale(1.07); }
+}
+.clpl:hover .clpl__mist { translate: var(--clpl-drift) 0; }
+.clpl:hover { box-shadow: inset 0 0 0 0.07em #fff, inset 0 0.12em 0.3em rgb(255 255 255 / 0.85), inset 0 -0.15em 0.4em rgb(30 90 170 / 0.2), 0 0.5em 1.2em -0.2em rgb(0 8 30 / 0.6); transform: translateY(-0.04em); }
+.clpl:active { transform: scale(0.98); }
+.clpl__label { display: inline-flex; align-items: center; gap: 0.75em; font-size: 1.18em; white-space: nowrap; }
+.clpl__dot { position: relative; width: 0.62em; height: 0.62em; border-radius: 50%; background: var(--clpl-ink); }
+.clpl__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--clpl-ink);
+  animation: clpl-ping 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+@keyframes clpl-ping {
+  0% { transform: scale(1); opacity: 0.45; }
+  70%, 100% { transform: scale(2.4); opacity: 0; }
+}
+.clpl__phone { width: 1.25em; height: 1.25em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transform-origin: 40% 60%; }
+.clpl__ring { opacity: 0; transition: opacity 0.2s; }
+.clpl:hover .clpl__phone { animation: clpl-ring 0.9s ease-in-out; }
+.clpl:hover .clpl__ring { opacity: 1; }
+@keyframes clpl-ring {
+  0%, 100% { transform: rotate(0); }
+  15%, 45% { transform: rotate(-14deg); }
+  30%, 60% { transform: rotate(12deg); }
+  75% { transform: rotate(-5deg); }
+}
+.clpl:focus-visible { outline: 0.1em solid #fff; outline-offset: 0.22em; }
+.clpl:disabled { cursor: not-allowed; opacity: 0.55; }
+@media (prefers-reduced-motion: reduce) {
+  .clpl__blob, .clpl__dot::after, .clpl:hover .clpl__phone { animation: none; }
+  .clpl, .clpl__mist { transition: none; }
+}

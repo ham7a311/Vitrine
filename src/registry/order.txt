@@ -36,6 +36,11 @@ buttons/dither-button
 buttons/marquee-lights-button
 buttons/puddle-button
 buttons/gradient-bloom-button
+buttons/frost-bloom-button
+buttons/prism-rim-button
+buttons/nebula-pill-button
+buttons/call-pill
+buttons/bell-subscribe-button
 buttons/droplet-button
 buttons/magnetic-button
 buttons/double-rule-button
@@ -197,6 +202,8 @@ ai/cited-answer
 ai/splice
 ai/confidence-ink
 ai/ask-bar
+ai/glyph-halo-composer
+ai/afterglow-prompt
 sidebars/conversation-sidebar
 sidebars/workspace-sidebar
 heroes/glass-torus

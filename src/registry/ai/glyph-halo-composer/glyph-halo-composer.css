@@ -1,0 +1,197 @@
+.ghcm {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  container-type: inline-size;
+  padding: 6.5em 0 8.5em;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-size: 20px;
+}
+.ghcm__field { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+
+.ghcm__frame { position: relative; width: min(100%, 44.8em); margin: 0 auto; }
+.ghcm__glow {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(0.9em);
+  opacity: 1;
+  animation: ghcm-breathe 5s ease-in-out infinite alternate;
+}
+.ghcm__glow--a {
+  left: -2.4em;
+  top: -2.1em;
+  width: 10.5em;
+  height: 6.4em;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--ghcm-a), #fff 18%), color-mix(in srgb, var(--ghcm-a) 70%, transparent) 45%, transparent 92%);
+}
+.ghcm__glow--b {
+  right: -2.6em;
+  bottom: -2.2em;
+  width: 12.5em;
+  height: 6.6em;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--ghcm-b), #fff 18%), color-mix(in srgb, var(--ghcm-b) 70%, transparent) 45%, transparent 92%);
+  animation-delay: -2.5s;
+}
+@keyframes ghcm-breathe {
+  from { opacity: 0.85; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1.03); }
+}
+
+.ghcm__box {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.9em;
+  padding: 1.35em 0.8em 0.85em;
+  border: 0.075em solid transparent;
+  border-radius: 1.4em;
+  background:
+    linear-gradient(#0a0b0e, #0a0b0e) padding-box,
+    linear-gradient(90deg, var(--ghcm-a) 0%, color-mix(in srgb, var(--ghcm-a) 55%, #e86ad0) 28%, #a46ef0 62%, var(--ghcm-b) 100%) border-box;
+  box-shadow:
+    -0.9em -0.25em 1.5em -0.6em color-mix(in srgb, var(--ghcm-a) 90%, transparent),
+    1em 0.3em 1.6em -0.6em color-mix(in srgb, var(--ghcm-b) 90%, transparent);
+}
+.ghcm__box::before {
+  /* the bright corners: a hot left top and a cold right bottom on the rim */
+  content: "";
+  position: absolute;
+  inset: -0.075em;
+  border-radius: inherit;
+  padding: 0.075em;
+  background:
+    radial-gradient(9em 4em at 0% 0%, color-mix(in srgb, var(--ghcm-a) 100%, #fff 35%), transparent 70%),
+    radial-gradient(10em 4em at 100% 100%, color-mix(in srgb, var(--ghcm-b) 100%, #fff 30%), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+.ghcm__input {
+  display: block;
+  width: 100%;
+  min-height: 1.5em;
+  margin: 0;
+  padding: 0 0.6em;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  color: #e6e7ec;
+  caret-color: #e6e7ec;
+  font: inherit;
+  font-size: 1em;
+  line-height: 1.5;
+}
+.ghcm__input::placeholder { color: #8b8d97; }
+.ghcm__bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.7em; row-gap: 0.45em; }
+.ghcm__end { display: inline-flex; align-items: center; gap: 0.7em; margin-left: auto; }
+.ghcm__icon { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.ghcm__round,
+.ghcm__chip,
+.ghcm__send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.3em;
+  border: 0.05em solid #2b2c34;
+  border-radius: 999px;
+  background: #18191e;
+  color: #b8bac3;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.18s, color 0.18s, border-color 0.18s;
+}
+.ghcm__round { width: 2.3em; padding: 0; }
+.ghcm__round .ghcm__icon { width: 1.1em; height: 1.1em; }
+.ghcm__chip { gap: 0.45em; padding: 0 0.8em 0 0.75em; white-space: nowrap; }
+.ghcm__chip > span { font-size: 1em; }
+.ghcm__chev { width: 0.75em; height: 0.75em; stroke-width: 2; transition: rotate 0.2s; }
+.ghcm__chip[aria-expanded="true"] .ghcm__chev { rotate: 180deg; }
+.ghcm__round:hover,
+.ghcm__chip:hover,
+.ghcm__chip[aria-expanded="true"] { background: #202128; border-color: #35363f; color: #e3e4ea; }
+.ghcm__voice { padding: 0 0.85em 0 0.75em; }
+.ghcm__voice[aria-pressed="true"] { border-color: color-mix(in srgb, var(--ghcm-b) 60%, transparent); color: #fff; background: color-mix(in srgb, var(--ghcm-b) 18%, #18191e); }
+.ghcm__voice[aria-pressed="true"] .ghcm__wave { animation: ghcm-listen 0.9s ease-in-out infinite alternate; }
+@keyframes ghcm-listen {
+  from { transform: scaleY(0.55); }
+  to { transform: scaleY(1.1); }
+}
+.ghcm__send {
+  width: 2.4em;
+  height: 2.4em;
+  padding: 0;
+  border: 0;
+  background: linear-gradient(135deg, #ff4f9a, #8f5cf5 55%, #5b6cff);
+  color: #fff;
+  box-shadow: 0 0.3em 1em -0.3em #ff4f9a;
+}
+.ghcm__send .ghcm__icon { width: 1.05em; height: 1.05em; fill: currentColor; stroke-width: 1; translate: -0.04em 0.04em; }
+.ghcm__send:hover:not(:disabled) { filter: brightness(1.12); }
+.ghcm__send:disabled { cursor: default; }
+.ghcm__round:focus-visible,
+.ghcm__chip:focus-visible,
+.ghcm__send:focus-visible,
+.ghcm__item:focus-visible { outline: 0.1em solid #c9cbff; outline-offset: 0.12em; }
+
+
+.ghcm__menu-wrap { position: relative; }
+.ghcm__menu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 0.5em);
+  left: 0;
+  display: grid;
+  gap: 0.1em;
+  min-width: 12.6em;
+  padding: 0.4em;
+  border: 0.05em solid #2a2b33;
+  border-radius: 0.75em;
+  background: #15161b;
+  box-shadow: 0 1.2em 3em -0.6em rgb(0 0 0 / 0.75);
+  transform-origin: top left;
+  animation: ghcm-pop 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes ghcm-pop {
+  from { opacity: 0; transform: translateY(-0.3em) scale(0.98); }
+}
+.ghcm__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  height: 2.4em;
+  padding: 0 0.6em;
+  border: 0;
+  border-radius: 0.5em;
+  background: transparent;
+  color: #c4c6cf;
+  font: inherit;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ghcm__item[data-active] { background: #23242c; color: #eceef3; }
+.ghcm__item[aria-checked="true"] { color: #fff; font-weight: 500; }
+
+.ghcm__files { display: flex; flex-wrap: wrap; gap: 0.4em; margin: 0; padding: 0 0.4em; list-style: none; }
+.ghcm__files li { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.25em 0.3em 0.25em 0.7em; border-radius: 999px; background: #1b1c22; color: #c4c6cf; font-size: 0.7em; }
+.ghcm__files button { width: 1.6em; height: 1.6em; border: 0; border-radius: 50%; background: #2a2b33; color: #e3e4ea; cursor: pointer; }
+.ghcm__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@container (max-width: 640px) {
+  .ghcm__frame { font-size: 15px; }
+}
+@container (max-width: 420px) {
+  .ghcm__frame { font-size: 13px; }
+  .ghcm__chip:not(.ghcm__voice) { padding: 0 0.6em; }
+  .ghcm__chip .ghcm__chev { display: none; }
+  .ghcm__voice span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .ghcm__voice { width: 2.3em; padding: 0; }
+  .ghcm__bar { gap: 0.45em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ghcm__glow, .ghcm__menu, .ghcm__voice[aria-pressed="true"] .ghcm__wave { animation: none; }
+}

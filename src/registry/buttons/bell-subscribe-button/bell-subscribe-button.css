@@ -1,0 +1,89 @@
+.bsub {
+  --bsub-ink: #141218;
+  --bsub-face: #f1efe9;
+  --bsub-dx: 0.3em;
+  --bsub-dy: 0.4em;
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bsub-ink);
+  color: var(--bsub-ink);
+  font-family: "Archivo", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-stretch: 125%;
+  font-variation-settings: "wdth" 125;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  translate: var(--bsub-dx) var(--bsub-dy);
+}
+.bsub__face {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  height: 4.4em;
+  padding: 0 0.7em 0 1.45em;
+  border: 0.14em solid var(--bsub-ink);
+  border-radius: inherit;
+  background: var(--bsub-face);
+  translate: calc(var(--bsub-dx) * -1) calc(var(--bsub-dy) * -1);
+  transition: translate 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.bsub:hover .bsub__face { translate: calc(var(--bsub-dx) * -1.25) calc(var(--bsub-dy) * -1.2); }
+.bsub:active .bsub__face { translate: 0 0; transition-duration: 0.08s; }
+
+.bsub__labels { display: grid; overflow: hidden; height: 1.35em; font-size: 1.12em; letter-spacing: 0.015em; }
+.bsub__label {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: translate 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s;
+}
+.bsub__label--on { translate: 0 110%; opacity: 0; }
+.bsub[aria-pressed="true"] .bsub__label--off { translate: 0 -110%; opacity: 0; }
+.bsub[aria-pressed="true"] .bsub__label--on { translate: 0 0; opacity: 1; }
+
+.bsub__disc {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.95em;
+  height: 2.95em;
+  margin-left: auto;
+  border: 0.14em solid var(--bsub-ink);
+  border-radius: 50%;
+  background: var(--bsub-accent);
+  transition: background-color 0.3s;
+}
+.bsub__bell { width: 1.75em; height: 1.75em; rotate: 38deg; overflow: visible; }
+.bsub__body { fill: var(--bsub-ink); transition: fill 0.3s; }
+.bsub__swing { transform-origin: 12px 4px; }
+.bsub__waves path { fill: none; stroke: var(--bsub-ink); stroke-width: 1.7; stroke-linecap: round; transition: stroke 0.3s, opacity 0.3s; }
+.bsub:hover .bsub__swing { animation: bsub-ring 0.8s ease-in-out; }
+.bsub:hover .bsub__waves { animation: bsub-waves 0.8s ease-in-out; }
+@keyframes bsub-ring {
+  0%, 100% { transform: rotate(0); }
+  15% { transform: rotate(-16deg); }
+  35% { transform: rotate(14deg); }
+  55% { transform: rotate(-9deg); }
+  75% { transform: rotate(5deg); }
+}
+@keyframes bsub-waves {
+  0%, 100% { opacity: 1; }
+  20%, 60% { opacity: 0.2; }
+  40%, 80% { opacity: 1; }
+}
+.bsub[aria-pressed="true"] .bsub__disc { background: var(--bsub-ink); }
+.bsub[aria-pressed="true"] .bsub__body { fill: var(--bsub-accent); }
+.bsub[aria-pressed="true"] .bsub__waves path { stroke: var(--bsub-accent); }
+
+.bsub:focus-visible { outline: 0.14em solid var(--bsub-ink); outline-offset: 0.3em; }
+.bsub:disabled { cursor: not-allowed; opacity: 0.6; }
+.bsub__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .bsub__face, .bsub__label { transition: none; }
+  .bsub:hover .bsub__swing, .bsub:hover .bsub__waves { animation: none; }
+}
