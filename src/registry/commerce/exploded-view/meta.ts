@@ -23,5 +23,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --xview-accent #78aef0; --xview-bg #0f141a; --xview-focus #78aef0; --xview-glow #574a1c; --xview-grid rgb(120 170 230 / 0.07); --xview-ink #d9e2ec; --xview-line rgb(217 226 236 / 0.12); --xview-muted #8a97a5; --xview-paper #18212b; --xview-sheet #131a22; --xview-tint #1f3550. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e4e8ec", mode: "fill", frame: [1200, 760] },
-  isNew: true,
 };

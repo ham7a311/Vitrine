@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "light", label: "Light", prompt: "Palette for this theme (Light): --sigt-beam #2563eb; --sigt-beam-hot #1d4ed8; --sigt-bg #f4f4f2; --sigt-edge rgb(10 10 10 / 0.1); --sigt-focus #2563eb; --sigt-icon #111113; --sigt-ink #0a0a0a; --sigt-muted #6b6b70; --sigt-pill #0a0a0a; --sigt-pill-ink #ffffff; --sigt-pill2 #e4e4e1; --sigt-pill2-ink #0a0a0a; --sigt-tile #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#000000", mode: "fill", frame: [1400, 860] },
-  isNew: true,
 };

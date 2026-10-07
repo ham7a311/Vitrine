@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "light", label: "Light", prompt: "Palette for this theme (Light): --hlx-bg #f3f6fb; --hlx-edge rgb(10 13 20 / 0.1); --hlx-focus #2f5fe0; --hlx-glass rgb(255 255 255 / 0.7); --hlx-ink #0a0d14; --hlx-pill #0a0d14; --hlx-pill-ink #ffffff; --hlx-soft rgb(10 13 20 / 0.6). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#010307", mode: "scroll", frame: [1440, 780], height: 760 },
-  isNew: true,
 };

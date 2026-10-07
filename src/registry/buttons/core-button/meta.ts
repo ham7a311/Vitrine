@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --cbtn-danger #e5484d; --cbtn-danger-hover #f2555a; --cbtn-edge #343434; --cbtn-edge-hover #5c5c5c; --cbtn-focus #6ea8fe; --cbtn-hover-wash rgb(255 255 255 / 0.07); --cbtn-ink #ededed; --cbtn-link #6ea8fe; --cbtn-paper #0a0a0a; --cbtn-soft #1f1f1f; --cbtn-soft-hover #2b2b2b; --cbtn-solid-hover #cfcfcf; --cbtn-success #238636; --cbtn-success-hover #2a9a40; --cbtn-warning #f5a524; --cbtn-warning-hover #ffb53d. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ffffff", mode: "fill", frame: [1100, 760] },
-  isNew: true,
 };

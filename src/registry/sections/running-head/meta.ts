@@ -25,5 +25,4 @@ The running head: render a zero-height position: sticky element as the first chi
     { id: "night", label: "Night" },
   ],
   preview: { bg: "#f6f5f1", mode: "scroll", height: 640 },
-  isNew: true,
 };

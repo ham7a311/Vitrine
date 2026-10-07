@@ -23,5 +23,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --tzo-bg #141517; --tzo-cursor #ebebe7; --tzo-ink #ebebe7; --tzo-lane #23252a; --tzo-line rgb(255 255 255 / 0.1); --tzo-muted #9b9fa6; --tzo-shared rgb(111 214 168 / 0.14); --tzo-shared-edge #6fd6a8; --tzo-work #3f7a63. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e6e7e3", mode: "center", frame: [1000, 560] },
-  isNew: true,
 };

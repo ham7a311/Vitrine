@@ -30,5 +30,4 @@ export const meta: ComponentMeta = {
     "bg": "#f3f1e9",
     "mode": "fill"
   },
-  "isNew": true
 };

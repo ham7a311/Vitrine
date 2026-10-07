@@ -24,5 +24,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Dark theme: page #1f1f1f, panel #2a2927, ink and borders #f4efea with a #000000 hard shadow, muted #b9b2a9, code blocks #151515 with #f4efea text and #7d776f comments; accent chips keep their colours." },
   ],
   preview: { bg: "#f4efea", mode: "fill", frame: [860, 640] },
-  isNew: true,
 };

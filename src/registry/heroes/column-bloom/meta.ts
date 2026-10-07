@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --cbloom-core #fff7f1; --cbloom-deep #b4260a; --cbloom-hot #e2470f; --cbloom-on #fff4ec; --cbloom-page #0c0705; --cbloom-soft #a2481f; --cbloom-warm #f2701f; --cbloom-word #ff8a4a. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#fefdfc", mode: "fill", frame: [1466, 742] },
-  isNew: true,
 };

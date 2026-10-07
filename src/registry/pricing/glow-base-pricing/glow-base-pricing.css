@@ -1,0 +1,119 @@
+.gbpr {
+  padding: 2.4em 1.5em 2.6em;
+  background: #000;
+  color: #f4f4f6;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+.gbpr__eyebrow {
+  margin: 0;
+  font-family: "Archivo", "Inter", ui-sans-serif, sans-serif;
+  font-size: 2.1em;
+  font-stretch: 112%;
+  font-variation-settings: "wdth" 112;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.gbpr__title { margin: 0.75em 0 0; font-size: 1.13em; font-weight: 500; }
+.gbpr__intro { max-width: 32em; margin: 1.2em auto 0; color: #d4d4da; font-size: 0.95em; line-height: 1.45; }
+.gbpr__billing { display: inline-flex; align-items: center; gap: 0.7em; margin-top: 0.85em; color: #c9c9cf; font-size: 0.95em; }
+.gbpr__billing .gbpr__on { color: #fff; }
+.gbpr__switch {
+  position: relative;
+  width: 2.75em;
+  height: 1.55em;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.75);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+.gbpr__knob {
+  position: absolute;
+  top: 50%;
+  left: 0.16em;
+  width: 1.18em;
+  height: 1.18em;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.gbpr__switch[aria-checked="true"] { background: #2b2b31; }
+.gbpr__switch[aria-checked="true"] .gbpr__knob { left: calc(100% - 1.34em); }
+.gbpr__switch:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.gbpr__save { padding: 0.15em 0.55em; border-radius: 999px; background: #f6a2a6; color: #3a0d12; font-size: 0.72em; font-weight: 600; }
+
+.gbpr__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 18.6em));
+  justify-content: center;
+  gap: 0.95em;
+  margin-top: 2.1em;
+  text-align: left;
+}
+.gbpr__card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 32em;
+  overflow: hidden;
+  padding: 1.75em 1.25em 1.35em;
+  border: 1px solid color-mix(in srgb, var(--gbpr-c) 45%, #1c1c20);
+  border-radius: 1.4em;
+  background: #050505;
+}
+/* The pool of light at the base. */
+.gbpr__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(68% 25% at 50% 100%, color-mix(in srgb, var(--gbpr-c), #fff 12%), color-mix(in srgb, var(--gbpr-c) 70%, transparent) 45%, transparent 100%),
+    radial-gradient(95% 40% at 50% 100%, color-mix(in srgb, var(--gbpr-c) 55%, transparent), transparent 85%);
+  transition: opacity 0.5s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: bottom;
+}
+.gbpr__card:hover::before { transform: scaleY(1.12); }
+.gbpr__name { margin: 0; font-family: "Archivo", "Inter", ui-sans-serif, sans-serif; font-size: 1.65em; font-stretch: 108%; font-variation-settings: "wdth" 108; font-weight: 500; letter-spacing: -0.005em; }
+.gbpr__blurb { margin: 0.8em 0 0; color: #e8e8ec; font-size: 0.93em; line-height: 1.42; }
+.gbpr__price { display: flex; align-items: baseline; gap: 0.3em; margin: 0.45em 0 0; font-variant-numeric: tabular-nums; }
+.gbpr__amount { font-family: "Archivo", "Inter", ui-sans-serif, sans-serif; font-size: 2.35em; font-weight: 500; letter-spacing: -0.02em; animation: gbpr-roll 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes gbpr-roll {
+  from { opacity: 0; transform: translateY(-0.3em); }
+}
+.gbpr__per { color: #d7d7dd; font-size: 0.95em; }
+.gbpr__list { display: grid; gap: 0.95em; margin: 1.55em 0 0; padding: 0; list-style: none; }
+.gbpr__list li { display: flex; align-items: center; gap: 0.75em; color: #e9e9ee; font-size: 0.8em; }
+.gbpr__list svg { flex: none; width: 1.1em; height: 1.1em; fill: none; stroke: #48d870; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.gbpr__cta {
+  align-self: center;
+  margin-top: auto;
+  padding: 0.65em 1.25em;
+  border: 0;
+  border-radius: 0.75em;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-size: 0.93em;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 0.4em 1.2em -0.4em rgb(0 0 0 / 0.5);
+  transition: translate 0.25s, box-shadow 0.25s;
+}
+.gbpr__cta:hover { translate: 0 -1px; box-shadow: 0 0.6em 1.6em -0.4em rgb(0 0 0 / 0.6), 0 0 1.2em -0.2em color-mix(in srgb, var(--gbpr-c) 60%, transparent); }
+.gbpr__cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.gbpr__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .gbpr__grid { grid-template-columns: minmax(0, 22em); }
+  .gbpr__card { min-height: 28em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gbpr__amount { animation: none; }
+  .gbpr__knob, .gbpr__card::before, .gbpr__cta { transition: none; }
+}

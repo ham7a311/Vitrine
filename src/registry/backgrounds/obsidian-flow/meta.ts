@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "light", label: "Light", prompt: "Palette for this theme (Light): --obsf-fallback radial-gradient(80% 70% at 60% 40%, #f4f7fa, #c9cfd6 70%); --obsf-floor #e9edf1; --obsf-grid rgb(10 14 20 / 0.07). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#07090c", mode: "fill", height: 620 },
-  isNew: true,
 };

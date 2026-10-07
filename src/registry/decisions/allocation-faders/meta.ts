@@ -26,5 +26,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --afad-bg #161718; --afad-c1 #e07a4f; --afad-c2 #4fb3b1; --afad-c3 #9a9af2; --afad-c4 #d4ad4f; --afad-c5 #a3b860; --afad-c6 #c98bbb; --afad-cap #d8d4cb; --afad-cap-line #1d1e20; --afad-focus #8ab4ff; --afad-ink #ecebe7; --afad-line rgb(255 255 255 / 0.1); --afad-lock #ff7a5c; --afad-muted #a29f97; --afad-panel #1d1e20; --afad-readout-bg #0b0c0d; --afad-readout-ink #f3e9d6; --afad-slot #060607; --afad-tape #d9cfb0; --afad-tape-ink #2a251d. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#d9d3c7", mode: "fill", frame: [1000, 620] },
-  isNew: true,
 };

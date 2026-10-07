@@ -27,5 +27,4 @@ export const meta: ComponentMeta = {
     { id: "unknown", label: "No record", prompt: "Show the state with nothing to forward, on the light palette (page #eef1f4, ink #15202b, accent #2643c4): the requested address /press-kit-2019 has no redirect, so there is no trail. The headline reads 'No forwarding address.', the lede explains it may never have existed, then a filled home button and a search form whose submit calls onSearch." },
   ],
   preview: { bg: "#eef1f4", mode: "page", frame: [1280, 800] },
-  isNew: true,
 };

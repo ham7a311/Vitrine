@@ -29,5 +29,4 @@ Placement is measured, not guessed: with the term's rect and the card's size, pu
     { id: "night", label: "Night", prompt: "Palette for this theme (Night): --gt-accent #7aa2ff; --gt-bg #1d1e22; --gt-ink #ececea; --gt-line rgb(255 255 255 / 0.16); --gt-muted #9a9ca2. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f6f5f1", mode: "scroll", height: 560, frame: [760, 475] },
-  isNew: true,
 };

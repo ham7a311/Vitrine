@@ -55,5 +55,4 @@ export const meta: ComponentMeta = {
       640
     ]
   },
-  "isNew": true
 };

@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --rblob-focus #ececec; --rblob-guide #18181a; --rblob-ink #ececec; --rblob-label #8c8c8c; --rblob-line #1f1f21; --rblob-page #0c0c0d; --rblob-soft #a3a3a3. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ffffff", mode: "scroll", frame: [1440, 780], height: 760 },
-  isNew: true,
 };

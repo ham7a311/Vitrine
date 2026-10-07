@@ -33,5 +33,4 @@ export const meta: ComponentMeta = {
       800
     ]
   },
-  "isNew": true
 };

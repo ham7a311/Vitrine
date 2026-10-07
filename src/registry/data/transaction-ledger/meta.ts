@@ -24,5 +24,4 @@ export const meta: ComponentMeta = {
     { id: "light", label: "Light", prompt: "Light theme: panel #ffffff, raised rows #f5f5f6, wells #fafafb, text #0c0c0d, muted #66666d, faint #a3a3aa, hairlines rgb(0 0 0 / 0.07) and 0.14, accent #4b53d6, credit #18794e, warning #b26b00, error #c2322a; monograms at 92% lightness with deep text." },
   ],
   preview: { bg: "#0b0b0c", mode: "fill", frame: [880, 760] },
-  isNew: true,
 };

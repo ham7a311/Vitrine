@@ -25,5 +25,4 @@ export const meta: ComponentMeta = {
     { id: "light", label: "Light", prompt: "Light theme: page #f6f6f7, panels #ffffff, raised rows #f3f3f5, text #0c0c0d, muted #66666d, faint #a3a3aa, hairlines rgb(0 0 0 / 0.08) and 0.16, accent #4b53d6, warning #b26b00, error #c2322a; card faces keep the same solid colours." },
   ],
   preview: { bg: "#0b0b0c", mode: "fill", frame: [1100, 700] },
-  isNew: true,
 };

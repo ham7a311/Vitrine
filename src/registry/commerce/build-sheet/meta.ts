@@ -25,5 +25,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --bsheet-accent #9db4ff; --bsheet-accent-ink #0f1424; --bsheet-carbon #1f2740; --bsheet-carbon-ink #c4d2ff; --bsheet-card #1d2027; --bsheet-grid rgb(140 170 255 / 0.05); --bsheet-ink #dfe5f1; --bsheet-line rgb(255 255 255 / 0.1); --bsheet-mark #4a4020; --bsheet-muted #98a1b3; --bsheet-paper #16181d; --bsheet-warn #ff9a80. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ecebe5", mode: "fill", frame: [1200, 820] },
-  isNew: true,
 };

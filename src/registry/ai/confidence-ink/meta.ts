@@ -23,5 +23,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --cink-bar rgb(169 156 255 / 0.18); --cink-bg #15141a; --cink-edit #5fd3a6; --cink-edit-bg rgb(95 211 166 / 0.12); --cink-focus #a99cff; --cink-ink #ecebf2; --cink-line rgb(255 255 255 / 0.09); --cink-low #a99cff; --cink-menu #222129; --cink-muted #9c99a8; --cink-paper #1b1a21. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ece9e1", mode: "center", frame: [1000, 620] },
-  isNew: true,
 };

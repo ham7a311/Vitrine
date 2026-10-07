@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --satn-bottom #b4c8e2; --satn-chip rgb(255 255 255 / 0.08); --satn-chip-hover rgb(255 255 255 / 0.16); --satn-fallback radial-gradient(120% 90% at 85% 10%, #3c5f8f 0%, #1d3557 35%, #0c1830 70%, #070d18 100%); --satn-focus #e3edf9; --satn-hi rgb(0 0 0 / 0.55); --satn-ink #e3edf9; --satn-ink-soft #b9cde6; --satn-line rgb(255 255 255 / 0.08); --satn-lo rgb(255 255 255 / 0.25); --satn-on-ink #0c1830; --satn-top #ffffff. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#d8ecff", mode: "fill", frame: [1440, 780] },
-  isNew: true,
 };

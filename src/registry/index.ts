@@ -34,6 +34,7 @@ import { meta as puddleButton } from "./buttons/puddle-button/meta";
 import { meta as gradientBloomButton } from "./buttons/gradient-bloom-button/meta";
 import { meta as frostBloomButton } from "./buttons/frost-bloom-button/meta";
 import { meta as prismRimButton } from "./buttons/prism-rim-button/meta";
+import { meta as spectrumRingButton } from "./buttons/spectrum-ring-button/meta";
 import { meta as nebulaPillButton } from "./buttons/nebula-pill-button/meta";
 import { meta as callPill } from "./buttons/call-pill/meta";
 import { meta as bellSubscribeButton } from "./buttons/bell-subscribe-button/meta";
@@ -94,6 +95,7 @@ import { meta as conduitCard } from "./cards/conduit-card/meta";
 import { meta as lightLeakCard } from "./cards/light-leak-card/meta";
 import { meta as auroraFootCard } from "./cards/aurora-foot-card/meta";
 import { meta as rimGlowCard } from "./cards/rim-glow-card/meta";
+import { meta as filterStepCard } from "./cards/filter-step-card/meta";
 import { meta as tidefillCard } from "./cards/tidefill-card/meta";
 import { meta as liquidGlassCard } from "./cards/liquid-glass-card/meta";
 import { meta as holoFoilCard } from "./cards/holo-foil-card/meta";
@@ -131,6 +133,8 @@ import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
 import { meta as halftoneRise } from "./backgrounds/halftone-rise/meta";
 import { meta as orbitDawn } from "./backgrounds/orbit-dawn/meta";
 import { meta as lightPour } from "./backgrounds/light-pour/meta";
+import { meta as emberGlobe } from "./backgrounds/ember-globe/meta";
+import { meta as pointBloom } from "./backgrounds/point-bloom/meta";
 import { meta as glassOrbs } from "./backgrounds/glass-orbs/meta";
 import { meta as liquidChrome } from "./backgrounds/liquid-chrome/meta";
 import { meta as obsidianFlow } from "./backgrounds/obsidian-flow/meta";
@@ -265,6 +269,7 @@ import { meta as indexFooter } from "./footers/index-footer/meta";
 import { meta as colophonFooter } from "./footers/colophon-footer/meta";
 import { meta as hazeTierCard } from "./pricing/haze-tier-card/meta";
 import { meta as creditTierPricing } from "./pricing/credit-tier-pricing/meta";
+import { meta as glowBasePricing } from "./pricing/glow-base-pricing/meta";
 import { meta as subtractivePricing } from "./pricing/subtractive-pricing/meta";
 import { meta as usageRuler } from "./pricing/usage-ruler/meta";
 import { meta as lightboxCompare } from "./pricing/lightbox-compare/meta";
@@ -474,6 +479,7 @@ export const registry: ComponentMeta[] = [
   gradientBloomButton,
   frostBloomButton,
   prismRimButton,
+  spectrumRingButton,
   nebulaPillButton,
   callPill,
   bellSubscribeButton,
@@ -534,6 +540,7 @@ export const registry: ComponentMeta[] = [
   lightLeakCard,
   auroraFootCard,
   rimGlowCard,
+  filterStepCard,
   tidefillCard,
   liquidGlassCard,
   holoFoilCard,
@@ -571,6 +578,8 @@ export const registry: ComponentMeta[] = [
   halftoneRise,
   orbitDawn,
   lightPour,
+  emberGlobe,
+  pointBloom,
   glassOrbs,
   liquidChrome,
   obsidianFlow,
@@ -705,6 +714,7 @@ export const registry: ComponentMeta[] = [
   colophonFooter,
   hazeTierCard,
   creditTierPricing,
+  glowBasePricing,
   subtractivePricing,
   usageRuler,
   lightboxCompare,

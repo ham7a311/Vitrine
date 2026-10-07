@@ -24,5 +24,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Dark theme: page and tile panels #131f24, ink #dce6ec, muted #8ea3ad, borders and missed days #37464f, values use the bright tile colours (#ffc800, #58cc02, #1cb0f6) instead of the deeper tones, focus ring #49c0f8; heading, streak and buttons keep their bright colours." },
   ],
   preview: { bg: "#ffffff", mode: "fill", frame: [640, 720] },
-  isNew: true,
 };

@@ -25,5 +25,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --ndial-accent #f5a524; --ndial-bg #161719; --ndial-card #1d1f22; --ndial-face #222428; --ndial-ink #ebe9e4; --ndial-line rgb(255 255 255 / 0.1); --ndial-muted #a29e95; --ndial-s0 #7fa8ff; --ndial-s1 #f5a524; --ndial-s2 #6fd1a2; --ndial-s3 #c49bff; --ndial-track #2c2f33. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#e4e1da", mode: "center", frame: [1000, 620] },
-  isNew: true,
 };
