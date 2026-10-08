@@ -4,21 +4,25 @@
 
 **Kept under glass.**
 
-300+ hand-built React components, chosen for how they move, react and feel.
-Read the source. Read the prompt behind it. Take it and make it yours.
+A curated collection of React components with memorable interactions.
+Read the source, read the prompt behind it, and copy what you need.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-442-c8b9ea)
+![Components](https://img.shields.io/badge/components-458-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
 ![Copy/paste](https://img.shields.io/badge/install-copy%2Fpaste-1f1a24)
 
-[Browse the collection](https://tryvitrine.dev) · [How it works](#how-it-works) · [Workshop](#the-workshop) · [Contributing](#contributing)
+[Browse the collection](https://tryvitrine.dev) · [How to use it](#how-to-use-a-component) · [How it's made](#how-vitrine-is-made) · [Workshop](#the-workshop) · [Contributing](#contributing)
+
+<br>
+
+<a href="https://tryvitrine.dev/components/reactive-prose"><img src=".github/readme/reactive-prose.gif" width="720" alt="Reactive Prose: a reader drags the number of weekly sign-ups in a paragraph from 40 up to 180 and back down to 35; the sentence's conclusion changes from March 2027 to November 2026 to April 2027 and the chart beneath it redraws."></a>
+
+<sub>Reactive Prose, recorded from the live component: drag a number in the sentence and everything that depends on it recalculates.</sub>
 
 </div>
-
-[Explore live previews, source files and prompts at tryvitrine.dev](https://tryvitrine.dev/components).
 
 ---
 
@@ -26,45 +30,70 @@ Read the source. Read the prompt behind it. Take it and make it yours.
 
 A *vitrine* is a glass display case: you look, you don't touch. Vitrine is the one display where you're allowed to take the object.
 
-It is a curated gallery of React components where each piece has **one clear idea**, drawn from a physical world (shattering glass, letterpress, split-flap boards, wet ink, vinyl sleeves, boarding passes) and kept useful. Every component ships with:
+Each component is built around **one clear idea**, often borrowed from a physical object (letterpress, split-flap boards, wet ink, a transit map, a patch bay) and kept useful. Every component comes with:
 
-- a **live preview** you can switch between variants,
+- a **live preview** with its variants,
 - the **real source**, exactly what runs in the preview,
-- the **design prompt** behind it, precise enough to rebuild or adapt the component with an AI assistant,
-- notes on **interaction, animation, accessibility, responsiveness and touch fallback**.
+- the **design prompt** it was built from, detailed enough to rebuild or adapt it with an AI assistant,
+- notes on **interaction, animation, accessibility, responsiveness and touch**.
 
-There is no package, no CLI and no registry install. You copy a file or two into your project and it's yours.
+There is no package, no CLI and no registry install. You copy the files into your project and they're yours.
 
-## Why Vitrine
+## A closer look
 
-| | |
-|---|---|
-| **Taste over count** | Components have a point of view. A button doesn't just have a hover state, it shatters from one impact point, or fills like a glass being poured. |
-| **Prompt-as-artifact** | Each component carries the written brief it was built from, with per-variant prompts. Paste it into an LLM to adapt the piece to your product. |
-| **Zero lock-in** | Plain React + TypeScript, Tailwind only where it helps, plain CSS for real keyframes. **No animation libraries.** You maintain the copied source in your project. |
-| **Accessible by rule** | Keyboard access, visible focus, `prefers-reduced-motion` and a touch fallback for anything hover-dependent are requirements, not extras. |
-| **Well-behaved visuals** | WebGL and canvas pieces pause offscreen and in hidden tabs, cap device pixel ratio, and fall back gracefully. |
-| **More than parts** | Full-page recipes and ready-made AI skills show how to compose the pieces into a site that doesn't look templated. |
+<table>
+<tr>
+<td width="50%" valign="top">
+<a href="https://tryvitrine.dev/components/sieve"><img src=".github/readme/sieve.jpg" alt="Sieve: a product grid filtered by type, material and price, with a tray at the bottom labelled 'Set aside 36'."></a>
+<br><b><a href="https://tryvitrine.dev/components/sieve">Sieve</a></b> — filters that show their work. Every option previews how many items it would add or remove, and what you filtered out waits in a tray instead of vanishing.
+</td>
+<td width="50%" valign="top">
+<a href="https://tryvitrine.dev/components/undo-tree"><img src=".github/readme/undo-tree.jpg" alt="Undo Tree: a headline editor beside a branching history of six states, with two branch ends marked."></a>
+<br><b><a href="https://tryvitrine.dev/components/undo-tree">Undo Tree</a></b> — history that branches instead of forgetting. Undo, change something, and the old future stays in the tree as its own branch.
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<a href="https://tryvitrine.dev/components/patch-bay"><img src=".github/readme/patch-bay.jpg" alt="Patch Bay: sources on the left connected to destinations on the right by three sagging coloured cables."></a>
+<br><b><a href="https://tryvitrine.dev/components/patch-bay">Patch Bay</a></b> — routing as cables. Plugs refuse incompatible jacks and say why, and every connection is also available as a table.
+</td>
+<td width="50%" valign="top">
+<a href="https://tryvitrine.dev/components/you-draw-it"><img src=".github/readme/you-draw-it.jpg" alt="You Draw It: a line chart of weekly active teams from January to May, with the rest of the year left empty and a prompt to draw your guess."></a>
+<br><b><a href="https://tryvitrine.dev/components/you-draw-it">You Draw It</a></b> — a chart that asks for your guess before it shows the answer, then compares the two.
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<a href="https://tryvitrine.dev/components/line-map"><img src=".github/readme/line-map.jpg" alt="Line Map: a course drawn as a transit map with three coloured lines, interchanges and a 'You are here' station."></a>
+<br><b><a href="https://tryvitrine.dev/components/line-map">Line Map</a></b> — structure drawn as a transit map. Arrow keys travel along a line; at interchanges you change lines.
+</td>
+<td width="50%" valign="top">
+<a href="https://tryvitrine.dev/components/reactive-prose"><img src=".github/readme/reactive-prose.jpg" alt="Reactive Prose: a paragraph about newsletter growth with draggable blue numbers and a small chart of readers over time."></a>
+<br><b><a href="https://tryvitrine.dev/components/reactive-prose">Reactive Prose</a></b> — text you can operate. Numbers in the sentence are controls, and the conclusion and chart follow them.
+</td>
+</tr>
+</table>
 
 ## What's inside
 
-**442 components in 32 categories.** The 50 newest carry a New label (`python3 scripts/limit-new.py` keeps it that way).
+**458 components in 32 categories.** The 50 newest carry a New label (`python3 scripts/limit-new.py` keeps it that way).
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
-| Buttons | 66 | Backgrounds | 45 | Cards | 39 |
-| Controls | 23 | Feedback | 23 | AI & Chat | 22 |
-| Stats | 17 | Analytics | 16 | Forms | 16 |
-| Authentication | 15 | Text Animations | 15 | Cursors | 14 |
-| Data | 14 | CTAs | 11 | Type & Names | 10 |
-| FAQ | 9 | Navigation | 9 | Sections | 9 |
-| Heroes | 8 | Media | 8 | Micro-animations | 8 |
-| Time | 7 | Pricing | 9 | Overlays | 6 |
+| Buttons | 64 | Backgrounds | 45 | Cards | 39 |
+| AI & Chat | 36 | Controls | 23 | Feedback | 22 |
+| Stats | 18 | Analytics | 17 | Forms | 16 |
+| Authentication | 15 | Data | 15 | Text Animations | 15 |
+| Cursors | 14 | CTAs | 11 | Navigation | 10 |
+| Type & Names | 10 | FAQ | 9 | Pricing | 9 |
+| Sections | 9 | Heroes | 8 | Media | 8 |
+| Micro-animations | 8 | Time | 7 | Overlays | 6 |
 | Developer | 4 | Footers | 4 | Commerce | 3 |
-| Decisions | 3 | Maps & Globes | 3 | Navbars | 2 |
+| Decisions | 3 | Maps & Globes | 3 | Navbars | 3 |
 | Reading | 2 | Sidebars | 2 | | |
 
-A few to start with:
+<details>
+<summary><b>A longer tour</b></summary>
 
 - **Glassbreak Button**: a plate of dark glass that fractures from a single impact point, pure CSS and fully choreographed.
 - **Silk Field**: a shader background you can set type on.
@@ -94,17 +123,38 @@ A few to start with:
 - **Refraction Blob, Ask Bar, Sweep Cards, Infinite Highlight Sweep**: a lumpy glass drop that reads a name through itself and turns with the scroll, an assistant's opening screen with one bar that grows, attaches and dictates, and pastel cards whose key phrases a demo cursor sweeps once. Highlight Sweep now plays once and rests; Infinite Highlight Sweep is the looping version.
 - **Docket Nav, Running Head, Typeset Hero, Colophon Footer**: the structural pieces a real page needs, with the same care as the showpieces.
 - **Phrase Date, Shortcut Palette, Nearest Page, Plain Consent**: the small, honest utilities: a date you can write in words, a palette that teaches its shortcuts, a 404 that finds the page you meant, cookie consent without the tricks.
-- **Button Set, Danger, Hold to Delete, Type to Delete, Upload, Drop Zone, Avatar Upload, Live, Ping, Breathe, Corner Cut, Corner Brackets**: the everyday set in eight styles, three kinds of delete (ask in place, hold, or type the name) that all end in an undo, three kinds of upload that become their own progress, three kinds of live and attention button, and two kinds of chamfered panel button.
+- **Button Set, Danger, Hold to Delete, Type to Delete, Upload, Drop Zone, Avatar Upload, Live, Ping, Corner Cut, Corner Brackets**: the everyday set in eight styles, three kinds of delete (ask in place, hold, or type the name) that all end in an undo, three kinds of upload that become their own progress, three kinds of live and attention button, and two kinds of chamfered panel button.
 - **Status Badge, Alert Callout**: twelve statuses with their own marks in four looks, and alerts in four tones and four looks that fold away.
-- **Linear, Segmented, Indeterminate, Gradient and Ring Progress**: five kinds of progress, each its own component.
+- **Linear, Segmented, Indeterminate and Ring Progress**: four kinds of progress, each its own component.
 - **Activity, Changelog and Milestone Timelines**: a live feed grouped by day, release notes with tagged changes, and a roadmap with its line filled up to today.
 - **Halftone Rise, Orbit Dawn, Light Pour, Haze Tier Card**: a dome of light printed as a pixel-scale copper dither, a ringed dawn rising under a faint star chart, a shaft of light that pours down and flares across the floor, and a pricing tier whose edges glow with drifting haze. Each comes in four colours.
 - **Frost Bloom, Prism Rim, Nebula Pill, Call Pill, Bell Subscribe, Glyph Halo Composer, Afterglow Prompt**: glass pills tinted from inside, a dark pill in a hairline spectrum, clouds of colour under grain, a booking button with a breathing dot, a neo-brutalist subscribe toggle that rings, and two AI prompt boxes, one glowing from both ends over drifting characters and one with a rim lit like a low sun.
 - **Conduit, Light Leak, Aurora Foot and Rim Glow Cards, Credit Tier Pricing**: light as the material. A card a beam pours through, a card lit through its top edge, cards whose feet catch fire in four colours, tiles rim-lit from below, and a three-plan pricing section over a glowing dome of dots.
-- **Filter Step Card, Ember Globe, Point Bloom, Glow Base Pricing, Spectrum Ring Button**: a step card whose filter panel really filters, a turning sphere of ember and white points, nested shells of points folding like membranes, plans glowing from their base, and a pill whose icon sits in a ring of split light.
+- **Filter Step Card, Ember Globe, Point Bloom, Glow Base Pricing**: a step card whose filter panel really filters, a turning sphere of ember and white points, nested shells of points folding like membranes, plans glowing from their base.
 - **Aurora, Shine and Spotlight Text; Hover, Scroll, Echo and Marquee Outline Text**: gradient fills that drift, glint or follow the pointer, and hairline lettering that fills on hover, on scroll, as echoes or in a marquee.
 - **Line Chart, Bar Chart, Donut Chart**: dashboard charts with morphing ranges, grouped and stacked bars that slide between layouts, a ring that steps out a part, keyboard reading and data tables.
 - **Smart Download** and **Platform Badges** are now two components (the badges come in solid, outline or light), and Refraction Blob, Helix Showcase and Satin Hero have new navigation.
+
+</details>
+
+## How to use a component
+
+1. **Find it**: browse by category or search (press **⌘K** / **Ctrl K** in the gallery and try "glass", "hover" or "authentication").
+2. **Inspect it**: open the component to see it full size, switch variants, and read the source and the prompt.
+3. **Copy it**: copy every listed file into one folder in your project, including `usage.tsx`. Keep any `.css` next to the component.
+4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file. You own and maintain the copied code.
+
+The code tab reads the real files at build time, follows local imports and rewrites them into one portable folder. The exported `usage.tsx` keeps demonstration links inside the example; the reusable components still accept real URLs. The release check compiles all 458 exported examples in isolation.
+
+> **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source; add those families to your project. In the gallery, demo fonts load through `src/site/ComponentFonts.tsx` and the site's own fonts are self-hosted through Fontsource packages.
+
+## How Vitrine is made
+
+- **An idea and a brief first.** Each component starts from one specific interaction idea and a written brief: geometry, states, timing, accessibility and fallbacks. That brief ships with the component as its prompt.
+- **AI-assisted implementation.** AI coding tools help write the code. The direction, the choice of what goes into the collection and the review of each piece are done by the maintainer, Hamza Al-Bulushi.
+- **Automated checks.** `npm run release:check` (also run in CI) checks prompts and variants against the code, registry consistency and CSS isolation, compiles every exported example in an isolated project, runs scripted interaction tests for a subset of components, and builds the site. The production route and browser checks load every component page and preview state.
+- **Manual review.** Components are reviewed in the browser, including at narrow widths, with the keyboard and with reduced motion, but the depth of manual testing varies from piece to piece.
+- **What the checks don't prove.** Keyboard access, focus, reduced motion and touch fallbacks are requirements for every component, but automated checks can't establish full accessibility. Test with your own content and assistive technology before you ship. If something falls short, please [open an issue](https://github.com/ham7a311/vitrine/issues/new).
 
 ## Run the gallery locally
 
@@ -124,19 +174,6 @@ npm run build        # production build of every page
 npm run typecheck    # tsc --noEmit
 npm run registry     # regenerate the registry index + run the prompt guard
 ```
-
-Press **⌘K** (or **Ctrl K**) in the gallery to search by name, tag or feel, for example "glass", "hover" or "authentication".
-
-## How it works
-
-1. **Discover**: browse by category or search.
-2. **Inspect**: open a component to see it full size, switch variants, and read the source and the prompt.
-3. **Copy**: copy each file into your project. Keep any `.css` next to the component.
-4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file.
-
-The code tab reads the real files at build time, follows local imports, and rewrites them into one portable folder. Copy every listed file, including usage.tsx, into the same directory. The exported usage.tsx keeps demonstration links inside the example; reusable components still accept real URLs for your own application. The release check compiles all 442 exported examples in isolation.
-
-> **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source. Live demos load them through `src/site/ComponentFonts.tsx`; gallery fonts are self-hosted through Fontsource packages. Add the listed font families to your own project.
 
 ## The Workshop
 

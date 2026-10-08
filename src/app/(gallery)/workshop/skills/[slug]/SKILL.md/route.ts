@@ -3,6 +3,9 @@ import { loadSkill } from "@/workshop/skill-source";
 
 export const dynamic = "force-static";
 
+/* Only the pages built from the registry exist; any other slug is a plain 404 and is never cached. */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return SKILLS.map((s) => ({ slug: s.slug }));
 }

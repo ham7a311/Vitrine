@@ -9,13 +9,16 @@ import { RECIPES } from "@/workshop/recipes";
 import { JsonLd, abs } from "@/site/seo";
 
 const HERO = ["silk-field", "specimen-card", "iris-shutter-button"];
+/* Chosen by hand, in this order. */
+const FEATURED = ["glassbreak-button", "liquid-glass-button", "point-bloom", "agent-composer", "glow-base-pricing", "glass-tiles"];
+const FRESH = ["frost-bloom-button", "light-pour", "ember-globe"];
 
 export default function Home() {
   const items = summaries();
   const bySlug = (s: string) => items.find((i) => i.slug === s)!;
   const hero = HERO.map(bySlug);
-  const featured = items.filter((i) => i.featured && !HERO.includes(i.slug)).slice(0, 6);
-  const fresh = items.filter((i) => i.isNew && !HERO.includes(i.slug) && !featured.includes(i)).slice(0, 3);
+  const featured = FEATURED.map(bySlug);
+  const fresh = FRESH.map(bySlug);
 
   return (<> <ComponentFonts />
     <>

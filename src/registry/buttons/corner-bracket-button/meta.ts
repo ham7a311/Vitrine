@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --ccbk-accent #c6ff3d; --ccbk-focus #c6ff3d; --ccbk-ink #f1f1ef; --ccbk-wash rgb(198 255 61 / 0.1). Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#efefec", mode: "fill", frame: [900, 420] },
-  isNew: true,
 };

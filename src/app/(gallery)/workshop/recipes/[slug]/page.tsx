@@ -9,6 +9,9 @@ import { CopyButton } from "@/site/CopyButton";
 import { PreviewStage } from "@/site/PreviewStage";
 import { ArrowLeft, ArrowRight } from "@/site/icons";
 
+/* Only the pages built from the registry exist; any other slug is a plain 404 and is never cached. */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return RECIPES.map((r) => ({ slug: r.slug }));
 }

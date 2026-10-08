@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { getComponent, registry } from "@/registry";
 import { Demo } from "@/site/Demo";
 
+/* Only the pages built from the registry exist; any other slug is a plain 404 and is never cached. */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return registry.map((c) => ({ slug: c.slug }));
 }

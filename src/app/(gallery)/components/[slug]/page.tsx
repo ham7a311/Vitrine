@@ -12,6 +12,9 @@ import { CATEGORY_NOUN, JsonLd, abs, breadcrumbs, pageMeta } from "@/site/seo";
 import { PromptPanel, VariantProvider } from "@/site/VariantState";
 import { recipesUsing } from "@/workshop/recipes";
 
+/* Only the pages built from the registry exist; any other slug is a plain 404 and is never cached. */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return registry.map((c) => ({ slug: c.slug }));
 }

@@ -1,0 +1,177 @@
+/* Split-Brief Composer — what should happen on the left, how on the right, and the right reads the left. */
+.spbf {
+  --spbf-card: #161616;
+  --spbf-side: #1b1b1b;
+  --spbf-line: #2a2a2a;
+  --spbf-line-soft: rgb(255 255 255 / 0.06);
+  --spbf-ink: #ececec;
+  --spbf-muted: #8c8c8c;
+  --spbf-faint: #5a5a5a;
+  --spbf-off: #353535;
+  --spbf-hover: rgb(255 255 255 / 0.05);
+  --spbf-opt: #222222;
+  --spbf-go: #ededed;
+  --spbf-go-ink: #111111;
+  --spbf-focus: #8ab4f8;
+  --spbf-sug: #8ab4f8;
+  --spbf-agent: #d4d4d4;
+  --spbf-plan: #e6c26b;
+  --spbf-debug: #f08c7b;
+  --spbf-multitask: #7cc5ee;
+  --spbf-ask: #8fd18a;
+  --spbf-claude: #e08560;
+  --spbf-openai: #5b9bff;
+  --spbf-xai: #ffffff;
+  --spbf-e0: #8e8e8e;
+  --spbf-e1: #6cc08b;
+  --spbf-e2: #e6c26b;
+  --spbf-e3: #b48cf2;
+  --spbf-e4: #f0645a;
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 62rem;
+  color: var(--spbf-ink);
+  font: 400 14px/1.4 "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.spbf--light {
+  --spbf-card: #ffffff;
+  --spbf-side: #f7f7f6;
+  --spbf-line: #e2e2e0;
+  --spbf-line-soft: rgb(0 0 0 / 0.06);
+  --spbf-ink: #181818;
+  --spbf-muted: #6b6b6b;
+  --spbf-faint: #a6a6a6;
+  --spbf-off: #dcdcdc;
+  --spbf-hover: rgb(0 0 0 / 0.04);
+  --spbf-opt: #ffffff;
+  --spbf-go: #1b1b1b;
+  --spbf-go-ink: #ffffff;
+  --spbf-focus: #2b59c3;
+  --spbf-sug: #2b59c3;
+  --spbf-agent: #3b3b3b;
+  --spbf-plan: #96650a;
+  --spbf-debug: #b5432e;
+  --spbf-multitask: #1d74a6;
+  --spbf-ask: #2e8538;
+  --spbf-claude: #c25a32;
+  --spbf-openai: #2563d6;
+  --spbf-xai: #0b0b0b;
+  --spbf-e0: #7a7a7a;
+  --spbf-e1: #2f8f55;
+  --spbf-e2: #a8730a;
+  --spbf-e3: #7d4fd1;
+  --spbf-e4: #cc3a30;
+}
+.spbf svg { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.spbf .spbf__logo { width: 14px; height: 14px; stroke: none; }
+.spbf :where(button) { font: inherit; color: inherit; background: none; border: 0; margin: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.spbf :focus-visible { outline: 2px solid var(--spbf-focus); outline-offset: 2px; }
+.spbf__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+.spbf kbd { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 3px; border-radius: 4px; border: 1px solid var(--spbf-line); font: 500 10.5px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--spbf-muted); }
+
+.spbf__card { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); overflow: hidden; background: var(--spbf-card); border: 1px solid var(--spbf-line); border-radius: 18px; }
+.spbf__h { margin: 0; font: 500 10.5px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--spbf-muted); }
+
+/* ---------- what ---------- */
+.spbf__what { display: flex; flex-direction: column; padding: 20px 22px 16px; min-width: 0; }
+.spbf__prompt { flex: 1; display: block; width: 100%; min-height: 300px; margin: 12px 0 0; padding: 0; border: 0; outline: 0; resize: none; background: transparent; color: var(--spbf-ink); font: 400 19px/30px "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif; letter-spacing: -0.01em; box-sizing: border-box; }
+.spbf__prompt::placeholder { color: var(--spbf-faint); }
+.spbf__prompt:focus-visible { outline: 0; }
+.spbf__whatfoot { display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px dashed var(--spbf-line); font-size: 12.5px; color: var(--spbf-muted); }
+.spbf__whatfoot > span:first-child { flex: 1; }
+.spbf__keys { display: inline-flex; gap: 3px; }
+.spbf__go { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--spbf-go) !important; color: var(--spbf-go-ink) !important; transition: opacity 0.2s, transform 0.15s; }
+.spbf__go svg { width: 17px; height: 17px; stroke-width: 2; }
+.spbf__go[aria-disabled] { opacity: 0.3; }
+.spbf__go:not([aria-disabled]):active { transform: scale(0.94); }
+.spbf__run { display: flex; align-items: center; gap: 8px; margin: 12px 0 0; font-size: 12.5px; }
+.spbf__run > span:last-child { color: var(--spbf-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.spbf__runicon { display: grid; place-items: center; width: 14px; height: 14px; }
+.spbf__runicon svg { width: 14px; height: 14px; stroke-width: 1.8; color: var(--spbf-ask); }
+.spbf__spin { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--spbf-off); border-top-color: var(--spbf-ink); animation: spbf-spin 0.8s linear infinite; }
+@keyframes spbf-spin { to { transform: rotate(360deg); } }
+
+/* ---------- how ---------- */
+.spbf__how { display: flex; flex-direction: column; min-width: 0; padding: 20px 20px 18px; background: var(--spbf-side); border-left: 1px solid var(--spbf-line); }
+.spbf__summary { display: none !important; }
+.spbf__howhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 22px; }
+.spbf__apply { padding: 4px 9px !important; border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--spbf-sug); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--spbf-sug) 45%, transparent); animation: spbf-in 0.25s ease-out; }
+.spbf__apply:hover { background: color-mix(in srgb, var(--spbf-sug) 12%, transparent) !important; }
+@keyframes spbf-in { from { opacity: 0; transform: translateY(-3px); } }
+.spbf__howbody { display: grid; gap: 18px; margin-top: 16px; }
+.spbf__group { margin: 0; padding: 0; border: 0; min-width: 0; }
+.spbf__group legend { display: flex; align-items: baseline; gap: 8px; width: 100%; margin-bottom: 8px; padding: 0; font: 500 10.5px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--spbf-muted); }
+.spbf__group legend small { margin-left: auto; letter-spacing: 0; text-transform: none; color: var(--spbf-faint); font-size: 11px; }
+.spbf__opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.spbf__opt { --oc: var(--spbf-ink); display: inline-flex !important; align-items: center; gap: 7px; height: 32px; padding: 0 10px !important; border-radius: 8px; background: var(--spbf-opt) !important; box-shadow: inset 0 0 0 1px var(--spbf-line); font-size: 13.5px; font-weight: 500; color: var(--spbf-muted); transition: box-shadow 0.18s, color 0.18s, background 0.18s; }
+.spbf__opt:hover { color: var(--spbf-ink); }
+.spbf__opt[aria-checked="true"] { color: var(--spbf-ink); background: color-mix(in srgb, var(--oc) 13%, var(--spbf-opt)) !important; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--oc) 70%, transparent); }
+.spbf__opt[data-m="agent"] { --oc: var(--spbf-agent); }
+.spbf__opt[data-m="plan"] { --oc: var(--spbf-plan); }
+.spbf__opt[data-m="debug"] { --oc: var(--spbf-debug); }
+.spbf__opt[data-m="multitask"] { --oc: var(--spbf-multitask); }
+.spbf__opt[data-m="ask"] { --oc: var(--spbf-ask); }
+.spbf__opt[data-m] .spbf__micon { color: var(--oc); }
+.spbf__opt[data-maker="claude"] { --oc: var(--spbf-claude); }
+.spbf__opt[data-maker="openai"] { --oc: var(--spbf-openai); }
+.spbf__opt[data-maker="xai"] { --oc: var(--spbf-xai); }
+.spbf__opt[data-maker] .spbf__logo { color: var(--oc); }
+.spbf__opt[data-maker="xai"] .spbf__logo { width: 18px; height: 18px; padding: 3px; border-radius: 50%; background: #000; color: #fff; }
+.spbf__tag { display: inline-flex; align-items: center; gap: 4px; margin-left: 2px; font-size: 11px; font-weight: 600; color: var(--spbf-sug); animation: spbf-in 0.25s ease-out; }
+.spbf__tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--spbf-sug); box-shadow: 0 0 0 0 color-mix(in srgb, var(--spbf-sug) 60%, transparent); animation: spbf-ping 1.4s ease-out 2; }
+@keyframes spbf-ping { to { box-shadow: 0 0 0 6px transparent; } }
+.spbf__why { margin: 7px 0 0; font-size: 12px; color: var(--spbf-muted); font-style: italic; }
+
+/* effort: five steps that rise */
+.spbf__effort { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.spbf__effort button { display: grid !important; justify-items: center; align-content: end; gap: 6px; height: 56px; padding: 6px 0 !important; border-radius: 8px; font-size: 11.5px; color: var(--spbf-faint); transition: color 0.15s, background 0.15s; }
+.spbf__effort button:hover { background: var(--spbf-hover) !important; color: var(--spbf-ink); }
+.spbf__effort i { width: 100%; max-width: 28px; height: var(--h); border-radius: 3px; background: var(--spbf-off); transition: background 0.2s; }
+.spbf__effort[role] { --ec: var(--spbf-e2); }
+.spbf[data-effort="0"] .spbf__effort { --ec: var(--spbf-e0); }
+.spbf[data-effort="1"] .spbf__effort { --ec: var(--spbf-e1); }
+.spbf[data-effort="3"] .spbf__effort { --ec: var(--spbf-e3); }
+.spbf[data-effort="4"] .spbf__effort { --ec: var(--spbf-e4); }
+.spbf__effort button[data-on] i { background: var(--ec); }
+.spbf__effort button[aria-checked="true"] { color: var(--ec); font-weight: 600; }
+.spbf__effort button[data-sug] i { outline: 1.5px dashed var(--spbf-sug); outline-offset: 2px; }
+.spbf__effort button[data-sug] span { color: var(--spbf-sug); }
+
+/* files: the ones you named float to the top */
+.spbf__files { margin: 0; padding: 0; list-style: none; display: grid; gap: 1px; }
+.spbf__file { display: flex !important; align-items: center; gap: 9px; width: 100%; height: 30px; padding: 0 6px !important; border-radius: 6px; font-size: 12.5px; color: var(--spbf-muted); text-align: left; transition: background 0.15s, color 0.15s; }
+.spbf__file:hover { background: var(--spbf-hover) !important; color: var(--spbf-ink); }
+.spbf__file[aria-checked="true"] { color: var(--spbf-ink); }
+.spbf__file > span:nth-child(2) { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; font-size: 12px; }
+.spbf__file small { font: 450 11px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--spbf-faint); }
+.spbf__box { display: grid; place-items: center; width: 15px; height: 15px; flex: none; border-radius: 4px; box-shadow: inset 0 0 0 1.5px var(--spbf-off); }
+.spbf__file[aria-checked="true"] .spbf__box { background: var(--spbf-ink); box-shadow: none; color: var(--spbf-card); }
+.spbf__box svg { width: 11px; height: 11px; stroke-width: 2.2; }
+.spbf__ment { font-size: 11px; font-weight: 600; color: var(--spbf-sug); animation: spbf-in 0.25s ease-out; }
+.spbf__file[data-mentioned]:not([aria-checked="true"]) .spbf__box { box-shadow: inset 0 0 0 1.5px var(--spbf-sug); }
+
+/* narrow: what on top, how as a drawer under it */
+@container (max-width: 720px) {
+  .spbf__card { grid-template-columns: minmax(0, 1fr); }
+  .spbf__prompt { min-height: 150px; font-size: 17px; line-height: 27px; }
+  .spbf__how { border-left: 0; border-top: 1px solid var(--spbf-line); padding: 0; }
+  .spbf__summary { display: flex !important; align-items: center; gap: 10px; width: 100%; min-height: 52px; padding: 0 16px !important; text-align: left; }
+  .spbf__summary > .spbf__h { flex: none; }
+  .spbf__sumval { flex: 1; display: inline-flex; align-items: center; gap: 6px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 500; }
+  .spbf__count { display: grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--spbf-sug); color: var(--spbf-card); font-size: 11px; font-weight: 700; }
+  .spbf__summary > svg:last-child { transition: transform 0.2s; }
+  .spbf[data-drawer] .spbf__summary > svg:last-child { transform: rotate(180deg); }
+  .spbf__howhead, .spbf__howbody { display: none; }
+  .spbf[data-drawer] .spbf__howhead { display: flex; justify-content: flex-end; padding: 0 16px; }
+  .spbf__howhead h3 { display: none; }
+  .spbf[data-drawer] .spbf__howbody { display: grid; padding: 0 16px 18px; }
+  .spbf__opt { height: 38px; }
+  .spbf__file { height: 40px; }
+  .spbf__what { padding: 16px 16px 14px; }
+}
+@media (max-width: 640px) { .spbf__prompt { font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) {
+  .spbf *, .spbf *::before, .spbf *::after { animation: none !important; transition-duration: 1ms !important; }
+}

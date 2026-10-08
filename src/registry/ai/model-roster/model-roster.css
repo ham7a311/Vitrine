@@ -1,0 +1,164 @@
+/* Model Roster — which models appear in the picker, with a switch you can read without colour. */
+.mrst {
+  --mrst-bg: #191919;
+  --mrst-field: #1d1d1d;
+  --mrst-field-line: #353535;
+  --mrst-line: #2d2d2d;
+  --mrst-ink: #f0f0f0;
+  --mrst-muted: #8a8a8a;
+  --mrst-faint: #6b6b6b;
+  --mrst-icon: #bdbdbd;
+  --mrst-hover: rgb(255 255 255 / 0.035);
+  --mrst-on: #93d38c;
+  --mrst-on-glyph: #1f4d1c;
+  --mrst-off: #3b3b3b;
+  --mrst-off-glyph: #8a8a8a;
+  --mrst-knob: #ffffff;
+  --mrst-link: #7fe0a4;
+  --mrst-mark: rgb(147 211 140 / 0.28);
+  --mrst-focus: #7fe0a4;
+  --mrst-spring: cubic-bezier(0.3, 1.45, 0.5, 1);
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  padding: 12px 12px 14px;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px var(--mrst-line);
+  background: var(--mrst-bg);
+  color: var(--mrst-ink);
+  font: 400 15px/1.35 "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.mrst--light {
+  --mrst-bg: #ffffff;
+  --mrst-field: #f6f6f6;
+  --mrst-field-line: #e1e1e1;
+  --mrst-line: #ececec;
+  --mrst-ink: #1b1b1b;
+  --mrst-muted: #6b6b6b;
+  --mrst-faint: #9a9a9a;
+  --mrst-icon: #555555;
+  --mrst-hover: rgb(0 0 0 / 0.025);
+  --mrst-on: #34a853;
+  --mrst-on-glyph: #ffffff;
+  --mrst-off: #dcdcdc;
+  --mrst-off-glyph: #8f8f8f;
+  --mrst-knob: #ffffff;
+  --mrst-link: #1e8a4c;
+  --mrst-mark: rgb(52 168 83 / 0.2);
+  --mrst-focus: #1e8a4c;
+}
+.mrst :where(button) { font: inherit; color: inherit; background: none; border: 0; margin: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.mrst :focus-visible { outline: 2px solid var(--mrst-focus); outline-offset: 2px; }
+.mrst__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+
+/* ---------- search ---------- */
+.mrst__head { display: flex; align-items: center; gap: 10px; padding: 0 2px 12px; border-bottom: 1px solid var(--mrst-line); }
+.mrst__field { flex: 1; min-width: 0; }
+.mrst__field input {
+  width: 100%;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--mrst-field-line);
+  border-radius: 6px;
+  background: var(--mrst-field);
+  color: var(--mrst-ink);
+  font: inherit;
+  font-size: 14px;
+  outline: 0;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.mrst__field input::placeholder { color: var(--mrst-faint); }
+.mrst__field input::-webkit-search-cancel-button { display: none; }
+.mrst__field input:focus { border-color: color-mix(in srgb, var(--mrst-field-line) 40%, var(--mrst-muted)); }
+.mrst__field input:focus-visible { outline: 0; }
+.mrst__refresh { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 7px; color: var(--mrst-icon); transition: background 0.15s, color 0.15s; }
+.mrst__refresh:hover { background: var(--mrst-hover); color: var(--mrst-ink); }
+.mrst__refresh svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mrst__refresh[data-spin] svg { animation: mrst-spin 0.7s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+@keyframes mrst-spin { to { transform: rotate(360deg); } }
+
+/* ---------- rows ---------- */
+.mrst__list { margin: 0; padding: 0; list-style: none; }
+.mrst__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 4px;
+  border-bottom: 1px solid var(--mrst-line);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mrst__row:last-child { border-bottom: 0; }
+.mrst__row:hover { background: var(--mrst-hover); }
+.mrst__row[data-fresh] { animation: mrst-fresh 1.6s ease-out; }
+@keyframes mrst-fresh { from { background: var(--mrst-mark); } }
+.mrst__mark { display: grid; place-items: center; width: 18px; height: 18px; flex: none; color: var(--mrst-ink); }
+.mrst__logo { width: 17px; height: 17px; }
+.mrst__mark > svg:not(.mrst__logo) { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.mrst__tile { display: grid; place-items: center; width: 17px; height: 17px; border-radius: 4px; background: var(--mrst-off); color: var(--mrst-ink); font-size: 10px; font-weight: 700; }
+.mrst__row:not([data-on]) .mrst__mark { opacity: 0.55; }
+.mrst__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mrst__name mark { background: none; color: inherit; font-weight: 650; text-decoration: underline; text-decoration-color: var(--mrst-on); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.mrst__by { margin-left: 8px; font-size: 12.5px; color: var(--mrst-muted); }
+.mrst__row--add { padding: 0; }
+.mrst__addrow { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 0 4px !important; text-align: left; color: var(--mrst-ink); }
+.mrst__addrow b { font-weight: 600; }
+.mrst__addrow .mrst__mark { color: var(--mrst-link); }
+.mrst__addrow kbd { margin-right: 6px; padding: 2px 6px; border: 1px solid var(--mrst-field-line); border-radius: 4px; font: 500 11px/1.2 ui-monospace, monospace; color: var(--mrst-muted); }
+
+/* ---------- the switch ---------- */
+.mrst__switch { --x: 0px; display: grid; place-items: center; flex: none; width: 46px; height: 36px; margin-right: -4px; border-radius: 12px; touch-action: none; }
+.mrst__switch[aria-checked="true"] { --x: 14px; }
+.mrst__switch:focus-visible { outline: 0; }
+.mrst__switch:focus-visible .mrst__track { box-shadow: 0 0 0 2px var(--mrst-bg), 0 0 0 4px var(--mrst-focus); }
+.mrst__track {
+  position: relative;
+  display: block;
+  width: 34px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--mrst-off);
+  transition: background 0.22s ease, box-shadow 0.15s;
+}
+.mrst__switch[aria-checked="true"] .mrst__track { background: var(--mrst-on); }
+/* The state is also a shape: a tick on the left when on, a ring on the right when off. */
+.mrst__track svg { position: absolute; top: 5px; width: 10px; height: 10px; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: opacity 0.18s, transform 0.25s var(--mrst-spring); }
+.mrst__on { left: 5px; stroke: var(--mrst-on-glyph); opacity: 0; transform: scale(0.5); }
+.mrst__off { right: 5px; stroke: var(--mrst-off-glyph); opacity: 1; }
+.mrst__switch[aria-checked="true"] .mrst__on { opacity: 1; transform: none; }
+.mrst__switch[aria-checked="true"] .mrst__off { opacity: 0; transform: scale(0.5); }
+.mrst__knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background: var(--mrst-knob);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 0 0 0.5px rgb(0 0 0 / 0.06);
+  transform: translateX(var(--x));
+  transition: transform 0.32s var(--mrst-spring), width 0.18s ease, margin 0.18s ease;
+}
+/* Pressing squeezes the knob wider, towards the side it will travel to. */
+.mrst__switch[data-press] .mrst__knob { width: 20px; }
+.mrst__switch[data-press][aria-checked="true"] .mrst__knob { margin-left: -4px; }
+.mrst__switch[data-drag] .mrst__knob { transition: width 0.18s ease, margin 0.18s ease; }
+.mrst__switch[data-nope] .mrst__track { animation: mrst-nope 0.42s ease; }
+@keyframes mrst-nope { 20% { transform: translateX(-3px); } 45% { transform: translateX(3px); } 70% { transform: translateX(-2px); } }
+
+/* ---------- footer ---------- */
+.mrst__all { display: inline-flex; align-items: center; min-height: 32px; margin: 10px 2px 0; color: var(--mrst-link); font-size: 15px; }
+.mrst__all:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (pointer: coarse) {
+  .mrst__row, .mrst__addrow { min-height: 52px; }
+  .mrst__field input { height: 40px; font-size: 16px; }
+  .mrst__refresh { width: 40px; height: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mrst *, .mrst *::before, .mrst *::after { animation: none !important; transition-duration: 1ms !important; }
+}

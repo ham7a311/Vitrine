@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --avub-accent #6ea8fe; --avub-bad #ff6369; --avub-btn #ededed; --avub-btn-ink #0a0a0a; --avub-card #141414; --avub-dash #3d3d3d; --avub-edge #2b2b2b; --avub-focus #6ea8fe; --avub-ink #ededed; --avub-ok #3fb950; --avub-soft #a0a0a0; --avub-track #262626; --avub-wash #101b2e. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f6f6f5", mode: "fill", frame: [900, 420] },
-  isNew: true,
 };

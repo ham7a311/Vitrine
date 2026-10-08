@@ -38,7 +38,6 @@ buttons/puddle-button
 buttons/gradient-bloom-button
 buttons/frost-bloom-button
 buttons/prism-rim-button
-buttons/spectrum-ring-button
 buttons/nebula-pill-button
 buttons/call-pill
 buttons/bell-subscribe-button
@@ -66,7 +65,6 @@ buttons/drop-upload-button
 buttons/avatar-upload-button
 buttons/pulse-button
 buttons/ping-button
-buttons/breathe-button
 buttons/corner-cut-button
 buttons/corner-bracket-button
 controls/gamut-picker
@@ -212,6 +210,23 @@ ai/confidence-ink
 ai/ask-bar
 ai/glyph-halo-composer
 ai/afterglow-prompt
+ai/agent-composer
+ai/model-roster
+ai/dial-composer
+ai/canvas-composer
+ai/agent-receipt
+ai/sentence-composer
+ai/split-brief-composer
+ai/stacked-brief
+ai/lumen
+ai/thought-dots
+ai/globe-search
+ai/source-sweep
+ai/activity-glyphs
+ai/plan-gate
+data/mixed-inspector
+analytics/outcome-flicker
+stats/trend-tape
 sidebars/conversation-sidebar
 sidebars/workspace-sidebar
 heroes/glass-torus
@@ -224,6 +239,7 @@ heroes/satin-hero
 heroes/refraction-blob
 navbars/masthead-nav
 navbars/docket-nav
+navbars/mega-nav
 navigation/glass-tab-bar
 navigation/slide-tabs
 navigation/thumbed-edge
@@ -233,6 +249,7 @@ navigation/thread-stepper
 navigation/folio-pager
 navigation/lesson-path
 navigation/line-map
+navigation/portfolio-terminal
 overlays/depth-dialog
 overlays/context-lens
 overlays/fold-sheet
@@ -386,7 +403,6 @@ feedback/alert-callout
 feedback/progress-bar
 feedback/segmented-progress
 feedback/indeterminate-progress
-feedback/gradient-progress
 feedback/ring-progress
 feedback/wet-ink
 feedback/undo-ribbon

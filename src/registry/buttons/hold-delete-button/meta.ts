@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --hdlb-card #111111; --hdlb-edge #2a2a2a; --hdlb-field #0a0a0a; --hdlb-focus #6ea8fe; --hdlb-ink #ededed; --hdlb-ok #3fb950; --hdlb-red #e5484d; --hdlb-red-edge #5c1f24; --hdlb-red-hover #f2555a; --hdlb-red-ink #ff6369; --hdlb-red-wash #2a1215; --hdlb-soft #a1a1a1. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#fafafa", mode: "fill", frame: [900, 420] },
-  isNew: true,
 };

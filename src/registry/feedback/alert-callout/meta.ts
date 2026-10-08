@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --alrt-danger #ff8a8d; --alrt-danger-bg #2a1113; --alrt-danger-line #5a2226; --alrt-focus #6ea8fe; --alrt-info #8db3ff; --alrt-info-bg #0f1a30; --alrt-info-line #22385f; --alrt-page #0b0b0c; --alrt-soft #b0b3ba; --alrt-success #6fdc93; --alrt-success-bg #0e2015; --alrt-success-line #1f4329; --alrt-text #e8e9ec; --alrt-warning #f8c45c; --alrt-warning-bg #241b08; --alrt-warning-line #4d3a14. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f7f7f6", mode: "fill", frame: [1000, 900] },
-  isNew: true,
 };

@@ -1,0 +1,221 @@
+/* Agent Receipt — write the task, check the printed work order, approve it. */
+.arcp {
+  --arcp-page-ink: #ececec;
+  --arcp-muted: #8c8c8c;
+  --arcp-faint: #5a5a5a;
+  --arcp-input: #171717;
+  --arcp-input-line: #2a2a2a;
+  --arcp-focus: #8ab4f8;
+  --arcp-paper: #f2efe8;
+  --arcp-paper-ink: #1d1b18;
+  --arcp-paper-muted: #6f6a60;
+  --arcp-paper-faint: #a9a397;
+  --arcp-paper-line: rgb(29 27 24 / 0.22);
+  --arcp-paper-hover: rgb(29 27 24 / 0.06);
+  --arcp-shadow: drop-shadow(0 22px 28px rgb(0 0 0 / 0.55)) drop-shadow(0 2px 3px rgb(0 0 0 / 0.4));
+  --arcp-fresh: rgb(255 214 102 / 0.45);
+  --arcp-agent: #3b3b3b;
+  --arcp-plan: #96650a;
+  --arcp-debug: #b5432e;
+  --arcp-multitask: #1d74a6;
+  --arcp-ask: #2e8538;
+  --arcp-claude: #c25a32;
+  --arcp-openai: #2563d6;
+  --arcp-xai: #0b0b0b;
+  --arcp-e0: #7a7a7a;
+  --arcp-e1: #2f8f55;
+  --arcp-e2: #a8730a;
+  --arcp-e3: #7d4fd1;
+  --arcp-e4: #cc3a30;
+  --arcp-ok: #8fd18a;
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 60rem;
+  color: var(--arcp-page-ink);
+  font: 400 14px/1.4 "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.arcp--light {
+  --arcp-page-ink: #181818;
+  --arcp-muted: #6b6b6b;
+  --arcp-faint: #a6a6a6;
+  --arcp-input: #ffffff;
+  --arcp-input-line: #e0e0de;
+  --arcp-focus: #2b59c3;
+  --arcp-paper: #ffffff;
+  --arcp-paper-ink: #1b1b1b;
+  --arcp-paper-muted: #6b6b6b;
+  --arcp-paper-faint: #ababab;
+  --arcp-paper-line: rgb(0 0 0 / 0.18);
+  --arcp-paper-hover: rgb(0 0 0 / 0.05);
+  --arcp-shadow: drop-shadow(0 18px 24px rgb(0 0 0 / 0.12)) drop-shadow(0 1px 2px rgb(0 0 0 / 0.1));
+  --arcp-fresh: rgb(255 214 102 / 0.55);
+  --arcp-ok: #2e8538;
+}
+.arcp svg { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.arcp .arcp__logo { width: 14px; height: 14px; stroke: none; }
+.arcp :where(button) { font: inherit; color: inherit; background: none; border: 0; margin: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.arcp :focus-visible { outline: 2px solid var(--arcp-focus); outline-offset: 2px; }
+.arcp__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+.arcp kbd { display: inline-block; min-width: 18px; margin-left: 3px; padding: 1px 4px; border-radius: 4px; border: 1px solid var(--arcp-input-line); font: 500 10.5px/1.3 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; text-align: center; color: var(--arcp-muted); }
+
+.arcp__wrap { display: grid; grid-template-columns: minmax(0, 1fr) 22.5rem; gap: 40px; align-items: start; }
+
+/* ---------- the prompt side ---------- */
+.arcp__input { display: grid; gap: 10px; padding-top: 6px; }
+.arcp__label { font: 500 10.5px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--arcp-muted); }
+.arcp__input textarea {
+  display: block;
+  width: 100%;
+  min-height: 168px;
+  padding: 16px 18px;
+  border: 1px solid var(--arcp-input-line);
+  border-radius: 14px;
+  background: var(--arcp-input);
+  color: var(--arcp-page-ink);
+  font: 400 17px/27px "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  resize: vertical;
+  outline: 0;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.arcp__input textarea::placeholder { color: var(--arcp-faint); }
+.arcp__input textarea:focus { border-color: color-mix(in srgb, var(--arcp-input-line) 50%, var(--arcp-muted)); }
+.arcp__input textarea:focus-visible { outline: 0; }
+.arcp__hint { margin: 0; font-size: 12.5px; color: var(--arcp-muted); }
+.arcp__log { margin: 10px 0 0; padding: 12px 0 0; list-style: none; display: grid; gap: 8px; border-top: 1px dashed var(--arcp-input-line); }
+.arcp__log li { display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: baseline; gap: 10px; font-size: 12.5px; color: var(--arcp-muted); animation: arcp-in 0.4s ease-out; }
+.arcp__lno { font: 500 11px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--arcp-page-ink); }
+.arcp__lstate { font: 500 10.5px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.06em; }
+.arcp__log li[data-s="done"] .arcp__lstate { color: var(--arcp-ok); }
+.arcp__llabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@keyframes arcp-in { from { opacity: 0; transform: translateY(-4px); } }
+
+/* ---------- the slip ---------- */
+.arcp__feed { filter: var(--arcp-shadow); }
+.arcp__slip {
+  --z: 7px;
+  position: relative;
+  padding: calc(var(--z) + 18px) 22px calc(var(--z) + 18px);
+  background: var(--arcp-paper);
+  color: var(--arcp-paper-ink);
+  font: 400 13px/1.45 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+  /* torn top and bottom edges */
+  -webkit-mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / calc(var(--z) * 2) var(--z) repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--z) * 2) var(--z) repeat-x, linear-gradient(#000 0 0) center / 100% calc(100% - var(--z) * 2 + 1px) no-repeat;
+  mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / calc(var(--z) * 2) var(--z) repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--z) * 2) var(--z) repeat-x, linear-gradient(#000 0 0) center / 100% calc(100% - var(--z) * 2 + 1px) no-repeat;
+  animation: arcp-print 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes arcp-print { from { clip-path: inset(0 0 100% 0); transform: translateY(-10px); } }
+.arcp__slip[data-stamp] { animation: arcp-out 0.5s 0.6s ease-in forwards; }
+@keyframes arcp-out { to { transform: translateY(-24px) rotate(-1.5deg); opacity: 0; } }
+.arcp__top { display: flex; justify-content: space-between; align-items: baseline; }
+.arcp__top h3 { margin: 0; font: 700 13px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; }
+.arcp__top span { font-size: 12px; color: var(--arcp-paper-muted); font-variant-numeric: tabular-nums; }
+.arcp__meta { margin: 6px 0 0; font-size: 11.5px; color: var(--arcp-paper-muted); }
+.arcp__slip hr { margin: 14px 0; border: 0; border-top: 1px dashed var(--arcp-paper-line); }
+
+.arcp__empty { display: grid; gap: 9px; padding: 4px 0; }
+.arcp__empty i { height: 8px; border-radius: 2px; background: repeating-linear-gradient(90deg, var(--arcp-paper-line) 0 4px, transparent 4px 7px); }
+.arcp__empty p { margin: 6px 0 0; font-size: 12px; color: var(--arcp-paper-muted); }
+
+.arcp__lines { margin: 0; display: grid; gap: 12px; }
+.arcp__row { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 4px 10px; margin: -3px -6px; padding: 3px 6px; border-radius: 4px; }
+.arcp__row[data-fresh] { animation: arcp-fresh 0.9s ease-out; }
+@keyframes arcp-fresh { from { background: var(--arcp-fresh); } }
+.arcp__row dt { padding-top: 3px; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--arcp-paper-muted); }
+.arcp__row dd { margin: 0; display: grid; gap: 2px; min-width: 0; }
+.arcp__task { font-family: "Inter", "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 1.35; }
+.arcp__val { display: inline-flex !important; align-items: center; gap: 7px; justify-self: start; max-width: 100%; margin-left: -5px !important; padding: 2px 5px !important; border-radius: 4px; font-weight: 600 !important; text-align: left; text-decoration: underline dotted var(--arcp-paper-faint); text-underline-offset: 4px; transition: background 0.15s; }
+.arcp__val:hover, .arcp__val[aria-expanded="true"] { background: var(--arcp-paper-hover); text-decoration-style: solid; }
+.arcp__why { font-size: 11px; color: var(--arcp-paper-faint); font-style: italic; }
+.arcp__why--you { font-style: normal; color: var(--arcp-paper-muted); }
+.arcp__reset { text-decoration: underline; text-underline-offset: 2px; color: var(--arcp-paper-ink); }
+.arcp__files { font-size: 11px; color: var(--arcp-paper-muted); word-spacing: 4px; }
+
+/* colours carried over: the maker, the mode, the effort */
+.arcp[data-maker="claude"] .arcp__val .arcp__logo { color: var(--arcp-claude); }
+.arcp[data-maker="openai"] .arcp__val .arcp__logo { color: var(--arcp-openai); }
+.arcp[data-maker="xai"] .arcp__val .arcp__logo { width: 18px; height: 18px; padding: 3px; border-radius: 50%; background: var(--arcp-xai); color: #fff; }
+.arcp { --mc: var(--arcp-agent); --ec: var(--arcp-e2); }
+.arcp[data-mode="plan"] { --mc: var(--arcp-plan); }
+.arcp[data-mode="debug"] { --mc: var(--arcp-debug); }
+.arcp[data-mode="multitask"] { --mc: var(--arcp-multitask); }
+.arcp[data-mode="ask"] { --mc: var(--arcp-ask); }
+.arcp[data-effort="0"] { --ec: var(--arcp-e0); }
+.arcp[data-effort="1"] { --ec: var(--arcp-e1); }
+.arcp[data-effort="3"] { --ec: var(--arcp-e3); }
+.arcp[data-effort="4"] { --ec: var(--arcp-e4); }
+.arcp__val--mode { color: var(--mc); }
+.arcp__val--mode .arcp__micon, .arcp__opts .arcp__micon { width: 15px; height: 15px; }
+.arcp__val--effort { color: var(--ec); }
+.arcp__bars { display: inline-flex; align-items: flex-end; gap: 1.5px; height: 12px; }
+.arcp__bars i { width: 3px; height: var(--h); border-radius: 1px; background: var(--arcp-paper-line); }
+.arcp__bars i[data-on] { background: var(--ec); }
+
+/* override in place */
+.arcp__opts { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0 2px; animation: arcp-in 0.2s ease-out; }
+.arcp__opts button { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 9px !important; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--arcp-paper-line); font-size: 12px; transition: background 0.15s; }
+.arcp__opts button:hover { background: var(--arcp-paper-hover); }
+.arcp__opts button[aria-pressed="true"] { background: var(--arcp-paper-ink) !important; color: var(--arcp-paper) !important; box-shadow: none; }
+.arcp__opts button[data-maker="claude"] .arcp__logo { color: var(--arcp-claude); }
+.arcp__opts button[data-maker="openai"] .arcp__logo { color: var(--arcp-openai); }
+.arcp__opts button[aria-pressed="true"] .arcp__logo { color: inherit !important; }
+.arcp__opts--files { flex-direction: column; flex-wrap: nowrap; }
+.arcp__opts--files button { justify-content: flex-start; width: 100%; }
+.arcp__box { display: grid; place-items: center; width: 14px; height: 14px; border: 1px solid currentColor; border-radius: 3px; font-size: 11px; line-height: 1; }
+.arcp__ftok { margin-left: auto; color: var(--arcp-paper-muted); }
+.arcp__opts--files button[aria-pressed="true"] .arcp__ftok { color: inherit; opacity: 0.7; }
+
+.arcp__total { display: flex; justify-content: space-between; margin: 0 0 14px; font-size: 12px; color: var(--arcp-paper-muted); font-variant-numeric: tabular-nums; }
+.arcp__total span:last-child { color: var(--arcp-paper-ink); font-weight: 600; }
+.arcp__run {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 46px;
+  padding: 0 16px !important;
+  border-radius: 8px;
+  background: var(--arcp-paper-ink) !important;
+  color: var(--arcp-paper) !important;
+  font: 700 13px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace !important;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: transform 0.15s, opacity 0.2s;
+}
+.arcp__run svg { width: 18px; height: 18px; stroke-width: 1.8; transition: transform 0.2s; }
+.arcp__run:not(:disabled):hover svg { transform: translateX(3px); }
+.arcp__run:not(:disabled):active { transform: scale(0.99); }
+.arcp__run:disabled { opacity: 0.25; cursor: default; }
+.arcp__stamp {
+  position: absolute;
+  right: 26px;
+  top: 46%;
+  display: grid;
+  justify-items: center;
+  padding: 6px 12px;
+  border: 2.5px solid var(--mc);
+  border-radius: 6px;
+  color: var(--mc);
+  font: 800 18px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-12deg);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  animation: arcp-stamp 0.28s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.arcp[data-mode="agent"] .arcp__stamp { --mc: #b5432e; }
+.arcp__stamp small { margin-top: 4px; font-size: 10px; letter-spacing: 0.1em; }
+@keyframes arcp-stamp { from { transform: rotate(-12deg) scale(1.8); opacity: 0; } }
+
+@container (max-width: 720px) {
+  .arcp__wrap { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .arcp__input textarea { min-height: 120px; font-size: 16px; }
+  .arcp__feed { max-width: 26rem; width: 100%; justify-self: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arcp *, .arcp *::before, .arcp *::after { animation: none !important; transition-duration: 1ms !important; }
+}

@@ -1,0 +1,129 @@
+/* Outcome Flicker — a forecast as countable runs, one frame at a time. */
+.otfl {
+  --otfl-card: #151515;
+  --otfl-line: #2a2a2a;
+  --otfl-line-soft: rgb(255 255 255 / 0.06);
+  --otfl-ink: #ececec;
+  --otfl-muted: #8c8c8c;
+  --otfl-faint: #5c5c5c;
+  --otfl-hover: rgb(255 255 255 / 0.05);
+  --otfl-empty: #242424;
+  --otfl-go: #ededed;
+  --otfl-go-ink: #111111;
+  --otfl-focus: #8ab4f8;
+  --otfl-yes: #6cc08b;
+  --otfl-no: #f0645a;
+  --otfl-late: rgb(240 100 90 / 0.07);
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 44rem;
+  color: var(--otfl-ink);
+  font: 400 14px/1.45 "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.otfl--light {
+  --otfl-card: #ffffff;
+  --otfl-line: #e3e3e1;
+  --otfl-line-soft: rgb(0 0 0 / 0.06);
+  --otfl-ink: #1a1a1a;
+  --otfl-muted: #6b6b6b;
+  --otfl-faint: #a3a3a3;
+  --otfl-hover: rgb(0 0 0 / 0.04);
+  --otfl-empty: #ececea;
+  --otfl-go: #1b1b1b;
+  --otfl-go-ink: #ffffff;
+  --otfl-focus: #2b59c3;
+  --otfl-yes: #2f8f55;
+  --otfl-no: #cc3a30;
+  --otfl-late: rgb(204 58 48 / 0.06);
+}
+.otfl svg { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.otfl :where(button) { font: inherit; color: inherit; background: none; border: 0; margin: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.otfl :where(button:disabled) { cursor: default; }
+.otfl :focus-visible { outline: 2px solid var(--otfl-focus); outline-offset: 2px; }
+.otfl__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+.otfl kbd { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 4px; box-shadow: inset 0 0 0 1px var(--otfl-line); font: 500 10.5px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; }
+
+.otfl__card { background: var(--otfl-card); border: 1px solid var(--otfl-line); border-radius: 16px; overflow: hidden; }
+
+.otfl__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 18px 20px 14px; }
+.otfl__label { display: block; margin-bottom: 5px; font: 500 10.5px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--otfl-faint); }
+.otfl__head h3 { margin: 0; font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+.otfl__views { display: flex; flex: none; padding: 2px; border-radius: 8px; background: var(--otfl-hover); }
+.otfl__views button { height: 26px; padding: 0 10px; border-radius: 6px; font-size: 12px; font-weight: 500; color: var(--otfl-muted); white-space: nowrap; }
+.otfl__views button[aria-checked="true"] { background: var(--otfl-card); color: var(--otfl-ink); box-shadow: 0 0 0 1px var(--otfl-line); }
+.otfl__views button:disabled { opacity: 0.4; }
+
+.otfl__opts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 0 20px 16px; }
+.otfl__opt { position: relative; display: grid; gap: 1px; padding: 9px 12px !important; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--otfl-line); text-align: left; transition: box-shadow 0.15s, background 0.15s; }
+.otfl__opt:hover { background: var(--otfl-hover) !important; }
+.otfl__opt[aria-checked="true"] { box-shadow: inset 0 0 0 1.5px var(--otfl-ink); }
+.otfl__opt b { font-size: 13.5px; font-weight: 600; }
+.otfl__opt span { font-size: 12px; color: var(--otfl-muted); }
+.otfl__opt em { position: absolute; top: 9px; right: 12px; font: 500 12.5px/1.4 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; font-style: normal; color: var(--otfl-muted); }
+
+/* frames */
+.otfl__frames { padding: 4px 20px 16px; border-top: 1px solid var(--otfl-line-soft); }
+.otfl__now { display: flex; align-items: baseline; gap: 12px; min-height: 52px; padding-top: 16px; }
+.otfl__runno { flex: none; width: 4.2rem; font: 500 12px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--otfl-faint); }
+.otfl__result { font-size: 17px; font-weight: 600; color: var(--otfl-muted); animation: otfl-flip 0.18s ease-out; }
+.otfl__result[data-ok="true"] { color: var(--otfl-yes); }
+.otfl__result[data-ok="false"] { color: var(--otfl-no); }
+.otfl__result small { font: 450 12px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--otfl-muted); }
+@keyframes otfl-flip { from { opacity: 0; transform: translateY(3px); } }
+
+.otfl__track { position: relative; height: 44px; margin-top: 8px; border-radius: 8px; background: var(--otfl-hover); overflow: hidden; }
+.otfl__track .otfl__late { position: absolute; top: 0; bottom: 0; right: 0; background: var(--otfl-late); }
+.otfl__deadline { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1.5px dashed var(--otfl-faint); }
+.otfl__deadline span { position: absolute; top: 5px; left: 6px; font: 500 10px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--otfl-muted); }
+.otfl__mark { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--otfl-no); box-shadow: 0 0 0 3px var(--otfl-card); animation: otfl-drop 0.2s ease-out; }
+.otfl__mark[data-ok] { background: var(--otfl-yes); }
+@keyframes otfl-drop { from { transform: scale(0.4); opacity: 0; } }
+
+.otfl__axis { position: relative; height: 22px; font: 450 10.5px/22px "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--otfl-faint); }
+.otfl__axis span { position: absolute; transform: translateX(-50%); }
+.otfl__axis span[data-next] { opacity: 0.6; }
+
+.otfl__tally { display: grid; grid-template-columns: repeat(50, minmax(0, 1fr)); gap: 3px; margin-top: 14px; }
+.otfl__tally i { aspect-ratio: 1 / 2.2; border-radius: 2px; background: var(--otfl-empty); }
+.otfl__tally i[data-s="yes"] { background: var(--otfl-yes); }
+.otfl__tally i[data-s="no"] { background: var(--otfl-no); }
+.otfl__tally i[data-cur] { box-shadow: 0 0 0 1.5px var(--otfl-card), 0 0 0 3px var(--otfl-ink); }
+.otfl__count { margin: 10px 0 0; font-size: 13.5px; color: var(--otfl-muted); }
+.otfl__count b { color: var(--otfl-ink); font-size: 15px; }
+.otfl__count span { color: var(--otfl-muted); }
+
+.otfl__ctl { display: flex; align-items: center; gap: 6px; margin-top: 16px; }
+.otfl__btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-width: 34px; height: 34px; padding: 0 9px !important; border-radius: 9px; box-shadow: inset 0 0 0 1px var(--otfl-line); color: var(--otfl-muted); }
+.otfl__btn:hover:not(:disabled) { background: var(--otfl-hover) !important; color: var(--otfl-ink); }
+.otfl__btn:disabled { opacity: 0.3; }
+.otfl__btn[data-k="go"] { padding: 0 14px 0 12px !important; background: var(--otfl-go) !important; color: var(--otfl-go-ink) !important; box-shadow: none; font-size: 13px; font-weight: 600; }
+.otfl__btn[data-k="go"] svg { fill: currentColor; width: 13px; height: 13px; }
+.otfl__keys { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; color: var(--otfl-faint); }
+
+/* summary */
+.otfl__sum { display: grid; gap: 14px; padding: 16px 20px 14px; border-top: 1px solid var(--otfl-line-soft); }
+.otfl__strip { margin: 0; opacity: 0.55; transition: opacity 0.2s; }
+.otfl__strip[data-on] { opacity: 1; }
+.otfl__strip figcaption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; margin-bottom: 6px; font-size: 13px; }
+.otfl__strip figcaption span { color: var(--otfl-muted); }
+.otfl__strip figcaption strong { color: var(--otfl-ink); }
+.otfl__dots { position: relative; height: 42px; border-radius: 8px; background: var(--otfl-hover); overflow: hidden; }
+.otfl__dots .otfl__late { position: absolute; top: 0; bottom: 0; right: 0; background: var(--otfl-late); border-left: 1.5px dashed var(--otfl-faint); }
+.otfl__dots b { position: absolute; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: var(--otfl-no); }
+.otfl__dots b[data-ok] { background: var(--otfl-yes); }
+
+@container (max-width: 560px) {
+  .otfl__head { flex-direction: column; padding: 16px 16px 12px; }
+  .otfl__opts { grid-template-columns: minmax(0, 1fr); padding: 0 16px 14px; }
+  .otfl__opt { grid-template-columns: minmax(0, 1fr) auto; }
+  .otfl__frames, .otfl__sum { padding-left: 16px; padding-right: 16px; }
+  .otfl__tally { grid-template-columns: repeat(25, minmax(0, 1fr)); }
+  .otfl__keys { display: none; }
+  .otfl__btn { min-width: 42px; height: 42px; }
+  .otfl__axis span:nth-child(even) { visibility: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .otfl *, .otfl *::before, .otfl *::after { animation: none !important; transition-duration: 1ms !important; }
+}
