@@ -1,0 +1,177 @@
+/* Sentence Composer — the settings are a sentence; every underlined word is its own control. */
+.snts {
+  --snts-card: #171717;
+  --snts-line: #2a2a2a;
+  --snts-line-soft: rgb(255 255 255 / 0.06);
+  --snts-ink: #ececec;
+  --snts-muted: #8c8c8c;
+  --snts-faint: #5a5a5a;
+  --snts-off: #353535;
+  --snts-hover: rgb(255 255 255 / 0.06);
+  --snts-pop: #1d1d1d;
+  --snts-pop-line: #333333;
+  --snts-shadow: 0 16px 40px -12px rgb(0 0 0 / 0.65), 0 0 0 1px rgb(0 0 0 / 0.4);
+  --snts-go: #ededed;
+  --snts-go-ink: #111111;
+  --snts-focus: #8ab4f8;
+  --snts-agent: #d4d4d4;
+  --snts-plan: #e6c26b;
+  --snts-debug: #f08c7b;
+  --snts-multitask: #7cc5ee;
+  --snts-ask: #8fd18a;
+  --snts-claude: #e08560;
+  --snts-openai: #5b9bff;
+  --snts-xai: #ececec;
+  --snts-e0: #8e8e8e;
+  --snts-e1: #6cc08b;
+  --snts-e2: #e6c26b;
+  --snts-e3: #b48cf2;
+  --snts-e4: #f0645a;
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 44rem;
+  color: var(--snts-ink);
+  font: 400 14px/1.4 "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.snts--light {
+  --snts-card: #ffffff;
+  --snts-line: #e2e2e2;
+  --snts-line-soft: rgb(0 0 0 / 0.06);
+  --snts-ink: #181818;
+  --snts-muted: #6b6b6b;
+  --snts-faint: #a6a6a6;
+  --snts-off: #dcdcdc;
+  --snts-hover: rgb(0 0 0 / 0.05);
+  --snts-pop: #ffffff;
+  --snts-pop-line: #e2e2e2;
+  --snts-shadow: 0 16px 40px -16px rgb(0 0 0 / 0.2), 0 0 0 1px rgb(0 0 0 / 0.04);
+  --snts-go: #1b1b1b;
+  --snts-go-ink: #ffffff;
+  --snts-focus: #2b59c3;
+  --snts-agent: #3b3b3b;
+  --snts-plan: #96650a;
+  --snts-debug: #b5432e;
+  --snts-multitask: #1d74a6;
+  --snts-ask: #2e8538;
+  --snts-claude: #c25a32;
+  --snts-openai: #2563d6;
+  --snts-xai: #0b0b0b;
+  --snts-e0: #7a7a7a;
+  --snts-e1: #2f8f55;
+  --snts-e2: #a8730a;
+  --snts-e3: #7d4fd1;
+  --snts-e4: #cc3a30;
+}
+.snts { --mc: var(--snts-agent); --oc: var(--snts-claude); --ec: var(--snts-e2); }
+.snts[data-mode="plan"] { --mc: var(--snts-plan); }
+.snts[data-mode="debug"] { --mc: var(--snts-debug); }
+.snts[data-mode="multitask"] { --mc: var(--snts-multitask); }
+.snts[data-mode="ask"] { --mc: var(--snts-ask); }
+.snts[data-maker="openai"] { --oc: var(--snts-openai); }
+.snts[data-maker="xai"] { --oc: var(--snts-xai); }
+.snts[data-effort="0"] { --ec: var(--snts-e0); }
+.snts[data-effort="1"] { --ec: var(--snts-e1); }
+.snts[data-effort="3"] { --ec: var(--snts-e3); }
+.snts[data-effort="4"] { --ec: var(--snts-e4); }
+
+.snts svg { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.snts .snts__logo { stroke: none; }
+.snts :where(button) { font: inherit; color: inherit; background: none; border: 0; margin: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.snts :focus-visible { outline: 2px solid var(--snts-focus); outline-offset: 2px; }
+.snts__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+
+.snts__card { position: relative; background: var(--snts-card); border: 1px solid var(--snts-line); border-radius: 16px; }
+
+.snts__run { display: flex; align-items: center; gap: 9px; margin: 0; padding: 10px 18px; border-bottom: 1px solid var(--snts-line-soft); font-size: 13px; color: var(--snts-muted); }
+.snts__run > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.snts__runicon { display: grid; place-items: center; width: 14px; height: 14px; flex: none; }
+.snts__runicon svg { width: 14px; height: 14px; stroke-width: 1.8; color: var(--snts-ask); }
+.snts__spin { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--snts-off); border-top-color: var(--mc); animation: snts-spin 0.8s linear infinite; }
+@keyframes snts-spin { to { transform: rotate(360deg); } }
+
+.snts__prompt { display: block; width: 100%; min-height: 88px; margin: 0; padding: 16px 20px 6px; border: 0; outline: 0; resize: none; background: transparent; color: var(--snts-ink); font: 400 16px/25px "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif; box-sizing: border-box; }
+.snts__prompt::placeholder { color: var(--snts-faint); }
+.snts__prompt:focus-visible { outline: 0; }
+
+/* the sentence */
+.snts__foot { display: flex; align-items: flex-end; gap: 16px; padding: 10px 12px 12px 20px; border-top: 1px dashed var(--snts-line); }
+.snts__sentence { flex: 1; min-width: 0; margin: 0; font-size: 15px; line-height: 30px; color: var(--snts-muted); text-wrap: pretty; }
+.snts__glue { white-space: nowrap; }
+.snts__tok {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 -3px;
+  padding: 0 4px !important;
+  border-radius: 6px;
+  color: var(--snts-ink);
+  font-weight: 550 !important;
+  line-height: 26px;
+  vertical-align: baseline;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  transition: background 0.15s, color 0.25s;
+}
+.snts__tok:hover, .snts__tok[aria-expanded="true"] { background: var(--snts-hover); text-decoration-style: solid; }
+.snts__tok[data-t="model"] .snts__logo { width: 14px; height: 14px; color: var(--oc); }
+.snts[data-maker="xai"] .snts__tok[data-t="model"] .snts__logo { width: 18px; height: 18px; padding: 3px; border-radius: 50%; background: #000; color: #fff; }
+.snts__tok[data-t="mode"] { color: var(--mc); }
+.snts__tok[data-t="effort"] { color: var(--ec); }
+.snts__roll { display: inline-block; overflow: hidden; animation: snts-roll 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.1); }
+@keyframes snts-roll { from { opacity: 0; transform: translateY(9px); } }
+.snts__bars { display: inline-flex; align-items: flex-end; gap: 1.5px; height: 12px; }
+.snts__bars i { width: 2.5px; height: var(--h); border-radius: 1px; background: var(--snts-off); }
+.snts__bars i[data-on] { background: currentColor; }
+
+.snts__go { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--snts-go) !important; color: var(--snts-go-ink) !important; transition: opacity 0.2s, transform 0.15s; }
+.snts__go svg { width: 17px; height: 17px; stroke-width: 2; }
+.snts__go[aria-disabled] { opacity: 0.3; }
+.snts__go:not([aria-disabled]):active { transform: scale(0.94); }
+
+/* menus hang from the word they change */
+.snts__pop { position: absolute; z-index: 5; min-width: 15rem; max-width: calc(100% - 16px); padding: 4px; background: var(--snts-pop); border: 1px solid var(--snts-pop-line); border-radius: 10px; box-shadow: var(--snts-shadow); animation: snts-drop 0.16s ease-out; }
+.snts__pop[data-t="files"] { min-width: 19rem; }
+@keyframes snts-drop { from { opacity: 0; transform: translateY(-4px); } }
+.snts__item { display: flex !important; align-items: center; gap: 10px; width: 100%; height: 34px; padding: 0 8px 0 9px !important; border-radius: 6px; text-align: left; color: var(--snts-ink); }
+.snts__item:hover, .snts__item:focus { background: var(--snts-hover) !important; outline: 0; }
+.snts__item > span:not(.snts__bars) { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.snts__item small { font: 450 11px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--snts-faint); }
+.snts__item > i { display: grid; place-items: center; width: 16px; }
+.snts__item > i svg { width: 14px; height: 14px; stroke-width: 1.8; }
+.snts__item .snts__logo { width: 15px; height: 15px; }
+.snts__item[data-maker="claude"] .snts__logo { color: var(--snts-claude); }
+.snts__item[data-maker="openai"] .snts__logo { color: var(--snts-openai); }
+.snts__item[data-maker="xai"] .snts__logo { color: var(--snts-ink); }
+.snts__item[data-m="agent"] { --m: var(--snts-agent); }
+.snts__item[data-m="plan"] { --m: var(--snts-plan); }
+.snts__item[data-m="debug"] { --m: var(--snts-debug); }
+.snts__item[data-m="multitask"] { --m: var(--snts-multitask); }
+.snts__item[data-m="ask"] { --m: var(--snts-ask); }
+.snts__item[data-m] .snts__micon { color: var(--m); }
+.snts__item[data-e="0"] { color: var(--snts-e0); }
+.snts__item[data-e="1"] { color: var(--snts-e1); }
+.snts__item[data-e="2"] { color: var(--snts-e2); }
+.snts__item[data-e="3"] { color: var(--snts-e3); }
+.snts__item[data-e="4"] { color: var(--snts-e4); }
+.snts__item--file { font-size: 13px; }
+.snts__box { display: grid; place-items: center; width: 15px; height: 15px; flex: none; border-radius: 4px; box-shadow: inset 0 0 0 1.5px var(--snts-off); }
+.snts__item[aria-checked="true"] .snts__box { background: var(--snts-ink); box-shadow: none; color: var(--snts-card); }
+.snts__box svg { width: 11px; height: 11px; stroke-width: 2.2; }
+.snts__popfoot { margin: 4px -4px -4px; padding: 8px 12px; border-top: 1px solid var(--snts-pop-line); font: 450 11px/1.3 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--snts-muted); }
+
+@container (max-width: 520px) {
+  .snts__foot { padding: 10px 10px 12px 16px; }
+  .snts__sentence { font-size: 14.5px; line-height: 32px; }
+  .snts__prompt { padding: 14px 16px 6px; }
+  .snts__pop { left: 8px !important; right: 8px; min-width: 0; }
+  .snts__item { height: 42px; }
+}
+@media (max-width: 640px) { .snts__prompt { font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) {
+  .snts *, .snts *::before, .snts *::after { animation: none !important; transition-duration: 1ms !important; }
+}

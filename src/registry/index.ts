@@ -34,7 +34,6 @@ import { meta as puddleButton } from "./buttons/puddle-button/meta";
 import { meta as gradientBloomButton } from "./buttons/gradient-bloom-button/meta";
 import { meta as frostBloomButton } from "./buttons/frost-bloom-button/meta";
 import { meta as prismRimButton } from "./buttons/prism-rim-button/meta";
-import { meta as spectrumRingButton } from "./buttons/spectrum-ring-button/meta";
 import { meta as nebulaPillButton } from "./buttons/nebula-pill-button/meta";
 import { meta as callPill } from "./buttons/call-pill/meta";
 import { meta as bellSubscribeButton } from "./buttons/bell-subscribe-button/meta";
@@ -62,7 +61,6 @@ import { meta as dropUploadButton } from "./buttons/drop-upload-button/meta";
 import { meta as avatarUploadButton } from "./buttons/avatar-upload-button/meta";
 import { meta as pulseButton } from "./buttons/pulse-button/meta";
 import { meta as pingButton } from "./buttons/ping-button/meta";
-import { meta as breatheButton } from "./buttons/breathe-button/meta";
 import { meta as cornerCutButton } from "./buttons/corner-cut-button/meta";
 import { meta as cornerBracketButton } from "./buttons/corner-bracket-button/meta";
 import { meta as gamutPicker } from "./controls/gamut-picker/meta";
@@ -208,6 +206,23 @@ import { meta as confidenceInk } from "./ai/confidence-ink/meta";
 import { meta as askBar } from "./ai/ask-bar/meta";
 import { meta as glyphHaloComposer } from "./ai/glyph-halo-composer/meta";
 import { meta as afterglowPrompt } from "./ai/afterglow-prompt/meta";
+import { meta as agentComposer } from "./ai/agent-composer/meta";
+import { meta as modelRoster } from "./ai/model-roster/meta";
+import { meta as dialComposer } from "./ai/dial-composer/meta";
+import { meta as canvasComposer } from "./ai/canvas-composer/meta";
+import { meta as agentReceipt } from "./ai/agent-receipt/meta";
+import { meta as sentenceComposer } from "./ai/sentence-composer/meta";
+import { meta as splitBriefComposer } from "./ai/split-brief-composer/meta";
+import { meta as stackedBrief } from "./ai/stacked-brief/meta";
+import { meta as lumen } from "./ai/lumen/meta";
+import { meta as thoughtDots } from "./ai/thought-dots/meta";
+import { meta as globeSearch } from "./ai/globe-search/meta";
+import { meta as sourceSweep } from "./ai/source-sweep/meta";
+import { meta as activityGlyphs } from "./ai/activity-glyphs/meta";
+import { meta as planGate } from "./ai/plan-gate/meta";
+import { meta as mixedInspector } from "./data/mixed-inspector/meta";
+import { meta as outcomeFlicker } from "./analytics/outcome-flicker/meta";
+import { meta as trendTape } from "./stats/trend-tape/meta";
 import { meta as conversationSidebar } from "./sidebars/conversation-sidebar/meta";
 import { meta as workspaceSidebar } from "./sidebars/workspace-sidebar/meta";
 import { meta as glassTorus } from "./heroes/glass-torus/meta";
@@ -220,6 +235,7 @@ import { meta as satinHero } from "./heroes/satin-hero/meta";
 import { meta as refractionBlob } from "./heroes/refraction-blob/meta";
 import { meta as mastheadNav } from "./navbars/masthead-nav/meta";
 import { meta as docketNav } from "./navbars/docket-nav/meta";
+import { meta as megaNav } from "./navbars/mega-nav/meta";
 import { meta as glassTabBar } from "./navigation/glass-tab-bar/meta";
 import { meta as slideTabs } from "./navigation/slide-tabs/meta";
 import { meta as thumbedEdge } from "./navigation/thumbed-edge/meta";
@@ -229,6 +245,7 @@ import { meta as threadStepper } from "./navigation/thread-stepper/meta";
 import { meta as folioPager } from "./navigation/folio-pager/meta";
 import { meta as lessonPath } from "./navigation/lesson-path/meta";
 import { meta as lineMap } from "./navigation/line-map/meta";
+import { meta as portfolioTerminal } from "./navigation/portfolio-terminal/meta";
 import { meta as depthDialog } from "./overlays/depth-dialog/meta";
 import { meta as contextLens } from "./overlays/context-lens/meta";
 import { meta as foldSheet } from "./overlays/fold-sheet/meta";
@@ -382,7 +399,6 @@ import { meta as alertCallout } from "./feedback/alert-callout/meta";
 import { meta as progressBar } from "./feedback/progress-bar/meta";
 import { meta as segmentedProgress } from "./feedback/segmented-progress/meta";
 import { meta as indeterminateProgress } from "./feedback/indeterminate-progress/meta";
-import { meta as gradientProgress } from "./feedback/gradient-progress/meta";
 import { meta as ringProgress } from "./feedback/ring-progress/meta";
 import { meta as wetInk } from "./feedback/wet-ink/meta";
 import { meta as undoRibbon } from "./feedback/undo-ribbon/meta";
@@ -479,7 +495,6 @@ export const registry: ComponentMeta[] = [
   gradientBloomButton,
   frostBloomButton,
   prismRimButton,
-  spectrumRingButton,
   nebulaPillButton,
   callPill,
   bellSubscribeButton,
@@ -507,7 +522,6 @@ export const registry: ComponentMeta[] = [
   avatarUploadButton,
   pulseButton,
   pingButton,
-  breatheButton,
   cornerCutButton,
   cornerBracketButton,
   gamutPicker,
@@ -653,6 +667,23 @@ export const registry: ComponentMeta[] = [
   askBar,
   glyphHaloComposer,
   afterglowPrompt,
+  agentComposer,
+  modelRoster,
+  dialComposer,
+  canvasComposer,
+  agentReceipt,
+  sentenceComposer,
+  splitBriefComposer,
+  stackedBrief,
+  lumen,
+  thoughtDots,
+  globeSearch,
+  sourceSweep,
+  activityGlyphs,
+  planGate,
+  mixedInspector,
+  outcomeFlicker,
+  trendTape,
   conversationSidebar,
   workspaceSidebar,
   glassTorus,
@@ -665,6 +696,7 @@ export const registry: ComponentMeta[] = [
   refractionBlob,
   mastheadNav,
   docketNav,
+  megaNav,
   glassTabBar,
   slideTabs,
   thumbedEdge,
@@ -674,6 +706,7 @@ export const registry: ComponentMeta[] = [
   folioPager,
   lessonPath,
   lineMap,
+  portfolioTerminal,
   depthDialog,
   contextLens,
   foldSheet,
@@ -827,7 +860,6 @@ export const registry: ComponentMeta[] = [
   progressBar,
   segmentedProgress,
   indeterminateProgress,
-  gradientProgress,
   ringProgress,
   wetInk,
   undoRibbon,

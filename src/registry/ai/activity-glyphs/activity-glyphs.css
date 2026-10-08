@@ -1,0 +1,103 @@
+/* Activity Glyphs — a small drawn mark for each thing an assistant does, in CSS. */
+.acgl {
+  --acgl-ink: #ececec;
+  --acgl-muted: #8c8c8c;
+  --acgl-ok: #3cc28c;
+  --acgl-err: #f2644f;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--acgl-muted);
+  line-height: 1.35;
+}
+.acgl--light { --acgl-ink: #1a1a1a; --acgl-muted: #6b6b6b; --acgl-ok: #1f8f60; --acgl-err: #d23d2b; }
+.acgl[data-state="active"] .acgl__label { color: var(--acgl-ink); }
+.acgl[data-state="error"] .acgl__label { color: var(--acgl-err); }
+.acgl__detail { color: var(--acgl-muted); }
+/* only the loops pause; the tick and cross always finish drawing */
+.acgl[data-paused][data-state="active"] .acgl__glyph * { animation-play-state: paused; }
+
+.acgl__glyph {
+  flex: none; width: 1.4em; height: 1.4em; overflow: visible;
+  color: var(--acgl-ink); fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+.acgl__glyph * { transform-box: view-box; }
+.acgl__frame { opacity: 0.55; }
+.acgl__label { min-width: 0; }
+
+/* ---------- reading: pages turn over the spine ---------- */
+.acgl__page { opacity: 0.55; }
+.acgl__flip { fill: var(--acgl-ink); fill-opacity: 0.18; transform-origin: 12px 12px; animation: acgl-flip 1.8s cubic-bezier(0.6, 0, 0.3, 1) infinite; animation-delay: var(--d, 0s); }
+@keyframes acgl-flip {
+  0% { transform: scaleX(1); }
+  50%, 100% { transform: scaleX(-1); }
+}
+
+/* ---------- writing: lines type out between the brackets, then clear ---------- */
+.acgl__type { stroke-width: 1.9; transform-origin: 9.5px 12px; animation: acgl-type 2.1s steps(4, end) infinite; animation-delay: calc(var(--i) * 0.45s); }
+@keyframes acgl-type {
+  0% { transform: scaleX(0); opacity: 1; }
+  25%, 82% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* ---------- running: chevrons march at the prompt, the cursor blinks ---------- */
+.acgl__chev { animation: acgl-march 1.2s ease-in-out infinite; animation-delay: calc(var(--i) * 0.4s); opacity: 0; }
+@keyframes acgl-march {
+  0% { transform: translateX(-1.5px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(6px); opacity: 0; }
+}
+.acgl__cursor { animation: acgl-blink 1s steps(1) infinite; }
+@keyframes acgl-blink { 50% { opacity: 0; } }
+
+/* ---------- image: pixels resolve out of order, hold, then fade for the next pass ---------- */
+.acgl__px { stroke: none; fill: var(--acgl-ink); opacity: 0.12; animation: acgl-px 2.4s ease-out infinite; animation-delay: calc(var(--p) * 0.07s); }
+@keyframes acgl-px {
+  0% { opacity: 0.12; transform: scale(0.6); }
+  12%, 70% { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0.12; transform: scale(0.6); }
+}
+.acgl__px { transform-box: fill-box; transform-origin: center; }
+
+/* ---------- analysing: bars recompute to new heights ---------- */
+.acgl__bar { stroke: none; fill: var(--acgl-ink); transform-origin: 0 18.5px; animation: acgl-bars 1.9s cubic-bezier(0.5, 0, 0.25, 1) infinite; animation-delay: calc(var(--i) * -0.47s); }
+@keyframes acgl-bars {
+  0%, 100% { transform: scaleY(0.35); }
+  25% { transform: scaleY(0.85); }
+  50% { transform: scaleY(0.55); }
+  75% { transform: scaleY(1); }
+}
+
+/* ---------- uploading: an arrow lifts out of the tray while the tray fills ---------- */
+.acgl__lift { animation: acgl-lift 1.5s cubic-bezier(0.5, 0, 0.3, 1) infinite; }
+.acgl__lift .acgl__frame { opacity: 1; }
+@keyframes acgl-lift {
+  0% { transform: translateY(5px); opacity: 0; }
+  25% { opacity: 1; }
+  75% { transform: translateY(-2px); opacity: 1; }
+  100% { transform: translateY(-4px); opacity: 0; }
+}
+.acgl__fill { stroke-width: 2; transform-origin: 7px 17px; animation: acgl-fill 3s ease-in-out infinite; }
+@keyframes acgl-fill { 0% { transform: scaleX(0); } 85%, 100% { transform: scaleX(1); } }
+
+/* ---------- endings ---------- */
+.acgl__tick, .acgl__cross { stroke-width: 2.1; stroke-dasharray: 1; }
+.acgl__tick { color: var(--acgl-ok); stroke: var(--acgl-ok); animation: acgl-draw 0.45s cubic-bezier(0.6, 0, 0.3, 1) both; }
+.acgl__cross { stroke: var(--acgl-err); animation: acgl-draw 0.35s ease-out both, acgl-shake 0.4s ease-in-out 0.3s; }
+@keyframes acgl-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes acgl-shake { 25% { transform: translateX(-1.5px); } 75% { transform: translateX(1.5px); } }
+
+/* ---------- reduced motion: one still pose per activity ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .acgl *, .acgl *::before { animation: none !important; }
+  .acgl__flip { transform: scaleX(0.35); }
+  .acgl__flip + .acgl__flip { display: none; }
+  .acgl__chev { opacity: 1; }
+  .acgl__chev:not(:first-of-type) { display: none; }
+  .acgl__px:nth-child(odd) { opacity: 0.9; }
+  .acgl__bar:nth-of-type(1) { transform: scaleY(0.45); }
+  .acgl__bar:nth-of-type(2) { transform: scaleY(0.85); }
+  .acgl__bar:nth-of-type(3) { transform: scaleY(0.6); }
+  .acgl__fill { transform: scaleX(0.6); }
+}

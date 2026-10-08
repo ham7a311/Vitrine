@@ -1,0 +1,239 @@
+/* Dial Composer — one control turns through mode, model, effort and context. */
+.dlcm {
+  --dlcm-card: #171717;
+  --dlcm-line: #2a2a2a;
+  --dlcm-line-soft: rgb(255 255 255 / 0.06);
+  --dlcm-ink: #ececec;
+  --dlcm-muted: #8c8c8c;
+  --dlcm-faint: #5a5a5a;
+  --dlcm-off: #333333;
+  --dlcm-hover: rgb(255 255 255 / 0.05);
+  --dlcm-knob-hi: #2e2e2e;
+  --dlcm-knob-lo: #191919;
+  --dlcm-knob-edge: #343434;
+  --dlcm-knob-shadow: 0 10px 24px -10px rgb(0 0 0 / 0.85);
+  --dlcm-go: #ededed;
+  --dlcm-go-ink: #111111;
+  --dlcm-focus: #8ab4f8;
+  --dlcm-agent: #d4d4d4;
+  --dlcm-plan: #e6c26b;
+  --dlcm-debug: #f08c7b;
+  --dlcm-multitask: #7cc5ee;
+  --dlcm-ask: #8fd18a;
+  --dlcm-claude: #e08560;
+  --dlcm-openai: #5b9bff;
+  --dlcm-xai: #ececec;
+  --dlcm-e0: #8e8e8e;
+  --dlcm-e1: #6cc08b;
+  --dlcm-e2: #e6c26b;
+  --dlcm-e3: #b48cf2;
+  --dlcm-e4: #f0645a;
+  --dlcm-warn: #e6c26b;
+  --dlcm-full: #f08c7b;
+  --dlcm-spring: cubic-bezier(0.3, 1.35, 0.5, 1);
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 44rem;
+  color: var(--dlcm-ink);
+  font: 400 14px/1.4 "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.dlcm--light {
+  --dlcm-card: #ffffff;
+  --dlcm-line: #e3e3e3;
+  --dlcm-line-soft: rgb(0 0 0 / 0.06);
+  --dlcm-ink: #181818;
+  --dlcm-muted: #6b6b6b;
+  --dlcm-faint: #a6a6a6;
+  --dlcm-off: #dcdcdc;
+  --dlcm-hover: rgb(0 0 0 / 0.04);
+  --dlcm-knob-hi: #ffffff;
+  --dlcm-knob-lo: #ececec;
+  --dlcm-knob-edge: #d6d6d6;
+  --dlcm-knob-shadow: 0 10px 22px -12px rgb(0 0 0 / 0.35);
+  --dlcm-go: #1b1b1b;
+  --dlcm-go-ink: #ffffff;
+  --dlcm-focus: #2b59c3;
+  --dlcm-agent: #3b3b3b;
+  --dlcm-plan: #96650a;
+  --dlcm-debug: #b5432e;
+  --dlcm-multitask: #1d74a6;
+  --dlcm-ask: #2e8538;
+  --dlcm-claude: #c25a32;
+  --dlcm-openai: #2563d6;
+  --dlcm-xai: #0b0b0b;
+  --dlcm-e0: #7a7a7a;
+  --dlcm-e1: #2f8f55;
+  --dlcm-e2: #a8730a;
+  --dlcm-e3: #7d4fd1;
+  --dlcm-e4: #cc3a30;
+  --dlcm-warn: #96650a;
+  --dlcm-full: #b5432e;
+}
+
+/* one colour per setting, and the dial borrows whichever ring it's on */
+.dlcm { --mc: var(--dlcm-agent); --oc: var(--dlcm-claude); --ec: var(--dlcm-e2); --cc: var(--dlcm-muted); --v: var(--mc); }
+.dlcm[data-mode="plan"] { --mc: var(--dlcm-plan); }
+.dlcm[data-mode="debug"] { --mc: var(--dlcm-debug); }
+.dlcm[data-mode="multitask"] { --mc: var(--dlcm-multitask); }
+.dlcm[data-mode="ask"] { --mc: var(--dlcm-ask); }
+.dlcm[data-model="openai"] { --oc: var(--dlcm-openai); }
+.dlcm[data-model="xai"] { --oc: var(--dlcm-xai); }
+.dlcm[data-effort="0"] { --ec: var(--dlcm-e0); }
+.dlcm[data-effort="1"] { --ec: var(--dlcm-e1); }
+.dlcm[data-effort="3"] { --ec: var(--dlcm-e3); }
+.dlcm[data-effort="4"] { --ec: var(--dlcm-e4); }
+.dlcm[data-level="warn"] { --cc: var(--dlcm-warn); }
+.dlcm[data-level="full"] { --cc: var(--dlcm-full); }
+.dlcm[data-ring="model"] { --v: var(--oc); }
+.dlcm[data-ring="effort"] { --v: var(--ec); }
+.dlcm[data-ring="context"] { --v: var(--cc); }
+
+.dlcm svg { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.dlcm .dlcm__logo { stroke: none; }
+.dlcm :where(button) { font: inherit; color: inherit; background: none; border: 0; margin: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.dlcm :focus-visible { outline: 2px solid var(--dlcm-focus); outline-offset: 2px; }
+.dlcm__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+
+.dlcm__card { position: relative; background: var(--dlcm-card); border: 1px solid var(--dlcm-line); border-radius: 18px; }
+
+/* run line */
+.dlcm__run { display: flex; align-items: center; gap: 10px; height: 36px; margin: 0; padding: 0 16px; border-bottom: 1px solid var(--dlcm-line-soft); font-size: 13px; color: var(--dlcm-ink); white-space: nowrap; overflow: hidden; }
+.dlcm__run > span:last-child { color: var(--dlcm-muted); overflow: hidden; text-overflow: ellipsis; }
+.dlcm__runicon { display: grid; place-items: center; width: 14px; height: 14px; }
+.dlcm__runicon svg { width: 14px; height: 14px; stroke-width: 1.8; color: var(--dlcm-ask); }
+.dlcm__spin { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--dlcm-off); border-top-color: var(--mc); animation: dlcm-spin 0.8s linear infinite; }
+@keyframes dlcm-spin { to { transform: rotate(360deg); } }
+
+/* prompt */
+.dlcm__prompt {
+  display: block;
+  width: 100%;
+  min-height: 72px;
+  margin: 0;
+  padding: 16px 18px 0;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  color: var(--dlcm-ink);
+  font: 400 15px/24px "Inter", "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+.dlcm__prompt::placeholder { color: var(--dlcm-faint); }
+.dlcm__prompt:focus-visible { outline: 0; }
+
+/* deck */
+.dlcm__deck { display: grid; grid-template-columns: 216px minmax(0, 1fr) auto; align-items: center; gap: 18px; padding: 0 18px 16px 10px; }
+
+/* the dial */
+.dlcm__dialwrap { position: relative; width: 216px; height: 216px; }
+.dlcm__dial { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; border-radius: 50%; overflow: visible; }
+.dlcm[data-drag] .dlcm__dial { cursor: grabbing; }
+.dlcm__dial:focus-visible { outline: 0; }
+.dlcm__dial:focus-visible + .dlcm__knob { box-shadow: 0 0 0 2px var(--dlcm-card), 0 0 0 4px var(--dlcm-focus), var(--dlcm-knob-shadow); }
+.dlcm__track { stroke: var(--dlcm-off); stroke-width: 2.5; }
+.dlcm__fill { stroke: var(--v); stroke-width: 2.5; transition: stroke 0.25s; }
+.dlcm__stop { cursor: pointer; }
+.dlcm__stop circle { fill: var(--dlcm-faint); stroke: none; transition: fill 0.2s, r 0.2s; }
+.dlcm__stop[data-on] circle { fill: var(--v); }
+.dlcm__stop text { fill: var(--dlcm-muted); stroke: none; font: 500 10px/1 "Inter", "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.01em; transition: fill 0.2s; }
+.dlcm__stop[data-on] text { fill: var(--dlcm-ink); font-weight: 650; }
+.dlcm__stop:hover text { fill: var(--dlcm-ink); }
+.dlcm__stoplogo { color: var(--dlcm-faint); }
+.dlcm__stoplogo .dlcm__logo { width: 14px; height: 14px; }
+.dlcm__stop[data-on] .dlcm__stoplogo { color: var(--oc); }
+.dlcm[data-model="xai"] .dlcm__stop[data-on] .dlcm__stoplogo { color: var(--dlcm-ink); }
+
+/* knob: matte, one pointer, no chrome */
+.dlcm__knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 116px;
+  height: 116px;
+  margin: -58px 0 0 -58px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, var(--dlcm-knob-hi), var(--dlcm-knob-lo) 72%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 0 0 1px var(--dlcm-knob-edge), var(--dlcm-knob-shadow);
+  pointer-events: none;
+  transition: box-shadow 0.2s;
+}
+.dlcm__pointer { position: absolute; inset: 0; transition: transform 0.34s var(--dlcm-spring); }
+.dlcm[data-drag] .dlcm__pointer { transition: none; }
+.dlcm__pointer::before { content: ""; position: absolute; left: 50%; top: 7px; width: 3px; height: 13px; margin-left: -1.5px; border-radius: 2px; background: var(--v); transition: background 0.25s; }
+.dlcm[data-ring="model"][data-model="xai"] .dlcm__pointer::before { background: var(--dlcm-ink); }
+.dlcm__face { position: absolute; inset: 22px; display: grid; place-content: center; justify-items: center; gap: 4px; text-align: center; animation: dlcm-face 0.24s ease-out; }
+@keyframes dlcm-face { from { opacity: 0; transform: scale(0.94); } }
+.dlcm__face b { font-size: 12.5px; font-weight: 600; letter-spacing: -0.005em; white-space: nowrap; }
+.dlcm__faceicon { display: grid; place-items: center; width: 30px; height: 30px; }
+.dlcm__faceicon--mode { color: var(--mc); }
+.dlcm__faceicon--mode .dlcm__micon { width: 26px; height: 26px; stroke-width: 1.3; }
+.dlcm__faceicon--model { color: var(--oc); }
+.dlcm__faceicon--model .dlcm__logo { width: 24px; height: 24px; }
+.dlcm[data-model="xai"] .dlcm__faceicon--model { border-radius: 50%; background: #000; color: #fff; box-shadow: 0 0 0 1px var(--dlcm-knob-edge); }
+.dlcm[data-model="xai"] .dlcm__faceicon--model .dlcm__logo { width: 16px; height: 16px; }
+.dlcm__bars { display: inline-flex; align-items: flex-end; gap: 2.5px; height: 18px; }
+.dlcm__bars i { width: 4px; height: var(--h); border-radius: 1.5px; background: var(--dlcm-off); }
+.dlcm__bars i[data-on] { background: var(--ec); }
+.dlcm[data-ring="effort"] .dlcm__face b { color: var(--ec); }
+.dlcm__pct { font: 600 22px/1 "Inter", "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.02em; color: var(--cc); font-variant-numeric: tabular-nums; }
+.dlcm[data-level="ok"] .dlcm__pct { color: var(--dlcm-ink); }
+.dlcm__pct small { font-size: 12px; margin-left: 1px; color: var(--dlcm-muted); }
+
+/* readout */
+.dlcm__rings { display: grid; gap: 2px; min-width: 0; }
+.dlcm__ring {
+  position: relative;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  align-items: center;
+  height: 36px;
+  padding: 0 10px !important;
+  border-radius: 8px;
+  text-align: left;
+  transition: background 0.15s;
+}
+.dlcm__ring:hover { background: var(--dlcm-hover); }
+.dlcm__ring[aria-checked="true"] { background: var(--dlcm-hover); }
+.dlcm__ring::before { content: ""; position: absolute; left: 0; top: 9px; bottom: 9px; width: 2px; border-radius: 2px; background: var(--rc); opacity: 0; transition: opacity 0.2s; }
+.dlcm__ring[aria-checked="true"]::before { opacity: 1; }
+.dlcm__ring[data-r="mode"] { --rc: var(--mc); }
+.dlcm__ring[data-r="model"] { --rc: var(--oc); }
+.dlcm__ring[data-r="effort"] { --rc: var(--ec); }
+.dlcm__ring[data-r="context"] { --rc: var(--cc); }
+.dlcm[data-model="xai"] .dlcm__ring[data-r="model"] { --rc: var(--dlcm-ink); }
+.dlcm__rname { font: 500 10.5px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dlcm-muted); }
+.dlcm__ring[aria-checked="true"] .dlcm__rname { color: var(--dlcm-ink); }
+.dlcm__rval { display: inline-flex; align-items: center; gap: 7px; min-width: 0; overflow: hidden; white-space: nowrap; font-weight: 500; }
+.dlcm__rval .dlcm__micon { width: 15px; height: 15px; color: var(--mc); flex: none; }
+.dlcm__rval .dlcm__logo { width: 14px; height: 14px; color: var(--oc); flex: none; }
+.dlcm__rval small { margin-left: 2px; font: 450 11.5px/1 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--cc); }
+.dlcm__ring[data-r="effort"] .dlcm__rval { color: var(--ec); }
+.dlcm__mini { display: inline-flex; align-items: flex-end; gap: 1.5px; height: 12px; }
+.dlcm__mini i { width: 2.5px; height: var(--h); border-radius: 1px; background: var(--dlcm-off); }
+.dlcm__mini i[data-on] { background: var(--ec); }
+.dlcm__files { margin: 6px 0 0; padding: 0 10px; font: 450 11.5px/1.4 "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace; color: var(--dlcm-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* send */
+.dlcm__go { align-self: end; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--dlcm-go) !important; color: var(--dlcm-go-ink) !important; transition: transform 0.15s, opacity 0.2s; }
+.dlcm__go svg { width: 18px; height: 18px; stroke-width: 2; }
+.dlcm__go[aria-disabled] { opacity: 0.35; cursor: default; }
+.dlcm__go:not([aria-disabled]):active { transform: scale(0.94); }
+
+/* narrow: dial on top, readout as a 2×2 grid */
+@container (max-width: 560px) {
+  .dlcm__deck { grid-template-columns: 1fr auto; grid-template-areas: "dial dial" "rings go"; padding: 0 12px 14px; gap: 10px; }
+  .dlcm__dialwrap { grid-area: dial; justify-self: center; }
+  .dlcm__rings { grid-area: rings; grid-template-columns: 1fr 1fr; }
+  .dlcm__ring { grid-template-columns: 1fr; height: auto; padding: 8px 10px !important; gap: 4px; }
+  .dlcm__rval { flex-wrap: wrap; white-space: normal; row-gap: 2px; }
+  .dlcm__files { grid-column: 1 / -1; }
+  .dlcm__go { grid-area: go; width: 44px; height: 44px; }
+}
+@media (max-width: 640px) { .dlcm__prompt { font-size: 16px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .dlcm *, .dlcm *::before, .dlcm *::after { animation: none !important; transition-duration: 1ms !important; }
+}

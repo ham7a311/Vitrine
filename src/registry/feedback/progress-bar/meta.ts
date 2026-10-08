@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --prgb-buffer #4a4a52; --prgb-done #3fb950; --prgb-fill #ececef; --prgb-ink #ececef; --prgb-soft #a1a1aa; --prgb-track #232327. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#ffffff", mode: "fill", frame: [1000, 460] },
-  isNew: true,
 };

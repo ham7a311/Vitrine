@@ -1,0 +1,27 @@
+import type { ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  slug: "trend-tape",
+  name: "Trend Tape",
+  category: "stats",
+  description: "A glass-cockpit speed tape for a live number. The scale slides behind a fixed pointer, caution and limit are coloured bands, and a trend vector grows from the pointer to where the value will be in ten seconds — so you see where it's heading, not just where it is. A target bug you drag or nudge with the arrow keys says when it will get there; when the value is steady, the vector disappears.",
+  tags: ["stats", "live", "gauge", "trend", "rate", "forecast", "limit", "threshold", "instrument", "monitoring"],
+  traits: ["click", "keyboard", "touch"],
+  source: "original",
+  isNew: true,
+  files: ["TrendTape.tsx", "trend-tape.css", "tape.ts"],
+  dependencies: [],
+  prompt:
+    "Build a live-value instrument modelled on an aircraft airspeed tape. A 40rem card (16px radius, 20px padding), two columns: a 9.5rem tape and a readout.\n\nThe tape: a 320px-tall dark well (10px radius) with a vertical scale that moves while the pointer stays still — ticks every 25 units, longer ticks with mono labels every 100, the scale strip translated so the current value always sits at the middle and easing over one second between samples. Coloured bands along the right edge: caution (450–600) in amber, over the limit (600+) in red, each a 5px stripe with a faint tint. Top and bottom edges fade out. The pointer is a fixed box across the middle with a notch pointing at the scale, holding the value in 15px tabular mono; its outline turns amber in the caution band and red over the limit; each new value rolls up into it.\n\nThe trend vector: a 4px magenta bar starting at the pointer and growing up or down to where the value will be in ten seconds at the current rate (least-squares slope of the last six one-second samples). It hides when the rate is under 0.8/s — steady means quiet — and turns amber when the projection crosses the limit.\n\nThe target bug: a small blue bracket marker on the scale (a slider) that you drag vertically or move with the arrow keys (Shift for ×5, PageUp/PageDown, Home/End), snapping to 5.\n\nThe readout: a mono caps label 'EXPORT QUEUE', the value at 40px ('412 jobs', amber or red by band), a rate line with a small up or down triangle — 'rising 7.2/s · in 10 s ≈ 484' (amber when it will cross the limit) — then three rows: Limit 600 'reached in ~26 s' (red when imminent), Caution 450 '38 below', Target 250 'drifting away' or 'reached in ~12 s'. At the foot, a demo feed switch Surge · Steady · Drain and a Live/Paused toggle.\n\nThe tape is role=meter with a value text like '412 jobs, rising 7.2/s, limit in ~26 s'. Announcements are rare and useful: entering a band, or 'will reach the limit in about 26 s at this rate' once per approach.",
+  interaction:
+    "Watch the value; drag the blue target bug on the tape, or focus it and use the arrow keys (Shift for bigger steps, PageUp/PageDown, Home/End). Switch the demo feed between Surge, Steady and Drain, and pause or resume it.",
+  animation: "The scale slides over one second between samples; the trend vector grows and shrinks with it and fades out when steady; each new value rolls into the pointer. Reduced motion jumps between samples.",
+  a11y: "The tape is a meter with min, max, value and a value text that includes the trend; the target bug is a slider with full keyboard support; band changes and an approaching limit are announced once in a polite status region.",
+  responsive: "Below 480px of its own width the card tightens, the value drops to 32px and the projection and hint hide; below 340px the readout sits above the tape.",
+  touchFallback: "The target bug drags with touch (no page scroll on the tape) and the feed controls are buttons.",
+  variants: [
+    { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --trtp-bug #7cc5ee; --trtp-card #151515; --trtp-caution #e6c26b; --trtp-caution-fill rgb(230 194 107 / 0.1); --trtp-faint #5c5c5c; --trtp-focus #8ab4f8; --trtp-hover rgb(255 255 255 / 0.05); --trtp-ink #ececec; --trtp-line #2a2a2a; --trtp-line-soft rgb(255 255 255 / 0.06); --trtp-muted #8c8c8c; --trtp-ok #6cc08b; --trtp-over #f0645a; --trtp-over-fill rgb(240 100 90 / 0.12); --trtp-tape #0f0f0f; --trtp-tick #3a3a3a; --trtp-vector #d77be8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "light", label: "Light", prompt: "Palette for this theme (Light): --trtp-bug #1d74a6; --trtp-card #ffffff; --trtp-caution #a8730a; --trtp-caution-fill rgb(168 115 10 / 0.1); --trtp-faint #a3a3a3; --trtp-focus #2b59c3; --trtp-hover rgb(0 0 0 / 0.04); --trtp-ink #1a1a1a; --trtp-line #e3e3e1; --trtp-line-soft rgb(0 0 0 / 0.06); --trtp-muted #6b6b6b; --trtp-ok #2f8f55; --trtp-over #cc3a30; --trtp-over-fill rgb(204 58 48 / 0.1); --trtp-tape #f4f4f2; --trtp-tick #cfcfcc; --trtp-vector #a33bb8. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"light\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+  ],
+  preview: { bg: "#0c0c0c", mode: "fill", frame: [1200, 800] },
+};

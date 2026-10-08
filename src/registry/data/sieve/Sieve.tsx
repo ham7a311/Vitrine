@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
-import { counts, failing, matches, options, toggle, type Facet, type Filters } from "./sieve";
+import { counts, failing, matches, options, toggle, type Facet, type Filters } from "./facets";
 import "./sieve.css";
 
-export type { Facet, Filters } from "./sieve";
+export type { Facet, Filters } from "./facets";
 export type SieveProps<T> = {
   items: T[];
   facets: Facet<T>[];

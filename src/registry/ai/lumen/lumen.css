@@ -1,0 +1,51 @@
+/* Lumen — an agent's identity as one soft drop; the eyes carry its attention. */
+.lmen {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  line-height: 0;
+  vertical-align: middle;
+}
+.lmen svg { display: block; overflow: visible; }
+/* A hairline edge so pale hues still hold their shape on pale pages. */
+.lmen__edge { fill: none; stroke: rgb(0 0 0 / 0.08); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.lmen[data-small] .lmen__edge { stroke-width: 0.6; }
+
+/* Blink: the lids close fast and open a touch slower, around each eye's own centre. */
+.lmen__eyes ellipse { transform-box: fill-box; transform-origin: center; }
+.lmen[data-blink] .lmen__eyes ellipse { animation: lmen-blink 150ms ease-in-out; }
+.lmen[data-blink] .lmen__eyes circle { opacity: 0; }
+@keyframes lmen-blink {
+  0%, 100% { scale: 1 1; }
+  40% { scale: 1.08 0.08; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lmen *, .lmen *::before, .lmen *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- states ---------- */
+.lmen__breath { transform-box: fill-box; transform-origin: 50% 100%; }
+.lmen[data-state="idle"] .lmen__breath { animation: lmen-breathe 5s ease-in-out infinite; }
+.lmen[data-state="thinking"] .lmen__breath { animation: lmen-breathe 2.6s ease-in-out infinite; }
+.lmen[data-state="working"] .lmen__breath { animation: lmen-work 0.9s ease-in-out infinite; }
+@keyframes lmen-breathe { 50% { scale: 1.012 1.022; } }
+@keyframes lmen-work { 50% { scale: 1.025 0.975; } }
+
+/* done: one squash and a pleased squint, then rest */
+.lmen[data-state="done"] .lmen__breath { animation: lmen-squash 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) both; }
+.lmen[data-state="done"] .lmen__eyes ellipse { animation: lmen-squint 1.3s ease-in-out both; }
+@keyframes lmen-squash { 0% { scale: 1 1; } 35% { scale: 1.07 0.93; } 100% { scale: 1 1; } }
+@keyframes lmen-squint { 0%, 100% { scale: 1 1; } 25%, 70% { scale: 1.15 0.32; } }
+
+/* error: the body tightens and the eyes flatten; a mark says it without colour */
+.lmen[data-state="error"] .lmen__breath { scale: 0.96 0.94; transition: scale 0.3s; }
+.lmen[data-state="error"] .lmen__eyes ellipse { scale: 1.2 0.28; transition: scale 0.25s; }
+.lmen__alert circle { fill: #1a1a1a; stroke: #fff; stroke-width: 3; }
+.lmen__alert path { stroke: #fff; stroke-width: 3.6; stroke-linecap: round; fill: none; }
+
+/* ---------- state dots ---------- */
+/* On "done" the dots draw into the middle of the body and vanish. */
+.lmen__dots { transform-box: view-box; transform-origin: 50px 52px; }
+.lmen__dots[data-gather] { animation: lmen-gather 0.45s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
+@keyframes lmen-gather { to { scale: 0.15; opacity: 0; } }

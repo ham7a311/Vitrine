@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --brch-base #383835; --brch-chip #252523; --brch-focus #3987e5; --brch-grid #2c2c2a; --brch-ink #ffffff; --brch-ink-2 #c3c2b7; --brch-muted #898781; --brch-ring rgb(255 255 255 / 0.1); --brch-s1 #3987e5; --brch-s2 #d95926; --brch-s3 #199e70; --brch-surface #1a1a19. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#f9f9f7", mode: "fill", frame: [1100, 600] },
-  isNew: true,
 };
