@@ -15,12 +15,27 @@ const NAV = [
   { href: "/components?filter=new", label: "New" },
 ];
 
-export function Navbar({ stars }: { stars: number | null }) {
+/* One request per page load at most, shared by every navbar instance; the endpoint itself is cached. */
+let starsRequest: Promise<number | null> | null = null;
+const loadStars = () =>
+  (starsRequest ??= fetch("/api/stars")
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d: { stars?: unknown } | null) => (typeof d?.stars === "number" ? d.stars : null))
+    .catch(() => null));
+
+export function Navbar() {
+  const [stars, setStars] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
   const pathname = usePathname();
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    let live = true;
+    loadStars().then((n) => live && setStars(n));
+    return () => { live = false; };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);

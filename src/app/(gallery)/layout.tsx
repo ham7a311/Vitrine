@@ -1,23 +1,13 @@
-import { summaries } from "@/registry";
-import { site } from "@/site.config";
 import { Analytics } from "@vercel/analytics/next";
 import { BackToTop } from "@/site/BackToTop";
 import { Footer } from "@/site/Footer";
 import { Navbar } from "@/site/Navbar";
 import { SearchProvider } from "@/site/SearchPalette";
 
-async function getStars(): Promise<number | null> {
-  try {
-    const res = await fetch(`https://api.github.com/repos/${site.githubRepo}`, { next: { revalidate: 3600 }, signal: AbortSignal.timeout(3000) });
-    if (!res.ok) return null;
-    const data = (await res.json()) as { stargazers_count?: number };
-    return typeof data.stargazers_count === "number" ? data.stargazers_count : null;
-  } catch {
-    return null;
-  }
-}
-
-export default async function GalleryLayout({ children }: { children: React.ReactNode }) {
-  const stars = await getStars();
-  return <><SearchProvider items={summaries()}><Navbar stars={stars} /><main id="main" tabIndex={-1} className="outline-none">{children}</main><Footer /><BackToTop /></SearchProvider><Analytics /></>;
+/*
+ * Nothing here is fetched per request: the star count comes from /api/stars and the search index from
+ * /search-index.json, both loaded in the browser, so the pages under this layout stay fully static.
+ */
+export default function GalleryLayout({ children }: { children: React.ReactNode }) {
+  return <><SearchProvider><Navbar /><main id="main" tabIndex={-1} className="outline-none">{children}</main><Footer /><BackToTop /></SearchProvider><Analytics /></>;
 }

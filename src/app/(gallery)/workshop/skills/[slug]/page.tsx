@@ -8,6 +8,9 @@ import { renderMarkdown } from "@/workshop/markdown";
 import { CopyButton } from "@/site/CopyButton";
 import { ArrowLeft } from "@/site/icons";
 
+/* Only the pages built from the registry exist; any other slug is a plain 404 and is never cached. */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return SKILLS.map((s) => ({ slug: s.slug }));
 }

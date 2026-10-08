@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { getRecipe, RECIPES } from "@/workshop/recipes";
 import { RecipePreview } from "@/workshop/previews";
 
+/* Only the pages built from the registry exist; any other slug is a plain 404 and is never cached. */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return RECIPES.map((r) => ({ slug: r.slug }));
 }

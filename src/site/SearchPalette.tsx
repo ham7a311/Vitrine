@@ -8,12 +8,40 @@ import { CATEGORIES } from "@/registry/types";
 import { search } from "@/lib/search";
 import { ArrowRight, SearchIcon } from "./icons";
 
-const SearchContext = createContext<{ open: () => void }>({ open: () => {} });
+const SearchContext = createContext<{ open: () => void; prefetch: () => void }>({ open: () => {}, prefetch: () => {} });
 export const useSearch = () => useContext(SearchContext);
 
 const SUGGESTIONS = ["glass", "hover", "background", "card", "authentication", "cta", "webgl", "scroll"];
 
-export function SearchProvider({ items, children }: { items: ComponentSummary[]; children: React.ReactNode }) {
+/** The palette's index: the component summaries without their preview settings. */
+type SearchItem = Omit<ComponentSummary, "preview">;
+
+/*
+ * The index is a static file (/search-index.json) fetched the first time search is about to be used,
+ * rather than serialised into every gallery page. One request per visit, cached by the browser and CDN.
+ */
+let indexRequest: Promise<SearchItem[]> | null = null;
+const loadIndex = () => {
+  indexRequest ??= fetch("/search-index.json")
+    .then((r) => {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json() as Promise<SearchItem[]>;
+    })
+    .catch((e) => {
+      indexRequest = null; // let a later open try again
+      throw e;
+    });
+  return indexRequest;
+};
+
+export function SearchProvider({ children }: { children: React.ReactNode }) {
+  const [items, setItems] = useState<SearchItem[] | null>(null);
+  const [failed, setFailed] = useState(false);
+  const prefetch = useCallback(() => {
+    if (items) return;
+    setFailed(false);
+    loadIndex().then(setItems, () => setFailed(true));
+  }, [items]);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
@@ -24,9 +52,10 @@ export function SearchProvider({ items, children }: { items: ComponentSummary[];
   const open = useCallback(() => {
     const d = dialogRef.current;
     if (!d || d.open) return;
+    prefetch();
     d.showModal();
     requestAnimationFrame(() => inputRef.current?.select());
-  }, []);
+  }, [prefetch]);
   const close = useCallback(() => dialogRef.current?.close(), []);
 
   useEffect(() => {
@@ -42,7 +71,7 @@ export function SearchProvider({ items, children }: { items: ComponentSummary[];
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const results = useMemo(() => (query.trim() ? search(items, query) : items.filter((i) => i.featured)), [items, query]);
+  const results = useMemo(() => (!items ? [] : query.trim() ? search(items, query) : items.filter((i) => i.featured)), [items, query]);
   useEffect(() => setActive(0), [query]);
 
   const groups = useMemo(() => {
@@ -65,15 +94,25 @@ export function SearchProvider({ items, children }: { items: ComponentSummary[];
     } else if (e.key === "Enter" && flat[active]) {
       e.preventDefault();
       go(flat[active].slug);
+    } else if (e.key === "Enter" && !items) {
+      // Enter pressed before the index arrived: go to the top result once it does.
+      e.preventDefault();
+      pendingEnter.current = true;
     }
   };
+  const pendingEnter = useRef(false);
+  useEffect(() => {
+    if (!pendingEnter.current || !items) return;
+    pendingEnter.current = false;
+    if (flat[0] && dialogRef.current?.open) go(flat[0].slug);
+  });
 
   useEffect(() => {
     document.getElementById(`${listId}-${active}`)?.scrollIntoView({ block: "nearest" });
   }, [active, listId]);
 
   return (
-    <SearchContext.Provider value={{ open }}>
+    <SearchContext.Provider value={{ open, prefetch }}>
       {children}
       <dialog
         ref={dialogRef}
@@ -101,7 +140,12 @@ export function SearchProvider({ items, children }: { items: ComponentSummary[];
         </div>
 
         <div id={listId} role="listbox" aria-label="Results" className="max-h-[min(26rem,60vh)] overflow-y-auto p-2">
-          {!query.trim() && <p className="eyebrow px-3 pb-1 pt-2">Featured</p>}
+          {!items && (
+            <p className="px-3 py-6 text-center text-[0.875rem] text-ink-3" role="status">
+              {failed ? "Search couldn’t load. Check your connection and open it again." : "Loading components…"}
+            </p>
+          )}
+          {items && !query.trim() && <p className="eyebrow px-3 pb-1 pt-2">Featured</p>}
           {groups.map((g) => (
             <div key={g.id} role="group" aria-label={g.label} className="pb-1">
               {query.trim() && <p className="eyebrow px-3 pb-1 pt-2">{g.label}</p>}
@@ -153,7 +197,7 @@ export function SearchProvider({ items, children }: { items: ComponentSummary[];
           )}
         </div>
         <div className="flex items-center justify-between border-t border-line px-4 py-2.5 font-mono text-[0.625rem] text-ink-3">
-          <span>{query.trim() ? `${flat.length} result${flat.length === 1 ? "" : "s"}` : `${items.length} components`}</span>
+          <span>{query.trim() ? `${flat.length} result${flat.length === 1 ? "" : "s"}` : items ? `${items.length} components` : ""}</span>
           <span className="hidden gap-3 sm:flex">
             <span>↑↓ move</span>
             <span>↵ open</span>
@@ -165,11 +209,13 @@ export function SearchProvider({ items, children }: { items: ComponentSummary[];
 }
 
 export function SearchTrigger({ className = "" }: { className?: string }) {
-  const { open } = useSearch();
+  const { open, prefetch } = useSearch();
   return (
     <button
       type="button"
       onClick={open}
+      onPointerEnter={prefetch}
+      onFocus={prefetch}
       className={`group inline-flex h-9 items-center gap-2 rounded-md border border-line bg-plum-950/60 pl-3 pr-1.5 text-[0.8125rem] text-ink-3 transition-colors duration-200 hover:border-line-strong hover:text-ink-2 ${className}`}
     >
       <SearchIcon className="size-3.5" />

@@ -274,7 +274,10 @@ function termScore(t: string, fields: { words: string[]; weight: number }[]) {
   return Math.max(direct, alt);
 }
 
-export function search(items: ComponentSummary[], raw: string) {
+/** What search reads from a component; the palette's lighter index and the full summaries both fit. */
+export type Searchable = Pick<ComponentSummary, "name" | "tags" | "traits" | "category" | "description" | "index">;
+
+export function search<T extends Searchable>(items: T[], raw: string): T[] {
   const terms = tokenize(raw);
   if (!terms.length) return items;
   const scored = items
