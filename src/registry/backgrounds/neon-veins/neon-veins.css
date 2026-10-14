@@ -1,0 +1,9 @@
+.nveins { position: relative; isolation: isolate; width: 100%; height: 100%; min-height: 20rem; overflow: hidden; background: var(--nveins-bg); }
+.nveins__canvas { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; }
+.nveins--fade::before, .nveins--fade::after { content: ""; position: absolute; inset: auto 0 0; z-index: -1; pointer-events: none; }
+/* the floor melts away: a soft blur that grows towards the edge, under a fall to the ground colour */
+.nveins--fade::before { height: 30%; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); mask-image: linear-gradient(to top, #000 15%, transparent); -webkit-mask-image: linear-gradient(to top, #000 15%, transparent); }
+.nveins--fade::after { height: 42%; background: linear-gradient(to top, var(--nveins-bg) 4%, color-mix(in srgb, var(--nveins-bg) 72%, transparent) 30%, color-mix(in srgb, var(--nveins-bg) 25%, transparent) 62%, transparent); }
+.nveins[data-fallback] { background: radial-gradient(40% 50% at 30% 40%, color-mix(in srgb, var(--nveins-vein) 35%, transparent), transparent 70%), var(--nveins-bg); }
+.nveins[data-fallback] .nveins__canvas { display: none; }
+.nveins__content { position: relative; height: 100%; }

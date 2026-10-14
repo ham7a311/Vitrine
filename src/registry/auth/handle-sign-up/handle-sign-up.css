@@ -1,0 +1,84 @@
+.hsign {
+  --hs-page: #0b0c0f; --hs-card: #15171c; --hs-field: #0f1115; --hs-line: rgba(255, 255, 255, 0.1);
+  --hs-ink: #f1f2f4; --hs-muted: #9da1ab; --hs-accent: #7cf2c2; --hs-on-accent: #06281c;
+  --hs-good: #7cf2c2; --hs-bad: #ff9e8f;
+  container-type: inline-size;
+  display: grid; place-items: center; min-height: 100%; padding: 40px 16px;
+  background: radial-gradient(60% 50% at 50% 0%, rgb(124 242 194 / 0.08), transparent 70%), var(--hs-page);
+  color: var(--hs-ink); font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.hsign--paper { --hs-page: #f2f1ec; --hs-card: #ffffff; --hs-field: #f7f6f2; --hs-line: rgba(18, 20, 24, 0.12); --hs-ink: #14161a; --hs-muted: #5c606a; --hs-accent: #0f7a55; --hs-on-accent: #ffffff; --hs-good: #0f7a55; --hs-bad: #b3261e; }
+.hsign *, .hsign *::before, .hsign *::after { box-sizing: border-box; }
+.hsign__card { width: 100%; max-width: 440px; padding: 26px 30px 30px; border-radius: 24px; background: var(--hs-card); box-shadow: inset 0 0 0 1px var(--hs-line), 0 30px 60px -36px rgb(0 0 0 / 0.6); }
+
+.hsign__rail { display: flex; gap: 8px; margin: 0 0 26px; padding: 0; list-style: none; font-size: 0.78rem; font-weight: 600; color: var(--hs-muted); }
+.hsign__rail li { flex: 1; display: flex; align-items: center; gap: 8px; }
+.hsign__rail li + li::before { content: ""; flex: 0 0 18px; height: 1px; margin-right: 2px; background: var(--hs-line); }
+.hsign__rail i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--hs-line); font-style: normal; font-size: 0.72rem; }
+.hsign__rail .now { color: var(--hs-ink); }
+.hsign__rail .now i { background: var(--hs-ink); color: var(--hs-card); box-shadow: none; }
+.hsign__rail .done i { background: var(--hs-accent); color: var(--hs-on-accent); box-shadow: none; }
+
+.hsign__step { animation: hsign-in 320ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes hsign-in { from { opacity: 0; transform: translateX(16px); } }
+.hsign h2 { margin: 0; font-size: 1.7rem; font-weight: 650; letter-spacing: -0.035em; outline: none; }
+.hsign__sub { margin: 8px 0 22px; font-size: 0.95rem; line-height: 1.5; color: var(--hs-muted); }
+
+.hsign__providers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.hsign__provider { display: flex; align-items: center; justify-content: center; gap: 10px; height: 46px; border: 0; border-radius: 12px; font: inherit; font-weight: 600; cursor: pointer; transition: transform 140ms, filter 140ms; }
+.hsign__provider:hover:not(:disabled) { transform: translateY(-1px); filter: brightness(1.06); }
+.hsign__provider--github { background: #24292f; color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12); }
+.hsign__provider--google { background: #fff; color: #1f1f1f; box-shadow: inset 0 0 0 1px #747775; }
+.hsign__provider--microsoft { background: #fff; color: #5e5e5e; box-shadow: inset 0 0 0 1px #8c8c8c; }
+.hsign__provider--apple { background: var(--hs-ink); color: var(--hs-card); }
+.hsign__or { display: flex; align-items: center; gap: 12px; margin: 22px 0 16px; font-size: 0.8rem; color: var(--hs-muted); }
+.hsign__or::before, .hsign__or::after { content: ""; flex: 1; height: 1px; background: var(--hs-line); }
+
+.hsign__form { display: flex; flex-direction: column; }
+.hsign__form label { margin: 12px 0 6px; font-size: 0.84rem; font-weight: 600; }
+.hsign__form label:first-child { margin-top: 0; }
+.hsign__form > input, .hsign__handle { height: 46px; border-radius: 12px; background: var(--hs-field); box-shadow: inset 0 0 0 1px var(--hs-line); transition: box-shadow 140ms; }
+.hsign__form > input { padding: 0 14px; border: 0; color: var(--hs-ink); font: inherit; font-size: 0.98rem; outline: none; }
+.hsign__form > input:focus, .hsign__handle:focus-within { box-shadow: inset 0 0 0 2px var(--hs-accent); }
+.hsign__note { margin: 6px 0 0; font-size: 0.8rem; color: var(--hs-muted); }
+
+.hsign__handle { display: flex; align-items: center; padding: 0 12px 0 14px; }
+.hsign__handle span { color: var(--hs-muted); font-weight: 600; }
+.hsign__handle input { flex: 1; min-width: 0; height: 100%; padding: 0 4px; border: 0; background: transparent; color: var(--hs-ink); font: inherit; font-size: 0.98rem; font-weight: 600; outline: none; }
+.hsign__handle i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font-style: normal; font-size: 0.75rem; font-weight: 800; }
+.hsign__handle--free i { background: var(--hs-good); color: var(--hs-card); animation: hsign-pop 260ms cubic-bezier(0.3, 1.6, 0.5, 1); }
+.hsign__handle--taken i, .hsign__handle--bad i { background: var(--hs-bad); color: var(--hs-card); }
+.hsign__handle--taken, .hsign__handle--bad { box-shadow: inset 0 0 0 1px var(--hs-bad) !important; }
+@keyframes hsign-pop { from { transform: scale(0.4); } }
+.hsign__status { min-height: 20px; margin: 7px 0 0; font-size: 0.82rem; color: var(--hs-muted); }
+.hsign__status--free { color: var(--hs-good); font-weight: 600; }
+.hsign__status--taken, .hsign__status--bad { color: var(--hs-bad); font-weight: 600; }
+.hsign__ideas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.hsign__ideas button { height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--hs-field); box-shadow: inset 0 0 0 1px var(--hs-line); color: var(--hs-ink); font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; animation: hsign-in 260ms both; }
+.hsign__ideas button:nth-child(2) { animation-delay: 50ms; } .hsign__ideas button:nth-child(3) { animation-delay: 100ms; }
+.hsign__ideas button:hover { box-shadow: inset 0 0 0 1px var(--hs-accent); }
+
+.hsign__who { display: flex; align-items: center; gap: 14px; margin: 18px 0 20px; padding: 14px; border-radius: 16px; background: var(--hs-field); }
+.hsign__who b { display: block; font-size: 1.02rem; }
+.hsign__via { display: inline-flex; align-items: center; gap: 6px; margin-top: 3px; font-size: 0.78rem; color: var(--hs-muted); }
+.hsign__avatar { flex: none; display: grid; place-items: center; width: 48px; height: 48px; overflow: hidden; border-radius: 50%; background: linear-gradient(135deg, var(--hs-accent), #6aa7ff); color: var(--hs-on-accent); font-weight: 800; }
+.hsign__avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.hsign__error { margin: 12px 0 0; font-size: 0.86rem; font-weight: 600; color: var(--hs-bad); }
+.hsign__primary { display: flex; align-items: center; justify-content: center; gap: 10px; height: 48px; margin-top: 20px; border: 0; border-radius: 12px; background: var(--hs-accent); color: var(--hs-on-accent); font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; transition: opacity 140ms, transform 140ms; }
+.hsign__primary:disabled { opacity: 0.4; cursor: not-allowed; }
+.hsign__primary:hover:not(:disabled) { transform: translateY(-1px); }
+.hsign button:focus-visible, .hsign a:focus-visible { outline: 2px solid var(--hs-accent); outline-offset: 2px; }
+
+.hsign__step--done { text-align: center; }
+.hsign__profile { position: relative; display: flex; flex-direction: column; align-items: center; margin: 22px 0 6px; padding: 0 16px 18px; overflow: hidden; border-radius: 18px; background: var(--hs-field); box-shadow: inset 0 0 0 1px var(--hs-line); animation: hsign-rise 520ms cubic-bezier(0.2, 0.9, 0.2, 1.1); }
+@keyframes hsign-rise { from { opacity: 0; transform: translateY(14px) scale(0.97); } }
+.hsign__banner { align-self: stretch; height: 74px; margin: 0 -16px; background: linear-gradient(120deg, color-mix(in srgb, var(--hs-accent) 70%, #000), #2f4fd0 60%, #8c4fd8); }
+.hsign__avatar--lg { width: 76px; height: 76px; margin-top: -38px; font-size: 1.5rem; box-shadow: 0 0 0 4px var(--hs-field); }
+.hsign__profile b { margin-top: 10px; font-size: 1.15rem; }
+.hsign__profile > span:not(.hsign__avatar) { color: var(--hs-muted); font-weight: 600; }
+.hsign__profile p { margin: 10px 0 0; font-size: 0.82rem; color: var(--hs-muted); }
+.hsign .hsign__spin { animation: hsign-spin 0.8s linear infinite; }
+@keyframes hsign-spin { to { transform: rotate(360deg); } }
+@container (max-width: 420px) { .hsign__card { padding: 22px 18px 24px; } .hsign__rail { font-size: 0.72rem; } .hsign__providers { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .hsign__step, .hsign__profile, .hsign__ideas button, .hsign__handle--free i { animation: none; } }

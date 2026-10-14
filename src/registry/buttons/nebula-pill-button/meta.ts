@@ -22,7 +22,6 @@ Motion: blobs swirl on 12–19s alternate loops (translate ±5%, rotate ±8°, s
   a11y: "A native button with its visible label as the name; paint, grain and icon are aria-hidden. The label carries a soft shadow so it stays readable over the brightest clouds. Visible focus outline. Reduced motion stops the swirl.",
   responsive: "Sized in em from one font-size; at 20px it is 324px wide and fits a 360px phone.",
   touchFallback: "No hover on touch; the clouds keep turning slowly and press feedback still shows.",
-  isNew: true,
   variants: [
     { id: "nebula", label: "Nebula", prompt: "Base #1c1e52 and a near-white rim (#efeaf8 to #f4f0fb). Clouds: teal #4fd8d8 top-left, sky #5aa6ef beside it, a gold #e9d77a spark near 36% top, pale lilac low at 39%, blue #3f69ea upper-right of centre, violet #5d3ff0 low in the middle, a deep #151335 pocket bottom-right, a white #f3eefc highlight at the top near 79%, and a dark pocket bottom-left." },
     { id: "dusk", label: "Dusk", prompt: "Base #1b191b and a sage-to-lilac rim (#8e9f88, #9c92b0, #b7a7d6). Clouds: a moss band #3d573d at 30% with a lighter #62804f streak, a brick-rose band #9c4b4d at 62% and a deeper #73373d beside it, an amber #cf8e52 glow rising from under the bottom edge at 54%, and a dim plum #3a2934 at the right end." },

@@ -22,7 +22,6 @@ Content, centred, padding 3.5em 1.6em 1.9em: an original glowing mark (6.2em; a 
   a11y: "An article with a real heading, paragraph and link; the leak, mark and sparkles are aria-hidden. Light text on the dark lower half is above 7:1. Visible focus ring on the button. Reduced motion stops every loop.",
   responsive: "Fixed 19.5em width that shrinks to the container; the content stays centred.",
   touchFallback: "No pointer follow on touch; the leak drifts on its own.",
-  isNew: true,
   variants: [
     { id: "indigo", label: "Indigo", prompt: "Light #3b4dff, deep #0d0f2c, rim #9aa6ff, on a #09092a to black page." },
     { id: "teal", label: "Teal", prompt: "Light #14b8a6, deep #06181a, rim #8ff0e2, on a #041416 to black page." },

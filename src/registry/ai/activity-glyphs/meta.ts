@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "agent", "status", "activity", "loading", "tool use", "reading", "upload", "terminal", "icons", "indicator"],
   traits: ["ambient"],
   source: "original",
-  isNew: true,
   files: ["ActivityGlyphs.tsx", "activity-glyphs.css"],
   dependencies: [],
   prompt:

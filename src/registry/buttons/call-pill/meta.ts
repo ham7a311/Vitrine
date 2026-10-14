@@ -23,7 +23,6 @@ Hover: the whole mist slides 22% of the pill toward the other end (eased 0.9s), 
   responsive: "Sized in em from one font-size; at 22px it is about 312px wide and fits a 360px phone.",
   touchFallback: "No hover on touch; the dot keeps breathing and press feedback still shows.",
   promptAllow: ["dot", "phone"],
-  isNew: true,
   variants: [
     { id: "dot", label: "Dot", prompt: "Lead with the breathing navy availability dot and keep the blue mist gathered on the left, the right end bright white." },
     { id: "phone", label: "Phone", prompt: "Lead with the line handset that rings on hover and gather the blue mist on the right, the left end bright white." },

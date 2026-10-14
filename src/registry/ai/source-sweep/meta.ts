@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "search", "sources", "tool use", "status", "assistant", "agent", "google", "notion", "reddit", "github", "wikipedia", "loading"],
   traits: ["click", "keyboard", "ambient"],
   source: "original",
-  isNew: true,
   files: ["SourceSweep.tsx", "sources.ts", "source-sweep.css"],
   dependencies: [],
   prompt:

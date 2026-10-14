@@ -23,5 +23,4 @@ export const meta: ComponentMeta = {
     { id: "light", label: "Light", prompt: "Light: a pale #f4f4f2 slab with #0b0b0c text, a hairline inner edge and a 1px soft shadow; hover deepens the shadow. Panel #101011 on a #060607 page, headings #9b9b98." },
   ],
   preview: { bg: "#e9e9e6", mode: "fill", frame: [1000, 700] },
-  isNew: true,
 };

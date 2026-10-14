@@ -1,0 +1,120 @@
+.rpill {
+  --rpill-pill: #1a1a1b;
+  --rpill-edge: rgba(255, 255, 255, 0.08);
+  --rpill-ink: #f2f2f0;
+  --rpill-muted: #a5a5a0;
+  --rpill-btn: #1c1c1e;
+  position: relative;
+  display: inline-grid;
+  justify-items: start;
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--rpill-ink);
+}
+.rpill--paper {
+  --rpill-pill: #ffffff;
+  --rpill-edge: rgba(20, 20, 18, 0.1);
+  --rpill-ink: #151513;
+  --rpill-muted: #5c5a54;
+  --rpill-btn: #ffffff;
+}
+.rpill * { box-sizing: border-box; }
+
+/* the pill of reactions, above the trigger */
+.rpill__pill {
+  position: absolute;
+  left: -14px;
+  bottom: calc(100% + 14px);
+  display: flex;
+  gap: 10px;
+  padding: 11px 13px;
+  border-radius: 999px;
+  background: var(--rpill-pill);
+  box-shadow: inset 0 0 0 1px var(--rpill-edge), 0 24px 50px -20px rgba(0, 0, 0, 0.6);
+  transform-origin: 34px 100%;
+  opacity: 0;
+  scale: 0.6;
+  translate: 0 10px;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.16s ease, scale 0.32s cubic-bezier(0.34, 1.5, 0.64, 1), translate 0.32s cubic-bezier(0.34, 1.5, 0.64, 1), visibility 0s 0.32s;
+}
+.rpill__pill--open { opacity: 1; scale: 1; translate: 0 0; visibility: visible; pointer-events: auto; transition: opacity 0.16s ease, scale 0.36s cubic-bezier(0.34, 1.5, 0.64, 1), translate 0.36s cubic-bezier(0.34, 1.5, 0.64, 1), visibility 0s; }
+
+.rpill__disc {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--rpill-c) 70%, white), var(--rpill-c) 60%, color-mix(in srgb, var(--rpill-c) 80%, black));
+  color: #fff;
+  cursor: pointer;
+  transform-origin: 50% 100%;
+  scale: var(--rpill-s);
+  translate: 0 calc((var(--rpill-s) - 1) * -22px);
+  transition: scale 0.14s ease-out, translate 0.14s ease-out;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15), 0 4px 10px -4px rgba(0, 0, 0, 0.5);
+}
+.rpill__pill--open .rpill__face { animation: rpill-in 0.42s cubic-bezier(0.34, 1.6, 0.64, 1) both; animation-delay: calc(var(--rpill-i) * 30ms); }
+@keyframes rpill-in { from { scale: 0.3; opacity: 0; } }
+.rpill__face { display: grid; place-items: center; width: 100%; height: 100%; }
+.rpill__face svg { width: 26px; height: 26px; }
+.rpill__disc[aria-checked="true"]::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--rpill-ink); }
+.rpill__disc:focus-visible { outline: 2px solid var(--rpill-ink); outline-offset: 3px; }
+.rpill__tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  translate: -50% 4px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #0b0b0c;
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s, translate 0.15s;
+}
+.rpill__disc:hover .rpill__tip, .rpill__disc:focus-visible .rpill__tip { opacity: 1; translate: -50% 0; }
+
+/* trigger and summary */
+.rpill__row { display: flex; align-items: center; gap: 12px; }
+.rpill__trigger {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: var(--rpill-btn);
+  color: var(--rpill-muted);
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--rpill-edge), 0 8px 18px -10px rgba(0, 0, 0, 0.5);
+  transition: color 0.2s, background-color 0.2s, scale 0.12s;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+.rpill__trigger:hover { color: var(--rpill-ink); }
+.rpill__trigger:active { scale: 0.94; }
+.rpill__trigger:focus-visible { outline: 2px solid var(--rpill-ink); outline-offset: 3px; }
+.rpill__trigger--on { color: var(--rpill-c); }
+.rpill__glyph { display: grid; place-items: center; animation: rpill-pop 0.42s cubic-bezier(0.34, 1.7, 0.64, 1); }
+.rpill__glyph svg { width: 26px; height: 26px; }
+@keyframes rpill-pop { 0% { scale: 0.6; rotate: -12deg; } 100% { scale: 1; rotate: 0deg; } }
+
+.rpill__sum { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; color: var(--rpill-muted); font-variant-numeric: tabular-nums; }
+.rpill__stack { display: flex; }
+.rpill__stack span { display: grid; place-items: center; width: 22px; height: 22px; margin-left: -6px; border-radius: 50%; background: var(--rpill-c); color: #fff; box-shadow: 0 0 0 2px var(--rpill-pill); }
+.rpill__stack span:first-child { margin-left: 0; }
+.rpill__stack svg { width: 13px; height: 13px; }
+.rpill__sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rpill__pill, .rpill__pill--open, .rpill__disc, .rpill__tip, .rpill__trigger { transition: opacity 0.12s ease, visibility 0s; scale: 1; translate: none; }
+  .rpill__pill--open .rpill__face, .rpill__glyph { animation: none; }
+}

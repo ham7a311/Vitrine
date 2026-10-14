@@ -1,0 +1,78 @@
+.bento {
+  --bento-ground: #080808;
+  --bento-tile: #111112;
+  --bento-tile-2: #161617;
+  --bento-line: rgba(255, 255, 255, 0.075);
+  --bento-light: rgba(255, 255, 255, 0.5);
+  --bento-glow: rgba(255, 255, 255, 0.045);
+  --bento-ink: #f3f3f1;
+  --bento-muted: #9c9c97;
+  --bento-faint: #858580;
+  --bento-accent: #6ea8ff;
+  --bento-good: #4fd18b;
+  container-type: inline-size;
+  padding: clamp(32px, 6cqi, 96px) clamp(16px, 4cqi, 64px);
+  background: var(--bento-ground);
+  color: var(--bento-ink);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.bento--paper {
+  --bento-ground: #f2f1ed;
+  --bento-tile: #ffffff;
+  --bento-tile-2: #f6f5f1;
+  --bento-line: rgba(20, 20, 18, 0.09);
+  --bento-light: rgba(20, 20, 18, 0.35);
+  --bento-glow: rgba(20, 20, 18, 0.035);
+  --bento-ink: #151513;
+  --bento-muted: #5d5b55;
+  --bento-faint: #6a6862;
+  --bento-accent: #2f6fe0;
+  --bento-good: #138a4d;
+}
+.bento *, .bento *::before, .bento *::after { box-sizing: border-box; }
+
+.bento__head { max-width: 1280px; margin: 0 auto clamp(28px, 4cqi, 48px); }
+.bento__eyebrow { margin: 0 0 14px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bento-muted); }
+.bento__title { margin: 0; max-width: 18ch; font-size: clamp(2.2rem, 4.6cqi, 3.6rem); font-weight: 500; line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; }
+.bento__lede { margin: 16px 0 0; max-width: 46ch; font-size: 1.05rem; line-height: 1.55; color: var(--bento-muted); }
+
+.bento__grid { display: grid; gap: 12px; max-width: 1280px; margin: 0 auto; }
+
+.bento__tile {
+  --bento-x: -400px;
+  --bento-y: -400px;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 22px;
+  background: var(--bento-tile);
+  box-shadow: inset 0 0 0 1px var(--bento-line);
+}
+/* the shared light: a soft wash inside, and a brighter ring on the border nearest the pointer */
+.bento__tile::before, .bento__tile::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.35s; }
+.bento__tile::before { z-index: -1; background: radial-gradient(420px circle at var(--bento-x) var(--bento-y), var(--bento-glow), transparent 60%); }
+.bento__tile::after {
+  padding: 1px;
+  background: radial-gradient(300px circle at var(--bento-x) var(--bento-y), var(--bento-light), transparent 55%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+.bento__grid--lit .bento__tile::before, .bento__grid--lit .bento__tile::after { opacity: 1; }
+
+.bento__visual { position: relative; flex: 1; min-height: 0; display: flex; }
+.bento__visual > * { flex: 1; min-width: 0; }
+.bento__text { padding: 0 24px 22px; }
+.bento__tile--top .bento__text { padding: 22px 24px 0; }
+.bento__name { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 1.04rem; font-weight: 600; letter-spacing: -0.01em; }
+.bento__body { margin: 6px 0 0; max-width: 40ch; font-size: 0.92rem; line-height: 1.5; color: var(--bento-muted); }
+.bento__link { display: inline-grid; place-items: center; width: 24px; height: 24px; margin-left: auto; border-radius: 7px; color: var(--bento-muted); transition: color 0.2s, background-color 0.2s; }
+.bento__link:hover { color: var(--bento-ink); background: var(--bento-line); }
+.bento__link:focus-visible { outline: 2px solid var(--bento-ink); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bento__tile::before, .bento__tile::after, .bento__link { transition: none; }
+}

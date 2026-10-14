@@ -11,7 +11,8 @@ const slugs = new Set<string>();
 const classes = new Map<string, Set<string>>();
 let variants = 0, exported = 0, fresh = 0;
 // The "New" label is kept to the newest components only; scripts/limit-new.py re-applies the rule.
-const NEW_LIMIT = 50;
+// Raised while the owner keeps this batch's New labels; set back to 50 and run limit-new.py when they say so.
+const NEW_LIMIT = 100;
 const errors: string[] = [];
 for (const entry of order) {
   const { meta } = await import(path.join(root, entry, "meta.ts")) as { meta: ComponentMeta };

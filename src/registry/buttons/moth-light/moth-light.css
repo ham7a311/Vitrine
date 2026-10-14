@@ -1,0 +1,24 @@
+.mlamp { --ml-light: 0; position: relative; display: inline-grid; isolation: isolate; font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; }
+.mlamp__air { position: absolute; left: calc(var(--ml-pad) * -1); top: calc(var(--ml-pad) * -1); z-index: 2; pointer-events: none; }
+.mlamp__halo { position: absolute; inset: -60px -70px; z-index: -1; pointer-events: none; border-radius: 50%; opacity: var(--ml-light); background: radial-gradient(closest-side, var(--ml-halo), transparent); }
+.mlamp__btn {
+  position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 216px; height: 56px; padding: 0 32px;
+  border: 0; border-radius: 999px; cursor: pointer;
+  font: inherit; font-size: 1.02rem; font-weight: 650; letter-spacing: 0.01em;
+  transition: transform 220ms cubic-bezier(0.3, 0.7, 0.3, 1.4);
+}
+.mlamp__btn::before { content: ""; position: absolute; inset: 0; border-radius: inherit; opacity: var(--ml-light); background: var(--ml-lit); box-shadow: 0 0 22px 2px var(--ml-glow), 0 0 70px 6px color-mix(in srgb, var(--ml-glow) 50%, transparent); }
+.mlamp__label { position: relative; }
+.mlamp__btn:active { transform: translateY(1px) scale(0.985); }
+
+.mlamp--moths { --ml-halo: rgb(255 190 100 / 0.32); --ml-glow: rgb(255 184 92 / 0.65); --ml-lit: radial-gradient(120% 140% at 50% 30%, #fff1c9, #ffcc6e 55%, #f0a540); }
+.mlamp--moths .mlamp__btn { background: linear-gradient(to bottom, #3a2f22, #241c13); box-shadow: inset 0 1px 0 rgb(255 230 180 / 0.14), inset 0 0 0 1px rgb(255 214 150 / 0.12), 0 14px 26px -16px #000; }
+/* dark text once the lamp is lit, cream while it's off — both well over 4.5:1 */
+.mlamp--moths .mlamp__label { color: color-mix(in srgb, #3a2205 calc(var(--ml-light) * 100%), #f3e3c2); }
+.mlamp--moths .mlamp__btn:focus-visible { outline: 2px solid #ffcc6e; outline-offset: 5px; }
+
+.mlamp--fireflies { --ml-halo: rgb(150 220 90 / 0.14); --ml-glow: rgb(190 240 110 / 0.35); --ml-lit: linear-gradient(to bottom, #1f4a2e, #143521); }
+.mlamp--fireflies .mlamp__btn { background: linear-gradient(to bottom, #18311f, #0f2216); color: #ecf8e2; box-shadow: inset 0 1px 0 rgb(220 255 190 / 0.12), inset 0 0 0 1px rgb(200 240 150 / 0.14), 0 14px 26px -16px #000; }
+.mlamp--fireflies .mlamp__btn:focus-visible { outline: 2px solid #c9f27a; outline-offset: 5px; }
+@media (prefers-reduced-motion: reduce) { .mlamp__btn { transition: none; } }

@@ -1,0 +1,5 @@
+.phth { position: relative; isolation: isolate; width: 100%; height: 100%; min-height: 20rem; overflow: hidden; background: linear-gradient(to top, var(--phth-haze), var(--phth-ground)); }
+.phth__canvas { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; }
+.phth[data-fallback] { background: repeating-linear-gradient(105deg, transparent 0 7%, color-mix(in oklab, var(--phth-glow) 35%, transparent) 7.3%, transparent 8% 13%), linear-gradient(to top, var(--phth-haze), var(--phth-ground)); }
+.phth[data-fallback] .phth__canvas { display: none; }
+.phth__content { position: relative; height: 100%; }

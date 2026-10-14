@@ -1,0 +1,41 @@
+.sreel {
+  --sr-bg: #111114; --sr-ink: #f2f1f5; --sr-muted: #a6a4ad; --sr-line: rgba(242, 241, 245, 0.12);
+  display: flex; flex-direction: column; align-items: center; gap: 14px; width: 100%; max-width: 420px; padding: 18px; border-radius: 26px;
+  background: var(--sr-bg); color: var(--sr-ink); font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.sreel--paper { --sr-bg: #f4f1ea; --sr-ink: #1c1b18; --sr-muted: #615c53; --sr-line: rgba(28, 27, 24, 0.12); }
+.sreel__frame { position: relative; width: 100%; max-width: 340px; aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: #000; cursor: pointer; user-select: none; touch-action: pan-y; box-shadow: 0 24px 50px -24px rgb(0 0 0 / 0.6); }
+.sreel__frame:focus-visible { outline: 3px solid var(--sr-ink); outline-offset: 3px; }
+.sreel__person { position: absolute; inset: 0; animation: sreel-in 380ms cubic-bezier(0.3, 0.7, 0.3, 1) both; }
+.sreel__person[data-dir="-1"] { animation-name: sreel-in-back; }
+@keyframes sreel-in { from { transform: translateX(30%) scale(0.94); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes sreel-in-back { from { transform: translateX(-30%) scale(0.94); opacity: 0; } to { transform: none; opacity: 1; } }
+.sreel__shot { position: absolute; inset: 0; animation: sreel-drift var(--dur) linear both; }
+.sreel__frame[data-paused] .sreel__shot { animation-play-state: paused; }
+@keyframes sreel-drift { from { transform: scale(1); } to { transform: scale(1.07) translateY(-1.5%); } }
+.sreel__scene { display: block; width: 100%; height: 100%; }
+.sreel__quote { margin: 0; color: #fff; font-family: "Instrument Serif", Newsreader, Georgia, serif; font-size: 8.4px; line-height: 1.12; text-wrap: balance; }
+.sreel__shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgb(0 0 0 / 0.45), transparent 22%, transparent 62%, rgb(0 0 0 / 0.65)); pointer-events: none; }
+.sreel__bars { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; }
+.sreel__bars i { flex: 1; height: 3px; border-radius: 3px; background: rgb(255 255 255 / 0.35); overflow: hidden; }
+.sreel__bars b { display: block; height: 100%; background: #fff; transform-origin: 0 50%; }
+.sreel__who { position: absolute; top: 22px; left: 12px; right: 12px; display: flex; align-items: center; gap: 8px; color: #fff; font-size: 13px; text-shadow: 0 1px 2px rgb(0 0 0 / 0.5); }
+.sreel__who > span:not(.sreel__avatar):not(.sreel__pause) { opacity: 0.8; }
+.sreel__avatar { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.02em; text-shadow: 0 1px 2px rgb(0 0 0 / 0.5); }
+.sreel__pause { margin-left: auto; padding: 2px 8px; border-radius: 999px; background: rgb(0 0 0 / 0.45); font-size: 11px; font-weight: 700; }
+.sreel__caption { position: absolute; left: 14px; right: 14px; bottom: 16px; margin: 0; color: #fff; font-size: 15px; font-weight: 600; line-height: 1.35; text-shadow: 0 1px 3px rgb(0 0 0 / 0.6); }
+.sreel__controls { display: flex; gap: 8px; }
+.sreel__controls button { display: inline-grid; place-items: center; min-width: 40px; height: 36px; padding: 0 12px; border: 0; border-radius: 10px; background: color-mix(in srgb, var(--sr-ink) 9%, transparent); color: var(--sr-ink); font-family: inherit; font-size: 13px; font-weight: 650; cursor: pointer; }
+.sreel__controls svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sreel__controls button:hover { background: color-mix(in srgb, var(--sr-ink) 15%, transparent); }
+.sreel__people { display: flex; gap: 12px; margin: 0; padding: 4px 2px; list-style: none; overflow-x: auto; max-width: 100%; }
+.sreel__people button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0; border: 0; background: none; color: var(--sr-ink); font: inherit; cursor: pointer; }
+.sreel__ring { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: conic-gradient(var(--a), var(--b), var(--a)); padding: 2.5px; }
+.sreel__ring .sreel__avatar { width: 100%; height: 100%; box-shadow: 0 0 0 2.5px var(--sr-bg); }
+.sreel__people button[data-seen] .sreel__ring { background: var(--sr-line); }
+.sreel__people button[aria-current] .sreel__ring { transform: scale(1.08); }
+.sreel__name { font-size: 11.5px; color: var(--sr-muted); }
+.sreel__people button[aria-current] .sreel__name { color: var(--sr-ink); font-weight: 700; }
+.sreel button:focus-visible { outline: 2px solid var(--sr-ink); outline-offset: 2px; border-radius: 10px; }
+.sreel__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .sreel__person, .sreel__shot { animation: none; } }

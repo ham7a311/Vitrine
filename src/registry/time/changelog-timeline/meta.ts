@@ -22,5 +22,4 @@ export const meta: ComponentMeta = {
     { id: "dark", label: "Dark", prompt: "Palette for this theme (Dark): --chgl-accent #6ea8fe; --chgl-alert #ff6369; --chgl-bad #ff6369; --chgl-card #111113; --chgl-chip #1c1c20; --chgl-deploy #ececef; --chgl-faint #6b6b73; --chgl-fixed #6fdc93; --chgl-fixed-bg #0f2416; --chgl-focus #6ea8fe; --chgl-improved #c4a6ff; --chgl-improved-bg #1d1430; --chgl-ink #ececef; --chgl-invite #46c6db; --chgl-line #26262b; --chgl-merge #a98bff; --chgl-new #8db3ff; --chgl-new-bg #0f1b33; --chgl-ok #3fb950; --chgl-release #6ea8fe; --chgl-run #f5b14c; --chgl-soft #a1a1aa. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"dark\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
   ],
   preview: { bg: "#fafafa", mode: "fill", frame: [1000, 700] },
-  isNew: true,
 };

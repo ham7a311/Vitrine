@@ -1,0 +1,21 @@
+.cwork { position: relative; display: inline-grid; isolation: isolate; font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; }
+.cwork__train { position: absolute; left: calc(var(--cw-pad) * -1); top: calc(var(--cw-pad) * -1); z-index: -1; overflow: visible; pointer-events: none; }
+/* gears wait tucked behind the button and rise out past its edge */
+.cwork__rise { transform: translateY(calc(var(--out) * -1)); opacity: 0; transition: transform 280ms cubic-bezier(0.5, 0, 0.75, 0), opacity 200ms 80ms; }
+.cwork[data-on] .cwork__rise { transform: none; opacity: 1; transition: transform 520ms cubic-bezier(0.25, 1.4, 0.4, 1) calc(var(--i) * 28ms), opacity 160ms calc(var(--i) * 28ms); }
+.cwork__gear { stroke: var(--cw-edge); stroke-width: 0.7; filter: drop-shadow(0 1.5px 1.2px rgb(0 0 0 / 0.35)); }
+.cwork__lite { stop-color: var(--cw-lite); } .cwork__dark { stop-color: var(--cw-dark); }
+.cwork__groove { fill: none; stroke: var(--cw-edge); stroke-width: 0.6; opacity: 0.5; }
+.cwork__pin { fill: var(--cw-edge); }
+.cwork__btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 220px; height: 54px; padding: 0 30px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--cw-btn); color: var(--cw-btn-ink); font: inherit; font-size: 1.02rem; font-weight: 650; letter-spacing: 0.01em;
+  box-shadow: inset 0 0 0 1.5px var(--cw-ring), inset 0 1px 0 rgb(255 255 255 / 0.14), 0 12px 24px -14px rgb(0 0 0 / 0.6);
+  transition: transform 200ms cubic-bezier(0.3, 0.7, 0.3, 1.4);
+}
+.cwork__btn:active { transform: translateY(1px) scale(0.985); }
+.cwork__btn:focus-visible { outline: 2px solid var(--cw-lite); outline-offset: 4px; }
+.cwork--brass { --cw-lite: #f0c66a; --cw-dark: #9c6a1f; --cw-edge: #5c3c0e; --cw-btn: #2a1912; --cw-btn-ink: #f8ecd2; --cw-ring: #b9862f; }
+.cwork--steel { --cw-lite: #e4e9ee; --cw-dark: #7f8a96; --cw-edge: #3c444d; --cw-btn: #1b1f24; --cw-btn-ink: #eef2f6; --cw-ring: #8f9aa5; }
+@media (prefers-reduced-motion: reduce) { .cwork__rise, .cwork[data-on] .cwork__rise { transition: opacity 160ms; } .cwork__btn { transition: none; } }

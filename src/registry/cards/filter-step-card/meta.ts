@@ -25,7 +25,6 @@ Lower half: a dashed 1.5px rule across the card at 65% with a frosted step pill 
   a11y: "Tabs use tablist, tab and tabpanel with roving focus; fields have labels; day toggles use aria-pressed; the clear button is labelled; the match count is announced politely; the title carries the step number for screen readers. The glyph field and glow are aria-hidden. Reduced motion stops all loops.",
   responsive: "40em wide, shrinking to its container; under 520px the type steps down and the sheet insets tighten so the fields still fit side by side.",
   touchFallback: "Every control is a normal tap target; the glyph field drifts on its own.",
-  isNew: true,
   variants: [
     { id: "copper", label: "Copper", prompt: "Glow #e07a3f with #ff8a4c badges on a #070b14 navy page." },
     { id: "teal", label: "Teal", prompt: "Glow #22b8a6 with #3fe0cb badges on a #04100f page." },

@@ -25,7 +25,6 @@ Motion: rAF, paused offscreen and in hidden tabs; reduced motion draws one frame
   responsive: "Fills its container; the globe is sized from the smaller side so it stays round and whole on phones. DPR capped at 2.",
   touchFallback: "No pointer tilt on touch; the globe keeps turning.",
   promptAllow: ["ember"],
-  isNew: true,
   variants: [
     { id: "ember", label: "Ember", prompt: "Hot #ffae8a, ember #ff7428, spark #f0bd3a, cool #e6e9ee: a peach-hot cap fading to orange and amber sparks over a white lower half." },
     { id: "glacier", label: "Glacier", prompt: "Hot #e9fbff, ember #57c7ff, spark #8fa8ff, cool #c7a6ff: an icy cap over sky-blue, with a lilac lower half." },

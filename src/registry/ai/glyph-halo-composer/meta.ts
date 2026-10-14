@@ -26,7 +26,6 @@ Menus: each chip opens a menu 0.5em below it (min-width 12.6em, #15161b, hairlin
   a11y: "The textarea has a label; chips expose aria-haspopup, aria-expanded and their current choice; menus use role menu with menuitemradio rows and roving focus; Escape returns focus. Voice is a toggle with aria-pressed; send is disabled until there is text. The canvas and glows are aria-hidden. Reduced motion stops the glyphs, glows and pulses.",
   responsive: "The box is min(100%, 44.8em); a container query shrinks the whole thing at 640px and 420px, where the voice chip becomes an icon. Menus stay anchored under their chips.",
   touchFallback: "Everything is a tap target; menus close on a tap outside, and the glyph field keeps drifting without a pointer.",
-  isNew: true,
   variants: [
     { id: "ember", label: "Ember", prompt: "Glows #ff6a3d (warm coral, left) and #3d6bff (electric blue, right) on a #101115 page." },
     { id: "aurora", label: "Aurora", prompt: "Glows #18d6a3 (mint, left) and #8a5cff (violet, right) on a #101115 page." },

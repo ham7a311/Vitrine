@@ -1,0 +1,9 @@
+.bhour { position: relative; isolation: isolate; width: 100%; height: 100%; min-height: 20rem; overflow: hidden; background: var(--bhour-sky); }
+.bhour__canvas { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; }
+.bhour--fade::before, .bhour--fade::after { content: ""; position: absolute; inset: auto 0 0; z-index: -1; pointer-events: none; }
+/* the floor melts away: a soft blur that grows towards the edge, under a fall to the ground colour */
+.bhour--fade::before { height: 30%; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); mask-image: linear-gradient(to top, #000 15%, transparent); -webkit-mask-image: linear-gradient(to top, #000 15%, transparent); }
+.bhour--fade::after { height: 42%; background: linear-gradient(to top, var(--bhour-sky) 4%, color-mix(in srgb, var(--bhour-sky) 72%, transparent) 30%, color-mix(in srgb, var(--bhour-sky) 25%, transparent) 62%, transparent); }
+.bhour[data-fallback] { background: linear-gradient(to top, var(--bhour-floor) 8%, var(--bhour-glow) 26%, var(--bhour-sky) 70%); }
+.bhour[data-fallback] .bhour__canvas { display: none; }
+.bhour__content { position: relative; height: 100%; }

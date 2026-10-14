@@ -24,7 +24,6 @@ Pointer: a fine pointer pushes the points near it outward (Gaussian, up to 0.16 
   a11y: "Decorative and aria-hidden. Reduced motion renders one still frame. Text placed on top reads best over the dark core.",
   responsive: "Fills its container and is sized from the smaller side, so it stays whole on phones; touch devices draw 60% of the points. DPR capped at 2.",
   touchFallback: "No pointer push on touch; the cloud keeps morphing.",
-  isNew: true,
   variants: [
     { id: "mono", label: "Mono", prompt: "Rim #ffffff, membrane #9a9a9a, dust #ffffff: a white and grey cloud on black." },
     { id: "aqua", label: "Aqua", prompt: "Rim #d9fffb, membrane #2fb8b0, dust #9ff5ee: a sea-glass cloud." },

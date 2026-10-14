@@ -22,7 +22,6 @@ Content at the top (padding 0.95em 1.15em): a 2.55em icon tile (dark, with a col
   a11y: "An article with a real heading, paragraph and link; the band is aria-hidden. Copy sits in the dark top half, above 7:1. Visible focus ring on the link. Reduced motion stops the breathing.",
   responsive: "19em square that shrinks to its container while staying square; meant for a row of three.",
   touchFallback: "No hover on touch; the band keeps breathing.",
-  isNew: true,
   variants: [
     { id: "amber", label: "Amber", prompt: "Rim #ff7a1a with a #ffc56b hot tint and a #1d0d06 interior tint; inbox icon, 'Morning Brief'." },
     { id: "azure", label: "Azure", prompt: "Rim #3d7bff with an #a9cfff hot tint and a #0a1026 interior tint; tools icon, 'Tested Tools'." },

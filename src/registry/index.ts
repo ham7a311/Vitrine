@@ -63,6 +63,24 @@ import { meta as pulseButton } from "./buttons/pulse-button/meta";
 import { meta as pingButton } from "./buttons/ping-button/meta";
 import { meta as cornerCutButton } from "./buttons/corner-cut-button/meta";
 import { meta as cornerBracketButton } from "./buttons/corner-bracket-button/meta";
+import { meta as pawTrail } from "./buttons/paw-trail/meta";
+import { meta as bloomEdge } from "./buttons/bloom-edge/meta";
+import { meta as starfieldButton } from "./buttons/starfield-button/meta";
+import { meta as fizzButton } from "./buttons/fizz-button/meta";
+import { meta as marginNotes } from "./buttons/margin-notes/meta";
+import { meta as fieldButton } from "./buttons/field-button/meta";
+import { meta as koiPond } from "./buttons/koi-pond/meta";
+import { meta as snowCap } from "./buttons/snow-cap/meta";
+import { meta as staticEdge } from "./buttons/static-edge/meta";
+import { meta as stickerSlap } from "./buttons/sticker-slap/meta";
+import { meta as mothLight } from "./buttons/moth-light/meta";
+import { meta as rulerEdge } from "./buttons/ruler-edge/meta";
+import { meta as fieldRim } from "./buttons/field-rim/meta";
+import { meta as dominoRun } from "./buttons/domino-run/meta";
+import { meta as yarnWrap } from "./buttons/yarn-wrap/meta";
+import { meta as bunting } from "./buttons/bunting/meta";
+import { meta as clockworkEdge } from "./buttons/clockwork-edge/meta";
+import { meta as zenRake } from "./buttons/zen-rake/meta";
 import { meta as gamutPicker } from "./controls/gamut-picker/meta";
 import { meta as fractionCheckbox } from "./controls/fraction-checkbox/meta";
 import { meta as moodSlider } from "./controls/mood-slider/meta";
@@ -125,6 +143,18 @@ import { meta as cardWallet } from "./cards/card-wallet/meta";
 import { meta as patina } from "./cards/patina/meta";
 import { meta as signalTiles } from "./cards/signal-tiles/meta";
 import { meta as sweepCards } from "./cards/sweep-cards/meta";
+import { meta as bentoGrid } from "./cards/bento-grid/meta";
+import { meta as monoBento } from "./cards/mono-bento/meta";
+import { meta as unfoldBento } from "./cards/unfold-bento/meta";
+import { meta as depthBento } from "./cards/depth-bento/meta";
+import { meta as metricBento } from "./cards/metric-bento/meta";
+import { meta as peekWords } from "./cards/peek-words/meta";
+import { meta as bloomAlbum } from "./cards/bloom-album/meta";
+import { meta as ditherAccordion } from "./cards/dither-accordion/meta";
+import { meta as marbleGrid } from "./cards/marble-grid/meta";
+import { meta as marbleInvite } from "./cards/marble-invite/meta";
+import { meta as wrapCaption } from "./cards/wrap-caption/meta";
+import { meta as ditherRows } from "./cards/dither-rows/meta";
 import { meta as silkField } from "./backgrounds/silk-field/meta";
 import { meta as glassTiles } from "./backgrounds/glass-tiles/meta";
 import { meta as ditherFlow } from "./backgrounds/dither-flow/meta";
@@ -135,6 +165,21 @@ import { meta as emberGlobe } from "./backgrounds/ember-globe/meta";
 import { meta as pointBloom } from "./backgrounds/point-bloom/meta";
 import { meta as glassOrbs } from "./backgrounds/glass-orbs/meta";
 import { meta as liquidChrome } from "./backgrounds/liquid-chrome/meta";
+import { meta as pinField } from "./backgrounds/pin-field/meta";
+import { meta as phantomThreads } from "./backgrounds/phantom-threads/meta";
+import { meta as ironBloom } from "./backgrounds/iron-bloom/meta";
+import { meta as jacobsLadder } from "./backgrounds/jacobs-ladder/meta";
+import { meta as contourPlasma } from "./backgrounds/contour-plasma/meta";
+import { meta as nacre } from "./backgrounds/nacre/meta";
+import { meta as emberPlumes } from "./backgrounds/ember-plumes/meta";
+import { meta as stormVeil } from "./backgrounds/storm-veil/meta";
+import { meta as neonVeins } from "./backgrounds/neon-veins/meta";
+import { meta as pigmentShore } from "./backgrounds/pigment-shore/meta";
+import { meta as coronaArcs } from "./backgrounds/corona-arcs/meta";
+import { meta as lightSash } from "./backgrounds/light-sash/meta";
+import { meta as blueHour } from "./backgrounds/blue-hour/meta";
+import { meta as velvetGrain } from "./backgrounds/velvet-grain/meta";
+import { meta as glowStrands } from "./backgrounds/glow-strands/meta";
 import { meta as obsidianFlow } from "./backgrounds/obsidian-flow/meta";
 import { meta as lightCurtain } from "./backgrounds/light-curtain/meta";
 import { meta as glassBlinds } from "./backgrounds/glass-blinds/meta";
@@ -184,6 +229,10 @@ import { meta as presenceCursors } from "./cursors/presence-cursors/meta";
 import { meta as loupe } from "./cursors/loupe/meta";
 import { meta as highlightCursor } from "./cursors/highlight-cursor/meta";
 import { meta as snapFrame } from "./cursors/snap-frame/meta";
+import { meta as sparkleClick } from "./cursors/sparkle-click/meta";
+import { meta as confettiClick } from "./cursors/confetti-click/meta";
+import { meta as fireworkClick } from "./cursors/firework-click/meta";
+import { meta as petalClick } from "./cursors/petal-click/meta";
 import { meta as streamReply } from "./ai/stream-reply/meta";
 import { meta as voiceOrb } from "./ai/voice-orb/meta";
 import { meta as agentRun } from "./ai/agent-run/meta";
@@ -220,11 +269,14 @@ import { meta as globeSearch } from "./ai/globe-search/meta";
 import { meta as sourceSweep } from "./ai/source-sweep/meta";
 import { meta as activityGlyphs } from "./ai/activity-glyphs/meta";
 import { meta as planGate } from "./ai/plan-gate/meta";
+import { meta as memoryDrawer } from "./ai/memory-drawer/meta";
+import { meta as threadMap } from "./ai/thread-map/meta";
 import { meta as mixedInspector } from "./data/mixed-inspector/meta";
 import { meta as outcomeFlicker } from "./analytics/outcome-flicker/meta";
 import { meta as trendTape } from "./stats/trend-tape/meta";
 import { meta as conversationSidebar } from "./sidebars/conversation-sidebar/meta";
 import { meta as workspaceSidebar } from "./sidebars/workspace-sidebar/meta";
+import { meta as chapterRail } from "./sidebars/chapter-rail/meta";
 import { meta as glassTorus } from "./heroes/glass-torus/meta";
 import { meta as localSkyHero } from "./heroes/local-sky-hero/meta";
 import { meta as letterformHero } from "./heroes/letterform-hero/meta";
@@ -236,6 +288,7 @@ import { meta as refractionBlob } from "./heroes/refraction-blob/meta";
 import { meta as mastheadNav } from "./navbars/masthead-nav/meta";
 import { meta as docketNav } from "./navbars/docket-nav/meta";
 import { meta as megaNav } from "./navbars/mega-nav/meta";
+import { meta as notchMenu } from "./navbars/notch-menu/meta";
 import { meta as glassTabBar } from "./navigation/glass-tab-bar/meta";
 import { meta as slideTabs } from "./navigation/slide-tabs/meta";
 import { meta as thumbedEdge } from "./navigation/thumbed-edge/meta";
@@ -246,6 +299,7 @@ import { meta as folioPager } from "./navigation/folio-pager/meta";
 import { meta as lessonPath } from "./navigation/lesson-path/meta";
 import { meta as lineMap } from "./navigation/line-map/meta";
 import { meta as portfolioTerminal } from "./navigation/portfolio-terminal/meta";
+import { meta as slipstreamMenu } from "./navigation/slipstream-menu/meta";
 import { meta as depthDialog } from "./overlays/depth-dialog/meta";
 import { meta as contextLens } from "./overlays/context-lens/meta";
 import { meta as foldSheet } from "./overlays/fold-sheet/meta";
@@ -293,6 +347,7 @@ import { meta as lightboxCompare } from "./pricing/lightbox-compare/meta";
 import { meta as calendarPricing } from "./pricing/calendar-pricing/meta";
 import { meta as stackPricing } from "./pricing/stack-pricing/meta";
 import { meta as chalkMenuPricing } from "./pricing/chalk-menu-pricing/meta";
+import { meta as tillReceipt } from "./pricing/till-receipt/meta";
 import { meta as buildSheet } from "./commerce/build-sheet/meta";
 import { meta as fitCompare } from "./commerce/fit-compare/meta";
 import { meta as explodedView } from "./commerce/exploded-view/meta";
@@ -305,6 +360,7 @@ import { meta as chatThreadFaq } from "./faq/chat-thread-faq/meta";
 import { meta as origamiFaq } from "./faq/origami-faq/meta";
 import { meta as cardCatalogueFaq } from "./faq/card-catalogue-faq/meta";
 import { meta as colourRegisterFaq } from "./faq/colour-register-faq/meta";
+import { meta as deckFaq } from "./faq/deck-faq/meta";
 import { meta as reactiveProse } from "./reading/reactive-prose/meta";
 import { meta as stretchtext } from "./reading/stretchtext/meta";
 import { meta as tidelineCta } from "./ctas/tideline-cta/meta";
@@ -318,6 +374,7 @@ import { meta as entryPointCta } from "./ctas/entry-point-cta/meta";
 import { meta as inlineCta } from "./ctas/inline-cta/meta";
 import { meta as arrivalCta } from "./ctas/arrival-cta/meta";
 import { meta as nextIssue } from "./ctas/next-issue/meta";
+import { meta as fieldCta } from "./ctas/field-cta/meta";
 import { meta as nocturneSignIn } from "./auth/nocturne-sign-in/meta";
 import { meta as qrHandoffSignIn } from "./auth/qr-handoff-sign-in/meta";
 import { meta as consentSignIn } from "./auth/consent-sign-in/meta";
@@ -333,6 +390,13 @@ import { meta as liquidGlassSignIn } from "./auth/liquid-glass-sign-in/meta";
 import { meta as boardingPassSignIn } from "./auth/boarding-pass-sign-in/meta";
 import { meta as strengthRingSignUp } from "./auth/strength-ring-sign-up/meta";
 import { meta as workspaceSignIn } from "./auth/workspace-sign-in/meta";
+import { meta as monoSignIn } from "./auth/mono-sign-in/meta";
+import { meta as providerStack } from "./auth/provider-stack/meta";
+import { meta as domainSignIn } from "./auth/domain-sign-in/meta";
+import { meta as handleSignUp } from "./auth/handle-sign-up/meta";
+import { meta as confirmAccess } from "./auth/confirm-access/meta";
+import { meta as sessionLedger } from "./auth/session-ledger/meta";
+import { meta as recoveryKit } from "./auth/recovery-kit/meta";
 import { meta as ledgerCylinder } from "./stats/ledger-cylinder/meta";
 import { meta as odometerStats } from "./stats/odometer-stats/meta";
 import { meta as orbitRingStats } from "./stats/orbit-ring-stats/meta";
@@ -350,6 +414,8 @@ import { meta as splitBarStats } from "./stats/split-bar-stats/meta";
 import { meta as thenNowStats } from "./stats/then-now-stats/meta";
 import { meta as lessonSummary } from "./stats/lesson-summary/meta";
 import { meta as dailyQuests } from "./stats/daily-quests/meta";
+import { meta as summitStats } from "./stats/summit-stats/meta";
+import { meta as bubblePack } from "./stats/bubble-pack/meta";
 import { meta as lineChart } from "./analytics/line-chart/meta";
 import { meta as barChart } from "./analytics/bar-chart/meta";
 import { meta as donutChart } from "./analytics/donut-chart/meta";
@@ -366,6 +432,9 @@ import { meta as calendarHeatmap } from "./analytics/calendar-heatmap/meta";
 import { meta as barRace } from "./analytics/bar-race/meta";
 import { meta as slopeChart } from "./analytics/slope-chart/meta";
 import { meta as youDrawIt } from "./analytics/you-draw-it/meta";
+import { meta as periodOverlay } from "./analytics/period-overlay/meta";
+import { meta as latencyHeatmap } from "./analytics/latency-heatmap/meta";
+import { meta as annotatedTimeline } from "./analytics/annotated-timeline/meta";
 import { meta as glassCarousel } from "./media/glass-carousel/meta";
 import { meta as artGallery } from "./media/art-gallery/meta";
 import { meta as imageCompare } from "./media/image-compare/meta";
@@ -374,9 +443,11 @@ import { meta as ditherPortrait } from "./media/dither-portrait/meta";
 import { meta as contactSheet } from "./media/contact-sheet/meta";
 import { meta as transcriptPlayer } from "./media/transcript-player/meta";
 import { meta as helixShowcase } from "./media/helix-showcase/meta";
+import { meta as storyReel } from "./media/story-reel/meta";
 import { meta as routeGlobe } from "./maps/route-globe/meta";
 import { meta as pulseGlobe } from "./maps/pulse-globe/meta";
 import { meta as dotAtlas } from "./maps/dot-atlas/meta";
+import { meta as daylightAtlas } from "./maps/daylight-atlas/meta";
 import { meta as signaturePad } from "./forms/signature-pad/meta";
 import { meta as ribbonOtp } from "./forms/ribbon-otp/meta";
 import { meta as glassLid } from "./forms/glass-lid/meta";
@@ -417,10 +488,21 @@ import { meta as underside404 } from "./feedback/underside-404/meta";
 import { meta as blankPageStarter } from "./feedback/blank-page-starter/meta";
 import { meta as stepPath } from "./sections/step-path/meta";
 import { meta as voicesCarousel } from "./sections/voices-carousel/meta";
+import { meta as murmurRows } from "./sections/murmur-rows/meta";
+import { meta as mentionWall } from "./sections/mention-wall/meta";
 import { meta as runningHead } from "./sections/running-head/meta";
 import { meta as annotatedPlate } from "./sections/annotated-plate/meta";
 import { meta as ribbonChangelog } from "./sections/ribbon-changelog/meta";
 import { meta as partnerRibbon } from "./sections/partner-ribbon/meta";
+import { meta as sponsorBoard } from "./sections/sponsor-board/meta";
+import { meta as tileBreaker } from "./sections/tile-breaker/meta";
+import { meta as loomBreaker } from "./sections/loom-breaker/meta";
+import { meta as arcadeBreaker } from "./sections/arcade-breaker/meta";
+import { meta as pixelSeam } from "./sections/pixel-seam/meta";
+import { meta as tornPaper } from "./sections/torn-paper/meta";
+import { meta as crossedTapes } from "./sections/crossed-tapes/meta";
+import { meta as topoContours } from "./sections/topo-contours/meta";
+import { meta as beadCurtain } from "./sections/bead-curtain/meta";
 import { meta as productAtelier } from "./sections/product-atelier/meta";
 import { meta as pageHeader } from "./sections/page-header/meta";
 import { meta as quickstartChecklist } from "./sections/quickstart-checklist/meta";
@@ -435,6 +517,7 @@ import { meta as initialFold } from "./type/initial-fold/meta";
 import { meta as loupeRoster } from "./type/loupe-roster/meta";
 import { meta as endCredits } from "./type/end-credits/meta";
 import { meta as heartBurst } from "./micro/heart-burst/meta";
+import { meta as echoBar } from "./micro/echo-bar/meta";
 import { meta as paperPlane } from "./micro/paper-plane/meta";
 import { meta as bellRing } from "./micro/bell-ring/meta";
 import { meta as copyCheck } from "./micro/copy-check/meta";
@@ -442,6 +525,10 @@ import { meta as downloadTray } from "./micro/download-tray/meta";
 import { meta as starRate } from "./micro/star-rate/meta";
 import { meta as trashDrop } from "./micro/trash-drop/meta";
 import { meta as bookmarkFold } from "./micro/bookmark-fold/meta";
+import { meta as reactionPill } from "./micro/reaction-pill/meta";
+import { meta as tumblerCode } from "./micro/tumbler-code/meta";
+import { meta as shackleLock } from "./micro/shackle-lock/meta";
+import { meta as pinDrop } from "./micro/pin-drop/meta";
 import { meta as chromeText } from "./text/chrome-text/meta";
 import { meta as gradientText } from "./text/gradient-text/meta";
 import { meta as shineText } from "./text/shine-text/meta";
@@ -524,6 +611,24 @@ export const registry: ComponentMeta[] = [
   pingButton,
   cornerCutButton,
   cornerBracketButton,
+  pawTrail,
+  bloomEdge,
+  starfieldButton,
+  fizzButton,
+  marginNotes,
+  fieldButton,
+  koiPond,
+  snowCap,
+  staticEdge,
+  stickerSlap,
+  mothLight,
+  rulerEdge,
+  fieldRim,
+  dominoRun,
+  yarnWrap,
+  bunting,
+  clockworkEdge,
+  zenRake,
   gamutPicker,
   fractionCheckbox,
   moodSlider,
@@ -586,6 +691,18 @@ export const registry: ComponentMeta[] = [
   patina,
   signalTiles,
   sweepCards,
+  bentoGrid,
+  monoBento,
+  unfoldBento,
+  depthBento,
+  metricBento,
+  peekWords,
+  bloomAlbum,
+  ditherAccordion,
+  marbleGrid,
+  marbleInvite,
+  wrapCaption,
+  ditherRows,
   silkField,
   glassTiles,
   ditherFlow,
@@ -596,6 +713,21 @@ export const registry: ComponentMeta[] = [
   pointBloom,
   glassOrbs,
   liquidChrome,
+  pinField,
+  phantomThreads,
+  ironBloom,
+  jacobsLadder,
+  contourPlasma,
+  nacre,
+  emberPlumes,
+  stormVeil,
+  neonVeins,
+  pigmentShore,
+  coronaArcs,
+  lightSash,
+  blueHour,
+  velvetGrain,
+  glowStrands,
   obsidianFlow,
   lightCurtain,
   glassBlinds,
@@ -645,6 +777,10 @@ export const registry: ComponentMeta[] = [
   loupe,
   highlightCursor,
   snapFrame,
+  sparkleClick,
+  confettiClick,
+  fireworkClick,
+  petalClick,
   streamReply,
   voiceOrb,
   agentRun,
@@ -681,11 +817,14 @@ export const registry: ComponentMeta[] = [
   sourceSweep,
   activityGlyphs,
   planGate,
+  memoryDrawer,
+  threadMap,
   mixedInspector,
   outcomeFlicker,
   trendTape,
   conversationSidebar,
   workspaceSidebar,
+  chapterRail,
   glassTorus,
   localSkyHero,
   letterformHero,
@@ -697,6 +836,7 @@ export const registry: ComponentMeta[] = [
   mastheadNav,
   docketNav,
   megaNav,
+  notchMenu,
   glassTabBar,
   slideTabs,
   thumbedEdge,
@@ -707,6 +847,7 @@ export const registry: ComponentMeta[] = [
   lessonPath,
   lineMap,
   portfolioTerminal,
+  slipstreamMenu,
   depthDialog,
   contextLens,
   foldSheet,
@@ -754,6 +895,7 @@ export const registry: ComponentMeta[] = [
   calendarPricing,
   stackPricing,
   chalkMenuPricing,
+  tillReceipt,
   buildSheet,
   fitCompare,
   explodedView,
@@ -766,6 +908,7 @@ export const registry: ComponentMeta[] = [
   origamiFaq,
   cardCatalogueFaq,
   colourRegisterFaq,
+  deckFaq,
   reactiveProse,
   stretchtext,
   tidelineCta,
@@ -779,6 +922,7 @@ export const registry: ComponentMeta[] = [
   inlineCta,
   arrivalCta,
   nextIssue,
+  fieldCta,
   nocturneSignIn,
   qrHandoffSignIn,
   consentSignIn,
@@ -794,6 +938,13 @@ export const registry: ComponentMeta[] = [
   boardingPassSignIn,
   strengthRingSignUp,
   workspaceSignIn,
+  monoSignIn,
+  providerStack,
+  domainSignIn,
+  handleSignUp,
+  confirmAccess,
+  sessionLedger,
+  recoveryKit,
   ledgerCylinder,
   odometerStats,
   orbitRingStats,
@@ -811,6 +962,8 @@ export const registry: ComponentMeta[] = [
   thenNowStats,
   lessonSummary,
   dailyQuests,
+  summitStats,
+  bubblePack,
   lineChart,
   barChart,
   donutChart,
@@ -827,6 +980,9 @@ export const registry: ComponentMeta[] = [
   barRace,
   slopeChart,
   youDrawIt,
+  periodOverlay,
+  latencyHeatmap,
+  annotatedTimeline,
   glassCarousel,
   artGallery,
   imageCompare,
@@ -835,9 +991,11 @@ export const registry: ComponentMeta[] = [
   contactSheet,
   transcriptPlayer,
   helixShowcase,
+  storyReel,
   routeGlobe,
   pulseGlobe,
   dotAtlas,
+  daylightAtlas,
   signaturePad,
   ribbonOtp,
   glassLid,
@@ -878,10 +1036,21 @@ export const registry: ComponentMeta[] = [
   blankPageStarter,
   stepPath,
   voicesCarousel,
+  murmurRows,
+  mentionWall,
   runningHead,
   annotatedPlate,
   ribbonChangelog,
   partnerRibbon,
+  sponsorBoard,
+  tileBreaker,
+  loomBreaker,
+  arcadeBreaker,
+  pixelSeam,
+  tornPaper,
+  crossedTapes,
+  topoContours,
+  beadCurtain,
   productAtelier,
   pageHeader,
   quickstartChecklist,
@@ -896,6 +1065,7 @@ export const registry: ComponentMeta[] = [
   loupeRoster,
   endCredits,
   heartBurst,
+  echoBar,
   paperPlane,
   bellRing,
   copyCheck,
@@ -903,6 +1073,10 @@ export const registry: ComponentMeta[] = [
   starRate,
   trashDrop,
   bookmarkFold,
+  reactionPill,
+  tumblerCode,
+  shackleLock,
+  pinDrop,
   chromeText,
   gradientText,
   shineText,

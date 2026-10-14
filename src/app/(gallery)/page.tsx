@@ -8,10 +8,10 @@ import { ArrowRight, GitHubIcon, StarIcon } from "@/site/icons";
 import { RECIPES } from "@/workshop/recipes";
 import { JsonLd, abs } from "@/site/seo";
 
-const HERO = ["silk-field", "specimen-card", "iris-shutter-button"];
+const HERO = ["silk-field", "murmur-rows", "bloom-edge", "tidefill-button", "neon-veins", "sweep-cards"];
 /* Chosen by hand, in this order. */
 const FEATURED = ["glassbreak-button", "liquid-glass-button", "point-bloom", "agent-composer", "glow-base-pricing", "glass-tiles"];
-const FRESH = ["frost-bloom-button", "light-pour", "ember-globe"];
+const FRESH = ["pixel-seam", "field-button", "slipstream-menu", "storm-veil", "mono-sign-in", "tile-breaker"];
 
 export default function Home() {
   const items = summaries();
@@ -53,7 +53,7 @@ export default function Home() {
 
           <div className="rise-in mt-16 grid gap-x-6 gap-y-12 md:grid-cols-3" style={{ animationDelay: "220ms" }}>
             {hero.map((item, i) => (
-              <div key={item.slug} className={i === 1 ? "md:mt-14" : i === 2 ? "md:mt-6" : ""}>
+              <div key={item.slug} className={i % 3 === 1 ? "md:mt-14" : i % 3 === 2 ? "md:mt-6" : ""}>
                 <GalleryCard item={item} />
               </div>
             ))}

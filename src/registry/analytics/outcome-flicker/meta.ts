@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["analytics", "forecast", "uncertainty", "probability", "simulation", "hypothetical outcomes", "frequency", "risk", "deadline", "monte carlo"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["OutcomeFlicker.tsx", "outcome-flicker.css", "draws.ts"],
   dependencies: [],
   prompt:

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["navbar", "mega menu", "navigation", "dropdown", "header", "menu aim", "mobile menu", "information architecture"],
   traits: ["hover", "click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["MegaNav.tsx", "mega-nav.css", "aim.ts", "previews.tsx"],
   dependencies: [],
   prompt:

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "agent", "composer", "split view", "suggestions", "briefing", "model", "mode", "effort", "files"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["SplitBriefComposer.tsx", "split-brief-composer.css", "infer.ts", "brief.ts", "logos.tsx"],
   dependencies: [],
   prompt:

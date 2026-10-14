@@ -1,0 +1,84 @@
+.till {
+  --tr-bg: #f3efe6; --tr-panel: #ffffff; --tr-ink: #1c1a16; --tr-muted: #6a655b; --tr-line: rgba(28, 26, 22, 0.12); --tr-accent: #1c1a16; --tr-accent-ink: #f8f5ee;
+  --tr-pick: #fff6dc; --tr-pick-line: #c79a2a; --tr-save: #157a45; --tr-slot: #2a2722; --tr-paper: #fffdf8; --tr-paper-ink: #24221d; --tr-paper-muted: #6e695e;
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 28px; width: 100%; max-width: 900px; padding: 26px; border-radius: 24px;
+  background: var(--tr-bg); color: var(--tr-ink); font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.till--night {
+  --tr-bg: #121214; --tr-panel: #1b1b1f; --tr-ink: #f1efea; --tr-muted: #a09c93; --tr-line: rgba(255, 255, 255, 0.1); --tr-accent: #f1d27a; --tr-accent-ink: #1d1708;
+  --tr-pick: #2a2516; --tr-pick-line: #f1d27a; --tr-save: #157a45; --tr-slot: #050506; --tr-paper: #fbf8f0; --tr-paper-ink: #24221d; --tr-paper-muted: #6e695e;
+}
+@media (max-width: 720px) { .till { grid-template-columns: 1fr; padding: 18px; } }
+.till__title { margin: 0 0 14px; font-size: 20px; font-weight: 700; letter-spacing: -0.015em; }
+.till fieldset { margin: 0; padding: 0; border: 0; }
+.till legend { margin-bottom: 8px; font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: 0.12em; color: var(--tr-muted); }
+.till__plans { display: grid; gap: 8px; }
+.till__plan { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 12px 14px; border-radius: 14px; background: var(--tr-panel); box-shadow: inset 0 0 0 1px var(--tr-line); cursor: pointer; transition: box-shadow 160ms, background-color 160ms; }
+.till__plan input { position: absolute; opacity: 0; pointer-events: none; }
+.till__plan:has(input:checked) { background: var(--tr-pick); box-shadow: inset 0 0 0 1.5px var(--tr-pick-line); }
+.till__plan:has(input:focus-visible) { outline: 2px solid var(--tr-pick-line); outline-offset: 2px; }
+.till__plan-name { font-weight: 700; }
+.till__plan-price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.till__plan-price small { font-weight: 500; color: var(--tr-muted); }
+.till__plan-blurb { grid-column: 1 / -1; font-size: 13px; color: var(--tr-muted); }
+.till__row { display: flex; align-items: center; justify-content: space-between; margin: 18px 0; }
+.till__label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: 0.12em; color: var(--tr-muted); }
+.till__stepper { display: inline-flex; align-items: center; border-radius: 12px; background: var(--tr-panel); box-shadow: inset 0 0 0 1px var(--tr-line); }
+.till__stepper button { width: 38px; height: 38px; border: 0; background: transparent; color: var(--tr-ink); font-size: 18px; cursor: pointer; border-radius: 12px; }
+.till__stepper button:disabled { color: var(--tr-muted); opacity: 0.5; cursor: default; }
+.till__stepper button:focus-visible, .till__billing button:focus-visible, .till__cta:focus-visible { outline: 2px solid var(--tr-pick-line); outline-offset: 2px; }
+.till__stepper output { min-width: 34px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.till__addons { display: grid; gap: 2px; }
+.till__addon { display: grid; grid-template-columns: 18px 1fr auto; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid var(--tr-line); font-size: 14px; cursor: pointer; }
+.till__addon input { appearance: none; width: 16px; height: 16px; margin: 0; border-radius: 5px; background: var(--tr-panel); box-shadow: inset 0 0 0 1.5px var(--tr-muted); cursor: pointer; transition: background-color 140ms, box-shadow 140ms; }
+.till__addon input:checked { background: var(--tr-accent); box-shadow: inset 0 0 0 1.5px var(--tr-accent), inset 0 0 0 4px var(--tr-panel); }
+.till__addon input:focus-visible { outline: 2px solid var(--tr-pick-line); outline-offset: 2px; }
+.till__addon-price { color: var(--tr-muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.till__billing { display: inline-flex; margin-top: 18px; padding: 3px; border-radius: 12px; background: var(--tr-panel); box-shadow: inset 0 0 0 1px var(--tr-line); }
+.till__billing button { height: 34px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; color: var(--tr-muted); font-family: inherit; font-size: 13.5px; font-weight: 650; cursor: pointer; }
+.till__billing button[aria-checked="true"] { background: var(--tr-accent); color: var(--tr-accent-ink); }
+.till__billing span { margin-left: 4px; font-size: 11.5px; opacity: 0.85; }
+
+/* the till: a slot the paper feeds out of */
+.till__till { display: flex; flex-direction: column; align-items: stretch; }
+.till__slot { position: relative; z-index: 2; height: 14px; margin: 0 -6px; border-radius: 8px; background: var(--tr-slot); box-shadow: inset 0 -3px 0 rgb(255 255 255 / 0.08), 0 6px 10px -6px rgb(0 0 0 / 0.5); }
+.till__feed { position: relative; margin-top: -7px; overflow: hidden; padding: 0 0 14px; }
+.till__paper {
+  --z: 7px;
+  position: relative; padding: 22px 20px 26px; background: var(--tr-paper); color: var(--tr-paper-ink);
+  font: 13px/1.55 ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums;
+  filter: drop-shadow(0 10px 14px rgb(0 0 0 / 0.14));
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--z)) 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--z)) 100%;
+  animation: till-feed 820ms cubic-bezier(0.25, 0.8, 0.3, 1) both;
+}
+@keyframes till-feed { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+.till__paper hr { margin: 10px 0; border: 0; border-top: 1px dashed color-mix(in srgb, var(--tr-paper-ink) 35%, transparent); }
+.till__shop { margin: 0; text-align: center; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+.till__meta { margin: 2px 0 0; text-align: center; color: var(--tr-paper-muted); font-size: 12px; }
+.till__lines { margin: 0; padding: 0; list-style: none; }
+.till__lines li { display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: 6px; padding: 3px 0; animation: till-print 420ms calc(var(--i) * 90ms + 300ms) cubic-bezier(0.3, 0.7, 0.3, 1) both; }
+@keyframes till-print { from { clip-path: inset(0 0 100% 0); transform: translateY(-5px); opacity: 0.2; } to { clip-path: inset(0); transform: none; opacity: 1; } }
+.till__item small { display: block; color: var(--tr-paper-muted); font-size: 11.5px; }
+.till__dots { margin-bottom: 5px; border-bottom: 1.5px dotted color-mix(in srgb, var(--tr-paper-ink) 30%, transparent); }
+.till__sub { display: flex; justify-content: space-between; margin: 0; color: var(--tr-paper-muted); }
+.till__save { color: var(--tr-save); }
+.till__total { display: flex; align-items: baseline; justify-content: space-between; margin: 8px 0 0; font-size: 14px; font-weight: 700; }
+.till__total > span:last-child { font-size: 22px; letter-spacing: -0.01em; }
+.till__total small { font-size: 12px; font-weight: 500; color: var(--tr-paper-muted); }
+.till__yearly { margin: 2px 0 0; text-align: right; color: var(--tr-paper-muted); font-size: 12px; }
+.till__roll { display: inline-flex; }
+.till__digit { display: inline-block; height: 1.2em; overflow: hidden; line-height: 1.2; vertical-align: bottom; }
+.till__digit > span { display: flex; flex-direction: column; transform: translateY(calc(var(--d) * -1.2em)); transition: transform 520ms cubic-bezier(0.3, 0.9, 0.3, 1); }
+.till__sym { display: inline-block; line-height: 1.2; }
+.till__code { display: flex; justify-content: center; gap: 2px; height: 34px; margin: 16px 0 6px; }
+.till__code i { display: block; background: var(--tr-paper-ink); }
+.till__thanks { margin: 0; text-align: center; color: var(--tr-paper-muted); font-size: 11.5px; }
+.till__cta { height: 48px; margin-top: 10px; border: 0; border-radius: 14px; background: var(--tr-accent); color: var(--tr-accent-ink); font-family: inherit; font-size: 15.5px; font-weight: 700; cursor: pointer; transition: transform 160ms cubic-bezier(0.3, 0.7, 0.3, 1.4); }
+.till__cta:hover { transform: translateY(-1px); }
+.till__cta:active { transform: translateY(1px) scale(0.99); }
+.till__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .till__paper, .till__lines li { animation: none; }
+  .till__digit > span, .till__plan, .till__cta { transition: none; }
+}

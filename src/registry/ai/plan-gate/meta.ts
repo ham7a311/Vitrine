@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "agent", "plan", "approval", "permissions", "human in the loop", "gate", "risk", "steering", "replan"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["PlanGate.tsx", "plan-gate.css", "plan.ts", "logo.tsx"],
   dependencies: [],
   prompt:

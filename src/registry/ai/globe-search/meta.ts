@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "web search", "searching", "globe", "loading", "status", "assistant", "sources", "results", "chat"],
   traits: ["click", "keyboard", "ambient"],
   source: "original",
-  isNew: true,
   files: ["GlobeSearch.tsx", "globe-search.css", "globe.ts"],
   dependencies: [],
   prompt:

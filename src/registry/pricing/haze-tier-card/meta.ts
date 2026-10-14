@@ -22,7 +22,6 @@ Copy is yours: a tier called Studio at $18/mo, eleven features. Reduced motion s
   a11y: "An article labelled with the plan name and a real heading. Info buttons are labelled 'About …', expose aria-expanded and point at their tooltip with aria-describedby while it is open; Escape closes it. Text contrast on the dark middle is above 7:1 for the list and price. Reduced motion stops the drift.",
   responsive: "Fills up to 25rem; under 420px the padding and list text tighten so long labels still fit on one or two lines.",
   touchFallback: "Tap an info button to open its tooltip and tap elsewhere to close it; the haze drifts on its own without the pointer lean.",
-  isNew: true,
   variants: [
     { id: "lavender", label: "Lavender", prompt: "Tone {glow #7a6fc4, hi #c3b8f5, button #957cf0 → #6b4fd6, ink #ece8fb}: lavender haze with a violet button." },
     { id: "ember", label: "Ember", prompt: "Tone {glow #c46a3a, hi #ffc9a3, button #f08a4c → #d4532a, ink #fff1e8}: warm ember haze with an orange button." },

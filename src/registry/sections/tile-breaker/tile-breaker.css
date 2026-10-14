@@ -1,0 +1,142 @@
+.tbreak {
+  --tb-tile-w: clamp(46px, 6.4vw, 96px);
+  --tb-tile-h: calc(var(--tb-tile-w) * 0.78);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  container-type: inline-size;
+  background: var(--tb-ground);
+  color: var(--tb-ink);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── the band ─────────────────────────────────────────────── */
+.tbreak__band {
+  display: grid;
+  grid-template-rows: repeat(2, var(--tb-tile-h));
+  grid-auto-flow: column;
+  grid-auto-columns: var(--tb-tile-w);
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+.tbreak__tile { display: block; width: 100%; height: 100%; overflow: visible; fill: var(--tb-tile); }
+.tbreak__tile path { transform-box: fill-box; transform-origin: center; }
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .tbreak__band:not(.tbreak__band--flip) .tbreak__tile path {
+    transform: rotate(-90deg) scale(0.35);
+    opacity: 0;
+    transition: transform 620ms cubic-bezier(0.2, 0.9, 0.25, 1.15), opacity 260ms ease;
+    transition-delay: var(--d);
+  }
+  .tbreak[data-shown] .tbreak__band:not(.tbreak__band--flip) .tbreak__tile path { transform: none; opacity: 1; }
+}
+
+/* ── the body ─────────────────────────────────────────────── */
+.tbreak__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: clamp(3.5rem, 8cqi, 7rem) clamp(1rem, 5cqi, 3rem) clamp(3rem, 6cqi, 5rem);
+  text-align: center;
+}
+.tbreak__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.4rem 0.85rem 0.4rem 0.7rem;
+  border: 1px solid var(--tb-line);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--tb-ink);
+}
+.tbreak__eyebrow i { width: 0.5rem; height: 0.5rem; border-radius: 2px; background: var(--tb-tile); transform: rotate(45deg); }
+.tbreak__title {
+  margin: 1.5rem 0 0;
+  max-width: 21ch;
+  font-size: clamp(2.3rem, 6.2cqi, 4.6rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.tbreak__lead {
+  margin: 1.4rem 0 0;
+  max-width: 54ch;
+  font-size: clamp(1rem, 1.6cqi, 1.1875rem);
+  line-height: 1.55;
+  color: var(--tb-muted);
+  text-wrap: pretty;
+}
+.tbreak__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 2.2rem; }
+.tbreak__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 1.4rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+.tbreak__btn:focus-visible { outline: 2px solid var(--tb-tile); outline-offset: 3px; }
+.tbreak__btn--primary { background: var(--tb-tile); color: var(--tb-on-tile); box-shadow: 0 1px 0 rgb(255 255 255 / 0.18) inset, 0 8px 22px -10px var(--tb-tile); }
+.tbreak__btn--primary:hover { transform: translateY(-1px); box-shadow: 0 1px 0 rgb(255 255 255 / 0.18) inset, 0 12px 26px -10px var(--tb-tile); }
+.tbreak__btn--ghost { border: 1px solid var(--tb-line); color: var(--tb-ink); background: transparent; }
+.tbreak__btn--ghost:hover { border-color: color-mix(in srgb, var(--tb-ink) 40%, transparent); }
+.tbreak__btn--ghost svg { transition: transform 160ms ease; }
+.tbreak__btn--ghost:hover svg { transform: translateX(3px); }
+.tbreak__btn:active { transform: translateY(1px); }
+.tbreak__points {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0 0;
+  padding: 1.1rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--tb-line);
+}
+.tbreak__points li { display: flex; align-items: center; gap: 0.6rem; padding: 0 1.4rem; font-size: 0.9375rem; color: var(--tb-ink); }
+.tbreak__points li + li { border-left: 1px solid var(--tb-line); }
+.tbreak__points svg { flex: none; color: var(--tb-tile); }
+
+/* ── the foot: a mirrored band dissolving under a progressive blur ── */
+.tbreak__foot { position: relative; height: calc(var(--tb-tile-h) * 2.2); margin-top: calc(var(--tb-tile-h) * -0.2); overflow: hidden; }
+.tbreak__band--flip { position: absolute; inset: auto 0 0; transform: scaleY(-1); opacity: 0.9; }
+.tbreak__glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 90% at 50% 120%, color-mix(in srgb, var(--tb-tile) 55%, transparent), transparent 70%),
+    linear-gradient(to bottom, var(--tb-ground) 0%, var(--tb-ground) 12%, color-mix(in srgb, var(--tb-ground) 62%, transparent) 42%, color-mix(in srgb, var(--tb-ground) 18%, transparent) 72%, transparent 92%);
+}
+.tbreak__blur {
+  --step: 14%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  mask-image: linear-gradient(to bottom, transparent calc(var(--b) * var(--step)), #000 calc((var(--b) + 1) * var(--step)), #000 calc((var(--b) + 2) * var(--step)), transparent calc((var(--b) + 3) * var(--step)));
+  -webkit-mask-image: linear-gradient(to bottom, transparent calc(var(--b) * var(--step)), #000 calc((var(--b) + 1) * var(--step)), #000 calc((var(--b) + 2) * var(--step)), transparent calc((var(--b) + 3) * var(--step)));
+}
+.tbreak__blur:last-child {
+  mask-image: linear-gradient(to bottom, transparent 70%, #000 84%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 70%, #000 84%);
+}
+
+/* ── narrow ───────────────────────────────────────────────── */
+@container (max-width: 640px) {
+  .tbreak__actions { flex-direction: column; align-self: stretch; }
+  .tbreak__btn { width: 100%; }
+  .tbreak__points { flex-direction: column; align-items: stretch; align-self: stretch; padding-top: 0.4rem; }
+  .tbreak__points li { padding: 0.8rem 0.2rem; justify-content: flex-start; text-align: left; }
+  .tbreak__points li + li { border-left: 0; border-top: 1px solid var(--tb-line); }
+}

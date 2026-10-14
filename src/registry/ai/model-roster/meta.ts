@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "models", "settings", "switch", "toggle", "search", "list", "preferences"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["ModelRoster.tsx", "model-roster.css", "logos.tsx"],
   dependencies: [],
   prompt:

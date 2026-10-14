@@ -24,7 +24,6 @@ Under everything, a dome: an ellipse rising from below the bottom edge, white at
   a11y: "A labelled section with a real heading; the switch is a radiogroup with roving focus and a polite announcement; each plan is an article, the featured one labelled most popular; tooltips use role tooltip and aria-describedby while open. Grey copy on black stays above 6:1. Reduced motion stops the dome and the roll.",
   responsive: "Three columns down to 960px, then one column of up to 24em; the headline scales with the viewport and the type steps down under 420px.",
   touchFallback: "Tap the switch and info buttons; tooltips close on Escape or when focus leaves.",
-  isNew: true,
   variants: [
     { id: "violet", label: "Violet", prompt: "Accent #7b4dff: a violet badge, switch, featured plan, checks and dome." },
     { id: "cyan", label: "Cyan", prompt: "Accent #1fb6ff: an electric blue badge, switch, featured plan, checks and dome." },
