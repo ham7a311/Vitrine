@@ -22,7 +22,6 @@ Default plans: Starter $19 (orange #ff6a1f), Pro $49 (magenta #d62ee0), Scale $1
   a11y: "A labelled section with a real heading; billing is a native button with role switch and aria-checked, announced politely; each plan is an article with a heading and a native button. Text sits in the dark upper part of each card, above 12:1. Reduced motion stops the roll and transitions.",
   responsive: "Three columns down to 900px, then a single column of up to 22em; the header stays centred.",
   touchFallback: "Tap the switch and buttons; the glow simply stays at rest without hover.",
-  isNew: true,
   variants: [
     { id: "sunset", label: "Sunset", prompt: "Glows #ff6a1f (orange), #d62ee0 (magenta) and #1f7bff (blue), left to right." },
     { id: "aurora", label: "Aurora", prompt: "Glows #19c37d (green), #14b8c9 (cyan) and #7a4dff (violet), left to right." },

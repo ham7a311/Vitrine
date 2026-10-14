@@ -1,0 +1,35 @@
+.arcb {
+  --ab-top: #3d8fe0; --ab-bottom: #cfe8fb; --ab-sun: #fff4d6; --ab-sun-x: 50%; --ab-sun-y: 0;
+  position: relative; isolation: isolate; overflow: hidden; container-type: inline-size;
+  background: var(--ab-wall); color: var(--ab-ink); font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.arcb__arcade { position: relative; height: var(--ab-h); }
+.arcb__sky { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(to bottom, var(--ab-top), var(--ab-bottom)); }
+.arcb__sun {
+  position: absolute; left: var(--ab-sun-x); top: calc(18% + var(--ab-sun-y) * 62%); width: clamp(34px, 4.4cqi, 64px); aspect-ratio: 1; border-radius: 50%;
+  transform: translate(-50%, -50%); background: var(--ab-sun);
+  box-shadow: 0 0 40px 12px color-mix(in srgb, var(--ab-sun) 55%, transparent), 0 0 120px 40px color-mix(in srgb, var(--ab-sun) 25%, transparent);
+}
+.arcb__cloud { position: absolute; height: 22px; border-radius: 999px; background: rgb(255 255 255 / 0.55); filter: blur(6px); animation: arcb-drift linear infinite; }
+.arcb__cloud--a { top: 26%; width: 180px; animation-duration: 70s; animation-delay: -12s; }
+.arcb__cloud--b { top: 44%; width: 120px; opacity: 0.7; animation-duration: 95s; animation-delay: -60s; }
+.arcb__cloud--c { top: 16%; width: 240px; opacity: 0.5; animation-duration: 120s; animation-delay: -30s; }
+@keyframes arcb-drift { from { transform: translateX(-280px); } to { transform: translateX(calc(100cqi + 40px)); } }
+.arcb__wall { position: absolute; inset: 0; display: block; }
+.arcb__stone { fill: var(--ab-wall); }
+.arcb__reveal { fill: none; stroke: var(--ab-shade); stroke-width: 7; opacity: 0.9; }
+.arcb__key { fill: var(--ab-shade); }
+.arcb__sill { fill: var(--ab-shade); }
+
+.arcb__body { display: flex; flex-direction: column; align-items: center; max-width: 52rem; margin: 0 auto; padding: clamp(2.5rem, 6cqi, 5rem) clamp(1rem, 5cqi, 3rem) clamp(3.5rem, 7cqi, 6rem); text-align: center; }
+.arcb__eyebrow { margin: 0; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ab-muted); }
+.arcb__title { margin: 1rem 0 0; font-family: "Instrument Serif", Newsreader, Georgia, serif; font-size: clamp(2.3rem, 5.6cqi, 4.4rem); font-weight: 400; line-height: 1.02; letter-spacing: -0.01em; text-wrap: balance; }
+.arcb__lead { max-width: 36rem; margin: 1.25rem 0 0; font-size: clamp(1rem, 1.4cqi, 1.125rem); line-height: 1.6; color: var(--ab-muted); }
+.arcb__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 2rem; }
+.arcb__btn { display: inline-flex; align-items: center; min-height: 3rem; padding: 0 1.5rem; border-radius: 999px; font-weight: 650; text-decoration: none; transition: transform 180ms cubic-bezier(0.3, 0.7, 0.3, 1.4), background-color 180ms; }
+.arcb__btn--primary { background: var(--ab-accent); color: var(--ab-on-accent); }
+.arcb__btn--primary:hover { transform: translateY(-1px); }
+.arcb__btn--ghost { color: var(--ab-ink); box-shadow: inset 0 0 0 1.5px var(--ab-line); }
+.arcb__btn--ghost:hover { background: color-mix(in srgb, var(--ab-ink) 8%, transparent); }
+.arcb__btn:focus-visible { outline: 2px solid var(--ab-ink); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .arcb__cloud { animation: none; transform: translateX(30cqi); } .arcb__btn { transition: none; } .arcb__btn--primary:hover { transform: none; } }

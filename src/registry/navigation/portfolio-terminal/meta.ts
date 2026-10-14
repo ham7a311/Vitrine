@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["terminal", "portfolio", "cli", "command line", "navigation", "about", "projects", "ascii"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["PortfolioTerminal.tsx", "portfolio-terminal.css", "shell.ts", "plate.ts"],
   dependencies: [],
   prompt:

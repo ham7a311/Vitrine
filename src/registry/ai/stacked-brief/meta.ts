@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "agent", "composer", "stepper", "progressive disclosure", "review", "collapse", "model", "mode", "effort"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["StackedBrief.tsx", "stacked-brief.css", "brief.ts", "logos.tsx"],
   dependencies: [],
   prompt:

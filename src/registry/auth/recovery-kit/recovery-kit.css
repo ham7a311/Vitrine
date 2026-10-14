@@ -1,0 +1,51 @@
+.rkit {
+  --rk-card: #15161b; --rk-well: #0e0f13; --rk-line: rgba(255, 255, 255, 0.09); --rk-ink: #f1f2f5; --rk-muted: #9da1ab;
+  --rk-accent: #f1f2f5; --rk-on-accent: #0e0f13; --rk-danger: #ff8475; --rk-good: #6fe0a5;
+  container-type: inline-size;
+  width: 100%; max-width: 560px; padding: 26px; border-radius: 22px;
+  background: var(--rk-card); color: var(--rk-ink); box-shadow: inset 0 0 0 1px var(--rk-line), 0 30px 60px -36px rgb(0 0 0 / 0.6);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.rkit--paper { --rk-card: #ffffff; --rk-well: #f5f5f1; --rk-line: rgba(18, 20, 24, 0.1); --rk-ink: #15171c; --rk-muted: #5b5f69; --rk-accent: #15171c; --rk-on-accent: #ffffff; --rk-danger: #b42318; --rk-good: #12804c; }
+.rkit *, .rkit *::before, .rkit *::after { box-sizing: border-box; }
+.rkit button:focus-visible { outline: 2px solid var(--rk-ink); outline-offset: 2px; }
+.rkit__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.rkit__head { display: flex; gap: 14px; align-items: flex-start; }
+.rkit__badge { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--rk-well); box-shadow: inset 0 0 0 1px var(--rk-line); }
+.rkit__head h2 { margin: 2px 0 0; font-size: 1.3rem; font-weight: 650; letter-spacing: -0.02em; }
+.rkit__head p { margin: 5px 0 0; font-size: 0.88rem; line-height: 1.5; color: var(--rk-muted); }
+
+.rkit__codes { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; margin: 20px 0 0; padding: 16px 18px; border-radius: 16px; background: var(--rk-well); box-shadow: inset 0 0 0 1px var(--rk-line); list-style: none; counter-reset: none; }
+.rkit__codes li { position: relative; display: flex; align-items: center; gap: 12px; padding: 7px 4px; }
+.rkit__n { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.72rem; color: var(--rk-muted); }
+.rkit__codes code { position: relative; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 1.02rem; font-weight: 500; letter-spacing: 0.04em; user-select: all; }
+.rkit__codes code::after { content: ""; position: absolute; left: -2px; right: -2px; top: 52%; height: 1.5px; background: currentColor; transform: scaleX(0); transform-origin: left; }
+.rkit__codes li.used code { color: var(--rk-muted); }
+.rkit__codes li.used code::after { transform: scaleX(1); }
+.rkit__used { margin-left: auto; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--rk-muted); }
+.rkit__codes--striking code { color: var(--rk-muted); transition: color 300ms; }
+.rkit__codes--striking code::after { transform: scaleX(1); transition: transform 260ms cubic-bezier(0.6, 0, 0.3, 1); transition-delay: calc(var(--i) * 40ms); }
+.rkit__codes--fresh li { animation: rkit-in 380ms cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i) * 35ms); }
+@keyframes rkit-in { from { opacity: 0; transform: translateY(6px); filter: blur(3px); } }
+
+.rkit__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.rkit__actions button { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 13px; border: 0; border-radius: 10px; background: transparent; box-shadow: inset 0 0 0 1px var(--rk-line); color: var(--rk-ink); font: inherit; font-size: 0.86rem; font-weight: 600; cursor: pointer; transition: background-color 140ms; }
+.rkit__actions button:hover:not(:disabled) { background: var(--rk-line); }
+.rkit__actions button:disabled { opacity: 0.6; cursor: default; }
+.rkit__regen { margin-left: auto; }
+.rkit__ask { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-left: auto; animation: rkit-in 200ms ease; }
+.rkit__ask > span { font-size: 0.84rem; color: var(--rk-muted); }
+.rkit__actions .rkit__danger { background: var(--rk-danger); color: var(--rk-card); box-shadow: none; }
+.rkit__actions button.rkit__danger:hover:not(:disabled) { background: color-mix(in srgb, var(--rk-danger) 88%, var(--rk-ink)); }
+
+.rkit__check { position: relative; display: flex; align-items: center; gap: 12px; margin-top: 22px; padding: 14px; border-radius: 14px; background: var(--rk-well); font-size: 0.93rem; font-weight: 600; cursor: pointer; }
+.rkit__check input { position: absolute; opacity: 0; width: 22px; height: 22px; margin: 0; cursor: pointer; }
+.rkit__check > span { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; box-shadow: inset 0 0 0 1.5px var(--rk-muted); color: transparent; transition: background-color 160ms, box-shadow 160ms, color 160ms; }
+.rkit__check input:checked + span { background: var(--rk-good); box-shadow: none; color: var(--rk-card); }
+.rkit__check input:focus-visible + span { outline: 2px solid var(--rk-ink); outline-offset: 2px; }
+.rkit__continue { width: 100%; height: 48px; margin-top: 12px; border: 0; border-radius: 12px; background: var(--rk-accent); color: var(--rk-on-accent); font: inherit; font-weight: 700; cursor: pointer; transition: opacity 160ms; }
+.rkit__continue:disabled { opacity: 0.35; cursor: not-allowed; }
+
+@container (max-width: 440px) { .rkit__codes { grid-template-columns: 1fr; } .rkit__regen, .rkit__ask { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { .rkit__codes--fresh li, .rkit__ask { animation: none; } .rkit__codes code::after { transition: none !important; } }

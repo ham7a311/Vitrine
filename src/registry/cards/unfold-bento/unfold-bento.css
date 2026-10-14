@@ -1,0 +1,109 @@
+.ubento {
+  --ub-ground: #0e0e12;
+  --ub-ink: #f4f2ee;
+  --ub-muted: #a6a4ad;
+  --ub-line: rgba(255, 255, 255, 0.1);
+  --ub-on: #16120e;
+  container-type: inline-size;
+  padding: clamp(32px, 6cqi, 96px) clamp(16px, 4cqi, 64px);
+  background: var(--ub-ground);
+  color: var(--ub-ink);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.ubento--paper { --ub-ground: #f3f0e8; --ub-ink: #17151a; --ub-muted: #5e5a63; --ub-line: rgba(23, 21, 26, 0.1); }
+.ubento *, .ubento *::before, .ubento *::after { box-sizing: border-box; }
+
+.ubento__head { max-width: 1280px; margin: 0 auto clamp(28px, 4cqi, 48px); }
+.ubento__eyebrow { margin: 0 0 14px; font-size: 0.82rem; font-weight: 600; color: var(--ub-muted); }
+.ubento__title { margin: 0; max-width: 16ch; font-size: clamp(2.2rem, 5cqi, 4rem); font-weight: 600; line-height: 1; letter-spacing: -0.045em; text-wrap: balance; }
+.ubento__lede { margin: 16px 0 0; max-width: 46ch; font-size: 1.05rem; line-height: 1.55; color: var(--ub-muted); }
+
+.ubento__stage { max-width: 1280px; margin: 0 auto; }
+.ubento__grid { display: grid; gap: 12px; }
+
+.ubento__tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 20px 22px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 26px;
+  background: var(--ub-c);
+  color: var(--ub-on);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 240ms cubic-bezier(0.3, 0.7, 0.3, 1), box-shadow 240ms;
+}
+.ubento__tile::before { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 80% at 100% 0%, rgb(255 255 255 / 0.35), transparent 55%); pointer-events: none; }
+.ubento__tile:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -22px var(--ub-c); }
+.ubento__tile:focus-visible, .ubento__chip:focus-visible, .ubento__panel-nav button:focus-visible, .ubento__cta:focus-visible { outline: 2px solid var(--ub-ink); outline-offset: 3px; }
+.ubento__teaser { position: relative; flex: 1; display: flex; min-height: 0; }
+.ubento__teaser > svg { width: 100%; height: 100%; }
+.ubento__label { position: relative; display: flex; flex-direction: column; gap: 2px; margin-top: 12px; }
+.ubento__label b { font-size: 1.12rem; font-weight: 650; letter-spacing: -0.015em; }
+.ubento__label small { font-size: 0.9rem; opacity: 0.78; }
+.ubento__plus {
+  position: absolute; right: 16px; bottom: 16px;
+  display: grid; place-items: center; width: 34px; height: 34px;
+  border-radius: 50%; background: rgb(255 255 255 / 0.55);
+  transition: transform 240ms, background-color 240ms;
+}
+.ubento__tile:hover .ubento__plus { transform: rotate(90deg); background: rgb(255 255 255 / 0.85); }
+
+/* ── unfolded ── */
+.ubento__open { display: flex; flex-direction: column; gap: 12px; height: 100%; }
+.ubento__panel {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(20px, 4cqi, 56px);
+  padding: clamp(24px, 4cqi, 52px);
+  border-radius: 30px;
+  background: var(--ub-c);
+  color: var(--ub-on);
+  overflow: hidden;
+}
+.ubento__panel::before { content: ""; position: absolute; inset: 0; background: radial-gradient(90% 70% at 100% 0%, rgb(255 255 255 / 0.4), transparent 60%); pointer-events: none; }
+.ubento__panel-text { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+.ubento__panel-kicker { margin: 0; font-size: 0.92rem; font-weight: 600; opacity: 0.75; }
+.ubento__panel h3 { margin: 8px 0 0; font-size: clamp(2rem, 5cqi, 3.6rem); font-weight: 650; line-height: 1; letter-spacing: -0.045em; outline: none; }
+.ubento__panel-detail { margin: 16px 0 0; max-width: 40ch; font-size: 1.05rem; line-height: 1.55; }
+.ubento__steps { margin: 20px 0 0; padding: 0; list-style: none; counter-reset: ub; display: grid; gap: 8px; }
+.ubento__steps li { counter-increment: ub; display: flex; align-items: baseline; gap: 12px; font-size: 0.98rem; }
+.ubento__steps li::before { content: counter(ub); flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: rgb(255 255 255 / 0.55); font-size: 0.78rem; font-weight: 700; }
+.ubento__cta { display: inline-flex; align-items: center; gap: 8px; margin-top: auto; padding: 12px 18px; border-radius: 999px; background: var(--ub-on); color: #fff; font-weight: 600; text-decoration: none; transition: transform 160ms; }
+.ubento__steps + .ubento__cta, .ubento__panel-detail + .ubento__cta { margin-top: 28px; }
+.ubento__cta:hover { transform: translateX(2px); }
+.ubento__panel-visual { position: relative; display: flex; min-height: 0; }
+.ubento__panel-visual > svg { width: 100%; height: 100%; }
+.ubento__panel-nav { position: absolute; top: 16px; right: 16px; display: flex; gap: 6px; }
+.ubento__panel-nav button { display: grid; place-items: center; width: 38px; height: 38px; border: 0; border-radius: 50%; background: rgb(255 255 255 / 0.55); color: var(--ub-on); cursor: pointer; transition: background-color 160ms; }
+.ubento__panel-nav button:hover { background: rgb(255 255 255 / 0.85); }
+.ubento__close { margin-left: 6px; background: var(--ub-on) !important; color: #fff !important; }
+
+.ubento__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.ubento__chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 44px; padding: 0 18px 0 12px;
+  border: 1px solid var(--ub-line); border-radius: 999px;
+  background: transparent; color: var(--ub-ink); font: inherit; font-weight: 600; font-size: 0.95rem;
+  cursor: pointer; transition: background-color 160ms, border-color 160ms;
+}
+.ubento__chip i { width: 18px; height: 18px; border-radius: 50%; background: var(--ub-c); }
+.ubento__chip:hover { border-color: var(--ub-c); background: color-mix(in srgb, var(--ub-c) 14%, transparent); }
+
+::view-transition-group(*) { animation-duration: 520ms; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+@container (max-width: 720px) {
+  .ubento__panel { grid-template-columns: minmax(0, 1fr); }
+  .ubento__panel-visual { height: 180px; order: -1; margin-top: 36px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ubento__tile, .ubento__plus, .ubento__cta { transition: none; }
+  .ubento__tile:hover { transform: none; }
+}

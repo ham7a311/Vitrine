@@ -22,7 +22,6 @@ Hover: the rim gradient flows (background-position to −200% over 3.2s, linear,
   a11y: "A native button with its visible label as the name; the icon is aria-hidden. White text on a near-black interior is above 15:1. Focus-visible thickens the rim and adds a ring. Reduced motion stops the flow.",
   responsive: "Sized in em from one font-size; at 20px it is 324px wide and fits a 360px phone.",
   touchFallback: "No hover on touch; the rim stays as a still spectrum and press feedback still shows.",
-  isNew: true,
   variants: [
     { id: "spectrum", label: "Spectrum", prompt: "Rim stops #5fe0d4, #a6e7a2, #ebe36c, #e98f7a, #d85ad6, #ee6f8e (aqua through yellow and coral to magenta and rose); interior #161112 to #1f1819 with a #3a2626 sheen, a warm brown-black." },
     { id: "twilight", label: "Twilight", prompt: "Rim stops #dcd5f7, #bcaef2, #8c97f1, #4d8af4, #2f86ff (pale lilac to bright blue); interior #121216 to #18171d with a #2b2833 sheen, a cool graphite." },

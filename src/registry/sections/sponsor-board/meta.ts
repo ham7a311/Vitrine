@@ -1,0 +1,26 @@
+import type { ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  slug: "sponsor-board",
+  name: "Sponsor Board",
+  category: "sections",
+  description: "One honest sponsors section: the appeal and a monthly funding goal on the left, the tiers on the right with real logos and open places that show what they include, and a row of individual backers. Logos stay grey until you point at them.",
+  tags: ["sponsors", "open source", "funding", "tiers", "goal", "backers", "logos", "github sponsors", "donate"],
+  traits: ["hover", "keyboard", "touch"],
+  source: "original",
+  isNew: true,
+  files: ["SponsorBoard.tsx", "sponsor-board.css", "board.ts"],
+  dependencies: [],
+  prompt:
+    "Build a sponsors section for an open-source project. Props: eyebrow, title, lede, goal {raised, target (cents), note, currency}, primary and secondary {label, href}, tiers [{id, name, size lg|md|sm, price, perks, slots, sponsors [{name, logo (inline SVG) or src, href, since}], href}], backers {label, price, people [{name, avatar}], total, href}, theme and onNavigate.\n\nOne rounded 28px panel with a 1px hairline and a faint light in its top-left corner, split 0.82 : 1.18 with a wide gutter.\n\nLeft: a small mono eyebrow, the title (5.6rem at most, weight 500, -0.045em), a muted lede, then the goal under a hairline: the monthly amount large ('$2,450', tabular, with 'a month' muted beside it), an 8px rounded bar that fills to the share raised (capped at 100%) with one soft shine passing over it after it fills, and a line under it with '61% of the $4,000 goal' and the note ('Funds one maintainer full-time'). Then a solid pill button with an arrow that nudges right on hover, and an outlined secondary pill. The bar is a progressbar with a value text like '$2,450 of $4,000 a month, 61%'.\n\nRight: each tier has a header row on a hairline — the tier name in small mono caps, its price in mono on the right — and a grid of cards: lg two across at 148px tall, md three at 108px, sm four at 76px. Sponsors come first: the logo centred in greyscale at 82%, returning to colour on hover or focus with a 'Since May 2025' caption rising at the bottom. Then the open places, as dashed-outline cards with a plus: 'Be the first Gold sponsor' on the first place of an empty tier, otherwise 'Your logo here'. On hover or focus the outline turns solid and the invitation slides away for the perks; the perks are also the link's description so they are never hover-only.\n\nLogos are sized by area from their SVG viewBox or the image's natural size, so wordmarks and square marks weigh the same; a broken image shows the name as a wordmark.\n\nLast, individual backers: up to nine overlapping 36px avatars (initials on a muted colour when there's no photo), 'and 128 others', and a 'Join them' link.\n\nBelow 900px the two halves stack. Below 560px lg cards go one across, md two and sm three, logos shrink to 78% and the buttons fill the width.",
+  interaction: "Point at or focus an open place to see what its tier includes; point at a sponsor to see it in colour with its start date. The goal bar fills once when the section appears.",
+  animation: "The goal bar fills over 1.1s and a shine crosses it once; invitations and perks swap with a 220ms fade and 6px slide; logos regain colour over 300ms. Reduced motion shows the filled bar with no animation and no transitions.",
+  a11y: "A labelled section with a heading for each tier. The goal is a progressbar with a spoken value. Sponsor links are named with tier and start date; open places describe their perks. Backer avatars have names. Focus mirrors hover everywhere.",
+  responsive: "Container queries stack the halves below 900px and reflow each tier's grid below 560px.",
+  touchFallback: "On touch screens captions show and logos are in colour; open places keep the plain invitation and tapping goes to the tier.",
+  variants: [
+    { id: "night", label: "Night", prompt: "Palette for this theme (Night): --sboard-card #171717; --sboard-card-hover #1e1e1e; --sboard-dash rgba(255, 255, 255, 0.2); --sboard-fill #f4f4f1; --sboard-ground #0a0a0a; --sboard-ink #f4f4f1; --sboard-line rgba(255, 255, 255, 0.08); --sboard-muted #a2a29d; --sboard-panel #101010; --sboard-primary #f4f4f1; --sboard-primary-ink #0d0d0d; --sboard-track #232323. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"night\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+    { id: "paper", label: "Paper", prompt: "Palette for this theme (Paper): --sboard-card #efeee9; --sboard-card-hover #e8e6e0; --sboard-dash rgba(20, 20, 18, 0.24); --sboard-fill #151513; --sboard-ground #f2f1ec; --sboard-ink #151513; --sboard-line rgba(20, 20, 18, 0.09); --sboard-muted #5c5a53; --sboard-panel #faf9f6; --sboard-primary #151513; --sboard-primary-ink #ffffff; --sboard-track #e4e2db. Treat these as the root colour tokens, one value per role, and name them to suit your code. Select it with the theme option set to \"paper\". Keep every dimension, spacing value, state and motion from the brief unchanged, and keep text at 4.5:1 contrast or better on these surfaces." },
+  ],
+  preview: { bg: "#050505", mode: "fill", frame: [1440, 900] },
+};

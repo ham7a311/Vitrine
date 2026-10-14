@@ -1,0 +1,15 @@
+.scap { position: relative; display: inline-grid; isolation: isolate; font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; }
+.scap__sky { position: absolute; left: calc(var(--sc-side) * -1); top: calc(var(--sc-top) * -1); z-index: 1; pointer-events: none; }
+.scap__btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 220px; height: 56px; padding: 0 32px;
+  border: 0; border-radius: 999px; cursor: pointer;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--sc-face) 82%, #fff), var(--sc-face) 55%, color-mix(in srgb, var(--sc-face) 85%, #000));
+  color: var(--sc-label); font: inherit; font-size: 1.02rem; font-weight: 650; letter-spacing: 0.005em;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22), inset 0 -2px 0 rgb(0 0 0 / 0.18), 0 14px 26px -16px var(--sc-face);
+  transition: transform 220ms cubic-bezier(0.3, 0.7, 0.3, 1.4), filter 300ms;
+}
+.scap__btn:hover, .scap__btn:focus-visible { filter: brightness(1.06); }
+.scap__btn:active { transform: translateY(1px) scale(0.985); }
+.scap__btn:focus-visible { outline: 2px solid var(--sc-face); outline-offset: 5px; }
+@media (prefers-reduced-motion: reduce) { .scap__btn { transition: none; } }

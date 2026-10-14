@@ -1,0 +1,27 @@
+.fizz { position: relative; display: inline-grid; place-items: center; font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; }
+.fizz__air { position: absolute; inset: -36px 0 0; height: 36px; pointer-events: none; overflow: visible; }
+.fizz__btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  height: 54px; padding: 0 30px; overflow: hidden; isolation: isolate;
+  border: 0; border-radius: 999px;
+  background: linear-gradient(to bottom, var(--fz-top), var(--fz-bottom));
+  color: var(--fz-label);
+  font: inherit; font-size: 1rem; font-weight: 700; letter-spacing: 0.005em; cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    inset 0 -6px 12px -6px rgb(0 0 0 / 0.35),
+    inset 0 0 0 1px rgb(255 255 255 / 0.14),
+    0 14px 28px -18px var(--fz-bottom);
+  transition: transform 200ms cubic-bezier(0.3, 0.7, 0.3, 1.4);
+}
+/* the glass: a cold highlight down the left and a band of foam along the top */
+.fizz__btn::before { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(100deg, rgb(255 255 255 / 0.28) 0 6%, transparent 18%), linear-gradient(to bottom, rgb(255 255 255 / 0.22), transparent 26%); }
+.fizz__btn:hover { transform: translateY(-1px); }
+.fizz__btn:active { transform: translateY(1px) scale(0.985); }
+.fizz__btn:focus-visible { outline: 2px solid var(--fz-top); outline-offset: 4px; }
+.fizz__glass { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.fizz__bubble { position: absolute; bottom: -4px; border-radius: 50%; border: 1px solid var(--fz-bubble); background: radial-gradient(circle at 32% 30%, rgb(255 255 255 / 0.8) 0 18%, transparent 30%), color-mix(in srgb, var(--fz-bubble) 38%, transparent); will-change: transform, opacity; }
+.fizz__bubble--out { bottom: 0; }
+.fizz__label { position: relative; z-index: 2; text-shadow: 0 1px 2px rgb(0 0 0 / 0.25); }
+@media (prefers-reduced-motion: reduce) { .fizz__btn { transition: none; } .fizz__btn:hover { transform: none; } }

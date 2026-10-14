@@ -24,7 +24,6 @@ Card: 37.9% × 49.8% of the frame, centred just below the middle, radius 1.75em,
   a11y: "The scene SVG is aria-hidden; the card is an article with a heading and paragraph. Light text on the deep card stays above 7:1 for the title and 4.5:1 for the description. Reduced motion stops every loop and hides the pulses.",
   responsive: "Keeps a 4:3 frame; below 680px the frame stays 680px wide and crops at the sides so the card and its text stay legible.",
   touchFallback: "No hover lift on touch; the beam and pulses run on their own.",
-  isNew: true,
   variants: [
     { id: "violet", label: "Violet", prompt: "Card #3524ab with #2a1d88 edges, halo #7c5cff, traces #3f33b8, ink #ece8ff, muted #a198e6, page #07071a." },
     { id: "cyan", label: "Cyan", prompt: "Card #0f5d8f → #0b3f6b, halo #2fc8ff, traces #1d6fb0, ink #e6f8ff, muted #8fc6e3, page #05111c." },

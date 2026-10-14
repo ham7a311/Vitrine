@@ -1,0 +1,135 @@
+.murmur {
+  --murmur-ground: #000000;
+  --murmur-ink: #ececea;
+  --murmur-name: #dcdcd9;
+  --murmur-muted: #9b9b97;
+  --murmur-card-ink: #1c1b18;
+  --murmur-card-muted: #4c4840;
+  --murmur-backing: #1c1b18;
+  --murmur-w: 440px;
+  --murmur-gap: 120px;
+  --murmur-row-gap: 76px;
+  position: relative;
+  container-type: inline-size;
+  padding: clamp(48px, 7cqi, 96px) 0 clamp(64px, 8cqi, 104px);
+  background: var(--murmur-ground);
+  color: var(--murmur-ink);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  overflow: hidden;
+}
+.murmur--light { --murmur-ground: #f6f5f1; --murmur-ink: #1c1b18; --murmur-name: #1c1b18; --murmur-muted: #57534b; --murmur-w: 360px; --murmur-gap: 28px; --murmur-row-gap: 28px; }
+.murmur--pressed { --murmur-ground: #f3efe6; --murmur-gap: 34px; --murmur-row-gap: 40px; }
+.murmur *, .murmur *::before, .murmur *::after { box-sizing: border-box; }
+
+.murmur__sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+.murmur__rows { position: relative; display: grid; gap: var(--murmur-row-gap); }
+.murmur__row { overflow: visible; }
+.murmur__track { display: flex; width: max-content; will-change: transform; }
+.murmur__group { display: flex; align-items: flex-start; gap: var(--murmur-gap); padding-right: var(--murmur-gap); flex: none; }
+.murmur--pressed .murmur__group { padding-top: 8px; padding-bottom: 8px; }
+
+/* a quote */
+.murmur__q { flex: none; width: var(--murmur-w); margin: 0; transition: opacity 0.24s ease; }
+.murmur__row--held .murmur__q { opacity: 0.45; }
+.murmur__row--held .murmur__q:hover { opacity: 1; }
+.murmur__text { margin: 0; font-size: 1.32rem; font-weight: 500; line-height: 1.42; letter-spacing: -0.006em; color: var(--murmur-ink); display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; text-wrap: pretty; }
+.murmur__by { display: flex; align-items: center; gap: 16px; margin-top: 44px; }
+.murmur__avatar { flex: none; width: 54px; height: 54px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; }
+.murmur__avatar > svg { display: block; width: 100%; height: 100%; }
+.murmur__who { display: grid; gap: 4px; min-width: 0; }
+.murmur__name { font-size: 1.12rem; font-weight: 400; color: var(--murmur-name); }
+.murmur__role { font-size: 1.12rem; color: var(--murmur-muted); }
+.murmur--text-only .murmur__by { margin-top: 28px; }
+.murmur--text-only .murmur__who { display: flex; flex-wrap: wrap; gap: 0 10px; }
+.murmur--text-only .murmur__name { font-weight: 500; }
+
+/* tinted and pressed: cards */
+.murmur--light .murmur__face { height: 100%; padding: 26px 28px 24px; border-radius: 24px; background: var(--murmur-tint); color: var(--murmur-card-ink); }
+.murmur--light .murmur__text { font-size: 1.14rem; line-height: 1.5; color: var(--murmur-card-ink); }
+.murmur--light .murmur__by { margin-top: 24px; gap: 12px; }
+.murmur--light .murmur__avatar { width: 40px; height: 40px; }
+.murmur--light .murmur__name { font-size: 0.98rem; font-weight: 650; color: var(--murmur-card-ink); }
+.murmur--light .murmur__role { font-size: 0.92rem; color: var(--murmur-card-muted); }
+.murmur__initials {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--murmur-tint) 55%, #1c1b18 18%);
+  color: var(--murmur-card-ink);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.murmur--tinted .murmur__face { box-shadow: inset 0 0 0 1px rgba(28, 27, 24, 0.05); }
+
+.murmur--pressed .murmur__q { position: relative; border-radius: 24px; background: var(--murmur-backing); }
+.murmur--pressed .murmur__face {
+  border: 2px solid var(--murmur-backing);
+  translate: -5px -6px;
+  transition: translate 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.murmur--pressed .murmur__q:hover .murmur__face { translate: -7px -9px; }
+.murmur--pressed .murmur__q:active .murmur__face { translate: 0 0; transition-duration: 0.08s; }
+.murmur--pressed .murmur__initials { border: 2px solid var(--murmur-backing); }
+.murmur--pressed .murmur__avatar { width: 42px; height: 42px; }
+
+/* edges: blur that deepens toward the side, then fades into the ground */
+.murmur__edge { position: absolute; top: -40px; bottom: -40px; width: clamp(72px, 15cqi, 260px); pointer-events: none; z-index: 2; }
+.murmur__edge--l { left: 0; }
+.murmur__edge--r { right: 0; transform: scaleX(-1); }
+.murmur__edge i { position: absolute; inset: 0; }
+.murmur__edge i:nth-child(1) { backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); -webkit-mask-image: linear-gradient(to left, transparent 0%, #000 30%, #000 100%); mask-image: linear-gradient(to left, transparent 0%, #000 30%, #000 100%); }
+.murmur__edge i:nth-child(2) { backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); -webkit-mask-image: linear-gradient(to left, transparent 25%, #000 55%, #000 100%); mask-image: linear-gradient(to left, transparent 25%, #000 55%, #000 100%); }
+.murmur__edge i:nth-child(3) { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(to left, transparent 50%, #000 80%, #000 100%); mask-image: linear-gradient(to left, transparent 50%, #000 80%, #000 100%); }
+.murmur__edge i:nth-child(4) { background: linear-gradient(to left, transparent 40%, var(--murmur-ground) 100%); }
+
+/* pause */
+.murmur__pause {
+  position: absolute;
+  right: clamp(16px, 3cqi, 40px);
+  bottom: clamp(16px, 2.4cqi, 28px);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 14px 0 12px;
+  border: 1px solid color-mix(in srgb, var(--murmur-ink) 18%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--murmur-ground) 70%, transparent);
+  color: var(--murmur-muted);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: color 0.2s, border-color 0.2s;
+}
+.murmur__pause:hover { color: var(--murmur-ink); border-color: color-mix(in srgb, var(--murmur-ink) 34%, transparent); }
+.murmur__pause:focus-visible { outline: 2px solid var(--murmur-ink); outline-offset: 3px; }
+.murmur__pause svg { flex: none; }
+
+/* still: reduced motion or too few quotes */
+.murmur__still { list-style: none; margin: 0 auto; padding: 0 clamp(16px, 5cqi, 64px); display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 56px var(--murmur-gap); max-width: 1440px; }
+.murmur--light .murmur__still { gap: var(--murmur-row-gap) var(--murmur-gap); }
+.murmur__still .murmur__q { width: auto; height: 100%; }
+
+@container (max-width: 640px) {
+  .murmur > * { --murmur-w: min(300px, 78cqi); --murmur-gap: 48px; --murmur-row-gap: 52px; }
+  .murmur--light > * { --murmur-w: min(280px, 76cqi); --murmur-gap: 16px; --murmur-row-gap: 18px; }
+  .murmur--pressed > * { --murmur-gap: 22px; --murmur-row-gap: 26px; }
+  .murmur__rows { margin-bottom: 36px; }
+  .murmur__text { font-size: 1.08rem; }
+  .murmur--light .murmur__text { font-size: 1rem; }
+  .murmur__by { margin-top: 26px; gap: 12px; }
+  .murmur__avatar { width: 44px; height: 44px; }
+  .murmur__name, .murmur__role { font-size: 0.98rem; }
+  .murmur--light .murmur__face { padding: 20px 22px; border-radius: 20px; }
+  .murmur--pressed .murmur__q { border-radius: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .murmur__q, .murmur--pressed .murmur__face, .murmur__pause { transition: none; }
+}

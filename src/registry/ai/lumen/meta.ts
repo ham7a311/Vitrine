@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "agent", "avatar", "assistant", "identity", "mascot", "eyes", "gaze", "status", "chat"],
   traits: ["cursor", "keyboard", "ambient"],
   source: "original",
-  isNew: true,
   files: ["Lumen.tsx", "lumen.css", "drop.ts"],
   dependencies: [],
   prompt:

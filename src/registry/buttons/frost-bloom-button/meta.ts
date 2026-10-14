@@ -22,7 +22,6 @@ Motion: each blob drifts on its own 11–15s alternate loop (translate up to 6%,
   a11y: "A native button with its visible label as the name; the icon and paint layers are aria-hidden. Near-black text on a pale surface stays above 7:1. Visible focus outline. Reduced motion stops all drift.",
   responsive: "Sized in em from one font-size; at 20px it is 324px wide, which fits a 360px phone. Pass a smaller size for compact layouts.",
   touchFallback: "No pointer lean on touch; the colour keeps drifting on its own and the press feedback still shows.",
-  isNew: true,
   variants: [
     { id: "azure", label: "Azure", prompt: "Base #e9ecf6. Blobs: #2f86ff at (12%, 58%) 40×160, #8fbcff wash at (36%, 40%) 46×140 at 75%, #dcd8f2 at (66%, 30%) 40×120 at 60%, #f7d4ba at (91%, 50%) 28×150, white glow at (54%, 112%) 34×76. Vivid blue on the left fading to warm apricot on the right." },
     { id: "mint", label: "Mint", prompt: "Base #e6e9f3. Blobs: #5eecd6 at (11%, 62%) 38×160, #aef3ae at (33%, 12%) 30×90, #d6cdee at (60%, 48%) 40×120, #e49ff0 at (93%, 55%) 26×150, white glow at (52%, 112%) 34×72. Aqua and spring green on the left into soft lilac-pink." },

@@ -24,7 +24,6 @@ Motion: about 30fps, paused offscreen and in hidden tabs; reduced motion draws o
   a11y: "Decorative and aria-hidden. Reduced motion renders one still frame. Keep text to the left half, away from the bright stream and pool.",
   responsive: "Fills its container. Sizes follow the height, so the stream keeps its shape at any width; DPR capped at 2.",
   touchFallback: "No pointer sway on touch; the light keeps pouring on its own.",
-  isNew: true,
   variants: [
     { id: "blue", label: "Blue", prompt: "Palette [#05060c dark, #3f63ff halo, #9a62ff accent, #f3f6ff core]: a white stream in cold blue light with violet at the right of the pool." },
     { id: "ember", label: "Ember", prompt: "Palette [#0a0604 dark, #ff5a1f halo, #ff2d78 accent, #fff4ea core]: molten orange light with a hot pink edge, like pouring metal." },

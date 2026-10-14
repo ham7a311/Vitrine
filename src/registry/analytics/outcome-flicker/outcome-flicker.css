@@ -99,6 +99,7 @@
 .otfl__btn:hover:not(:disabled) { background: var(--otfl-hover) !important; color: var(--otfl-ink); }
 .otfl__btn:disabled { opacity: 0.3; }
 .otfl__btn[data-k="go"] { padding: 0 14px 0 12px !important; background: var(--otfl-go) !important; color: var(--otfl-go-ink) !important; box-shadow: none; font-size: 13px; font-weight: 600; }
+.otfl__btn[data-k="go"]:hover:not(:disabled) { background: color-mix(in srgb, var(--otfl-go) 86%, var(--otfl-card)) !important; color: var(--otfl-go-ink) !important; }
 .otfl__btn[data-k="go"] svg { fill: currentColor; width: 13px; height: 13px; }
 .otfl__keys { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; color: var(--otfl-faint); }
 

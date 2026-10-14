@@ -1,0 +1,57 @@
+.slock {
+  --sl-face: #1d1b23; --sl-ink: #f4f2f8; --sl-metal: #f1c35a; --sl-key: #1d1b23; --sl-open-face: #133227; --sl-open-ink: #b9f3d3; --sl-open-metal: #57d39a; --sl-ring: #f1c35a; --sl-line: rgba(255, 255, 255, 0.1);
+  position: relative; display: inline-flex; align-items: center; gap: 9px; height: 44px; padding: 0 18px 0 13px;
+  border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--sl-face); color: var(--sl-ink); box-shadow: inset 0 0 0 1px var(--sl-line), 0 8px 18px -12px rgb(0 0 0 / 0.6);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; font-size: 15px; font-weight: 650;
+  transition: background-color 320ms ease, color 320ms ease, transform 160ms cubic-bezier(0.3, 0.7, 0.3, 1.4);
+}
+.slock--paper {
+  --sl-face: #1d1b23; --sl-ink: #f6f4fa; --sl-metal: #f1c35a; --sl-key: #1d1b23; --sl-open-face: #dff5e9; --sl-open-ink: #0e5a37; --sl-open-metal: #13804a; --sl-ring: #b8860b; --sl-line: rgba(20, 18, 28, 0.08);
+}
+.slock:not([data-locked]) { background: var(--sl-open-face); color: var(--sl-open-ink); }
+.slock:active { transform: scale(0.97); }
+.slock:focus-visible { outline: 2px solid var(--sl-metal); outline-offset: 3px; }
+.slock__icon { position: relative; display: grid; place-items: center; width: 22px; height: 22px; }
+.slock__icon svg { overflow: visible; }
+.slock__shackle { fill: none; stroke: var(--sl-metal); stroke-width: 2.3; stroke-linecap: round; transform-box: view-box; transform-origin: 16px 11px; transition: stroke 320ms; }
+.slock__body { fill: var(--sl-metal); transform-box: view-box; transform-origin: 12px 21px; transition: fill 320ms; }
+.slock__key { fill: var(--sl-key); transform-box: view-box; transform-origin: 12px 16.2px; }
+.slock:not([data-locked]) .slock__shackle { stroke: var(--sl-open-metal); transform: translateY(-3px) rotate(-30deg); }
+.slock:not([data-locked]) .slock__body { fill: var(--sl-open-metal); }
+.slock:not([data-locked]) .slock__key { fill: var(--sl-open-face); transform: rotate(90deg); }
+.slock__ring { position: absolute; inset: -3px; border-radius: 50%; border: 1.5px solid var(--sl-ring); opacity: 0; pointer-events: none; }
+.slock__words { display: inline-block; height: 1.25em; overflow: hidden; line-height: 1.25; }
+.slock__roll { display: flex; flex-direction: column; transform: translateY(calc(var(--n) * -1.25em)); transition: transform 420ms cubic-bezier(0.3, 1.4, 0.4, 1); }
+/* the words take the width of the longer one so the pill doesn't jump */
+.slock__roll span { display: block; }
+
+/* opening: key turns, then the shackle springs up and swings */
+.slock[data-beat="open"] .slock__key { animation: slock-turn 200ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+.slock[data-beat="open"] .slock__shackle { animation: slock-open 560ms 140ms cubic-bezier(0.25, 0.9, 0.3, 1) both; }
+.slock[data-beat="open"] .slock__body { animation: slock-jolt 300ms 140ms ease-out; }
+@keyframes slock-turn { from { transform: rotate(0deg); } to { transform: rotate(90deg); } }
+@keyframes slock-open {
+  0% { transform: translateY(0) rotate(0deg); }
+  35% { transform: translateY(-4.6px) rotate(0deg); }
+  70% { transform: translateY(-3px) rotate(-36deg); }
+  100% { transform: translateY(-3px) rotate(-30deg); }
+}
+@keyframes slock-jolt { 40% { transform: scaleY(0.93); } 100% { transform: scaleY(1); } }
+/* closing: swing back, drop home with a click */
+.slock[data-beat="close"] .slock__shackle { animation: slock-close 420ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+.slock[data-beat="close"] .slock__body { animation: slock-click 260ms 250ms cubic-bezier(0.3, 0.7, 0.3, 1.4); }
+.slock[data-beat="close"] .slock__key { animation: slock-turn 200ms 330ms cubic-bezier(0.4, 0, 0.2, 1) reverse both; }
+.slock[data-beat="close"] .slock__ring { animation: slock-ring 460ms 260ms ease-out; }
+@keyframes slock-close {
+  0% { transform: translateY(-3px) rotate(-30deg); }
+  55% { transform: translateY(-3px) rotate(0deg); }
+  80% { transform: translateY(0.8px) rotate(0deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+@keyframes slock-click { 30% { transform: scaleY(0.9) scaleX(1.04); } 100% { transform: none; } }
+@keyframes slock-ring { 0% { opacity: 0.8; transform: scale(0.7); } 100% { opacity: 0; transform: scale(1.7); } }
+@media (prefers-reduced-motion: reduce) {
+  .slock, .slock__roll, .slock__shackle, .slock__body { transition: none; }
+  .slock[data-beat] .slock__shackle, .slock[data-beat] .slock__body, .slock[data-beat] .slock__key, .slock[data-beat] .slock__ring { animation: none; }
+}

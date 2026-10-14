@@ -24,7 +24,6 @@ Behaviour: hover lifts the face a little further from its shadow (1.25× and 1.2
   a11y: "A native toggle button with aria-pressed; only the current label is exposed (the other is aria-hidden). A polite status line announces the change after a real toggle. Black on off-white is above 15:1. Visible focus outline. Reduced motion removes the roll and the ring.",
   responsive: "Sized in em from one font-size; at 20px it is about 320px wide. Pass a smaller size for compact layouts.",
   touchFallback: "No hover on touch; the press still sinks the face into its shadow and the toggle works the same.",
-  isNew: true,
   variants: [
     { id: "peach", label: "Peach", prompt: "Disc #f4c1a8 on a periwinkle #7b6ff0 page." },
     { id: "mint", label: "Mint", prompt: "Disc #bfe9cf on a deep teal #2f6b5e page." },

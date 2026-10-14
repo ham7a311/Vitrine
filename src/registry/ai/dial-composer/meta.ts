@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "agent", "composer", "dial", "knob", "rotary", "model", "effort", "mode", "context"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["DialComposer.tsx", "dial-composer.css", "dial.ts", "brief.ts", "logos.tsx"],
   dependencies: [],
   prompt:

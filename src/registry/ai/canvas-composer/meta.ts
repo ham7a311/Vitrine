@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "agent", "composer", "drag and drop", "canvas", "spatial", "model", "mode", "effort", "files"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["CanvasComposer.tsx", "canvas-composer.css", "desk.ts", "brief.ts", "logos.tsx"],
   dependencies: [],
   prompt:

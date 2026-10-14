@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "thinking", "loading", "typing indicator", "dots", "status", "assistant", "chat", "spinner", "indicator"],
   traits: ["ambient"],
   source: "original",
-  isNew: true,
   files: ["ThoughtDots.tsx", "thought-dots.css"],
   dependencies: [],
   prompt:

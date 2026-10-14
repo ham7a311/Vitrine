@@ -1,0 +1,44 @@
+.sslap { position: relative; display: inline-grid; isolation: isolate; font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; }
+.sslap__wall { position: absolute; inset: calc(var(--ss-pad) * -1); z-index: 1; pointer-events: none; }
+.sslap__btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 216px; height: 56px; padding: 0 32px;
+  border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--ss-face); color: var(--ss-label);
+  font: inherit; font-size: 1.02rem; font-weight: 700; letter-spacing: 0.005em;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), inset 0 -2px 0 rgb(0 0 0 / 0.25), 0 12px 24px -14px rgb(0 0 0 / 0.6);
+  transition: transform 220ms cubic-bezier(0.3, 0.7, 0.3, 1.5);
+}
+.sslap__label { position: relative; z-index: 1; text-shadow: 0 1px 2px rgb(0 0 0 / 0.4); }
+.sslap__btn:hover { transform: rotate(-1.2deg); }
+.sslap__btn:active { transform: rotate(-1.2deg) translateY(1px) scale(0.98); }
+.sslap__btn:focus-visible { outline: 2px solid var(--ss-face); outline-offset: 5px; }
+.sslap__sticker { position: absolute; display: block; pointer-events: none; transform: translate(-50%, -50%); filter: drop-shadow(0 1.5px 1.5px rgb(0 0 0 / 0.28)); }
+.sslap__sticker--face { z-index: 0; opacity: 0.95; }
+.sslap__sticker svg { display: block; overflow: visible; }
+
+/* artwork: die-cut border, fills, ink */
+.sslap .k-die { fill: var(--k-die); stroke: var(--k-die); stroke-width: 5.5; stroke-linejoin: round; }
+.sslap .k-a { fill: var(--k-a); } .sslap .k-b { fill: var(--k-b); } .sslap .k-c { fill: var(--k-c); } .sslap .k-d { fill: var(--k-d); } .sslap .k-e { fill: var(--k-e); }
+.sslap .k-ink { fill: var(--k-ink); }
+.sslap .k-line { fill: none; stroke: var(--k-ink); stroke-width: 1.8; stroke-linecap: round; } .sslap .k-thick { stroke-width: 2.4; }
+.sslap .k-hi { fill: none; stroke: rgb(255 255 255 / 0.7); stroke-width: 2; stroke-linecap: round; }
+.sslap .k-tick { fill: none; stroke: var(--k-die); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.sslap .k-cloud { fill: var(--k-die); stroke: var(--k-ink); stroke-width: 0.8; stroke-opacity: 0.25; }
+.sslap .k-txt { fill: var(--k-die); font: 800 10.5px/1 "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.04em; }
+.sslap .k-gloss { fill: rgb(255 255 255 / 0.38); }
+
+.sslap--glossy { --k-die: #fff; --k-a: #ffd23a; --k-b: #ff5b33; --k-c: #ff4d8d; --k-d: #3a6dff; --k-e: #19b874; --k-ink: #2a1d0b; }
+.sslap--glossy .k-gloss { animation: sslap-gloss 2.6s ease-in-out infinite; }
+.sslap--holo { --k-die: #eef1f6; --k-a: #b9f3ff; --k-b: #d8c2ff; --k-c: #ffc6e8; --k-d: #a9c9ff; --k-e: #b8ffd8; --k-ink: #3a3f5c; }
+.sslap--holo .sslap__sticker svg { animation: sslap-holo 3.2s linear infinite; }
+.sslap--holo .k-gloss { fill: rgb(255 255 255 / 0.6); animation: sslap-gloss 1.8s ease-in-out infinite; }
+.sslap--holo .k-die { stroke: #d7dce6; }
+.sslap--kraft { --k-die: #d4b48a; --k-a: #e9a23b; --k-b: #c8492b; --k-c: #b8434f; --k-d: #3f5d7a; --k-e: #4f7a4a; --k-ink: #2b1d10; }
+.sslap--kraft .k-gloss { display: none; }
+.sslap--kraft .sslap__sticker svg { filter: saturate(0.85) contrast(0.95); }
+.sslap--kraft .k-txt, .sslap--kraft .k-tick { fill: #f6ead4; stroke: #f6ead4; } .sslap--kraft .k-txt { stroke: none; }
+
+@keyframes sslap-gloss { 0%, 30% { transform: translateX(0) rotate(24deg); } 70%, 100% { transform: translateX(70px) rotate(24deg); } }
+@keyframes sslap-holo { from { filter: hue-rotate(0deg) saturate(1.3); } to { filter: hue-rotate(360deg) saturate(1.3); } }
+@media (prefers-reduced-motion: reduce) { .sslap__btn { transition: none; } .sslap__btn:hover { transform: none; } .sslap .k-gloss, .sslap--holo .sslap__sticker svg { animation: none; } }

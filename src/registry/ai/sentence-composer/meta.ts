@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "agent", "composer", "sentence", "natural language", "inline controls", "model", "mode", "effort"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["SentenceComposer.tsx", "sentence-composer.css", "brief.ts", "logos.tsx"],
   dependencies: [],
   prompt:

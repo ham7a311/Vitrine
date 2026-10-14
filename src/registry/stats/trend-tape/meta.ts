@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["stats", "live", "gauge", "trend", "rate", "forecast", "limit", "threshold", "instrument", "monitoring"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["TrendTape.tsx", "trend-tape.css", "tape.ts"],
   dependencies: [],
   prompt:

@@ -1,0 +1,29 @@
+.koip {
+  position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 232px; height: 64px; padding: 0 34px; overflow: hidden;
+  border: 0; border-radius: 999px; cursor: pointer;
+  background:
+    radial-gradient(120% 140% at 50% 120%, var(--kp-deep) 30%, transparent 70%),
+    radial-gradient(90% 120% at 30% 0%, color-mix(in srgb, var(--kp-mid) 80%, var(--kp-glint)), var(--kp-mid) 55%, var(--kp-deep));
+  color: var(--kp-label);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; font-size: 1.02rem; font-weight: 650; letter-spacing: 0.005em;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--kp-glint) 30%, transparent), inset 0 6px 14px -6px rgb(0 0 0 / 0.55), inset 0 -2px 0 rgb(255 255 255 / 0.06), 0 16px 30px -18px var(--kp-deep);
+  transition: transform 220ms cubic-bezier(0.3, 0.7, 0.3, 1.4), box-shadow 320ms;
+}
+.koip__water { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; display: block; }
+/* light playing on the surface, plus a soft bed under the words */
+.koip__surface {
+  position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background:
+    radial-gradient(50% 70% at 50% 50%, color-mix(in srgb, var(--kp-deep) 55%, transparent), transparent 75%),
+    repeating-radial-gradient(circle at 30% -40%, transparent 0 9px, color-mix(in srgb, var(--kp-glint) 9%, transparent) 10px 11px, transparent 12px 22px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.16), transparent 40%);
+  background-size: 100% 100%, 180% 180%, 100% 100%;
+  animation: koip-caustic 9s linear infinite;
+}
+@keyframes koip-caustic { to { background-position: 0 0, 60% 30%, 0 0; } }
+.koip__label { text-shadow: 0 1px 2px rgb(0 0 0 / 0.55), 0 0 12px color-mix(in srgb, var(--kp-deep) 70%, transparent); }
+.koip:hover, .koip:focus-visible { transform: translateY(-1px); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--kp-glint) 48%, transparent), inset 0 6px 14px -6px rgb(0 0 0 / 0.55), 0 0 30px -10px var(--kp-glint), 0 18px 32px -18px var(--kp-deep); }
+.koip:active { transform: translateY(1px) scale(0.985); }
+.koip:focus-visible { outline: 2px solid var(--kp-glint); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .koip { transition: none; } .koip__surface { animation: none; } .koip:hover { transform: none; } }

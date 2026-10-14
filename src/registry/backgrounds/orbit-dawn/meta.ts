@@ -28,7 +28,6 @@ Motion: about 30fps, paused offscreen and in hidden tabs; reduced motion draws o
   a11y: "Decorative and aria-hidden. Reduced motion renders one still frame. Text placed over the upper half sits on near-black; keep it off the white band.",
   responsive: "Fills its container. Sizes follow min(height, 0.75 × width), so on phones the arch narrows to stay inside the frame; DPR capped at 2.",
   touchFallback: "No pointer lean on touch; the light keeps breathing and the stars keep twinkling.",
-  isNew: true,
   variants: [
     { id: "violet", label: "Violet", prompt: "Palette [#05031a night, #7239ea glow, #ee9cf6 fringe, #fbf6ff core]: a violet dawn with pink striations on indigo-black." },
     { id: "cyan", label: "Cyan", prompt: "Palette [#020a16 night, #1677e8 glow, #7fe3f5 fringe, #f3fdff core]: a cold blue dawn with ice-cyan striations." },

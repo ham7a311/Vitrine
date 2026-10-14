@@ -1,0 +1,3 @@
+.cnfc { position: relative; }
+.cnfc__layer { position: absolute; left: 0; top: 0; z-index: 50; pointer-events: none; }
+.cnfc__layer--global { position: fixed; z-index: 2147483000; }

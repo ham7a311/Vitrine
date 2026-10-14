@@ -22,7 +22,6 @@ Content at the top (padding 0.95em 1em): a 1.75em icon tile (white 6% fill, hair
   a11y: "An article with a real heading, paragraph and link; bloom and halo are aria-hidden. The copy sits in the dark top half, above 7:1. Visible focus ring on the link. Reduced motion stops the churn.",
   responsive: "Fixed 15em width that shrinks to the container; it is meant to sit in a grid of two to four.",
   touchFallback: "No hover on touch; the bloom keeps churning slowly.",
-  isNew: true,
   variants: [
     { id: "magenta", label: "Magenta", prompt: "Glow #c42bd8 over a #14163a tint: electric blue #3826ff and violet #7a2bff on the left, hot pink #ff1aa8 and #ff2a55 on the right, a muted rose high in the right corner, an ice-blue #bfe6ff spot and a white band along the bottom. Lock icon, 'Always guarded'." },
     { id: "lime", label: "Lime", prompt: "Glow #1ed84f over a #0c1a12 tint: green #11c94a, lime #8cff2a and acid yellow #f2ff4d through the middle, aqua #2fe0b4 on the right, pale mint and a white band at the bottom. Link icon, 'Pay by link'." },

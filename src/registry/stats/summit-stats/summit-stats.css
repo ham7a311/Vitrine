@@ -1,0 +1,42 @@
+.summit {
+  --sm-bg: #f6efe4; --sm-ink: #23211d; --sm-muted: #615b51; --sm-far: #d9cbb4; --sm-rock-top: #8a7a66; --sm-rock-foot: #c2b29a; --sm-snow: #fbf8f2; --sm-trail: rgba(35, 33, 29, 0.35); --sm-accent: #d4572a; --sm-flag: #23211d; --sm-tip: #23211d; --sm-tip-ink: #f6efe4; --sm-line: rgba(35, 33, 29, 0.12);
+  width: 100%; max-width: 860px; padding: 24px 24px 8px; border-radius: 22px; background: linear-gradient(to bottom, color-mix(in srgb, var(--sm-bg) 70%, #fff), var(--sm-bg)); color: var(--sm-ink);
+  box-shadow: inset 0 0 0 1px var(--sm-line); font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; overflow: hidden;
+}
+.summit--night {
+  --sm-bg: #10141f; --sm-ink: #eef1f8; --sm-muted: #a4abbd; --sm-far: #1f2740; --sm-rock-top: #3a4566; --sm-rock-foot: #1b2236; --sm-snow: #dfe7f7; --sm-trail: rgba(238, 241, 248, 0.3); --sm-accent: #ffb454; --sm-flag: #eef1f8; --sm-tip: #eef1f8; --sm-tip-ink: #10141f; --sm-line: rgba(238, 241, 248, 0.1);
+}
+.summit__title { margin: 0; font-size: 13px; font-weight: 650; color: var(--sm-muted); letter-spacing: 0.01em; }
+.summit__figure { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 6px 0 0; }
+.summit__value { font-size: clamp(30px, 5vw, 42px); font-weight: 750; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.summit__goal { font-size: 15px; color: var(--sm-muted); font-variant-numeric: tabular-nums; }
+.summit__pct { padding: 3px 9px; border-radius: 999px; background: color-mix(in srgb, var(--sm-accent) 16%, transparent); color: color-mix(in srgb, var(--sm-accent) 70%, var(--sm-ink)); font-size: 13px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.summit__note { margin: 4px 0 0; font-size: 13px; color: var(--sm-muted); }
+.summit__scene { position: relative; width: 100%; contain: inline-size; margin-top: 4px; }
+.summit__scene svg { display: block; overflow: visible; }
+.summit__far { fill: var(--sm-far); opacity: 0.7; }
+.summit__rock-top { stop-color: var(--sm-rock-top); } .summit__rock-foot { stop-color: var(--sm-rock-foot); }
+.summit__snow { fill: var(--sm-snow); }
+.summit__trail { fill: none; stroke: var(--sm-trail); stroke-width: 1.6; stroke-dasharray: 3 4; transform: translateY(-3px); }
+.summit__walked { fill: none; stroke: var(--sm-accent); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; transform: translateY(-3px); stroke-dasharray: 1; stroke-dashoffset: 0; }
+.summit__flag line { stroke: var(--sm-flag); stroke-width: 1.4; }
+.summit__flag path { fill: var(--sm-bg); stroke: var(--sm-flag); stroke-width: 1.2; stroke-linejoin: round; }
+.summit__flag.is-passed path { fill: var(--sm-accent); stroke: var(--sm-accent); }
+.summit__flag--goal path { fill: var(--sm-flag); }
+.summit__flag--goal text { fill: var(--sm-ink); font-size: 11px; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; }
+.summit__climber { offset-distance: 100%; offset-rotate: 0deg; transform: translateY(-3px); }
+.summit__halo { fill: color-mix(in srgb, var(--sm-accent) 28%, transparent); }
+.summit__dot { fill: var(--sm-accent); stroke: var(--sm-bg); stroke-width: 2; }
+.summit__still { display: none; fill: var(--sm-accent); stroke: var(--sm-bg); stroke-width: 2; }
+@supports not (offset-path: path("M0 0")) { .summit__climber { display: none; } .summit__still { display: block; } }
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .summit__walked { stroke-dashoffset: 1; }
+  .summit__climber { offset-distance: 0%; }
+  .summit[data-shown] .summit__walked { stroke-dashoffset: 0; transition: stroke-dashoffset 1700ms cubic-bezier(0.45, 0.05, 0.25, 1) 200ms; }
+  .summit[data-shown] .summit__climber { offset-distance: 100%; transition: offset-distance 1700ms cubic-bezier(0.45, 0.05, 0.25, 1) 200ms; }
+}
+.summit__hit { position: absolute; width: 30px; height: 34px; margin-left: -8px; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; transform: translateY(-50%); }
+.summit__hit:focus-visible { outline: 2px solid var(--sm-accent); outline-offset: 0; }
+.summit__tip { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 7px 11px; border-radius: 10px; background: var(--sm-tip); color: var(--sm-tip-ink); transform: translate(-50%, -100%); white-space: nowrap; pointer-events: none; box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.5); font-size: 12px; }
+.summit__tip b { font-size: 14px; font-variant-numeric: tabular-nums; }
+.summit__tip small { opacity: 0.75; }

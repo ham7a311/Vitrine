@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["data", "bulk edit", "multi-select", "inspector", "mixed values", "selection", "labels", "staged changes", "partial failure", "issues"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["MixedInspector.tsx", "mixed-inspector.css", "mix.ts"],
   dependencies: [],
   prompt:

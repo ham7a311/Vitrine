@@ -24,7 +24,6 @@ Motion: the dome breathes ±2% in height (sin of 0.35 × time), the noise drifts
   a11y: "Decorative and aria-hidden. Reduced motion renders one still frame. Check the contrast of any text you place over the dense middle.",
   responsive: "Fills its container; the dot grid stays 3 CSS px at any width and the dome keeps its shape on narrow screens by never getting narrower than the height.",
   touchFallback: "No pointer glow on touch; the print keeps drifting on its own.",
-  isNew: true,
   variants: [
     { id: "copper", label: "Copper", prompt: "Palette [#0a0a0b ground, #8a4420 rim, #e8894c core]: copper dots on black, like a warm analytics hero." },
     { id: "cobalt", label: "Cobalt", prompt: "Palette [#06080d ground, #1d3a8a rim, #6f9bff core]: cool blue dots on blue-black." },

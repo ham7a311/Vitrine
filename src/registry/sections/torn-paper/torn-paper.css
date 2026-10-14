@@ -1,0 +1,46 @@
+.tpaper { position: relative; isolation: isolate; overflow: hidden; container-type: inline-size; background: var(--tp-paper); color: var(--tp-ink); font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; }
+/* faint paper grain */
+.tpaper::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5; background: radial-gradient(rgb(0 0 0 / 0.05) 0.6px, transparent 0.9px) 0 0 / 4px 4px, radial-gradient(rgb(255 255 255 / 0.1) 0.6px, transparent 0.9px) 2px 1px / 6px 6px; }
+.tpaper__band { position: relative; height: 64px; background: var(--tp-above); }
+.tpaper__band svg { display: block; overflow: visible; }
+.tpaper__core { fill: var(--tp-core); }
+.tpaper__foot { height: 64px; background: var(--tp-above); }
+.tpaper__foot svg { display: block; overflow: visible; }
+.tpaper__foot .tpaper__body { filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.18)); }
+.tpaper__fibre { stroke: var(--tp-core); stroke-width: 0.7; stroke-linecap: round; }
+.tpaper__body { fill: var(--tp-paper); filter: drop-shadow(0 -2px 2px rgb(0 0 0 / 0.12)); }
+.tpaper__strip { fill: var(--tp-paper); clip-path: inset(0 0 0 100%); }
+.tpaper__curl { display: none; }
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .tpaper__strip { clip-path: inset(0); }
+  .tpaper[data-shown] .tpaper__strip { clip-path: inset(0 0 0 100%); transition: clip-path 1500ms cubic-bezier(0.55, 0.05, 0.3, 1) 150ms; }
+  /* the strip curling up off the tear point */
+  .tpaper__curl {
+    display: block; position: absolute; top: -6px; left: 0; width: 30px; height: 46px; border-radius: 3px 14px 14px 3px; opacity: 0;
+    background: linear-gradient(100deg, var(--tp-core), var(--tp-paper) 45%, color-mix(in srgb, var(--tp-paper) 70%, #000));
+    box-shadow: -3px 3px 6px rgb(0 0 0 / 0.25); transform: rotate(-18deg) skewY(-8deg); transform-origin: 0 100%;
+  }
+  .tpaper[data-shown] .tpaper__curl { animation: tpaper-curl 1500ms cubic-bezier(0.55, 0.05, 0.3, 1) 150ms both; }
+}
+@keyframes tpaper-curl { 0% { left: 0; opacity: 1; } 92% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+
+.tpaper__body-copy { display: flex; flex-direction: column; align-items: center; max-width: 56rem; margin: 0 auto; padding: clamp(2rem, 5cqi, 4rem) clamp(1rem, 5cqi, 3rem) clamp(2rem, 4cqi, 3rem); text-align: center; }
+.tpaper__eyebrow { margin: 0; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tp-muted); }
+.tpaper__headline { position: relative; margin-top: 1rem; }
+.tpaper__title { margin: 0; font-family: "Instrument Serif", Newsreader, Georgia, serif; font-size: clamp(2.4rem, 6cqi, 4.8rem); font-weight: 400; line-height: 1; letter-spacing: -0.015em; text-wrap: balance; }
+.tpaper__note {
+  position: absolute; right: -11rem; top: -0.5rem; width: 10rem; margin: 0; padding: 0.9rem 0.8rem 0.8rem; text-align: left;
+  background: var(--tp-note); color: var(--tp-note-ink); transform: rotate(4deg); box-shadow: 0 8px 14px -8px rgb(0 0 0 / 0.45);
+  font-family: "Caveat", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive; font-size: 1.05rem; line-height: 1.25;
+}
+.tpaper__note i { position: absolute; top: -9px; left: 50%; width: 44px; height: 16px; margin-left: -22px; background: rgb(255 255 255 / 0.5); box-shadow: 0 1px 1px rgb(0 0 0 / 0.1); transform: rotate(-6deg); }
+@container (max-width: 1100px) { .tpaper__note { position: relative; right: auto; top: auto; width: auto; max-width: 16rem; margin: 1.5rem auto 0; transform: rotate(-2deg); } }
+.tpaper__lead { max-width: 36rem; margin: 1.25rem 0 0; font-size: clamp(1rem, 1.4cqi, 1.125rem); line-height: 1.6; color: var(--tp-muted); }
+.tpaper__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 2rem; }
+.tpaper__btn { display: inline-flex; align-items: center; min-height: 3rem; padding: 0 1.5rem; border-radius: 999px; font-weight: 650; text-decoration: none; transition: transform 180ms cubic-bezier(0.3, 0.7, 0.3, 1.4), background-color 180ms; }
+.tpaper__btn--primary { background: var(--tp-accent); color: var(--tp-on-accent); }
+.tpaper__btn--primary:hover { transform: translateY(-1px) rotate(-1deg); }
+.tpaper__btn--ghost { color: var(--tp-ink); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--tp-ink) 30%, transparent); }
+.tpaper__btn--ghost:hover { background: color-mix(in srgb, var(--tp-ink) 7%, transparent); }
+.tpaper__btn:focus-visible { outline: 2px solid var(--tp-ink); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .tpaper__btn { transition: none; } .tpaper__btn--primary:hover { transform: none; } }

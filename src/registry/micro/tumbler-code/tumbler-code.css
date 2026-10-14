@@ -1,0 +1,87 @@
+.tumb {
+  --tumb-slot: 52px;
+  --tumb-gap: 10px;
+  --tumb-face: #161618;
+  --tumb-edge: rgba(255, 255, 255, 0.1);
+  --tumb-ink: #f4f4f1;
+  --tumb-muted: #a2a29d;
+  --tumb-accent: #8fb3ff;
+  --tumb-good: #4fd18b;
+  --tumb-bad: #ff7b6b;
+  display: inline-grid;
+  gap: 12px;
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  color: var(--tumb-ink);
+}
+.tumb--paper {
+  --tumb-face: #ffffff;
+  --tumb-edge: rgba(20, 20, 18, 0.14);
+  --tumb-ink: #151513;
+  --tumb-muted: #5c5a54;
+  --tumb-accent: #2f5fd6;
+  --tumb-good: #13844b;
+  --tumb-bad: #c2382a;
+}
+.tumb * { box-sizing: border-box; }
+.tumb__label { font-size: 0.9rem; font-weight: 600; color: var(--tumb-muted); }
+.tumb__row { position: relative; display: flex; gap: var(--tumb-gap); cursor: text; }
+.tumb__input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; border: 0; font-size: 16px; caret-color: transparent; cursor: text; z-index: 2; }
+
+.tumb__slot {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--tumb-slot);
+  height: 64px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--tumb-face);
+  box-shadow: inset 0 0 0 1px var(--tumb-edge), inset 0 -3px 0 rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s ease, background-color 0.3s ease, translate 0.3s ease;
+}
+.tumb__slot--active { box-shadow: inset 0 0 0 1.5px var(--tumb-accent), 0 0 0 4px color-mix(in srgb, var(--tumb-accent) 18%, transparent); }
+.tumb__digit { font-size: 1.7rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; }
+.tumb__digit--in { animation: tumb-drop 0.42s cubic-bezier(0.3, 1.5, 0.6, 1) both; }
+@keyframes tumb-drop { 0% { translate: 0 -110%; opacity: 0; } 60% { opacity: 1; } 100% { translate: 0 0; } }
+/* the pin under each digit: a short bar that clicks up when a digit sets */
+.tumb__pin { position: absolute; left: 50%; bottom: 7px; width: 14px; height: 3px; margin-left: -7px; border-radius: 2px; background: var(--tumb-edge); transition: background-color 0.2s, translate 0.2s; }
+.tumb__slot--set .tumb__pin { background: var(--tumb-accent); translate: 0 -2px; }
+
+.tumb__caret {
+  position: absolute;
+  left: calc(var(--tumb-at) * (var(--tumb-slot) + var(--tumb-gap)) + var(--tumb-slot) / 2 - 1px);
+  top: 18px;
+  width: 2px;
+  height: 28px;
+  border-radius: 1px;
+  background: var(--tumb-accent);
+  pointer-events: none;
+  transition: left 0.22s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s;
+  animation: tumb-blink 1.1s steps(2, jump-none) infinite;
+}
+@keyframes tumb-blink { 50% { visibility: hidden; } }
+
+.tumb__lock { position: absolute; right: -36px; top: 50%; translate: 0 -50%; color: var(--tumb-good); opacity: 0; scale: 0.6; transition: opacity 0.3s ease 0.25s, scale 0.4s cubic-bezier(0.34, 1.6, 0.64, 1) 0.25s; }
+.tumb__shackle { transition: translate 0.3s ease 0.5s; translate: 0 -3px; }
+
+/* checking: the row breathes; locked: slots tint and the shackle drops */
+.tumb[data-state="checking"] .tumb__slot { animation: tumb-wait 1s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 80ms); }
+@keyframes tumb-wait { 50% { box-shadow: inset 0 0 0 1px var(--tumb-accent); } }
+.tumb[data-state="ok"] .tumb__slot { box-shadow: inset 0 0 0 1.5px var(--tumb-good); background: color-mix(in srgb, var(--tumb-good) 10%, var(--tumb-face)); }
+.tumb[data-state="ok"] .tumb__pin { background: var(--tumb-good); translate: 0 0; }
+.tumb[data-state="ok"] .tumb__lock { opacity: 1; scale: 1; }
+.tumb[data-state="ok"] .tumb__shackle { translate: 0 0; }
+.tumb__slot--wrong { box-shadow: inset 0 0 0 1.5px var(--tumb-bad); animation: tumb-shake 0.42s ease; }
+.tumb__slot--wrong .tumb__pin { background: var(--tumb-bad); }
+@keyframes tumb-shake { 20% { translate: -5px 0; } 40% { translate: 4px 0; } 60% { translate: -3px 0; } 80% { translate: 2px 0; } }
+
+.tumb__msg { min-height: 1.3em; margin: 0; font-size: 0.88rem; color: var(--tumb-muted); }
+.tumb[data-state="error"] .tumb__msg { color: var(--tumb-bad); }
+.tumb[data-state="ok"] .tumb__msg { color: var(--tumb-good); }
+
+@media (max-width: 420px) { .tumb { --tumb-slot: 44px; --tumb-gap: 7px; } .tumb__slot { height: 56px; } .tumb__caret { top: 14px; } }
+@media (prefers-reduced-motion: reduce) {
+  .tumb__digit--in, .tumb__slot--wrong, .tumb[data-state="checking"] .tumb__slot { animation: none; }
+  .tumb__caret { animation: none; transition: opacity 0.2s; }
+}

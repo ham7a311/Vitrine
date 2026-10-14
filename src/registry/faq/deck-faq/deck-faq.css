@@ -1,0 +1,62 @@
+.dfaq {
+  --df-bg: #f4f1ea; --df-card: #fffdf8; --df-back: #1f2a44; --df-back-ink: #f3f5fb; --df-ink: #1d1b17; --df-muted: #625d54; --df-line: rgba(29, 27, 23, 0.12); --df-yes: #1a7a4c; --df-no: #b5452a; --df-accent: #1f2a44;
+  width: 100%; max-width: 520px; padding: 22px 22px 16px; border-radius: 24px; background: var(--df-bg); color: var(--df-ink);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; box-shadow: inset 0 0 0 1px var(--df-line);
+}
+.dfaq--night {
+  --df-bg: #121318; --df-card: #1d1f27; --df-back: #e9ecf5; --df-back-ink: #121318; --df-ink: #eceef4; --df-muted: #a5a8b6; --df-line: rgba(236, 238, 244, 0.1); --df-yes: #5fd39a; --df-no: #ff9a83; --df-accent: #e9ecf5;
+}
+.dfaq__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px; }
+.dfaq__title { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.dfaq__progress { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 12.5px; color: var(--df-muted); font-variant-numeric: tabular-nums; }
+.dfaq__progress i { display: block; width: 90px; height: 5px; border-radius: 999px; background: var(--df-line); overflow: hidden; }
+.dfaq__progress b { display: block; height: 100%; border-radius: inherit; background: var(--df-yes); transition: width 300ms ease; }
+
+.dfaq__table { position: relative; height: 290px; margin: 18px 0 14px; perspective: 1200px; }
+.dfaq__card {
+  --depth: 0;
+  position: absolute; inset: 0 10px; border-radius: 20px; outline: none; touch-action: none; user-select: none;
+  transform: translateY(calc(var(--depth) * 15px)) scale(calc(1 - var(--depth) * 0.05));
+  transition: transform 340ms cubic-bezier(0.3, 0.7, 0.3, 1.15), opacity 300ms;
+  cursor: grab;
+}
+.dfaq__card[data-depth="2"] { opacity: 0.6; }
+.dfaq__card[data-depth="0"]:active { cursor: grabbing; }
+.dfaq__card:focus-visible .dfaq__inner { box-shadow: 0 0 0 3px var(--df-accent), 0 18px 34px -20px rgb(0 0 0 / 0.5); }
+.dfaq__inner { position: relative; height: 100%; border-radius: inherit; transform-style: preserve-3d; transition: transform 520ms cubic-bezier(0.3, 0.7, 0.2, 1); box-shadow: 0 18px 34px -20px rgb(0 0 0 / 0.5); }
+.dfaq__card[data-flipped] .dfaq__inner { transform: rotateY(180deg); }
+.dfaq__side { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 22px 24px; border-radius: inherit; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.dfaq__side--q { background: var(--df-card); box-shadow: inset 0 0 0 1px var(--df-line); }
+.dfaq__side--a { background: var(--df-back); color: var(--df-back-ink); transform: rotateY(180deg); }
+.dfaq__topic { align-self: flex-start; padding: 3px 9px; border-radius: 999px; background: color-mix(in srgb, currentColor 9%, transparent); font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em; }
+.dfaq__q { margin: auto 0; font-family: "Instrument Serif", Newsreader, Georgia, serif; font-size: clamp(1.5rem, 4.6vw, 2rem); line-height: 1.12; text-wrap: balance; }
+.dfaq__a { margin: auto 0; font-size: 15.5px; line-height: 1.6; }
+.dfaq__turn { font-size: 12px; color: var(--df-muted); }
+.dfaq__stamp { position: absolute; top: 20px; padding: 4px 10px; border: 2.5px solid currentColor; border-radius: 8px; font-size: 14px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; pointer-events: none; }
+.dfaq__stamp--yes { right: 20px; color: var(--df-yes); transform: rotate(8deg); }
+.dfaq__stamp--no { left: 20px; color: var(--df-no); transform: rotate(-8deg); }
+.dfaq__card[data-out="helpful"] { transform: translate(140%, -30px) rotate(18deg); opacity: 0; transition: transform 360ms cubic-bezier(0.4, 0, 0.8, 0.6), opacity 300ms 60ms; }
+.dfaq__card[data-out="unclear"] { transform: translate(-140%, -30px) rotate(-18deg); opacity: 0; transition: transform 360ms cubic-bezier(0.4, 0, 0.8, 0.6), opacity 300ms 60ms; }
+.dfaq__card[data-out="skip"] { transform: translateY(40px) scale(0.85); opacity: 0; transition: transform 340ms ease-in, opacity 300ms; }
+
+.dfaq__end { position: absolute; inset: 0 10px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; padding: 24px; border-radius: 20px; background: var(--df-card); box-shadow: inset 0 0 0 1px var(--df-line); overflow-y: auto; }
+.dfaq__end-title { margin: 0; font-family: "Instrument Serif", Newsreader, Georgia, serif; font-size: 1.8rem; }
+.dfaq__end-text { margin: 0; font-size: 14px; color: var(--df-muted); }
+.dfaq__end ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.5; }
+.dfaq__support { display: inline-flex; align-items: center; min-height: 40px; margin-top: 6px; padding: 0 16px; border-radius: 999px; background: var(--df-back); color: var(--df-back-ink); font-weight: 700; font-size: 14px; text-decoration: none; }
+.dfaq__again { margin-top: 4px; padding: 0; border: 0; background: none; color: var(--df-ink); font: inherit; font-size: 13.5px; font-weight: 650; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+.dfaq__controls { display: grid; grid-template-columns: 1fr auto auto 1fr; gap: 8px; }
+.dfaq__btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 42px; padding: 0 14px; border: 0; border-radius: 12px; background: color-mix(in srgb, var(--df-ink) 7%, transparent); color: var(--df-ink); font-family: inherit; font-size: 14px; font-weight: 650; cursor: pointer; transition: background-color 160ms, transform 160ms; }
+.dfaq__btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.dfaq__btn:hover:not(:disabled) { background: color-mix(in srgb, var(--df-ink) 12%, transparent); }
+.dfaq__btn:active { transform: scale(0.97); }
+.dfaq__btn:disabled { opacity: 0.4; cursor: default; }
+.dfaq__btn--yes { color: var(--df-yes); }
+.dfaq__btn--no { color: var(--df-no); }
+.dfaq__btn[aria-pressed="true"], .dfaq__btn[aria-pressed="true"]:hover:not(:disabled) { background: var(--df-back); color: var(--df-back-ink); }
+.dfaq button:focus-visible, .dfaq a:focus-visible { outline: 2px solid var(--df-accent); outline-offset: 2px; }
+.dfaq__hint { margin: 10px 0 0; text-align: center; font-size: 11.5px; color: var(--df-muted); }
+.dfaq__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 460px) { .dfaq__controls { grid-template-columns: 1fr 1fr; } .dfaq__table { height: 320px; } }
+@media (prefers-reduced-motion: reduce) { .dfaq__card, .dfaq__inner, .dfaq__progress b, .dfaq__btn { transition: none; } }

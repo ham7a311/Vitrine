@@ -1,0 +1,58 @@
+.mdraw {
+  --md-bg: #fbf9f4; --md-card: #ffffff; --md-ink: #1d1a16; --md-muted: #625b51; --md-line: rgba(29, 26, 22, 0.1); --md-accent: #b8572f; --md-accent-ink: #ffffff; --md-fresh: #2f7a5a; --md-danger: #b3321f; --md-toast: #1d1a16; --md-toast-ink: #fbf9f4; --md-toast-link: #f3b591;
+  position: relative; width: 100%; max-width: 440px; padding: 20px 18px 18px; border-radius: 22px;
+  background: var(--md-bg); color: var(--md-ink); box-shadow: inset 0 0 0 1px var(--md-line), 0 24px 50px -30px rgb(0 0 0 / 0.4);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; overflow: hidden;
+}
+.mdraw--night {
+  --md-bg: #17161b; --md-card: #201f25; --md-ink: #efebe4; --md-muted: #a8a2ad; --md-line: rgba(239, 235, 228, 0.1); --md-accent: #f0a37c; --md-accent-ink: #1d130d; --md-fresh: #7fd6ac; --md-danger: #ff8f7d; --md-toast: #efebe4; --md-toast-ink: #17161b; --md-toast-link: #a8411a;
+}
+.mdraw__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.mdraw__title { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.mdraw__sub { margin: 3px 0 0; font-size: 13px; color: var(--md-muted); }
+.mdraw__switch { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 10px 0 4px; border: 0; border-radius: 999px; background: color-mix(in srgb, var(--md-ink) 7%, transparent); color: var(--md-ink); font-family: inherit; font-size: 12.5px; font-weight: 650; cursor: pointer; }
+.mdraw__knob { position: relative; width: 34px; height: 22px; border-radius: 999px; background: var(--md-accent); transition: background-color 200ms; }
+.mdraw__knob::after { content: ""; position: absolute; top: 3px; left: 15px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / 0.3); transition: left 220ms cubic-bezier(0.3, 0.7, 0.3, 1.3); }
+.mdraw__switch[aria-checked="false"] .mdraw__knob { background: color-mix(in srgb, var(--md-ink) 28%, transparent); }
+.mdraw__switch[aria-checked="false"] .mdraw__knob::after { left: 3px; }
+.mdraw__switch:focus-visible, .mdraw button:focus-visible { outline: 2px solid var(--md-accent); outline-offset: 2px; }
+.mdraw__banner { margin: 14px 0 0; padding: 9px 12px; border-radius: 10px; background: color-mix(in srgb, var(--md-ink) 6%, transparent); font-size: 12.5px; color: var(--md-muted); }
+.mdraw__topics { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 12px; }
+.mdraw__topics button { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border: 1px solid var(--md-line); border-radius: 999px; background: transparent; color: var(--md-muted); font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.mdraw__topics button span { font-size: 11px; opacity: 0.8; font-variant-numeric: tabular-nums; }
+.mdraw__topics button[aria-checked="true"] { background: var(--md-ink); border-color: transparent; color: var(--md-bg); }
+.mdraw__list { display: grid; gap: 8px; max-height: 360px; margin: 0; padding: 2px; overflow-y: auto; list-style: none; }
+.mdraw__card { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 6px; padding: 12px 10px 11px 14px; border-radius: 14px; background: var(--md-card); box-shadow: inset 0 0 0 1px var(--md-line); transition: opacity 240ms, filter 240ms; }
+.mdraw__card.is-pinned { box-shadow: inset 0 0 0 1px var(--md-line), inset 3px 0 0 var(--md-accent); }
+.mdraw[data-paused] .mdraw__card { opacity: 0.55; filter: grayscale(1); }
+.mdraw__face { min-width: 0; }
+.mdraw__text { margin: 0; font-size: 14px; line-height: 1.45; }
+.mdraw__source { margin: 5px 0 0; font-size: 11.5px; color: var(--md-muted); }
+.mdraw__edit { width: 100%; padding: 6px 8px; border: 1.5px solid var(--md-accent); border-radius: 8px; background: var(--md-bg); color: var(--md-ink); font: inherit; font-size: 14px; line-height: 1.4; resize: vertical; outline: none; }
+.mdraw__fresh { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 6px; padding: 2px 8px 2px 6px; border-radius: 999px; background: color-mix(in srgb, var(--md-fresh) 14%, transparent); color: var(--md-fresh); font-size: 11px; font-weight: 700; }
+.mdraw__fresh i { width: 6px; height: 6px; border-radius: 50%; background: var(--md-fresh); box-shadow: 0 0 0 0 var(--md-fresh); animation: mdraw-glow 1.8s ease-out infinite; }
+@keyframes mdraw-glow { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--md-fresh) 60%, transparent); } 100% { box-shadow: 0 0 0 7px transparent; } }
+.mdraw__tools { display: flex; align-items: flex-start; gap: 2px; opacity: 0.55; transition: opacity 160ms; }
+.mdraw__card:hover .mdraw__tools, .mdraw__card:focus-within .mdraw__tools { opacity: 1; }
+.mdraw__icon { display: grid; place-items: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--md-muted); cursor: pointer; }
+.mdraw__icon svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.mdraw__icon:hover:not(:disabled) { background: color-mix(in srgb, var(--md-ink) 7%, transparent); color: var(--md-ink); }
+.mdraw__icon[aria-pressed="true"], .mdraw__icon[aria-pressed="true"]:hover:not(:disabled) { color: var(--md-accent); }
+.mdraw__icon[aria-pressed="true"] svg path:first-child { fill: currentColor; }
+.mdraw__icon--danger:hover { color: var(--md-danger) !important; }
+.mdraw__icon:disabled { opacity: 0.4; cursor: default; }
+.mdraw__tool { height: 28px; padding: 0 10px; border: 1px solid var(--md-line); border-radius: 8px; background: transparent; color: var(--md-ink); font-family: inherit; font-size: 12px; font-weight: 650; cursor: pointer; }
+.mdraw__tool--save { background: var(--md-accent); border-color: transparent; color: var(--md-accent-ink); }
+.mdraw__empty { padding: 18px; text-align: center; font-size: 13px; color: var(--md-muted); }
+
+/* forgetting: the card goes through a shredder */
+.mdraw__card.is-shredding { background: transparent; box-shadow: none; }
+.mdraw__card.is-shredding > .mdraw__face, .mdraw__card.is-shredding > .mdraw__tools { visibility: hidden; }
+.mdraw__strips { position: absolute; inset: 0; pointer-events: none; }
+.mdraw__strip { position: absolute; inset: 0; padding: 12px 10px 11px 14px; border-radius: 14px; background: var(--md-card); box-shadow: inset 0 0 0 1px var(--md-line); animation: mdraw-shred 620ms cubic-bezier(0.5, 0, 0.75, 0) calc(var(--i) * 18ms) both; }
+@keyframes mdraw-shred { 0% { transform: none; opacity: 1; } 25% { transform: translateY(4px); } 100% { transform: translateY(70px) rotate(var(--r)); opacity: 0; } }
+
+.mdraw__toast { position: absolute; left: 50%; bottom: 16px; display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 14px; border-radius: 12px; background: var(--md-toast); color: var(--md-toast-ink); font-size: 13px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; transition: transform 240ms cubic-bezier(0.3, 0.7, 0.3, 1.3), opacity 200ms; box-shadow: 0 14px 30px -14px rgb(0 0 0 / 0.5); }
+.mdraw__toast[data-open] { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+.mdraw__toast button { height: 28px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; color: var(--md-toast-link); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .mdraw__fresh i, .mdraw__strip { animation: none; } .mdraw__toast, .mdraw__knob::after, .mdraw__card { transition: none; } }

@@ -20,7 +20,6 @@ Content: an auto-growing textarea (two to seven lines, 1.2em, line-height 1.28, 
   a11y: "Labelled textarea and link field; Prompts exposes aria-haspopup and aria-expanded and opens a role menu with roving focus; Mic is a role switch with aria-checked; send is disabled until there is text; invalid links are marked aria-invalid. The bloom is aria-hidden. Reduced motion stops all loops.",
   responsive: "min(100%, 29em) wide; under 420px the type steps down and the Mic capsule keeps only its icon and switch. The prompt menu caps at 80vw.",
   touchFallback: "All controls are tap targets; the menu closes on a tap outside and the rim keeps its slow sway.",
-  isNew: true,
   variants: [
     { id: "dusk", label: "Dusk", prompt: "Cool #7a66ff (violet) and warm #f6a33f (amber), on a deep violet-black page." },
     { id: "lagoon", label: "Lagoon", prompt: "Cool #2fb8ff (sky blue) and warm #3fe0a8 (sea green), on a deep blue-black page." },

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["ai", "agent", "composer", "prompt", "context", "model", "mode", "effort", "files", "coding"],
   traits: ["click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["AgentComposer.tsx", "agent-composer.css", "scope.ts", "logos.tsx"],
   dependencies: [],
   prompt:

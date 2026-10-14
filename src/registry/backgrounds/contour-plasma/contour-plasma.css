@@ -1,0 +1,5 @@
+.cplas { position: relative; isolation: isolate; width: 100%; height: 100%; min-height: 20rem; overflow: hidden; background: var(--cplas-a); }
+.cplas__canvas { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; }
+.cplas[data-fallback] { background: radial-gradient(60% 60% at 30% 40%, var(--cplas-d) 0 12%, var(--cplas-c) 12% 26%, var(--cplas-b) 26% 46%, var(--cplas-a) 46%); }
+.cplas[data-fallback] .cplas__canvas { display: none; }
+.cplas__content { position: relative; height: 100%; }
