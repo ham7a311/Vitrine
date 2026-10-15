@@ -144,7 +144,7 @@ There is no package, no CLI and no registry install. You copy the files into you
 3. **Copy it**: copy every listed file into one folder in your project, including `usage.tsx`. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file. You own and maintain the copied code.
 
-The code tab reads the real files at build time, follows local imports and rewrites them into one portable folder. The exported `usage.tsx` keeps demonstration links inside the example; the reusable components still accept real URLs. The release check compiles all 458 exported examples in isolation.
+The code tab shows the real files, follows local imports and rewrites them into one portable folder. The folder is highlighted at build time (`npm run build:source`, run before every build and by `npm run dev` on each registry change) and written to `public/source` as content-hashed JSON. A component page carries only the file names; the Code tab fetches its source the first time it opens, so pages stay small. The exported `usage.tsx` keeps demonstration links inside the example; the reusable components still accept real URLs. The release check compiles all 458 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source; add those families to your project. In the gallery, demo fonts load through `src/site/ComponentFonts.tsx` and the site's own fonts are self-hosted through Fontsource packages.
 
@@ -164,13 +164,14 @@ Requirements: **Node 22.6+** (24 recommended) and **Python 3** (used by the regi
 git clone https://github.com/ham7a311/vitrine.git
 cd vitrine
 npm install
-npm run dev          # http://localhost:3000
+npm run dev          # http://localhost:3000, and keeps each Code tab in step with your edits
 ```
 
 Other scripts:
 
 ```bash
 npm run build        # production build of every page
+npm run build:source # write each component's highlighted source to public/source (runs before every build)
 npm run typecheck    # tsc --noEmit
 npm run registry     # regenerate the registry index + run the prompt guard
 ```
@@ -212,7 +213,7 @@ A **prompt guard** (`scripts/check-prompts.mts`) enforces that variant prompts d
 src/
   app/            Next.js App Router: home, /components, /components/[slug], /categories, /about, /workshop
   site/           the gallery shell (navbar, search palette, preview stage, code viewer), not meant to be copied
-  lib/            search scorer, build-time source loader (shiki)
+  lib/            search scorer, portable source bundler, build-time highlighting (shiki)
   workshop/       recipes, skills (SKILL.md) and live recipe previews
   registry/
     <category>/<slug>/

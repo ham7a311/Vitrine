@@ -32,8 +32,10 @@ export function GalleryCard({ item, size = "default" }: { item: ComponentSummary
             </div>
           )}
         </LazyMount>
+        {/* No prefetch: a grid of cards would otherwise fetch every component page as it scrolls into view. */}
         <Link
           href={href}
+          prefetch={false}
           aria-label={`Open ${item.name}`}
           tabIndex={-1}
           className="absolute right-3 top-3 z-10 grid size-8 place-items-center rounded-md border border-white/10 bg-black/40 text-white/80 opacity-0 backdrop-blur-md transition-opacity duration-300 hover:text-white group-hover/card:opacity-100 max-md:opacity-100"
@@ -46,7 +48,7 @@ export function GalleryCard({ item, size = "default" }: { item: ComponentSummary
         <span className="pt-[0.3rem] font-mono text-[0.6875rem] tabular-nums text-ink-3">No.{String(item.index).padStart(2, "0")}</span>
         <div className="min-w-0 flex-1">
           <h3 className="flex items-center gap-2 font-display text-[1.375rem] leading-tight tracking-[-0.01em] text-cream">
-            <Link href={href} className="rounded-sm transition-colors hover:text-frost focus-visible:outline-offset-4">
+            <Link href={href} prefetch={false} className="rounded-sm transition-colors hover:text-frost focus-visible:outline-offset-4">
               {item.name}
             </Link>
             {item.isNew && (

@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node --experimental-strip-types --no-warnings scripts/dev.mts",
+    "build:source": "node --experimental-strip-types --no-warnings scripts/build-source.mts",
     "build": "next build",
     "start": "next start",
     "typecheck": "next typegen && tsc --noEmit",
@@ -14,7 +15,7 @@
     "check:exports": "node --experimental-strip-types --no-warnings scripts/check-exports.mts",
     "test": "node --experimental-strip-types --no-warnings scripts/check-interactions.mts",
     "check": "npm run check:prompts && npm run check:themes && npm run check:registry && npm run check:workshop && npm run check:exports && npm test",
-    "prebuild": "npm run check:prompts && npm run check:registry && npm run check:workshop",
+    "prebuild": "npm run check:prompts && npm run check:registry && npm run check:workshop && npm run build:source",
     "test:browser": "node --experimental-strip-types --no-warnings scripts/check-browser.mts",
     "test:routes": "node --experimental-strip-types --no-warnings scripts/check-routes.mts",
     "release:check": "npm run check && npm run build",

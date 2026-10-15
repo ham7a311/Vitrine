@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { issueUrl } from "@/lib/feedback";
 import { componentFonts, exampleUsesTailwind } from "@/lib/component-fonts";
-import { loadSource } from "@/lib/source";
+import { sourceUrl } from "@/lib/source";
+import { sourceBundle } from "@/lib/source-bundle";
 import { getComponent, registry } from "@/registry";
 import { CATEGORIES, TRAIT_LABEL } from "@/registry/types";
 import { ArrowLeft, ArrowRight } from "@/site/icons";
@@ -30,7 +31,9 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   const meta = getComponent(slug);
   if (!meta) notFound();
 
-  const files = await loadSource(meta);
+  // Read at prerender for the fonts, styling note and file list; the code itself loads with the Code tab.
+  const files = await sourceBundle(meta);
+  const source = { url: sourceUrl(meta.slug), files: files.map(({ name, role }) => ({ name, role })) };
   const fonts = componentFonts(files);
   const tailwindExample = exampleUsesTailwind(files);
   const category = CATEGORIES.find((c) => c.id === meta.category)!;
@@ -112,7 +115,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       </header>
 
       <div className="rise-in mt-10" style={{ animationDelay: "120ms" }}>
-        <PreviewStage slug={meta.slug} bg={meta.preview.bg} mode={meta.preview.mode} height={meta.preview.height} variants={meta.variants} files={files} />
+        <PreviewStage slug={meta.slug} bg={meta.preview.bg} mode={meta.preview.mode} height={meta.preview.height} variants={meta.variants} source={source} />
       </div>
 
       <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
