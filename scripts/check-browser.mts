@@ -53,8 +53,22 @@ try {
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${route} overflows at ${width}`);
     }
   }
+  // Component lists must not prefetch component pages as they scroll into view (production builds only).
+  // Previous/Next on a component page still prefetch, which shows the check can see a prefetch at all.
+  const prefetchedFrom = async (route: string) => {
+    const prefetched = new Set<string>();
+    const track = (r: import("playwright").Request) => { const u = new URL(r.url()); if (/^\/components\/[^/]+$/.test(u.pathname) && r.headers()["rsc"]) prefetched.add(u.pathname); };
+    page.on("request", track);
+    await page.goto(base + route);
+    for (let i = 0; i < 40; i++) { await page.mouse.wheel(0, 900); await page.waitForTimeout(50); }
+    await page.waitForTimeout(1500);
+    page.off("request", track);
+    return [...prefetched];
+  };
+  for (const route of ["/", "/components", "/categories"]) assert.deepEqual(await prefetchedFrom(route), [], `${route} prefetched component pages`);
+  assert((await prefetchedFrom("/components/glass-card")).length > 0, "Previous/Next should still prefetch");
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const slug of ["glassbreak-button", "silk-field", "passkey-sign-in"]) await page.goto(`${base}/preview/${slug}`);
   assert.deepEqual(errors, []);
-  console.log(`browser: ${states} preview states, copy/prompt selection, keyboard, navigation, and responsive smoke checks passed`);
+  console.log(`browser: ${states} preview states, copy/prompt selection, keyboard, navigation, no-prefetch, and responsive smoke checks passed`);
 } finally { await browser.close(); }

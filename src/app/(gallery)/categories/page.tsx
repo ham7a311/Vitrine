@@ -36,7 +36,8 @@ export default function CategoriesPage() {
               <ul className="grid gap-x-8 sm:grid-cols-2">
                 {list.map((r) => (
                   <li key={r.slug} className="border-b border-line last:border-0 sm:[&:nth-last-child(2):nth-child(odd)]:border-0">
-                    <Link href={`/components/${r.slug}`} className="group flex items-baseline justify-between gap-4 py-3.5">
+                    {/* No prefetch: this page lists every component. */}
+                    <Link href={`/components/${r.slug}`} prefetch={false} className="group flex items-baseline justify-between gap-4 py-3.5">
                       <span className="text-[0.9375rem] text-cream transition-colors group-hover:text-frost">
                         {r.name}
                         {r.isNew && <span className="ml-2 font-mono text-[0.5625rem] uppercase tracking-[0.14em] text-lilac">New</span>}
