@@ -66,9 +66,12 @@
 
 @keyframes tide-roll { to { transform: translateX(-50%); } }
 
-/* Touch: no hover, so the liquid rests half-full and rises fully on press. */
+/* Touch: no hover, so a low tide rests along the bottom edge and floods on press. It rests on the
+   rim, below the label: the ink copy is clipped flat at the body's top, so a crest reaching the
+   letters would cover them with no ink to show through. A shallower wave keeps it there. */
 @media (hover: none) {
-  .tide { --td-rest: calc(var(--td-h) * 0.72); }
+  .tide { --td-rest: calc(var(--td-h) * 0.83); }
+  .tide__wave { top: -0.45rem; height: 0.55rem; }
   .tide:active .tide__liquid, .tide:active .tide__ink, .tide:active .tide__label--ink { transform: translateY(0); }
 }
 
