@@ -92,10 +92,10 @@ const { rovingFocus } = load("src/site/rovingFocus.ts", "*");
 const icons = Object.fromEntries(["DesktopIcon", "PhoneIcon", "ReplayIcon", "TabletIcon", "CloseIcon", "GitHubIcon", "MenuIcon", "StarIcon"].map(key => [key, () => null]));
 const Preview = load("src/site/PreviewStage.tsx", "PreviewStage", {
   "./rovingFocus": { rovingFocus }, "@/registry/types": types,
-  "./CodeViewer": { CodeViewer: () => createElement("p", {}, "Source view") },
+  "./SourceViewer": { SourceViewer: () => createElement("p", {}, "Source view") },
   "./VariantState": { useVariantState: () => null }, "./icons": icons,
 });
-await mount(Preview, { slug: "example", bg: "#000", mode: "fill", variants: meta.variants, files: [{ name: "example.tsx", code: "test", html: "test", role: "component" }] });
+await mount(Preview, { slug: "example", bg: "#000", mode: "fill", variants: meta.variants, source: { url: "/source/example.json", files: [{ name: "example.tsx", role: "component" }] } });
 const key = async (selector: string, value: string) => { const el = document.querySelector<HTMLElement>(selector)!; assert(el, selector); await act(async () => { el.focus(); el.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: value, bubbles: true, cancelable: true })); }); };
 await key('[role="radio"][aria-checked="true"]', "ArrowRight");
 assert.match(document.querySelector("iframe")!.src, /variant=paper/);

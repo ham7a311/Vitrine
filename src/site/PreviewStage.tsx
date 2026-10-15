@@ -3,9 +3,9 @@
 import { rovingFocus } from "./rovingFocus";
 
 import { useId, useState } from "react";
-import type { SourceFile } from "@/lib/source";
+import type { SourceFileName } from "@/lib/source";
 import { isThemeOnly, type PreviewMode, type Variant } from "@/registry/types";
-import { CodeViewer } from "./CodeViewer";
+import { SourceViewer } from "./SourceViewer";
 import { useVariantState } from "./VariantState";
 import { DesktopIcon, PhoneIcon, ReplayIcon, TabletIcon } from "./icons";
 
@@ -21,7 +21,7 @@ export function PreviewStage({
   mode,
   height,
   variants,
-  files,
+  source,
   src,
   title,
 }: {
@@ -30,7 +30,8 @@ export function PreviewStage({
   mode: PreviewMode;
   height?: number;
   variants?: Variant[];
-  files?: SourceFile[];
+  /** The Code tab: file names now, the code from url when the tab first opens. */
+  source?: { url: string; files: SourceFileName[] };
   /** Frame this page instead of /preview/<slug> (recipes). */
   src?: string;
   title?: string;
@@ -52,7 +53,7 @@ export function PreviewStage({
     <section aria-label="Component preview">
       <div className="mb-3 flex flex-wrap items-center gap-3">
         <div role="tablist" onKeyDown={rovingFocus} aria-label="View" className="flex rounded-lg border border-line p-0.5">
-          {(files ? (["preview", "code"] as const) : (["preview"] as const)).map((t) => (
+          {(source ? (["preview", "code"] as const) : (["preview"] as const)).map((t) => (
             <button
               key={t}
               role="tab"
@@ -159,14 +160,14 @@ export function PreviewStage({
           </div>
         </div>
       ) : (
-        files && (
+        source && (
           <>
             {variants && variants.length > 1 && !isThemeOnly(variants) && selected && (
               <p className="mb-3 text-[0.8125rem] text-ink-3">
                 The source implements every variant through props; the demo file shows how each one is set. The prompt below describes <span className="text-ink-2">{selected.label}</span>.
               </p>
             )}
-            <CodeViewer files={files} />
+            <SourceViewer url={source.url} files={source.files} />
           </>
         )
       )}

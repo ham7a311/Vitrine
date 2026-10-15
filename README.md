@@ -164,13 +164,14 @@ Requirements: **Node 22.6+** (24 recommended) and **Python 3** (used by the regi
 git clone https://github.com/ham7a311/vitrine.git
 cd vitrine
 npm install
-npm run dev          # http://localhost:3000
+npm run dev          # http://localhost:3000, and keeps each Code tab in step with your edits
 ```
 
 Other scripts:
 
 ```bash
 npm run build        # production build of every page
+npm run build:source # write each component's highlighted source to public/source (runs before every build)
 npm run typecheck    # tsc --noEmit
 npm run registry     # regenerate the registry index + run the prompt guard
 ```
@@ -212,7 +213,7 @@ A **prompt guard** (`scripts/check-prompts.mts`) enforces that variant prompts d
 src/
   app/            Next.js App Router: home, /components, /components/[slug], /categories, /about, /workshop
   site/           the gallery shell (navbar, search palette, preview stage, code viewer), not meant to be copied
-  lib/            search scorer, build-time source loader (shiki)
+  lib/            search scorer, portable source bundler, build-time highlighting (shiki)
   workshop/       recipes, skills (SKILL.md) and live recipe previews
   registry/
     <category>/<slug>/

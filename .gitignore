@@ -4,6 +4,10 @@ node_modules
 .next-dev
 out
 next-env.d.ts
+
+# Component source for the Code tab, generated before every build and dev server
+/public/source
+/source-manifest.json
 *.tsbuildinfo
 .DS_Store
 __pycache__

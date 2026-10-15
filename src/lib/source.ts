@@ -1,49 +1,30 @@
 import "server-only";
-import { sourceBundle } from "./source-bundle";
-import { createHighlighter, type ThemeRegistrationRaw } from "shiki";
-import type { ComponentMeta } from "@/registry/types";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 
-const vitrineTheme: ThemeRegistrationRaw = {
-  name: "vitrine",
-  type: "dark",
-  settings: [
-    { settings: { foreground: "#d9d2c6", background: "#100b12" } },
-    { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: "#6f6875", fontStyle: "italic" } },
-    { scope: ["keyword", "storage", "storage.type", "keyword.control", "keyword.operator.new"], settings: { foreground: "#c8b9ea" } },
-    { scope: ["string", "string.template", "punctuation.definition.string"], settings: { foreground: "#e8d5b5" } },
-    { scope: ["constant.numeric", "constant.language", "support.constant"], settings: { foreground: "#f0b98a" } },
-    { scope: ["entity.name.function", "support.function", "meta.function-call"], settings: { foreground: "#b9cce4" } },
-    { scope: ["entity.name.type", "support.type", "entity.name.class", "entity.other.inherited-class"], settings: { foreground: "#9fd4c8" } },
-    { scope: ["entity.name.tag", "support.class.component"], settings: { foreground: "#b9cce4" } },
-    { scope: ["entity.other.attribute-name"], settings: { foreground: "#a7a1ab", fontStyle: "italic" } },
-    { scope: ["variable", "variable.other.readwrite", "meta.object-literal.key"], settings: { foreground: "#e6dfd3" } },
-    { scope: ["variable.parameter"], settings: { foreground: "#f1e3cf" } },
-    { scope: ["punctuation", "meta.brace", "keyword.operator"], settings: { foreground: "#8d8692" } },
-    { scope: ["support.type.property-name.css", "support.type.property-name"], settings: { foreground: "#b9cce4" } },
-    { scope: ["support.type.vendored.property-name.css"], settings: { foreground: "#9fb3cc" } },
-    { scope: ["entity.other.attribute-name.class.css", "entity.other.attribute-name.pseudo-class.css"], settings: { foreground: "#c8b9ea", fontStyle: "" } },
-    { scope: ["keyword.other.unit", "constant.other.color"], settings: { foreground: "#f0b98a" } },
-    { scope: ["source.glsl", "string.template.glsl"], settings: { foreground: "#e8d5b5" } },
-  ],
-};
-
-let highlighter: ReturnType<typeof createHighlighter> | null = null;
-function getHighlighter() {
-  highlighter ??= createHighlighter({ themes: [vitrineTheme], langs: ["tsx", "ts", "css"] });
-  return highlighter;
-}
-
-const langOf = (file: string) => (file.endsWith(".css") ? "css" : file.endsWith(".ts") ? "ts" : "tsx");
-
-export interface SourceFile {
+/** What a component page knows about each file before the Code tab opens. */
+export interface SourceFileName {
   name: string;
-  code: string;
-  html: string;
   role: "component" | "style" | "usage";
 }
 
-export async function loadSource(meta: ComponentMeta): Promise<SourceFile[]> {
-  const hl = await getHighlighter();
-  const files = await sourceBundle(meta);
-  return files.map((file) => ({ ...file, html: hl.codeToHtml(file.code, { lang: langOf(file.name), theme: "vitrine" }) }));
+/** A file as /source/<slug>.<hash>.json carries it: portable code and its build-time highlighting. */
+export interface SourceFile extends SourceFileName {
+  code: string;
+  html: string;
+}
+
+let manifest: Record<string, string> | undefined;
+
+/** The content-hashed URL of a component's source, written by scripts/build-source.mts before the build. */
+export function sourceUrl(slug: string) {
+  try {
+    // Built pages read it once; the dev server reads it per request, since scripts/dev.mts rewrites it on every edit.
+    if (!manifest || process.env.NODE_ENV !== "production") manifest = JSON.parse(readFileSync(path.join(process.cwd(), "source-manifest.json"), "utf8")) as Record<string, string>;
+  } catch (e) {
+    throw new Error("source-manifest.json is missing: run npm run build:source", { cause: e });
+  }
+  const url = manifest[slug];
+  if (!url) throw new Error(`No built source for ${slug}: run npm run build:source`);
+  return url;
 }
