@@ -144,7 +144,7 @@ There is no package, no CLI and no registry install. You copy the files into you
 3. **Copy it**: copy every listed file into one folder in your project, including `usage.tsx`. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file. You own and maintain the copied code.
 
-The code tab reads the real files at build time, follows local imports and rewrites them into one portable folder. The exported `usage.tsx` keeps demonstration links inside the example; the reusable components still accept real URLs. The release check compiles all 458 exported examples in isolation.
+The code tab shows the real files, follows local imports and rewrites them into one portable folder. The folder is highlighted at build time (`npm run build:source`, run before every build and by `npm run dev` on each registry change) and written to `public/source` as content-hashed JSON. A component page carries only the file names; the Code tab fetches its source the first time it opens, so pages stay small. The exported `usage.tsx` keeps demonstration links inside the example; the reusable components still accept real URLs. The release check compiles all 458 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source; add those families to your project. In the gallery, demo fonts load through `src/site/ComponentFonts.tsx` and the site's own fonts are self-hosted through Fontsource packages.
 
