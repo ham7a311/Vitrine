@@ -8,7 +8,7 @@ A curated collection of React components with memorable interactions.
 Read the source, read the prompt behind it, and copy what you need.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-458-c8b9ea)
+![Components](https://img.shields.io/badge/components-545-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -76,21 +76,21 @@ There is no package, no CLI and no registry install. You copy the files into you
 
 ## What's inside
 
-**458 components in 32 categories.** The 50 newest carry a New label (`python3 scripts/limit-new.py` keeps it that way).
+**545 components in 32 categories.** Recently added components carry a New label; the registry check keeps it to at most 100.
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
-| Buttons | 64 | Backgrounds | 45 | Cards | 39 |
-| AI & Chat | 36 | Controls | 23 | Feedback | 22 |
-| Stats | 18 | Analytics | 17 | Forms | 16 |
-| Authentication | 15 | Data | 15 | Text Animations | 15 |
-| Cursors | 14 | CTAs | 11 | Navigation | 10 |
-| Type & Names | 10 | FAQ | 9 | Pricing | 9 |
-| Sections | 9 | Heroes | 8 | Media | 8 |
-| Micro-animations | 8 | Time | 7 | Overlays | 6 |
-| Developer | 4 | Footers | 4 | Commerce | 3 |
-| Decisions | 3 | Maps & Globes | 3 | Navbars | 3 |
-| Reading | 2 | Sidebars | 2 | | |
+| Buttons | 82 | Backgrounds | 60 | Cards | 51 |
+| AI & Chat | 38 | Controls | 23 | Authentication | 22 |
+| Feedback | 22 | Stats | 20 | Analytics | 20 |
+| Sections | 20 | Cursors | 18 | Forms | 16 |
+| Text Animations | 15 | Data | 15 | Micro-animations | 13 |
+| CTAs | 12 | Navigation | 11 | Pricing | 10 |
+| FAQ | 10 | Type & Names | 10 | Media | 9 |
+| Heroes | 8 | Time | 7 | Overlays | 6 |
+| Navbars | 4 | Developer | 4 | Footers | 4 |
+| Maps & Globes | 4 | Sidebars | 3 | Decisions | 3 |
+| Commerce | 3 | Reading | 2 | | |
 
 <details>
 <summary><b>A longer tour</b></summary>
@@ -144,7 +144,7 @@ There is no package, no CLI and no registry install. You copy the files into you
 3. **Copy it**: copy every listed file into one folder in your project, including `usage.tsx`. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file. You own and maintain the copied code.
 
-The code tab shows the real files, follows local imports and rewrites them into one portable folder. The folder is highlighted at build time (`npm run build:source`, run before every build and by `npm run dev` on each registry change) and written to `public/source` as content-hashed JSON. A component page carries only the file names; the Code tab fetches its source the first time it opens, so pages stay small. The exported `usage.tsx` keeps demonstration links inside the example; the reusable components still accept real URLs. The release check compiles all 458 exported examples in isolation.
+The code tab shows the real files, follows local imports and rewrites them into one portable folder. The folder is highlighted at build time (`npm run build:source`, run before every build and by `npm run dev` on each registry change) and written to `public/source` as content-hashed JSON. A component page carries only the file names; the Code tab fetches its source the first time it opens, so pages stay small. The exported `usage.tsx` keeps demonstration links inside the example; the reusable components still accept real URLs. The release check compiles all 545 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source; add those families to your project. In the gallery, demo fonts load through `src/site/ComponentFonts.tsx` and the site's own fonts are self-hosted through Fontsource packages.
 
