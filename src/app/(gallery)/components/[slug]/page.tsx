@@ -105,7 +105,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
             <li key={t}>
               <Link
                 href={`/components?q=${encodeURIComponent(t)}`}
-                className="inline-block rounded-full border border-line px-2.5 py-1 font-mono text-[0.6875rem] text-ink-3 transition-colors hover:border-line-strong hover:text-cream"
+                className="vitrine-cp-tag"
               >
                 {t}
               </Link>
@@ -120,7 +120,8 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
       <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
         <div className="min-w-0 space-y-14">
-          <PromptPanel meta={meta} />
+          {/* Only the fields the brief is written from cross into the client component. */}
+          <PromptPanel meta={{ prompt: meta.prompt, variants: meta.variants, interaction: meta.interaction, animation: meta.animation, a11y: meta.a11y, responsive: meta.responsive, touchFallback: meta.touchFallback }} />
 
           <section aria-labelledby="notes-h">
             <h2 id="notes-h" className="font-display text-[1.75rem] tracking-[-0.015em] text-cream">
@@ -128,9 +129,9 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
             </h2>
             <dl className="mt-6 divide-y divide-line border-y border-line">
               {details.map((d) => (
-                <div key={d.label} className="grid gap-2 py-5 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                <div key={d.label} className="vitrine-cp-note">
                   <dt className="eyebrow pt-0.5">{d.label}</dt>
-                  <dd className="text-[0.9375rem] leading-relaxed text-ink-2">{d.body}</dd>
+                  <dd className="vitrine-cp-note-text">{d.body}</dd>
                 </div>
               ))}
             </dl>
@@ -160,7 +161,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                   <ul className="space-y-1 text-[0.875rem]">
                     {usedIn.map((r) => (
                       <li key={r.slug}>
-                        <Link href={`/workshop/recipes/${r.slug}`} className="text-frost underline decoration-frost/30 underline-offset-4 hover:decoration-frost">
+                        <Link href={`/workshop/recipes/${r.slug}`} className="vitrine-cp-link">
                           {r.name}
                         </Link>
                       </li>
@@ -185,7 +186,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
               <dt className="eyebrow">Responds to</dt>
               <dd className="mt-2 flex flex-wrap gap-1.5">
                 {meta.traits.map((t) => (
-                  <span key={t} className="rounded-md bg-plum-800 px-2 py-0.5 text-[0.75rem] text-ink-2">
+                  <span key={t} className="vitrine-cp-trait">
                     {TRAIT_LABEL[t]}
                   </span>
                 ))}
@@ -205,7 +206,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                   href={issueUrl({ title: `${meta.name}: `, body: `**Component:** ${abs(`/components/${meta.slug}`)}\n**Variant:** \n**Browser and device:** \n\n**What happened**\n\n**What I expected**\n` })}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-frost underline decoration-frost/30 underline-offset-4 hover:decoration-frost"
+                  className="vitrine-cp-link"
                 >
                   Report it on GitHub<span className="sr-only"> (opens in a new tab)</span>
                 </a>
@@ -228,14 +229,14 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
             <Link
               key={c.slug + i}
               href={`/components/${c.slug}`}
-              className={`group flex flex-col rounded-[14px] border border-line p-5 transition-colors hover:border-line-strong ${i === 1 ? "sm:items-end sm:text-right" : ""}`}
+              className={`group vitrine-cp-more ${i === 1 ? "sm:items-end sm:text-right" : ""}`}
             >
               <span className="eyebrow inline-flex items-center gap-1.5">
                 {i === 0 ? <ArrowLeft className="size-3" /> : null}
                 {i === 0 ? "Previous" : "Next"}
                 {i === 1 ? <ArrowRight className="size-3" /> : null}
               </span>
-              <span className="mt-2 font-display text-[1.375rem] text-cream transition-colors group-hover:text-frost">{c.name}</span>
+              <span className="vitrine-cp-more-name">{c.name}</span>
             </Link>
           ) : null,
         )}

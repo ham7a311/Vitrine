@@ -104,7 +104,10 @@ export const TRAIT_LABEL: Record<Trait, string> = {
 };
 
 /** A portable brief includes the behavior contract, even when the visual prompt omits it. */
-export function componentBrief(meta: ComponentMeta, id?: string) {
+/** The fields a component's brief is written from — all a prompt panel needs to receive. */
+export type BriefFields = Pick<ComponentMeta, "prompt" | "variants" | "interaction" | "animation" | "a11y" | "responsive" | "touchFallback">;
+
+export function componentBrief(meta: BriefFields, id?: string) {
   return [
     composePrompt(meta.prompt, meta.variants, id),
     "",

@@ -149,3 +149,43 @@
 @media (prefers-reduced-motion: reduce) {
   .search-dialog[open], .search-dialog[open]::backdrop { animation: none; }
 }
+
+/* The site wordmark (see Wordmark in src/site/Logo.tsx): the lettering and first tittle are a mask over the
+   current text colour, so it follows hover and theme colours like the inline SVG did; the second
+   tittle — the pane — is the frost square, a second mask from the same 5906 × 1621 viewBox. */
+.site-wordmark {
+  /* Held once in a property so the prefixed and unprefixed masks share one copy. */
+  --site-wordmark: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-20 -1561 5906 1621%22%3E%3Cpath d=%22M1005 -962 590 26H564L112 -953L-16 -991V-1024H461V-991L316 -955L667 -178H623L925 -961L782 -991V-1024H1124V-991Z M1496 -1055V-860V-57L1639 -27V0H1169V-27L1312 -57V-856Q1301 -863 1279.0 -877.0Q1257 -891 1228.5 -909.0Q1200 -927 1169 -946V-964L1492 -1055Z M2012 -262Q2012 -188 2058.5 -150.5Q2105 -113 2181 -113Q2225 -113 2273.0 -121.0Q2321 -129 2385 -148V-120Q2292 -65 2234.5 -34.5Q2177 -4 2136.0 8.5Q2095 21 2050 21Q1993 21 1942.5 -5.0Q1892 -31 1860.0 -88.0Q1828 -145 1828 -238V-896L1701 -974V-988Q1711 -995 1731.0 -1007.5Q1751 -1020 1778.5 -1038.0Q1806 -1056 1841.0 -1079.0Q1876 -1102 1917.0 -1128.5Q1958 -1155 2003 -1184H2012V-988ZM1950 -916V-1024H2357L2341 -916Z M3058 -1042Q3102 -1042 3128.0 -1017.0Q3154 -992 3154 -948Q3154 -895 3121.5 -862.5Q3089 -830 3039 -830Q3017 -830 2994.5 -835.5Q2972 -841 2947.0 -846.5Q2922 -852 2891 -852Q2862 -852 2836.0 -841.5Q2810 -831 2785.0 -813.0Q2760 -795 2733 -770V-814Q2808 -893 2859.5 -939.0Q2911 -985 2946.0 -1007.0Q2981 -1029 3007.0 -1035.5Q3033 -1042 3058 -1042ZM2745 -860V-57L2908 -27V0H2418V-27L2561 -57V-856Q2548 -864 2529.0 -876.0Q2510 -888 2482.5 -905.5Q2455 -923 2418 -946V-964L2741 -1055H2745Z M3535 -1055V-860V-57L3678 -27V0H3208V-27L3351 -57V-856Q3340 -863 3318.0 -877.0Q3296 -891 3267.5 -909.0Q3239 -927 3208 -946V-964L3531 -1055Z M4073 -860V-57L4216 -27V0H3746V-27L3889 -57V-856Q3873 -866 3843.5 -884.5Q3814 -903 3746 -946V-964L4069 -1055H4073ZM4393 -27 4537 -57V-700Q4537 -767 4513.5 -812.0Q4490 -857 4442.0 -879.5Q4394 -902 4318 -902Q4239 -902 4167.5 -880.5Q4096 -859 4049 -836L4036 -857Q4114 -915 4171.5 -952.0Q4229 -989 4274.0 -1009.0Q4319 -1029 4359.0 -1036.5Q4399 -1044 4444 -1044Q4591 -1044 4656.0 -965.5Q4721 -887 4721 -717V-57L4864 -27V0H4393Z M5434 -1044Q5539 -1044 5617.0 -1000.5Q5695 -957 5741.0 -872.5Q5787 -788 5796 -664H5134V-722H5686L5608 -682Q5598 -790 5572.5 -859.0Q5547 -928 5505.5 -961.5Q5464 -995 5404 -995Q5323 -995 5265.0 -948.0Q5207 -901 5176.0 -811.5Q5145 -722 5145 -595Q5145 -428 5188.5 -323.5Q5232 -219 5315.0 -171.0Q5398 -123 5517 -123Q5572 -123 5625.0 -138.0Q5678 -153 5724.5 -183.0Q5771 -213 5804 -258L5820 -247Q5758 -148 5695.5 -89.5Q5633 -31 5564.5 -5.5Q5496 20 5415 20Q5285 20 5180.5 -38.5Q5076 -97 5015.5 -211.5Q4955 -326 4955 -494Q4955 -643 5011.5 -768.0Q5068 -893 5175.5 -968.5Q5283 -1044 5434 -1044Z%22/%3E%3Crect x=%221308.5%22 y=%22-1381%22 width=%22176%22 height=%22176%22 rx=%2214%22/%3E%3C/svg%3E");
+  position: relative;
+  display: inline-block;
+  aspect-ratio: 5906 / 1621;
+}
+.site-wordmark__ink {
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  -webkit-mask: var(--site-wordmark) center / 100% 100% no-repeat;
+  mask: var(--site-wordmark) center / 100% 100% no-repeat;
+}
+.site-wordmark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #b9cce4;
+  /* Drawn as a mask from the same viewBox, so its edges are smoothed exactly as the lettering's are. */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-20 -1561 5906 1621%22%3E%3Crect x=%223347.5%22 y=%22-1501%22 width=%22176%22 height=%22176%22 rx=%2214%22/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-20 -1561 5906 1621%22%3E%3Crect x=%223347.5%22 y=%22-1501%22 width=%22176%22 height=%22176%22 rx=%2214%22/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+
+/* Component page (src/app/(gallery)/components/[slug]/page.tsx): class lists repeated on every
+   component page, named once here so each page carries a short name instead of the full list.
+   Each is exactly the utilities it replaces. */
+@layer components {
+  .vitrine-cp-tag { @apply inline-block rounded-full border border-line px-2.5 py-1 font-mono text-[0.6875rem] text-ink-3 transition-colors hover:border-line-strong hover:text-cream; }
+  .vitrine-cp-note { @apply grid gap-2 py-5 sm:grid-cols-[9rem_1fr] sm:gap-6; }
+  .vitrine-cp-note-text { @apply text-[0.9375rem] leading-relaxed text-ink-2; }
+  .vitrine-cp-trait { @apply rounded-md bg-plum-800 px-2 py-0.5 text-[0.75rem] text-ink-2; }
+  .vitrine-cp-link { @apply text-frost underline decoration-frost/30 underline-offset-4 hover:decoration-frost; }
+  .vitrine-cp-more { @apply flex flex-col rounded-[14px] border border-line p-5 transition-colors hover:border-line-strong; }
+  .vitrine-cp-more-name { @apply mt-2 font-display text-[1.375rem] text-cream transition-colors group-hover:text-frost; }
+}
