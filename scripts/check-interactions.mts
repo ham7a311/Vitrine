@@ -104,9 +104,12 @@ await key('[role="tab"][aria-selected="true"]', "ArrowRight");
 assert.match(document.querySelector('[role="tabpanel"]')!.textContent!, /Source view/);
 await clear();
 Object.assign(globalThis, { matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }) });
-const Navbar = load("src/site/Navbar.tsx", "Navbar", {
+const nextNav = {
   "next/link": { default: ({ children, onClick, ...props }: any) => createElement("a", { ...props, onClick: (e: any) => { e.preventDefault(); onClick?.(e); } }, children) },
-  "next/navigation": { usePathname: () => "/components" }, "@/site.config": { site: { github: "https://example.com" } },
+  "next/navigation": { usePathname: () => "/components" },
+};
+const Navbar = load("src/site/Navbar.tsx", "Navbar", {
+  ...nextNav, "./SiteLink": load("src/site/SiteLink.tsx", "*", nextNav), "@/site.config": { site: { github: "https://example.com" } },
   "./Logo": { LogoMark: () => null, Wordmark: () => null }, "./icons": icons,
   "./SearchPalette": { SearchTrigger: () => createElement("button", {}, "Search") },
 });

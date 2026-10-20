@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { site } from "@/site.config";
 import { issueUrl } from "@/lib/feedback";
 import { LogoMark, Wordmark } from "./Logo";
+import { SiteLink } from "./SiteLink";
 
 const COLUMNS = [
   {
@@ -35,10 +35,10 @@ export function Footer() {
     <footer className="mt-32 border-t border-line">
       <div className="shell-container grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="max-w-sm">
-          <Link href="/" className="inline-flex items-center gap-2 text-cream">
+          <SiteLink href="/" className="inline-flex items-center gap-2 text-cream">
             <LogoMark className="size-[22px]" />
             <Wordmark className="h-[19px] w-auto translate-y-[1px]" />
-          </Link>
+          </SiteLink>
           <p className="mt-4 text-[0.875rem] leading-relaxed text-ink-3">
             A curated collection of React components. Copy the source, keep the prompt, make it yours.
           </p>
@@ -54,9 +54,9 @@ export function Footer() {
                       {l.label}
                     </a>
                   ) : (
-                    <Link href={l.href} className="text-[0.875rem] text-ink-2 transition-colors hover:text-cream">
+                    <SiteLink href={l.href} className="text-[0.875rem] text-ink-2 transition-colors hover:text-cream">
                       {l.label}
-                    </Link>
+                    </SiteLink>
                   )}
                 </li>
               ))}
@@ -73,8 +73,8 @@ export function Footer() {
           made by ham7a311
         </a>
         <nav aria-label="Legal" className="flex gap-5 sm:justify-self-end">
-          <Link href="/terms" className="transition-colors hover:text-cream">Terms</Link>
-          <Link href="/privacy" className="transition-colors hover:text-cream">Privacy</Link>
+          <SiteLink href="/terms" className="transition-colors hover:text-cream">Terms</SiteLink>
+          <SiteLink href="/privacy" className="transition-colors hover:text-cream">Privacy</SiteLink>
         </nav>
       </div>
     </footer>

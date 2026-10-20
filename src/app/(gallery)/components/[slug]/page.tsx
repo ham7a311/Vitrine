@@ -75,16 +75,17 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           },
         ]}
       />
+      {/* No link on this page prefetches: Previous/Next alone fetched two more component pages per visit, and these load when clicked. */}
       <nav aria-label="Breadcrumb" className="rise-in">
         <ol className="flex items-center gap-2 text-[0.8125rem] text-ink-3">
           <li>
-            <Link href="/components" className="inline-flex items-center gap-1.5 transition-colors hover:text-cream">
+            <Link prefetch={false} href="/components" className="inline-flex items-center gap-1.5 transition-colors hover:text-cream">
               <ArrowLeft className="size-3.5" /> Components
             </Link>
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <Link href={`/components?category=${category.id}`} className="transition-colors hover:text-cream">
+            <Link prefetch={false} href={`/components?category=${category.id}`} className="transition-colors hover:text-cream">
               {category.label}
             </Link>
           </li>
@@ -104,6 +105,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           {meta.tags.map((t) => (
             <li key={t}>
               <Link
+                prefetch={false}
                 href={`/components?q=${encodeURIComponent(t)}`}
                 className="vitrine-cp-tag"
               >
@@ -161,7 +163,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                   <ul className="space-y-1 text-[0.875rem]">
                     {usedIn.map((r) => (
                       <li key={r.slug}>
-                        <Link href={`/workshop/recipes/${r.slug}`} className="vitrine-cp-link">
+                        <Link prefetch={false} href={`/workshop/recipes/${r.slug}`} className="vitrine-cp-link">
                           {r.name}
                         </Link>
                       </li>
@@ -227,6 +229,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         {[prev, next].map((c, i) =>
           c && c !== meta ? (
             <Link
+              prefetch={false}
               key={c.slug + i}
               href={`/components/${c.slug}`}
               className={`group vitrine-cp-more ${i === 1 ? "sm:items-end sm:text-right" : ""}`}
