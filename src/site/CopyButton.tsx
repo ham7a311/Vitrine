@@ -22,13 +22,24 @@ export function CopyButton({ text, label = "Copy", className = "" }: { text: str
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const id = useId();
   useEffect(() => () => clearTimeout(timer.current), []);
+  // However the fallback closes (Close, Escape, the backdrop), it lets go of the text again.
+  useEffect(() => {
+    const d = dialog.current;
+    const empty = () => { if (field.current) field.current.value = ""; };
+    d?.addEventListener("close", empty);
+    return () => d?.removeEventListener("close", empty);
+  }, []);
   const copy = async () => {
     let ok = false;
     try { await navigator.clipboard.writeText(text); ok = true; }
     catch { ok = legacyCopy(text); }
     clearTimeout(timer.current);
     if (ok) { setCopied(true); timer.current = setTimeout(() => setCopied(false), 1800); }
-    else { dialog.current?.showModal(); field.current?.focus(); field.current?.select(); }
+    else {
+      // The fallback only: fill the field first, then open, focus and select.
+      if (field.current) field.current.value = text;
+      dialog.current?.showModal(); field.current?.focus(); field.current?.select();
+    }
   };
   return <>
     <button type="button" onClick={copy} data-state={copied ? "copied" : "idle"} className={`copy-btn inline-flex h-8 items-center gap-2 rounded-md border border-line-strong px-2.5 text-xs font-medium text-ink-2 hover:text-cream ${className}`}>
@@ -36,10 +47,11 @@ export function CopyButton({ text, label = "Copy", className = "" }: { text: str
       <span>{copied ? "Copied" : label}</span>
       <span className="sr-only" aria-live="polite">{copied ? "Copied to clipboard" : ""}</span>
     </button>
+    {/* The field stays empty until the fallback opens, so the page doesn't carry a second copy of the text. */}
     <dialog ref={dialog} aria-labelledby={`${id}-title`} onClick={(e) => { if (e.target === dialog.current) dialog.current.close(); }} className="m-auto w-[min(40rem,calc(100vw-2rem))] rounded-xl border border-line-strong bg-plum-950 p-5 text-cream backdrop:bg-void/80">
       <h2 id={`${id}-title`} className="text-lg">Copy this text</h2>
       <p className="my-3 text-sm text-ink-2">Automatic copying is unavailable. Copy the selected text using your device’s copy command.</p>
-      <textarea ref={field} aria-label="Text to copy" readOnly value={text} onFocus={(e) => e.currentTarget.select()} className="h-64 w-full rounded-md border border-line bg-void p-3 font-mono text-xs" />
+      <textarea ref={field} aria-label="Text to copy" readOnly defaultValue="" onFocus={(e) => e.currentTarget.select()} className="h-64 w-full rounded-md border border-line bg-void p-3 font-mono text-xs" />
       <button type="button" onClick={() => dialog.current?.close()} className="mt-3 rounded-md border border-line-strong px-4 py-2">Close</button>
     </dialog>
   </>;

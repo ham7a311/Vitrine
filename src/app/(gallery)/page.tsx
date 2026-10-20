@@ -1,6 +1,6 @@
 import { ComponentFonts } from "@/site/ComponentFonts";
 import Link from "next/link";
-import { summaries } from "@/registry";
+import { cardView, summaries } from "@/registry";
 import { CATEGORIES } from "@/registry/types";
 import { site } from "@/site.config";
 import { GalleryCard } from "@/site/GalleryCard";
@@ -15,7 +15,7 @@ const FRESH = ["pixel-seam", "field-button", "slipstream-menu", "storm-veil", "m
 
 export default function Home() {
   const items = summaries();
-  const bySlug = (s: string) => items.find((i) => i.slug === s)!;
+  const bySlug = (s: string) => cardView(items.find((i) => i.slug === s)!);
   const hero = HERO.map(bySlug);
   const featured = FEATURED.map(bySlug);
   const fresh = FRESH.map(bySlug);
@@ -92,13 +92,13 @@ export default function Home() {
             const inCat = items.filter((i) => i.category === c.id);
             return (
               <li key={c.id} className="bg-void">
-                <Link href={`/components?category=${c.id}`} className="group flex h-full min-h-[14rem] flex-col justify-between p-6 transition-colors duration-300 hover:bg-plum-950">
+                <Link href={`/components?category=${c.id}`} className="group vitrine-home-cat">
                   <div>
-                    <span className="font-mono text-[0.6875rem] tabular-nums text-ink-3">{String(inCat.length).padStart(2, "0")}</span>
-                    <h3 className="mt-3 font-display text-[1.75rem] leading-none tracking-[-0.01em] text-cream">{c.label}</h3>
-                    <p className="mt-3 text-[0.875rem] leading-relaxed text-ink-3">{c.blurb}</p>
+                    <span className="vitrine-home-cat-num">{String(inCat.length).padStart(2, "0")}</span>
+                    <h3 className="vitrine-home-cat-title">{c.label}</h3>
+                    <p className="vitrine-home-cat-blurb">{c.blurb}</p>
                   </div>
-                  <p className="mt-6 flex items-center gap-1.5 text-[0.8125rem] text-frost opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 max-md:opacity-100">
+                  <p className="vitrine-home-cat-browse">
                     Browse <ArrowRight className="size-3.5" />
                   </p>
                 </Link>

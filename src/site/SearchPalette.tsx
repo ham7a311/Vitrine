@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import type { ComponentSummary } from "@/registry";
 import { CATEGORIES } from "@/registry/types";
 import { search } from "@/lib/search";
@@ -48,14 +49,18 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   const [active, setActive] = useState(0);
   const router = useRouter();
   const listId = useId();
+  // The palette's contents are rendered the first time it opens, not into every page's HTML.
+  const [mounted, setMounted] = useState(false);
 
   const open = useCallback(() => {
     const d = dialogRef.current;
     if (!d || d.open) return;
     prefetch();
+    // Commit the contents before opening, so the dialog never appears empty.
+    if (!mounted) flushSync(() => setMounted(true));
     d.showModal();
     requestAnimationFrame(() => inputRef.current?.select());
-  }, [prefetch]);
+  }, [prefetch, mounted]);
   const close = useCallback(() => dialogRef.current?.close(), []);
 
   useEffect(() => {
@@ -120,6 +125,7 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
         onClick={(e) => e.target === dialogRef.current && close()}
         className="search-dialog m-0 mx-auto mt-[12vh] w-[min(40rem,calc(100vw-2rem))] max-w-none overflow-hidden rounded-[14px] border border-line-strong bg-plum-950/95 p-0 text-cream shadow-[0_40px_120px_-40px_rgba(0,0,0,0.9)] backdrop:bg-void/70 backdrop:backdrop-blur-sm"
       >
+        {mounted && <>
         <div className="flex items-center gap-3 border-b border-line px-4">
           <SearchIcon className="size-4 shrink-0 text-ink-3" />
           <input
@@ -203,6 +209,7 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
             <span>↵ open</span>
           </span>
         </div>
+        </>}
       </dialog>
     </SearchContext.Provider>
   );

@@ -1122,3 +1122,48 @@ export function summaries(): ComponentSummary[] {
     index: i + 1,
   }));
 }
+
+/** What a gallery card reads. */
+export type CardView = Pick<ComponentSummary, "slug" | "name" | "category" | "description" | "traits" | "index"> & {
+  preview: Pick<ComponentMeta["preview"], "bg" | "mode" | "frame">;
+  isNew?: boolean;
+};
+
+/** A card with nothing else: the card shows three traits, and unset fields are left out rather than sent empty. */
+export function cardView(s: ComponentSummary): CardView {
+  return {
+    slug: s.slug,
+    name: s.name,
+    category: s.category,
+    description: s.description,
+    traits: s.traits.slice(0, 3),
+    preview: { bg: s.preview.bg, mode: s.preview.mode, ...(s.preview.frame && { frame: s.preview.frame }) },
+    ...(s.isNew && { isNew: true }),
+    index: s.index,
+  };
+}
+
+/** What a gallery card and the gallery's search and filters read; the card list sends nothing else. */
+export type CardItem = CardView & Pick<ComponentSummary, "tags">;
+
+/**
+ * One card as a positional row, so the /components payload names each field once rather than 545 times.
+ * The index is the row's position; `frame` and `isNew` are 0 when unset. Gallery unpacks it with `unpackCard`.
+ */
+export type CardRow = [
+  slug: string,
+  name: string,
+  category: CardItem["category"],
+  description: string,
+  tags: string[],
+  traits: CardItem["traits"],
+  bg: string,
+  mode: CardItem["preview"]["mode"],
+  frame: [number, number] | 0,
+  isNew: 1 | 0,
+];
+
+/** The /components card list, in registry order. */
+export function cardRows(): CardRow[] {
+  return registry.map((c) => [c.slug, c.name, c.category, c.description, c.tags, c.traits, c.preview.bg, c.preview.mode, c.preview.frame ?? 0, c.isNew ? 1 : 0]);
+}

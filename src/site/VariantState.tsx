@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { componentBrief, type ComponentMeta, type Variant } from "@/registry/types";
+import { componentBrief, type BriefFields, type Variant } from "@/registry/types";
 import { CopyButton } from "./CopyButton";
 
 type Ctx = { variant: string | undefined; setVariant: (id: string) => void; variants?: Variant[] };
@@ -38,7 +38,7 @@ export function VariantProvider({ variants, children }: { variants?: Variant[]; 
 
 export const useVariantState = () => useContext(VariantContext);
 
-export function PromptPanel({ meta }: { meta: ComponentMeta }) {
+export function PromptPanel({ meta }: { meta: BriefFields }) {
   const ctx = useVariantState();
   const variants = ctx?.variants;
   const configurable = variants && variants.length > 1;

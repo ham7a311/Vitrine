@@ -1,5 +1,6 @@
 import "server-only";
-import { createHighlighter } from "shiki";
+import { createHighlighter, type ShikiTransformer } from "shiki";
+import { CODE_THEME, TOKEN_CLASS } from "./code-colours";
 
 /**
  * A small Markdown renderer for our own skill files: headings, paragraphs, nested lists (which may
@@ -9,8 +10,49 @@ import { createHighlighter } from "shiki";
 
 const LANGS = ["js", "ts", "tsx", "bash", "css"];
 let hl: ReturnType<typeof createHighlighter> | null = null;
-const highlighter = () => (hl ??= createHighlighter({ themes: ["github-dark-default"], langs: LANGS }));
+const highlighter = () =>
+  (hl ??= createHighlighter({ themes: [CODE_THEME], langs: LANGS }).then((h) => {
+    const theme = h.getTheme(CODE_THEME);
+    const colours = [theme.fg, ...theme.settings.map((s) => s.settings?.foreground)].filter((c): c is string => !!c);
+    const missing = [...new Set(colours.map((c) => c.toUpperCase()))].filter((c) => !TOKEN_CLASS[c]);
+    if (missing.length) throw new Error(`code-colours.ts has no class for ${missing.join(", ")}`);
+    return h;
+  }));
 type Highlighter = Awaited<ReturnType<typeof highlighter>>;
+
+/** A token whose only style is a colour gets that colour's class instead (see code-colours.ts). */
+const colourClasses: ShikiTransformer = {
+  name: "skill-colour-classes",
+  span(node) {
+    const colour = typeof node.properties.style === "string" && node.properties.style.match(/^color:(#[0-9A-Fa-f]{6})$/)?.[1];
+    const cls = colour && TOKEN_CLASS[colour.toUpperCase()];
+    if (!cls) return;
+    delete node.properties.style;
+    this.addClassToHast(node, cls);
+  },
+};
+
+/**
+ * A token whose only style is the block's own colour (which it inherits from <pre>) is sent as plain text — but
+ * only where its neighbours stay elements. Two text runs side by side would be laid out as one, which moves later
+ * characters by fractions of a pixel, so the next such token keeps its span. Tokens are never merged, for the same reason.
+ */
+const plainBaseTokens: ShikiTransformer = {
+  name: "skill-plain-base-tokens",
+  line(node) {
+    const inherited = typeof this.pre.properties.style === "string" && this.pre.properties.style.match(/(?:^|;)color:(#[0-9A-Fa-f]{6})/)?.[1];
+    const base = inherited && TOKEN_CLASS[inherited.toUpperCase()];
+    if (!base) return;
+    const out: typeof node.children = [];
+    for (const child of node.children) {
+      const plain = child.type === "element" && Object.keys(child.properties).length === 1 && Array.isArray(child.properties.class) &&
+        child.properties.class.length === 1 && child.properties.class[0] === base && child.children.every((c) => c.type === "text");
+      if (plain && out.at(-1)?.type !== "text") out.push(...child.children);
+      else out.push(child);
+    }
+    node.children = out;
+  },
+};
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const inline = (s: string) =>
@@ -39,7 +81,7 @@ function blocks(lines: string[], h: Highlighter): string {
       while (i < lines.length && !/^\s*```/.test(lines[i])) code.push(lines[i++].slice(Math.min(pad, indent(lines[i - 1]))));
       i++;
       const lang = LANGS.includes(fence[1]) ? fence[1] : "bash";
-      out.push(`<div class="md-code">${h.codeToHtml(code.join("\n"), { lang, theme: "github-dark-default" })}</div>`);
+      out.push(`<div class="md-code">${h.codeToHtml(code.join("\n"), { lang, theme: CODE_THEME, transformers: [colourClasses, plainBaseTokens] })}</div>`);
       continue;
     }
 
