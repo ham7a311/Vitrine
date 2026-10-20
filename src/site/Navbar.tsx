@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/site.config";
 import { LogoMark, Wordmark } from "./Logo";
 import { CloseIcon, GitHubIcon, MenuIcon, StarIcon } from "./icons";
 import { SearchTrigger } from "./SearchPalette";
+import { SiteLink } from "./SiteLink";
 
 const NAV = [
   { href: "/components", label: "Components" },
@@ -93,22 +93,22 @@ export function Navbar() {
         Skip to content
       </a>
       <nav aria-label="Primary" className="shell-container flex h-14 items-center gap-6">
-        <Link href="/" onClick={() => setMenu(false)} className="-ml-1 flex items-center gap-2 rounded-md px-1 py-1 text-cream">
+        <SiteLink href="/" onClick={() => setMenu(false)} className="-ml-1 flex items-center gap-2 rounded-md px-1 py-1 text-cream">
           <LogoMark className="size-[22px]" />
           <Wordmark className="h-[19px] w-auto translate-y-[1px]" />
-        </Link>
+        </SiteLink>
 
         <ul className="hidden items-center gap-1 md:flex">
           {NAV.map((item) => (
             <li key={item.href}>
-              <Link
+              <SiteLink
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className="relative rounded-md px-3 py-1.5 text-[0.875rem] text-ink-2 transition-colors duration-200 hover:text-cream aria-[current=page]:text-cream"
               >
                 {item.label}
                 {item.label === "New" && <span className="ml-1.5 inline-block size-1 translate-y-[-2px] rounded-full bg-lilac" aria-hidden="true" />}
-              </Link>
+              </SiteLink>
             </li>
           ))}
         </ul>
@@ -161,10 +161,10 @@ export function Navbar() {
         <ul className="shell-container flex flex-col py-6">
           {NAV.map((item, i) => (
             <li key={item.href} className="rise-in" style={{ animationDelay: `${i * 50}ms` }}>
-              <Link href={item.href} onClick={() => setMenu(false)} className="flex items-baseline justify-between border-b border-line py-5 font-display text-[2rem] leading-none text-cream">
+              <SiteLink href={item.href} onClick={() => setMenu(false)} className="flex items-baseline justify-between border-b border-line py-5 font-display text-[2rem] leading-none text-cream">
                 {item.label}
                 <span className="font-mono text-[0.6875rem] text-ink-3">0{i + 1}</span>
-              </Link>
+              </SiteLink>
             </li>
           ))}
           <li className="rise-in mt-8" style={{ animationDelay: "160ms" }}>

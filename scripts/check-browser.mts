@@ -95,11 +95,11 @@ try {
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${route} overflows at ${width}`);
     }
   }
-  // Component lists must not prefetch component pages as they scroll into view (production builds only).
-  // Previous/Next on a component page still prefetch, which shows the check can see a prefetch at all.
-  const prefetchedFrom = async (route: string) => {
+  // Component lists must not prefetch component pages as they scroll into view, and a component page prefetches
+  // nothing at all (production builds only). The navbar elsewhere still prefetches, which shows the check can see one.
+  const prefetchedFrom = async (route: string, match = /^\/components\/[^/]+$/) => {
     const prefetched = new Set<string>();
-    const track = (r: import("playwright").Request) => { const u = new URL(r.url()); if (/^\/components\/[^/]+$/.test(u.pathname) && r.headers()["rsc"]) prefetched.add(u.pathname); };
+    const track = (r: import("playwright").Request) => { const u = new URL(r.url()); if (match.test(u.pathname) && r.headers()["rsc"]) prefetched.add(u.pathname); };
     page.on("request", track);
     await page.goto(base + route);
     for (let i = 0; i < 40; i++) { await page.mouse.wheel(0, 900); await page.waitForTimeout(50); }
@@ -108,7 +108,8 @@ try {
     return [...prefetched];
   };
   for (const route of ["/", "/components", "/categories"]) assert.deepEqual(await prefetchedFrom(route), [], `${route} prefetched component pages`);
-  assert((await prefetchedFrom("/components/glass-card")).length > 0, "Previous/Next should still prefetch");
+  assert.deepEqual(await prefetchedFrom("/components/glass-card", /./), [], "a component page prefetched");
+  assert((await prefetchedFrom("/about", /./)).length > 0, "the navbar should still prefetch outside component pages");
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const slug of ["glassbreak-button", "silk-field", "passkey-sign-in"]) await page.goto(`${base}/preview/${slug}`);
   assert.deepEqual(errors, []);
