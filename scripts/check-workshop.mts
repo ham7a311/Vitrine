@@ -31,4 +31,7 @@ for (const skill of SKILLS) {
   assert(raw.includes(`# /${skill.slug}`), `${skill.slug}: command heading`);
   assert.equal((raw.match(/^```/gm) ?? []).length % 2, 0, `${skill.slug}: unclosed code fence`);
 }
+const { TOKEN_CLASS } = await import("../src/workshop/code-colours.ts");
+const css = readFileSync(path.join(root, "app/globals.css"), "utf8");
+for (const [colour, cls] of Object.entries(TOKEN_CLASS)) assert(css.includes(`.skill-doc .md-code .${cls} { color: ${colour}; }`), `globals.css: missing code colour class ${cls}`);
 console.log(`workshop: ${mod.exports.RECIPES.length} recipe briefs and ${SKILLS.length} skill prompts validated`);

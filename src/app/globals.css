@@ -95,6 +95,18 @@
   .skill-doc li > ul, .skill-doc li > ol { margin-top: 0.3rem; }
   .skill-doc li > p { margin-top: 0.45rem; }
   .skill-doc li > .md-code { margin-top: 0.7rem; }
+  /* Token colours of highlighted code, one class per theme colour (src/workshop/code-colours.ts). */
+  .skill-doc .md-code .sk0 { color: #E6EDF3; }
+  .skill-doc .md-code .sk1 { color: #8B949E; }
+  .skill-doc .md-code .sk2 { color: #FF7B72; }
+  .skill-doc .md-code .sk3 { color: #79C0FF; }
+  .skill-doc .md-code .sk4 { color: #FFA657; }
+  .skill-doc .md-code .sk5 { color: #D2A8FF; }
+  .skill-doc .md-code .sk6 { color: #7EE787; }
+  .skill-doc .md-code .sk7 { color: #A5D6FF; }
+  .skill-doc .md-code .sk8 { color: #FFA198; }
+  .skill-doc .md-code .sk9 { color: #F0F6FC; }
+  .skill-doc .md-code .sk10 { color: #161B22; }
   .skill-doc blockquote { margin: 1.1rem 0 0; padding: 0.1rem 0 0.1rem 1rem; border-left: 2px solid var(--color-line-strong); color: var(--color-cream); }
   .skill-doc blockquote p:first-child { margin-top: 0; }
   .skill-doc .md-table { margin: 1.25rem 0 0; overflow-x: auto; border: 1px solid var(--color-line); border-radius: 12px; }
@@ -205,4 +217,28 @@
   .vitrine-cat-name { @apply text-[0.9375rem] text-cream transition-colors group-hover:text-frost; }
   .vitrine-cat-new { @apply ml-2 font-mono text-[0.5625rem] uppercase tracking-[0.14em] text-lilac; }
   .vitrine-cat-traits { @apply hidden truncate font-mono text-[0.6875rem] text-ink-3 md:block; }
+}
+
+/* Homepage category tiles: 32 repeats of these lists, named once here. */
+@layer components {
+  .vitrine-home-cat { @apply flex h-full min-h-[14rem] flex-col justify-between p-6 transition-colors duration-300 hover:bg-plum-950; }
+  .vitrine-home-cat-num { @apply font-mono text-[0.6875rem] tabular-nums text-ink-3; }
+  .vitrine-home-cat-title { @apply mt-3 font-display text-[1.75rem] leading-none tracking-[-0.01em] text-cream; }
+  .vitrine-home-cat-blurb { @apply mt-3 text-[0.875rem] leading-relaxed text-ink-3; }
+  .vitrine-home-cat-browse { @apply mt-6 flex items-center gap-1.5 text-[0.8125rem] text-frost opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 max-md:opacity-100; }
+}
+
+/* Gallery cards (the homepage and /components): long lists repeated on every card, named once here. */
+@layer components {
+  .vitrine-card-preview { @apply relative isolate overflow-hidden rounded-[14px] border border-line transition-[border-color] duration-500 group-hover/card:border-line-strong; }
+  .vitrine-card-expand { @apply absolute right-3 top-3 z-10 grid size-8 place-items-center rounded-md border border-white/10 bg-black/40 text-white/80 opacity-0 backdrop-blur-md transition-opacity duration-300 hover:text-white group-hover/card:opacity-100 max-md:opacity-100; }
+  .vitrine-card-meta { @apply flex items-start gap-4 px-1 pt-4; }
+  .vitrine-card-num { @apply pt-[0.3rem] font-mono text-[0.6875rem] tabular-nums text-ink-3; }
+  .vitrine-card-title { @apply flex items-center gap-2 font-display text-[1.375rem] leading-tight tracking-[-0.01em] text-cream; }
+  .vitrine-card-link { @apply rounded-sm transition-colors hover:text-frost focus-visible:outline-offset-4; }
+  .vitrine-card-new { @apply rounded-full border border-lilac/30 px-1.5 py-px font-mono text-[0.5625rem] uppercase tracking-[0.14em] text-lilac; }
+  .vitrine-card-desc { @apply mt-1 line-clamp-2 text-[0.875rem] leading-relaxed text-ink-3; }
+  .vitrine-card-traits { @apply mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-3; }
+  .vitrine-card-dot { @apply size-[3px] rounded-full bg-line-strong; }
+  .vitrine-card-arrow { @apply mt-1.5 size-4 shrink-0 -translate-x-1 text-frost opacity-0 transition-[opacity,transform] duration-300 group-hover/card:translate-x-0 group-hover/card:opacity-100; }
 }
