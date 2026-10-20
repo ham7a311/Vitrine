@@ -189,3 +189,20 @@
   .vitrine-cp-more { @apply flex flex-col rounded-[14px] border border-line p-5 transition-colors hover:border-line-strong; }
   .vitrine-cp-more-name { @apply mt-2 font-display text-[1.375rem] text-cream transition-colors group-hover:text-frost; }
 }
+
+/* Categories (src/app/(gallery)/categories/page.tsx): the page lists every component, so each class list
+   below repeats hundreds of times; named once here, each page carries a short name instead. Each is
+   exactly the utilities it replaces. */
+@layer components {
+  .vitrine-cat-section { @apply grid gap-6 py-10 md:grid-cols-[14rem_1fr] md:gap-12; }
+  .vitrine-cat-num { @apply font-mono text-[0.6875rem] tabular-nums text-ink-3; }
+  .vitrine-cat-title { @apply mt-2 font-display text-[2rem] leading-none tracking-[-0.01em] text-cream; }
+  .vitrine-cat-blurb { @apply mt-3 text-[0.875rem] leading-relaxed text-ink-3; }
+  .vitrine-cat-all { @apply mt-5 inline-flex items-center gap-1.5 text-[0.8125rem] text-frost; }
+  .vitrine-cat-list { @apply grid gap-x-8 sm:grid-cols-2; }
+  .vitrine-cat-row { @apply border-b border-line last:border-0 sm:[&:nth-last-child(2):nth-child(odd)]:border-0; }
+  .vitrine-cat-link { @apply flex items-baseline justify-between gap-4 py-3.5; }
+  .vitrine-cat-name { @apply text-[0.9375rem] text-cream transition-colors group-hover:text-frost; }
+  .vitrine-cat-new { @apply ml-2 font-mono text-[0.5625rem] uppercase tracking-[0.14em] text-lilac; }
+  .vitrine-cat-traits { @apply hidden truncate font-mono text-[0.6875rem] text-ink-3 md:block; }
+}

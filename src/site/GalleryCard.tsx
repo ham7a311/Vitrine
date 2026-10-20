@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import type { ComponentSummary } from "@/registry";
+import type { CardItem } from "@/registry";
 import { CATEGORIES, TRAIT_LABEL } from "@/registry/types";
 import { Demo } from "./Demo";
 import { ArrowRight, ExpandIcon } from "./icons";
 import { LazyMount } from "./LazyMount";
 import { ScaledFrame } from "./ScaledFrame";
 
-export function GalleryCard({ item, size = "default" }: { item: ComponentSummary; size?: "default" | "large" }) {
+export function GalleryCard({ item, size = "default" }: { item: CardItem; size?: "default" | "large" }) {
   const category = CATEGORIES.find((c) => c.id === item.category)?.label;
   const href = `/components/${item.slug}`;
   const frame = item.preview.frame ?? (item.preview.mode === "page" ? ([1280, 800] as [number, number]) : null);

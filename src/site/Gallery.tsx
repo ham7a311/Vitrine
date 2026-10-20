@@ -4,7 +4,7 @@ import { rovingFocus } from "./rovingFocus";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import type { ComponentSummary } from "@/registry";
+import type { CardItem, CardRow } from "@/registry";
 import { CATEGORIES } from "@/registry/types";
 import { search } from "@/lib/search";
 import { GalleryCard } from "./GalleryCard";
@@ -14,10 +14,10 @@ import { CloseIcon, SearchIcon } from "./icons";
 const ALL_TAIL = new Set(["micro", "text"]);
 
 /** All view: one item from each category per pass, in the order categories and items already appear. */
-function roundRobin(items: ComponentSummary[]): ComponentSummary[] {
+function roundRobin(items: CardItem[]): CardItem[] {
   const body = items.filter((item) => !ALL_TAIL.has(item.category));
   const tail = items.filter((item) => ALL_TAIL.has(item.category));
-  const groups: ComponentSummary[][] = [];
+  const groups: CardItem[][] = [];
   const at = new Map<string, number>();
   for (const item of body) {
     let i = at.get(item.category);
@@ -28,7 +28,7 @@ function roundRobin(items: ComponentSummary[]): ComponentSummary[] {
     }
     groups[i].push(item);
   }
-  const out: ComponentSummary[] = [];
+  const out: CardItem[] = [];
   const passes = groups.reduce((max, group) => Math.max(max, group.length), 0);
   for (let pass = 0; pass < passes; pass++) {
     for (const group of groups) {
@@ -38,7 +38,16 @@ function roundRobin(items: ComponentSummary[]): ComponentSummary[] {
   return out.concat(tail);
 }
 
-export function Gallery({ items }: { items: ComponentSummary[] }) {
+/** Turns the page's positional rows back into card items; the index is the row's position. */
+const unpackCard = ([slug, name, category, description, tags, traits, bg, mode, frame, isNew]: CardRow, i: number): CardItem => ({
+  slug, name, category, description, tags, traits,
+  preview: frame ? { bg, mode, frame } : { bg, mode },
+  ...(isNew ? { isNew: true } : {}),
+  index: i + 1,
+});
+
+export function Gallery({ rows }: { rows: CardRow[] }) {
+  const items = useMemo(() => rows.map(unpackCard), [rows]);
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();

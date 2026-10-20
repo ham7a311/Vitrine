@@ -2,7 +2,7 @@ import { ComponentFonts } from "@/site/ComponentFonts";
 import type { Metadata } from "next";
 import { pageMeta } from "@/site/seo";
 import { Suspense } from "react";
-import { registry, summaries } from "@/registry";
+import { cardRows, registry } from "@/registry";
 import { Gallery } from "@/site/Gallery";
 
 export const metadata: Metadata = pageMeta({ title: "Components", description: `Browse ${registry.length} React components — buttons, backgrounds, cursors, cards, charts, AI chat and more — each with source, a live preview and the prompt behind it.`, path: "/components" });
@@ -21,7 +21,7 @@ export default function ComponentsPage() {
       </header>
       <div className="mt-14">
         <Suspense fallback={<div className="min-h-[70vh]" aria-hidden="true" />}>
-          <Gallery items={summaries()} />
+          <Gallery rows={cardRows()} />
         </Suspense>
       </div>
     </div>
