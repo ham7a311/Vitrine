@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "paw", "footprints", "animal", "playful", "pets", "trail", "edge", "fun"],
   traits: ["hover", "click", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["PawTrail.tsx", "paw-trail.css", "gait.ts", "prints.ts", "perimeter.ts"],
   dependencies: [],
   prompt:

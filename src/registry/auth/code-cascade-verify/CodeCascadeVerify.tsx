@@ -21,6 +21,8 @@ type Props = {
   /** Called once, after `verify` resolves true. */
   onVerified?: (code: string) => void;
   changeEmailHref?: string;
+  /** Who the email comes from, named in the hint under the cells. */
+  product?: string;
   /** Seconds before another code can be sent. */
   cooldown?: number;
   theme?: "paper" | "night";
@@ -30,7 +32,7 @@ type Props = {
 
 type Phase = "typing" | "checking" | "wrong" | "ok";
 
-export function CodeCascadeVerify({ sentTo, length = 6, verify, onResend, onVerified, changeEmailHref, cooldown = 30, theme = "night", motion = "full", className = "" }: Props) {
+export function CodeCascadeVerify({ sentTo, length = 6, verify, onResend, onVerified, changeEmailHref, product = "Vitrine", cooldown = 30, theme = "night", motion = "full", className = "" }: Props) {
   const uid = useId().replace(/:/g, "");
   const input = useRef<HTMLInputElement>(null);
   const [code, setCode] = useState("");
@@ -161,7 +163,7 @@ export function CodeCascadeVerify({ sentTo, length = 6, verify, onResend, onVeri
       </div>
 
       <p id={`${uid}-note`} className="ccv__note" role={phase === "wrong" ? "alert" : "status"}>
-        {note || "The code is in an email from Vitrine. It can take a minute to arrive."}
+        {note || `The code is in an email from ${product}. It can take a minute to arrive.`}
       </p>
 
       <div className="ccv__foot">

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "stars", "constellation", "night", "space", "sky", "edge", "svg", "playful"],
   traits: ["hover", "click", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["StarfieldButton.tsx", "starfield-button.css", "stars.ts", "perimeter.ts"],
   dependencies: [],
   // "night sky" describes the look, not the option.

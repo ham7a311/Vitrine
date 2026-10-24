@@ -13,6 +13,11 @@ try {
     const { meta } = await import(path.join(root, entry, "meta.ts"));
     const dir = path.join(scratch, meta.slug); mkdirSync(dir);
     for (const file of await sourceBundle(meta, root)) writeFileSync(path.join(dir, file.name), file.code);
+    // A variant that is its own implementation is copied on its own too, so its folder must compile alone.
+    for (const variant of Object.keys(meta.variantSources ?? {})) {
+      const own = path.join(scratch, `${meta.slug}--${variant}`); mkdirSync(own);
+      for (const file of await sourceBundle(meta, root, variant)) writeFileSync(path.join(own, file.name), file.code);
+    }
   }
   writeFileSync(path.join(scratch, "tsconfig.json"), JSON.stringify({ compilerOptions: { target: "ES2020", lib: ["dom", "dom.iterable", "esnext"], strict: true, skipLibCheck: true, module: "esnext", moduleResolution: "bundler", jsx: "react-jsx", noEmit: true, esModuleInterop: true }, include: ["**/*.ts", "**/*.tsx"] }));
   const result = spawnSync(process.execPath, [path.join(project, "node_modules/typescript/bin/tsc"), "-p", path.join(scratch, "tsconfig.json")], { stdio: "inherit" });

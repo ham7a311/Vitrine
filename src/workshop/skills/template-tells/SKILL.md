@@ -164,8 +164,42 @@ End with **the one decision** that would do the most: usually a single typeface 
 
 If asked to fix, work from the top of the ranked list and change the source directly. Rewrite copy with real specifics; ask the user for facts you don't have (numbers, names, dates) rather than inventing them. Re-run the scan and the screenshots afterwards and report what's left.
 
+## Over-correcting
+
+Removing tells has its own failure mode: replacing every default with a "statement". The page stops looking generated and starts looking over-designed, and it's just as hard to read.
+
+Watch for these while you fix:
+
+- **Every section is a moment.** Giant type, an unusual grid, a sticky layout, a dramatic gap, one after another. When everything asks for attention, nothing has hierarchy.
+- **Novel layouts for their own sake.** An oversized typographic index replacing a category grid that was easy to scan; a contact sheet replacing cards that showed the product well.
+- **The product gets demoted.** The things the site exists to show (the product, the work, the components) become backdrops for the layout.
+- **The metaphor everywhere.** One good brand idea repeated in every section until it's a gimmick.
+
+The fix for a generic page is usually **simplicity plus one or two deliberate moments**: a strong first screen, real content, and plain, consistent sections that let the product carry the rest. If a fix makes a section harder to understand at a glance, it's not a fix. For deciding how much to change at once, use `/refinement-pass`.
+
 ## Rules
 
 - **Don't replace one default with another.** Swapping a purple gradient for a teal one fixes nothing. The replacement has to come from the product: its data, its users, its material.
 - **Keep what's chosen.** Frosted glass on the one floating toolbar that needs to show what's under it is a decision, not a tell. Say so and move on.
 - **Never invent facts.** A fake specific number is worse than an honest vague one.
+
+## Don't use when
+
+- The design is still being decided. Use `/art-director` or `/landing-page-art-director` first; this skill reviews what exists.
+- The site's problem is broken behaviour, not generic choices. Use `/responsive-audit` or `/accessibility-pass`.
+- A pattern is generic but chosen and working (a plain list, a standard form). Familiar isn't a tell; unexamined is.
+
+## Acceptance criteria
+
+- Every finding names where it is, what the tell is, and the specific replacement, written out.
+- Findings are ranked by how much they make the site feel generic.
+- No replacement invents a fact, a customer, a number or a quote.
+- After fixing, the page is simpler or more specific, not just different, and the product is at least as prominent as before.
+
+## Final self-review
+
+- Could any rewritten line still appear unchanged on a competitor's site?
+- Did I replace a default with another default?
+- Did any fix make a section harder to scan, or push the product into the background?
+- Did I ask for facts I didn't have instead of inventing them?
+

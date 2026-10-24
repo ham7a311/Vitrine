@@ -38,6 +38,19 @@ export function VariantProvider({ variants, children }: { variants?: Variant[]; 
 
 export const useVariantState = () => useContext(VariantContext);
 
+/** The Files list for a component whose variants are separate implementations: it follows the variant picked above. */
+export function VariantFiles({ files }: { files: Record<string, string[]> }) {
+  const ctx = useContext(VariantContext);
+  const shown = files[ctx?.variant ?? ""] ?? Object.values(files)[0] ?? [];
+  return (
+    <ul className="space-y-1 font-mono text-[0.8125rem] text-ink-2">
+      {shown.map((f) => (
+        <li key={f}>{f}</li>
+      ))}
+    </ul>
+  );
+}
+
 export function PromptPanel({ meta }: { meta: BriefFields }) {
   const ctx = useVariantState();
   const variants = ctx?.variants;

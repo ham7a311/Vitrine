@@ -7,6 +7,8 @@ description: Audit a web interface at phone, tablet and desktop widths with Play
 
 Measure first, then look, then fix. Numbers catch overflow you can't see; your eyes catch layouts that are technically fine and still wrong.
 
+This skill finds **defects**: what's broken. To decide what's **better** (composition, spacing, hierarchy) across rounds of changes, use `/screenshot-iteration`; to design each width on purpose, use `/responsive-art-direction`.
+
 ## 1. Set up
 
 - The app must be running locally (for example `npm run dev`). Find its URL and the pages to check: every route, or the pages the user named.
@@ -155,3 +157,28 @@ Open `sheet.html` in a browser, or screenshot it with Playwright if you can't op
 ## 6. Report
 
 List what failed, what you changed per page, and anything you left alone on purpose (and why).
+
+## Don't use when
+
+- You're deciding how a layout *should* recompose at each width. That's `/responsive-art-direction`.
+- You're comparing design rounds for quality. That's `/screenshot-iteration`. This skill measures defects.
+
+## Acceptance criteria
+
+- No page shows horizontal overflow at any measured width.
+- Touch targets meet the minimum size, and text stays readable.
+- No console errors at any width.
+- The contact sheet has been reviewed by eye, not only the numbers.
+
+## Common failure modes
+
+- **Fixing overflow with `overflow-x: hidden` on the body,** which hides the problem and breaks sticky elements.
+- **Measuring only the homepage.**
+- **Trusting the numbers alone,** so a layout that's technically fine and visually wrong passes.
+- **Element screenshots under a sticky header,** taken as real overlap.
+
+## Final self-review
+
+- Did I measure every page, or just the one I was working on?
+- Did I find the cause of each overflow, or just hide it?
+- Did I look at the contact sheet?

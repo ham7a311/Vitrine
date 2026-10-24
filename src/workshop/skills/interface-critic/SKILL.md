@@ -40,6 +40,24 @@ Name it if it's any of these. Any one of them, with nothing meaningful underneat
 
 A useful test: **remove the effect.** If nothing meaningful remains, it's a gimmick.
 
+## Reviewing a whole page
+
+The test above is for a component or an idea. For a whole page, review these, each with evidence from a screenshot at phone and desktop width:
+
+1. **Hierarchy.** What's seen first, second, third? Is that the right order?
+2. **Composition.** Do the parts relate, or are they placed side by side? Is there a deliberate balance?
+3. **Density.** Too crowded anywhere? Too empty anywhere? Does density change for a reason?
+4. **Alignment.** Do headings, text and images share edges? Is any misalignment deliberate?
+5. **Repetition.** How many sections share one shape? Repetition is good for scanning and bad when nothing breaks it.
+6. **Product prominence.** Is the thing the site exists for (the product, the work, the content) the most visible thing?
+7. **Distinctiveness.** What here couldn't appear on a competitor's site? (`/template-tells` goes deeper.)
+8. **Responsive composition.** Is the phone layout designed, or the desktop stacked? (`/responsive-art-direction`.)
+9. **Decoration.** What could be removed with nothing lost?
+
+## Diagnose first. Change second.
+
+Before proposing any change, return **the top three problems, ranked by impact**, each pointing at something visible. Only then propose fixes, and only for those three. A review that opens with a redesign skips the step that tells you whether a redesign is needed. When the page is close, hand the fixes to `/refinement-pass`.
+
 ## Compare against a strong reference
 
 Hold it next to one excellent piece in the same family: for a control, a segmented control whose indicator behaves like liquid mercury (it stretches toward the target and settles, so motion shows direction and distance). Ask: is this as clear, as restrained and as useful? Say where it falls short.
@@ -57,3 +75,23 @@ When reviewing several ideas, rank them and say which to build first. It's fine,
 ## Tone
 
 Direct and specific. No hedging, no compliments before the point. Every criticism points at something you can see, and every recommendation is something someone can do.
+
+## Don't use when
+
+- There's nothing to look at yet. An idea in one sentence can be judged; a vague direction can't. Write it down first.
+- You need a defect check (overflow, focus, contrast). Use `/responsive-audit` or `/accessibility-pass`.
+- The user wants it built, not judged. Say what you'd check, then build.
+
+## Acceptance criteria
+
+- Every test answer has observed evidence, not a restated claim.
+- For a page, the top three problems are ranked by impact before any fix is proposed.
+- The review ends with exactly one verdict (keep, refine or cut), or a ranked list when reviewing several ideas.
+
+## Final self-review
+
+- Did I run it, or only read about it?
+- Is every criticism something you can point at?
+- Did I rank the problems before suggesting changes?
+- Would my fixes keep what already works?
+

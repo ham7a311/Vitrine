@@ -1,7 +1,7 @@
 export type Category =
   | "buttons" | "controls" | "cards" | "backgrounds" | "cursors" | "heroes" | "navbars" | "navigation" | "footers" | "pricing"
   | "faq" | "ctas" | "auth" | "stats" | "analytics" | "media" | "maps" | "micro" | "forms" | "feedback" | "sections" | "type" | "text" | "ai" | "sidebars" | "overlays" | "data"
-  | "decisions" | "reading" | "commerce" | "time" | "developer";
+  | "decisions" | "reading" | "commerce" | "time" | "developer" | "highlights";
 
 export type Source = "original";
 
@@ -50,6 +50,12 @@ export interface ComponentMeta {
   variants?: Variant[];
   /** Option names the base prompt may use as ordinary words (checked by scripts/check-prompts.mts). */
   promptAllow?: string[];
+  /**
+   * Only for variants that are separate implementations rather than props of one: each variant's own entry files
+   * and its example (exported as example.tsx). The Code tab, the Files list and the copied folder then hold just
+   * the selected variant's import graph. Keys must match the variant ids.
+   */
+  variantSources?: Record<string, { files: string[]; demo: string }>;
   /** frame: design size [w, h] a gallery thumbnail renders at before scaling to fit. */
   preview: { bg: string; height?: number; mode: PreviewMode; frame?: [number, number] };
   featured?: boolean;
@@ -64,6 +70,7 @@ export const CATEGORIES: { id: Category; label: string; blurb: string }[] = [
   { id: "micro", label: "Micro-animations", blurb: "Small moments of feedback — likes, saves, copies, sends — each with one precise motion." },
   { id: "cursors", label: "Cursors", blurb: "Pointers with a point of view: they light, frame, measure, write and keep company." },
   { id: "text", label: "Text Animations", blurb: "Type that moves with intent — flaps, ink, chrome, gravity and second thoughts." },
+  { id: "highlights", label: "Highlights", blurb: "Marks that point at the words that matter — painted, drawn, framed, found." },
   { id: "ai", label: "AI & Chat", blurb: "Composers, attachments, model pickers and the small states around a conversation." },
   { id: "sidebars", label: "Sidebars", blurb: "App and conversation sidebars that stay out of the way until you need them." },
   { id: "heroes", label: "Heroes", blurb: "The first screen: a name, a promise and one action, each with a reason to be there." },

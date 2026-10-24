@@ -8,7 +8,7 @@ export const meta: ComponentMeta = {
   tags: ["cards", "faq", "highlight", "cursor", "animation", "pastel", "features", "marketing"],
   traits: ["ambient"],
   source: "original",
-  files: ["SweepCards.tsx", "sweep-cards.css", "../../cursors/highlight-sweep/HighlightSweep.tsx", "../../cursors/highlight-sweep/highlight-sweep.css"],
+  files: ["SweepCards.tsx", "sweep-cards.css", "../../highlights/highlight-sweep/HighlightSweep.tsx", "../../highlights/highlight-sweep/highlight-sweep.css"],
   dependencies: [],
   prompt:
     "Build a row of three question-and-answer cards on black (a fictional 'Masar' explaining how sites get read by AI assistants).\n\nCards: equal columns with about 26px gaps (one column below 56rem), a 24px radius, about 46px padding. Each has a 500-weight heading at about 40px (line-height 1.14, -0.022em, balanced) and a body at about 22px with a very open line-height of 2.25. Colours per card: sky #b9e4fa with a navy heading #0b2a45 and body #164a6e; mint #bdf5d3 with #0d3a22 and #17603a; butter #fff7c2 with #3d2a00 and #5c4300.\n\nSweep: in each body one phrase is marked [[…]]. A demo cursor in that card's darker accent (#0284c7, #15a34a, #d97706: a 19px arrow with rounded corners and a soft shadow) glides in from below-right, presses and drags across the phrase; a solid box (3px wider than the words either side) in the saturated accent (#38bdf8, #22d36b, #fcd34d) with a 1.5px darker edge (#0ea5e9, #16b65b, #eab308) and a 5px radius grows behind the words line by line, while the text keeps its own dark colour. It lets go, the arrow drifts to rest just past the end and stays. The cards go in turn about 1.15s apart, starting half a second after they come into view. It plays once: no loop, no controls.",

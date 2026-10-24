@@ -1,0 +1,31 @@
+.phring { --phring-level: 0; --phring-c: #ffffff; display: inline-flex; align-items: center; gap: 0.55em; width: fit-content; color: #a1a1aa; font: 500 0.9375rem/1.4 ui-sans-serif, system-ui, sans-serif; vertical-align: middle; }
+.phring__ring { position: relative; flex: none; width: var(--phring-box); height: var(--phring-box); color: var(--phring-mark); }
+/* The track: always there, tinted by the phase's colour as the ring works. */
+.phring__ring::before {
+  content: ""; position: absolute; left: 50%; top: 50%; width: var(--phring-r); height: var(--phring-r); translate: -50% -50%; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--phring-c) calc(10% + var(--phring-level) * 22%), transparent);
+  box-shadow: 0 0 calc(var(--phring-level) * var(--phring-box) * 0.1) color-mix(in srgb, var(--phring-c) calc(var(--phring-level) * 35%), transparent);
+}
+.phring__logo { position: absolute; left: 50%; top: 50%; width: var(--phring-m); height: var(--phring-m); translate: -50% -50%; }
+.phring__arcs { position: absolute; inset: calc(var(--phring-pad) * -1); width: calc(100% + var(--phring-pad) * 2); height: calc(100% + var(--phring-pad) * 2); pointer-events: none; }
+.phring__label { white-space: nowrap; }
+.phring.is-working .phring__label {
+  background: linear-gradient(90deg, #8a8a93 0%, #8a8a93 38%, var(--phring-hint) 50%, #8a8a93 62%, #8a8a93 100%) 0 0 / 260% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: phring-shimmer 2.4s linear infinite;
+}
+.phring__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.phring__brand { display: none; }
+
+.phring--hero { flex-direction: column; gap: 28px; }
+.phring--hero .phring__text {
+  display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 7px; border: 1px solid rgb(255 255 255 / 0.08);
+  background: rgb(18 18 22 / 0.85); font: 500 0.78rem/1.2 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.04em;
+}
+.phring--hero .phring__brand { display: inline-flex; align-items: center; color: #ececf1; text-transform: uppercase; letter-spacing: 0.1em; }
+/* The caption's dot carries the phase colour. */
+.phring--hero .phring__dot { margin: 0 0.6em; font-size: 0.55em; color: var(--phring-c); transition: color 300ms; }
+
+@keyframes phring-shimmer { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+.phring--still.is-working .phring__label { animation: none; background: none; color: var(--phring-hint); }
+@media (prefers-reduced-motion: reduce) { .phring.is-working .phring__label { animation: none; background: none; color: var(--phring-hint); } }

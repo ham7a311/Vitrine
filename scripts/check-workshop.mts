@@ -8,11 +8,13 @@ const components = new Map<string, any>();
 for (const entry of readFileSync(path.join(root, "registry/order.txt"), "utf8").split("\n").filter(s => s && !s.startsWith("#"))) {
   const { meta } = await import(path.join(root, "registry", entry, "meta.ts")); components.set(meta.slug, meta);
 }
+const skillsModule = await import("../src/workshop/skills.ts");
 const { outputText } = ts.transpileModule(readFileSync(path.join(root, "workshop/recipes.ts"), "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } });
 const mod = { exports: {} as any };
 new Function("require", "module", "exports", outputText)((id: string) => {
   if (id === "@/registry") return { getComponent: (slug: string) => components.get(slug) };
   if (id === "@/site.config") return { site };
+  if (id === "@/workshop/skills") return skillsModule;
   throw new Error(`Unexpected recipe dependency: ${id}`);
 }, mod, mod.exports);
 for (const recipe of mod.exports.RECIPES) {
@@ -20,8 +22,16 @@ for (const recipe of mod.exports.RECIPES) {
   assert(brief.includes(recipe.name) && brief.includes("## Before you ship"), recipe.slug);
   for (const section of recipe.sections) assert(brief.includes(`${site.url}/components/${section.component}`), `${recipe.slug}: missing component source`);
   assert(!brief.includes("undefined") && !brief.includes("[object Object]"), `${recipe.slug}: malformed brief`);
+  assert(recipe.scenario?.length > 40, `${recipe.slug}: scenario`);
+  assert(recipe.changeFirst?.length >= 2, `${recipe.slug}: change-first list`);
+  const slugs = recipe.skills.map((k: { slug: string; why: string }) => {
+    assert(skillsModule.getSkill(k.slug), `${recipe.slug}: unknown skill ${k.slug}`);
+    assert(k.why?.length > 15, `${recipe.slug}: ${k.slug} needs a reason`);
+    return k.slug;
+  });
+  for (const required of ["responsive-audit", "accessibility-pass"]) assert(slugs.includes(required), `${recipe.slug}: missing ${required}`);
 }
-const { SKILLS } = await import("../src/workshop/skills.ts");
+const { SKILLS } = skillsModule;
 const folders = readdirSync(path.join(root, "workshop/skills"));
 assert.equal(folders.length, SKILLS.length, "Unregistered skill folders");
 for (const skill of SKILLS) {

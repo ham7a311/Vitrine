@@ -39,6 +39,21 @@ for (const entry of order) {
   exported += bundle.length;
   const source = bundle.map(f => f.code).join("\n");
   for (const v of meta.variants ?? []) assert(source.includes(v.id), `${entry}: variant ${v.id} has no source representation`);
+  // Variants that are separate implementations: each one's folder holds its own files and example and none of the others'.
+  if (meta.variantSources) {
+    const own = meta.variantSources;
+    assert.deepEqual(Object.keys(own).sort(), [...ids].sort(), `${entry}: variantSources must cover exactly its variants`);
+    for (const id of Object.keys(own)) {
+      const names = new Set((await sourceBundle(meta, root, id)).map(f => f.name));
+      for (const f of own[id].files) assert(names.has(path.basename(f)), `${entry}: ${id} source lacks ${f}`);
+      assert(names.has("example.tsx") && names.has("usage.tsx"), `${entry}: ${id} source lacks its example or usage`);
+      for (const [other, s] of Object.entries(own)) {
+        if (other === id) continue;
+        for (const f of s.files) if (!own[id].files.includes(f)) assert(!names.has(path.basename(f)), `${entry}: ${id} source includes ${other}'s ${f}`);
+        assert(!names.has(path.basename(s.demo)), `${entry}: ${id} source includes ${other}'s example`);
+      }
+    }
+  }
   for (const name of readdirSync(path.join(root, entry)).filter(f => f.endsWith(".css"))) {
     const css = readFileSync(path.join(root, entry, name), "utf8");
     // Every local selector is owned by one component; state modifiers may be shared.

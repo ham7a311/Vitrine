@@ -1,0 +1,364 @@
+/* ── Landing pages: the homepage, /sponsor and /partner ───────────────────────────────────────────────
+   Pane appears where it earns its place: beside the homepage headline, at the edge of the homepage's support row,
+   on the floor of the sponsor wall, and in the partner header. Its renders keep their dark backdrop (--color-pane); a soft pool of that colour sits behind each
+   one and the picture's own edges fade into it, so there's never a cut-out edge on the translucent glass. */
+.vitrine-pane img { display: block; width: 100%; height: auto; user-select: none; }
+
+/* ── Homepage hero: the line, and Pane standing in the dark beside it ── */
+.vitrine-hall { position: relative; isolation: isolate; margin-top: -3.5rem; overflow-x: clip; }
+.vitrine-hall-stage { position: relative; padding-top: calc(3.5rem + clamp(2.75rem, 9vh, 6.5rem)); }
+.vitrine-hall-copy { position: relative; z-index: 1; }
+.vitrine-hall-pane {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  margin: 2rem auto 0;
+  aspect-ratio: 910 / 761;
+}
+/* The pool of the render's own backdrop colour that Pane stands in. */
+.vitrine-hall-pane::before {
+  content: "";
+  position: absolute;
+  inset: -12% -20% -10% -18%;
+  z-index: -1;
+  background: radial-gradient(closest-side, var(--color-pane) 55%, rgb(16 9 21 / 0) 100%);
+}
+.vitrine-hall-pane .vitrine-pane {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 84%, transparent), linear-gradient(to right, transparent, #000 20%, #000 88%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 84%, transparent), linear-gradient(to right, transparent, #000 20%, #000 88%, transparent);
+  mask-composite: intersect;
+  animation: vitrine-pane-in 1100ms var(--ease-gallery) 150ms both;
+}
+.vitrine-hall-pane .vitrine-pane img { animation: vitrine-pane-float 8s ease-in-out 1300ms infinite; }
+
+@media (min-width: 768px) {
+  .vitrine-hall-pane { width: 70%; margin: 0.5rem calc(-1 * clamp(1rem, 4vw, 3rem)) 0 auto; }
+}
+@media (min-width: 1024px) {
+  .vitrine-hall-stage { display: flex; align-items: center; min-height: clamp(34rem, calc(100svh - 9rem), 44rem); padding-block: 5.5rem 1rem; }
+  .vitrine-hall-pane { position: absolute; right: calc(-1 * clamp(1rem, 4vw, 3rem)); top: 50%; translate: 0 -46%; width: min(44rem, 48vw); margin: 0; }
+}
+
+@keyframes vitrine-pane-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes vitrine-pane-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+/* ── Homepage support: two choices in one system. Both sides share five rows (label, name, line, terms, action) and,
+   from tablet up, sit on the same subgrid rows so they compare like for like. Sponsor is contained and priced, Partner
+   is open and scoped. Pane peeks over the lower edge on the Partner side, without space reserved for him. ── */
+.vitrine-support {
+  position: relative;
+  display: grid;
+  gap: 2.5rem;
+  overflow: hidden;
+  padding: 2rem 1.25rem 6.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+}
+.vitrine-support-choice { display: grid; grid-template-rows: auto auto auto 1fr auto; align-content: start; row-gap: 0.75rem; }
+.vitrine-support-label { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; color: var(--color-ink-3); }
+.vitrine-support-terms { align-self: end; padding-top: 0.75rem; }
+.vitrine-support-choice > a { justify-self: start; margin-top: 0.75rem; }
+.vitrine-support-sponsor {
+  padding: 1.5rem;
+  border: 1px solid rgb(185 204 228 / 0.14);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgb(185 204 228 / 0.035), transparent 60%), var(--color-plum-950);
+  box-shadow: inset 0 1px 0 rgb(185 204 228 / 0.08);
+}
+.vitrine-support-partner { padding: 0 0.25rem; }
+.vitrine-support-peek {
+  position: absolute;
+  bottom: -0.6rem;
+  right: 4%;
+  width: 10rem;
+  rotate: 4deg;
+  transform-origin: 50% 100%;
+  pointer-events: none;
+}
+.vitrine-support-peek::before { content: ""; position: absolute; inset: -25% -40% -5%; z-index: -1; background: radial-gradient(closest-side at 50% 90%, var(--color-pane) 45%, rgb(16 9 21 / 0) 100%); }
+.vitrine-support-peek .vitrine-pane {
+  display: block;
+  /* Mirrored, so he looks up towards the Partner link rather than away from it. */
+  scale: -1 1;
+  -webkit-mask-image: radial-gradient(54% 95% at 50% 100%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(54% 95% at 50% 100%, #000 62%, transparent 100%);
+}
+@media (min-width: 768px) {
+  .vitrine-support { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto repeat(5, auto); gap: 0 3rem; padding: 2.5rem; }
+  .vitrine-support-intro { grid-column: 1 / -1; margin-bottom: 2.5rem; }
+  .vitrine-support-choice { grid-row: span 5; grid-template-rows: subgrid; }
+  .vitrine-support-partner { padding: 1.5rem 0 1.5rem 2.5rem; border-left: 1px solid var(--color-line); }
+  .vitrine-support-peek { right: 3%; width: 11rem; }
+}
+@media (min-width: 1024px) {
+  .vitrine-support { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr) minmax(0, 1.05fr); grid-template-rows: repeat(5, auto); padding: 2.75rem; }
+  .vitrine-support-intro { grid-column: auto; grid-row: 1 / span 5; margin-bottom: 0; padding-top: 1.75rem; }
+  .vitrine-support-partner { padding-left: 2.75rem; }
+  .vitrine-support-peek { right: 2.5%; width: 12.5rem; }
+}
+
+/* ── Workshop → Support: Pane hanging over the boundary. The gap above the Support section is his stage: a wrapper
+   spans exactly that gap and clips at its top, which is the Workshop section's bottom rule, so his hips disappear
+   behind it. The render's grip line (about 90.6% down the image) sits on Support's top border; his visible height
+   (hips to grip) matches the gap, so the width follows from the gap: w = gap × aspect / 0.906. No floor glow. ── */
+.vitrine-support-section { --gap: 7rem; margin-top: var(--gap); }
+.vitrine-hang {
+  position: absolute;
+  z-index: 1;
+  top: calc(-1 * var(--gap));
+  left: 9%;
+  width: calc(var(--gap) * 1.138);
+  height: var(--gap);
+  clip-path: inset(0 -50% -50% -50%);
+  pointer-events: none;
+}
+/* The pool of the render's own backdrop colour he hangs in, clipped at the rule with him. No light below him. */
+.vitrine-hang::before {
+  content: "";
+  position: absolute;
+  inset: -40% -55% -22%;
+  background: radial-gradient(50% 50% at 50% 56%, var(--color-pane) 50%, rgb(16 9 21 / 0) 100%);
+}
+.vitrine-hang .vitrine-pane {
+  position: absolute;
+  inset: auto 0 0;
+  translate: 0 9.4%;
+  /* Wide enough to keep both hands crisp at the bottom corners; the backdrop dissolves into the pool. */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent), linear-gradient(to bottom, #000 95%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent), linear-gradient(to bottom, #000 95%, transparent);
+  mask-composite: intersect;
+}
+@media (min-width: 768px) {
+  .vitrine-support-section { --gap: 12rem; }
+  .vitrine-hang { left: 10%; }
+}
+@media (min-width: 1024px) {
+  .vitrine-hang { left: 12%; }
+}
+
+/* ── Homepage GitHub: the final moment. A static horizon low in the frame (frost bloom, lilac core, a faint cream line),
+   restrained so the top of the section stays dark and the message stays first. No border: the field shapes it. ── */
+.vitrine-final {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: 4rem 7.5rem;
+  border-radius: 14px;
+}
+.vitrine-final-field { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+/* A pool of plum that fades out at the sides and top, so the section has no hard edge; then the bloom from the horizon. */
+.vitrine-final-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(24% 16% at 50% 85%, rgb(239 232 220 / 0.06), transparent 72%),
+    radial-gradient(40% 34% at 50% 86%, rgb(176 150 232 / 0.2), transparent 74%),
+    radial-gradient(78% 58% at 50% 88%, rgb(150 182 228 / 0.11), transparent 76%),
+    radial-gradient(90% 85% at 50% 100%, rgb(19 12 22 / 0.95), transparent 82%);
+}
+/* The horizon: a soft line, faint cream at its centre, with a little haze below it. */
+.vitrine-final-field::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 14%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(200 185 234 / 0.32) 25%, rgb(239 232 220 / 0.5) 50%, rgb(200 185 234 / 0.32) 75%, transparent);
+  box-shadow: 0 0 20px 2px rgb(200 185 234 / 0.14), 0 18px 46px 14px rgb(185 204 228 / 0.06);
+}
+@media (min-width: 768px) {
+  .vitrine-final { padding-block: 4.5rem 9rem; }
+}
+/* Pane on the horizon, the star in his lap: lower right, partly cropped by the edge, his base on the horizon line
+   (the render's base is 10.1% above its bottom). Below the headline in weight; text paints over him. */
+/* ── Homepage footer: Pane peeks up over the top rule. The wrapper's bottom is the rule (72% down the render, below his
+   chin), so his head shows above it and the body is clipped by the footer's line. The render's own backdrop fades out. ── */
+.footer-peek {
+  --w: 9rem;
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  bottom: 100%;
+  width: var(--w);
+  height: calc(var(--w) / 1.1032 * 0.72);
+  overflow: hidden;
+  pointer-events: none;
+}
+.footer-peek-pane { display: block; width: 100%; height: auto; }
+/* Sides and top fade into the page; the bottom stays crisp, because the rule is what cuts him off. */
+.footer-peek-pane img {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent), linear-gradient(to bottom, transparent, #000 22%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent), linear-gradient(to bottom, transparent, #000 22%);
+  mask-composite: intersect;
+}
+@media (min-width: 768px) { .footer-peek { --w: 10rem; } }
+@media (min-width: 1024px) { .footer-peek { --w: 11rem; } }
+
+.vitrine-final-star {
+  position: absolute;
+  right: -5%;
+  bottom: 14%;
+  width: 6.5rem;
+  translate: 0 10.1%;
+  pointer-events: none;
+}
+.vitrine-final-star .vitrine-pane {
+  display: block;
+  /* Wherever the field is lighter than the render's near-black backdrop, the field shows: no box on the bloom. */
+  mix-blend-mode: lighten;
+  /* The field around him is almost the render's own backdrop colour, so a soft ellipse is enough to lose the box. */
+  -webkit-mask-image: radial-gradient(58% 62% at 54% 56%, #000 66%, transparent 100%);
+  mask-image: radial-gradient(58% 62% at 54% 56%, #000 66%, transparent 100%);
+}
+@media (min-width: 768px) { .vitrine-final-star { right: -1%; width: 12.5rem; } }
+@media (min-width: 1024px) { .vitrine-final-star { right: -0.5%; width: 16rem; } }
+
+/* ── /sponsor: two plans built differently ──
+   Supporter is a plain, narrow card: the easiest way to help. Studio is wider, with a filled header band, a stronger
+   frame and brighter perks. No icons, badges or recommended plan. */
+.vitrine-plans { display: grid; gap: 1rem; margin-top: clamp(3rem, 6vw, 4.5rem); }
+@media (min-width: 768px) { .vitrine-plans { grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr); gap: 1.25rem; align-items: stretch; } }
+.vitrine-plan { display: flex; flex-direction: column; border: 1px solid var(--color-line); border-radius: 14px; background: var(--color-void); }
+.vitrine-plan-name { font-family: var(--font-display); font-size: 1.625rem; font-weight: 400; line-height: 1.1; letter-spacing: -0.015em; color: var(--color-cream); }
+.vitrine-plan-who { margin-top: 0.25rem; font-size: 0.875rem; color: var(--color-ink-3); }
+.vitrine-plan-price { display: flex; align-items: baseline; gap: 0.5rem; }
+.vitrine-plan-amount { font-family: var(--font-display); font-size: 3.5rem; line-height: 1; letter-spacing: -0.035em; color: var(--color-cream); }
+.vitrine-plan-per { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); }
+.vitrine-plan-perks { border-top: 1px solid var(--color-line); }
+.vitrine-plan-perks li { display: flex; gap: 0.75rem; padding: 0.8rem 0; border-bottom: 1px solid var(--color-line); font-size: 0.9375rem; line-height: 1.5; color: var(--color-ink-2); }
+/* A short frost dash for each perk, like the edge of a pane seen side-on. */
+.vitrine-plan-perks li::before { content: ""; flex: none; width: 0.75rem; height: 1px; margin-top: 0.72em; background: rgb(185 204 228 / 0.6); }
+.vitrine-plan-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
+
+/* Supporter: modest on purpose. */
+.vitrine-plan-supporter { padding: 1.75rem; }
+.vitrine-plan-supporter .vitrine-plan-price { margin-top: 1.75rem; }
+.vitrine-plan-supporter .vitrine-plan-perks { margin-top: 1.5rem; }
+.vitrine-plan-supporter .vitrine-plan-actions { margin-top: auto; padding-top: 2rem; }
+
+/* Studio: constructed, not decorated. */
+.vitrine-plan-studio {
+  overflow: hidden;
+  border-color: rgb(185 204 228 / 0.26);
+  box-shadow: inset 0 0 0 1px rgb(46 31 53 / 0.7), 0 30px 60px -44px rgb(200 185 234 / 0.3);
+}
+.vitrine-studio-head {
+  padding: 1.75rem;
+  border-bottom: 1px solid rgb(185 204 228 / 0.16);
+  background: linear-gradient(180deg, rgb(46 31 53 / 0.75), rgb(28 18 32 / 0.55));
+  box-shadow: inset 0 1px 0 rgb(185 204 228 / 0.12);
+}
+.vitrine-plan-studio .vitrine-plan-who { color: var(--color-ink-2); }
+.vitrine-studio-body { display: flex; flex: 1; flex-direction: column; padding: 1.75rem; }
+.vitrine-plan-studio .vitrine-plan-perks { margin-top: 1.5rem; }
+.vitrine-plan-studio .vitrine-plan-perks li { color: var(--color-cream); }
+.vitrine-plan-studio .vitrine-plan-actions { margin-top: auto; padding-top: 2rem; }
+
+/* The sponsor header: Pane walks in from the right carrying glass, set a little low, with no frame. Hidden on phones. */
+.vitrine-sponsor-head { position: relative; }
+.vitrine-sponsor-pane { display: none; }
+@media (min-width: 768px) {
+  .vitrine-sponsor-head { min-height: clamp(20rem, 34vw, 25rem); }
+  .vitrine-sponsor-pane {
+    display: block;
+    position: absolute;
+    right: calc(-1 * clamp(1rem, 3vw, 2rem));
+    bottom: -3.5rem;
+    width: min(27rem, 40vw);
+    aspect-ratio: 840 / 881;
+  }
+  .vitrine-sponsor-pane::before { content: ""; position: absolute; inset: -10% -15% -8%; z-index: -1; background: radial-gradient(closest-side, var(--color-pane) 55%, rgb(16 9 21 / 0) 100%); }
+  .vitrine-sponsor-pane .vitrine-pane {
+    position: absolute;
+    inset: 0;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent), linear-gradient(to right, transparent, #000 16%, #000 86%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent), linear-gradient(to right, transparent, #000 16%, #000 86%, transparent);
+    mask-composite: intersect;
+  }
+}
+
+.vitrine-wall { position: relative; display: flex; align-items: flex-end; gap: 1rem 2.5rem; margin-top: 2.5rem; border-bottom: 1px solid var(--color-line-strong); }
+.vitrine-wall-named { display: block; padding-bottom: 2.5rem; }
+.vitrine-wall-named > * + * { margin-top: 2.25rem; }
+.vitrine-wall-pane {
+  position: relative;
+  flex: none;
+  width: clamp(9.5rem, 22vw, 15rem);
+  overflow: hidden;
+  background: radial-gradient(closest-side at 50% 72%, var(--color-pane) 55%, rgb(16 9 21 / 0) 100%);
+}
+/* The feet sit on the floor line: the render's floor glow below them is cut off by the wall's edge. */
+.vitrine-wall-pane .vitrine-pane {
+  display: block;
+  margin-bottom: -7.4%;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 20%, #000 80%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 20%, #000 80%, transparent);
+  mask-composite: intersect;
+}
+.vitrine-wall-empty { padding-bottom: 1.75rem; font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; letter-spacing: -0.015em; color: var(--color-cream); }
+.vitrine-wall-empty span { color: var(--color-ink-3); }
+
+/* ── /partner: the header closes on a floor line, with Pane standing on it half out of the frame ── */
+.vitrine-partner-head { overflow-x: clip; border-bottom: 1px solid var(--color-line-strong); }
+.vitrine-partner-stage { position: relative; padding-top: clamp(3rem, 7vw, 5rem); }
+.vitrine-partner-pane {
+  position: relative;
+  width: 80%;
+  margin: 2.5rem calc(-1 * clamp(1rem, 4vw, 3rem)) 0 auto;
+  overflow: hidden;
+  background: radial-gradient(closest-side at 50% 62%, var(--color-pane) 55%, rgb(16 9 21 / 0) 100%);
+}
+.vitrine-partner-pane .vitrine-pane {
+  display: block;
+  margin-bottom: -6.2%;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%), linear-gradient(to right, transparent, #000 16%, #000 86%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent, #000 14%), linear-gradient(to right, transparent, #000 16%, #000 86%, transparent);
+  mask-composite: intersect;
+}
+@media (min-width: 768px) {
+  .vitrine-partner-stage { min-height: clamp(30rem, 52vw, 38rem); }
+  .vitrine-partner-copy { position: relative; z-index: 1; padding-bottom: 5rem; }
+  .vitrine-partner-pane { position: absolute; right: calc(-1 * clamp(1rem, 4vw, 3rem)); bottom: 0; width: min(30rem, 46vw); margin: 0; }
+}
+
+.vitrine-kind { display: grid; gap: 0.75rem 3rem; padding: 2.25rem 0; }
+.vitrine-kind-title { font-family: var(--font-display); font-size: clamp(1.75rem, 3.2vw, 2.75rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; color: var(--color-cream); }
+.vitrine-kind-text { max-width: 46ch; font-size: 1rem; line-height: 1.7; color: var(--color-ink-2); }
+@media (min-width: 768px) {
+  .vitrine-kind { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); align-items: baseline; padding: 2.75rem 0; }
+}
+.vitrine-steps { display: grid; gap: 2.5rem 2rem; margin-top: 1.5rem; padding-top: 1.75rem; border-top: 1px solid var(--color-line-strong); }
+@media (min-width: 768px) { .vitrine-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* /workshop ending: the closing note, and Pane sitting beside it studying a component. Quiet, smaller than elsewhere. */
+.vitrine-workshop-end { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 3rem; }
+.vitrine-workshop-pane { position: relative; align-self: flex-end; width: 10rem; aspect-ratio: 700 / 841; }
+.vitrine-workshop-pane::before { content: ""; position: absolute; inset: -6% 0; z-index: -1; background: radial-gradient(closest-side, var(--color-pane) 50%, rgb(16 9 21 / 0) 100%); }
+.vitrine-workshop-pane .vitrine-pane {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: radial-gradient(50% 50% at 50% 52%, #000 66%, transparent 100%);
+  mask-image: radial-gradient(50% 50% at 50% 52%, #000 66%, transparent 100%);
+}
+@media (min-width: 768px) {
+  .vitrine-workshop-end { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 3rem; }
+  .vitrine-workshop-end > p { padding-bottom: 1.5rem; }
+  .vitrine-workshop-pane { width: 12rem; flex: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vitrine-hall-pane .vitrine-pane, .vitrine-hall-pane .vitrine-pane img { animation: none; }
+}

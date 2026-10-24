@@ -13,3 +13,8 @@ export function mailtoUrl({ subject, body }: { subject: string; body?: string })
   const q = new URLSearchParams({ subject, ...(body ? { body } : {}) }).toString().replace(/\+/g, "%20");
   return `mailto:${site.contact.email}?${q}`;
 }
+
+/** A WhatsApp chat link with the message already written. */
+export function whatsappUrl(text: string) {
+  return `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(text)}`;
+}

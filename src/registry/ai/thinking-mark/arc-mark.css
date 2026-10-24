@@ -1,0 +1,24 @@
+.arcm { --arcm-level: 0; display: inline-flex; width: fit-content; align-items: center; gap: 0.55em; color: #a1a1aa; font: 500 0.9375rem/1.4 ui-sans-serif, system-ui, sans-serif; vertical-align: middle; }
+.arcm__mark { position: relative; flex: none; width: var(--arcm-px); height: var(--arcm-px); color: var(--arcm-mark); }
+.arcm__logo { display: block; width: 100%; height: 100%; filter: drop-shadow(0 0 calc(var(--arcm-level) * var(--arcm-px) * 0.16) color-mix(in srgb, var(--arcm-glow) calc(var(--arcm-level) * 70%), transparent)); }
+.arcm__arcs { position: absolute; inset: calc(var(--arcm-pad) * -1); width: calc(100% + var(--arcm-pad) * 2); height: calc(100% + var(--arcm-pad) * 2); pointer-events: none; }
+.arcm__label { white-space: nowrap; }
+.arcm.is-working .arcm__label {
+  background: linear-gradient(90deg, #8a8a93 0%, #8a8a93 38%, var(--arcm-hint) 50%, #8a8a93 62%, #8a8a93 100%) 0 0 / 260% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: arcm-shimmer 2.4s linear infinite;
+}
+.arcm__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.arcm__brand { display: none; }
+
+.arcm--hero { flex-direction: column; gap: 22px; }
+.arcm--hero .arcm__text {
+  display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 7px; border: 1px solid rgb(255 255 255 / 0.08);
+  background: rgb(18 18 22 / 0.85); font: 500 0.78rem/1.2 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.04em;
+}
+.arcm--hero .arcm__brand { display: inline; color: #ececf1; text-transform: uppercase; letter-spacing: 0.1em; }
+.arcm--hero .arcm__dot { margin: 0 0.55em; color: #5b5b66; }
+
+@keyframes arcm-shimmer { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+.arcm--still.is-working .arcm__label { animation: none; background: none; color: var(--arcm-hint); }
+@media (prefers-reduced-motion: reduce) { .arcm.is-working .arcm__label { animation: none; background: none; color: var(--arcm-hint); } }

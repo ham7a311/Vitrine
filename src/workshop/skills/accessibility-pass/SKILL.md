@@ -64,3 +64,31 @@ For each failure: what it is, where it is, how you verified it, and the fix. Gro
 - **Polish.**
 
 Fix what you can, then re-run the checks that failed and say so.
+
+## Don't use when
+
+- You need a legal conformance report. This is a hands-on pass that finds and fixes real problems; a formal WCAG audit needs a full checklist and documentation.
+- The interface isn't running. Every check here happens in a browser.
+
+## Acceptance criteria
+
+- Every interactive element was reached and operated with the keyboard alone, in a sensible order, with focus always visible.
+- Every control has a name, role and state that a screen reader announces correctly.
+- Dynamic changes (errors, results, saved states) are announced.
+- Reduced motion leaves a designed still version, not a broken one.
+- Text and controls pass contrast, and the page works at 200% zoom and 320px wide.
+
+## Common failure modes
+
+- **Reading the code instead of using the page.** An `aria-label` in the source proves nothing until it's heard in context.
+- **Fixing with ARIA what HTML already does:** `role="button"` on a `div` instead of a `button`.
+- **Hiding the focus ring** because it looked untidy, without a replacement.
+- **Removing motion entirely** under reduced motion, so state changes become invisible.
+- **Checking one state:** the empty, error, loading and long-content states are where most problems are.
+
+## Final self-review
+
+- Did I do every check in a real browser?
+- Could someone use the whole flow with a keyboard and no mouse?
+- Did I hear what a screen reader says for each control, not just read the markup?
+- Did I check the error, empty and loading states?

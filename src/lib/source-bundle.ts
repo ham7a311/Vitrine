@@ -2,11 +2,17 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { ComponentMeta } from "../registry/types";
 
-/** Resolve the complete local import graph and flatten it into a portable folder. */
-export async function sourceBundle(meta: ComponentMeta, root = path.join(process.cwd(), "src/registry")) {
-  const demoFile = path.join(root, meta.category, meta.slug, "demo.tsx");
-  const boundaryFile = path.join(root, "DemoBoundary.tsx");
+/**
+ * Resolve the complete local import graph and flatten it into a portable folder. With a variant that has its own
+ * sources (meta.variantSources), the graph starts from that variant's files and example instead, so the folder
+ * holds that variant alone.
+ */
+export async function sourceBundle(meta: ComponentMeta, root = path.join(process.cwd(), "src/registry"), variant?: string) {
   const dir = path.join(root, meta.category, meta.slug);
+  const own = variant ? meta.variantSources?.[variant] : undefined;
+  if (variant && !own) throw new Error(`${meta.slug}: no sources for variant ${variant}`);
+  const demoFile = path.join(dir, own ? own.demo : "demo.tsx");
+  const boundaryFile = path.join(root, "DemoBoundary.tsx");
   const files = new Map<string, string>();
   const imports = /(?:from\s*|import\s*)["'](\.[^"']+)["']/g;
   const resolve = async (base: string) => {
@@ -22,7 +28,7 @@ export async function sourceBundle(meta: ComponentMeta, root = path.join(process
     files.set(file, code);
     for (const m of code.matchAll(imports)) await visit(path.resolve(path.dirname(file), m[1]));
   };
-  for (const f of [...meta.files, "demo.tsx"]) await visit(path.resolve(dir, f));
+  for (const f of [...(own ? own.files : meta.files), own ? own.demo : "demo.tsx"]) await visit(path.resolve(dir, f));
   await visit(boundaryFile);
   const names = new Map<string, string>();
   const used = new Set<string>();

@@ -1,0 +1,67 @@
+.penloop {
+  --loop: #d93b28;
+  position: relative;
+  display: inline-block;
+  /* Room for the loop to swing round the word without crossing its neighbours. */
+  margin-inline: 0.16em;
+  white-space: nowrap;
+}
+.penloop--night {
+  --loop: #ff8a5c;
+}
+
+.penloop__word { position: relative; display: inline-block; }
+
+.penloop__svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+}
+.penloop__ring,
+.penloop__shaft,
+.penloop__head {
+  fill: none;
+  stroke: var(--loop);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+/* A pen accelerates into the curve and eases off as it overshoots the start. */
+.penloop[data-on] .penloop__ring {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 950ms cubic-bezier(0.55, 0.05, 0.3, 1) var(--delay);
+}
+.penloop[data-on] .penloop__shaft {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 420ms cubic-bezier(0.4, 0, 0.3, 1) calc(var(--delay) + 1600ms);
+}
+.penloop[data-on] .penloop__head {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 160ms ease-out calc(var(--delay) + 2020ms);
+}
+
+/* The note hangs under the word's right edge, so it can't run off the page; written in left to right. */
+.penloop__note {
+  position: absolute;
+  right: -0.1em;
+  color: var(--loop);
+  font: italic 400 0.34em/1.1 "Instrument Serif", Georgia, serif;
+  letter-spacing: 0;
+  white-space: nowrap;
+  clip-path: inset(0 100% 0 0);
+}
+.penloop[data-on] .penloop__note {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 520ms cubic-bezier(0.4, 0, 0.3, 1) calc(var(--delay) + 1050ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .penloop__ring, .penloop__shaft, .penloop__head { stroke-dashoffset: 0; }
+  .penloop__note { clip-path: none; }
+  .penloop[data-on] .penloop__ring, .penloop[data-on] .penloop__shaft, .penloop[data-on] .penloop__head, .penloop[data-on] .penloop__note { transition: none; }
+}

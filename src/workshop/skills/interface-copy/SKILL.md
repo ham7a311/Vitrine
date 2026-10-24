@@ -91,3 +91,29 @@ When reviewing copy, go screen by screen and list:
 `/template-tells`'s scanner finds buzzwords, placeholders and generic labels in the source automatically; run it first on large projects.
 
 Deliver changes as `before → after` pairs grouped by screen, or edit the source directly if asked.
+
+## Don't use when
+
+- The text is long-form marketing copy. Use `/copy-quality` for that; this skill is for the words inside the interface.
+- You need the right facts, not the right words (a price, a limit, a policy). Get the facts first.
+
+## Acceptance criteria
+
+- Every button names its action and its object.
+- Errors say what happened and what to do next, without blame.
+- Empty states say what goes here and how to add it.
+- The same thing is called the same name everywhere.
+- Demo content reads as real: plausible names, numbers, dates and lengths, with no placeholders.
+
+## Common failure modes
+
+- **Generic actions:** "Submit", "OK", "Learn more".
+- **Inconsistent names:** "workspace", "project" and "space" for one thing.
+- **Cheerful errors** that hide what went wrong.
+- **Placeholder demo data** (John Doe, Acme, lorem ipsum) shipped or screenshotted.
+
+## Final self-review
+
+- Could someone use this screen reading only its labels and buttons?
+- Is anything named two different ways?
+- Is any demo content obviously fake?

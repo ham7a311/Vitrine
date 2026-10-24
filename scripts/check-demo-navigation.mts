@@ -8,7 +8,7 @@ import { chromium, type Page } from "playwright";
 import { sourceBundle } from "../src/lib/source-bundle.ts";
 const require = createRequire(import.meta.url), project = path.resolve(import.meta.dirname, "..");
 const base = process.env.VITRINE_TEST_URL ?? "http://127.0.0.1:3147";
-const removed = ["feature-folio", "case-study-ledger", "article-masthead", "directory-mega-nav"];
+const removed = ["feature-folio", "case-study-ledger", "article-masthead", "directory-mega-nav", "sketch-button", "detent-knob", "rocker-switch", "chrome-text", "chalk-menu-pricing", "product-atelier", "contact-sheet"];
 const examples = ["missing-glyph-404", "unlit-gallery-404", "wayfinder-404", "errata-404", "quiet-return-404", "colour-register-faq", "masthead-nav", "folio-card", "index-footer", "receipt-card", "cascade-button", "footnote-faq"];
 const order = readFileSync(path.join(project,"src/registry/order.txt"),"utf8").split("\n").filter(line=>line&&!line.startsWith("#"));
 const runtime:Record<string,string> = {};
@@ -59,5 +59,5 @@ try {
  await page.getByRole('navigation',{name:'Breadcrumb'}).getByRole('link',{name:'Components',exact:true}).click();await page.waitForURL('**/components');
  const touchContext=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true});const touch=await touchContext.newPage();touch.on('pageerror',error=>errors.push(error.message));
  await touch.goto(`${base}/preview/wayfinder-404`);await touch.getByRole('radio',{name:'Collection',exact:true}).tap();const touchUrl=touch.url();await touch.getByRole('link',{name:/Go to Collection/}).tap();assert.equal(touch.url(),touchUrl);await touchContext.close();
- assert.deepEqual(errors,[]);console.log(`demo navigation: ${checked} live/copied links exercised by mouse, keyboard and modifiers; ${inspected} previews inspected; four removed slugs return 404; sitemap, parent iframe, gallery navigation and touch passed`);
+ assert.deepEqual(errors,[]);console.log(`demo navigation: ${checked} live/copied links exercised by mouse, keyboard and modifiers; ${inspected} previews inspected; ${removed.length} removed slugs return 404; sitemap, parent iframe, gallery navigation and touch passed`);
 } finally {await browser?.close();await new Promise<void>(resolve=>server.close(()=>resolve()));}

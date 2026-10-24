@@ -185,3 +185,28 @@ For each page, give:
 - what's still slow, why it stays, and what it would take
 
 Keep claims to what you measured. "LCP 3.9 s → 1.8 s on /pricing, by serving the hero at 780px as AVIF with high priority" is a result; "improved performance" is not.
+
+## Don't use when
+
+- You haven't measured. Don't optimise from guesses; run the script first.
+- You're testing a development build. Measure production.
+
+## Acceptance criteria
+
+- Before and after numbers exist for the same pages, on the same throttled profile.
+- The largest cause was fixed first, and the improvement was measured.
+- Images, fonts and scripts on the first screen are justified by what they show.
+- Canvas and WebGL work pauses offscreen and has a fallback.
+
+## Common failure modes
+
+- **Micro-optimising** small scripts while one oversized image dominates the load.
+- **Measuring on a fast laptop** instead of a throttled phone profile.
+- **Lazy-loading the hero image,** which makes the largest paint slower.
+- **Fixing everything at once,** so you can't tell what helped.
+
+## Final self-review
+
+- What was the biggest cause, and did fixing it move the number?
+- Did I measure a production build on a throttled profile?
+- Did anything I deferred end up on the first screen?

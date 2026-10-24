@@ -1,0 +1,27 @@
+.crna { --crna-level: 0; display: inline-flex; align-items: center; gap: 0.5em; width: fit-content; color: #a1a1aa; font: 500 0.9375rem/1.4 ui-sans-serif, system-ui, sans-serif; vertical-align: middle; }
+.crna__crown { position: relative; flex: none; width: var(--crna-box); height: var(--crna-box); color: var(--crna-mark); }
+.crna__discharge { position: absolute; inset: calc(var(--crna-pad) * -1); width: calc(100% + var(--crna-pad) * 2); height: calc(100% + var(--crna-pad) * 2); pointer-events: none; }
+.crna__logo {
+  position: absolute; left: 50%; top: 50%; width: var(--crna-m); height: var(--crna-m); translate: -50% -50%;
+  filter: drop-shadow(0 0 calc(var(--crna-level) * var(--crna-m) * 0.16) color-mix(in srgb, var(--crna-glow) calc(var(--crna-level) * 85%), transparent));
+}
+.crna__label { white-space: nowrap; }
+.crna.is-working .crna__label {
+  background: linear-gradient(90deg, #8a8a93 0%, #8a8a93 38%, var(--crna-hint) 50%, #8a8a93 62%, #8a8a93 100%) 0 0 / 260% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: crna-shimmer 2.4s linear infinite;
+}
+.crna__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.crna__brand { display: none; }
+
+.crna--hero { flex-direction: column; gap: 26px; }
+.crna--hero .crna__text {
+  display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 7px; border: 1px solid rgb(255 255 255 / 0.08);
+  background: rgb(18 18 22 / 0.85); font: 500 0.78rem/1.2 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.04em;
+}
+.crna--hero .crna__brand { display: inline; color: #ececf1; text-transform: uppercase; letter-spacing: 0.1em; }
+.crna--hero .crna__dot { margin: 0 0.55em; color: #5b5b66; }
+
+@keyframes crna-shimmer { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+.crna--still.is-working .crna__label { animation: none; background: none; color: var(--crna-hint); }
+@media (prefers-reduced-motion: reduce) { .crna.is-working .crna__label { animation: none; background: none; color: var(--crna-hint); } }

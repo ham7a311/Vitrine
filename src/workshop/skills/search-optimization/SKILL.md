@@ -63,3 +63,28 @@ Expand each query term to *term OR its synonyms*. Score synonym hits slightly be
 ## Output
 
 The query table before and after, with every row passing, plus the list of metadata fixes and synonym entries added.
+
+## Don't use when
+
+- The content people are looking for doesn't exist. Better search can't find what isn't there.
+- The site has a handful of pages; navigation may serve better than a search box.
+
+## Acceptance criteria
+
+- A query table of real searches, each with its expected results, passes.
+- Common misspellings, synonyms and partial words return the right items.
+- Empty results suggest something useful.
+- Ranking puts exact name matches above loose matches.
+
+## Common failure modes
+
+- **Tuning by feel** instead of against the query table.
+- **Fuzzy matching so loose** that every query returns everything.
+- **Synonyms implied** instead of written down.
+- **A dead-end empty state.**
+
+## Final self-review
+
+- Does every query in the table return what it should?
+- What do the five most common real queries return?
+- What happens when nothing matches?

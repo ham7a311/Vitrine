@@ -1,0 +1,30 @@
+.flmt { --flmt-level: 0; display: inline-flex; align-items: center; gap: 0.55em; width: fit-content; color: #a1a1aa; font: 500 0.9375rem/1.4 ui-sans-serif, system-ui, sans-serif; vertical-align: middle; }
+.flmt__mark { position: relative; flex: none; width: var(--flmt-px); height: var(--flmt-px); color: var(--flmt-mark); }
+/* The logo's fill dims while the wire is hot, and comes back as it cools. */
+.flmt__logo { display: block; width: 100%; height: 100%; opacity: calc(1 - var(--flmt-level) * 0.8); }
+.flmt__wire { position: absolute; inset: calc(var(--flmt-pad) * -1); width: calc(100% + var(--flmt-pad) * 2); height: calc(100% + var(--flmt-pad) * 2); pointer-events: none; }
+.flmt__label { white-space: nowrap; }
+.flmt.is-working .flmt__label {
+  background: linear-gradient(90deg, #8a8a93 0%, #8a8a93 38%, var(--flmt-hint) 50%, #8a8a93 62%, #8a8a93 100%) 0 0 / 260% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: flmt-shimmer 2.4s linear infinite;
+}
+.flmt__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.flmt__brand { display: none; }
+
+.flmt--hero { flex-direction: column; gap: 24px; }
+.flmt--hero .flmt__text {
+  display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 7px; border: 1px solid rgb(255 255 255 / 0.08);
+  background: rgb(18 18 22 / 0.85); font: 500 0.78rem/1.2 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.04em;
+}
+.flmt--hero .flmt__brand { display: inline; color: #ececf1; text-transform: uppercase; letter-spacing: 0.1em; }
+.flmt--hero .flmt__dot { margin: 0 0.55em; color: #5b5b66; }
+
+@keyframes flmt-shimmer { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+/* Without motion the wire isn't drawn, so the logo keeps its fill and only gains a steady glow. */
+.flmt--still .flmt__logo { opacity: 1; filter: drop-shadow(0 0 calc(var(--flmt-level) * var(--flmt-px) * 0.12) var(--flmt-glow)); }
+.flmt--still.is-working .flmt__label { animation: none; background: none; color: var(--flmt-hint); }
+@media (prefers-reduced-motion: reduce) {
+  .flmt__logo { opacity: 1; filter: drop-shadow(0 0 calc(var(--flmt-level) * var(--flmt-px) * 0.12) var(--flmt-glow)); }
+  .flmt.is-working .flmt__label { animation: none; background: none; color: var(--flmt-hint); }
+}

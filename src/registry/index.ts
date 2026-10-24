@@ -20,7 +20,6 @@ import { meta as keycap } from "./buttons/keycap/meta";
 import { meta as swellButton } from "./buttons/swell-button/meta";
 import { meta as sloshButton } from "./buttons/slosh-button/meta";
 import { meta as letterpressButton } from "./buttons/letterpress-button/meta";
-import { meta as sketchButton } from "./buttons/sketch-button/meta";
 import { meta as foldawayButton } from "./buttons/foldaway-button/meta";
 import { meta as stratumButton } from "./buttons/stratum-button/meta";
 import { meta as entryRingButton } from "./buttons/entry-ring-button/meta";
@@ -88,9 +87,8 @@ import { meta as gelToggle } from "./controls/gel-toggle/meta";
 import { meta as mercurySegments } from "./controls/mercury-segments/meta";
 import { meta as histogramRange } from "./controls/histogram-range/meta";
 import { meta as rulerPicker } from "./controls/ruler-picker/meta";
-import { meta as detentKnob } from "./controls/detent-knob/meta";
 import { meta as eclipseToggle } from "./controls/eclipse-toggle/meta";
-import { meta as rockerSwitch } from "./controls/rocker-switch/meta";
+import { meta as themeShift } from "./controls/theme-shift/meta";
 import { meta as snoozeRail } from "./controls/snooze-rail/meta";
 import { meta as themeDial } from "./controls/theme-dial/meta";
 import { meta as punchCheck } from "./controls/punch-check/meta";
@@ -216,8 +214,6 @@ import { meta as glyphSwell } from "./backgrounds/glyph-swell/meta";
 import { meta as causticPool } from "./backgrounds/caustic-pool/meta";
 import { meta as rippleTank } from "./backgrounds/ripple-tank/meta";
 import { meta as glowPointer } from "./cursors/glow-pointer/meta";
-import { meta as highlightSweep } from "./cursors/highlight-sweep/meta";
-import { meta as infiniteHighlightSweep } from "./cursors/infinite-highlight-sweep/meta";
 import { meta as eyeTracker } from "./cursors/eye-tracker/meta";
 import { meta as nibTrail } from "./cursors/nib-trail/meta";
 import { meta as haloPointer } from "./cursors/halo-pointer/meta";
@@ -233,6 +229,8 @@ import { meta as sparkleClick } from "./cursors/sparkle-click/meta";
 import { meta as confettiClick } from "./cursors/confetti-click/meta";
 import { meta as fireworkClick } from "./cursors/firework-click/meta";
 import { meta as petalClick } from "./cursors/petal-click/meta";
+import { meta as thinkingMark } from "./ai/thinking-mark/meta";
+import { meta as agentComposer } from "./ai/agent-composer/meta";
 import { meta as streamReply } from "./ai/stream-reply/meta";
 import { meta as voiceOrb } from "./ai/voice-orb/meta";
 import { meta as agentRun } from "./ai/agent-run/meta";
@@ -255,7 +253,6 @@ import { meta as confidenceInk } from "./ai/confidence-ink/meta";
 import { meta as askBar } from "./ai/ask-bar/meta";
 import { meta as glyphHaloComposer } from "./ai/glyph-halo-composer/meta";
 import { meta as afterglowPrompt } from "./ai/afterglow-prompt/meta";
-import { meta as agentComposer } from "./ai/agent-composer/meta";
 import { meta as modelRoster } from "./ai/model-roster/meta";
 import { meta as dialComposer } from "./ai/dial-composer/meta";
 import { meta as canvasComposer } from "./ai/canvas-composer/meta";
@@ -346,7 +343,6 @@ import { meta as usageRuler } from "./pricing/usage-ruler/meta";
 import { meta as lightboxCompare } from "./pricing/lightbox-compare/meta";
 import { meta as calendarPricing } from "./pricing/calendar-pricing/meta";
 import { meta as stackPricing } from "./pricing/stack-pricing/meta";
-import { meta as chalkMenuPricing } from "./pricing/chalk-menu-pricing/meta";
 import { meta as tillReceipt } from "./pricing/till-receipt/meta";
 import { meta as buildSheet } from "./commerce/build-sheet/meta";
 import { meta as fitCompare } from "./commerce/fit-compare/meta";
@@ -440,7 +436,6 @@ import { meta as artGallery } from "./media/art-gallery/meta";
 import { meta as imageCompare } from "./media/image-compare/meta";
 import { meta as hoverReel } from "./media/hover-reel/meta";
 import { meta as ditherPortrait } from "./media/dither-portrait/meta";
-import { meta as contactSheet } from "./media/contact-sheet/meta";
 import { meta as transcriptPlayer } from "./media/transcript-player/meta";
 import { meta as helixShowcase } from "./media/helix-showcase/meta";
 import { meta as storyReel } from "./media/story-reel/meta";
@@ -503,7 +498,6 @@ import { meta as tornPaper } from "./sections/torn-paper/meta";
 import { meta as crossedTapes } from "./sections/crossed-tapes/meta";
 import { meta as topoContours } from "./sections/topo-contours/meta";
 import { meta as beadCurtain } from "./sections/bead-curtain/meta";
-import { meta as productAtelier } from "./sections/product-atelier/meta";
 import { meta as pageHeader } from "./sections/page-header/meta";
 import { meta as quickstartChecklist } from "./sections/quickstart-checklist/meta";
 import { meta as ditherLogo } from "./type/dither-logo/meta";
@@ -529,7 +523,6 @@ import { meta as reactionPill } from "./micro/reaction-pill/meta";
 import { meta as tumblerCode } from "./micro/tumbler-code/meta";
 import { meta as shackleLock } from "./micro/shackle-lock/meta";
 import { meta as pinDrop } from "./micro/pin-drop/meta";
-import { meta as chromeText } from "./text/chrome-text/meta";
 import { meta as gradientText } from "./text/gradient-text/meta";
 import { meta as shineText } from "./text/shine-text/meta";
 import { meta as spotlightText } from "./text/spotlight-text/meta";
@@ -544,6 +537,23 @@ import { meta as weightWaveText } from "./text/weight-wave-text/meta";
 import { meta as looseLetters } from "./text/loose-letters/meta";
 import { meta as wordCarousel } from "./text/word-carousel/meta";
 import { meta as secondDraftText } from "./text/second-draft-text/meta";
+import { meta as pillSwap } from "./highlights/pill-swap/meta";
+import { meta as brushSwatch } from "./highlights/brush-swatch/meta";
+import { meta as handleHighlight } from "./highlights/handle-highlight/meta";
+import { meta as highlighterPen } from "./highlights/highlighter-pen/meta";
+import { meta as penLoop } from "./highlights/pen-loop/meta";
+import { meta as squiggleUnderline } from "./highlights/squiggle-underline/meta";
+import { meta as inverseSweep } from "./highlights/inverse-sweep/meta";
+import { meta as highlightSweep } from "./highlights/highlight-sweep/meta";
+import { meta as infiniteHighlightSweep } from "./highlights/infinite-highlight-sweep/meta";
+import { meta as focusLock } from "./highlights/focus-lock/meta";
+import { meta as washiTape } from "./highlights/washi-tape/meta";
+import { meta as redacted } from "./highlights/redacted/meta";
+import { meta as ditherFill } from "./highlights/dither-fill/meta";
+import { meta as searchHits } from "./highlights/search-hits/meta";
+import { meta as marginNote } from "./highlights/margin-note/meta";
+import { meta as risoMark } from "./highlights/riso-mark/meta";
+import { meta as watercolourWash } from "./highlights/watercolour-wash/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -568,7 +578,6 @@ export const registry: ComponentMeta[] = [
   swellButton,
   sloshButton,
   letterpressButton,
-  sketchButton,
   foldawayButton,
   stratumButton,
   entryRingButton,
@@ -636,9 +645,8 @@ export const registry: ComponentMeta[] = [
   mercurySegments,
   histogramRange,
   rulerPicker,
-  detentKnob,
   eclipseToggle,
-  rockerSwitch,
+  themeShift,
   snoozeRail,
   themeDial,
   punchCheck,
@@ -764,8 +772,6 @@ export const registry: ComponentMeta[] = [
   causticPool,
   rippleTank,
   glowPointer,
-  highlightSweep,
-  infiniteHighlightSweep,
   eyeTracker,
   nibTrail,
   haloPointer,
@@ -781,6 +787,8 @@ export const registry: ComponentMeta[] = [
   confettiClick,
   fireworkClick,
   petalClick,
+  thinkingMark,
+  agentComposer,
   streamReply,
   voiceOrb,
   agentRun,
@@ -803,7 +811,6 @@ export const registry: ComponentMeta[] = [
   askBar,
   glyphHaloComposer,
   afterglowPrompt,
-  agentComposer,
   modelRoster,
   dialComposer,
   canvasComposer,
@@ -894,7 +901,6 @@ export const registry: ComponentMeta[] = [
   lightboxCompare,
   calendarPricing,
   stackPricing,
-  chalkMenuPricing,
   tillReceipt,
   buildSheet,
   fitCompare,
@@ -988,7 +994,6 @@ export const registry: ComponentMeta[] = [
   imageCompare,
   hoverReel,
   ditherPortrait,
-  contactSheet,
   transcriptPlayer,
   helixShowcase,
   storyReel,
@@ -1051,7 +1056,6 @@ export const registry: ComponentMeta[] = [
   crossedTapes,
   topoContours,
   beadCurtain,
-  productAtelier,
   pageHeader,
   quickstartChecklist,
   ditherLogo,
@@ -1077,7 +1081,6 @@ export const registry: ComponentMeta[] = [
   tumblerCode,
   shackleLock,
   pinDrop,
-  chromeText,
   gradientText,
   shineText,
   spotlightText,
@@ -1092,6 +1095,23 @@ export const registry: ComponentMeta[] = [
   looseLetters,
   wordCarousel,
   secondDraftText,
+  pillSwap,
+  brushSwatch,
+  handleHighlight,
+  highlighterPen,
+  penLoop,
+  squiggleUnderline,
+  inverseSweep,
+  highlightSweep,
+  infiniteHighlightSweep,
+  focusLock,
+  washiTape,
+  redacted,
+  ditherFill,
+  searchHits,
+  marginNote,
+  risoMark,
+  watercolourWash,
 ];
 
 export function getComponent(slug: string) {

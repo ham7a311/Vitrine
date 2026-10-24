@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "flowers", "plants", "garden", "frost", "growth", "edge", "playful", "svg"],
   traits: ["hover", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["BloomEdge.tsx", "bloom-edge.css", "bloom.ts", "growth.ts", "perimeter.ts"],
   dependencies: [],
   prompt:

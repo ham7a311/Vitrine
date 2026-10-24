@@ -1,0 +1,57 @@
+.wcwash {
+  --pigment: #3a4fb0;
+  --pigment-edge: #1f2a6e;
+  --paper-tone: #fbf7ee;
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  margin-inline: 0.04em;
+  white-space: nowrap;
+}
+
+/* The wash is larger than the word: water spreads past the letters. */
+.wcwash__paper {
+  position: absolute;
+  z-index: -1;
+  left: -0.42em;
+  right: -0.42em;
+  top: -0.2em;
+  bottom: -0.24em;
+}
+.wcwash__paper svg { display: block; overflow: visible; }
+
+.wcwash__stop-mid { stop-color: var(--pigment); stop-opacity: 0.2; }
+.wcwash__stop-pool { stop-color: var(--pigment); stop-opacity: 0.42; }
+.wcwash__grain { fill: var(--pigment-edge); opacity: 0.22; }
+.wcwash__rim { fill: none; stroke: var(--pigment-edge); stroke-opacity: 0.42; }
+.wcwash__bloom-fill { fill: var(--paper-tone); opacity: 0.4; }
+.wcwash__bloom-rim { fill: none; stroke: var(--pigment-edge); stroke-opacity: 0.3; }
+
+/* Spreading: from a small, blurred pool where the brush touched to the full wash; the bloom comes
+   later, as the water runs back while it dries. */
+.wcwash__wash {
+  transform: scale(0.3);
+  transform-box: fill-box;
+  transform-origin: 38% 55%;
+  opacity: 0;
+  filter: blur(6px);
+}
+.wcwash__bloom { opacity: 0; transform: scale(0.5); transform-box: fill-box; transform-origin: center; }
+.wcwash[data-on] .wcwash__wash {
+  transform: none;
+  opacity: 1;
+  filter: none;
+  transition: transform 1500ms cubic-bezier(0.18, 0.75, 0.2, 1) var(--delay), opacity 500ms ease var(--delay), filter 1300ms ease var(--delay);
+}
+.wcwash[data-on] .wcwash__bloom {
+  opacity: 1;
+  transform: none;
+  transition: opacity 900ms ease calc(var(--delay) + 900ms), transform 1200ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--delay) + 900ms);
+}
+
+.wcwash__word { position: relative; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wcwash__wash, .wcwash__bloom { transform: none; opacity: 1; filter: none; }
+  .wcwash[data-on] .wcwash__wash, .wcwash[data-on] .wcwash__bloom { transition: none; }
+}

@@ -1,0 +1,40 @@
+.sorb { --sorb-level: 0; display: inline-flex; align-items: center; gap: 0.55em; width: fit-content; color: #a1a1aa; font: 500 0.9375rem/1.4 ui-sans-serif, system-ui, sans-serif; vertical-align: middle; }
+.sorb__orb {
+  position: relative; flex: none; width: var(--sorb-d); height: var(--sorb-d); border-radius: 50%; isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--sorb-glow) calc(var(--sorb-level) * 16%), #0c0e13) 0%, #06070a 64%, #0d0f14 100%);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.13),
+    inset 0 calc(var(--sorb-d) * -0.08) calc(var(--sorb-d) * 0.2) rgb(0 0 0 / 0.55),
+    0 0 calc(var(--sorb-d) * 0.24 * var(--sorb-level)) color-mix(in srgb, var(--sorb-glow) calc(var(--sorb-level) * 42%), transparent);
+}
+/* Glass: a soft highlight up and to the left, over the plasma. */
+.sorb__orb::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none; z-index: 2;
+  background: radial-gradient(ellipse 42% 30% at 33% 22%, rgb(255 255 255 / 0.17), transparent 72%), radial-gradient(circle at 50% 50%, transparent 66%, rgb(255 255 255 / 0.05) 92%, transparent 100%);
+}
+.sorb__plasma { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; pointer-events: none; }
+.sorb__logo {
+  position: absolute; z-index: 1; left: 50%; top: 50%; width: var(--sorb-m); height: var(--sorb-m); translate: -50% -50%; color: var(--sorb-mark);
+  filter: drop-shadow(0 0 calc(var(--sorb-level) * var(--sorb-m) * 0.12) color-mix(in srgb, var(--sorb-glow) calc(var(--sorb-level) * 80%), transparent));
+}
+.sorb__label { white-space: nowrap; }
+.sorb.is-working .sorb__label {
+  background: linear-gradient(90deg, #8a8a93 0%, #8a8a93 38%, var(--sorb-hint) 50%, #8a8a93 62%, #8a8a93 100%) 0 0 / 260% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: sorb-shimmer 2.4s linear infinite;
+}
+.sorb__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.sorb__brand { display: none; }
+
+.sorb--hero { flex-direction: column; gap: 24px; }
+.sorb--hero .sorb__text {
+  display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 7px; border: 1px solid rgb(255 255 255 / 0.08);
+  background: rgb(18 18 22 / 0.85); font: 500 0.78rem/1.2 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.04em;
+}
+.sorb--hero .sorb__brand { display: inline; color: #ececf1; text-transform: uppercase; letter-spacing: 0.1em; }
+.sorb--hero .sorb__dot { margin: 0 0.55em; color: #5b5b66; }
+
+@keyframes sorb-shimmer { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+.sorb--still.is-working .sorb__label { animation: none; background: none; color: var(--sorb-hint); }
+@media (prefers-reduced-motion: reduce) { .sorb.is-working .sorb__label { animation: none; background: none; color: var(--sorb-hint); } }

@@ -3,8 +3,8 @@ import { JsonLd, breadcrumbs, pageMeta } from "@/site/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getComponent } from "@/registry";
-import { buildBrief, getRecipe, RECIPES } from "@/workshop/recipes";
-import { command, SKILLS } from "@/workshop/skills";
+import { buildBrief, getRecipe, recipeSkills, RECIPES } from "@/workshop/recipes";
+import { command } from "@/workshop/skills";
 import { CopyButton } from "@/site/CopyButton";
 import { PreviewStage } from "@/site/PreviewStage";
 import { ArrowLeft, ArrowRight } from "@/site/icons";
@@ -27,7 +27,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
   const brief = buildBrief(r);
   const index = RECIPES.indexOf(r);
   const next = RECIPES[(index + 1) % RECIPES.length];
-  const checks = ["template-tells", "responsive-audit", "accessibility-pass", "performance-pass"].map((slug) => SKILLS.find((s) => s.slug === slug)!);
+  const skills = recipeSkills(r);
 
   return (
     <div className="shell-container pb-8 pt-8 md:pt-12">
@@ -43,6 +43,10 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
         <h1 className="mt-3 font-display text-[clamp(2.5rem,6vw,4.25rem)] leading-[0.98] tracking-[-0.025em] text-cream">{r.name}</h1>
         <p className="mt-4 max-w-[58ch] text-[1.0625rem] leading-relaxed text-ink-2">{r.line}</p>
         <p className="mt-2 max-w-[58ch] text-[0.9375rem] leading-relaxed text-ink-3">{r.for}</p>
+        <p className="mt-6 max-w-[62ch] border-l border-line-strong pl-4 text-[0.9375rem] leading-relaxed text-ink-2">
+          <span className="eyebrow mb-1.5 block">Scenario</span>
+          {r.scenario}
+        </p>
       </header>
 
       <div className="rise-in mt-10" style={{ animationDelay: "120ms" }}>
@@ -71,6 +75,18 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
                   </li>
                 );
               })}
+            </ol>
+          </section>
+
+          <section aria-labelledby="change-h">
+            <h2 id="change-h" className="font-display text-[1.75rem] tracking-[-0.015em] text-cream">
+              Change first
+            </h2>
+            <p className="mt-2 max-w-[62ch] text-[0.875rem] leading-relaxed text-ink-3">The first things to replace to make this page yours.</p>
+            <ol className="mt-6 max-w-[62ch] list-decimal space-y-3 pl-5 text-[0.9375rem] leading-relaxed text-ink-2 marker:font-mono marker:text-[0.75rem] marker:text-ink-3">
+              {r.changeFirst.map((c) => (
+                <li key={c} className="pl-1">{c}</li>
+              ))}
             </ol>
           </section>
 
@@ -114,14 +130,14 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
 
         <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
           <div className="rounded-[14px] border border-line p-6">
-            <p className="eyebrow">Before you ship</p>
+            <p className="eyebrow">Skills for this recipe</p>
             <ul className="mt-4 space-y-4">
-              {checks.map((s) => (
-                <li key={s.slug}>
-                  <Link href={`/workshop/skills/${s.slug}`} className="font-mono text-[0.875rem] text-cream underline decoration-transparent underline-offset-4 hover:decoration-frost/50">
-                    {command(s)}
+              {skills.map((k) => (
+                <li key={k.slug}>
+                  <Link href={`/workshop/skills/${k.slug}`} className="font-mono text-[0.875rem] text-cream underline decoration-transparent underline-offset-4 hover:decoration-frost/50">
+                    {command(k.skill)}
                   </Link>
-                  <p className="mt-1 text-[0.8125rem] leading-relaxed text-ink-3">{s.when}</p>
+                  <p className="mt-1 text-[0.8125rem] leading-relaxed text-ink-3">{k.why}</p>
                 </li>
               ))}
             </ul>

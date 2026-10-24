@@ -80,6 +80,11 @@ function blocks(lines: string[], h: Highlighter): string {
       i++;
       while (i < lines.length && !/^\s*```/.test(lines[i])) code.push(lines[i++].slice(Math.min(pad, indent(lines[i - 1]))));
       i++;
+      // ```text is prose for a person or an agent to paste (a prompt), not code: no colours, and it wraps.
+      if (fence[1] === "text") {
+        out.push(`<div class="md-code md-text"><pre><code>${esc(code.join("\n"))}</code></pre></div>`);
+        continue;
+      }
       const lang = LANGS.includes(fence[1]) ? fence[1] : "bash";
       out.push(`<div class="md-code">${h.codeToHtml(code.join("\n"), { lang, theme: CODE_THEME, transformers: [colourClasses, plainBaseTokens] })}</div>`);
       continue;

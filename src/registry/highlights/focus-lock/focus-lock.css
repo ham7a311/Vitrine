@@ -1,0 +1,63 @@
+.focuslock {
+  --lock: #8cf25a;
+  --hunting: rgb(255 255 255 / 0.55);
+  --len: 0.24em;
+  --line: max(2px, 0.034em);
+  --o: 0.75em;
+  --cc: var(--hunting);
+  position: relative;
+  display: inline-block;
+  margin-inline: 0.2em;
+  white-space: nowrap;
+}
+.focuslock--paper {
+  --lock: #e0491f;
+  --hunting: rgb(0 0 0 / 0.4);
+}
+
+.focuslock__word {
+  display: inline-block;
+  filter: blur(0.07em);
+  opacity: 0.35;
+  transition: filter 380ms ease, opacity 380ms ease;
+}
+
+/* The brackets sit just outside the word; --o pushes each one out along its own diagonal. */
+.focuslock__frame {
+  position: absolute;
+  inset: 0.02em -0.16em -0.04em;
+  pointer-events: none;
+}
+.focuslock__c {
+  position: absolute;
+  width: var(--len);
+  height: var(--len);
+  border: 0 solid var(--cc);
+  opacity: 0;
+  transition: transform 440ms cubic-bezier(0.2, 1.55, 0.35, 1), border-color 180ms ease, opacity 220ms ease;
+}
+.focuslock__c--tl { left: 0; top: 0; border-top-width: var(--line); border-left-width: var(--line); transform: translate(calc(var(--o) * -1), calc(var(--o) * -1)); }
+.focuslock__c--tr { right: 0; top: 0; border-top-width: var(--line); border-right-width: var(--line); transform: translate(var(--o), calc(var(--o) * -1)); }
+.focuslock__c--br { right: 0; bottom: 0; border-bottom-width: var(--line); border-right-width: var(--line); transform: translate(var(--o), var(--o)); }
+.focuslock__c--bl { left: 0; bottom: 0; border-bottom-width: var(--line); border-left-width: var(--line); transform: translate(calc(var(--o) * -1), var(--o)); }
+
+/* Hunting: brackets close in, the word half resolves. */
+.focuslock[data-phase="hunt"] { --o: 0.2em; }
+.focuslock[data-phase="hunt"] .focuslock__c { opacity: 1; }
+.focuslock[data-phase="hunt"] .focuslock__word { filter: blur(0.035em); opacity: 0.8; }
+
+/* Locked: brackets snap home in the accent colour with one flash; the word is sharp. */
+.focuslock[data-phase="lock"] { --o: 0px; --cc: var(--lock); }
+.focuslock[data-phase="lock"] .focuslock__c { opacity: 1; animation: focuslock-flash 560ms ease-out; }
+.focuslock[data-phase="lock"] .focuslock__word { filter: none; opacity: 1; }
+
+@keyframes focuslock-flash {
+  0% { filter: none; }
+  25% { filter: drop-shadow(0 0 0.1em var(--lock)) brightness(1.4); }
+  100% { filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focuslock__c, .focuslock__word { transition: none; }
+  .focuslock[data-phase="lock"] .focuslock__c { animation: none; }
+}

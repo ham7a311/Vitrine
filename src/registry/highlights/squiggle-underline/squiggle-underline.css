@@ -1,0 +1,47 @@
+.squig {
+  --squig: #ff5a36;
+  position: relative;
+  /* Leave room under the words for the line, so it never touches the next line's ascenders. */
+  padding-bottom: 0.08em;
+  cursor: default;
+}
+
+.squig__origin,
+.squig__svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+}
+.squig__text { position: relative; }
+
+.squig__line {
+  fill: none;
+  stroke: var(--squig);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The pen: each line's clip grows left to right at writing speed. */
+.squig__reveal {
+  transform: scaleX(0);
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+.squig[data-on] .squig__reveal {
+  transform: scaleX(1);
+  transition: transform var(--t) cubic-bezier(0.45, 0.05, 0.35, 1) var(--at);
+}
+
+/* A wave is strictly periodic, so shifting it by one wavelength loops without a seam. */
+.squig[data-live] .squig__wave { animation: squig-travel 760ms linear infinite; }
+@keyframes squig-travel { to { transform: translateX(var(--L)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .squig__reveal { transform: none; }
+  .squig[data-on] .squig__reveal { transition: none; }
+  .squig[data-live] .squig__wave { animation: none; }
+}

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "webgl", "shader", "background", "hover", "glow", "smoke", "neon", "gradient", "premium"],
   traits: ["webgl", "hover", "cursor", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["FieldButton.tsx", "field-button.css", "fields.ts", "gl.ts"],
   dependencies: [],
   prompt:

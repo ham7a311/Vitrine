@@ -14,15 +14,27 @@ import "./conversation-sidebar.css";
 
 export type Chat = { id: string; title: string; when: "today" | "yesterday" | "week" | "older"; pinned?: boolean };
 
-type Props = { chats: Chat[]; theme?: "paper" | "night"; className?: string };
+type Props = {
+  chats: Chat[];
+  /** The open conversation. Leave it out and the sidebar keeps track itself. */
+  active?: string;
+  onSelect?: (id: string) => void;
+  /** Called by the New chat button. */
+  onNew?: () => void;
+  theme?: "paper" | "night";
+  className?: string;
+};
 
 const GROUPS: [Chat["when"], string][] = [["today", "Today"], ["yesterday", "Yesterday"], ["week", "Previous 7 days"], ["older", "Older"]];
 const initials = (t: string) => t.split(/\s+/).filter((w) => /\w/.test(w)).slice(0, 2).map((w) => w[0].toUpperCase()).join("");
 
-export function ConversationSidebar({ chats: initial, theme = "paper", className = "" }: Props) {
-  const [chats, setChats] = useState(initial);
+export function ConversationSidebar({ chats: list, active: activeProp, onSelect, onNew, theme = "paper", className = "" }: Props) {
+  // Renames are kept by id, so the list can change (a new chat arrives) without losing them.
+  const [titles, setTitles] = useState<Record<string, string>>({});
+  const chats = useMemo(() => list.map((c) => (titles[c.id] ? { ...c, title: titles[c.id] } : c)), [list, titles]);
   const [open, setOpen] = useState(true);
-  const [active, setActive] = useState(initial[0]?.id);
+  const [own, setOwn] = useState(list[0]?.id);
+  const active = activeProp ?? own;
   const [q, setQ] = useState("");
   const [editing, setEditing] = useState<string | null>(null);
   const draft = useRef("");
@@ -31,7 +43,7 @@ export function ConversationSidebar({ chats: initial, theme = "paper", className
 
   const commit = (id: string) => {
     const t = draft.current.trim();
-    if (t) setChats((cs) => cs.map((c) => (c.id === id ? { ...c, title: t } : c)));
+    if (t) setTitles((ts) => ({ ...ts, [id]: t }));
     setEditing(null);
   };
   const onEditKey = (e: KeyboardEvent<HTMLInputElement>, id: string) => {
@@ -60,7 +72,7 @@ export function ConversationSidebar({ chats: initial, theme = "paper", className
           className="conversation-sidebar__item"
           aria-current={active === c.id ? "page" : undefined}
           title={open ? undefined : c.title}
-          onClick={() => setActive(c.id)}
+          onClick={() => { setOwn(c.id); onSelect?.(c.id); }}
           onDoubleClick={() => open && setEditing(c.id)}
         >
           <span className="conversation-sidebar__ini" aria-hidden="true">{initials(c.title)}</span>
@@ -81,7 +93,7 @@ export function ConversationSidebar({ chats: initial, theme = "paper", className
         <button type="button" className="conversation-sidebar__icon" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label={open ? "Collapse sidebar" : "Expand sidebar"}>
           <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="4" width="14" height="12" rx="2.5" /><path d="M8 4v12" /></svg>
         </button>
-        <button type="button" className="conversation-sidebar__new" aria-label="New chat">
+        <button type="button" className="conversation-sidebar__new" aria-label="New chat" onClick={onNew}>
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 5v10M5 10h10" /></svg>
           <span>New chat</span>
         </button>

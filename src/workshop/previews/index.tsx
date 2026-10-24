@@ -6,11 +6,12 @@ import type { ComponentType } from "react";
 /** Live recipe previews, loaded on demand (each pulls in several real components). */
 const PREVIEWS: Record<string, ComponentType> = {
   portfolio: dynamic(() => import("./Portfolio"), { ssr: false }),
-  "glass-portfolio": dynamic(() => import("./GlassPortfolio"), { ssr: false }),
   showcase: dynamic(() => import("./Showcase"), { ssr: false }),
   studio: dynamic(() => import("./Studio"), { ssr: false }),
   launch: dynamic(() => import("./Launch"), { ssr: false }),
   console: dynamic(() => import("./Console"), { ssr: false }),
+  docs: dynamic(() => import("./Docs"), { ssr: false }),
+  "auth-flow": dynamic(() => import("./AuthFlow"), { ssr: false }),
   "ai-workspace": dynamic(() => import("./AiWorkspace"), { ssr: false }),
   "ai-company": dynamic(() => import("./AiCompany"), { ssr: false }),
 };
