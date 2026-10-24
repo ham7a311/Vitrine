@@ -13,6 +13,8 @@ export type AskBarProps = {
   /** Produce the reply for a prompt. Return the full text; it is streamed in word by word. */
   respond?: (prompt: string, model: AskModel) => string | Promise<string>;
   onSend?: (message: AskMessage) => void;
+  /** A conversation to open with, for returning to an earlier chat. */
+  initialMessages?: AskMessage[];
   theme?: "light" | "dark";
   className?: string;
 };
@@ -43,13 +45,13 @@ const Icon = {
  * its plus menu and switches model from its own. Once you ask, the greeting
  * steps aside and the answer streams in above the bar.
  */
-export function AskBar({ greeting, placeholder = "Ask anything", models, defaultModel, respond, onSend, theme = "dark", className = "" }: AskBarProps) {
+export function AskBar({ greeting, placeholder = "Ask anything", models, defaultModel, respond, onSend, initialMessages, theme = "dark", className = "" }: AskBarProps) {
   const id = useId();
   const [text, setText] = useState("");
   const [model, setModel] = useState(models.find((m) => m.id === defaultModel) ?? models[0]);
   const [menu, setMenu] = useState<null | "plus" | "model">(null);
   const [files, setFiles] = useState<string[]>([]);
-  const [messages, setMessages] = useState<AskMessage[]>([]);
+  const [messages, setMessages] = useState<AskMessage[]>(initialMessages ?? []);
   const [streaming, setStreaming] = useState(false);
   const [listening, setListening] = useState(false);
   const [note, setNote] = useState("");

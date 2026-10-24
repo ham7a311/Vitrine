@@ -50,3 +50,28 @@ Also test reload, rapid switching, mobile width and reduced motion.
 ## Output
 
 The fixed/configurable table, the props signature, the per-variant descriptions, and the test results.
+
+## Don't use when
+
+- The component has one obvious form and nothing to configure. Don't design an API for flexibility nobody needs.
+- You're adapting someone else's component to a product. Use `/component-adaptation`.
+
+## Acceptance criteria
+
+- Fixed and configurable parts are written down, and every prop maps to one axis of variation.
+- No two props can produce a contradictory combination, or the contradiction is handled explicitly.
+- The preview, the generated prompt and the source describe the same selection.
+- Every variant and state has been rendered and tested.
+
+## Common failure modes
+
+- **Props for everything:** colours, durations and sizes exposed "just in case", so the component has no opinion.
+- **Boolean pile-ups:** `isLarge`, `isCompact`, `isDense` that conflict instead of one `size` axis.
+- **Drift:** the prompt describes a variant the code no longer has.
+- **Untested combinations** that only break when someone else uses them.
+
+## Final self-review
+
+- Can I name the axes in one line each?
+- Is there a prop nobody will change? Remove it.
+- Do the preview, prompt and code agree for every variant?

@@ -1,0 +1,49 @@
+/* Both edges of the bar are animatable lengths, so the clip can slide smoothly. */
+@property --lead { syntax: "<length-percentage>"; inherits: true; initial-value: -100%; }
+@property --tail { syntax: "<length-percentage>"; inherits: true; initial-value: -100%; }
+
+.invsweep {
+  --bar: #f3efe6;
+  --on-bar: #121113;
+  --slant: 0.32em;
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: baseline;
+  /* The edges move on the wrapper (where they're set) and the bar inherits them. The leading edge
+     only moves once, on the way in; the trailing edge carries every pointer in and out. */
+  transition: --lead 720ms cubic-bezier(0.7, 0, 0.2, 1) var(--delay), --tail 480ms cubic-bezier(0.65, 0, 0.25, 1);
+}
+.invsweep--paper {
+  --bar: #151417;
+  --on-bar: #f7f4ee;
+}
+
+/* Identical boxes, so the reversed copy lands exactly on the plain one. */
+.invsweep__base,
+.invsweep__bar {
+  display: inline-block;
+  padding: 0.02em 0.14em 0.06em;
+}
+.invsweep__bar {
+  position: absolute;
+  inset: 0;
+  background: var(--bar);
+  color: var(--on-bar);
+  border-radius: 0.05em;
+  /* A slanted leading and trailing edge, like a squeegee pulled across. */
+  clip-path: polygon(
+    calc(var(--tail) + var(--slant)) 0,
+    calc(var(--lead) + var(--slant)) 0,
+    var(--lead) 100%,
+    var(--tail) 100%
+  );
+}
+.invsweep[data-on] { --lead: 100%; --tail: calc(var(--slant) * -1); }
+
+/* Pointing: the bar slides off to the right; leaving: it sweeps back in from the right. */
+.invsweep[data-on]:hover { --tail: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .invsweep { transition: none; }
+}

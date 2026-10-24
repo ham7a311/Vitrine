@@ -1,4 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
+import "../landing.css";
 import { BackToTop } from "@/site/BackToTop";
 import { Footer } from "@/site/Footer";
 import { Navbar } from "@/site/Navbar";

@@ -1,0 +1,66 @@
+/* The demo site. Its look is a set of tokens per theme; the switch only flips data-theme. */
+[data-theme="light"] .nws {
+  --nws-bg: #f5f2ec; --nws-surface: #fffdf9; --nws-raise: #efe9df; --nws-ink: #17140f; --nws-muted: #6b645a;
+  --nws-line: rgb(23 20 15 / 0.12); --nws-accent: #c2410c; --nws-accent-ink: #fff8f2; --nws-glow: #f4b183;
+}
+[data-theme="dark"] .nws {
+  --nws-bg: #0d0f13; --nws-surface: #151820; --nws-raise: #1c2029; --nws-ink: #ebe8e2; --nws-muted: #8c919c;
+  --nws-line: rgb(235 232 226 / 0.12); --nws-accent: #f59e0b; --nws-accent-ink: #1a1205; --nws-glow: #6d5bd0;
+}
+.nws {
+  --tsw-switch-bg: var(--nws-surface); --tsw-switch-line: var(--nws-line); --tsw-switch-ink: var(--nws-ink);
+  min-height: 100%; background: var(--nws-bg); color: var(--nws-ink); font: 400 15px/1.55 ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+.nws-wrap { width: min(100% - 48px, 1120px); margin: 0 auto; }
+.nws-nav { display: flex; align-items: center; gap: 28px; height: 72px; border-bottom: 1px solid var(--nws-line); }
+.nws-logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 650; letter-spacing: -0.01em; font-size: 16px; }
+.nws-logo i { width: 22px; height: 22px; border-radius: 7px; background: conic-gradient(from 210deg, var(--nws-accent), var(--nws-glow), var(--nws-accent)); }
+.nws-links { display: flex; gap: 22px; margin-left: auto; color: var(--nws-muted); font-size: 14px; }
+.nws-links a { color: inherit; text-decoration: none; }
+.nws-links a:hover { color: var(--nws-ink); }
+
+.nws-hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; padding: 64px 0 56px; }
+.nws-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; padding: 5px 11px; border: 1px solid var(--nws-line); border-radius: 999px; color: var(--nws-muted); font-size: 12.5px; }
+.nws-eyebrow b { width: 6px; height: 6px; border-radius: 50%; background: var(--nws-accent); }
+.nws-hero h1 { margin: 0; font: 400 clamp(40px, 5.4vw, 66px)/1.02 ui-serif, Georgia, "Times New Roman", serif; letter-spacing: -0.025em; }
+.nws-hero h1 em { color: var(--nws-accent); font-style: italic; }
+.nws-hero p { max-width: 46ch; margin: 22px 0 30px; color: var(--nws-muted); font-size: 16.5px; }
+.nws-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.nws-btn { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 12px; border: 1px solid var(--nws-line); background: var(--nws-surface); color: var(--nws-ink); font: inherit; font-weight: 550; cursor: pointer; }
+.nws-btn--primary { border-color: transparent; background: var(--nws-accent); color: var(--nws-accent-ink); }
+
+/* Hero art: a sun (or moon) over layered hills, all drawn with gradients. */
+.nws-art { position: relative; aspect-ratio: 1; border-radius: 28px; overflow: hidden; border: 1px solid var(--nws-line); background: radial-gradient(120% 90% at 50% 0%, var(--nws-raise), var(--nws-surface)); }
+.nws-art::before { content: ""; position: absolute; left: 50%; top: 30%; width: 34%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%;
+  background: radial-gradient(circle at 38% 36%, color-mix(in srgb, var(--nws-accent) 30%, #fff), var(--nws-accent) 62%); box-shadow: 0 0 80px 10px color-mix(in srgb, var(--nws-glow) 55%, transparent); }
+.nws-art i { position: absolute; left: -10%; right: -10%; border-radius: 50% 50% 0 0; }
+.nws-art i:nth-child(1) { bottom: -38%; height: 78%; background: color-mix(in srgb, var(--nws-ink) 14%, var(--nws-surface)); }
+.nws-art i:nth-child(2) { bottom: -52%; height: 80%; left: 20%; background: color-mix(in srgb, var(--nws-ink) 24%, var(--nws-surface)); }
+.nws-art i:nth-child(3) { bottom: -60%; height: 78%; right: 30%; background: color-mix(in srgb, var(--nws-ink) 36%, var(--nws-surface)); }
+
+.nws-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.nws-card { padding: 22px; border: 1px solid var(--nws-line); border-radius: 20px; background: var(--nws-surface); }
+.nws-card h3 { margin: 18px 0 6px; font-size: 16px; font-weight: 620; letter-spacing: -0.01em; }
+.nws-card p { margin: 0; color: var(--nws-muted); font-size: 14px; }
+.nws-vis { height: 96px; border-radius: 12px; background: var(--nws-raise); position: relative; overflow: hidden; }
+.nws-bars { display: flex; align-items: flex-end; gap: 7px; padding: 14px; }
+.nws-bars span { flex: 1; border-radius: 4px 4px 2px 2px; background: color-mix(in srgb, var(--nws-ink) 22%, transparent); }
+.nws-bars span:nth-child(5) { background: var(--nws-accent); }
+.nws-dots { background-image: radial-gradient(circle, color-mix(in srgb, var(--nws-ink) 26%, transparent) 1.6px, transparent 2px); background-size: 14px 14px; }
+.nws-dots::after { content: ""; position: absolute; left: 56%; top: 30%; width: 34px; height: 34px; border-radius: 50%; background: var(--nws-accent); box-shadow: 0 0 0 8px color-mix(in srgb, var(--nws-accent) 22%, transparent); }
+.nws-wave { background: repeating-radial-gradient(circle at 0% 120%, transparent 0 10px, color-mix(in srgb, var(--nws-ink) 18%, transparent) 10px 11px); }
+.nws-wave::after { content: ""; position: absolute; right: 14px; bottom: 14px; padding: 4px 9px; border-radius: 999px; background: var(--nws-accent); color: var(--nws-accent-ink); font: 600 11px/1 ui-sans-serif, system-ui; content: "Live"; }
+
+.nws-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 18px 0 0; padding: 22px 0; border-top: 1px solid var(--nws-line); }
+.nws-stats div { display: grid; gap: 2px; }
+.nws-stats b { font: 400 34px/1 ui-serif, Georgia, serif; letter-spacing: -0.02em; }
+.nws-stats span { color: var(--nws-muted); font-size: 13.5px; }
+.nws-foot { display: flex; justify-content: space-between; padding: 18px 0 26px; color: var(--nws-muted); font-size: 13px; border-top: 1px solid var(--nws-line); }
+
+@media (max-width: 760px) {
+  .nws-links { display: none; }
+  .nws-nav { justify-content: space-between; }
+  .nws-hero { grid-template-columns: 1fr; padding: 40px 0; gap: 28px; }
+  .nws-art { aspect-ratio: 16 / 10; }
+  .nws-cards, .nws-stats { grid-template-columns: 1fr; }
+}

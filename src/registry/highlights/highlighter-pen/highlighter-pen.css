@@ -1,0 +1,55 @@
+.hlpen {
+  --alpha: 0.5;
+  --yellow: #ffe03a;
+  --pink: #ff7ab8;
+  --green: #7ee08a;
+  --blue: #7cc4ff;
+  position: relative;
+  z-index: 0;
+  background: none;
+  color: inherit;
+}
+.hlpen--night {
+  --alpha: 0.42;
+  --yellow: #ffe95c;
+  --pink: #ff6fb6;
+  --green: #5cf08b;
+  --blue: #5cb8ff;
+}
+.hlpen--yellow { --ink: var(--yellow); }
+.hlpen--pink { --ink: var(--pink); }
+.hlpen--green { --ink: var(--green); }
+.hlpen--blue { --ink: var(--blue); }
+
+.hlpen__origin,
+.hlpen__ink {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+}
+.hlpen__ink { z-index: -1; }
+.hlpen__text { position: relative; }
+
+/* Translucent ink: where two layers overlap (the pen going back over the end), it reads darker. */
+.hlpen__body { fill: var(--ink); fill-opacity: var(--alpha); }
+
+/* The pen: a thick line along the stroke, revealed at writing speed, used as the ink's mask. */
+.hlpen__pen {
+  fill: none;
+  stroke: #fff;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.hlpen[data-on] .hlpen__pen {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--t) cubic-bezier(0.45, 0.05, 0.35, 1) var(--at);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hlpen__pen { stroke-dashoffset: 0; }
+  .hlpen[data-on] .hlpen__pen { transition: none; }
+}

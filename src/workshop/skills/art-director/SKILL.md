@@ -100,3 +100,29 @@ When asked for a direction, deliver:
 4. The three ideas you considered and cut, and why. This shows the bar.
 
 When asked to build, deliver the components one at a time in the order above, with a screenshot at desktop and phone width for each.
+
+## Don't use when
+
+- The page already has a direction that works and only needs fixing. Use `/refinement-pass`; a new direction will throw away what works.
+- The job is a quick functional screen (settings, an admin table) where a distinctive concept would get in the way.
+- There's no content yet. A direction drawn from nothing comes from trends; get the product's facts first.
+
+## Acceptance criteria
+
+- The direction comes from the product's own world (its material, users, data), and can be stated in a few sentences.
+- Each component's idea is one sentence, has a purpose, and passes `/interface-critic`.
+- The whole site still reads as one system: shared type, palette, motion vocabulary and button style.
+- The product or content stays the most prominent thing on every page.
+
+## Common failure modes
+
+- **Every component gets an idea.** A page where everything is special has no hierarchy. Most components should be quiet.
+- **The concept explained everywhere:** labels, numbers and captions that restate the metaphor instead of letting it be felt.
+- **Trend-driven direction:** glass, gradients or grain because they're current, not because they come from the product.
+- **Redesigning in rounds:** answering each critique with a new direction instead of refining the last one.
+
+## Final self-review
+
+- Could this direction belong to a competitor?
+- Which components are deliberately ordinary, and is that most of them?
+- Is the product still the star?

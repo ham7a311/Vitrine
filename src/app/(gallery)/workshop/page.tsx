@@ -8,6 +8,7 @@ import { loadSkill } from "@/workshop/skill-source";
 import { CopyButton } from "@/site/CopyButton";
 import { RecipeThumb } from "@/site/RecipeThumb";
 import { ArrowRight } from "@/site/icons";
+import { Pane } from "@/site/Pane";
 
 export const metadata: Metadata = pageMeta({
   title: "Workshop",
@@ -112,9 +113,15 @@ export default async function Workshop() {
         ))}
       </section>
 
-      <p className="mt-16 max-w-[60ch] text-[0.9375rem] leading-relaxed text-ink-3">
-        Every component also carries its own build prompt on its page. The workshop is for what comes after: putting several of them together, and checking the result.
-      </p>
+      {/* The ending: Pane, sitting quietly, studying how a component is made. */}
+      <div className="vitrine-workshop-end">
+        <p className="max-w-[60ch] text-[0.9375rem] leading-relaxed text-ink-3">
+          Every component also carries its own build prompt on its page. The workshop is for what comes after: putting several of them together, and checking the result.
+        </p>
+        <div aria-hidden="true" className="vitrine-workshop-pane">
+          <Pane pose="study" sizes="(min-width: 768px) 12rem, 10rem" className="vitrine-pane" />
+        </div>
+      </div>
     </div>
   );
 }

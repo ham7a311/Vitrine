@@ -42,3 +42,29 @@ Define the event for each step, and confirm it fires once, at the right moment, 
 ## Output
 
 The path map with click and field counts, a friction table (step · issue · evidence · fix), the fixes applied, and the before/after counts.
+
+## Don't use when
+
+- There's no clear action to convert to. Decide what the page is for first.
+- The problem is traffic, not what visitors do once they arrive.
+- The only way to raise the number is pressure: fake urgency, hidden costs, confusing opt-outs. Don't.
+
+## Acceptance criteria
+
+- The path from first screen to the action is written down, step by step.
+- Each point of friction is named with where it happens and a specific fix.
+- Prices, costs and commitments are visible before the action, not after.
+- No fix uses a dark pattern.
+
+## Common failure modes
+
+- **More calls to action** instead of one clear one.
+- **Fixing the button** when the hesitation comes from a missing answer (price, data, cancellation).
+- **Urgency and scarcity** that aren't real.
+- **Measuring nothing,** so you can't tell whether a change helped.
+
+## Final self-review
+
+- Would I be comfortable if the visitor saw exactly how this page persuades them?
+- Is the price or commitment clear before the action?
+- Did I name how each change will be measured?

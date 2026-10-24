@@ -37,6 +37,6 @@ export const CATEGORY_NOUN: Record<string, string> = {
   ai: "AI chat component", sidebars: "sidebar", heroes: "hero section", navbars: "navbar", navigation: "navigation component",
   overlays: "dialog & overlay", data: "data component", footers: "footer", pricing: "pricing section", faq: "FAQ section",
   ctas: "call to action", auth: "sign-in component", stats: "stats section", analytics: "chart", forms: "form component",
-  feedback: "toast & notice", sections: "page section", type: "typography component", media: "gallery & image component", maps: "map & globe", micro: "micro-animation",
+  feedback: "toast & notice", sections: "page section", type: "typography component", media: "gallery & image component", maps: "map & globe", micro: "micro-animation", highlights: "text highlight",
   decisions: "decision component", reading: "reading component", commerce: "commerce component", time: "time & history component", developer: "developer tool component",
 };

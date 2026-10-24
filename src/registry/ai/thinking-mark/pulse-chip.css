@@ -1,0 +1,21 @@
+.pchip {
+  --pchip-level: 0; position: relative; display: inline-flex; align-items: center; gap: 7px; width: fit-content; height: 30px; padding: 0 13px 0 9px; box-sizing: border-box;
+  border-radius: 999px; border: 1px solid color-mix(in srgb, var(--pchip-glow) calc(var(--pchip-level) * 45%), rgb(255 255 255 / 0.09));
+  background: radial-gradient(120% 160% at 50% 130%, color-mix(in srgb, var(--pchip-glow) calc(var(--pchip-level) * 20%), transparent), transparent 62%), #141418;
+  box-shadow: 0 0 calc(var(--pchip-level) * 18px) color-mix(in srgb, var(--pchip-glow) calc(var(--pchip-level) * 28%), transparent), inset 0 1px 0 rgb(255 255 255 / 0.04);
+  color: #a1a1aa; font: 500 0.875rem/1 ui-sans-serif, system-ui, sans-serif; vertical-align: middle; white-space: nowrap;
+}
+.pchip__logo { flex: none; width: 15px; height: 15px; color: var(--pchip-mark); filter: drop-shadow(0 0 calc(var(--pchip-level) * 3px) var(--pchip-glow)); }
+.pchip__text { display: inline-flex; gap: 0.3em; }
+.pchip__name { color: #ececf1; }
+.pchip.is-working .pchip__label {
+  background: linear-gradient(90deg, #8a8a93 0%, #8a8a93 38%, var(--pchip-hint) 50%, #8a8a93 62%, #8a8a93 100%) 0 0 / 260% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: pchip-shimmer 2.4s linear infinite;
+}
+.pchip__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.pchip__arcs { position: absolute; left: calc(var(--pchip-pad) * -1 - 1px); top: calc(var(--pchip-pad) * -1 - 1px); pointer-events: none; }
+
+@keyframes pchip-shimmer { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+.pchip--still.is-working .pchip__label { animation: none; background: none; color: var(--pchip-hint); }
+@media (prefers-reduced-motion: reduce) { .pchip.is-working .pchip__label { animation: none; background: none; color: var(--pchip-hint); } }

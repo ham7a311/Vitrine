@@ -15,6 +15,8 @@ import "./envelope-reset.css";
 type Phase = "ask" | "folding" | "sent" | "opening" | "letter" | "done";
 type Props = {
   product?: string;
+  /** An example address for the placeholder and the "like …" hint, in your product's domain. */
+  exampleEmail?: string;
   onSend?: (email: string) => Promise<void>;
   onReset?: (password: string) => Promise<void>;
   theme?: "paper" | "night";
@@ -26,7 +28,7 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 const COOLDOWN = 30;
 
-export function EnvelopeReset({ product = "Vitrine", onSend = () => wait(500), onReset = () => wait(700), theme = "paper", motion = "full", className = "" }: Props) {
+export function EnvelopeReset({ product = "Vitrine", exampleEmail = "hamza@tryvitrine.dev", onSend = () => wait(500), onReset = () => wait(700), theme = "paper", motion = "full", className = "" }: Props) {
   const id = useId();
   const [phase, setPhase] = useState<Phase>("ask");
   const [email, setEmail] = useState("");
@@ -57,7 +59,7 @@ export function EnvelopeReset({ product = "Vitrine", onSend = () => wait(500), o
 
   const send = async (e?: FormEvent) => {
     e?.preventDefault();
-    if (!EMAIL.test(email.trim())) { setErr("Enter the email on your account, like hamza@tryvitrine.dev."); return; }
+    if (!EMAIL.test(email.trim())) { setErr(`Enter the email on your account, like ${exampleEmail}.`); return; }
     setErr("");
     setBusy(true);
     try { await onSend(email.trim()); } catch { setErr("We couldn’t send that just now. Try again in a moment."); setBusy(false); return; }
@@ -104,7 +106,7 @@ export function EnvelopeReset({ product = "Vitrine", onSend = () => wait(500), o
               autoComplete="email"
               inputMode="email"
               value={email}
-              placeholder="hamza@tryvitrine.dev"
+              placeholder={exampleEmail}
               onChange={(e) => { setEmail(e.target.value); setErr(""); }}
               aria-invalid={!!err}
               aria-describedby={err ? `${id}-ee` : undefined}

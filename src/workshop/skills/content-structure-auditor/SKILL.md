@@ -51,3 +51,28 @@ A section is as long as its question needs. Measure each section in words agains
 4. The rewritten headings.
 
 Then apply them, and re-read the headings alone to confirm they tell the story.
+
+## Don't use when
+
+- The words themselves are the problem (generic, inflated). Use `/copy-quality`; this skill fixes order and structure.
+- The page's purpose isn't decided yet. Decide who it's for and what they need first.
+
+## Acceptance criteria
+
+- The visitor's questions are written down, and the page answers them in that order.
+- The headings alone tell the page's story.
+- There's one `h1`, and the heading levels nest without skipping.
+- Nothing on the page answers a question no visitor asked.
+
+## Common failure modes
+
+- **Clever headings** that sound good and say nothing ("Built different"), so scanning the headings tells you nothing.
+- **Company order instead of visitor order:** history and mission before what the product does.
+- **Cutting length by cutting answers** instead of cutting repetition.
+- **Visual headings that aren't headings,** or headings chosen for their size.
+
+## Final self-review
+
+- If I read only the headings, do I understand the page?
+- Is the most-asked question answered first?
+- Did I remove repetition before removing content?

@@ -219,3 +219,28 @@ Deliver:
 1. The role table with values for each theme.
 2. The contrast report, with every failure fixed or explicitly accepted (for example large text only).
 3. The list of components migrated, and any hard-coded values that remain, with the reason each one stays.
+
+## Don't use when
+
+- The project already has tokens and you're adding one thing. Use `/design-system-consistency` to find and reuse them.
+- There's one theme and no plan for another; you may only need a small token set.
+
+## Acceptance criteria
+
+- Components use role tokens (surface, text, accent), never raw values.
+- Light and dark themes are each designed, not one inverted from the other.
+- The contrast script passes for every text and surface pair.
+- Switching themes changes no layout.
+
+## Common failure modes
+
+- **Inverting colours** to make dark mode.
+- **Tokens named by colour** ("purple-500") used directly in components, so a theme change means editing components.
+- **Hard-coded values** left in a few components.
+- **Checking contrast for body text only,** not for labels, placeholders and disabled states.
+
+## Final self-review
+
+- Could I change the accent colour in one place?
+- Did the contrast script cover every pair?
+- Does each theme look designed on its own?

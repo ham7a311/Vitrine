@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, type CSSProperties } from "react";
-import { HighlightSweep, SweepText } from "../../cursors/highlight-sweep/HighlightSweep";
+import { HighlightSweep, SweepText } from "../../highlights/highlight-sweep/HighlightSweep";
 import "./sweep-cards.css";
 
 export type SweepCardTone = {

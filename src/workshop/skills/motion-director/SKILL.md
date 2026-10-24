@@ -186,3 +186,28 @@ For each moving thing, give it a verdict:
 - **cut:** with the reason
 
 Say what the motion explains, and note anything that fails reduced motion or interruption. End with the vocabulary tokens the project should adopt if it doesn't have them.
+
+## Don't use when
+
+- Nothing on the page needs to move. Adding motion isn't the goal; explaining change is.
+- The page already has one or two strong moving elements. More motion competes with them.
+
+## Acceptance criteria
+
+- Every animation can be explained in one sentence: what it shows (direction, amount, cause or state).
+- Durations and easings come from a small shared vocabulary.
+- Transitions are interruptible and animate cheap properties (transform, opacity).
+- Reduced motion has a designed still version, and the recording script reports no violations.
+
+## Common failure modes
+
+- **Motion as garnish:** every section fading up on scroll by the same amount.
+- **Everything floats:** idle animations on many elements at once.
+- **Slow, blocking transitions** that make the interface feel heavy.
+- **Reduced motion as an off switch** that leaves the page broken or confusing.
+
+## Final self-review
+
+- If I removed this animation, what information would be lost?
+- How many things move at once on any screen?
+- Does the reduced-motion version still look designed?

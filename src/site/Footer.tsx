@@ -2,6 +2,7 @@ import { site } from "@/site.config";
 import { issueUrl } from "@/lib/feedback";
 import { LogoMark, Wordmark } from "./Logo";
 import { SiteLink } from "./SiteLink";
+import { FooterPeek } from "./FooterPeek";
 
 const COLUMNS = [
   {
@@ -16,6 +17,7 @@ const COLUMNS = [
     title: "Resources",
     links: [
       { label: "GitHub", href: site.github, external: true },
+      { label: "LinkedIn", href: site.linkedin, external: true },
       { label: "How to use", href: "/about#usage" },
       { label: "About", href: "/about" },
     ],
@@ -24,6 +26,8 @@ const COLUMNS = [
     title: "Get in touch",
     links: [
       { label: "Contact", href: "/contact" },
+      { label: "Sponsor", href: "/sponsor" },
+      { label: "Partner with us", href: "/partner" },
       { label: "Send feedback", href: "/contact#feedback" },
       { label: "Report an issue", href: issueUrl({ title: "Bug: " }), external: true },
     ],
@@ -64,7 +68,8 @@ export function Footer() {
           </div>
         ))}
       </div>
-      <div className="shell-container grid grid-cols-1 gap-2 border-t border-line py-6 font-mono text-[0.6875rem] text-ink-3 sm:grid-cols-3 sm:items-center">
+      <div className="shell-container relative grid grid-cols-1 gap-2 border-t border-line py-6 font-mono text-[0.6875rem] text-ink-3 sm:grid-cols-3 sm:items-center">
+        <FooterPeek />
         <span>© {new Date().getFullYear()} Vitrine. MIT licensed.</span>
         <a
           href="https://ham7a311.dev"

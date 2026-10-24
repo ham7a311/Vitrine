@@ -24,7 +24,6 @@ buttons/keycap
 buttons/swell-button
 buttons/slosh-button
 buttons/letterpress-button
-buttons/sketch-button
 buttons/foldaway-button
 buttons/stratum-button
 buttons/entry-ring-button
@@ -92,9 +91,8 @@ controls/gel-toggle
 controls/mercury-segments
 controls/histogram-range
 controls/ruler-picker
-controls/detent-knob
 controls/eclipse-toggle
-controls/rocker-switch
+controls/theme-shift
 controls/snooze-rail
 controls/theme-dial
 controls/punch-check
@@ -220,8 +218,6 @@ backgrounds/glyph-swell
 backgrounds/caustic-pool
 backgrounds/ripple-tank
 cursors/glow-pointer
-cursors/highlight-sweep
-cursors/infinite-highlight-sweep
 cursors/eye-tracker
 cursors/nib-trail
 cursors/halo-pointer
@@ -237,6 +233,8 @@ cursors/sparkle-click
 cursors/confetti-click
 cursors/firework-click
 cursors/petal-click
+ai/thinking-mark
+ai/agent-composer
 ai/stream-reply
 ai/voice-orb
 ai/agent-run
@@ -259,7 +257,6 @@ ai/confidence-ink
 ai/ask-bar
 ai/glyph-halo-composer
 ai/afterglow-prompt
-ai/agent-composer
 ai/model-roster
 ai/dial-composer
 ai/canvas-composer
@@ -350,7 +347,6 @@ pricing/usage-ruler
 pricing/lightbox-compare
 pricing/calendar-pricing
 pricing/stack-pricing
-pricing/chalk-menu-pricing
 pricing/till-receipt
 commerce/build-sheet
 commerce/fit-compare
@@ -444,7 +440,6 @@ media/art-gallery
 media/image-compare
 media/hover-reel
 media/dither-portrait
-media/contact-sheet
 media/transcript-player
 media/helix-showcase
 media/story-reel
@@ -507,7 +502,6 @@ sections/torn-paper
 sections/crossed-tapes
 sections/topo-contours
 sections/bead-curtain
-sections/product-atelier
 sections/page-header
 sections/quickstart-checklist
 type/dither-logo
@@ -533,7 +527,6 @@ micro/reaction-pill
 micro/tumbler-code
 micro/shackle-lock
 micro/pin-drop
-text/chrome-text
 text/gradient-text
 text/shine-text
 text/spotlight-text
@@ -548,3 +541,20 @@ text/weight-wave-text
 text/loose-letters
 text/word-carousel
 text/second-draft-text
+highlights/pill-swap
+highlights/brush-swatch
+highlights/handle-highlight
+highlights/highlighter-pen
+highlights/pen-loop
+highlights/squiggle-underline
+highlights/inverse-sweep
+highlights/highlight-sweep
+highlights/infinite-highlight-sweep
+highlights/focus-lock
+highlights/washi-tape
+highlights/redacted
+highlights/dither-fill
+highlights/search-hits
+highlights/margin-note
+highlights/riso-mark
+highlights/watercolour-wash

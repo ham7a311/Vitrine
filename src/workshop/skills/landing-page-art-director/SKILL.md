@@ -52,3 +52,28 @@ Check every slug exists in the library before you use it.
 ## Output
 
 The one-line argument, the section table with chosen components and a reason for each, and what was deliberately left out.
+
+## Don't use when
+
+- The page exists and is close. Use `/refinement-pass` rather than re-planning every slot.
+- It isn't a landing page: an app screen, docs or a dashboard need different structures.
+
+## Acceptance criteria
+
+- The page's argument is written before any component is chosen.
+- Every section has one job in that argument and one component, with a reason.
+- There's one primary call to action, repeated consistently.
+- The restraint rules hold: one hero idea, one moving background at most, one signature interaction.
+
+## Common failure modes
+
+- **A stack of impressive blocks** with no argument connecting them.
+- **Two heroes:** a dramatic background and a dramatic headline treatment competing.
+- **Proof that proves nothing:** logos, stats and testimonials without sources.
+- **Every section trying to be memorable,** so none is.
+
+## Final self-review
+
+- Can I say the page's argument in three sentences?
+- Which section would I cut first, and why haven't I?
+- Is the product working on screen somewhere near the top?

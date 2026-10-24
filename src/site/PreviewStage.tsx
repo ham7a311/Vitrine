@@ -30,8 +30,8 @@ export function PreviewStage({
   mode: PreviewMode;
   height?: number;
   variants?: Variant[];
-  /** The Code tab: file names now, the code from url when the tab first opens. */
-  source?: { url: string; files: SourceFileName[] };
+  /** The Code tab: file names now, the code from url when the tab first opens. variants: each variant's own source, when variants are separate implementations. */
+  source?: { url: string; files: SourceFileName[]; variants?: Record<string, { url: string; files: SourceFileName[] }> };
   /** Frame this page instead of /preview/<slug> (recipes). */
   src?: string;
   title?: string;
@@ -43,6 +43,7 @@ export function PreviewStage({
   const variant = shared ? shared.variant : own;
   const setVariant = shared ? shared.setVariant : setOwn;
   const selected = variants?.find((v) => v.id === variant);
+  const code = (variant && source?.variants?.[variant]) || source;
   const [viewport, setViewport] = useState<(typeof VIEWPORTS)[number]["id"]>("full");
   const [runKey, setRunKey] = useState(0);
   const vp = VIEWPORTS.find((v) => v.id === viewport)!;
@@ -160,14 +161,19 @@ export function PreviewStage({
           </div>
         </div>
       ) : (
-        source && (
+        source && code && (
           <>
             {variants && variants.length > 1 && !isThemeOnly(variants) && selected && (
               <p className="mb-3 text-[0.8125rem] text-ink-3">
-                The source implements every variant through props; the demo file shows how each one is set. The prompt below describes <span className="text-ink-2">{selected.label}</span>.
+                {code !== source ? (
+                  <>This is the source for <span className="text-ink-2">{selected.label}</span> alone; each version is its own implementation. The prompt below describes it too.</>
+                ) : (
+                  <>The source implements every variant through props; the demo file shows how each one is set. The prompt below describes <span className="text-ink-2">{selected.label}</span>.</>
+                )}
               </p>
             )}
-            <SourceViewer url={source.url} files={source.files} />
+            {/* Keyed by URL: a different variant's source starts again from its first file. */}
+            <SourceViewer key={code.url} url={code.url} files={code.files} />
           </>
         )
       )}

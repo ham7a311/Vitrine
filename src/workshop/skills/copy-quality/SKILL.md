@@ -162,3 +162,23 @@ When auditing Vitrine itself (tryvitrine.dev), keep its personality: **premium, 
 10. Would a thoughtful product team publish it?
 
 Any "no" means revise again. If the original already passed, restore it.
+
+## Don't use when
+
+- The copy is legal, contractual or regulatory text, where precision outranks voice.
+- The problem is the page's order or structure. Use `/content-structure-auditor`.
+- You don't have the facts to make lines specific. Ask for them; don't rewrite generic copy into invented specifics.
+
+## Acceptance criteria
+
+- Every rewritten line passes the final test above.
+- No rewrite invents a number, customer, quote or claim.
+- The product's own personality survives the edit.
+- Findings are evidence-based: each points at an exact line.
+
+## Common failure modes
+
+- **Over-correcting into flatness:** stripping all personality while removing the clichés.
+- **Swapping buzzwords for other buzzwords.**
+- **Inventing specifics** to replace vague claims.
+- **Rewriting everything** when only a few lines were the problem.

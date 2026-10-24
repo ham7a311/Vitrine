@@ -42,3 +42,28 @@ Choose **one** of: a background behind the name (`silk-field`, `dune-field`, `st
 ## Output
 
 The register, the section plan with components and reasons, the chosen signature detail, and the copy gaps still to fill.
+
+## Don't use when
+
+- The person has no work to show yet. Help them gather and choose work first.
+- It's a company or product site. Use `/landing-page-art-director`.
+
+## Acceptance criteria
+
+- The site leads with the work, chosen and ordered on purpose.
+- Each project is shown in a way that suits it, with real facts: role, year, outcome.
+- A few components carry the personality; the rest stay quiet.
+- There's one clear way to get in touch.
+
+## Common failure modes
+
+- **Too many projects,** so the best ones are diluted.
+- **The design upstaging the work.**
+- **Vague roles:** "worked on" instead of what the person actually did.
+- **A template feel:** the same card for every project, whatever the medium.
+
+## Final self-review
+
+- Would the person's best project be seen in the first screen or two?
+- Is every claim about their role specific?
+- Does the design serve the work, or compete with it?

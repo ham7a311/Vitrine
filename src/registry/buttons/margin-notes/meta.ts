@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "doodle", "hand-drawn", "sketch", "annotation", "arrow", "playful", "svg", "edge"],
   traits: ["hover", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["MarginNotes.tsx", "margin-notes.css", "notes.ts"],
   dependencies: [],
   prompt:

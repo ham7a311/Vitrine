@@ -14,6 +14,10 @@
   --color-frost: #b9cce4;
   --color-frost-dim: #7e93ae;
   --color-lilac: #c8b9ea;
+  /* Pane's eye glow. Rare on purpose: tiny dots and glints only, never a button, background or gradient. */
+  --color-ember: #f3dcb0;
+  /* The backdrop Pane's renders sit on; surfaces holding Pane use it so the image edges disappear. */
+  --color-pane: #100915;
   --color-line: rgb(239 232 220 / 0.08);
   --color-line-strong: rgb(239 232 220 / 0.16);
 
@@ -92,6 +96,7 @@
   .skill-doc .md-code { margin: 1.25rem 0 0; }
   .skill-doc .md-code pre { margin: 0; max-height: 28rem; overflow: auto; padding: 1.1rem 1.25rem; border: 1px solid var(--color-line); border-radius: 12px; background: #0d1117 !important; font-size: 0.78rem; line-height: 1.65; }
   .skill-doc .md-code code { background: none; padding: 0; font-size: inherit; color: inherit; overflow-wrap: normal; }
+  .skill-doc .md-text pre { white-space: pre-wrap; color: var(--color-ink-2); }
   .skill-doc li > ul, .skill-doc li > ol { margin-top: 0.3rem; }
   .skill-doc li > p { margin-top: 0.45rem; }
   .skill-doc li > .md-code { margin-top: 0.7rem; }

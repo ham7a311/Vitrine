@@ -13,6 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: u("/workshop"), changeFrequency: "monthly", priority: 0.7 },
     { url: u("/about"), changeFrequency: "yearly", priority: 0.3 },
     { url: u("/contact"), changeFrequency: "yearly", priority: 0.3 },
+    { url: u("/sponsor"), changeFrequency: "monthly", priority: 0.4 },
+    { url: u("/partner"), changeFrequency: "yearly", priority: 0.4 },
     { url: u("/terms"), changeFrequency: "yearly", priority: 0.2 },
     { url: u("/privacy"), changeFrequency: "yearly", priority: 0.2 },
     ...registry.map((c) => ({ url: u(`/components/${c.slug}`), changeFrequency: "monthly" as const, priority: 0.8 })),

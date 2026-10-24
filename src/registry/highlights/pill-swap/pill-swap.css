@@ -1,0 +1,133 @@
+.pillswap {
+  --edge: transparent;
+  --lift: 0 0.04em 0.12em rgb(60 30 90 / 0.08);
+  --weight: 500;
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+.pillswap--night {
+  --edge: rgb(255 255 255 / 0.09);
+  --lift: 0 0.05em 0.3em rgb(0 0 0 / 0.35);
+}
+
+/* The pill: an inline-block whose own line box carries the text's baseline, so the word inside sits
+   on the headline's baseline whatever the font. Negative block margins keep the line spacing even. */
+.pillswap__pill {
+  display: inline-block;
+  height: 1.16em;
+  margin-block: -0.08em;
+  padding: 0 0.42em 0 0.3em;
+  border-radius: 999px;
+  background: var(--tint);
+  color: var(--ink);
+  line-height: 1.16;
+  box-shadow: inset 0 0 0 1px var(--edge), var(--lift);
+  transition: background-color 520ms ease, color 520ms ease;
+}
+
+.pillswap__dot {
+  position: relative;
+  display: inline-block;
+  margin-right: 0.2em;
+  vertical-align: 0.12em;
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  background: var(--dot);
+  transition: background-color 520ms ease;
+  animation: pillswap-breathe 2.4s ease-in-out infinite;
+}
+/* A new word lands with one ring off the dot. */
+.pillswap__dot[data-fresh]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 0.035em solid var(--dot);
+  animation: pillswap-ring 760ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+/* The word track: clips the words so each one rises out of, and sinks into, the pill itself. */
+.pillswap__slot {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  height: 1.16em;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(transparent, #000 9%, #000 91%, transparent);
+  transition: width 640ms cubic-bezier(0.34, 1.32, 0.5, 1);
+}
+.pillswap__word {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  line-height: 1.16;
+  font-weight: var(--weight);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+/* Before the first measure, the first word sizes the slot itself. */
+.pillswap__word--in[data-first] { position: relative; }
+.pillswap__l { display: inline-block; }
+.pillswap__word--in:not([data-first]) .pillswap__l {
+  animation: pillswap-in 600ms cubic-bezier(0.2, 0.85, 0.25, 1) both;
+  animation-delay: calc(var(--n) * 28ms + 90ms);
+}
+.pillswap__word--out .pillswap__l {
+  animation: pillswap-out 380ms cubic-bezier(0.5, 0, 0.75, 0.4) both;
+  animation-delay: calc(var(--n) * 16ms);
+}
+
+.pillswap__measure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+.pillswap__measure > span {
+  display: inline-block;
+  font-weight: var(--weight);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.pillswap__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes pillswap-in {
+  from { transform: translateY(0.9em); opacity: 0; filter: blur(0.06em); }
+  to { transform: none; opacity: 1; filter: blur(0); }
+}
+@keyframes pillswap-out {
+  from { transform: none; opacity: 1; filter: blur(0); }
+  to { transform: translateY(-0.85em); opacity: 0; filter: blur(0.05em); }
+}
+@keyframes pillswap-breathe {
+  50% { transform: scale(0.8); }
+}
+@keyframes pillswap-ring {
+  from { transform: scale(1); opacity: 0.7; }
+  to { transform: scale(2.8); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pillswap__slot { transition: none; }
+  .pillswap__dot { animation: none; }
+  .pillswap__dot[data-fresh]::after { animation: none; opacity: 0; }
+  .pillswap__word--in:not([data-first]) .pillswap__l { animation: pillswap-fade 400ms ease both; animation-delay: 0ms; transform: none; }
+  .pillswap__word--out { display: none; }
+}
+@keyframes pillswap-fade { from { opacity: 0; } }

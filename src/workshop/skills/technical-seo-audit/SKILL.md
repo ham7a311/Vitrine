@@ -62,3 +62,28 @@ Verify everything against the **production build** (`next build && next start`, 
 ## Output
 
 A checklist with pass/fail and evidence (the command and what it printed) for each section, then the fixes, then the same checklist re-run.
+
+## Don't use when
+
+- The site isn't deployed or doesn't have its final domain. Many checks depend on the real URL.
+- The problem is the words on the page. Use `/seo-auditor`.
+
+## Acceptance criteria
+
+- robots.txt and the sitemap allow and list exactly the pages that should be indexed.
+- Every page has one correct canonical URL.
+- Metadata, structured data and social cards validate.
+- Redirects are single hops, and there are no broken internal links.
+
+## Common failure modes
+
+- **Blocking assets or pages** in robots.txt by accident.
+- **Canonicals that point to the wrong page,** or to themselves on duplicate content.
+- **Programmatic pages** that are thin or duplicate.
+- **Checking the dev server** instead of production.
+
+## Final self-review
+
+- Did I check production URLs?
+- Is every indexable page in the sitemap, and nothing that shouldn't be?
+- Did I validate structured data and social cards with real tools?

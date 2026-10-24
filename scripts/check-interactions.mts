@@ -1439,5 +1439,107 @@ await clear();
 console.log("new components: domino chain/yarn coil/bunting sag/gear mesh/rake grooves, tear/tape loop/marching squares/bead links, memory forget+undo+pause, thread map ticks/search, deck FAQ queue/flip/keys, summit ridge/milestones, bubble packing, story reel steps/people/pause, koi/snow/arc/sticker/moth/ruler buttons + rim fallback, click cursors spray/step/charge, period overlay axis/morph/keyboard, latency percentiles/regions/keyboard select, timeline lanes/impact/pins, daylight sun/terminator/clocks, shackle + pin drop toggles, chapter rail spy/filter/fold, till receipt bill/totals, loom/arcade/pixel seam layouts, edge buttons perimeter/gait/bloom order/sky/bubbles/notes, field button+cta fallback/focus, auth batch provider failure+retry/email reveal/domain routing/handle suggestions/revoke rollback/saved gate, bento batch count/compact/unfold focus+escape/lean/heat weeks/funnel, backgrounds batch fallbacks/fade, tile breaker labels/links/points/blur/motif, echo bar compact/digit keys/reconcile/coalesce/rollback/menus/shortcuts, source sweep order/counts/groups, activity glyph endings, lumen state dots, thought dots designs, globe search projection/pings/results, lumen gaze/spring/seeds/labels, outcome flicker steps/play/options/summary, trend tape rate/bug keys/feed/vector/pause, plan gate review/gates/deny-replan/retry/take over/receipt, mixed inspector spread/slices/keyboard select/label cycle/partial failure/retry, sentence rewrite/menus, split suggestions/apply, stacked ladder/fold/send, dial rings/detents/send, canvas dock/swap/send, receipt inference/override/approve, composer modes/models/effort/send/stop, model roster switches/last-on guard/search/add, terminal parsing/completion/history/clear, mega nav keyboard/escape/outside click passed");
 console.log("new components: source sweep order/counts/groups, activity glyph endings, lumen state dots, thought dots designs, globe search projection/pings/results, lumen gaze/spring/seeds/labels, outcome flicker steps/play/options/summary, trend tape rate/bug keys/feed/vector/pause, plan gate review/gates/deny-replan/retry/take over/receipt, mixed inspector spread/slices/keyboard select/label cycle/partial failure/retry, sentence rewrite/menus, split suggestions/apply, stacked ladder/fold/send, dial rings/detents/send, canvas dock/swap/send, receipt inference/override/approve, composer modes/models/effort/send/stop, model roster switches/last-on guard/search/add, terminal parsing/completion/history/clear, mega nav keyboard/escape/outside click passed");
 
+// Highlights: pure geometry and matching, plus the interactive components.
+{
+const H = "src/registry/highlights";
+// jsdom has no layout: give ranges an empty rect list and elements a no-op scrollTo.
+Object.assign(dom.window.Range.prototype, { getClientRects: () => [] });
+Object.assign(dom.window.HTMLElement.prototype, { scrollTo() {} });
+
+const swatch = load(`${H}/brush-swatch/swatch.ts`, "*");
+assert.equal(swatch.swatchPath(240, 60, 3), swatch.swatchPath(240, 60, 3), "A seed always paints the same stroke");
+assert.notEqual(swatch.swatchPath(240, 60, 3), swatch.swatchPath(240, 60, 4), "A different seed paints a different stroke");
+const marker = load(`${H}/highlighter-pen/marker.ts`, "*");
+const st = marker.stroke({ x: 10, y: 0, w: 200, h: 30 }, 24, 7);
+assert.equal(st.body, marker.stroke({ x: 10, y: 0, w: 200, h: 30 }, 24, 7).body, "Marker strokes are stable for a phrase");
+assert(st.from > 10 - 24 * 0.3 && st.to < 210 + 24 * 0.25, "The pen starts and stops near the words, not far outside them");
+assert.equal(marker.hash("second draft"), marker.hash("second draft"));
+assert(marker.penTime(10) === 240 && marker.penTime(5000) === 720, "Writing speed stays within one gesture");
+const loopMod = load(`${H}/pen-loop/loop.ts`, "*");
+const lp = loopMod.loop(200, 60, 40, 7);
+assert.equal(lp.d, loopMod.loop(200, 60, 40, 7).d);
+assert(lp.bottom.length > 2 && lp.bottom.every(([, y]: number[]) => y > 30), "Landing points sit on the bottom of the loop");
+const squig = load(`${H}/squiggle-underline/squiggle.ts`, "*");
+for (const kind of ["wave", "zigzag", "double", "scribble"]) assert(squig.underline(kind, { x: 0, y: 0, w: 300, h: 40 }, 32, 5).every((d: string) => d.startsWith("M")), `${kind} draws`);
+assert.equal(squig.underline("double", { x: 0, y: 0, w: 300, h: 40 }, 32, 5).length, 2, "Double is two strokes");
+const tape = load(`${H}/washi-tape/tape.ts`, "*");
+assert.equal(tape.tapePath(180, 40, 4), tape.tapePath(180, 40, 4));
+const wash = load(`${H}/watercolour-wash/wash.ts`, "*");
+assert(wash.blob(100, 50, 80, 40, 5).endsWith("Z"), "The wash is a closed shape");
+
+const handles = load(`${H}/handle-highlight/handles.ts`, "*");
+assert.equal(handles.knobs([{ x: 0, y: 0, w: 100, h: 30 }]).length, 8, "One line gets eight handles");
+const two = handles.knobs([{ x: 40, y: 0, w: 60, h: 30 }, { x: 0, y: 40, w: 80, h: 30 }]);
+assert.equal(two.length, 8);
+assert(two.slice(0, 4).every((k: any) => k.y <= 30) && two.slice(4).every((k: any) => k.y >= 40), "A wrapped phrase: start handles on its first line, end handles on its last");
+assert.deepEqual(handles.mergeLines([{ x: 0, y: 0, w: 20, h: 30 }, { x: 22, y: 1, w: 30, h: 30 }, { x: 0, y: 40, w: 10, h: 30 }]).map((b: any) => b.w), [52, 10], "Fragments on one line merge");
+for (const shape of ["circle", "square", "diamond", "triangle"]) assert(handles.knobPath(shape, 8, 1, -1).endsWith("Z"), `${shape} handle`);
+
+const dither = load(`${H}/dither-fill/dither.ts`, "*");
+assert(Array.from({ length: 40 }, (_, i) => dither.inked(i, 0, 40, 0)).every((v) => !v), "Nothing is printed before the sweep");
+assert(Array.from({ length: 30 }, (_, i) => dither.inked(i, 1, 40, 1)).every(Boolean), "Behind the front the fill is solid");
+assert(Array.from({ length: 4 }, (_, j) => dither.inked(39, j, 40, 1)).some((v) => !v), "The far end stays dithered");
+assert.equal(dither.solidTo(0), 0); assert.equal(dither.solidTo(1), 1);
+const layout = load(`${H}/margin-note/layout.ts`, "*");
+assert.deepEqual(layout.stack([0, 10, 300], [80, 80, 80]), [0, 94, 300], "Cards keep their place unless they would overlap");
+
+const search = load(`${H}/search-hits/search.ts`, "*");
+assert.deepEqual(search.findHits("Café, cafe and CAFÉ.", "cafe"), [[0, 4], [6, 10], [15, 19]], "Matching ignores case and accents and maps back to the original letters");
+assert.deepEqual(search.findHits("crème brûlée", "brulee"), [[6, 12]]);
+assert.deepEqual(search.findHits("anything", "   "), [], "An empty query finds nothing");
+assert.equal(search.step(4, 5, 1), 0); assert.equal(search.step(0, 5, -1), 4); assert.equal(search.step(0, 0, 1), 0);
+const Search = load(`${H}/search-hits/SearchHits.tsx`, "SearchHits", { "./search": search });
+await mount(Search, { paragraphs: ["The first café opened in 1921.", "The Café Royal and the Cafe Lune."], initialQuery: "cafe" });
+const count = () => document.querySelector(".srchits__count")!.textContent;
+assert.equal(count(), "1 of 3");
+assert.equal(document.querySelectorAll("mark.srchits__hit").length, 3);
+await key(".srchits__input", "Enter");
+assert.equal(count(), "2 of 3");
+assert(document.querySelector('[data-hit="1"]')!.classList.contains("is-active"), "The active match is marked");
+await act(async () => { document.querySelector(".srchits__input")!.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "Enter", shiftKey: true, bubbles: true })); });
+await act(async () => { document.querySelector(".srchits__input")!.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "Enter", shiftKey: true, bubbles: true })); });
+assert.equal(count(), "3 of 3", "Shift+Enter steps back and wraps round");
+await input(".srchits__input", "zzz");
+assert.equal(count(), "No matches");
+assert(document.querySelector<HTMLButtonElement>('button[aria-label="Next match"]')!.disabled, "Nothing to step to");
+await key(".srchits__input", "Escape");
+await input(".srchits__input", "");
+assert.equal(count(), "");
+await clear();
+
+const Pill = load(`${H}/pill-swap/PillSwap.tsx`, "PillSwap");
+const words = ["Jam", "Ship", "Plan", "Review"].map((text) => ({ text, tint: "#eee", dot: "#a0f", ink: "#111" }));
+await mount(Pill, { words, interval: 30 });
+assert.equal(document.querySelector(".pillswap__sr")!.textContent, "Jam, Ship, Plan or Review", "Screen readers hear every option once");
+const shown = () => document.querySelector(".pillswap__word--in")!.textContent;
+assert.equal(shown(), "Jam");
+await act(async () => { await new Promise((r) => setTimeout(r, 80)); });
+assert.notEqual(shown(), "Jam", "The word changes on its clock");
+await mount(Pill, { words, interval: 30, paused: true });
+const held = shown();
+await act(async () => { await new Promise((r) => setTimeout(r, 120)); });
+assert.equal(shown(), held, "Paused holds the word");
+await clear();
+
+const Red = load(`${H}/redacted/Redacted.tsx`, "Redacted", { "./bars": load(`${H}/redacted/bars.ts`, "*") });
+await mount(Red, { children: "the payments gateway" });
+const redact = () => document.querySelector<HTMLElement>(".redact")!;
+assert.equal(redact().getAttribute("aria-pressed"), "false");
+assert.match(redact().textContent!, /^Redacted: the payments gateway$/, "Closed, it announces itself as redacted");
+await act(async () => { redact().focus(); redact().dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: " ", bubbles: true, cancelable: true })); });
+assert.equal(redact().getAttribute("aria-pressed"), "true", "Holding Space opens it");
+assert(!redact().textContent!.startsWith("Redacted"), "Open, the words are read plainly");
+await act(async () => { redact().dispatchEvent(new dom.window.KeyboardEvent("keyup", { key: " ", bubbles: true })); });
+assert.equal(redact().getAttribute("aria-pressed"), "false", "Letting go closes it");
+await act(async () => { redact().dispatchEvent(new dom.window.MouseEvent("pointerdown", { bubbles: true, cancelable: true })); });
+assert.equal(redact().getAttribute("aria-pressed"), "true", "Press and hold opens it");
+await act(async () => { window.dispatchEvent(new dom.window.Event("pointerup")); });
+assert.equal(redact().getAttribute("aria-pressed"), "false", "Releasing anywhere closes it");
+await mount(Red, { children: "the payments gateway", revealed: true });
+assert.equal(redact().getAttribute("aria-pressed"), "true", "Declassify opens it from outside");
+await clear();
+console.log("highlights: seeded strokes/loops/tape/wash, handle placement and shapes, dither front and tail, margin stacking, accent-insensitive search with stepping and keys, pill words/hold/screen-reader sentence, redaction hold/keys/declassify passed");
+}
+
 await act(async () => root.unmount()); dom.window.close();
 console.log("interactions: auth delivery, cancellation/network failure, retry, success, and resend failure, prompt/theme selection, history, keyboard controls and mobile navigation passed");

@@ -3,14 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { issueUrl } from "@/lib/feedback";
 import { componentFonts, exampleUsesTailwind } from "@/lib/component-fonts";
-import { sourceUrl } from "@/lib/source";
+import { sourceUrl, type SourceFileName } from "@/lib/source";
 import { sourceBundle } from "@/lib/source-bundle";
 import { getComponent, registry } from "@/registry";
 import { CATEGORIES, TRAIT_LABEL } from "@/registry/types";
 import { ArrowLeft, ArrowRight } from "@/site/icons";
 import { PreviewStage } from "@/site/PreviewStage";
 import { CATEGORY_NOUN, JsonLd, abs, breadcrumbs, pageMeta } from "@/site/seo";
-import { PromptPanel, VariantProvider } from "@/site/VariantState";
+import { PromptPanel, VariantFiles, VariantProvider } from "@/site/VariantState";
 import { recipesUsing } from "@/workshop/recipes";
 
 /* Only the pages built from the registry exist; any other slug is a plain 404 and is never cached. */
@@ -33,7 +33,13 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
   // Read at prerender for the fonts, styling note and file list; the code itself loads with the Code tab.
   const files = await sourceBundle(meta);
-  const source = { url: sourceUrl(meta.slug), files: files.map(({ name, role }) => ({ name, role })) };
+  const names = (bundle: typeof files): SourceFileName[] => bundle.map(({ name, role }) => ({ name, role }));
+  // Variants that are separate implementations each get their own Code tab and Files list.
+  const own = meta.variantSources
+    ? Object.fromEntries(await Promise.all(Object.keys(meta.variantSources).map(async (id) => [id, { url: sourceUrl(meta.slug, id), files: names(await sourceBundle(meta, undefined, id)) }] as const)))
+    : undefined;
+  const first = own && Object.values(own)[0];
+  const source = { url: first?.url ?? sourceUrl(meta.slug), files: first?.files ?? names(files), ...(own && { variants: own }) };
   const fonts = componentFonts(files);
   const tailwindExample = exampleUsesTailwind(files);
   const category = CATEGORIES.find((c) => c.id === meta.category)!;
@@ -177,11 +183,15 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
             <div>
               <dt className="eyebrow">Files</dt>
               <dd className="mt-2">
-                <ul className="space-y-1 font-mono text-[0.8125rem] text-ink-2">
-                  {files.filter((f) => f.role !== "usage").map(({ name: f }) => (
-                    <li key={f}>{f}</li>
-                  ))}
-                </ul>
+                {own ? (
+                  <VariantFiles files={Object.fromEntries(Object.entries(own).map(([id, v]) => [id, v.files.filter((f) => f.role !== "usage").map((f) => f.name)]))} />
+                ) : (
+                  <ul className="space-y-1 font-mono text-[0.8125rem] text-ink-2">
+                    {files.filter((f) => f.role !== "usage").map(({ name: f }) => (
+                      <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                )}
               </dd>
             </div>
             <div>

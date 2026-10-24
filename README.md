@@ -8,7 +8,7 @@ A curated collection of React components with memorable interactions.
 Read the source, read the prompt behind it, and copy what you need.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-545-c8b9ea)
+![Components](https://img.shields.io/badge/components-555-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -76,21 +76,21 @@ There is no package, no CLI and no registry install. You copy the files into you
 
 ## What's inside
 
-**545 components in 32 categories.** Recently added components carry a New label; the registry check keeps it to at most 100.
+**555 components in 33 categories.** Recently added components carry a New label; the registry check keeps it to at most 100.
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
-| Buttons | 82 | Backgrounds | 60 | Cards | 51 |
-| AI & Chat | 38 | Controls | 23 | Authentication | 22 |
+| Buttons | 81 | Backgrounds | 60 | Cards | 51 |
+| AI & Chat | 39 | Controls | 22 | Authentication | 22 |
 | Feedback | 22 | Stats | 20 | Analytics | 20 |
-| Sections | 20 | Cursors | 18 | Forms | 16 |
-| Text Animations | 15 | Data | 15 | Micro-animations | 13 |
-| CTAs | 12 | Navigation | 11 | Pricing | 10 |
-| FAQ | 10 | Type & Names | 10 | Media | 9 |
-| Heroes | 8 | Time | 7 | Overlays | 6 |
-| Navbars | 4 | Developer | 4 | Footers | 4 |
-| Maps & Globes | 4 | Sidebars | 3 | Decisions | 3 |
-| Commerce | 3 | Reading | 2 | | |
+| Sections | 19 | Highlights | 17 | Cursors | 16 |
+| Forms | 16 | Data | 15 | Text Animations | 14 |
+| Micro-animations | 13 | CTAs | 12 | Navigation | 11 |
+| FAQ | 10 | Type & Names | 10 | Pricing | 9 |
+| Heroes | 8 | Media | 8 | Time | 7 |
+| Overlays | 6 | Navbars | 4 | Developer | 4 |
+| Footers | 4 | Maps & Globes | 4 | Sidebars | 3 |
+| Decisions | 3 | Commerce | 3 | Reading | 2 |
 
 <details>
 <summary><b>A longer tour</b></summary>
@@ -100,7 +100,7 @@ There is no package, no CLI and no registry install. You copy the files into you
 - **Specimen Card**: a card treated as a catalogued object.
 - **Iris Shutter Button**: an action that opens and closes like a lens.
 - **Prompt Composer, Thinking Trace, Cited Answer, Inline Diff**: the building blocks of a polished AI interface.
-- **Split-Flap Text, Chrome Text, Extrude Text**: type that moves with intent.
+- **Split-Flap Text, Extrude Text**: type that moves with intent.
 - **Route Globe, Sankey Flow, Sunburst Drill, Cohort Retention**: data that rewards a closer look.
 - **Trace 404, Forwarding 404, Underside 404**: missing pages that explain where the request stopped, where the page moved, or turn over to an index.
 - **Insert Menu, Board View, Page Header**: a calm document editor's pieces, from the / menu to drag-and-drop status boards.
@@ -112,7 +112,7 @@ There is no package, no CLI and no registry install. You copy the files into you
 - **Sieve, Build Sheet, Gate Selector**: rules you can see. Filters that show what they removed, a configurator that explains its conflicts and offers the fix, a status control shaped like the workflow it allows.
 - **Undo Tree, Shadow Board**: history that branches instead of forgetting, and toolbar customisation where every tool keeps its painted outline.
 - **Line Map, Notification Dial, You Draw It**: structure drawn as a transit map, a setting that shows its consequence before you commit, and a chart that asks for your guess before it shows the answer.
-- **Splice, Contact Sheet**: choosing as the main act. Assemble one text from the best sentences of several drafts; mark photos with a grease pencil on a light table.
+- **Splice**: choosing as the main act. Assemble one text from the best sentences of several drafts.
 - **Query Tokens, Keymap, Cron Builder, Scrub Number, Conflict Resolver**: tools for people who build. Filter syntax that stays editable, shortcuts on a drawn keyboard, schedules in three linked forms, design-tool number fields, and a three-way merge that only asks about real conflicts.
 - **Transcript Player, Log Tail, Span Waterfall**: media and tooling you read as much as operate. A transcript that is the player, a live log that holds still when you scroll up, a trace drawn as bars with its critical path.
 - **Segment Counter, Timezone Overlap, Patina**: the honest details. The one character that doubled your SMS bill, everyone's working hours on one axis, cards that visibly age until someone checks them.
@@ -132,6 +132,7 @@ There is no package, no CLI and no registry install. You copy the files into you
 - **Conduit, Light Leak, Aurora Foot and Rim Glow Cards, Credit Tier Pricing**: light as the material. A card a beam pours through, a card lit through its top edge, cards whose feet catch fire in four colours, tiles rim-lit from below, and a three-plan pricing section over a glowing dome of dots.
 - **Filter Step Card, Ember Globe, Point Bloom, Glow Base Pricing**: a step card whose filter panel really filters, a turning sphere of ember and white points, nested shells of points folding like membranes, plans glowing from their base.
 - **Aurora, Shine and Spotlight Text; Hover, Scroll, Echo and Marquee Outline Text**: gradient fills that drift, glint or follow the pointer, and hairline lettering that fills on hover, on scroll, as echoes or in a marquee.
+- **Pill Swap, Brush Swatch, Highlighter Pen, Pen Loop, Margin Note, Search Hits** and eleven more **Highlights**: seventeen ways to point at the words that matter. A word in a pill that changes colour with it, a stroke of paint, design-tool handles, an imperfect highlighter, a pen loop with a note, hand-drawn underlines, an inverting sweep, a demo cursor that sweeps a highlight across a phrase (once, or looping), focus brackets, washi tape, press-to-peek redactions, a dithered fill, find-in-page hits that glide, comments in the margin, a misregistered risograph print and a watercolour wash.
 - **Line Chart, Bar Chart, Donut Chart**: dashboard charts with morphing ranges, grouped and stacked bars that slide between layouts, a ring that steps out a part, keyboard reading and data tables.
 - **Smart Download** and **Platform Badges** are now two components (the badges come in solid, outline or light), and Refraction Blob, Helix Showcase and Satin Hero have new navigation.
 
@@ -182,15 +183,15 @@ Vitrine also shows how to build with the collection.
 
 **Recipes** are complete pages made only from Vitrine components, each with creative direction, a section-by-section component plan, and a copyable build brief:
 
-The Portfolio · The Glass Portfolio · The Showcase · The Studio · The Launch · The Console · The AI Workspace · The AI Company
+The Portfolio · The Showcase · The Brutalist Studio · The Launch · The Console · The Docs · The Auth Flow · The AI Workspace · The AI Company
 
-**Skills** are 19 reusable AI workflows written as `SKILL.md` files that work in Claude Code, Claude.ai projects, Cursor rules and ChatGPT projects:
+**Skills** are 24 reusable AI workflows written as `SKILL.md` files that work in Claude Code, Claude.ai projects, Cursor rules and ChatGPT projects:
 
 | Stage | Skills |
 |---|---|
-| **Design** | Art Director · Design Critic · Template Tells · Interface Copy · Motion Critic · Theme System · Copy Quality · Landing Page Art Director · Portfolio Art Director · Content Structure Auditor |
-| **Build** | Component Author · Component Architect |
-| **Check** | Responsive Auditor · Accessibility Auditor · Performance Auditor |
+| **Design** | Art Director · Design Critic · Refinement Pass · Template Tells · Responsive Art Direction · Interface Copy · Motion Critic · Theme System · Copy Quality · Landing Page Art Director · Portfolio Art Director · Content Structure Auditor |
+| **Build** | Component Author · Component Adaptation · Design System Consistency · Component Architect |
+| **Check** | Responsive Auditor · Screenshot Iteration · Accessibility Auditor · Performance Auditor |
 | **Grow** | SEO Auditor · Technical SEO Audit · Search Optimization · Conversion UX Review |
 
 The skill files live in `src/workshop/skills/<name>/SKILL.md`.

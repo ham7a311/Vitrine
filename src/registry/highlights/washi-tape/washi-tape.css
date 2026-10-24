@@ -1,0 +1,59 @@
+.washi {
+  --tape: #9bd8c3;
+  --tape-alpha: 0.82;
+  --print: rgb(255 255 255 / 0.55);
+  --blend: multiply;
+  --lift: rgb(60 40 20 / 0.16);
+  --layer: 1;
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  margin-inline: 0.12em;
+  white-space: nowrap;
+}
+.washi--night {
+  --tape-alpha: 0.62;
+  --print: rgb(255 255 255 / 0.35);
+  --blend: normal;
+  --lift: rgb(0 0 0 / 0.4);
+  /* Light letters can't show through tape on a dark page, so there it goes under the word. */
+  --layer: -1;
+}
+
+.washi__word { position: relative; }
+
+/* The strip lies across the lower two-thirds of the word and over-runs both ends. */
+.washi__strip {
+  position: absolute;
+  z-index: var(--layer);
+  left: -0.24em;
+  right: -0.28em;
+  top: 0.24em;
+  bottom: 0.04em;
+  pointer-events: none;
+  mix-blend-mode: var(--blend);
+  transform: rotate(var(--tilt));
+  filter: drop-shadow(0 0.02em 0.03em var(--lift));
+  clip-path: inset(-20% 100% -20% -5%);
+}
+.washi__strip svg { display: block; overflow: visible; }
+.washi__body { fill: var(--tape); fill-opacity: var(--tape-alpha); }
+.washi__print { fill: var(--print); }
+.washi__rule { fill: none; stroke: var(--print); stroke-width: 1; }
+.washi__edge { fill: none; stroke: var(--tape); stroke-opacity: 0.6; stroke-width: 1.2; }
+
+/* Smoothed on from the left: the strip unrolls, settling from slightly raised to flat. */
+.washi[data-on] .washi__strip {
+  clip-path: inset(-20% -5% -20% -5%);
+  animation: washi-settle 700ms cubic-bezier(0.3, 0.7, 0.2, 1) var(--delay) both;
+  transition: clip-path 620ms cubic-bezier(0.35, 0.6, 0.2, 1) var(--delay);
+}
+@keyframes washi-settle {
+  from { transform: rotate(var(--tilt)) translateY(-0.08em) scale(1.03); filter: drop-shadow(0 0.08em 0.08em var(--lift)); }
+  to { transform: rotate(var(--tilt)); filter: drop-shadow(0 0.02em 0.03em var(--lift)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .washi__strip { clip-path: none; }
+  .washi[data-on] .washi__strip { animation: none; transition: none; }
+}

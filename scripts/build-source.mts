@@ -39,13 +39,21 @@ export async function writeSource(highlight?: Highlight) {
     // A fresh query each run, so a long-running watcher sees edits to meta.ts too.
     const { meta } = await import(`${pathToFileURL(path.join(root, entry, "meta.ts")).href}?t=${Date.now()}`);
     if (!/^[a-z0-9-]+$/.test(meta.slug)) throw new Error(`Unexpected slug: ${meta.slug}`);
-    const files = (await sourceBundle(meta, root)).map((f) => ({ ...f, html: cached(f.name, f.code) }));
-    const json = JSON.stringify({ files });
-    const file = `${meta.slug}.${sha(json).slice(0, 12)}.json`;
-    if (!existsSync(path.join(out, file))) writeFileSync(path.join(out, file), json);
-    manifest[meta.slug] = `/source/${file}`;
-    written.add(file);
-    bytes += Buffer.byteLength(json);
+    const write = async (variant?: string) => {
+      const files = (await sourceBundle(meta, root, variant)).map((f) => ({ ...f, html: cached(f.name, f.code) }));
+      const json = JSON.stringify({ files });
+      const file = `${meta.slug}${variant ? `--${variant}` : ""}.${sha(json).slice(0, 12)}.json`;
+      if (!existsSync(path.join(out, file))) writeFileSync(path.join(out, file), json);
+      written.add(file);
+      bytes += Buffer.byteLength(json);
+      return `/source/${file}`;
+    };
+    // Variants that are separate implementations get a source each (slug#variant); the slug points at the first.
+    const own = Object.keys(meta.variantSources ?? {});
+    if (own.length) {
+      for (const variant of own) manifest[`${meta.slug}#${variant}`] = await write(variant);
+      manifest[meta.slug] = manifest[`${meta.slug}#${own[0]}`];
+    } else manifest[meta.slug] = await write();
   }
   previous = highlighted;
   // The new manifest goes in whole before any old file is removed.

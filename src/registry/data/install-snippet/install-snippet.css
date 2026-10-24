@@ -38,12 +38,13 @@
   border: 2px solid var(--is-line); border-radius: 2px 2px 0 0; background: var(--is-page); color: var(--is-muted); cursor: pointer;
   font: 500 13px/1 "DM Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.02em; text-transform: uppercase;
 }
+.isnip__tab:last-child { margin-right: 0; }
 .isnip__tab:hover { color: var(--is-ink); }
 .isnip__tab[aria-selected="true"] { z-index: 1; background: var(--is-paper); color: var(--is-ink); border-bottom-color: var(--is-paper); }
 .isnip__tab[aria-selected="true"]::before { content: ""; position: absolute; left: -2px; right: -2px; top: -2px; height: 6px; background: var(--is-yellow); border: 2px solid var(--is-line); border-bottom: 0; }
 .isnip__panel { padding: clamp(16px, 4cqi, 24px); border: 2px solid var(--is-line); border-radius: 0 2px 2px 2px; background: var(--is-paper); box-shadow: 4px 4px 0 var(--is-shadow); }
 
-.isnip__steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+.isnip__steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
 .isnip__step-title { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; font-size: 15px; font-weight: 400; }
 .isnip__num { display: grid; place-items: center; min-width: 32px; height: 24px; padding: 0 4px; border: 2px solid var(--is-line); background: var(--is-sky); color: #383838; font: 500 12px/1 "DM Mono", ui-monospace, monospace; }
 .isnip__step:nth-child(2) .isnip__num { background: var(--is-teal); color: #fff; }

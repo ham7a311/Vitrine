@@ -95,6 +95,24 @@ try {
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${route} overflows at ${width}`);
     }
   }
+  // Variants that are separate implementations: the Code tab and the Files list show only the picked one's files,
+  // from that variant's own content-hashed source.
+  const ownSource: string[] = [];
+  const trackOwn = (r: import("playwright").Request) => { const p = new URL(r.url()).pathname; if (p.startsWith("/source/thinking-mark")) ownSource.push(p); };
+  page.on("request", trackOwn);
+  await page.goto(base + "/components/thinking-mark");
+  const sideFiles = () => page.locator("dt", { hasText: /^Files$/ }).locator("xpath=following-sibling::dd").innerText();
+  await page.getByRole("tab", { name: "code", exact: true }).click();
+  await page.getByRole("tab", { name: "ArcMark.tsx", exact: true }).waitFor();
+  assert.equal(await page.getByRole("tab", { name: "PhaseRing.tsx", exact: true }).count(), 0, "Arc Mark's code lists another version's file");
+  assert(!/PhaseRing\.tsx/.test(await sideFiles()) && /ArcMark\.tsx/.test(await sideFiles()), "Files list shows another version's file");
+  await page.getByRole("radio", { name: "Phase Ring", exact: true }).click();
+  await page.getByRole("tab", { name: "PhaseRing.tsx", exact: true }).waitFor();
+  await page.getByRole("tabpanel", { name: "PhaseRing.tsx" }).locator(".shiki").waitFor();
+  assert.equal(await page.getByRole("tab", { name: "ArcMark.tsx", exact: true }).count(), 0, "Phase Ring's code lists another version's file");
+  assert(/PhaseRing\.tsx/.test(await sideFiles()) && !/ArcMark\.tsx/.test(await sideFiles()), "Files list doesn't follow the picked version");
+  assert(ownSource.some(p => /^\/source\/thinking-mark--phase-ring\.[0-9a-f]{12}\.json$/.test(p)), "Phase Ring's source wasn't fetched on its own");
+  page.off("request", trackOwn);
   // Component lists must not prefetch component pages as they scroll into view, and a component page prefetches
   // nothing at all (production builds only). The navbar elsewhere still prefetches, which shows the check can see one.
   const prefetchedFrom = async (route: string, match = /^\/components\/[^/]+$/) => {

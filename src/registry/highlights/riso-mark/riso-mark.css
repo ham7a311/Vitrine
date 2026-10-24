@@ -1,0 +1,49 @@
+.riso {
+  --ink-a: #ff48b0;
+  --ink-b: #0078bf;
+  --mix: multiply;
+  --pass-a: 0.92;
+  --pass-b: 0.85;
+  --misprint: rgb(255 72 176 / 0.55);
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  margin-inline: 0.03em;
+  padding: 0 0.12em;
+  white-space: nowrap;
+}
+.riso--night {
+  --mix: screen;
+  --pass-a: 0.7;
+  --pass-b: 0.7;
+  --misprint: rgb(255 72 176 / 0.45);
+}
+
+/* The plate covers the word from just above x-height to just below the baseline. */
+.riso__plate {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0.26em;
+  bottom: 0.04em;
+  isolation: isolate;
+}
+.riso__plate svg { display: block; overflow: visible; }
+.riso__pass--a rect { fill: var(--ink-a); }
+.riso__pass--a { opacity: var(--pass-a); }
+.riso__dot { fill: var(--ink-b); }
+.riso__pass--b { opacity: var(--pass-b); mix-blend-mode: var(--mix); }
+
+/* Out of register at rest; on view each pass slides to its final, slightly-off position. */
+.riso__pass { transform: translate(-0.6em, 0); opacity: 0; transition: transform 900ms cubic-bezier(0.2, 0.75, 0.2, 1) var(--delay), opacity 300ms ease var(--delay); }
+.riso__pass--b { transform: translate(0.6em, 0.06em); }
+.riso[data-on] .riso__pass--a { transform: translate(-0.035em, -0.025em); opacity: var(--pass-a); }
+.riso[data-on] .riso__pass--b { transform: translate(0.05em, 0.04em); opacity: var(--pass-b); }
+
+/* The words take a faint second-colour misprint, as if the pink plate caught them too. */
+.riso__word { position: relative; text-shadow: 0.035em 0.025em 0 var(--misprint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .riso__pass { transition: none; }
+}

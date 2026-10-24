@@ -1,0 +1,61 @@
+.handlehl {
+  --hh: #3d7bff;
+  --hh-knob: #ffffff;
+  --hh-tint: 13%;
+  position: relative;
+  z-index: 0;
+  /* Room for the frame, so it never touches the neighbouring words. */
+  margin-inline: 0.14em;
+}
+
+/* Zero-size anchors at the wrapper's origin; every rectangle is measured relative to them. */
+.handlehl__origin,
+.handlehl__back,
+.handlehl__front {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+}
+.handlehl__back { z-index: -1; }
+.handlehl__front { z-index: 1; }
+.handlehl__text { position: relative; }
+
+.handlehl__fill {
+  fill: color-mix(in srgb, var(--hh) var(--hh-tint), transparent);
+  opacity: 0;
+  transition: opacity 360ms ease var(--delay);
+}
+.handlehl__frame {
+  fill: none;
+  stroke: var(--hh);
+  stroke-width: 1.25;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  vector-effect: non-scaling-stroke;
+  transition: stroke-dashoffset 640ms cubic-bezier(0.45, 0, 0.2, 1) var(--delay);
+}
+.handlehl__knob {
+  fill: var(--hh-knob);
+  stroke: var(--hh);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 420ms cubic-bezier(0.3, 1.6, 0.5, 1);
+  transition-delay: calc(var(--delay) + 420ms + var(--i) * 45ms);
+}
+/* Triangles are solid arrowheads, pointing away from the selection. */
+.handlehl--triangle .handlehl__knob { fill: var(--hh); stroke: var(--hh-knob); stroke-width: 1; }
+
+.handlehl[data-on] .handlehl__fill { opacity: 1; }
+.handlehl[data-on] .handlehl__frame { stroke-dashoffset: 0; }
+.handlehl[data-on] .handlehl__knob { transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .handlehl__fill, .handlehl__frame, .handlehl__knob { transition: none; }
+}

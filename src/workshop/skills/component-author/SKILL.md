@@ -68,3 +68,16 @@ Write these fields so someone can understand and rebuild the component without r
 - Checked in a real browser at 375, 768 and 1280 (see `/responsive-audit`), in both themes, with reduced motion on.
 - The keyboard walk passes (see `/accessibility-pass`).
 - A still screenshot, with motion off, still looks deliberate.
+
+## Don't use when
+
+- You're adapting an existing component to a product rather than writing one. Use `/component-adaptation`.
+- You're designing the component's API and variants before building. Start with `/component-architect`.
+
+## Common failure modes
+
+- **Library assumptions:** importing a UI or animation library when a few lines of CSS do the job.
+- **Demo-only quality:** perfect with the demo content, broken with long labels, empty data or one item.
+- **Theme by inversion:** a night theme made by flipping colours instead of designing it.
+- **Motion that blocks:** transitions that can't be interrupted, or that keep running offscreen.
+- **Documentation that describes intent,** not what the component actually does.

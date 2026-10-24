@@ -115,6 +115,13 @@ export function Navbar() {
 
         <div className="ml-auto flex items-center gap-2">
           {!menu && <SearchTrigger />}
+          <SiteLink
+            href="/sponsor"
+            aria-current={isActive("/sponsor") ? "page" : undefined}
+            className="hidden rounded-md px-2.5 py-1.5 text-[0.875rem] text-ink-2 transition-colors duration-200 hover:text-cream aria-[current=page]:text-cream lg:inline-block"
+          >
+            Sponsor
+          </SiteLink>
           <a
             href={site.github}
             target="_blank"
@@ -167,7 +174,13 @@ export function Navbar() {
               </SiteLink>
             </li>
           ))}
-          <li className="rise-in mt-8" style={{ animationDelay: "160ms" }}>
+          <li className="rise-in" style={{ animationDelay: `${NAV.length * 50}ms` }}>
+            <SiteLink href="/sponsor" onClick={() => setMenu(false)} className="flex items-baseline justify-between border-b border-line py-5 font-display text-[2rem] leading-none text-cream">
+              Sponsor
+              <span className="font-mono text-[0.6875rem] text-ink-3">0{NAV.length + 1}</span>
+            </SiteLink>
+          </li>
+          <li className="rise-in mt-8" style={{ animationDelay: "220ms" }}>
             <a href={site.github} target="_blank" rel="noreferrer" className="flex h-12 items-center justify-center gap-2 rounded-md border border-line-strong text-[0.9375rem] text-cream">
               <StarIcon className="size-4 text-frost" /> Star on GitHub
             </a>

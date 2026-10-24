@@ -56,3 +56,28 @@ This is about what each page says and how it is structured. For crawling, sitema
 ## Output
 
 A table: URL · problem · current value · replacement. Then apply the fixes, re-run the inventory, and confirm every row passes.
+
+## Don't use when
+
+- The problem is crawling or indexing (pages missing entirely). Start with `/technical-seo-audit`.
+- The content doesn't serve the search intent. Better titles won't fix the wrong page.
+
+## Acceptance criteria
+
+- Every audited page has a unique, specific title and description, written out.
+- Each page has one `h1` and a heading outline that matches its content.
+- Images that carry meaning have alt text; decorative ones have empty alt.
+- Internal links use descriptive text and connect related pages.
+
+## Common failure modes
+
+- **Keyword stuffing** titles and headings until they read badly.
+- **Identical titles and descriptions** across generated pages.
+- **Alt text on decorative images,** or none on meaningful ones.
+- **Recommendations instead of replacements:** "improve the title" instead of the new title.
+
+## Final self-review
+
+- Did I write the actual replacement for every problem?
+- Would a person still want to click these titles?
+- Does each page match what someone searching for it wants?

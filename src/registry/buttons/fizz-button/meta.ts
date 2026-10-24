@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "bubbles", "soda", "drink", "fizz", "playful", "liquid", "edge"],
   traits: ["hover", "click", "cursor", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["FizzButton.tsx", "fizz-button.css", "fizz.ts"],
   dependencies: [],
   prompt:
