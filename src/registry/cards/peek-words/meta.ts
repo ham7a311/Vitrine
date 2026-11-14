@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["hover card", "preview", "popover", "tooltip", "inline", "link preview", "text", "glossary"],
   traits: ["hover", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["PeekWords.tsx", "peek-words.css", "peek.ts"],
   dependencies: [],
   prompt:

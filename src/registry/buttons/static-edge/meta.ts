@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "electric", "lightning", "spark", "energy", "glow", "canvas", "dark", "edge"],
   traits: ["hover", "click", "cursor", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["StaticEdge.tsx", "static-edge.css", "arc.ts", "perimeter.ts"],
   dependencies: [],
   prompt:

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["album", "gallery", "hover", "cluster", "photos", "travel", "cover", "stack"],
   traits: ["hover", "click", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["BloomAlbum.tsx", "bloom-album.css", "bloom.ts"],
   dependencies: [],
   prompt:

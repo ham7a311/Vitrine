@@ -1,0 +1,91 @@
+.edgelit {
+  --edgelit-light: #7fe7ff;
+  --edgelit-slab: #14161a;
+  --edgelit-x: 50%;
+  --edgelit-y: 0px;
+  /* How far the light carries, and how much of it there is. */
+  --edgelit-reach: 120px;
+  --edgelit-on: 0;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, color-mix(in srgb, #fff 5%, var(--edgelit-slab)), var(--edgelit-slab) 46%);
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.6), 0 10px 22px -14px rgb(0 0 0 / 0.8);
+  font: 600 0.9375rem/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform 120ms ease, --edgelit-on 260ms ease;
+}
+.edgelit--amber { --edgelit-light: #ffb85c; }
+.edgelit--rose { --edgelit-light: #ff7fa8; }
+.edgelit--lg { border-radius: 15px; font-size: 1.0625rem; --edgelit-reach: 150px; }
+.edgelit--lg .edgelit__label { min-height: 60px; padding: 0 36px; }
+
+@property --edgelit-on { syntax: "<number>"; inherits: true; initial-value: 0; }
+.edgelit:hover { --edgelit-on: 1; }
+.edgelit:active { --edgelit-on: 1.5; transform: translateY(1px); }
+
+/* The edge: a 1.5px rim, dim all the way round, bright where the light enters. */
+.edgelit__edge {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background:
+    radial-gradient(circle calc(var(--edgelit-reach) * 0.75) at var(--edgelit-x) var(--edgelit-y), color-mix(in srgb, var(--edgelit-light) min(100%, calc(var(--edgelit-on) * 100%)), transparent), transparent 100%),
+    linear-gradient(rgb(255 255 255 / 0.13), rgb(255 255 255 / 0.05));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+/* A little of the light carries into the slab itself, fading fast. */
+.edgelit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle var(--edgelit-reach) at var(--edgelit-x) var(--edgelit-y), color-mix(in srgb, var(--edgelit-light) calc(var(--edgelit-on) * 9%), transparent), transparent 70%);
+  pointer-events: none;
+}
+
+/* The engraving: cut into the slab, dark until the light reaches it. The label fills the button, so the
+   light falls on the letters from the same point it enters the edge. */
+.edgelit__label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 48px;
+  padding: 0 26px;
+  white-space: nowrap;
+  color: transparent;
+  background:
+    radial-gradient(circle var(--edgelit-reach) at var(--edgelit-x) var(--edgelit-y), color-mix(in srgb, var(--edgelit-light) min(100%, calc(var(--edgelit-on) * 100%)), transparent) 0%, transparent 100%),
+    linear-gradient(#8b9099, #8b9099);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 1px 0 rgb(255 255 255 / 0.07)) drop-shadow(0 -1px 0 rgb(0 0 0 / 0.7)) drop-shadow(0 0 calc(var(--edgelit-on) * 5px) color-mix(in srgb, var(--edgelit-light) 45%, transparent));
+}
+
+/* Keyboard focus: the whole edge is lit, and so is every letter. */
+.edgelit:focus-visible { outline: none; --edgelit-on: 1; }
+.edgelit:focus-visible .edgelit__edge { background: var(--edgelit-light); }
+.edgelit:focus-visible .edgelit__label { background: linear-gradient(var(--edgelit-light), var(--edgelit-light)); -webkit-background-clip: text; background-clip: text; }
+.edgelit:focus-visible::after { background: color-mix(in srgb, var(--edgelit-light) 7%, transparent); }
+
+.edgelit:disabled { cursor: not-allowed; --edgelit-on: 0; opacity: 0.55; }
+.edgelit:disabled:active { transform: none; }
+
+@media (prefers-reduced-motion: reduce) { .edgelit { transition: none; } }
+@media (forced-colors: active) {
+  .edgelit { border: 1px solid ButtonText; }
+  .edgelit__label { color: ButtonText; background: none; filter: none; }
+  .edgelit__edge, .edgelit::after { display: none; }
+}

@@ -1,0 +1,45 @@
+.strata {
+  --strata-ground: #f4e9db;
+  --strata-ink: #3a1d10;
+  --strata-shadow: rgb(70 30 10 / 0.3);
+  --strata-x: 0;
+  --strata-y: 0;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+  min-height: 20rem;
+  overflow: hidden;
+  background: var(--strata-ground);
+  color: var(--strata-ink);
+}
+.strata--tide { --strata-ink: #0f2f3d; --strata-shadow: rgb(8 40 56 / 0.3); }
+.strata--ink { --strata-ink: #ececef; --strata-shadow: rgb(0 0 0 / 0.6); }
+
+.strata__stack { position: absolute; inset: 0; z-index: -1; }
+/* Each sheet leans a little with the pointer, the nearest the most. */
+.strata__sheet {
+  position: absolute;
+  inset: -3% 0 -3%;
+  transform: translate3d(calc(var(--strata-x) * var(--depth) * -16px), calc(var(--strata-y) * var(--depth) * -9px), 0);
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+/* Two copies of the edge side by side, sliding by exactly one: the drift never shows a seam. */
+.strata__sheet svg {
+  display: block;
+  width: 200%;
+  height: 100%;
+  filter: drop-shadow(0 -7px 9px var(--strata-shadow));
+  animation: strata-drift 160s linear infinite;
+  will-change: transform;
+}
+/* In the dark the shadow alone would vanish: each sheet also catches a line of light along its cut edge. */
+.strata--ink .strata__sheet path { stroke: rgb(255 255 255 / 0.09); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.strata--still .strata__sheet svg { animation: none; transform: translateX(-18%); }
+.strata__content { position: relative; height: 100%; }
+
+@keyframes strata-drift { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .strata__sheet { transition: none; transform: none; }
+  .strata__sheet svg { animation: none; transform: translateX(-18%); }
+}

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "snow", "winter", "holiday", "icicles", "sugar", "canvas", "seasonal", "playful"],
   traits: ["hover", "click", "keyboard"],
   source: "original",
-  isNew: true,
   promptAllow: ["snow", "sugar"],
   files: ["SnowCap.tsx", "snow-cap.css", "snow.ts"],
   dependencies: [],

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["features", "grid", "cards", "marble", "liquid", "hover", "webgl", "gradient"],
   traits: ["webgl", "hover", "keyboard", "touch"],
   source: "original",
-  isNew: true,
   files: ["MarbleGrid.tsx", "marble-grid.css", "grid.ts", "gl.ts"],
   dependencies: [],
   prompt:

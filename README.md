@@ -8,7 +8,7 @@ A curated collection of React components with memorable interactions.
 Read the source, read the prompt behind it, and copy what you need.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-b9cce4.svg)](./LICENSE)
-![Components](https://img.shields.io/badge/components-555-c8b9ea)
+![Components](https://img.shields.io/badge/components-576-c8b9ea)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![No animation libraries](https://img.shields.io/badge/animation%20libraries-none-1f1a24)
@@ -76,21 +76,22 @@ There is no package, no CLI and no registry install. You copy the files into you
 
 ## What's inside
 
-**555 components in 33 categories.** Recently added components carry a New label; the registry check keeps it to at most 100.
+**576 components in 34 categories.** Recently added components carry a New label; the registry check keeps it to at most 100.
 
 | Category | | Category | | Category | |
 |---|---:|---|---:|---|---:|
-| Buttons | 81 | Backgrounds | 60 | Cards | 51 |
+| Buttons | 89 | Backgrounds | 66 | Cards | 53 |
 | AI & Chat | 39 | Controls | 22 | Authentication | 22 |
 | Feedback | 22 | Stats | 20 | Analytics | 20 |
 | Sections | 19 | Highlights | 17 | Cursors | 16 |
 | Forms | 16 | Data | 15 | Text Animations | 14 |
 | Micro-animations | 13 | CTAs | 12 | Navigation | 11 |
-| FAQ | 10 | Type & Names | 10 | Pricing | 9 |
+| FAQ | 10 | Type & Names | 10 | Pricing | 10 |
 | Heroes | 8 | Media | 8 | Time | 7 |
 | Overlays | 6 | Navbars | 4 | Developer | 4 |
-| Footers | 4 | Maps & Globes | 4 | Sidebars | 3 |
-| Decisions | 3 | Commerce | 3 | Reading | 2 |
+| Footers | 4 | Maps & Globes | 4 | Calendars | 4 |
+| Sidebars | 3 | Decisions | 3 | Commerce | 3 |
+| Reading | 2 | | | | |
 
 <details>
 <summary><b>A longer tour</b></summary>
@@ -134,6 +135,12 @@ There is no package, no CLI and no registry install. You copy the files into you
 - **Aurora, Shine and Spotlight Text; Hover, Scroll, Echo and Marquee Outline Text**: gradient fills that drift, glint or follow the pointer, and hairline lettering that fills on hover, on scroll, as echoes or in a marquee.
 - **Pill Swap, Brush Swatch, Highlighter Pen, Pen Loop, Margin Note, Search Hits** and eleven more **Highlights**: seventeen ways to point at the words that matter. A word in a pill that changes colour with it, a stroke of paint, design-tool handles, an imperfect highlighter, a pen loop with a note, hand-drawn underlines, an inverting sweep, a demo cursor that sweeps a highlight across a phrase (once, or looping), focus brackets, washi tape, press-to-peek redactions, a dithered fill, find-in-page hits that glide, comments in the margin, a misregistered risograph print and a watercolour wash.
 - **Line Chart, Bar Chart, Donut Chart**: dashboard charts with morphing ranges, grouped and stacked bars that slide between layouts, a ring that steps out a part, keyboard reading and data tables.
+- **Slot Booker, Stay Range, Day Planner, Availability Painter**: a new **Calendars** category. Days that show how open they are before you click, a stay drawn as one ribbon with the booking rules on the calendar, tasks that take up exactly their length on the day, and a week you paint until the shared time names itself.
+- **Chladni Plate, Resonance Card, Sand Button**: sand on a vibrating plate gathering on the lines that stand still, as a background, as a card whose figure is its own frequency, and as a button drawn in sand.
+- **Prism Glass Button, Card and Pane**: clear glass with a thick edge that splits ink into colours at two opposite corners, as a button, a card and a white hero background whose edges are the glass (set in, or flush with the edge), each in three colourways, still or with the fringes travelling round the rim.
+- **Komorebi, Paper Strata, Kintsugi**: sunlight through leaves on a wall, cut-paper hills that drift and lean, and gold seams poured into a glaze. Backgrounds made to carry text.
+- **Ribbed Dusk, Aqua Orb, Lozenge Button, Glass Arc Pricing**: a gradient seen through reeded glass under film grain, a round glossy icon button set in a white ring, a pill-and-square button made for a panel's corner, the quiet pill that closes a pricing card, and three dark glass plans in front of an enormous word and an arc of blue light.
+- **Edge-Lit, Soft-Body and Weight Shift Buttons**: engraved acrylic lit from the edge you approach, a pill that dents where you press and wobbles back, and a quiet button whose letters gain weight under the pointer.
 - **Smart Download** and **Platform Badges** are now two components (the badges come in solid, outline or light), and Refraction Blob, Helix Showcase and Satin Hero have new navigation.
 
 </details>
@@ -145,7 +152,7 @@ There is no package, no CLI and no registry install. You copy the files into you
 3. **Copy it**: copy every listed file into one folder in your project, including `usage.tsx`. Keep any `.css` next to the component.
 4. **Make it yours**: colours, sizes and timings live in props and CSS variables at the top of each file. You own and maintain the copied code.
 
-The code tab shows the real files, follows local imports and rewrites them into one portable folder. The folder is highlighted at build time (`npm run build:source`, run before every build and by `npm run dev` on each registry change) and written to `public/source` as content-hashed JSON. A component page carries only the file names; the Code tab fetches its source the first time it opens, so pages stay small. The exported `usage.tsx` keeps demonstration links inside the example; the reusable components still accept real URLs. The release check compiles all 545 exported examples in isolation.
+The code tab shows the real files, follows local imports and rewrites them into one portable folder. The folder is highlighted at build time (`npm run build:source`, run before every build and by `npm run dev` on each registry change) and written to `public/source` as content-hashed JSON. A component page carries only the file names; the Code tab fetches its source the first time it opens, so pages stay small. The exported `usage.tsx` keeps demonstration links inside the example; the reusable components still accept real URLs. The release check compiles all 576 exported examples in isolation.
 
 > **Fonts.** Components name their fonts in CSS (Geist, Instrument Serif, Anton, Archivo, IBM Plex…). Each component page lists the fonts found in its source; add those families to your project. In the gallery, demo fonts load through `src/site/ComponentFonts.tsx` and the site's own fonts are self-hosted through Fontsource packages.
 

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "bunting", "flags", "party", "festival", "celebration", "svg", "physics", "playful"],
   traits: ["hover", "click", "cursor", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["Bunting.tsx", "bunting.css", "flags.ts"],
   dependencies: [],
   prompt:

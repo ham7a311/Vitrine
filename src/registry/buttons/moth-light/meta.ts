@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "moths", "fireflies", "lamp", "light", "glow", "night", "canvas", "nature"],
   traits: ["hover", "click", "keyboard"],
   source: "original",
-  isNew: true,
   promptAllow: ["moths", "fireflies"],
   files: ["MothLight.tsx", "moth-light.css", "flight.ts", "perimeter.ts"],
   dependencies: [],

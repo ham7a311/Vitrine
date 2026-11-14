@@ -12,7 +12,7 @@ import { Pane } from "@/site/Pane";
 const HERO = ["silk-field", "murmur-rows", "bloom-edge", "tidefill-button", "neon-veins", "sweep-cards"];
 /* Chosen by hand, in this order. */
 const FEATURED = ["glassbreak-button", "liquid-glass-button", "point-bloom", "agent-composer", "glow-base-pricing", "glass-tiles"];
-const FRESH = ["pixel-seam", "field-button", "slipstream-menu", "storm-veil", "mono-sign-in", "tile-breaker"];
+const FRESH = ["pixel-seam", "field-button", "slipstream-menu", "ribbed-dusk", "prism-glass-card", "tile-breaker"];
 
 export default function Home() {
   const items = summaries();

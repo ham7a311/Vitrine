@@ -1,0 +1,41 @@
+.wshift {
+  --wshift-ink: #18181b;
+  --wshift-line: #d6d6db;
+  --wshift-press: #f1f1f3;
+  display: inline-grid;
+  place-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--wshift-line);
+  border-radius: 10px;
+  background: none;
+  color: var(--wshift-ink);
+  font: 400 0.9375rem/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.045em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+.wshift--dark { --wshift-ink: #ececef; --wshift-line: #34343a; --wshift-press: #1c1c20; }
+.wshift:hover { border-color: var(--wshift-ink); }
+.wshift:active { background: var(--wshift-press); }
+
+.wshift__label { display: inline-flex; white-space: pre; }
+/* Weight is drawn as a stroke in the letter's own colour: any font can do it, and since a stroke does not
+   change a letter's width, nothing in the label moves. */
+.wshift__ch {
+  --wshift-w: 0;
+  display: inline-block;
+  -webkit-text-stroke: calc(var(--wshift-w) * 0.062em) currentColor;
+  paint-order: stroke fill;
+}
+.wshift__gap { display: inline-block; width: 0.3em; }
+
+/* Keyboard focus: the whole label takes on weight, with a ring. */
+.wshift:focus-visible { outline: 2px solid var(--wshift-ink); outline-offset: 3px; }
+.wshift:focus-visible .wshift__ch { -webkit-text-stroke-width: 0.045em; }
+.wshift:disabled { opacity: 0.45; cursor: not-allowed; border-color: var(--wshift-line); }
+
+@media (prefers-reduced-motion: reduce) { .wshift { transition: none; } }
+@media (forced-colors: active) { .wshift__ch { -webkit-text-stroke: 0; } }

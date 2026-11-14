@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "yarn", "knitting", "craft", "thread", "svg", "playful", "edge", "cosy"],
   traits: ["hover", "click", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["YarnWrap.tsx", "yarn-wrap.css", "yarn.ts", "perimeter.ts"],
   dependencies: [],
   prompt:

@@ -1,0 +1,39 @@
+.softb {
+  --softb-fill: #ff6a3d;
+  --softb-ink: #2a0d02;
+  --softb-shade: rgb(150 40 5 / 0.45);
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-height: 56px;
+  padding: 0 34px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--softb-ink);
+  font: 600 1rem/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.softb--mint { --softb-fill: #4fe0ae; --softb-ink: #02261a; --softb-shade: rgb(10 110 75 / 0.45); }
+.softb--ink { --softb-fill: #1b1b1f; --softb-ink: #f4f4f6; --softb-shade: rgb(0 0 0 / 0.5); }
+
+/* The body is drawn, not boxed: its outline can bulge past the button's own edges. */
+.softb__body { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 10px var(--softb-shade)); }
+.softb__fill { fill: var(--softb-fill); }
+/* A soft light from above and a darker belly, so it reads as something with volume. */
+.softb__shine { fill: none; stroke: rgb(255 255 255 / 0.5); stroke-width: 1.5; -webkit-mask-image: linear-gradient(#000, transparent 46%); mask-image: linear-gradient(#000, transparent 46%); }
+.softb__label { position: relative; display: inline-flex; align-items: center; gap: 0.5em; white-space: nowrap; transition: transform 140ms ease; }
+.softb:active .softb__label { transform: scale(0.97); }
+
+.softb:focus-visible { outline: 2px solid var(--softb-fill); outline-offset: 6px; }
+.softb--ink:focus-visible { outline-color: currentColor; }
+.softb:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (prefers-reduced-motion: reduce) { .softb__label { transition: none; } }
+@media (forced-colors: active) {
+  .softb { border: 1px solid ButtonText; }
+  .softb__body { display: none; }
+}

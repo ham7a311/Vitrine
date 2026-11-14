@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "stickers", "playful", "fun", "merch", "badge", "holographic", "svg", "edge"],
   traits: ["hover", "click", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["StickerSlap.tsx", "sticker-slap.css", "layout.ts", "art.ts", "perimeter.ts"],
   dependencies: [],
   prompt:

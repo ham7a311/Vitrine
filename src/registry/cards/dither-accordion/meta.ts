@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["accordion", "features", "dither", "cards", "expanding", "panels", "webgl", "gradient"],
   traits: ["webgl", "hover", "keyboard", "touch", "ambient"],
   source: "original",
-  isNew: true,
   files: ["DitherAccordion.tsx", "dither-accordion.css", "accordion.ts", "gl.ts"],
   dependencies: [],
   prompt:

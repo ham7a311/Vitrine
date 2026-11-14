@@ -1,0 +1,24 @@
+.ribd {
+  --ribd-shadow: #020818;
+  --ribd-deep: #0a3f86;
+  --ribd-bright: #1c86d6;
+  --ribd-light: #f8c9ad;
+  --ribd-ink: #f4f7fb;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+  min-height: 20rem;
+  overflow: hidden;
+  color: var(--ribd-ink);
+  /* Without WebGL: the same light as a plain diagonal wash behind CSS ribs. */
+  background:
+    repeating-linear-gradient(90deg, transparent 0 4px, rgb(0 0 0 / 0.34) 26px),
+    linear-gradient(118deg, var(--ribd-shadow) 8%, var(--ribd-bright) 34%, var(--ribd-light) 50%, var(--ribd-deep) 64%, var(--ribd-shadow) 92%);
+}
+.ribd--ember { --ribd-shadow: #120406; --ribd-deep: #6e1420; --ribd-bright: #d2452a; --ribd-light: #ffe2b8; --ribd-ink: #fff6ee; }
+.ribd--moss { --ribd-shadow: #04100c; --ribd-deep: #0f4a3c; --ribd-bright: #2f9a78; --ribd-light: #eef0c2; --ribd-ink: #f3f8f1; }
+
+.ribd__glass { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; opacity: 0; }
+.ribd[data-live] .ribd__glass { opacity: 1; }
+.ribd__content { position: relative; height: 100%; }

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["bento", "grid", "features", "expand", "disclosure", "view transitions", "colourful", "interactive", "tabs"],
   traits: ["click", "keyboard", "hover"],
   source: "original",
-  isNew: true,
   files: ["UnfoldBento.tsx", "unfold-bento.css", "layout.ts", "unfold.ts"],
   dependencies: [],
   prompt:

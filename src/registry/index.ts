@@ -554,6 +554,27 @@ import { meta as searchHits } from "./highlights/search-hits/meta";
 import { meta as marginNote } from "./highlights/margin-note/meta";
 import { meta as risoMark } from "./highlights/riso-mark/meta";
 import { meta as watercolourWash } from "./highlights/watercolour-wash/meta";
+import { meta as chladniPlate } from "./backgrounds/chladni-plate/meta";
+import { meta as sandButton } from "./buttons/sand-button/meta";
+import { meta as resonanceCard } from "./cards/resonance-card/meta";
+import { meta as prismGlassButton } from "./buttons/prism-glass-button/meta";
+import { meta as prismGlassCard } from "./cards/prism-glass-card/meta";
+import { meta as prismGlassPane } from "./backgrounds/prism-glass-pane/meta";
+import { meta as slotBooker } from "./calendars/slot-booker/meta";
+import { meta as stayRange } from "./calendars/stay-range/meta";
+import { meta as dayPlanner } from "./calendars/day-planner/meta";
+import { meta as availabilityPainter } from "./calendars/availability-painter/meta";
+import { meta as komorebi } from "./backgrounds/komorebi/meta";
+import { meta as paperStrata } from "./backgrounds/paper-strata/meta";
+import { meta as kintsugi } from "./backgrounds/kintsugi/meta";
+import { meta as edgeLitButton } from "./buttons/edge-lit-button/meta";
+import { meta as softBodyButton } from "./buttons/soft-body-button/meta";
+import { meta as weightShiftButton } from "./buttons/weight-shift-button/meta";
+import { meta as ribbedDusk } from "./backgrounds/ribbed-dusk/meta";
+import { meta as aquaOrbButton } from "./buttons/aqua-orb-button/meta";
+import { meta as lozengeButton } from "./buttons/lozenge-button/meta";
+import { meta as glassArcPricing } from "./pricing/glass-arc-pricing/meta";
+import { meta as planPillButton } from "./buttons/plan-pill-button/meta";
 
 /** Curated order — registry sequence from order.txt. Category views use this order; All round-robins it. */
 export const registry: ComponentMeta[] = [
@@ -1112,6 +1133,27 @@ export const registry: ComponentMeta[] = [
   marginNote,
   risoMark,
   watercolourWash,
+  chladniPlate,
+  sandButton,
+  resonanceCard,
+  prismGlassButton,
+  prismGlassCard,
+  prismGlassPane,
+  slotBooker,
+  stayRange,
+  dayPlanner,
+  availabilityPainter,
+  komorebi,
+  paperStrata,
+  kintsugi,
+  edgeLitButton,
+  softBodyButton,
+  weightShiftButton,
+  ribbedDusk,
+  aquaOrbButton,
+  lozengeButton,
+  glassArcPricing,
+  planPillButton,
 ];
 
 export function getComponent(slug: string) {

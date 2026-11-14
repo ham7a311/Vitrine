@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "dominoes", "chain reaction", "game", "playful", "edge", "satisfying", "css"],
   traits: ["hover", "click", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["DominoRun.tsx", "domino-run.css", "domino.ts", "perimeter.ts"],
   dependencies: [],
   prompt:

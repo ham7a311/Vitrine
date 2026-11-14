@@ -1,0 +1,30 @@
+.komo {
+  --komo-wall: #e4dccd;
+  --komo-ink: #2b2620;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+  min-height: 20rem;
+  overflow: hidden;
+  background: var(--komo-wall);
+  color: var(--komo-ink);
+}
+.komo--clay { --komo-wall: #cf9c7f; --komo-ink: #2a160d; }
+.komo--moon { --komo-wall: #141b24; --komo-ink: #e6edf5; }
+
+/* Drawn small and blurred on the way up: light on a wall has no hard edges. The canvas overhangs so the blur has no border. */
+.komo__light { position: absolute; inset: -4%; z-index: -1; width: 108%; height: 108%; filter: blur(5px); }
+/* The grain of the plaster. */
+.komo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.komo--moon::after { mix-blend-mode: overlay; opacity: 0.18; }
+.komo__content { position: relative; height: 100%; }

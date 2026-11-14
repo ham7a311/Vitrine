@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["bento", "grid", "features", "cards", "saas", "landing", "dashboard", "spotlight"],
   traits: ["hover", "cursor", "click", "keyboard", "touch", "ambient"],
   source: "original",
-  isNew: true,
   files: ["BentoGrid.tsx", "bento-grid.css", "layout.ts", "tiles.tsx", "tiles.css"],
   dependencies: [],
   prompt:

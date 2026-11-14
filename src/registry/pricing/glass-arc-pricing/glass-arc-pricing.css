@@ -1,0 +1,158 @@
+/* Everything is measured in --u: one pixel of the 735px-wide design, scaled so the three cards fill the
+   width (596u) up to a 1.74px cap. On narrow screens the cards stack and one card fills the width (188u). */
+.garc {
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: "Geist", "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+.garc__stage {
+  --u: min(1.74px, calc((100cqi - 32px) / 596));
+  position: relative;
+  width: calc(596 * var(--u));
+  margin: 0 auto;
+  padding: calc(76 * var(--u)) 0 calc(70 * var(--u));
+}
+
+/* The light lives in the design's own coordinates: the stage's left edge is x = 77 and its top is y = 0. */
+.garc__light {
+  position: absolute;
+  left: calc(-77 * var(--u));
+  top: 0;
+  width: calc(735 * var(--u));
+  height: calc(600 * var(--u));
+  overflow: visible;
+  pointer-events: none;
+}
+.garc__sway { transform-box: view-box; transform-origin: 370px 300px; animation: garc-sway 18s ease-in-out infinite alternate; }
+@keyframes garc-sway { from { transform: rotate(-1.2deg) translateX(-3px); } to { transform: rotate(1.2deg) translateX(3px); } }
+/* Grain on its own layer, blending with what lies beneath: invisible on black, spray on the light. */
+.garc__grain {
+  position: absolute;
+  inset: 0 calc(-200 * var(--u));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* The word: very large, navy on the left, lit to pale cyan on the right where the light rises behind it. */
+.garc__word {
+  position: relative;
+  margin: 0;
+  text-align: center;
+  font-size: calc(130 * var(--u));
+  font-weight: 600;
+  line-height: 0.74;
+  letter-spacing: -0.03em;
+  color: transparent;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(90deg, #0c1a33 14%, #0b2448 28%, #0d3a6a 40%, #17639a 52%, #3f93c6 62%, #92cde4 70%, #8cc7df 80%, #4c9fcd 90%, #2a7fbb 100%);
+  background-blend-mode: overlay, normal;
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
+}
+
+.garc__plans {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, calc(188 * var(--u)));
+  justify-content: space-between;
+  margin: calc(-32 * var(--u)) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.garc__card {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(272 * var(--u));
+  padding: calc(19 * var(--u)) calc(20 * var(--u)) calc(19 * var(--u));
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: calc(22 * var(--u));
+  background: rgb(13 13 13 / 0.68);
+  -webkit-backdrop-filter: blur(calc(9 * var(--u)));
+  backdrop-filter: blur(calc(9 * var(--u)));
+  transition: border-color 220ms ease;
+}
+.garc__card:hover { border-color: rgb(255 255 255 / 0.42); }
+/* The plan to choose: a glowing teal rim, inside and out. */
+.garc__card[data-featured] {
+  border: calc(1.2 * var(--u)) solid #8fb4ba;
+  background: rgb(10 14 16 / 0.6);
+  box-shadow:
+    0 0 calc(7 * var(--u)) rgb(122 188 200 / 0.55),
+    inset 0 0 calc(2 * var(--u)) rgb(205 236 241 / 0.7),
+    inset 0 0 calc(9 * var(--u)) rgb(132 196 208 / 0.55);
+}
+.garc__card[data-featured]:hover { box-shadow: 0 0 calc(10 * var(--u)) rgb(122 188 200 / 0.7), inset 0 0 calc(2 * var(--u)) rgb(205 236 241 / 0.8), inset 0 0 calc(11 * var(--u)) rgb(132 196 208 / 0.65); }
+
+.garc__name { margin: 0; font-size: calc(14 * var(--u)); font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; color: #ececec; }
+.garc__price { margin: 0; font-size: calc(25 * var(--u)); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; color: #f2f2f2; font-variant-numeric: tabular-nums; }
+/* Always two lines tall, so the feature lists line up across the cards. */
+.garc__blurb { min-height: 2.76em; margin: calc(11 * var(--u)) 0 0; max-width: calc(152 * var(--u)); font-size: max(10px, calc(6.2 * var(--u))); line-height: 1.38; color: #cdcdcd; }
+.garc__list { display: grid; gap: calc(10 * var(--u)); margin: calc(10.6 * var(--u)) 0 0; padding: 0; list-style: none; }
+.garc__list li { display: flex; align-items: center; gap: calc(9 * var(--u)); font-size: max(10px, calc(6.4 * var(--u))); line-height: 1.2; color: #dcdcdc; }
+.garc__list svg { flex: none; width: calc(13 * var(--u)); height: calc(13 * var(--u)); }
+/* The ticks take the light's colour: a deep blue disc with a pale cyan mark. */
+.garc__list circle { fill: #14508a; }
+.garc__list path { fill: none; stroke: #a8dcee; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.garc__choose {
+  align-self: center;
+  width: calc(90 * var(--u));
+  min-width: max-content;
+  height: calc(21 * var(--u));
+  min-height: 34px;
+  margin-top: auto;
+  padding: 0 calc(10 * var(--u));
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #111111;
+  font: inherit;
+  font-size: max(12px, calc(7.4 * var(--u)));
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 200ms ease;
+}
+.garc__card > .garc__list { margin-bottom: calc(25.4 * var(--u)); }
+.garc__choose:hover { box-shadow: 0 0 0 calc(2.5 * var(--u)) rgb(255 255 255 / 0.18); }
+.garc__choose:active { transform: scale(0.97); }
+.garc :focus-visible { outline: 2px solid #a8dcee; outline-offset: 3px; }
+
+.garc__billing { position: relative; display: flex; align-items: center; gap: calc(7 * var(--u)); margin-top: calc(20 * var(--u)); font-size: calc(12.5 * var(--u)); color: #dadada; }
+.garc__switch { position: relative; width: calc(31.5 * var(--u)); height: calc(16 * var(--u)); padding: 0; border: 0; border-radius: 999px; background: #f4f4f4; cursor: pointer; }
+.garc__switch i { position: absolute; top: calc(1.4 * var(--u)); left: calc(1.4 * var(--u)); width: calc(13.2 * var(--u)); height: calc(13.2 * var(--u)); border-radius: 50%; background: #050505; box-shadow: 0 0 0 calc(0.6 * var(--u)) #ffffff; transition: transform 240ms cubic-bezier(0.3, 1.3, 0.5, 1); }
+.garc__switch[aria-checked="true"] i { transform: translateX(calc(15.5 * var(--u))); }
+.garc__switch[aria-checked="false"] { background: #6b6b6b; }
+.garc__said { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); margin: 0; }
+
+/* One column: one card fills the width, and the word is fitted to it. */
+@container (max-width: 700px) {
+  .garc__stage { --u: min(1.74px, calc((100cqi - 32px) / 188)); width: calc(188 * var(--u)); padding-top: calc(40 * var(--u)); }
+  .garc__light { left: calc((188 - 735) / 2 * var(--u) + 60 * var(--u)); }
+  .garc__word { font-size: calc(188 * var(--u) * 130 / 410); margin-inline: calc(-10 * var(--u)); }
+  .garc__plans { grid-template-columns: minmax(0, 1fr); gap: calc(14 * var(--u)); margin-top: calc(-12 * var(--u)); }
+  .garc__card { min-height: 0; }
+  .garc__name { font-size: calc(12 * var(--u)); }
+  .garc__price { font-size: calc(20 * var(--u)); }
+  .garc__blurb, .garc__list li { font-size: max(12px, calc(5.6 * var(--u))); }
+  .garc__billing { font-size: calc(9 * var(--u)); }
+  .garc__switch { width: calc(24 * var(--u)); height: calc(12 * var(--u)); }
+  .garc__switch i { width: calc(10 * var(--u)); height: calc(10 * var(--u)); top: calc(1 * var(--u)); left: calc(1 * var(--u)); }
+  .garc__switch[aria-checked="true"] i { transform: translateX(calc(12 * var(--u))); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .garc__sway { animation: none; }
+  .garc__card, .garc__choose, .garc__switch i { transition: none; }
+}
+@media (forced-colors: active) {
+  .garc__light, .garc__grain { display: none; }
+  .garc__card { border-color: CanvasText; }
+  .garc__word { color: CanvasText; background: none; }
+}

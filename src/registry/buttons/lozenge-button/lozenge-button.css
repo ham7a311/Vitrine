@@ -1,0 +1,69 @@
+.lozb {
+  --lozb-deep: #2a86ff;
+  --lozb-body: #62a6f9;
+  --lozb-pale: #b6d5fc;
+  --lozb-ring: #dcebff;
+  --lozb-ink: #123b7a;
+  --lozb-h: 40px;
+  /* The ring is about 5.5% of the height, as in the full-size design, never under 1.5px. */
+  --lozb-ring-w: max(1.5px, calc(var(--lozb-h) * 0.055));
+  /* The round end takes half the height; the square end a small, even radius. */
+  --lozb-soft: calc(var(--lozb-h) * 0.17);
+  /* Half the height exactly: a larger value would make the browser shrink every corner to fit. */
+  --lozb-round: calc(var(--lozb-h) / 2);
+  --lozb-glow: 0.82;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  height: var(--lozb-h);
+  padding: 0 calc(var(--lozb-h) * 0.5);
+  border: 0;
+  border-radius: var(--lozb-round) var(--lozb-soft) var(--lozb-soft) var(--lozb-round);
+  /* The ring: nearly white, catching most light on its round end and along the bottom. */
+  background: linear-gradient(100deg, #ffffff 0%, var(--lozb-ring) 38%, color-mix(in srgb, var(--lozb-pale) 70%, #fff) 100%);
+  box-shadow: 0 calc(var(--lozb-h) * 0.14) calc(var(--lozb-h) * 0.3) calc(var(--lozb-h) * -0.18) color-mix(in srgb, var(--lozb-deep) 70%, transparent);
+  color: var(--lozb-ink);
+  font: 500 calc(var(--lozb-h) * 0.36)/1 "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform 150ms ease, --lozb-glow 260ms ease;
+}
+@property --lozb-glow { syntax: "<number>"; inherits: true; initial-value: 0.82; }
+.lozb--right { border-radius: var(--lozb-soft) var(--lozb-round) var(--lozb-round) var(--lozb-soft); background: linear-gradient(260deg, #ffffff 0%, var(--lozb-ring) 38%, color-mix(in srgb, var(--lozb-pale) 70%, #fff) 100%); }
+.lozb--sm { --lozb-h: 32px; }
+.lozb--lg { --lozb-h: 48px; }
+.lozb--violet { --lozb-deep: #7a4dff; --lozb-body: #9c80fb; --lozb-pale: #d6cbfd; --lozb-ring: #ebe5ff; --lozb-ink: #2c1a6e; }
+.lozb--jade { --lozb-deep: #12b886; --lozb-body: #58d3ad; --lozb-pale: #bdeedd; --lozb-ring: #e0f8ef; --lozb-ink: #0a4634; }
+
+/* The face, inside the ring: colour pooled at the top, a white glow rising from the bottom, paler at both ends. */
+.lozb::before {
+  content: "";
+  position: absolute;
+  inset: var(--lozb-ring-w);
+  z-index: -1;
+  border-radius: var(--lozb-round) calc(var(--lozb-soft) - var(--lozb-ring-w)) calc(var(--lozb-soft) - var(--lozb-ring-w)) var(--lozb-round);
+  background:
+    radial-gradient(52% 62% at 50% 106%, rgb(255 255 255 / var(--lozb-glow)), transparent 100%),
+    radial-gradient(46% 78% at 50% -6%, var(--lozb-deep), transparent 100%),
+    linear-gradient(90deg, var(--lozb-pale), var(--lozb-body) 30%, var(--lozb-body) 70%, var(--lozb-pale));
+  box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.35), inset 0 calc(var(--lozb-h) * 0.02) calc(var(--lozb-h) * 0.04) rgb(255 255 255 / 0.5);
+}
+.lozb--right::before { border-radius: calc(var(--lozb-soft) - var(--lozb-ring-w)) var(--lozb-round) var(--lozb-round) calc(var(--lozb-soft) - var(--lozb-ring-w)); }
+.lozb__label { display: inline-flex; align-items: center; gap: 0.45em; white-space: nowrap; }
+.lozb__label svg { width: 1.1em; height: 1.1em; }
+
+.lozb:hover { --lozb-glow: 1; }
+.lozb:hover::before { filter: saturate(1.12); }
+.lozb:active { transform: translateY(1px) scale(0.985); --lozb-glow: 0.55; }
+.lozb:active::before { box-shadow: inset 0 calc(var(--lozb-h) * 0.04) calc(var(--lozb-h) * 0.11) color-mix(in srgb, var(--lozb-ink) 35%, transparent); }
+.lozb:focus-visible { outline: 2px solid var(--lozb-ring); outline-offset: 3px; }
+.lozb:disabled { filter: grayscale(0.8) opacity(0.6); cursor: not-allowed; transform: none; }
+
+@media (prefers-reduced-motion: reduce) { .lozb { transition: none; } }
+@media (forced-colors: active) {
+  .lozb { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText; }
+  .lozb::before { display: none; }
+}
