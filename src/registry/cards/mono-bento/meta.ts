@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["bento", "grid", "features", "black and white", "monochrome", "editorial", "minimal", "invert", "dashboard"],
   traits: ["hover", "keyboard", "scroll"],
   source: "original",
-  isNew: true,
   files: ["MonoBento.tsx", "mono-bento.css", "layout.ts", "mono.ts", "tiles.tsx"],
   dependencies: [],
   prompt:

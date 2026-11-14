@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "fish", "koi", "water", "pond", "ripple", "canvas", "calm", "playful"],
   traits: ["hover", "click", "cursor", "keyboard"],
   source: "original",
-  isNew: true,
   promptAllow: ["koi"],
   files: ["KoiPond.tsx", "koi-pond.css", "koi.ts", "perimeter.ts"],
   dependencies: [],

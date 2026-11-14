@@ -1,0 +1,61 @@
+.aquaorb {
+  --aquaorb-core: #55c0fa;
+  --aquaorb-mid: #8ed8fd;
+  --aquaorb-pale: #dbf2ff;
+  --aquaorb-line: #58b6ee;
+  --aquaorb-size: 40px;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--aquaorb-size);
+  height: var(--aquaorb-size);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  /* The ring: white where the light lands, a breath of colour where it does not. */
+  background: linear-gradient(150deg, #ffffff 18%, #f4faff 50%, color-mix(in srgb, var(--aquaorb-mid) 55%, #fff) 100%);
+  /* A hairline round the ring, darker beneath, and a short soft shadow on the surface, all in proportion. */
+  box-shadow:
+    0 0 0 max(0.5px, calc(var(--aquaorb-size) * 0.012)) rgb(120 146 168 / 0.55),
+    0 calc(var(--aquaorb-size) * 0.012) 0 max(0.5px, calc(var(--aquaorb-size) * 0.012)) rgb(84 108 130 / 0.3),
+    0 calc(var(--aquaorb-size) * 0.06) calc(var(--aquaorb-size) * 0.12) calc(var(--aquaorb-size) * -0.05) rgb(40 90 130 / 0.32);
+  color: #fff;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform 160ms cubic-bezier(0.2, 0.8, 0.3, 1.2), filter 200ms ease;
+}
+.aquaorb--mint { --aquaorb-core: #3fd4a5; --aquaorb-mid: #88e8c9; --aquaorb-pale: #dffaf0; --aquaorb-line: #37bb90; }
+.aquaorb--rose { --aquaorb-core: #ff7da3; --aquaorb-mid: #ffaec6; --aquaorb-pale: #ffe8ef; --aquaorb-line: #ee6d95; }
+
+/* The glass itself: deepest a little below the middle, pale at the rim, lightest at the top. */
+.aquaorb__face {
+  position: absolute;
+  inset: 5.5%;
+  border-radius: 50%;
+  background:
+    radial-gradient(120% 60% at 50% -8%, rgb(255 255 255 / 0.75), transparent 62%),
+    radial-gradient(circle at 50% 60%, var(--aquaorb-core) 0%, var(--aquaorb-mid) 40%, var(--aquaorb-pale) 82%, #fff 100%);
+  box-shadow:
+    inset 0 calc(var(--aquaorb-size) * -0.025) calc(var(--aquaorb-size) * 0.03) calc(var(--aquaorb-size) * -0.006) var(--aquaorb-line),
+    inset 0 0 0 0.5px color-mix(in srgb, var(--aquaorb-line) 45%, transparent);
+  transition: filter 200ms ease, box-shadow 160ms ease;
+}
+.aquaorb__icon { position: relative; display: grid; width: 40%; height: 40%; filter: drop-shadow(0 calc(var(--aquaorb-size) * 0.012) calc(var(--aquaorb-size) * 0.02) color-mix(in srgb, var(--aquaorb-line) 80%, #0a4a78)); transition: transform 220ms cubic-bezier(0.2, 0.8, 0.3, 1.3); }
+.aquaorb__icon svg { width: 100%; height: 100%; }
+
+.aquaorb:hover .aquaorb__face { filter: saturate(1.22) brightness(0.97); }
+.aquaorb:hover .aquaorb__icon { transform: translateY(-7%); }
+.aquaorb:active { transform: scale(0.955); transition-duration: 80ms; }
+.aquaorb:active .aquaorb__face { filter: saturate(1.3) brightness(0.92); box-shadow: inset 0 calc(var(--aquaorb-size) * 0.03) calc(var(--aquaorb-size) * 0.07) rgb(10 70 120 / 0.28), inset 0 0 0 0.5px color-mix(in srgb, var(--aquaorb-line) 45%, transparent); }
+.aquaorb:active .aquaorb__icon { transform: none; }
+.aquaorb:focus-visible { outline: 2px solid var(--aquaorb-line); outline-offset: 3px; }
+.aquaorb:disabled { filter: grayscale(0.85) opacity(0.6); cursor: not-allowed; }
+.aquaorb:disabled .aquaorb__face, .aquaorb:disabled .aquaorb__icon { filter: none; transform: none; }
+
+@media (prefers-reduced-motion: reduce) { .aquaorb, .aquaorb__face, .aquaorb__icon { transition: none; } }
+@media (forced-colors: active) {
+  .aquaorb { border: 1px solid ButtonText; color: ButtonText; background: ButtonFace; }
+  .aquaorb__face { display: none; }
+  .aquaorb__icon { filter: none; }
+}

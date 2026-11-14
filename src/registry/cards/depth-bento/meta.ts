@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["bento", "grid", "features", "3d", "parallax", "layers", "illustration", "tilt", "depth"],
   traits: ["hover", "cursor"],
   source: "original",
-  isNew: true,
   files: ["DepthBento.tsx", "depth-bento.css", "layout.ts", "depth.ts"],
   dependencies: [],
   prompt:

@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "ruler", "measure", "blueprint", "spec", "design", "developer", "svg", "edge"],
   traits: ["hover", "keyboard"],
   source: "original",
-  isNew: true,
   files: ["RulerEdge.tsx", "ruler-edge.css", "ruler.ts", "perimeter.ts"],
   dependencies: [],
   prompt:

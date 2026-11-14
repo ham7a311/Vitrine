@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["bento", "dashboard", "analytics", "metrics", "kpi", "heatmap", "sparkline", "donut", "funnel", "charts"],
   traits: ["hover", "keyboard", "cursor"],
   source: "original",
-  isNew: true,
   files: ["MetricBento.tsx", "metric-bento.css", "layout.ts", "metrics.ts", "tiles.tsx"],
   dependencies: [],
   prompt:

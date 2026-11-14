@@ -1,0 +1,48 @@
+.rsc {
+  --rsc-card: #13110c;
+  --rsc-plate: #0c0b08;
+  --rsc-grain: #efe4c4;
+  --rsc-ink: #f5ecd2;
+  --rsc-muted: #a39a82;
+  --rsc-line: rgb(239 228 196 / 0.12);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 21rem;
+  padding: 10px;
+  border-radius: 22px;
+  background: var(--rsc-card);
+  box-shadow: inset 0 0 0 1px var(--rsc-line);
+  color: var(--rsc-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.rsc--ash { --rsc-card: #f1ede3; --rsc-plate: #e6e0d2; --rsc-grain: #2b2723; --rsc-ink: #1d1a17; --rsc-muted: #6b655c; --rsc-line: rgb(43 39 35 / 0.14); }
+.rsc__plate { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: 14px; background: var(--rsc-plate); }
+.rsc__sand { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.rsc__body { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 16px 8px 8px 10px; }
+.rsc__text { min-width: 0; }
+.rsc__value { margin: 0; font: 500 0.6875rem/1.4 "Geist Mono", "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rsc-muted); font-variant-numeric: tabular-nums; }
+.rsc__state { color: var(--rsc-ink); }
+.rsc__title { margin: 6px 0 0; font: 400 1.625rem/1.1 "Instrument Serif", "Newsreader", Georgia, serif; letter-spacing: -0.01em; text-wrap: balance; }
+.rsc__sub { margin: 4px 0 0; font-size: 0.8125rem; line-height: 1.4; color: var(--rsc-muted); }
+.rsc__play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--rsc-line);
+  color: var(--rsc-grain);
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 120ms ease;
+}
+.rsc__play svg { width: 18px; height: 18px; fill: currentColor; }
+.rsc__play:hover { box-shadow: inset 0 0 0 1px var(--rsc-grain); }
+.rsc__play:active { transform: scale(0.94); }
+.rsc__play:focus-visible { outline: 2px solid var(--rsc-grain); outline-offset: 3px; }
+.rsc[data-playing] .rsc__play { background: var(--rsc-grain); color: var(--rsc-plate); }
+@media (prefers-reduced-motion: reduce) { .rsc__play { transition: none; } }

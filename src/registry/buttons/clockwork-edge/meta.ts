@@ -8,7 +8,6 @@ export const meta: ComponentMeta = {
   tags: ["button", "hover", "gears", "clockwork", "mechanical", "steampunk", "svg", "edge", "brass", "machine"],
   traits: ["hover", "click", "cursor", "keyboard"],
   source: "original",
-  isNew: true,
   promptAllow: ["brass", "steel"],
   files: ["ClockworkEdge.tsx", "clockwork-edge.css", "gears.ts"],
   dependencies: [],

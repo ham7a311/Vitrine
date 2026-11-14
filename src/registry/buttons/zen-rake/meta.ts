@@ -9,7 +9,6 @@ export const meta: ComponentMeta = {
   traits: ["hover", "click", "cursor", "keyboard"],
   source: "original",
   promptAllow: ["sand", "ash"],
-  isNew: true,
   files: ["ZenRake.tsx", "zen-rake.css", "rake.ts", "perimeter.ts"],
   dependencies: [],
   prompt:

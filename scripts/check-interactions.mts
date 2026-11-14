@@ -1541,5 +1541,117 @@ await clear();
 console.log("highlights: seeded strokes/loops/tape/wash, handle placement and shapes, dither front and tail, margin stacking, accent-insensitive search with stepping and keys, pill words/hold/screen-reader sentence, redaction hold/keys/declassify passed");
 }
 
+{
+const key = async (el: Element, k: string, init: Record<string, unknown> = {}) => { await act(async () => { el.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: k, bubbles: true, cancelable: true, ...init })); }); };
+const q = <T extends Element = HTMLElement>(s: string) => { const el = document.querySelector<T>(s); assert(el, s); return el; };
+
+// Slot Booker: openness, grouping by the visitor's day, choosing, keyboard and confirming.
+const Slot = load("src/registry/calendars/slot-booker/SlotBooker.tsx", "*");
+assert.deepEqual([0, 1, 2, 3, 6, 7, 20].map(Slot.openness), [0, 1, 1, 2, 3, 4, 4]);
+const booked: Date[] = [];
+const slots = ["2026-11-13T09:00:00Z", "2026-11-13T09:30:00Z", "2026-11-13T23:30:00Z", "2026-11-17T10:00:00Z", "2026-11-10T10:00:00Z"];
+await mount(Slot.SlotBooker, { slots, today: "2026-11-12T08:00:00Z", zone: "UTC", hostZone: "Asia/Tokyo", onBook: (d: Date) => booked.push(d) });
+assert.equal(q('[data-day="2026-11-13"]').getAttribute("data-open"), "2", "Three times on the 13th fill two ticks");
+assert.equal(q('[data-day="2026-11-10"]').getAttribute("aria-disabled"), "true", "Past days stay closed even with times");
+assert.equal(q('[data-day="2026-11-13"]').tabIndex, 0, "Focus starts on the first open day");
+await key(q('[data-day="2026-11-13"]'), "ArrowDown");
+assert.equal(q('[data-day="2026-11-20"]').tabIndex, 0, "ArrowDown moves a week");
+await click('[data-day="2026-11-13"]');
+assert.equal(document.querySelectorAll(".slotb__time").length, 3);
+assert.match(q(".slotb__time").textContent!, /09:00.*18:00 Tokyo/, "The host's time sits beside the visitor's");
+assert.equal(q<HTMLButtonElement>(".slotb__book").disabled, true);
+await click(".slotb__time:nth-child(1)");
+await click(".slotb__list li:nth-child(2) .slotb__time");
+await click(".slotb__book");
+assert.equal(booked[0]?.toISOString(), "2026-11-13T09:30:00.000Z");
+assert.match(q('[role="status"]').textContent!, /09:30–10:00/);
+await clear();
+
+// Stay Range: the rules on the calendar, the running total, and Escape.
+const Stay = load("src/registry/calendars/stay-range/StayRange.tsx", "*");
+assert.equal(Stay.lastCheckout("2026-11-19", new Set(["2026-11-25"])), "2026-11-25", "A stay may end on the next booked night");
+const stays: unknown[] = [];
+await mount(Stay.StayRange, { today: "2026-11-12", booked: ["2026-11-25", "2026-11-26"], minNights: 3, rate: (n: string) => (n.endsWith("21") ? 200 : 100), onChange: (s: unknown) => stays.push(s) });
+await click('[data-day="2026-11-19"]');
+assert.equal(q('[data-day="2026-11-21"]').getAttribute("data-state"), "short", "Under the minimum is marked");
+assert.equal(q('[data-day="2026-11-27"]').getAttribute("data-state"), "closed", "Past the next booking is closed");
+await click('[data-day="2026-11-21"]');
+assert.equal(q('[data-day="2026-11-21"]').getAttribute("aria-pressed"), "false", "A too-short check-out is ignored");
+await click('[data-day="2026-11-25"]');
+assert.deepEqual(stays.at(-1), { from: "2026-11-19", to: "2026-11-25", nights: 6, total: 700 });
+assert.equal(q('[data-day="2026-11-22"]').getAttribute("data-part"), "mid", "The ribbon runs between the dates");
+await key(q('[data-day="2026-11-19"]'), "Escape");
+assert.equal(stays.at(-1), null, "Escape clears the stay");
+await clear();
+
+// Day Planner: first fit, placing without dragging, keyboard moves and returning.
+const Day = load("src/registry/calendars/day-planner/DayPlanner.tsx", "*");
+assert.equal(Day.firstFit(60, [[540, 600], [630, 700]], 480, 1080), 480);
+assert.equal(Day.firstFit(60, [[480, 600], [630, 700]], 480, 1080), 705, "A 30-minute gap is too short for an hour, and starts snap to the quarter hour");
+assert.equal(Day.firstFit(90, [[480, 1050]], 480, 1080), null);
+assert.deepEqual([Day.span(45), Day.span(60), Day.span(135), Day.clock(605)], ["45m", "1h", "2h 15m", "10:05"]);
+const plans: Record<string, number>[] = [];
+await mount(Day.DayPlanner, { tasks: [{ id: "a", title: "Write", minutes: 60 }, { id: "b", title: "Review", minutes: 30 }], fixed: [{ title: "Standup", start: 600, end: 615 }], start: 540, end: 720, now: 570, onChange: (p: Record<string, number>) => plans.push(p) });
+assert.match(q(".dayp__free").textContent!, /2h 45m/);
+await key(q(".dayp__chip"), "Enter");
+assert.deepEqual(plans.at(-1), { a: 615 }, "Pressing a task drops it into the first gap after now that fits");
+await key(q(".dayp__block"), "ArrowDown");
+assert.deepEqual(plans.at(-1), { a: 630 });
+await key(q(".dayp__block"), "Delete");
+assert.deepEqual(plans.at(-1), {}, "Delete returns the task to the tray");
+await mount(Day.DayPlanner, { tasks: [{ id: "big", title: "Deck", minutes: 240 }], start: 540, end: 720 });
+assert.match(q(".dayp__warn").textContent!, /1h more than the day has left/);
+await clear();
+
+// Availability Painter: the best shared run, taking the others' time, keyboard painting.
+const Avail = load("src/registry/calendars/availability-painter/AvailabilityPainter.tsx", "*");
+assert.deepEqual(Avail.bestRun([[1, 2, 2, 2, 0], [2, 2, 2, 2, 2]], 2, 2), { day: 1, row: 0, rows: 5 });
+assert.equal(Avail.bestRun([[2, 0, 2]], 2, 2), null, "Runs shorter than the minimum are not named");
+const cells: string[][] = [];
+await mount(Avail.AvailabilityPainter, { days: ["Mon", "Tue"], people: [{ name: "A", free: [{ day: 1, from: 540, to: 660 }] }], start: 540, end: 720, minutes: 60, onChange: (c: string[]) => cells.push(c) });
+assert.match(q(".availp__answer").textContent!, /Tue, 09:00–11:00/, "The others' shared time is offered");
+await click(".availp__take");
+assert.equal(q(".availp__head").hasAttribute("data-found"), true);
+assert.match(q(".availp__eyebrow").textContent!, /2 of 2/);
+await key(q('[data-cell="0:0"]'), " ");
+await key(q('[data-cell="0:0"]'), "ArrowDown", { shiftKey: true });
+assert.deepEqual([...cells.at(-1)!].sort(), ["0:0", "0:1", "1:0", "1:1", "1:2", "1:3"], "Space paints and Shift-arrow carries it");
+await clear();
+
+// Pure helpers behind the new backgrounds and buttons.
+const Strata = load("src/registry/backgrounds/paper-strata/PaperStrata.tsx", "ridge");
+const edge = (d: string) => d.match(/L(\d+) ([\d.]+)/g)!.map((p) => p.slice(1).split(" ").map(Number));
+const pts = edge(Strata(3, 300, 50));
+const at = (x: number) => pts.find(([px]) => px === x)![1];
+assert.equal(at(0), at(1000), "A sheet's edge repeats every 1,000 units");
+assert.equal(at(1000), at(2000), "so the drift loops without a seam");
+const fracture = load("src/registry/backgrounds/kintsugi/Kintsugi.tsx", "fracture");
+assert.deepEqual(fracture(800, 500, 400, 250, 9), fracture(800, 500, 400, 250, 9), "One seed always breaks the same way");
+assert.ok(fracture(800, 500, 400, 250, 9).every((s: { points: number[][] }) => s.points.length > 1));
+const swell = load("src/registry/buttons/weight-shift-button/WeightShiftButton.tsx", "swell");
+assert.equal(swell(0, 30), 1);
+assert.ok(swell(30, 30) < 0.4 && swell(90, 30) < 0.001, "The swell falls off within a few letters");
+const Soft = load("src/registry/buttons/soft-body-button/SoftBodyButton.tsx", "*");
+const [top, right, bottom, left] = Soft.pressed(0, -1, 10);
+assert.ok(top < 0 && bottom > 0 && Math.abs(left - right) < 1e-9, "A press at the top dents the top and bulges the bottom");
+assert.equal(Soft.body(200, 56, [0, 0, 0, 0]).startsWith("M28 0Q100 0 172 0"), true, "At rest the body is a plain pill");
+// Glass Arc Pricing: the billing switch moves every paid price, and choosing reports plan and billing.
+const Arc = load("src/registry/pricing/glass-arc-pricing/GlassArcPricing.tsx", "GlassArcPricing");
+const chosen: string[] = [];
+await mount(Arc, { plans: [{ id: "free", name: "Free", monthly: 0, blurb: "", features: ["One"] }, { id: "pro", name: "Pro", monthly: 20, yearly: 16, blurb: "", features: ["Two"], featured: true }], onChoose: (p: { id: string }, b: string) => chosen.push(`${p.id}:${b}`) });
+assert.equal(q(".garc__switch").getAttribute("aria-checked"), "true", "Yearly is on by default");
+assert.equal(document.querySelectorAll(".garc__price")[1].textContent, "$16,00/m");
+assert.equal(q(".garc__price").textContent, "$0/m", "A free plan reads $0/m");
+await click(".garc__card[data-featured] .garc__choose");
+await click(".garc__switch");
+assert.equal(q(".garc__switch").getAttribute("aria-checked"), "false");
+assert.equal(document.querySelectorAll(".garc__price")[1].textContent, "$20,00/m");
+assert.match(q(".garc__said").textContent!, /monthly/);
+await click(".garc__card[data-featured] .garc__choose");
+assert.deepEqual(chosen, ["pro:yearly", "pro:monthly"]);
+await clear();
+console.log("calendars and new pieces: slot openness/visitor zones/keys/booking, stay rules/ribbon/total/escape, planner first fit/keys/return/overflow, painter best run/take/keyboard paint, strata seamless loop, kintsugi seeds, weight swell, soft-body dent, arc pricing billing switch/choose passed");
+}
+
 await act(async () => root.unmount()); dom.window.close();
 console.log("interactions: auth delivery, cancellation/network failure, retry, success, and resend failure, prompt/theme selection, history, keyboard controls and mobile navigation passed");

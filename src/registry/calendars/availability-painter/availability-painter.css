@@ -1,0 +1,80 @@
+.availp {
+  --availp-bg: #ffffff;
+  --availp-ink: #18181b;
+  --availp-soft: #6b6b73;
+  --availp-line: #e8e8ec;
+  --availp-depth: #6d5bd0;
+  --availp-mine: #f2a516;
+  --availp-all: #16a05a;
+  --availp-all-ink: #0c5a32;
+  --availp-all-bg: #e4f6ec;
+  --availp-row: 20px;
+  container-type: inline-size;
+  width: min(100%, 680px);
+  border: 1px solid var(--availp-line);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--availp-bg);
+  color: var(--availp-ink);
+  font-family: "Geist", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+}
+.availp--dark {
+  --availp-bg: #111114;
+  --availp-ink: #ededf0;
+  --availp-soft: #9797a0;
+  --availp-line: #26262c;
+  --availp-depth: #9a8cff;
+  --availp-mine: #ffbe3d;
+  --availp-all: #39d98a;
+  --availp-all-ink: #7dedb4;
+  --availp-all-bg: #10291c;
+}
+.availp :focus-visible { outline: 2px solid var(--availp-ink); outline-offset: 1px; z-index: 2; }
+
+.availp__head { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 84px; padding: 18px 22px; border-bottom: 1px solid var(--availp-line); transition: background 240ms ease; }
+.availp__head[data-found] { background: var(--availp-all-bg); }
+.availp__eyebrow { margin: 0 0 3px; font-size: 12px; color: var(--availp-soft); }
+.availp__head[data-found] .availp__eyebrow { color: var(--availp-all-ink); font-weight: 500; }
+.availp__answer { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.availp__take { flex: none; min-height: 40px; padding: 0 14px; border: 1px solid var(--availp-line); border-radius: 11px; background: var(--availp-bg); color: inherit; font: inherit; font-weight: 500; cursor: pointer; }
+.availp__take:hover { border-color: var(--availp-soft); }
+
+.availp__body { padding: 16px 22px 8px 10px; }
+.availp__cols { display: grid; grid-template-columns: 50px repeat(var(--availp-days), minmax(0, 1fr)); gap: 4px; margin-bottom: 8px; font-size: 12px; font-weight: 500; text-align: center; }
+.availp__sheet { display: grid; grid-template-columns: 50px minmax(0, 1fr); gap: 4px; }
+.availp__times { position: relative; }
+.availp__times span { position: absolute; right: 8px; transform: translateY(-50%); font-size: 11px; color: var(--availp-soft); font-variant-numeric: tabular-nums; }
+.availp__grid { display: grid; grid-template-columns: repeat(var(--availp-days), minmax(0, 1fr)); gap: 4px; touch-action: none; user-select: none; cursor: crosshair; }
+.availp__col { display: grid; gap: 1px; border-radius: 8px; overflow: hidden; background: var(--availp-line); }
+
+/* Depth: the more of the others are free, the deeper the cell. */
+.availp__cell, .availp__scale i { background: color-mix(in srgb, var(--availp-depth) calc(5% + var(--n) / var(--availp-people) * 43%), var(--availp-bg)); }
+.availp__cell { position: relative; height: var(--availp-row); }
+.availp__cell[data-hour]:not(:first-child) { box-shadow: 0 -1px 0 color-mix(in srgb, var(--availp-ink) 9%, transparent); }
+/* Yours is a bar down the cell's left side, so the depth underneath still reads. */
+.availp__cell[data-mine]::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 34%; background: var(--availp-mine); }
+.availp__cell[data-all] { background: var(--availp-all); }
+.availp__cell[data-all]::before { width: 100%; background: var(--availp-all); }
+.availp__cell[data-best]::after { content: ""; position: absolute; inset: 0; box-shadow: inset 3px 0 0 var(--availp-ink), inset -3px 0 0 var(--availp-ink); }
+
+.availp__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; padding: 12px 22px 18px; font-size: 12px; color: var(--availp-soft); }
+.availp__people { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; color: var(--availp-ink); }
+.availp__people li { display: flex; align-items: center; gap: 6px; }
+.availp__people i { width: 9px; height: 9px; border-radius: 3px; background: color-mix(in srgb, var(--availp-depth) 46%, var(--availp-bg)); }
+.availp__people li[data-you] i { background: var(--availp-mine); }
+.availp__people span { color: var(--availp-soft); font-variant-numeric: tabular-nums; }
+.availp__scale { display: flex; align-items: center; gap: 6px; margin: 0; }
+.availp__scale span { display: inline-flex; gap: 2px; }
+.availp__scale i { width: 14px; height: 10px; border-radius: 2px; box-shadow: inset 0 0 0 1px var(--availp-line); }
+
+@container (max-width: 520px) {
+  .availp__head { flex-direction: column; align-items: flex-start; padding: 16px; }
+  .availp__answer { font-size: 17px; }
+  .availp__body { padding: 14px 12px 6px 2px; }
+  .availp__cols { font-size: 11px; grid-template-columns: 42px repeat(var(--availp-days), minmax(0, 1fr)); }
+  .availp__sheet { grid-template-columns: 42px minmax(0, 1fr); }
+  .availp__foot { padding: 10px 16px 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .availp * { transition: none !important; } }
